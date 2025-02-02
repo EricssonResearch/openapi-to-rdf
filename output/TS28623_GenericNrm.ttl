@@ -1,0 +1,531 @@
+@prefix TS28111_FaultNrm: <http://ericsson.com/models/3gpp/rdf/TS28111_FaultNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/rdf/TS28623_ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/rdf/TS28623_GenericNrm.yaml#> .
+@prefix TS28623_PmControlNrm: <http://ericsson.com/models/3gpp/rdf/TS28623_PmControlNrm#> .
+@prefix TS28623_ThresholdMonitorNrm: <http://ericsson.com/models/3gpp/rdf/TS28623_ThresholdMonitorNrm#> .
+@prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/rdf/TS28623_TraceControlNrm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_GenericNrm:AlarmList a owl:ObjectProperty ;
+    rdfs:label "AlarmList" ;
+    rdfs:comment "Property representing the AlarmList." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_ncO,
+        TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28111_FaultNrm:AlarmList_Single .
+
+TS28623_GenericNrm:ConditionMonitor a owl:ObjectProperty ;
+    rdfs:label "ConditionMonitor" ;
+    rdfs:comment "Property representing the ConditionMonitor." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_ncO,
+        TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:ConditionMonitor_Multiple .
+
+TS28623_GenericNrm:GenericNRMInstance a TS28623_GenericNrm:GenericNRM ;
+    TS28623_GenericNrm:description "OAS 3.0.1 definition of the Generic NRM © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28623_GenericNrm:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.623/" ;
+    TS28623_GenericNrm:version "19.1.0" .
+
+TS28623_GenericNrm:IpAddr a owl:Class ;
+    rdfs:label "IpAddr" ;
+    rdfs:comment "Represents a resource that can be one of several types related to IpAddr." ;
+    owl:oneOf ( TS28623_ComDefs:Ipv4Addr TS28623_ComDefs:Ipv6Addr ) .
+
+TS28623_GenericNrm:ManagedElement a owl:ObjectProperty ;
+    rdfs:label "ManagedElement" ;
+    rdfs:comment "Property representing the ManagedElement." ;
+    rdfs:domain TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:ManagedElement_Multiple .
+
+TS28623_GenericNrm:ManagementNode a owl:ObjectProperty ;
+    rdfs:label "ManagementNode" ;
+    rdfs:comment "Property representing the ManagementNode." ;
+    rdfs:domain TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:ManagementNode_Multiple .
+
+TS28623_GenericNrm:MeContext a owl:ObjectProperty ;
+    rdfs:label "MeContext" ;
+    rdfs:comment "Property representing the MeContext." ;
+    rdfs:domain TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:MeContext_Multiple .
+
+TS28623_GenericNrm:MnsAgent a owl:ObjectProperty ;
+    rdfs:label "MnsAgent" ;
+    rdfs:comment "Property representing the MnsAgent." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_ncO,
+        TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:MnsAgent_Multiple .
+
+TS28623_GenericNrm:PerfMetricJob a owl:ObjectProperty ;
+    rdfs:label "PerfMetricJob" ;
+    rdfs:comment "Property representing the PerfMetricJob." ;
+    rdfs:domain TS28623_GenericNrm:ManagedFunction_ncO ;
+    rdfs:range TS28623_PmControlNrm:PerfMetricJob_Multiple .
+
+TS28623_GenericNrm:ReportingCtrl a owl:Class ;
+    rdfs:label "ReportingCtrl" ;
+    rdfs:comment "Represents a resource that can be one of several types related to ReportingCtrl." .
+
+TS28623_GenericNrm:Scheduler a owl:ObjectProperty ;
+    rdfs:label "Scheduler" ;
+    rdfs:comment "Property representing the Scheduler." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_ncO,
+        TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:Scheduler_Multiple .
+
+TS28623_GenericNrm:SchedulingTime a owl:Class ;
+    rdfs:label "SchedulingTime" ;
+    rdfs:comment "Represents a resource that can be one of several types related to SchedulingTime." ;
+    owl:oneOf ( TS28623_ComDefs:TimeWindow ) .
+
+TS28623_GenericNrm:SubNetwork a owl:ObjectProperty ;
+    rdfs:label "SubNetwork" ;
+    rdfs:comment "Property representing the SubNetwork." ;
+    rdfs:domain TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:SubNetwork_Multiple .
+
+TS28623_GenericNrm:SupportedNotifications a owl:ObjectProperty ;
+    rdfs:label "SupportedNotifications" ;
+    rdfs:comment "Property representing the SupportedNotifications." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_ncO,
+        TS28623_GenericNrm:SubNetwork_ncO ;
+    rdfs:range TS28623_GenericNrm:SupportedNotifications_Single .
+
+TS28623_GenericNrm:ThresholdMonitor a owl:ObjectProperty ;
+    rdfs:label "ThresholdMonitor" ;
+    rdfs:comment "Property representing the ThresholdMonitor." ;
+    rdfs:domain TS28623_GenericNrm:ManagedFunction_ncO ;
+    rdfs:range TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple .
+
+TS28623_GenericNrm:TraceJob a owl:ObjectProperty ;
+    rdfs:label "TraceJob" ;
+    rdfs:comment "Property representing the TraceJob." ;
+    rdfs:domain TS28623_GenericNrm:ManagedFunction_ncO ;
+    rdfs:range TS28623_TraceControlNrm:TraceJob_Multiple .
+
+TS28623_GenericNrm:VsDataContainer a owl:ObjectProperty ;
+    rdfs:label "VsDataContainer" ;
+    rdfs:comment "Property representing the VsDataContainer." ;
+    rdfs:domain TS28623_GenericNrm:Top,
+        TS28623_GenericNrm:Top_Attr,
+        TS28623_GenericNrm:VsDataContainer_Single ;
+    rdfs:range TS28623_GenericNrm:VsDataContainer_Multiple .
+
+TS28623_GenericNrm:autoScalable a owl:DatatypeProperty ;
+    rdfs:label "autoScalable" ;
+    rdfs:comment "Property representing the autoScalable." ;
+    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+    rdfs:range xsd:boolean .
+
+TS28623_GenericNrm:cAGIdList a owl:DatatypeProperty ;
+    rdfs:label "cAGIdList" ;
+    rdfs:comment "Property representing the cAGIdList." ;
+    rdfs:domain TS28623_GenericNrm:NpnId_Type ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28623_GenericNrm:GenericNRM ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:dnPrefix a owl:DatatypeProperty ;
+    rdfs:label "dnPrefix" ;
+    rdfs:comment "Property representing the dnPrefix." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr,
+        TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:endTime a owl:ObjectProperty ;
+    rdfs:label "endTime" ;
+    rdfs:comment "Property representing the endTime." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range TS28623_ComDefs:DateTimeRo .
+
+TS28623_GenericNrm:environmentType a owl:DatatypeProperty ;
+    rdfs:label "environmentType" ;
+    rdfs:comment "Property representing the environmentType." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:equipmentType a owl:DatatypeProperty ;
+    rdfs:label "equipmentType" ;
+    rdfs:comment "Property representing the equipmentType." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:farEndEntity a owl:DatatypeProperty ;
+    rdfs:label "farEndEntity" ;
+    rdfs:comment "Property representing the farEndEntity." ;
+    rdfs:domain TS28623_GenericNrm:EP_RP_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:flavourId a owl:DatatypeProperty ;
+    rdfs:label "flavourId" ;
+    rdfs:comment "Property representing the flavourId." ;
+    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:granularityPeriods a owl:DatatypeProperty ;
+    rdfs:label "granularityPeriods" ;
+    rdfs:comment "Property representing the granularityPeriods." ;
+    rdfs:domain TS28623_GenericNrm:SupportedPerfMetricGroup ;
+    rdfs:range xsd:integer .
+
+TS28623_GenericNrm:id a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "id" ;
+    rdfs:comment "Property representing the id." ;
+    rdfs:domain TS28623_GenericNrm:Top,
+        TS28623_GenericNrm:Top_Attr,
+        TS28623_GenericNrm:VsDataContainer_Single ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS28623_GenericNrm:jobId a owl:DatatypeProperty ;
+    rdfs:label "jobId" ;
+    rdfs:comment "Property representing the jobId." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:locationName a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:comment "Property representing the locationName." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:managedBy a owl:ObjectProperty ;
+    rdfs:label "managedBy" ;
+    rdfs:comment "Property representing the managedBy." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr ;
+    rdfs:range TS28623_ComDefs:DnList .
+
+TS28623_GenericNrm:managedElementTypeList a owl:DatatypeProperty ;
+    rdfs:label "managedElementTypeList" ;
+    rdfs:comment "Property representing the managedElementTypeList." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:mcc a owl:ObjectProperty ;
+    rdfs:label "mcc" ;
+    rdfs:comment "Property representing the mcc." ;
+    rdfs:domain TS28623_GenericNrm:Tai ;
+    rdfs:range TS28623_ComDefs:Mcc .
+
+TS28623_GenericNrm:mnc a owl:ObjectProperty ;
+    rdfs:label "mnc" ;
+    rdfs:comment "Property representing the mnc." ;
+    rdfs:domain TS28623_GenericNrm:Tai ;
+    rdfs:range TS28623_ComDefs:Mnc .
+
+TS28623_GenericNrm:nIDList a owl:ObjectProperty ;
+    rdfs:label "nIDList" ;
+    rdfs:comment "Property representing the nIDList." ;
+    rdfs:domain TS28623_GenericNrm:NpnId_Type ;
+    rdfs:range TS28623_ComDefs:Nid .
+
+TS28623_GenericNrm:objectClass a owl:DatatypeProperty ;
+    rdfs:label "objectClass" ;
+    rdfs:comment "Property representing the objectClass." ;
+    rdfs:domain TS28623_GenericNrm:Top,
+        TS28623_GenericNrm:Top_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:objectInstance a owl:ObjectProperty ;
+    rdfs:label "objectInstance" ;
+    rdfs:comment "Property representing the objectInstance." ;
+    rdfs:domain TS28623_GenericNrm:Top,
+        TS28623_GenericNrm:Top_Attr ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28623_GenericNrm:peeParametersList a owl:ObjectProperty ;
+    rdfs:label "peeParametersList" ;
+    rdfs:comment "Property representing the peeParametersList." ;
+    rdfs:domain TS28623_GenericNrm:ManagedFunction_Attr ;
+    rdfs:range TS28623_GenericNrm:PeeParameter .
+
+TS28623_GenericNrm:performanceMetrics a owl:DatatypeProperty ;
+    rdfs:label "performanceMetrics" ;
+    rdfs:comment "Property representing the performanceMetrics." ;
+    rdfs:domain TS28623_GenericNrm:SupportedPerfMetricGroup ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:plmnId a owl:ObjectProperty ;
+    rdfs:label "plmnId" ;
+    rdfs:comment "Property representing the plmnId." ;
+    rdfs:domain TS28623_GenericNrm:NpnId_Type ;
+    rdfs:range TS28623_ComDefs:PlmnId .
+
+TS28623_GenericNrm:powerInterface a owl:DatatypeProperty ;
+    rdfs:label "powerInterface" ;
+    rdfs:comment "Property representing the powerInterface." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:priorityLabel a owl:DatatypeProperty ;
+    rdfs:label "priorityLabel" ;
+    rdfs:comment "Property representing the priorityLabel." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr,
+        TS28623_GenericNrm:ManagedFunction_Attr,
+        TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range xsd:integer .
+
+TS28623_GenericNrm:progressPercentage a owl:DatatypeProperty ;
+    rdfs:label "progressPercentage" ;
+    rdfs:comment "Property representing the progressPercentage." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range xsd:integer .
+
+TS28623_GenericNrm:progressStateInfo a owl:DatatypeProperty ;
+    rdfs:label "progressStateInfo" ;
+    rdfs:comment "Property representing the progressStateInfo." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:reportingMethods a owl:DatatypeProperty ;
+    rdfs:label "reportingMethods" ;
+    rdfs:comment "Property representing the reportingMethods." ;
+    rdfs:domain TS28623_GenericNrm:SupportedPerfMetricGroup ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:reportingPeriods a owl:DatatypeProperty ;
+    rdfs:label "reportingPeriods" ;
+    rdfs:comment "Property representing the reportingPeriods." ;
+    rdfs:domain TS28623_GenericNrm:SupportedPerfMetricGroup ;
+    rdfs:range xsd:integer .
+
+TS28623_GenericNrm:resources_genericNrm a owl:Class ;
+    rdfs:label "resources genericNrm" ;
+    rdfs:comment "Represents a resource that can be one of several types related to resources genericNrm." ;
+    owl:oneOf ( TS28623_GenericNrm:NrmRoot TS28623_GenericNrm:VsDataContainer_Single TS28623_GenericNrm:ManagementNode_Single TS28623_GenericNrm:MnsAgent_Single TS28623_GenericNrm:MeContext_Single TS28623_GenericNrm:Scheduler_Single TS28623_GenericNrm:ConditionMonitor_Single TS28623_GenericNrm:SupportedNotifications_Single TS28623_GenericNrm:SubNetwork_Single TS28623_GenericNrm:ManagedElement_Single ) .
+
+TS28623_GenericNrm:resultStateInfo a owl:DatatypeProperty ;
+    rdfs:label "resultStateInfo" ;
+    rdfs:comment "Property representing the resultStateInfo." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:setOfMcc a owl:ObjectProperty ;
+    rdfs:label "setOfMcc" ;
+    rdfs:comment "Property representing the setOfMcc." ;
+    rdfs:domain TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range TS28623_ComDefs:Mcc .
+
+TS28623_GenericNrm:siteAltitude a owl:DatatypeProperty ;
+    rdfs:label "siteAltitude" ;
+    rdfs:comment "Property representing the siteAltitude." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range xsd:double .
+
+TS28623_GenericNrm:siteDescription a owl:DatatypeProperty ;
+    rdfs:label "siteDescription" ;
+    rdfs:comment "Property representing the siteDescription." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:siteIdentification a owl:DatatypeProperty ;
+    rdfs:label "siteIdentification" ;
+    rdfs:comment "Property representing the siteIdentification." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:siteLatitude a owl:ObjectProperty ;
+    rdfs:label "siteLatitude" ;
+    rdfs:comment "Property representing the siteLatitude." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range TS28623_ComDefs:Latitude .
+
+TS28623_GenericNrm:siteLongitude a owl:ObjectProperty ;
+    rdfs:label "siteLongitude" ;
+    rdfs:comment "Property representing the siteLongitude." ;
+    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+    rdfs:range TS28623_ComDefs:Longitude .
+
+TS28623_GenericNrm:startTime a owl:ObjectProperty ;
+    rdfs:label "startTime" ;
+    rdfs:comment "Property representing the startTime." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range TS28623_ComDefs:DateTimeRo .
+
+TS28623_GenericNrm:status a owl:DatatypeProperty ;
+    rdfs:label "status" ;
+    rdfs:comment "Property representing the status." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:supportedPerfMetricGroups a owl:ObjectProperty ;
+    rdfs:label "supportedPerfMetricGroups" ;
+    rdfs:comment "Property representing the supportedPerfMetricGroups." ;
+    rdfs:domain TS28623_GenericNrm:EP_RP_Attr,
+        TS28623_GenericNrm:ManagedElement_Attr,
+        TS28623_GenericNrm:ManagedFunction_Attr,
+        TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range TS28623_GenericNrm:SupportedPerfMetricGroup .
+
+TS28623_GenericNrm:supportedTraceMetrics a owl:DatatypeProperty ;
+    rdfs:label "supportedTraceMetrics" ;
+    rdfs:comment "Property representing the supportedTraceMetrics." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr,
+        TS28623_GenericNrm:ManagedFunction_Attr,
+        TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:swVersion a owl:DatatypeProperty ;
+    rdfs:label "swVersion" ;
+    rdfs:comment "Property representing the swVersion." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:tac a owl:ObjectProperty ;
+    rdfs:label "tac" ;
+    rdfs:comment "Property representing the tac." ;
+    rdfs:domain TS28623_GenericNrm:Tai ;
+    rdfs:range TS28623_GenericNrm:Tac .
+
+TS28623_GenericNrm:timer a owl:DatatypeProperty ;
+    rdfs:label "timer" ;
+    rdfs:comment "Property representing the timer." ;
+    rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
+    rdfs:range xsd:integer .
+
+TS28623_GenericNrm:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28623_GenericNrm:GenericNRM ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:userDefinedNetworkType a owl:DatatypeProperty ;
+    rdfs:label "userDefinedNetworkType" ;
+    rdfs:comment "Property representing the userDefinedNetworkType." ;
+    rdfs:domain TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:userDefinedState a owl:DatatypeProperty ;
+    rdfs:label "userDefinedState" ;
+    rdfs:comment "Property representing the userDefinedState." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:userLabel a owl:DatatypeProperty ;
+    rdfs:label "userLabel" ;
+    rdfs:comment "Property representing the userLabel." ;
+    rdfs:domain TS28623_GenericNrm:EP_RP_Attr,
+        TS28623_GenericNrm:ManagedElement_Attr,
+        TS28623_GenericNrm:ManagedFunction_Attr,
+        TS28623_GenericNrm:SubNetwork_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:vendorName a owl:DatatypeProperty ;
+    rdfs:label "vendorName" ;
+    rdfs:comment "Property representing the vendorName." ;
+    rdfs:domain TS28623_GenericNrm:ManagedElement_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28623_GenericNrm:GenericNRM ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:vnfInstanceId a owl:DatatypeProperty ;
+    rdfs:label "vnfInstanceId" ;
+    rdfs:comment "Property representing the vnfInstanceId." ;
+    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:vnfParametersList a owl:ObjectProperty ;
+    rdfs:label "vnfParametersList" ;
+    rdfs:comment "Property representing the vnfParametersList." ;
+    rdfs:domain TS28623_GenericNrm:ManagedFunction_Attr ;
+    rdfs:range TS28623_GenericNrm:VnfParameter .
+
+TS28623_GenericNrm:vnfdId a owl:DatatypeProperty ;
+    rdfs:label "vnfdId" ;
+    rdfs:comment "Property representing the vnfdId." ;
+    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:vsData a owl:DatatypeProperty ;
+    rdfs:label "vsData" ;
+    rdfs:comment "Property representing the vsData." ;
+    rdfs:domain TS28623_GenericNrm:attributes ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:vsDataFormatVersion a owl:DatatypeProperty ;
+    rdfs:label "vsDataFormatVersion" ;
+    rdfs:comment "Property representing the vsDataFormatVersion." ;
+    rdfs:domain TS28623_GenericNrm:attributes ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:vsDataType a owl:DatatypeProperty ;
+    rdfs:label "vsDataType" ;
+    rdfs:comment "Property representing the vsDataType." ;
+    rdfs:domain TS28623_GenericNrm:attributes ;
+    rdfs:range xsd:string .
+
+TS28623_GenericNrm:NrmRoot a owl:Class ;
+    rdfs:label "NrmRoot" ;
+    rdfs:comment "Represents a resource that can be one of several types related to NrmRoot." .
+
+TS28623_GenericNrm:EP_RP_Attr a owl:Class ;
+    rdfs:label "EP RP Attr" .
+
+TS28623_GenericNrm:ManagedFunction_ncO a owl:Class ;
+    rdfs:label "ManagedFunction ncO" .
+
+TS28623_GenericNrm:NpnId_Type a owl:Class ;
+    rdfs:label "NpnId Type" .
+
+TS28623_GenericNrm:Tai a owl:Class ;
+    rdfs:label "Tai" .
+
+TS28623_GenericNrm:GenericNRM a owl:Class ;
+    rdfs:label "Generic NRM" ;
+    rdfs:comment "Class representing the Generic NRM document metadata." .
+
+TS28623_GenericNrm:Top a owl:Class ;
+    rdfs:label "Top" .
+
+TS28623_GenericNrm:Top_Attr a owl:Class ;
+    rdfs:label "Top Attr" .
+
+TS28623_GenericNrm:VsDataContainer_Single a owl:Class ;
+    rdfs:label "VsDataContainer Single" .
+
+TS28623_GenericNrm:attributes a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "attributes" ;
+    rdfs:comment "Property representing the attributes." ;
+    rdfs:domain TS28623_GenericNrm:VsDataContainer_Single ;
+    rdfs:range TS28623_GenericNrm:attributes .
+
+TS28623_GenericNrm:ManagedElement_ncO a owl:Class ;
+    rdfs:label "ManagedElement ncO" .
+
+TS28623_GenericNrm:SupportedPerfMetricGroup a owl:Class ;
+    rdfs:label "SupportedPerfMetricGroup" .
+
+TS28623_GenericNrm:VnfParameter a owl:Class ;
+    rdfs:label "VnfParameter" .
+
+TS28623_GenericNrm:ManagedFunction_Attr a owl:Class ;
+    rdfs:label "ManagedFunction Attr" .
+
+TS28623_GenericNrm:SubNetwork_Attr a owl:Class ;
+    rdfs:label "SubNetwork Attr" .
+
+TS28623_GenericNrm:ProcessMonitor a owl:Class ;
+    rdfs:label "ProcessMonitor" ;
+    rdfs:comment "This data type is the \"ProcessMonitor\" data type without specialisations." .
+
+TS28623_GenericNrm:PeeParameter a owl:Class ;
+    rdfs:label "PeeParameter" .
+
+TS28623_GenericNrm:SubNetwork_ncO a owl:Class ;
+    rdfs:label "SubNetwork ncO" .
+
+TS28623_GenericNrm:ManagedElement_Attr a owl:Class ;
+    rdfs:label "ManagedElement Attr" .
+

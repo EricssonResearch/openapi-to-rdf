@@ -1,0 +1,235 @@
+@prefix TS28532_StreamingDataMnS: <http://ericsson.com/models/3gpp/rdf/TS28532_StreamingDataMnS.yaml#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28532_StreamingDataMnS:TS28Instance a TS28532_StreamingDataMnS:TS28 ;
+    TS28532_StreamingDataMnS:description "OAS 3.0.1 specification for the Streaming data reporting service (Streaming MnS) © 2023, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28532_StreamingDataMnS:version "18.1.0" .
+
+TS28532_StreamingDataMnS:activityDetails a owl:DatatypeProperty ;
+    rdfs:label "activityDetails" ;
+    rdfs:comment "Property representing the activityDetails." ;
+    rdfs:domain TS28532_StreamingDataMnS:analyticsInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:additionalInfo a owl:DatatypeProperty ;
+    rdfs:label "additionalInfo" ;
+    rdfs:comment "Property representing the additionalInfo." ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:connection a owl:ObjectProperty ;
+    rdfs:label "connection" ;
+    rdfs:comment "Property representing the connection." ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:connectionId_Type .
+
+TS28532_StreamingDataMnS:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28532_StreamingDataMnS:TS28 ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:errorInfo a owl:DatatypeProperty ;
+    rdfs:label "errorInfo" ;
+    rdfs:comment "Property representing the errorInfo." ;
+    rdfs:domain TS28532_StreamingDataMnS:error ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:jobId a owl:DatatypeProperty ;
+    rdfs:label "jobId" ;
+    rdfs:comment "Property representing the jobId." ;
+    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:measObjDn a owl:ObjectProperty ;
+    rdfs:label "measObjDn" ;
+    rdfs:comment "Property representing the measObjDn." ;
+    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:measObjDn_Type ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_StreamingDataMnS:performanceMetrics a owl:ObjectProperty ;
+    rdfs:label "performanceMetrics" ;
+    rdfs:comment "Property representing the performanceMetrics." ;
+    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:performanceMetrics_Type ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_StreamingDataMnS:producer a owl:ObjectProperty ;
+    rdfs:label "producer" ;
+    rdfs:comment "Property representing the producer." ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type,
+        TS28532_StreamingDataMnS:connectionRequest_Type ;
+    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
+
+TS28532_StreamingDataMnS:reporters a owl:ObjectProperty ;
+    rdfs:label "reporters" ;
+    rdfs:comment "Property representing the reporters." ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters_Type ;
+    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
+
+TS28532_StreamingDataMnS:serializationFormat a owl:ObjectProperty ;
+    rdfs:label "serializationFormat" ;
+    rdfs:comment "Property representing the serializationFormat." ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:serializationFormat_Type ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_StreamingDataMnS:streamId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "streamId" ;
+    rdfs:comment "Property representing the streamId." ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS28532_StreamingDataMnS:streamInfo a owl:ObjectProperty ;
+    rdfs:label "streamInfo" ;
+    rdfs:comment "Property representing the streamInfo." ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters_Type ;
+    rdfs:range TS28532_StreamingDataMnS:streamInfo_Type .
+
+TS28532_StreamingDataMnS:streamType a owl:ObjectProperty ;
+    rdfs:label "streamType" ;
+    rdfs:comment "Property representing the streamType." ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:streamType_Type ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_StreamingDataMnS:streams a owl:ObjectProperty ;
+    rdfs:label "streams" ;
+    rdfs:comment "Property representing the streams." ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type,
+        TS28532_StreamingDataMnS:connectionRequest_Type ;
+    rdfs:range TS28532_StreamingDataMnS:streamId_Type,
+        TS28532_StreamingDataMnS:streamInfo_Type .
+
+TS28532_StreamingDataMnS:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28532_StreamingDataMnS:TS28 ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:vsData a owl:DatatypeProperty ;
+    rdfs:label "vsData" ;
+    rdfs:comment "Property representing the vsData." ;
+    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:vsDataFormatVersion a owl:DatatypeProperty ;
+    rdfs:label "vsDataFormatVersion" ;
+    rdfs:comment "Property representing the vsDataFormatVersion." ;
+    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:vsDataType a owl:DatatypeProperty ;
+    rdfs:label "vsDataType" ;
+    rdfs:comment "Property representing the vsDataType." ;
+    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:websocketHeaderConnection_Type a owl:Class ;
+    rdfs:label "websocketHeaderConnection Type" ;
+    rdfs:comment "Enumeration of websocketHeaderConnection Type values." ;
+    owl:oneOf ( TS28532_StreamingDataMnS:Upgrade ) .
+
+TS28532_StreamingDataMnS:websocketHeaderUpgrade_Type a owl:Class ;
+    rdfs:label "websocketHeaderUpgrade Type" ;
+    rdfs:comment "Enumeration of websocketHeaderUpgrade Type values." ;
+    owl:oneOf ( TS28532_StreamingDataMnS:websocket ) .
+
+TS28532_StreamingDataMnS:ANALYTICS a owl:NamedIndividual ;
+    rdfs:label "ANALYTICS" ;
+    rdfs:comment "Indicates that the streamType Type value is ANALYTICS." .
+
+TS28532_StreamingDataMnS:ASN1 a owl:NamedIndividual ;
+    rdfs:label "ASN1" ;
+    rdfs:comment "Indicates that the serializationFormat Type value is ASN1." .
+
+TS28532_StreamingDataMnS:GPB a owl:NamedIndividual ;
+    rdfs:label "GPB" ;
+    rdfs:comment "Indicates that the serializationFormat Type value is GPB." .
+
+TS28532_StreamingDataMnS:PERFORMANCE a owl:NamedIndividual ;
+    rdfs:label "PERFORMANCE" ;
+    rdfs:comment "Indicates that the streamType Type value is PERFORMANCE." .
+
+TS28532_StreamingDataMnS:PROPRIETARY a owl:NamedIndividual ;
+    rdfs:label "PROPRIETARY" ;
+    rdfs:comment "Indicates that the streamType Type value is PROPRIETARY." .
+
+TS28532_StreamingDataMnS:TRACE a owl:NamedIndividual ;
+    rdfs:label "TRACE" ;
+    rdfs:comment "Indicates that the streamType Type value is TRACE." .
+
+TS28532_StreamingDataMnS:Upgrade a owl:NamedIndividual ;
+    rdfs:label "Upgrade" ;
+    rdfs:comment "Indicates that the websocketHeaderConnection Type value is Upgrade." .
+
+TS28532_StreamingDataMnS:analyticsInfo_Type a owl:Class ;
+    rdfs:label "analyticsInfo Type" ;
+    rdfs:comment "Information specific to analytics reporting." .
+
+TS28532_StreamingDataMnS:errorResponse_Type a owl:Class ;
+    rdfs:label "errorResponse Type" .
+
+TS28532_StreamingDataMnS:failedConnectionResponse_Type a owl:Class ;
+    rdfs:label "failedConnectionResponse Type" .
+
+TS28532_StreamingDataMnS:serializationFormat_Type a owl:Class ;
+    rdfs:label "serializationFormat Type" ;
+    rdfs:comment "Enumeration of serializationFormat Type values." ;
+    owl:oneOf ( TS28532_StreamingDataMnS:GPB TS28532_StreamingDataMnS:ASN1 ) .
+
+TS28532_StreamingDataMnS:streamType_Type a owl:Class ;
+    rdfs:label "streamType Type" ;
+    rdfs:comment "Enumeration of streamType Type values." ;
+    owl:oneOf ( TS28532_StreamingDataMnS:TRACE TS28532_StreamingDataMnS:PERFORMANCE TS28532_StreamingDataMnS:ANALYTICS TS28532_StreamingDataMnS:PROPRIETARY ) .
+
+TS28532_StreamingDataMnS:websocket a owl:NamedIndividual ;
+    rdfs:label "websocket" ;
+    rdfs:comment "Indicates that the websocketHeaderUpgrade Type value is websocket." .
+
+TS28532_StreamingDataMnS:connectionRequest_Type a owl:Class ;
+    rdfs:label "connectionRequest Type" .
+
+TS28532_StreamingDataMnS:error a owl:Class,
+        owl:DatatypeProperty,
+        owl:ObjectProperty ;
+    rdfs:label "error" ;
+    rdfs:comment "Property representing the error." ;
+    rdfs:domain TS28532_StreamingDataMnS:errorResponse_Type,
+        TS28532_StreamingDataMnS:failedConnectionResponse_Type ;
+    rdfs:range TS28532_StreamingDataMnS:error,
+        xsd:string .
+
+TS28532_StreamingDataMnS:streamInfoWithReporters_Type a owl:Class ;
+    rdfs:label "streamInfoWithReporters Type" ;
+    rdfs:comment "Reporting stream meta-data with added information about reporters." .
+
+TS28532_StreamingDataMnS:TS28 a owl:Class ;
+    rdfs:label "TS 28.532 Streaming data reporting service" ;
+    rdfs:comment "Class representing the TS 28.532 Streaming data reporting service document metadata." .
+
+TS28532_StreamingDataMnS:connectionInfo_Type a owl:Class ;
+    rdfs:label "connectionInfo Type" .
+
+TS28532_StreamingDataMnS:performanceInfo_Type a owl:Class ;
+    rdfs:label "performanceInfo Type" ;
+    rdfs:comment "Information specific to performance data reporting" .
+
+TS28532_StreamingDataMnS:vsDataContainer_Type a owl:Class ;
+    rdfs:label "vsDataContainer Type" ;
+    rdfs:comment "container for vendor specific data (see 3GPP TS 28.622)" .
+
+TS28532_StreamingDataMnS:streamInfo_Type a owl:Class ;
+    rdfs:label "streamInfo Type" ;
+    rdfs:comment "Reporting stream meta-data." .
+

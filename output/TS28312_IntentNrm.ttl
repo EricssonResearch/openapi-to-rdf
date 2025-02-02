@@ -1,0 +1,473 @@
+@prefix TS28312_IntentNrm: <http://ericsson.com/models/3gpp/rdf/TS28312_IntentNrm.yaml#> .
+@prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/rdf/TS28541_NrNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/rdf/TS28623_ComDefs#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28312_IntentNrm:IntentHandlingFunction a owl:DatatypeProperty ;
+    rdfs:label "IntentHandlingFunction" ;
+    rdfs:comment "Property representing the IntentHandlingFunction." ;
+    rdfs:domain TS28312_IntentNrm:SubNetwork_ncO_IntentNrm ;
+    rdfs:range TS28312_IntentNrm:IntentHandlingFunction_Multiple .
+
+TS28312_IntentNrm:IntentNRMInstance a TS28312_IntentNrm:IntentNRM ;
+    TS28312_IntentNrm:description "OAS 3.0.1 definition of the Intent NRM © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28312_IntentNrm:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.312/" ;
+    TS28312_IntentNrm:version "18.5.0" .
+
+TS28312_IntentNrm:ValueRangeType a owl:Class ;
+    rdfs:label "ValueRangeType" ;
+    rdfs:comment "Represents a resource that can be one of several types related to ValueRangeType." ;
+    owl:oneOf ( TS28623_ComDefs:TimeWindow TS28623_ComDefs:DateTime TS28623_ComDefs:GeoArea TS28623_ComDefs:PlmnId TS28623_ComDefs:GeoCoordinate TS28312_IntentNrm:UEGroup TS28312_IntentNrm:Frequency ) .
+
+TS28312_IntentNrm:arfcn a owl:DatatypeProperty ;
+    rdfs:label "arfcn" ;
+    rdfs:comment "Property representing the arfcn." ;
+    rdfs:domain TS28312_IntentNrm:Frequency ;
+    rdfs:range xsd:integer .
+
+TS28312_IntentNrm:conflictId a owl:DatatypeProperty ;
+    rdfs:label "conflictId" ;
+    rdfs:comment "Property representing the conflictId." ;
+    rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:conflictType a owl:DatatypeProperty ;
+    rdfs:label "conflictType" ;
+    rdfs:comment "Property representing the conflictType." ;
+    rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:conflictingExpectation a owl:DatatypeProperty ;
+    rdfs:label "conflictingExpectation" ;
+    rdfs:comment "Property representing the conflictingExpectation." ;
+    rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:conflictingIntent a owl:ObjectProperty ;
+    rdfs:label "conflictingIntent" ;
+    rdfs:comment "Property representing the conflictingIntent." ;
+    rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28312_IntentNrm:conflictingTarget a owl:DatatypeProperty ;
+    rdfs:label "conflictingTarget" ;
+    rdfs:comment "Property representing the conflictingTarget." ;
+    rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:contextAttribute a owl:DatatypeProperty ;
+    rdfs:label "contextAttribute" ;
+    rdfs:comment "Property representing the contextAttribute." ;
+    rdfs:domain TS28312_IntentNrm:Context ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:contextCondition a owl:DatatypeProperty ;
+    rdfs:label "contextCondition" ;
+    rdfs:comment "Property representing the contextCondition." ;
+    rdfs:domain TS28312_IntentNrm:Context ;
+    rdfs:range TS28312_IntentNrm:Condition .
+
+TS28312_IntentNrm:contextSelectivity a owl:DatatypeProperty ;
+    rdfs:label "contextSelectivity" ;
+    rdfs:comment "Property representing the contextSelectivity." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationTarget,
+        TS28312_IntentNrm:IntentExpectation ;
+    rdfs:range TS28312_IntentNrm:Selectivity .
+
+TS28312_IntentNrm:contextValueRange a owl:DatatypeProperty ;
+    rdfs:label "contextValueRange" ;
+    rdfs:comment "Property representing the contextValueRange." ;
+    rdfs:domain TS28312_IntentNrm:Context ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28312_IntentNrm:IntentNRM ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:expectaitonId a owl:DatatypeProperty ;
+    rdfs:label "expectaitonId" ;
+    rdfs:comment "Property representing the expectaitonId." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationFulfilmentResult ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:expectationContexts a owl:DatatypeProperty ;
+    rdfs:label "expectationContexts" ;
+    rdfs:comment "Property representing the expectationContexts." ;
+    rdfs:domain TS28312_IntentNrm:IntentExpectation ;
+    rdfs:range TS28312_IntentNrm:Context .
+
+TS28312_IntentNrm:expectationFulfilmentInfo a owl:DatatypeProperty ;
+    rdfs:label "expectationFulfilmentInfo" ;
+    rdfs:comment "Property representing the expectationFulfilmentInfo." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationFulfilmentResult ;
+    rdfs:range TS28312_IntentNrm:FulfilmentInfo .
+
+TS28312_IntentNrm:expectationFulfilmentResult a owl:DatatypeProperty ;
+    rdfs:label "expectationFulfilmentResult" ;
+    rdfs:comment "Property representing the expectationFulfilmentResult." ;
+    rdfs:domain TS28312_IntentNrm:IntentFulfilmentReport ;
+    rdfs:range TS28312_IntentNrm:ExpectationFulfilmentResult .
+
+TS28312_IntentNrm:expectationId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "expectationId" ;
+    rdfs:comment "Property representing the expectationId." ;
+    rdfs:domain TS28312_IntentNrm:IntentExpectation ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS28312_IntentNrm:expectationObject a owl:DatatypeProperty ;
+    rdfs:label "expectationObject" ;
+    rdfs:comment "Property representing the expectationObject." ;
+    rdfs:domain TS28312_IntentNrm:IntentExpectation ;
+    rdfs:range TS28312_IntentNrm:ExpectationObject .
+
+TS28312_IntentNrm:expectationTargets a owl:DatatypeProperty ;
+    rdfs:label "expectationTargets" ;
+    rdfs:comment "Property representing the expectationTargets." ;
+    rdfs:domain TS28312_IntentNrm:IntentExpectation ;
+    rdfs:range TS28312_IntentNrm:ExpectationTarget .
+
+TS28312_IntentNrm:expectationVerb a owl:DatatypeProperty ;
+    rdfs:label "expectationVerb" ;
+    rdfs:comment "Property representing the expectationVerb." ;
+    rdfs:domain TS28312_IntentNrm:IntentExpectation ;
+    rdfs:range TS28312_IntentNrm:ExpectationVerb .
+
+TS28312_IntentNrm:feasibilityCheckResult a owl:DatatypeProperty ;
+    rdfs:label "feasibilityCheckResult" ;
+    rdfs:comment "Property representing the feasibilityCheckResult." ;
+    rdfs:domain TS28312_IntentNrm:IntentFeasibilityCheckReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:fiveQI a owl:DatatypeProperty ;
+    rdfs:label "fiveQI" ;
+    rdfs:comment "Property representing the fiveQI." ;
+    rdfs:domain TS28312_IntentNrm:UEGroup ;
+    rdfs:range xsd:integer .
+
+TS28312_IntentNrm:freqband a owl:DatatypeProperty ;
+    rdfs:label "freqband" ;
+    rdfs:comment "Property representing the freqband." ;
+    rdfs:domain TS28312_IntentNrm:Frequency ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:fulfilmentStatus a owl:DatatypeProperty ;
+    rdfs:label "fulfilmentStatus" ;
+    rdfs:comment "Property representing the fulfilmentStatus." ;
+    rdfs:domain TS28312_IntentNrm:FulfilmentInfo ;
+    rdfs:range TS28312_IntentNrm:FulfilmentStatus .
+
+TS28312_IntentNrm:infeasibilityReason a owl:DatatypeProperty ;
+    rdfs:label "infeasibilityReason" ;
+    rdfs:comment "Property representing the infeasibilityReason." ;
+    rdfs:domain TS28312_IntentNrm:IntentFeasibilityCheckReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:intentFulfilmentInfo a owl:DatatypeProperty ;
+    rdfs:label "intentFulfilmentInfo" ;
+    rdfs:comment "Property representing the intentFulfilmentInfo." ;
+    rdfs:domain TS28312_IntentNrm:IntentFulfilmentReport ;
+    rdfs:range TS28312_IntentNrm:FulfilmentInfo .
+
+TS28312_IntentNrm:intentHandlingCapabilityId a owl:DatatypeProperty ;
+    rdfs:label "intentHandlingCapabilityId" ;
+    rdfs:comment "Property representing the intentHandlingCapabilityId." ;
+    rdfs:domain TS28312_IntentNrm:IntentHandlingCapability ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:notFulfilledReasons a owl:DatatypeProperty ;
+    rdfs:label "notFulfilledReasons" ;
+    rdfs:comment "Property representing the notFulfilledReasons." ;
+    rdfs:domain TS28312_IntentNrm:FulfilmentInfo ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:notFullfilledState a owl:DatatypeProperty ;
+    rdfs:label "notFullfilledState" ;
+    rdfs:comment "Property representing the notFullfilledState." ;
+    rdfs:domain TS28312_IntentNrm:FulfilmentInfo ;
+    rdfs:range TS28312_IntentNrm:NotFulfilledState .
+
+TS28312_IntentNrm:objectContexts a owl:DatatypeProperty ;
+    rdfs:label "objectContexts" ;
+    rdfs:comment "Property representing the objectContexts." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationObject ;
+    rdfs:range TS28312_IntentNrm:Context .
+
+TS28312_IntentNrm:objectInstance a owl:ObjectProperty ;
+    rdfs:label "objectInstance" ;
+    rdfs:comment "Property representing the objectInstance." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationObject ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28312_IntentNrm:objectType a owl:DatatypeProperty ;
+    rdfs:label "objectType" ;
+    rdfs:comment "Property representing the objectType." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationObject ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:recommendedSolutions a owl:DatatypeProperty ;
+    rdfs:label "recommendedSolutions" ;
+    rdfs:comment "Property representing the recommendedSolutions." ;
+    rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:resources_intentNrm a owl:Class ;
+    rdfs:label "resources intentNrm" ;
+    rdfs:comment "Represents a resource that can be one of several types related to resources intentNrm." ;
+    owl:oneOf ( TS28312_IntentNrm:IntentHandlingFunction_Single TS28312_IntentNrm:Intent_Single TS28312_IntentNrm:IntentReport_Single ) .
+
+TS28312_IntentNrm:sNssai a owl:ObjectProperty ;
+    rdfs:label "sNssai" ;
+    rdfs:comment "Property representing the sNssai." ;
+    rdfs:domain TS28312_IntentNrm:UEGroup ;
+    rdfs:range TS28541_NrNrm:Snssai .
+
+TS28312_IntentNrm:supportedExpectationObjectType a owl:DatatypeProperty ;
+    rdfs:label "supportedExpectationObjectType" ;
+    rdfs:comment "Property representing the supportedExpectationObjectType." ;
+    rdfs:domain TS28312_IntentNrm:IntentHandlingCapability ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:supportedExpectationTargetNames a owl:DatatypeProperty ;
+    rdfs:label "supportedExpectationTargetNames" ;
+    rdfs:comment "Property representing the supportedExpectationTargetNames." ;
+    rdfs:domain TS28312_IntentNrm:IntentHandlingCapability ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:targetAchievedValue a owl:DatatypeProperty ;
+    rdfs:label "targetAchievedValue" ;
+    rdfs:comment "Property representing the targetAchievedValue." ;
+    rdfs:domain TS28312_IntentNrm:TargetFulfilmentResult ;
+    rdfs:range xsd:double .
+
+TS28312_IntentNrm:targetCondition a owl:DatatypeProperty ;
+    rdfs:label "targetCondition" ;
+    rdfs:comment "Property representing the targetCondition." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationTarget ;
+    rdfs:range TS28312_IntentNrm:Condition .
+
+TS28312_IntentNrm:targetContexts a owl:DatatypeProperty ;
+    rdfs:label "targetContexts" ;
+    rdfs:comment "Property representing the targetContexts." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationTarget ;
+    rdfs:range TS28312_IntentNrm:Context .
+
+TS28312_IntentNrm:targetFulfilmentInfo a owl:DatatypeProperty ;
+    rdfs:label "targetFulfilmentInfo" ;
+    rdfs:comment "Property representing the targetFulfilmentInfo." ;
+    rdfs:domain TS28312_IntentNrm:TargetFulfilmentResult ;
+    rdfs:range TS28312_IntentNrm:FulfilmentInfo .
+
+TS28312_IntentNrm:targetFulfilmentResult a owl:DatatypeProperty ;
+    rdfs:label "targetFulfilmentResult" ;
+    rdfs:comment "Property representing the targetFulfilmentResult." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationFulfilmentResult ;
+    rdfs:range TS28312_IntentNrm:TargetFulfilmentResult .
+
+TS28312_IntentNrm:targetName a owl:DatatypeProperty ;
+    rdfs:label "targetName" ;
+    rdfs:comment "Property representing the targetName." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationTarget,
+        TS28312_IntentNrm:TargetFulfilmentResult ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:targetValueRange a owl:DatatypeProperty ;
+    rdfs:label "targetValueRange" ;
+    rdfs:comment "Property representing the targetValueRange." ;
+    rdfs:domain TS28312_IntentNrm:ExpectationTarget ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28312_IntentNrm:IntentNRM ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28312_IntentNrm:IntentNRM ;
+    rdfs:range xsd:string .
+
+TS28312_IntentNrm:ACKNOWLEDGED a owl:NamedIndividual ;
+    rdfs:label "ACKNOWLEDGED" ;
+    rdfs:comment "Indicates that the NotFulfilledState value is ACKNOWLEDGED." .
+
+TS28312_IntentNrm:ALL_OF a owl:NamedIndividual ;
+    rdfs:label "ALL_OF" ;
+    rdfs:comment "Indicates that the Selectivity value is ALL_OF." .
+
+TS28312_IntentNrm:ANY_OF a owl:NamedIndividual ;
+    rdfs:label "ANY_OF" ;
+    rdfs:comment "Indicates that the Selectivity value is ANY_OF." .
+
+TS28312_IntentNrm:COMPLIANT a owl:NamedIndividual ;
+    rdfs:label "COMPLIANT" ;
+    rdfs:comment "Indicates that the NotFulfilledState value is COMPLIANT." .
+
+TS28312_IntentNrm:DEGRADED a owl:NamedIndividual ;
+    rdfs:label "DEGRADED" ;
+    rdfs:comment "Indicates that the NotFulfilledState value is DEGRADED." .
+
+TS28312_IntentNrm:DELIVER a owl:NamedIndividual ;
+    rdfs:label "DELIVER" ;
+    rdfs:comment "Indicates that the ExpectationVerb value is DELIVER." .
+
+TS28312_IntentNrm:ENSURE a owl:NamedIndividual ;
+    rdfs:label "ENSURE" ;
+    rdfs:comment "Indicates that the ExpectationVerb value is ENSURE." .
+
+TS28312_IntentNrm:ExpectationVerb a owl:Class ;
+    rdfs:label "ExpectationVerb" ;
+    rdfs:comment "Enumeration of ExpectationVerb values." ;
+    owl:oneOf ( TS28312_IntentNrm:DELIVER TS28312_IntentNrm:ENSURE ) .
+
+TS28312_IntentNrm:FULFILLED a owl:NamedIndividual ;
+    rdfs:label "FULFILLED" ;
+    rdfs:comment "Indicates that the FulfilmentStatus value is FULFILLED." .
+
+TS28312_IntentNrm:FULFILMENTFAILED a owl:NamedIndividual ;
+    rdfs:label "FULFILMENTFAILED" ;
+    rdfs:comment "Indicates that the NotFulfilledState value is FULFILMENTFAILED." .
+
+TS28312_IntentNrm:FulfilmentStatus a owl:Class ;
+    rdfs:label "FulfilmentStatus" ;
+    rdfs:comment "Enumeration of FulfilmentStatus values." ;
+    owl:oneOf ( TS28312_IntentNrm:FULFILLED TS28312_IntentNrm:NOT_FULFILLED ) .
+
+TS28312_IntentNrm:IS_ALL_OF a owl:NamedIndividual ;
+    rdfs:label "IS_ALL_OF" ;
+    rdfs:comment "Indicates that the Condition value is IS_ALL_OF." .
+
+TS28312_IntentNrm:IS_EQUAL_TO a owl:NamedIndividual ;
+    rdfs:label "IS_EQUAL_TO" ;
+    rdfs:comment "Indicates that the Condition value is IS_EQUAL_TO." .
+
+TS28312_IntentNrm:IS_EQUAL_TO_OR_GREATER_THAN a owl:NamedIndividual ;
+    rdfs:label "IS_EQUAL_TO_OR_GREATER_THAN" ;
+    rdfs:comment "Indicates that the Condition value is IS_EQUAL_TO_OR_GREATER_THAN." .
+
+TS28312_IntentNrm:IS_EQUAL_TO_OR_LESS_THAN a owl:NamedIndividual ;
+    rdfs:label "IS_EQUAL_TO_OR_LESS_THAN" ;
+    rdfs:comment "Indicates that the Condition value is IS_EQUAL_TO_OR_LESS_THAN." .
+
+TS28312_IntentNrm:IS_GREATER_THAN a owl:NamedIndividual ;
+    rdfs:label "IS_GREATER_THAN" ;
+    rdfs:comment "Indicates that the Condition value is IS_GREATER_THAN." .
+
+TS28312_IntentNrm:IS_LESS_THAN a owl:NamedIndividual ;
+    rdfs:label "IS_LESS_THAN" ;
+    rdfs:comment "Indicates that the Condition value is IS_LESS_THAN." .
+
+TS28312_IntentNrm:IS_NOT_ONE_OF a owl:NamedIndividual ;
+    rdfs:label "IS_NOT_ONE_OF" ;
+    rdfs:comment "Indicates that the Condition value is IS_NOT_ONE_OF." .
+
+TS28312_IntentNrm:IS_ONE_OF a owl:NamedIndividual ;
+    rdfs:label "IS_ONE_OF" ;
+    rdfs:comment "Indicates that the Condition value is IS_ONE_OF." .
+
+TS28312_IntentNrm:IS_OUTSIDE_RANGE a owl:NamedIndividual ;
+    rdfs:label "IS_OUTSIDE_RANGE" ;
+    rdfs:comment "Indicates that the Condition value is IS_OUTSIDE_RANGE." .
+
+TS28312_IntentNrm:IS_WITHIN_RANGE a owl:NamedIndividual ;
+    rdfs:label "IS_WITHIN_RANGE" ;
+    rdfs:comment "Indicates that the Condition value is IS_WITHIN_RANGE." .
+
+TS28312_IntentNrm:NOT_FULFILLED a owl:NamedIndividual ;
+    rdfs:label "NOT_FULFILLED" ;
+    rdfs:comment "Indicates that the FulfilmentStatus value is NOT_FULFILLED." .
+
+TS28312_IntentNrm:NotFulfilledState a owl:Class ;
+    rdfs:label "NotFulfilledState" ;
+    rdfs:comment "Enumeration of NotFulfilledState values." ;
+    owl:oneOf ( TS28312_IntentNrm:ACKNOWLEDGED TS28312_IntentNrm:COMPLIANT TS28312_IntentNrm:DEGRADED TS28312_IntentNrm:SUSPENDED TS28312_IntentNrm:TERMINATED TS28312_IntentNrm:FULFILMENTFAILED ) .
+
+TS28312_IntentNrm:ONE_OF a owl:NamedIndividual ;
+    rdfs:label "ONE_OF" ;
+    rdfs:comment "Indicates that the Selectivity value is ONE_OF." .
+
+TS28312_IntentNrm:SUSPENDED a owl:NamedIndividual ;
+    rdfs:label "SUSPENDED" ;
+    rdfs:comment "Indicates that the NotFulfilledState value is SUSPENDED." .
+
+TS28312_IntentNrm:Selectivity a owl:Class ;
+    rdfs:label "Selectivity" ;
+    rdfs:comment "Enumeration of Selectivity values." ;
+    owl:oneOf ( TS28312_IntentNrm:ALL_OF TS28312_IntentNrm:ONE_OF TS28312_IntentNrm:ANY_OF ) .
+
+TS28312_IntentNrm:SubNetwork_ncO_IntentNrm a owl:Class ;
+    rdfs:label "SubNetwork ncO IntentNrm" .
+
+TS28312_IntentNrm:TERMINATED a owl:NamedIndividual ;
+    rdfs:label "TERMINATED" ;
+    rdfs:comment "Indicates that the NotFulfilledState value is TERMINATED." .
+
+TS28312_IntentNrm:Condition a owl:Class ;
+    rdfs:label "Condition" ;
+    rdfs:comment "Enumeration of Condition values." ;
+    owl:oneOf ( TS28312_IntentNrm:IS_EQUAL_TO TS28312_IntentNrm:IS_LESS_THAN TS28312_IntentNrm:IS_GREATER_THAN TS28312_IntentNrm:IS_WITHIN_RANGE TS28312_IntentNrm:IS_OUTSIDE_RANGE TS28312_IntentNrm:IS_ONE_OF TS28312_IntentNrm:IS_NOT_ONE_OF TS28312_IntentNrm:IS_EQUAL_TO_OR_LESS_THAN TS28312_IntentNrm:IS_EQUAL_TO_OR_GREATER_THAN TS28312_IntentNrm:IS_ALL_OF ) .
+
+TS28312_IntentNrm:IntentFeasibilityCheckReport a owl:Class ;
+    rdfs:label "IntentFeasibilityCheckReport" ;
+    rdfs:comment "It represents the intent feasibility check information This attribute shall be supported when intent feasibility check information information is supported by IntentReport       " .
+
+TS28312_IntentNrm:IntentFulfilmentReport a owl:Class ;
+    rdfs:label "IntentFulfilmentReport" ;
+    rdfs:comment "It includes the intentFulfilmentInfo and expectationFulfilmetResult.  This attribute shall be supported when intent fulfilment information is supported by IntentReport        " .
+
+TS28312_IntentNrm:Frequency a owl:Class ;
+    rdfs:label "Frequency" ;
+    rdfs:comment "It desribes the RF reference frequency (i.e. Absolute Radio Frequency Channel Number)  and/or the frequency operating band used for a given direction (UL or DL) in FDD or  for both UL and DL directions in TDD.      " .
+
+TS28312_IntentNrm:IntentHandlingCapability a owl:Class ;
+    rdfs:label "IntentHandlingCapability" ;
+    rdfs:comment "It represents expectation object information and expectation target information  which can be supported by a specific intent handling function of MnS producer." .
+
+TS28312_IntentNrm:UEGroup a owl:Class ;
+    rdfs:label "UEGroup" ;
+    rdfs:comment "It describes the UE Group, which is  represented by specific 5QI, specific S-NSSAI, or a specific combination  of S-NSSAI and 5QI" .
+
+TS28312_IntentNrm:ExpectationFulfilmentResult a owl:Class ;
+    rdfs:label "ExpectationFulfilmentResult" ;
+    rdfs:comment "It includes the expectationFulfilmentInfo and targetFulfilmentResults for each IntentExpectation.   " .
+
+TS28312_IntentNrm:ExpectationObject a owl:Class ;
+    rdfs:label "ExpectationObject" ;
+    rdfs:comment "It represents the Object to which the IntentExpectation should apply. This data type is the \"ExpectationObject\" data type without specialisations" .
+
+TS28312_IntentNrm:IntentNRM a owl:Class ;
+    rdfs:label "Intent NRM" ;
+    rdfs:comment "Class representing the Intent NRM document metadata." .
+
+TS28312_IntentNrm:TargetFulfilmentResult a owl:Class ;
+    rdfs:label "TargetFulfilmentResult" ;
+    rdfs:comment "This data type includes targetFulfilmentInfo and targetAchievedValue for each ExpectationTarget.       " .
+
+TS28312_IntentNrm:Context a owl:Class ;
+    rdfs:label "Context" ;
+    rdfs:comment "This data type is the \"Context\" data type without specialisations        " .
+
+TS28312_IntentNrm:ExpectationTarget a owl:Class ;
+    rdfs:label "ExpectationTarget" ;
+    rdfs:comment "This data type represents the target of the IntentExpectation that are required to be achieved. This data type is the \"ExpectationTarget\" data type without specialisations" .
+
+TS28312_IntentNrm:FulfilmentInfo a owl:Class ;
+    rdfs:label "FulfilmentInfo" ;
+    rdfs:comment "This dataType represents the properties of a specific fulfilment information for an aspect of  the intent (i.e. either an expectation, a target or the whole intent).     " .
+
+TS28312_IntentNrm:IntentConflictReport a owl:Class ;
+    rdfs:label "IntentConflictReport" ;
+    rdfs:comment "It represents the conflict information for the detected conflict This attribute shall be supported when intent conflict information is supported by IntentReport         " .
+
+TS28312_IntentNrm:IntentExpectation a owl:Class ;
+    rdfs:label "IntentExpectation" ;
+    rdfs:comment "This data type is the \"IntentExpectation\" data type without specialisations It represents MnS consumer's requirements, goals and contexts given to a 3GPP system " .
+

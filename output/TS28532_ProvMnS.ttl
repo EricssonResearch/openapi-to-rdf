@@ -1,0 +1,267 @@
+@prefix TS28532_ProvMnS: <http://ericsson.com/models/3gpp/rdf/TS28532_ProvMnS.yaml#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/rdf/TS28623_ComDefs#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28532_ProvMnS:CmNotificationTypes a owl:Class ;
+    rdfs:label "CmNotificationTypes" ;
+    rdfs:comment "Enumeration of CmNotificationTypes values." ;
+    owl:oneOf ( TS28532_ProvMnS:notifyMOICreation TS28532_ProvMnS:notifyMOIDeletion TS28532_ProvMnS:notifyMOIAttributeValueChanges TS28532_ProvMnS:notifyEvent TS28532_ProvMnS:notifyMOIChanges ) .
+
+TS28532_ProvMnS:ProvisioningMnSInstance a TS28532_ProvMnS:ProvisioningMnS ;
+    TS28532_ProvMnS:description "OAS 3.0.1 definition of the Provisioning MnS © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28532_ProvMnS:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.532/" ;
+    TS28532_ProvMnS:version "18.3.0" .
+
+TS28532_ProvMnS:Resource a owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:comment "Represents a resource that can be one of several types related to Resource." .
+
+TS28532_ProvMnS:additionalText a owl:DatatypeProperty ;
+    rdfs:label "additionalText" ;
+    rdfs:comment "Property representing the additionalText." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:correlatedNotifications a owl:ObjectProperty ;
+    rdfs:label "correlatedNotifications" ;
+    rdfs:comment "Property representing the correlatedNotifications." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range TS28532_ProvMnS:CorrelatedNotification .
+
+TS28532_ProvMnS:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28532_ProvMnS:ProvisioningMnS ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:from a owl:DatatypeProperty ;
+    rdfs:label "from" ;
+    rdfs:comment "Property representing the from." ;
+    rdfs:domain TS28532_ProvMnS:PatchItem ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:insert a owl:ObjectProperty ;
+    rdfs:label "insert" ;
+    rdfs:comment "Property representing the insert." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range TS28532_ProvMnS:Insert .
+
+TS28532_ProvMnS:notificationId a owl:ObjectProperty ;
+    rdfs:label "notificationId" ;
+    rdfs:comment "Property representing the notificationId." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range TS28623_ComDefs:NotificationId ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_ProvMnS:notificationIds a owl:ObjectProperty ;
+    rdfs:label "notificationIds" ;
+    rdfs:comment "Property representing the notificationIds." ;
+    rdfs:domain TS28532_ProvMnS:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:NotificationId ;
+    owl:minCardinality 1 .
+
+TS28532_ProvMnS:oldValue a owl:DatatypeProperty ;
+    rdfs:label "oldValue" ;
+    rdfs:comment "Property representing the oldValue." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:op a owl:ObjectProperty ;
+    rdfs:label "op" ;
+    rdfs:comment "Property representing the op." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange,
+        TS28532_ProvMnS:PatchItem ;
+    rdfs:range TS28532_ProvMnS:Operation,
+        TS28532_ProvMnS:PatchOperation ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_ProvMnS:path a owl:DatatypeProperty,
+        owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "path" ;
+    rdfs:comment "Property representing the path." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange,
+        TS28532_ProvMnS:PatchItem ;
+    rdfs:range TS28623_ComDefs:Uri,
+        xsd:string ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_ProvMnS:scopeLevel a owl:DatatypeProperty ;
+    rdfs:label "scopeLevel" ;
+    rdfs:comment "Property representing the scopeLevel." ;
+    rdfs:domain TS28532_ProvMnS:Scope ;
+    rdfs:range xsd:integer .
+
+TS28532_ProvMnS:scopeType a owl:ObjectProperty ;
+    rdfs:label "scopeType" ;
+    rdfs:comment "Property representing the scopeType." ;
+    rdfs:domain TS28532_ProvMnS:Scope ;
+    rdfs:range TS28532_ProvMnS:ScopeType .
+
+TS28532_ProvMnS:source a owl:ObjectProperty ;
+    rdfs:label "source" ;
+    rdfs:comment "Property representing the source." ;
+    rdfs:domain TS28532_ProvMnS:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:Dn ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28532_ProvMnS:sourceIndicator a owl:ObjectProperty ;
+    rdfs:label "sourceIndicator" ;
+    rdfs:comment "Property representing the sourceIndicator." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range TS28532_ProvMnS:SourceIndicator .
+
+TS28532_ProvMnS:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28532_ProvMnS:ProvisioningMnS ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:value a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:comment "Property representing the value." ;
+    rdfs:domain TS28532_ProvMnS:MoiChange,
+        TS28532_ProvMnS:PatchItem ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28532_ProvMnS:ProvisioningMnS ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:BASE_ALL a owl:NamedIndividual ;
+    rdfs:label "BASE_ALL" ;
+    rdfs:comment "Indicates that the ScopeType value is BASE_ALL." .
+
+TS28532_ProvMnS:BASE_NTH_LEVEL a owl:NamedIndividual ;
+    rdfs:label "BASE_NTH_LEVEL" ;
+    rdfs:comment "Indicates that the ScopeType value is BASE_NTH_LEVEL." .
+
+TS28532_ProvMnS:BASE_ONLY a owl:NamedIndividual ;
+    rdfs:label "BASE_ONLY" ;
+    rdfs:comment "Indicates that the ScopeType value is BASE_ONLY." .
+
+TS28532_ProvMnS:BASE_SUBTREE a owl:NamedIndividual ;
+    rdfs:label "BASE_SUBTREE" ;
+    rdfs:comment "Indicates that the ScopeType value is BASE_SUBTREE." .
+
+TS28532_ProvMnS:Insert a owl:Class ;
+    rdfs:label "Insert" ;
+    rdfs:comment "Enumeration of Insert values." ;
+    owl:oneOf ( TS28532_ProvMnS:before TS28532_ProvMnS:after ) .
+
+TS28532_ProvMnS:MANAGEMENT_OPERATION a owl:NamedIndividual ;
+    rdfs:label "MANAGEMENT_OPERATION" ;
+    rdfs:comment "Indicates that the SourceIndicator value is MANAGEMENT_OPERATION." .
+
+TS28532_ProvMnS:Operation a owl:Class ;
+    rdfs:label "Operation" ;
+    rdfs:comment "Enumeration of Operation values." ;
+    owl:oneOf ( TS28532_ProvMnS:add TS28532_ProvMnS:remove TS28532_ProvMnS:replace ) .
+
+TS28532_ProvMnS:PatchOperation a owl:Class ;
+    rdfs:label "PatchOperation" ;
+    rdfs:comment "Enumeration of PatchOperation values." ;
+    owl:oneOf ( TS28532_ProvMnS:add TS28532_ProvMnS:replace TS28532_ProvMnS:remove TS28532_ProvMnS:copy TS28532_ProvMnS:move TS28532_ProvMnS:test ) .
+
+TS28532_ProvMnS:RESOURCE_OPERATION a owl:NamedIndividual ;
+    rdfs:label "RESOURCE_OPERATION" ;
+    rdfs:comment "Indicates that the SourceIndicator value is RESOURCE_OPERATION." .
+
+TS28532_ProvMnS:SON_OPERATION a owl:NamedIndividual ;
+    rdfs:label "SON_OPERATION" ;
+    rdfs:comment "Indicates that the SourceIndicator value is SON_OPERATION." .
+
+TS28532_ProvMnS:ScopeType a owl:Class ;
+    rdfs:label "ScopeType" ;
+    rdfs:comment "Enumeration of ScopeType values." ;
+    owl:oneOf ( TS28532_ProvMnS:BASE_ONLY TS28532_ProvMnS:BASE_NTH_LEVEL TS28532_ProvMnS:BASE_SUBTREE TS28532_ProvMnS:BASE_ALL ) .
+
+TS28532_ProvMnS:SourceIndicator a owl:Class ;
+    rdfs:label "SourceIndicator" ;
+    rdfs:comment "Enumeration of SourceIndicator values." ;
+    owl:oneOf ( TS28532_ProvMnS:RESOURCE_OPERATION TS28532_ProvMnS:MANAGEMENT_OPERATION TS28532_ProvMnS:SON_OPERATION TS28532_ProvMnS:UNKNOWN ) .
+
+TS28532_ProvMnS:UNKNOWN a owl:NamedIndividual ;
+    rdfs:label "UNKNOWN" ;
+    rdfs:comment "Indicates that the SourceIndicator value is UNKNOWN." .
+
+TS28532_ProvMnS:after a owl:NamedIndividual ;
+    rdfs:label "after" ;
+    rdfs:comment "Indicates that the Insert value is after." .
+
+TS28532_ProvMnS:before a owl:NamedIndividual ;
+    rdfs:label "before" ;
+    rdfs:comment "Indicates that the Insert value is before." .
+
+TS28532_ProvMnS:copy a owl:NamedIndividual ;
+    rdfs:label "copy" ;
+    rdfs:comment "Indicates that the PatchOperation value is copy." .
+
+TS28532_ProvMnS:move a owl:NamedIndividual ;
+    rdfs:label "move" ;
+    rdfs:comment "Indicates that the PatchOperation value is move." .
+
+TS28532_ProvMnS:notifyEvent a owl:NamedIndividual ;
+    rdfs:label "notifyEvent" ;
+    rdfs:comment "Indicates that the CmNotificationTypes value is notifyEvent." .
+
+TS28532_ProvMnS:notifyMOIAttributeValueChanges a owl:NamedIndividual ;
+    rdfs:label "notifyMOIAttributeValueChanges" ;
+    rdfs:comment "Indicates that the CmNotificationTypes value is notifyMOIAttributeValueChanges." .
+
+TS28532_ProvMnS:notifyMOIChanges a owl:NamedIndividual ;
+    rdfs:label "notifyMOIChanges" ;
+    rdfs:comment "Indicates that the CmNotificationTypes value is notifyMOIChanges." .
+
+TS28532_ProvMnS:notifyMOICreation a owl:NamedIndividual ;
+    rdfs:label "notifyMOICreation" ;
+    rdfs:comment "Indicates that the CmNotificationTypes value is notifyMOICreation." .
+
+TS28532_ProvMnS:notifyMOIDeletion a owl:NamedIndividual ;
+    rdfs:label "notifyMOIDeletion" ;
+    rdfs:comment "Indicates that the CmNotificationTypes value is notifyMOIDeletion." .
+
+TS28532_ProvMnS:test a owl:NamedIndividual ;
+    rdfs:label "test" ;
+    rdfs:comment "Indicates that the PatchOperation value is test." .
+
+TS28532_ProvMnS:Scope a owl:Class ;
+    rdfs:label "Scope" .
+
+TS28532_ProvMnS:add a owl:NamedIndividual ;
+    rdfs:label "add" ;
+    rdfs:comment "Indicates that the Operation value is add.",
+        "Indicates that the PatchOperation value is add." .
+
+TS28532_ProvMnS:remove a owl:NamedIndividual ;
+    rdfs:label "remove" ;
+    rdfs:comment "Indicates that the Operation value is remove.",
+        "Indicates that the PatchOperation value is remove." .
+
+TS28532_ProvMnS:replace a owl:NamedIndividual ;
+    rdfs:label "replace" ;
+    rdfs:comment "Indicates that the Operation value is replace.",
+        "Indicates that the PatchOperation value is replace." .
+
+TS28532_ProvMnS:CorrelatedNotification a owl:Class ;
+    rdfs:label "CorrelatedNotification" .
+
+TS28532_ProvMnS:PatchItem a owl:Class ;
+    rdfs:label "PatchItem" .
+
+TS28532_ProvMnS:ProvisioningMnS a owl:Class ;
+    rdfs:label "Provisioning MnS" ;
+    rdfs:comment "Class representing the Provisioning MnS document metadata." .
+
+TS28532_ProvMnS:MoiChange a owl:Class ;
+    rdfs:label "MoiChange" .
+

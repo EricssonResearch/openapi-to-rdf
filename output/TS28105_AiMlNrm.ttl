@@ -1,0 +1,304 @@
+@prefix TS28105_AiMlNrm: <http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/rdf/TS28623_ComDefs#> .
+@prefix TS28623_ThresholdMonitorNrm: <http://ericsson.com/models/3gpp/rdf/TS28623_ThresholdMonitorNrm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#AI/MLNRMInstance> a <http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#AI/MLNRM> ;
+    TS28105_AiMlNrm:description "OAS 3.0.1 specification of the AI/ML NRM © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28105_AiMlNrm:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.105/" ;
+    TS28105_AiMlNrm:version "18.5.0" .
+
+TS28105_AiMlNrm:AIMLInferenceEmulationFunction a owl:ObjectProperty ;
+    rdfs:label "AIMLInferenceEmulationFunction" ;
+    rdfs:comment "Property representing the AIMLInferenceEmulationFunction." ;
+    rdfs:domain TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm,
+        TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm ;
+    rdfs:range TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Multiple .
+
+TS28105_AiMlNrm:AIMLInferenceFunction a owl:ObjectProperty ;
+    rdfs:label "AIMLInferenceFunction" ;
+    rdfs:comment "Property representing the AIMLInferenceFunction." ;
+    rdfs:domain TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm,
+        TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm ;
+    rdfs:range TS28105_AiMlNrm:AIMLInferenceFunction_Multiple .
+
+TS28105_AiMlNrm:MLModelRepository a owl:ObjectProperty ;
+    rdfs:label "MLModelRepository" ;
+    rdfs:comment "Property representing the MLModelRepository." ;
+    rdfs:domain TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm,
+        TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm ;
+    rdfs:range TS28105_AiMlNrm:MLModelRepository_Multiple .
+
+TS28105_AiMlNrm:MLTestingFunction a owl:ObjectProperty ;
+    rdfs:label "MLTestingFunction" ;
+    rdfs:comment "Property representing the MLTestingFunction." ;
+    rdfs:domain TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm,
+        TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm ;
+    rdfs:range TS28105_AiMlNrm:MLTestingFunction_Multiple .
+
+TS28105_AiMlNrm:MLTrainingFunction a owl:ObjectProperty ;
+    rdfs:label "MLTrainingFunction" ;
+    rdfs:comment "Property representing the MLTrainingFunction." ;
+    rdfs:domain TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm,
+        TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm ;
+    rdfs:range TS28105_AiMlNrm:MLTrainingFunction_Multiple .
+
+TS28105_AiMlNrm:MLUpdateFunction a owl:ObjectProperty ;
+    rdfs:label "MLUpdateFunction" ;
+    rdfs:comment "Property representing the MLUpdateFunction." ;
+    rdfs:domain TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm,
+        TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm ;
+    rdfs:range TS28105_AiMlNrm:MLUpdateFunction_Multiple .
+
+TS28105_AiMlNrm:RequestStatus a owl:Class ;
+    rdfs:label "RequestStatus" ;
+    rdfs:comment "Enumeration of RequestStatus values." ;
+    owl:oneOf ( TS28105_AiMlNrm:NOT_STARTED TS28105_AiMlNrm:IN_PROGRESS TS28105_AiMlNrm:SUSPENDED TS28105_AiMlNrm:FINISHED TS28105_AiMlNrm:CANCELLED TS28105_AiMlNrm:CANCELLING ) .
+
+TS28105_AiMlNrm:aIMLInferenceName a owl:DatatypeProperty ;
+    rdfs:label "aIMLInferenceName" ;
+    rdfs:comment "Property representing the aIMLInferenceName." ;
+    rdfs:domain TS28105_AiMlNrm:InferenceOutput,
+        TS28105_AiMlNrm:MLCapabilityInfo ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:availMLCapabilityReportID a owl:DatatypeProperty ;
+    rdfs:label "availMLCapabilityReportID" ;
+    rdfs:comment "Property representing the availMLCapabilityReportID." ;
+    rdfs:domain TS28105_AiMlNrm:AvailMLCapabilityReport ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:capabilityName a owl:DatatypeProperty ;
+    rdfs:label "capabilityName" ;
+    rdfs:comment "Property representing the capabilityName." ;
+    rdfs:domain TS28105_AiMlNrm:MLCapabilityInfo ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:dataProviderRef a owl:ObjectProperty ;
+    rdfs:label "dataProviderRef" ;
+    rdfs:comment "Property representing the dataProviderRef." ;
+    rdfs:domain TS28105_AiMlNrm:MLContext ;
+    rdfs:range TS28623_ComDefs:DnList .
+
+TS28105_AiMlNrm:decisionConfidenceScore a owl:DatatypeProperty ;
+    rdfs:label "decisionConfidenceScore" ;
+    rdfs:comment "Property representing the decisionConfidenceScore." ;
+    rdfs:domain TS28105_AiMlNrm:ModelPerformance ;
+    rdfs:range TS28623_ComDefs:Float .
+
+TS28105_AiMlNrm:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain <http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#AI/MLNRM> ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:expectedPerformanceGains a owl:ObjectProperty ;
+    rdfs:label "expectedPerformanceGains" ;
+    rdfs:comment "Property representing the expectedPerformanceGains." ;
+    rdfs:domain TS28105_AiMlNrm:AvailMLCapabilityReport ;
+    rdfs:range TS28105_AiMlNrm:ModelPerformance .
+
+TS28105_AiMlNrm:inferenceModelRef a owl:ObjectProperty ;
+    rdfs:label "inferenceModelRef" ;
+    rdfs:comment "Property representing the inferenceModelRef." ;
+    rdfs:domain TS28105_AiMlNrm:MLContext ;
+    rdfs:range TS28623_ComDefs:DnList .
+
+TS28105_AiMlNrm:inferenceOutputId a owl:DatatypeProperty ;
+    rdfs:label "inferenceOutputId" ;
+    rdfs:comment "Property representing the inferenceOutputId." ;
+    rdfs:domain TS28105_AiMlNrm:InferenceOutput ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:inferenceOutputName a owl:DatatypeProperty ;
+    rdfs:label "inferenceOutputName" ;
+    rdfs:comment "Property representing the inferenceOutputName." ;
+    rdfs:domain TS28105_AiMlNrm:ModelPerformance ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:inferenceOutputTime a owl:ObjectProperty ;
+    rdfs:label "inferenceOutputTime" ;
+    rdfs:comment "Property representing the inferenceOutputTime." ;
+    rdfs:domain TS28105_AiMlNrm:InferenceOutput ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28105_AiMlNrm:inferencePerformance a owl:ObjectProperty ;
+    rdfs:label "inferencePerformance" ;
+    rdfs:comment "Property representing the inferencePerformance." ;
+    rdfs:domain TS28105_AiMlNrm:InferenceOutput ;
+    rdfs:range TS28105_AiMlNrm:ModelPerformance .
+
+TS28105_AiMlNrm:isSupportedForTesting a owl:DatatypeProperty ;
+    rdfs:label "isSupportedForTesting" ;
+    rdfs:comment "Property representing the isSupportedForTesting." ;
+    rdfs:domain TS28105_AiMlNrm:SupportedPerfIndicator ;
+    rdfs:range xsd:boolean .
+
+TS28105_AiMlNrm:isSupportedForTraining a owl:DatatypeProperty ;
+    rdfs:label "isSupportedForTraining" ;
+    rdfs:comment "Property representing the isSupportedForTraining." ;
+    rdfs:domain TS28105_AiMlNrm:SupportedPerfIndicator ;
+    rdfs:range xsd:boolean .
+
+TS28105_AiMlNrm:mLCapabilityParameters a owl:ObjectProperty ;
+    rdfs:label "mLCapabilityParameters" ;
+    rdfs:comment "Property representing the mLCapabilityParameters." ;
+    rdfs:domain TS28105_AiMlNrm:MLCapabilityInfo ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28105_AiMlNrm:mLCapabilityVersionId a owl:DatatypeProperty ;
+    rdfs:label "mLCapabilityVersionId" ;
+    rdfs:comment "Property representing the mLCapabilityVersionId." ;
+    rdfs:domain TS28105_AiMlNrm:AvailMLCapabilityReport ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:mLModelRef a owl:ObjectProperty ;
+    rdfs:label "mLModelRef" ;
+    rdfs:comment "Property representing the mLModelRef." ;
+    rdfs:domain TS28105_AiMlNrm:AvailMLCapabilityReport ;
+    rdfs:range TS28623_ComDefs:DnList .
+
+TS28105_AiMlNrm:managedActivationScope a owl:ObjectProperty ;
+    rdfs:label "managedActivationScope" ;
+    rdfs:comment "Property representing the managedActivationScope." ;
+    rdfs:domain TS28105_AiMlNrm:AIMLManagementPolicy ;
+    rdfs:range TS28105_AiMlNrm:ManagedActivationScope .
+
+TS28105_AiMlNrm:outputResult a owl:ObjectProperty ;
+    rdfs:label "outputResult" ;
+    rdfs:comment "Property representing the outputResult." ;
+    rdfs:domain TS28105_AiMlNrm:InferenceOutput ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28105_AiMlNrm:performanceIndicatorName a owl:DatatypeProperty ;
+    rdfs:label "performanceIndicatorName" ;
+    rdfs:comment "Property representing the performanceIndicatorName." ;
+    rdfs:domain TS28105_AiMlNrm:SupportedPerfIndicator ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:performanceMetric a owl:DatatypeProperty ;
+    rdfs:label "performanceMetric" ;
+    rdfs:comment "Property representing the performanceMetric." ;
+    rdfs:domain TS28105_AiMlNrm:ModelPerformance ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:performanceScore a owl:DatatypeProperty ;
+    rdfs:label "performanceScore" ;
+    rdfs:comment "Property representing the performanceScore." ;
+    rdfs:domain TS28105_AiMlNrm:ModelPerformance ;
+    rdfs:range TS28623_ComDefs:Float .
+
+TS28105_AiMlNrm:progressPercentage a owl:DatatypeProperty ;
+    rdfs:label "progressPercentage" ;
+    rdfs:comment "Property representing the progressPercentage." ;
+    rdfs:domain TS28105_AiMlNrm:ProcessMonitor ;
+    rdfs:range xsd:integer .
+
+TS28105_AiMlNrm:progressStateInfo a owl:DatatypeProperty ;
+    rdfs:label "progressStateInfo" ;
+    rdfs:comment "Property representing the progressStateInfo." ;
+    rdfs:domain TS28105_AiMlNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:resources_AiMlNrm a owl:Class ;
+    rdfs:label "resources AiMlNrm" ;
+    rdfs:comment "Represents a resource that can be one of several types related to resources AiMlNrm." ;
+    owl:oneOf ( TS28105_AiMlNrm:MLTrainingFunction_Single TS28105_AiMlNrm:MLTrainingRequest_Single TS28105_AiMlNrm:MLTrainingProcess_Single TS28105_AiMlNrm:MLTrainingReport_Single TS28105_AiMlNrm:MLModel_Single TS28105_AiMlNrm:MLModelRepository_Single TS28105_AiMlNrm:MLModelCoordinationGroup_Single TS28105_AiMlNrm:MLTestingFunction_Single TS28105_AiMlNrm:MLTestingRequest_Single TS28105_AiMlNrm:MLTestingReport_Single TS28105_AiMlNrm:MLModelLoadingRequest_Single TS28105_AiMlNrm:MLModelLoadingProcess_Single TS28105_AiMlNrm:MLModelLoadingPolicy_Single TS28105_AiMlNrm:MLUpdateFunction_Single TS28105_AiMlNrm:MLUpdateRequest_Single TS28105_AiMlNrm:MLUpdateProcess_Single TS28105_AiMlNrm:MLUpdateReport_Single TS28105_AiMlNrm:AIMLInferenceFunction_Single TS28105_AiMlNrm:AIMLInferenceReport_Single TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single ) .
+
+TS28105_AiMlNrm:resultStateInfo a owl:DatatypeProperty ;
+    rdfs:label "resultStateInfo" ;
+    rdfs:comment "Property representing the resultStateInfo." ;
+    rdfs:domain TS28105_AiMlNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:status a owl:DatatypeProperty ;
+    rdfs:label "status" ;
+    rdfs:comment "Property representing the status." ;
+    rdfs:domain TS28105_AiMlNrm:ProcessMonitor ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:thresholdList a owl:ObjectProperty ;
+    rdfs:label "thresholdList" ;
+    rdfs:comment "Property representing the thresholdList." ;
+    rdfs:domain TS28105_AiMlNrm:AIMLManagementPolicy ;
+    rdfs:range TS28623_ThresholdMonitorNrm:ThresholdInfo .
+
+TS28105_AiMlNrm:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain <http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#AI/MLNRM> ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain <http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#AI/MLNRM> ;
+    rdfs:range xsd:string .
+
+TS28105_AiMlNrm:CANCELLED a owl:NamedIndividual ;
+    rdfs:label "CANCELLED" ;
+    rdfs:comment "Indicates that the RequestStatus value is CANCELLED." .
+
+TS28105_AiMlNrm:CANCELLING a owl:NamedIndividual ;
+    rdfs:label "CANCELLING" ;
+    rdfs:comment "Indicates that the RequestStatus value is CANCELLING." .
+
+TS28105_AiMlNrm:FINISHED a owl:NamedIndividual ;
+    rdfs:label "FINISHED" ;
+    rdfs:comment "Indicates that the RequestStatus value is FINISHED." .
+
+TS28105_AiMlNrm:IN_PROGRESS a owl:NamedIndividual ;
+    rdfs:label "IN_PROGRESS" ;
+    rdfs:comment "Indicates that the RequestStatus value is IN_PROGRESS." .
+
+TS28105_AiMlNrm:ManagedActivationScope a owl:Class ;
+    rdfs:label "ManagedActivationScope" ;
+    rdfs:comment "Represents a resource that can be one of several types related to ManagedActivationScope." .
+
+TS28105_AiMlNrm:NOT_STARTED a owl:NamedIndividual ;
+    rdfs:label "NOT_STARTED" ;
+    rdfs:comment "Indicates that the RequestStatus value is NOT_STARTED." .
+
+TS28105_AiMlNrm:SUSPENDED a owl:NamedIndividual ;
+    rdfs:label "SUSPENDED" ;
+    rdfs:comment "Indicates that the RequestStatus value is SUSPENDED." .
+
+TS28105_AiMlNrm:AIMLManagementPolicy a owl:Class ;
+    rdfs:label "AIMLManagementPolicy" ;
+    rdfs:comment "This data type represents the properties of a policy for AI/ML management." .
+
+TS28105_AiMlNrm:MLContext a owl:Class ;
+    rdfs:label "MLContext" .
+
+TS28105_AiMlNrm:MLCapabilityInfo a owl:Class ;
+    rdfs:label "MLCapabilityInfo" .
+
+TS28105_AiMlNrm:SupportedPerfIndicator a owl:Class ;
+    rdfs:label "SupportedPerfIndicator" .
+
+<http://ericsson.com/models/3gpp/rdf/TS28105_AiMlNrm.yaml#AI/MLNRM> a owl:Class ;
+    rdfs:label "AI/ML NRM" ;
+    rdfs:comment "Class representing the AI/ML NRM document metadata." .
+
+TS28105_AiMlNrm:AvailMLCapabilityReport a owl:Class ;
+    rdfs:label "AvailMLCapabilityReport" .
+
+TS28105_AiMlNrm:ProcessMonitor a owl:Class ;
+    rdfs:label "ProcessMonitor" ;
+    rdfs:comment "This data type is the \"ProcessMonitor\" data type defined in “genericNrm.yaml”  with specialisations for usage in TS 28.105." .
+
+TS28105_AiMlNrm:InferenceOutput a owl:Class ;
+    rdfs:label "InferenceOutput" .
+
+TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm a owl:Class ;
+    rdfs:label "ManagedElement ncO AiMlNrm" .
+
+TS28105_AiMlNrm:ModelPerformance a owl:Class ;
+    rdfs:label "ModelPerformance" .
+
+TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm a owl:Class ;
+    rdfs:label "SubNetwork ncO AiMlNrm" .
+

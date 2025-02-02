@@ -1,0 +1,55 @@
+@prefix TS28623_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/rdf/TS28623_SubscriptionControlNrm.yaml#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_SubscriptionControlNrm:NtfSubscriptionControl a owl:ObjectProperty ;
+    rdfs:label "NtfSubscriptionControl" ;
+    rdfs:comment "Property representing the NtfSubscriptionControl." ;
+    rdfs:domain TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm,
+        TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm ;
+    rdfs:range TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple .
+
+TS28623_SubscriptionControlNrm:Scope a owl:Class ;
+    rdfs:label "Scope" ;
+    rdfs:comment "Represents a resource that can be one of several types related to Scope." .
+
+TS28623_SubscriptionControlNrm:SubscriptionControlNRMInstance a TS28623_SubscriptionControlNrm:SubscriptionControlNRM ;
+    TS28623_SubscriptionControlNrm:description "OAS 3.0.1 definition of the Subscription Control NRM fragment © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28623_SubscriptionControlNrm:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.623/" ;
+    TS28623_SubscriptionControlNrm:version "19.1.0" .
+
+TS28623_SubscriptionControlNrm:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28623_SubscriptionControlNrm:SubscriptionControlNRM ;
+    rdfs:range xsd:string .
+
+TS28623_SubscriptionControlNrm:resources_subscriptionControlNrm a owl:Class ;
+    rdfs:label "resources subscriptionControlNrm" ;
+    rdfs:comment "Represents a resource that can be one of several types related to resources subscriptionControlNrm." ;
+    owl:oneOf ( TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single TS28623_SubscriptionControlNrm:HeartbeatControl_Single ) .
+
+TS28623_SubscriptionControlNrm:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28623_SubscriptionControlNrm:SubscriptionControlNRM ;
+    rdfs:range xsd:string .
+
+TS28623_SubscriptionControlNrm:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28623_SubscriptionControlNrm:SubscriptionControlNRM ;
+    rdfs:range xsd:string .
+
+TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm a owl:Class ;
+    rdfs:label "ManagedElement ncO SubscriptionControlNrm" .
+
+TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm a owl:Class ;
+    rdfs:label "SubNetwork ncO SubscriptionControlNrm" .
+
+TS28623_SubscriptionControlNrm:SubscriptionControlNRM a owl:Class ;
+    rdfs:label "Subscription Control NRM" ;
+    rdfs:comment "Class representing the Subscription Control NRM document metadata." .
+

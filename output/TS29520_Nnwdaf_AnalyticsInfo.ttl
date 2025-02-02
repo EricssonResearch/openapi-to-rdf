@@ -1,0 +1,528 @@
+@prefix TS29520_Nnwdaf_AnalyticsInfo: <http://ericsson.com/models/3gpp/rdf/TS29520_Nnwdaf_AnalyticsInfo.yaml#> .
+@prefix TS29520_Nnwdaf_EventsSubscription: <http://ericsson.com/models/3gpp/rdf/TS29520_Nnwdaf_EventsSubscription#> .
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/rdf/TS29571_CommonData#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29520_Nnwdaf_AnalyticsInfo:Nnwdaf_AnalyticsInfoInstance a TS29520_Nnwdaf_AnalyticsInfo:Nnwdaf_AnalyticsInfo ;
+    TS29520_Nnwdaf_AnalyticsInfo:description """Nnwdaf_AnalyticsInfo Service API.  
+© 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).  
+All rights reserved.
+""" ;
+    TS29520_Nnwdaf_AnalyticsInfo:url "https://www.3gpp.org/ftp/Specs/archive/29_series/29.520/" ;
+    TS29520_Nnwdaf_AnalyticsInfo:version "1.2.1" .
+
+TS29520_Nnwdaf_AnalyticsInfo:abnorBehavrs a owl:ObjectProperty ;
+    rdfs:label "abnorBehavrs" ;
+    rdfs:comment "Property representing the abnorBehavrs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
+
+TS29520_Nnwdaf_AnalyticsInfo:adrfDataTypes a owl:ObjectProperty ;
+    rdfs:label "adrfDataTypes" ;
+    rdfs:comment "Property representing the adrfDataTypes." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:AdrfDataType .
+
+TS29520_Nnwdaf_AnalyticsInfo:adrfId a owl:ObjectProperty ;
+    rdfs:label "adrfId" ;
+    rdfs:comment "Property representing the adrfId." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
+
+TS29520_Nnwdaf_AnalyticsInfo:aggrNwdafIds a owl:ObjectProperty ;
+    rdfs:label "aggrNwdafIds" ;
+    rdfs:comment "Property representing the aggrNwdafIds." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
+
+TS29520_Nnwdaf_AnalyticsInfo:aggrSubs a owl:ObjectProperty ;
+    rdfs:label "aggrSubs" ;
+    rdfs:comment "Property representing the aggrSubs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription .
+
+TS29520_Nnwdaf_AnalyticsInfo:anaMetaInfo a owl:ObjectProperty ;
+    rdfs:label "anaMetaInfo" ;
+    rdfs:comment "Property representing the anaMetaInfo." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:anySlice a owl:ObjectProperty ;
+    rdfs:label "anySlice" ;
+    rdfs:comment "Property representing the anySlice." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:AnySlice .
+
+TS29520_Nnwdaf_AnalyticsInfo:appIds a owl:ObjectProperty ;
+    rdfs:label "appIds" ;
+    rdfs:comment "Property representing the appIds." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:ApplicationId .
+
+TS29520_Nnwdaf_AnalyticsInfo:bwRequs a owl:ObjectProperty ;
+    rdfs:label "bwRequs" ;
+    rdfs:comment "Property representing the bwRequs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+
+TS29520_Nnwdaf_AnalyticsInfo:contextElems a owl:ObjectProperty ;
+    rdfs:label "contextElems" ;
+    rdfs:comment "Property representing the contextElems." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextData ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    owl:minCardinality 1 .
+
+TS29520_Nnwdaf_AnalyticsInfo:contextId a owl:ObjectProperty ;
+    rdfs:label "contextId" ;
+    rdfs:comment "Property representing the contextId." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:AnalyticsContextIdentifier ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29520_Nnwdaf_AnalyticsInfo:contextIds a owl:ObjectProperty ;
+    rdfs:label "contextIds" ;
+    rdfs:comment "Property representing the contextIds." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextIdList ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:AnalyticsContextIdentifier ;
+    owl:minCardinality 1 .
+
+TS29520_Nnwdaf_AnalyticsInfo:contexts a owl:ObjectProperty ;
+    rdfs:label "contexts" ;
+    rdfs:comment "Property representing the contexts." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:RequestedContext ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:ContextType ;
+    owl:minCardinality 1 .
+
+TS29520_Nnwdaf_AnalyticsInfo:data a owl:DatatypeProperty ;
+    rdfs:label "data" ;
+    rdfs:comment "Property representing the data." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS29520_Nnwdaf_AnalyticsInfo:dataSub a owl:DatatypeProperty ;
+    rdfs:label "dataSub" ;
+    rdfs:comment "Property representing the dataSub." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription ;
+    rdfs:range xsd:string .
+
+TS29520_Nnwdaf_AnalyticsInfo:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:Nnwdaf_AnalyticsInfo ;
+    rdfs:range xsd:string .
+
+TS29520_Nnwdaf_AnalyticsInfo:disperInfos a owl:ObjectProperty ;
+    rdfs:label "disperInfos" ;
+    rdfs:comment "Property representing the disperInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:DispersionInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:disperReqs a owl:ObjectProperty ;
+    rdfs:label "disperReqs" ;
+    rdfs:comment "Property representing the disperReqs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:DispersionRequirement .
+
+TS29520_Nnwdaf_AnalyticsInfo:dnPerfInfos a owl:ObjectProperty ;
+    rdfs:label "dnPerfInfos" ;
+    rdfs:comment "Property representing the dnPerfInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:dnPerfReqs a owl:ObjectProperty ;
+    rdfs:label "dnPerfReqs" ;
+    rdfs:comment "Property representing the dnPerfReqs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq .
+
+TS29520_Nnwdaf_AnalyticsInfo:dnais a owl:ObjectProperty ;
+    rdfs:label "dnais" ;
+    rdfs:comment "Property representing the dnais." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:Dnai .
+
+TS29520_Nnwdaf_AnalyticsInfo:dnn a owl:ObjectProperty ;
+    rdfs:label "dnn" ;
+    rdfs:comment "Property representing the dnn." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo ;
+    rdfs:range TS29571_CommonData:Dnn .
+
+TS29520_Nnwdaf_AnalyticsInfo:dnns a owl:ObjectProperty ;
+    rdfs:label "dnns" ;
+    rdfs:comment "Property representing the dnns." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:Dnn .
+
+TS29520_Nnwdaf_AnalyticsInfo:endTime a owl:ObjectProperty ;
+    rdfs:label "endTime" ;
+    rdfs:comment "Property representing the endTime." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29520_Nnwdaf_AnalyticsInfo:excepIds a owl:ObjectProperty ;
+    rdfs:label "excepIds" ;
+    rdfs:comment "Property representing the excepIds." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:ExceptionId .
+
+TS29520_Nnwdaf_AnalyticsInfo:expiry a owl:ObjectProperty ;
+    rdfs:label "expiry" ;
+    rdfs:comment "Property representing the expiry." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29520_Nnwdaf_AnalyticsInfo:exptAnaType a owl:ObjectProperty ;
+    rdfs:label "exptAnaType" ;
+    rdfs:comment "Property representing the exptAnaType." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:ExpectedAnalyticsType .
+
+TS29520_Nnwdaf_AnalyticsInfo:highLevel a owl:ObjectProperty ;
+    rdfs:label "highLevel" ;
+    rdfs:comment "Property representing the highLevel." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SmcceUeList ;
+    rdfs:range TS29571_CommonData:Supi .
+
+TS29520_Nnwdaf_AnalyticsInfo:histAnalytics a owl:ObjectProperty ;
+    rdfs:label "histAnalytics" ;
+    rdfs:comment "Property representing the histAnalytics." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:EventNotification .
+
+TS29520_Nnwdaf_AnalyticsInfo:histData a owl:ObjectProperty ;
+    rdfs:label "histData" ;
+    rdfs:comment "Property representing the histData." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:HistoricalData .
+
+TS29520_Nnwdaf_AnalyticsInfo:ladnDnns a owl:ObjectProperty ;
+    rdfs:label "ladnDnns" ;
+    rdfs:comment "Property representing the ladnDnns." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:Dnn .
+
+TS29520_Nnwdaf_AnalyticsInfo:lastOutputTime a owl:ObjectProperty ;
+    rdfs:label "lastOutputTime" ;
+    rdfs:comment "Property representing the lastOutputTime." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29520_Nnwdaf_AnalyticsInfo:listOfAnaSubsets a owl:ObjectProperty ;
+    rdfs:label "listOfAnaSubsets" ;
+    rdfs:comment "Property representing the listOfAnaSubsets." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:AnalyticsSubset .
+
+TS29520_Nnwdaf_AnalyticsInfo:lowLevel a owl:ObjectProperty ;
+    rdfs:label "lowLevel" ;
+    rdfs:comment "Property representing the lowLevel." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SmcceUeList ;
+    rdfs:range TS29571_CommonData:Supi .
+
+TS29520_Nnwdaf_AnalyticsInfo:maxTopAppDlNbr a owl:DatatypeProperty ;
+    rdfs:label "maxTopAppDlNbr" ;
+    rdfs:comment "Property representing the maxTopAppDlNbr." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:Uinteger .
+
+TS29520_Nnwdaf_AnalyticsInfo:maxTopAppUlNbr a owl:DatatypeProperty ;
+    rdfs:label "maxTopAppUlNbr" ;
+    rdfs:comment "Property representing the maxTopAppUlNbr." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:Uinteger .
+
+TS29520_Nnwdaf_AnalyticsInfo:mediumLevel a owl:ObjectProperty ;
+    rdfs:label "mediumLevel" ;
+    rdfs:comment "Property representing the mediumLevel." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SmcceUeList ;
+    rdfs:range TS29571_CommonData:Supi .
+
+TS29520_Nnwdaf_AnalyticsInfo:modelInfo a owl:ObjectProperty ;
+    rdfs:label "modelInfo" ;
+    rdfs:comment "Property representing the modelInfo." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:ModelInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:nfInstanceIds a owl:ObjectProperty ;
+    rdfs:label "nfInstanceIds" ;
+    rdfs:comment "Property representing the nfInstanceIds." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
+
+TS29520_Nnwdaf_AnalyticsInfo:nfLoadLevelInfos a owl:ObjectProperty ;
+    rdfs:label "nfLoadLevelInfos" ;
+    rdfs:comment "Property representing the nfLoadLevelInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
+
+TS29520_Nnwdaf_AnalyticsInfo:nfSetIds a owl:ObjectProperty ;
+    rdfs:label "nfSetIds" ;
+    rdfs:comment "Property representing the nfSetIds." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:NfSetId .
+
+TS29520_Nnwdaf_AnalyticsInfo:nsiIdInfos a owl:ObjectProperty ;
+    rdfs:label "nsiIdInfos" ;
+    rdfs:comment "Property representing the nsiIdInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:NsiIdInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:nsiLoadLevelInfos a owl:ObjectProperty ;
+    rdfs:label "nsiLoadLevelInfos" ;
+    rdfs:comment "Property representing the nsiLoadLevelInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:nwPerfTypes a owl:ObjectProperty ;
+    rdfs:label "nwPerfTypes" ;
+    rdfs:comment "Property representing the nwPerfTypes." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:NetworkPerfType .
+
+TS29520_Nnwdaf_AnalyticsInfo:nwPerfs a owl:ObjectProperty ;
+    rdfs:label "nwPerfs" ;
+    rdfs:comment "Property representing the nwPerfs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:nwdafEvSub a owl:ObjectProperty ;
+    rdfs:label "nwdafEvSub" ;
+    rdfs:comment "Property representing the nwdafEvSub." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription .
+
+TS29520_Nnwdaf_AnalyticsInfo:pendAnalytics a owl:ObjectProperty ;
+    rdfs:label "pendAnalytics" ;
+    rdfs:comment "Property representing the pendAnalytics." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:EventNotification .
+
+TS29520_Nnwdaf_AnalyticsInfo:producerId a owl:ObjectProperty ;
+    rdfs:label "producerId" ;
+    rdfs:comment "Property representing the producerId." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription,
+        TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
+
+TS29520_Nnwdaf_AnalyticsInfo:producerSetId a owl:ObjectProperty ;
+    rdfs:label "producerSetId" ;
+    rdfs:comment "Property representing the producerSetId." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription,
+        TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription ;
+    rdfs:range TS29571_CommonData:NfSetId .
+
+TS29520_Nnwdaf_AnalyticsInfo:qosRequ a owl:ObjectProperty ;
+    rdfs:label "qosRequ" ;
+    rdfs:comment "Property representing the qosRequ." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:QosRequirement .
+
+TS29520_Nnwdaf_AnalyticsInfo:qosSustainInfos a owl:ObjectProperty ;
+    rdfs:label "qosSustainInfos" ;
+    rdfs:comment "Property representing the qosSustainInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:QosSustainabilityInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:ratFreqs a owl:ObjectProperty ;
+    rdfs:label "ratFreqs" ;
+    rdfs:comment "Property representing the ratFreqs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:RatFreqInformation .
+
+TS29520_Nnwdaf_AnalyticsInfo:redTransInfos a owl:ObjectProperty ;
+    rdfs:label "redTransInfos" ;
+    rdfs:comment "Property representing the redTransInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:redTransReqs a owl:ObjectProperty ;
+    rdfs:label "redTransReqs" ;
+    rdfs:comment "Property representing the redTransReqs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpReq .
+
+TS29520_Nnwdaf_AnalyticsInfo:rvWaitTime a owl:ObjectProperty ;
+    rdfs:label "rvWaitTime" ;
+    rdfs:comment "Property representing the rvWaitTime." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest ;
+    rdfs:range TS29571_CommonData:DurationSec .
+
+TS29520_Nnwdaf_AnalyticsInfo:sliceLoadLevelInfos a owl:ObjectProperty ;
+    rdfs:label "sliceLoadLevelInfos" ;
+    rdfs:comment "Property representing the sliceLoadLevelInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation .
+
+TS29520_Nnwdaf_AnalyticsInfo:smccExps a owl:ObjectProperty ;
+    rdfs:label "smccExps" ;
+    rdfs:comment "Property representing the smccExps." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:smcceUeList a owl:ObjectProperty ;
+    rdfs:label "smcceUeList" ;
+    rdfs:comment "Property representing the smcceUeList." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:SmcceUeList ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29520_Nnwdaf_AnalyticsInfo:snssai a owl:ObjectProperty ;
+    rdfs:label "snssai" ;
+    rdfs:comment "Property representing the snssai." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo ;
+    rdfs:range TS29571_CommonData:Snssai .
+
+TS29520_Nnwdaf_AnalyticsInfo:snssais a owl:ObjectProperty ;
+    rdfs:label "snssais" ;
+    rdfs:comment "Property representing the snssais." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29571_CommonData:Snssai .
+
+TS29520_Nnwdaf_AnalyticsInfo:start a owl:ObjectProperty ;
+    rdfs:label "start" ;
+    rdfs:comment "Property representing the start." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29520_Nnwdaf_AnalyticsInfo:startTime a owl:ObjectProperty ;
+    rdfs:label "startTime" ;
+    rdfs:comment "Property representing the startTime." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29520_Nnwdaf_AnalyticsInfo:subsWithSources a owl:ObjectProperty ;
+    rdfs:label "subsWithSources" ;
+    rdfs:comment "Property representing the subsWithSources." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
+    rdfs:range TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription .
+
+TS29520_Nnwdaf_AnalyticsInfo:subscriptionId a owl:DatatypeProperty ;
+    rdfs:label "subscriptionId" ;
+    rdfs:comment "Property representing the subscriptionId." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription,
+        TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription ;
+    rdfs:range xsd:string .
+
+TS29520_Nnwdaf_AnalyticsInfo:suppFeat a owl:ObjectProperty ;
+    rdfs:label "suppFeat" ;
+    rdfs:comment "Property representing the suppFeat." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29571_CommonData:SupportedFeatures .
+
+TS29520_Nnwdaf_AnalyticsInfo:svcExps a owl:ObjectProperty ;
+    rdfs:label "svcExps" ;
+    rdfs:comment "Property representing the svcExps." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:timeStampGen a owl:ObjectProperty ;
+    rdfs:label "timeStampGen" ;
+    rdfs:comment "Property representing the timeStampGen." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29520_Nnwdaf_AnalyticsInfo:ueComms a owl:ObjectProperty ;
+    rdfs:label "ueComms" ;
+    rdfs:comment "Property representing the ueComms." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+
+TS29520_Nnwdaf_AnalyticsInfo:ueMobs a owl:ObjectProperty ;
+    rdfs:label "ueMobs" ;
+    rdfs:comment "Property representing the ueMobs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:UeMobility .
+
+TS29520_Nnwdaf_AnalyticsInfo:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:Nnwdaf_AnalyticsInfo ;
+    rdfs:range xsd:string .
+
+TS29520_Nnwdaf_AnalyticsInfo:userDataCongInfos a owl:ObjectProperty ;
+    rdfs:label "userDataCongInfos" ;
+    rdfs:comment "Property representing the userDataCongInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:Nnwdaf_AnalyticsInfo ;
+    rdfs:range xsd:string .
+
+TS29520_Nnwdaf_AnalyticsInfo:wlanInfos a owl:ObjectProperty ;
+    rdfs:label "wlanInfos" ;
+    rdfs:comment "Property representing the wlanInfos." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:WlanPerformanceInfo .
+
+TS29520_Nnwdaf_AnalyticsInfo:wlanReqs a owl:ObjectProperty ;
+    rdfs:label "wlanReqs" ;
+    rdfs:comment "Property representing the wlanReqs." ;
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:EventFilter ;
+    rdfs:range TS29520_Nnwdaf_EventsSubscription:WlanPerformanceReq .
+
+TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest a owl:Class ;
+    rdfs:label "AdditionInfoAnalyticsInfoRequest" ;
+    rdfs:comment "Indicates additional information why the analytics request is rejected." .
+
+TS29520_Nnwdaf_AnalyticsInfo:ContextData a owl:Class ;
+    rdfs:label "ContextData" ;
+    rdfs:comment """Contains context information related to analytics subscriptions corresponding with one or  more context identifiers.
+""" .
+
+TS29520_Nnwdaf_AnalyticsInfo:ContextIdList a owl:Class ;
+    rdfs:label "ContextIdList" ;
+    rdfs:comment """Contains a list of context identifiers of context information of analytics subscriptions.
+""" .
+
+TS29520_Nnwdaf_AnalyticsInfo:RequestedContext a owl:Class ;
+    rdfs:label "RequestedContext" ;
+    rdfs:comment "Contains types of analytics context information." .
+
+TS29520_Nnwdaf_AnalyticsInfo:Nnwdaf_AnalyticsInfo a owl:Class ;
+    rdfs:label "Nnwdaf_AnalyticsInfo" ;
+    rdfs:comment "Class representing the Nnwdaf_AnalyticsInfo document metadata." .
+
+TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo a owl:Class ;
+    rdfs:label "SmcceInfo" ;
+    rdfs:comment "Represents the Session Management congestion control experience information." .
+
+TS29520_Nnwdaf_AnalyticsInfo:SmcceUeList a owl:Class ;
+    rdfs:label "SmcceUeList" ;
+    rdfs:comment """Represents the List of UEs classified based on experience level of Session Management  congestion control.
+""" .
+
+TS29520_Nnwdaf_AnalyticsInfo:HistoricalData a owl:Class ;
+    rdfs:label "HistoricalData" ;
+    rdfs:comment "Contains historical data related to an analytics subscription." .
+
+TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription a owl:Class ;
+    rdfs:label "SpecificAnalyticsSubscription" ;
+    rdfs:comment """Represents an existing subscription for a specific type of analytics to a specific NWDAF.
+""" .
+
+TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription a owl:Class ;
+    rdfs:label "SpecificDataSubscription" ;
+    rdfs:comment """Represents an existing subscription for data collection to a specific data source NF.
+""" .
+
+TS29520_Nnwdaf_AnalyticsInfo:ContextElement a owl:Class ;
+    rdfs:label "ContextElement" ;
+    rdfs:comment "Contains context information corresponding with a specific context identifier." .
+
+TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData a owl:Class ;
+    rdfs:label "AnalyticsData" ;
+    rdfs:comment """Represents the description of analytics with parameters as relevant for the requesting NF  service consumer.
+""" .
+
+TS29520_Nnwdaf_AnalyticsInfo:EventFilter a owl:Class ;
+    rdfs:label "EventFilter" ;
+    rdfs:comment "Represents the event filters used to identify the requested analytics." .
+

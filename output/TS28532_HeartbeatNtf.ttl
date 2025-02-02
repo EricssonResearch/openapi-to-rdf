@@ -1,0 +1,42 @@
+@prefix TS28532_HeartbeatNtf: <http://ericsson.com/models/3gpp/rdf/TS28532_HeartbeatNtf.yaml#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28532_HeartbeatNtf:HeartbeatNotificationTypes a owl:Class ;
+    rdfs:label "HeartbeatNotificationTypes" ;
+    rdfs:comment "Enumeration of HeartbeatNotificationTypes values." ;
+    owl:oneOf ( TS28532_HeartbeatNtf:notifyHeartbeat ) .
+
+TS28532_HeartbeatNtf:HeartbeatnotificationInstance a TS28532_HeartbeatNtf:Heartbeatnotification ;
+    TS28532_HeartbeatNtf:description "OAS 3.0.1 definition of the heartbeat notification © 2023, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28532_HeartbeatNtf:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.6532/" ;
+    TS28532_HeartbeatNtf:version "18.1.0" .
+
+TS28532_HeartbeatNtf:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28532_HeartbeatNtf:Heartbeatnotification ;
+    rdfs:range xsd:string .
+
+TS28532_HeartbeatNtf:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28532_HeartbeatNtf:Heartbeatnotification ;
+    rdfs:range xsd:string .
+
+TS28532_HeartbeatNtf:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28532_HeartbeatNtf:Heartbeatnotification ;
+    rdfs:range xsd:string .
+
+TS28532_HeartbeatNtf:notifyHeartbeat a owl:NamedIndividual ;
+    rdfs:label "notifyHeartbeat" ;
+    rdfs:comment "Indicates that the HeartbeatNotificationTypes value is notifyHeartbeat." .
+
+TS28532_HeartbeatNtf:Heartbeatnotification a owl:Class ;
+    rdfs:label "Heartbeat notification" ;
+    rdfs:comment "Class representing the Heartbeat notification document metadata." .
+

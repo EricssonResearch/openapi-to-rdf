@@ -1,0 +1,1227 @@
+@prefix TS29512_Npcf_SMPolicyControl: <http://ericsson.com/models/3gpp/rdf/TS29512_Npcf_SMPolicyControl#> .
+@prefix TS29514_Npcf_PolicyAuthorization: <http://ericsson.com/models/3gpp/rdf/TS29514_Npcf_PolicyAuthorization.yaml#> .
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/rdf/TS29571_CommonData#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29514_Npcf_PolicyAuthorization:Npcf_PolicyAuthorizationServiceAPIInstance a TS29514_Npcf_PolicyAuthorization:Npcf_PolicyAuthorizationServiceAPI ;
+    TS29514_Npcf_PolicyAuthorization:description """PCF Policy Authorization Service.
+© 2021, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).
+All rights reserved.
+""" ;
+    TS29514_Npcf_PolicyAuthorization:url "http://www.3gpp.org/ftp/Specs/archive/29_series/29.514/" ;
+    TS29514_Npcf_PolicyAuthorization:version "1.1.5" .
+
+TS29514_Npcf_PolicyAuthorization:accNetChaIdValue a owl:ObjectProperty ;
+    rdfs:label "accNetChaIdValue" ;
+    rdfs:comment "Property representing the accNetChaIdValue." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier ;
+    rdfs:range TS29571_CommonData:ChargingId ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:accessType a owl:ObjectProperty ;
+    rdfs:label "accessType" ;
+    rdfs:comment "Property representing the accessType." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:AccessType .
+
+TS29514_Npcf_PolicyAuthorization:addAccessInfo a owl:ObjectProperty ;
+    rdfs:label "addAccessInfo" ;
+    rdfs:comment "Property representing the addAccessInfo." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
+
+TS29514_Npcf_PolicyAuthorization:addrPreserInd a owl:DatatypeProperty ;
+    rdfs:label "addrPreserInd" ;
+    rdfs:comment "Property representing the addrPreserInd." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range xsd:boolean .
+
+TS29514_Npcf_PolicyAuthorization:afAppId a owl:ObjectProperty ;
+    rdfs:label "afAppId" ;
+    rdfs:comment "Property representing the afAppId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData,
+        TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfAppId .
+
+TS29514_Npcf_PolicyAuthorization:afChargId a owl:ObjectProperty ;
+    rdfs:label "afChargId" ;
+    rdfs:comment "Property representing the afChargId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData ;
+    rdfs:range TS29571_CommonData:ApplicationChargingId .
+
+TS29514_Npcf_PolicyAuthorization:afReqData a owl:ObjectProperty ;
+    rdfs:label "afReqData" ;
+    rdfs:comment "Property representing the afReqData." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfRequestedData .
+
+TS29514_Npcf_PolicyAuthorization:afRoutReq a owl:ObjectProperty ;
+    rdfs:label "afRoutReq" ;
+    rdfs:comment "Property representing the afRoutReq." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData,
+        TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm .
+
+TS29514_Npcf_PolicyAuthorization:afSigProtocol a owl:ObjectProperty ;
+    rdfs:label "afSigProtocol" ;
+    rdfs:comment "Property representing the afSigProtocol." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AfSigProtocol .
+
+TS29514_Npcf_PolicyAuthorization:altSerReq a owl:DatatypeProperty ;
+    rdfs:label "altSerReq" ;
+    rdfs:comment "Property representing the altSerReq." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo,
+        TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:altSerReqs a owl:DatatypeProperty ;
+    rdfs:label "altSerReqs" ;
+    rdfs:comment "Property representing the altSerReqs." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:anChargAddr a owl:ObjectProperty ;
+    rdfs:label "anChargAddr" ;
+    rdfs:comment "Property representing the anChargAddr." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AccNetChargingAddress .
+
+TS29514_Npcf_PolicyAuthorization:anChargIds a owl:ObjectProperty ;
+    rdfs:label "anChargIds" ;
+    rdfs:comment "Property representing the anChargIds." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier .
+
+TS29514_Npcf_PolicyAuthorization:anGwAddr a owl:ObjectProperty ;
+    rdfs:label "anGwAddr" ;
+    rdfs:comment "Property representing the anGwAddr." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AnGwAddress .
+
+TS29514_Npcf_PolicyAuthorization:anGwIpv4Addr a owl:ObjectProperty ;
+    rdfs:label "anGwIpv4Addr" ;
+    rdfs:comment "Property representing the anGwIpv4Addr." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AnGwAddress ;
+    rdfs:range TS29571_CommonData:Ipv4Addr .
+
+TS29514_Npcf_PolicyAuthorization:anGwIpv6Addr a owl:ObjectProperty ;
+    rdfs:label "anGwIpv6Addr" ;
+    rdfs:comment "Property representing the anGwIpv6Addr." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AnGwAddress ;
+    rdfs:range TS29571_CommonData:Ipv6Addr .
+
+TS29514_Npcf_PolicyAuthorization:appReloc a owl:DatatypeProperty ;
+    rdfs:label "appReloc" ;
+    rdfs:comment "Property representing the appReloc." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range xsd:boolean .
+
+TS29514_Npcf_PolicyAuthorization:ascReqData a owl:ObjectProperty ;
+    rdfs:label "ascReqData" ;
+    rdfs:comment "Property representing the ascReqData." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContext,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateDataPatch ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData .
+
+TS29514_Npcf_PolicyAuthorization:ascRespData a owl:ObjectProperty ;
+    rdfs:label "ascRespData" ;
+    rdfs:comment "Property representing the ascRespData." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContext ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData .
+
+TS29514_Npcf_PolicyAuthorization:aspId a owl:ObjectProperty ;
+    rdfs:label "aspId" ;
+    rdfs:comment "Property representing the aspId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AspId .
+
+TS29514_Npcf_PolicyAuthorization:burstArrivalTime a owl:ObjectProperty ;
+    rdfs:label "burstArrivalTime" ;
+    rdfs:comment "Property representing the burstArrivalTime." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29514_Npcf_PolicyAuthorization:codecs a owl:ObjectProperty ;
+    rdfs:label "codecs" ;
+    rdfs:comment "Property representing the codecs." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:CodecData .
+
+TS29514_Npcf_PolicyAuthorization:contVer a owl:ObjectProperty ;
+    rdfs:label "contVer" ;
+    rdfs:comment "Property representing the contVer." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ContentVersion .
+
+TS29514_Npcf_PolicyAuthorization:contVers a owl:ObjectProperty ;
+    rdfs:label "contVers" ;
+    rdfs:comment "Property representing the contVers." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Flows ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ContentVersion .
+
+TS29514_Npcf_PolicyAuthorization:desMaxLatency a owl:DatatypeProperty ;
+    rdfs:label "desMaxLatency" ;
+    rdfs:comment "Property representing the desMaxLatency." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:Float,
+        TS29571_CommonData:FloatRm .
+
+TS29514_Npcf_PolicyAuthorization:desMaxLoss a owl:DatatypeProperty ;
+    rdfs:label "desMaxLoss" ;
+    rdfs:comment "Property representing the desMaxLoss." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:Float,
+        TS29571_CommonData:FloatRm .
+
+TS29514_Npcf_PolicyAuthorization:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Npcf_PolicyAuthorizationServiceAPI ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:destMacAddr a owl:ObjectProperty ;
+    rdfs:label "destMacAddr" ;
+    rdfs:comment "Property representing the destMacAddr." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range TS29571_CommonData:MacAddr48 .
+
+TS29514_Npcf_PolicyAuthorization:destMacAddrEnd a owl:ObjectProperty ;
+    rdfs:label "destMacAddrEnd" ;
+    rdfs:comment "Property representing the destMacAddrEnd." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range TS29571_CommonData:MacAddr48 .
+
+TS29514_Npcf_PolicyAuthorization:disUeNotif a owl:DatatypeProperty ;
+    rdfs:label "disUeNotif" ;
+    rdfs:comment "Property representing the disUeNotif." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:boolean .
+
+TS29514_Npcf_PolicyAuthorization:dlDelays a owl:DatatypeProperty ;
+    rdfs:label "dlDelays" ;
+    rdfs:comment "Property representing the dlDelays." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:dnn a owl:ObjectProperty ;
+    rdfs:label "dnn" ;
+    rdfs:comment "Property representing the dnn." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData ;
+    rdfs:range TS29571_CommonData:Dnn .
+
+TS29514_Npcf_PolicyAuthorization:ethType a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "ethType" ;
+    rdfs:comment "Property representing the ethType." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:ethfDescs a owl:ObjectProperty ;
+    rdfs:label "ethfDescs" ;
+    rdfs:comment "Property representing the ethfDescs." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+
+TS29514_Npcf_PolicyAuthorization:evNotifs a owl:ObjectProperty ;
+    rdfs:label "evNotifs" ;
+    rdfs:comment "Property representing the evNotifs." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfEventNotification ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:evSubsUri a owl:ObjectProperty ;
+    rdfs:label "evSubsUri" ;
+    rdfs:comment "Property representing the evSubsUri." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:Uri ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:evSubsc a owl:ObjectProperty ;
+    rdfs:label "evSubsc" ;
+    rdfs:comment "Property representing the evSubsc." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm .
+
+TS29514_Npcf_PolicyAuthorization:event a owl:ObjectProperty ;
+    rdfs:label "event" ;
+    rdfs:comment "Property representing the event." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventNotification,
+        TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfEvent ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:events a owl:ObjectProperty ;
+    rdfs:label "events" ;
+    rdfs:comment "Property representing the events." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:evsNotif a owl:ObjectProperty ;
+    rdfs:label "evsNotif" ;
+    rdfs:comment "Property representing the evsNotif." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContext ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:EventsNotification .
+
+TS29514_Npcf_PolicyAuthorization:fDesc a owl:ObjectProperty ;
+    rdfs:label "fDesc" ;
+    rdfs:comment "Property representing the fDesc." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:FlowDescription .
+
+TS29514_Npcf_PolicyAuthorization:fDescs a owl:ObjectProperty ;
+    rdfs:label "fDescs" ;
+    rdfs:comment "Property representing the fDescs." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:FlowDescription .
+
+TS29514_Npcf_PolicyAuthorization:fDir a owl:ObjectProperty ;
+    rdfs:label "fDir" ;
+    rdfs:comment "Property representing the fDir." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:FlowDirection .
+
+TS29514_Npcf_PolicyAuthorization:fNum a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "fNum" ;
+    rdfs:comment "Property representing the fNum." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range xsd:integer ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:fNums a owl:DatatypeProperty ;
+    rdfs:label "fNums" ;
+    rdfs:comment "Property representing the fNums." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Flows ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:fStatus a owl:ObjectProperty ;
+    rdfs:label "fStatus" ;
+    rdfs:comment "Property representing the fStatus." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:FlowStatus .
+
+TS29514_Npcf_PolicyAuthorization:failedResourcAllocReports a owl:ObjectProperty ;
+    rdfs:label "failedResourcAllocReports" ;
+    rdfs:comment "Property representing the failedResourcAllocReports." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo .
+
+TS29514_Npcf_PolicyAuthorization:flowUsage a owl:ObjectProperty ;
+    rdfs:label "flowUsage" ;
+    rdfs:comment "Property representing the flowUsage." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:FlowUsage .
+
+TS29514_Npcf_PolicyAuthorization:flows a owl:ObjectProperty ;
+    rdfs:label "flows" ;
+    rdfs:comment "Property representing the flows." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier,
+        TS29514_Npcf_PolicyAuthorization:AfEventNotification,
+        TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation,
+        TS29514_Npcf_PolicyAuthorization:QosMonitoringReport,
+        TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo,
+        TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:Flows .
+
+TS29514_Npcf_PolicyAuthorization:flusId a owl:DatatypeProperty ;
+    rdfs:label "flusId" ;
+    rdfs:comment "Property representing the flusId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:gpsi a owl:ObjectProperty ;
+    rdfs:label "gpsi" ;
+    rdfs:comment "Property representing the gpsi." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+    rdfs:range TS29571_CommonData:Gpsi .
+
+TS29514_Npcf_PolicyAuthorization:ipDomain a owl:DatatypeProperty ;
+    rdfs:label "ipDomain" ;
+    rdfs:comment "Property representing the ipDomain." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:marBwDl a owl:ObjectProperty ;
+    rdfs:label "marBwDl" ;
+    rdfs:comment "Property representing the marBwDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo,
+        TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:marBwUl a owl:ObjectProperty ;
+    rdfs:label "marBwUl" ;
+    rdfs:comment "Property representing the marBwUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo,
+        TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:maxPacketLossRateDl a owl:ObjectProperty ;
+    rdfs:label "maxPacketLossRateDl" ;
+    rdfs:comment "Property representing the maxPacketLossRateDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:PacketLossRateRm .
+
+TS29514_Npcf_PolicyAuthorization:maxPacketLossRateUl a owl:ObjectProperty ;
+    rdfs:label "maxPacketLossRateUl" ;
+    rdfs:comment "Property representing the maxPacketLossRateUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:PacketLossRateRm .
+
+TS29514_Npcf_PolicyAuthorization:maxSuppBwDl a owl:ObjectProperty ;
+    rdfs:label "maxSuppBwDl" ;
+    rdfs:comment "Property representing the maxSuppBwDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:maxSuppBwUl a owl:ObjectProperty ;
+    rdfs:label "maxSuppBwUl" ;
+    rdfs:comment "Property representing the maxSuppBwUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:maxTscBurstSize a owl:ObjectProperty ;
+    rdfs:label "maxTscBurstSize" ;
+    rdfs:comment "Property representing the maxTscBurstSize." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer,
+        TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
+    rdfs:range TS29571_CommonData:ExtMaxDataBurstVol,
+        TS29571_CommonData:ExtMaxDataBurstVolRm .
+
+TS29514_Npcf_PolicyAuthorization:mcResourcStatus a owl:ObjectProperty ;
+    rdfs:label "mcResourcStatus" ;
+    rdfs:comment "Property representing the mcResourcStatus." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:MediaComponentResourcesStatus .
+
+TS29514_Npcf_PolicyAuthorization:mcVideoId a owl:DatatypeProperty ;
+    rdfs:label "mcVideoId" ;
+    rdfs:comment "Property representing the mcVideoId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:mcpttId a owl:DatatypeProperty ;
+    rdfs:label "mcpttId" ;
+    rdfs:comment "Property representing the mcpttId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:mcsId a owl:DatatypeProperty ;
+    rdfs:label "mcsId" ;
+    rdfs:comment "Property representing the mcsId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:medCompN a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "medCompN" ;
+    rdfs:comment "Property representing the medCompN." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Flows,
+        TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:integer ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:medType a owl:ObjectProperty ;
+    rdfs:label "medType" ;
+    rdfs:comment "Property representing the medType." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:MediaType .
+
+TS29514_Npcf_PolicyAuthorization:minDesBwDl a owl:ObjectProperty ;
+    rdfs:label "minDesBwDl" ;
+    rdfs:comment "Property representing the minDesBwDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:minDesBwUl a owl:ObjectProperty ;
+    rdfs:label "minDesBwUl" ;
+    rdfs:comment "Property representing the minDesBwUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:mirBwDl a owl:ObjectProperty ;
+    rdfs:label "mirBwDl" ;
+    rdfs:comment "Property representing the mirBwDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:mirBwUl a owl:ObjectProperty ;
+    rdfs:label "mirBwUl" ;
+    rdfs:comment "Property representing the mirBwUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:mpsId a owl:DatatypeProperty ;
+    rdfs:label "mpsId" ;
+    rdfs:comment "Property representing the mpsId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:noNetLocSupp a owl:ObjectProperty ;
+    rdfs:label "noNetLocSupp" ;
+    rdfs:comment "Property representing the noNetLocSupp." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:NetLocAccessSupport .
+
+TS29514_Npcf_PolicyAuthorization:notifCorreId a owl:DatatypeProperty ;
+    rdfs:label "notifCorreId" ;
+    rdfs:comment "Property representing the notifCorreId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:notifMethod a owl:ObjectProperty ;
+    rdfs:label "notifMethod" ;
+    rdfs:comment "Property representing the notifMethod." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AfNotifMethod .
+
+TS29514_Npcf_PolicyAuthorization:notifType a owl:ObjectProperty ;
+    rdfs:label "notifType" ;
+    rdfs:comment "Property representing the notifType." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:QosNotifType ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:notifUri a owl:ObjectProperty ;
+    rdfs:label "notifUri" ;
+    rdfs:comment "Property representing the notifUri." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range TS29571_CommonData:Uri ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:outOfCredReports a owl:ObjectProperty ;
+    rdfs:label "outOfCredReports" ;
+    rdfs:comment "Property representing the outOfCredReports." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation .
+
+TS29514_Npcf_PolicyAuthorization:pei a owl:ObjectProperty ;
+    rdfs:label "pei" ;
+    rdfs:comment "Property representing the pei." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+    rdfs:range TS29571_CommonData:Pei .
+
+TS29514_Npcf_PolicyAuthorization:periodicity a owl:DatatypeProperty ;
+    rdfs:label "periodicity" ;
+    rdfs:comment "Property representing the periodicity." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+    rdfs:range TS29571_CommonData:Uinteger .
+
+TS29514_Npcf_PolicyAuthorization:plmnId a owl:ObjectProperty ;
+    rdfs:label "plmnId" ;
+    rdfs:comment "Property representing the plmnId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:PlmnIdNid .
+
+TS29514_Npcf_PolicyAuthorization:preemptCap a owl:ObjectProperty ;
+    rdfs:label "preemptCap" ;
+    rdfs:comment "Property representing the preemptCap." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:PreemptionCapability,
+        TS29571_CommonData:PreemptionCapabilityRm .
+
+TS29514_Npcf_PolicyAuthorization:preemptControlInfo a owl:ObjectProperty ;
+    rdfs:label "preemptControlInfo" ;
+    rdfs:comment "Property representing the preemptControlInfo." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:PreemptionControlInformation,
+        TS29514_Npcf_PolicyAuthorization:PreemptionControlInformationRm .
+
+TS29514_Npcf_PolicyAuthorization:preemptVuln a owl:ObjectProperty ;
+    rdfs:label "preemptVuln" ;
+    rdfs:comment "Property representing the preemptVuln." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:PreemptionVulnerability,
+        TS29571_CommonData:PreemptionVulnerabilityRm .
+
+TS29514_Npcf_PolicyAuthorization:prioSharingInd a owl:ObjectProperty ;
+    rdfs:label "prioSharingInd" ;
+    rdfs:comment "Property representing the prioSharingInd." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:PrioritySharingIndicator .
+
+TS29514_Npcf_PolicyAuthorization:qncReports a owl:ObjectProperty ;
+    rdfs:label "qncReports" ;
+    rdfs:comment "Property representing the qncReports." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo .
+
+TS29514_Npcf_PolicyAuthorization:qosMon a owl:ObjectProperty ;
+    rdfs:label "qosMon" ;
+    rdfs:comment "Property representing the qosMon." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation,
+        TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm .
+
+TS29514_Npcf_PolicyAuthorization:qosMonReports a owl:ObjectProperty ;
+    rdfs:label "qosMonReports" ;
+    rdfs:comment "Property representing the qosMonReports." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:QosMonitoringReport .
+
+TS29514_Npcf_PolicyAuthorization:qosReference a owl:DatatypeProperty ;
+    rdfs:label "qosReference" ;
+    rdfs:comment "Property representing the qosReference." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:ranNasRelCauses a owl:ObjectProperty ;
+    rdfs:label "ranNasRelCauses" ;
+    rdfs:comment "Property representing the ranNasRelCauses." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:RanNasRelCause .
+
+TS29514_Npcf_PolicyAuthorization:ratType a owl:ObjectProperty ;
+    rdfs:label "ratType" ;
+    rdfs:comment "Property representing the ratType." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:RatType .
+
+TS29514_Npcf_PolicyAuthorization:relAccessInfo a owl:ObjectProperty ;
+    rdfs:label "relAccessInfo" ;
+    rdfs:comment "Property representing the relAccessInfo." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
+
+TS29514_Npcf_PolicyAuthorization:repPeriod a owl:ObjectProperty ;
+    rdfs:label "repPeriod" ;
+    rdfs:comment "Property representing the repPeriod." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    rdfs:range TS29571_CommonData:DurationSec .
+
+TS29514_Npcf_PolicyAuthorization:repThreshDl a owl:DatatypeProperty ;
+    rdfs:label "repThreshDl" ;
+    rdfs:comment "Property representing the repThreshDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation,
+        TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:repThreshRp a owl:DatatypeProperty ;
+    rdfs:label "repThreshRp" ;
+    rdfs:comment "Property representing the repThreshRp." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation,
+        TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:repThreshUl a owl:DatatypeProperty ;
+    rdfs:label "repThreshUl" ;
+    rdfs:comment "Property representing the repThreshUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation,
+        TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:reqAnis a owl:ObjectProperty ;
+    rdfs:label "reqAnis" ;
+    rdfs:comment "Property representing the reqAnis." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:RequiredAccessInfo .
+
+TS29514_Npcf_PolicyAuthorization:reqQosMonParams a owl:ObjectProperty ;
+    rdfs:label "reqQosMonParams" ;
+    rdfs:comment "Property representing the reqQosMonParams." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData,
+        TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:RequestedQosMonitoringParameter .
+
+TS29514_Npcf_PolicyAuthorization:resPrio a owl:ObjectProperty ;
+    rdfs:label "resPrio" ;
+    rdfs:comment "Property representing the resPrio." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData,
+        TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ReservPriority .
+
+TS29514_Npcf_PolicyAuthorization:resUri a owl:ObjectProperty ;
+    rdfs:label "resUri" ;
+    rdfs:comment "Property representing the resUri." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TerminationInfo ;
+    rdfs:range TS29571_CommonData:Uri ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:routeToLocs a owl:ObjectProperty ;
+    rdfs:label "routeToLocs" ;
+    rdfs:comment "Property representing the routeToLocs." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range TS29571_CommonData:RouteToLocation .
+
+TS29514_Npcf_PolicyAuthorization:rrBw a owl:ObjectProperty ;
+    rdfs:label "rrBw" ;
+    rdfs:comment "Property representing the rrBw." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:rsBw a owl:ObjectProperty ;
+    rdfs:label "rsBw" ;
+    rdfs:comment "Property representing the rsBw." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:BitRate,
+        TS29571_CommonData:BitRateRm .
+
+TS29514_Npcf_PolicyAuthorization:rtDelays a owl:DatatypeProperty ;
+    rdfs:label "rtDelays" ;
+    rdfs:comment "Property representing the rtDelays." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:servAuthInfo a owl:ObjectProperty ;
+    rdfs:label "servAuthInfo" ;
+    rdfs:comment "Property representing the servAuthInfo." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ServAuthInfo .
+
+TS29514_Npcf_PolicyAuthorization:servInfStatus a owl:ObjectProperty ;
+    rdfs:label "servInfStatus" ;
+    rdfs:comment "Property representing the servInfStatus." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ServiceInfoStatus .
+
+TS29514_Npcf_PolicyAuthorization:servUrn a owl:ObjectProperty ;
+    rdfs:label "servUrn" ;
+    rdfs:comment "Property representing the servUrn." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ServiceUrn .
+
+TS29514_Npcf_PolicyAuthorization:sharingKeyDl a owl:DatatypeProperty ;
+    rdfs:label "sharingKeyDl" ;
+    rdfs:comment "Property representing the sharingKeyDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:Uint32,
+        TS29571_CommonData:Uint32Rm .
+
+TS29514_Npcf_PolicyAuthorization:sharingKeyUl a owl:DatatypeProperty ;
+    rdfs:label "sharingKeyUl" ;
+    rdfs:comment "Property representing the sharingKeyUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:Uint32,
+        TS29571_CommonData:Uint32Rm .
+
+TS29514_Npcf_PolicyAuthorization:sipForkInd a owl:ObjectProperty ;
+    rdfs:label "sipForkInd" ;
+    rdfs:comment "Property representing the sipForkInd." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:SipForkingIndication .
+
+TS29514_Npcf_PolicyAuthorization:sliceInfo a owl:ObjectProperty ;
+    rdfs:label "sliceInfo" ;
+    rdfs:comment "Property representing the sliceInfo." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData ;
+    rdfs:range TS29571_CommonData:Snssai .
+
+TS29514_Npcf_PolicyAuthorization:sourceMacAddr a owl:ObjectProperty ;
+    rdfs:label "sourceMacAddr" ;
+    rdfs:comment "Property representing the sourceMacAddr." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range TS29571_CommonData:MacAddr48 .
+
+TS29514_Npcf_PolicyAuthorization:spVal a owl:ObjectProperty ;
+    rdfs:label "spVal" ;
+    rdfs:comment "Property representing the spVal." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:SpatialValidity,
+        TS29514_Npcf_PolicyAuthorization:SpatialValidityRm .
+
+TS29514_Npcf_PolicyAuthorization:sponId a owl:ObjectProperty ;
+    rdfs:label "sponId" ;
+    rdfs:comment "Property representing the sponId." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:SponId .
+
+TS29514_Npcf_PolicyAuthorization:sponStatus a owl:ObjectProperty ;
+    rdfs:label "sponStatus" ;
+    rdfs:comment "Property representing the sponStatus." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:SponsoringStatus .
+
+TS29514_Npcf_PolicyAuthorization:srcMacAddrEnd a owl:ObjectProperty ;
+    rdfs:label "srcMacAddrEnd" ;
+    rdfs:comment "Property representing the srcMacAddrEnd." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range TS29571_CommonData:MacAddr48 .
+
+TS29514_Npcf_PolicyAuthorization:startTime a owl:ObjectProperty ;
+    rdfs:label "startTime" ;
+    rdfs:comment "Property representing the startTime." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29514_Npcf_PolicyAuthorization:stopTime a owl:ObjectProperty ;
+    rdfs:label "stopTime" ;
+    rdfs:comment "Property representing the stopTime." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29514_Npcf_PolicyAuthorization:succResourcAllocReports a owl:ObjectProperty ;
+    rdfs:label "succResourcAllocReports" ;
+    rdfs:comment "Property representing the succResourcAllocReports." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo .
+
+TS29514_Npcf_PolicyAuthorization:supi a owl:ObjectProperty ;
+    rdfs:label "supi" ;
+    rdfs:comment "Property representing the supi." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData,
+        TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+    rdfs:range TS29571_CommonData:Supi .
+
+TS29514_Npcf_PolicyAuthorization:suppFeat a owl:ObjectProperty ;
+    rdfs:label "suppFeat" ;
+    rdfs:comment "Property representing the suppFeat." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
+    rdfs:range TS29571_CommonData:SupportedFeatures ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:tempVals a owl:ObjectProperty ;
+    rdfs:label "tempVals" ;
+    rdfs:comment "Property representing the tempVals." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TemporalValidity .
+
+TS29514_Npcf_PolicyAuthorization:termCause a owl:ObjectProperty ;
+    rdfs:label "termCause" ;
+    rdfs:comment "Property representing the termCause." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TerminationInfo ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TerminationCause ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:tosTrCl a owl:ObjectProperty ;
+    rdfs:label "tosTrCl" ;
+    rdfs:comment "Property representing the tosTrCl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TosTrafficClass,
+        TS29514_Npcf_PolicyAuthorization:TosTrafficClassRm .
+
+TS29514_Npcf_PolicyAuthorization:tscPackDelay a owl:ObjectProperty ;
+    rdfs:label "tscPackDelay" ;
+    rdfs:comment "Property representing the tscPackDelay." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer,
+        TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
+    rdfs:range TS29571_CommonData:PacketDelBudget,
+        TS29571_CommonData:PacketDelBudgetRm .
+
+TS29514_Npcf_PolicyAuthorization:tscPrioLevel a owl:ObjectProperty ;
+    rdfs:label "tscPrioLevel" ;
+    rdfs:comment "Property representing the tscPrioLevel." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer,
+        TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TscPriorityLevel,
+        TS29514_Npcf_PolicyAuthorization:TscPriorityLevelRm .
+
+TS29514_Npcf_PolicyAuthorization:tscaiInputDl a owl:ObjectProperty ;
+    rdfs:label "tscaiInputDl" ;
+    rdfs:comment "Property representing the tscaiInputDl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TscaiInputContainer .
+
+TS29514_Npcf_PolicyAuthorization:tscaiInputUl a owl:ObjectProperty ;
+    rdfs:label "tscaiInputUl" ;
+    rdfs:comment "Property representing the tscaiInputUl." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TscaiInputContainer .
+
+TS29514_Npcf_PolicyAuthorization:tsnBridgeInfo a owl:ObjectProperty ;
+    rdfs:label "tsnBridgeInfo" ;
+    rdfs:comment "Property representing the tsnBridgeInfo." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:tsnBridgeManCont a owl:ObjectProperty ;
+    rdfs:label "tsnBridgeManCont" ;
+    rdfs:comment "Property representing the tsnBridgeManCont." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData,
+        TS29514_Npcf_PolicyAuthorization:EventsNotification,
+        TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
+
+TS29514_Npcf_PolicyAuthorization:tsnPortManContDstt a owl:ObjectProperty ;
+    rdfs:label "tsnPortManContDstt" ;
+    rdfs:comment "Property representing the tsnPortManContDstt." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData,
+        TS29514_Npcf_PolicyAuthorization:EventsNotification,
+        TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
+
+TS29514_Npcf_PolicyAuthorization:tsnPortManContNwtts a owl:ObjectProperty ;
+    rdfs:label "tsnPortManContNwtts" ;
+    rdfs:comment "Property representing the tsnPortManContNwtts." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData,
+        TS29514_Npcf_PolicyAuthorization:EventsNotification,
+        TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
+
+TS29514_Npcf_PolicyAuthorization:tsnQos a owl:ObjectProperty ;
+    rdfs:label "tsnQos" ;
+    rdfs:comment "Property representing the tsnQos." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:TsnQosContainer,
+        TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm .
+
+TS29514_Npcf_PolicyAuthorization:ueIds a owl:ObjectProperty ;
+    rdfs:label "ueIds" ;
+    rdfs:comment "Property representing the ueIds." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:UeIdentityInfo .
+
+TS29514_Npcf_PolicyAuthorization:ueIpv4 a owl:ObjectProperty ;
+    rdfs:label "ueIpv4" ;
+    rdfs:comment "Property representing the ueIpv4." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData ;
+    rdfs:range TS29571_CommonData:Ipv4Addr .
+
+TS29514_Npcf_PolicyAuthorization:ueIpv6 a owl:ObjectProperty ;
+    rdfs:label "ueIpv6" ;
+    rdfs:comment "Property representing the ueIpv6." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData ;
+    rdfs:range TS29571_CommonData:Ipv6Addr .
+
+TS29514_Npcf_PolicyAuthorization:ueLoc a owl:ObjectProperty ;
+    rdfs:label "ueLoc" ;
+    rdfs:comment "Property representing the ueLoc." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:UserLocation .
+
+TS29514_Npcf_PolicyAuthorization:ueLocTime a owl:ObjectProperty ;
+    rdfs:label "ueLocTime" ;
+    rdfs:comment "Property representing the ueLocTime." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:DateTime .
+
+TS29514_Npcf_PolicyAuthorization:ueMac a owl:ObjectProperty ;
+    rdfs:label "ueMac" ;
+    rdfs:comment "Property representing the ueMac." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData ;
+    rdfs:range TS29571_CommonData:MacAddr48 .
+
+TS29514_Npcf_PolicyAuthorization:ueTimeZone a owl:ObjectProperty ;
+    rdfs:label "ueTimeZone" ;
+    rdfs:comment "Property representing the ueTimeZone." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:TimeZone .
+
+TS29514_Npcf_PolicyAuthorization:ulDelays a owl:DatatypeProperty ;
+    rdfs:label "ulDelays" ;
+    rdfs:comment "Property representing the ulDelays." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
+    rdfs:range xsd:integer .
+
+TS29514_Npcf_PolicyAuthorization:upPathChgSub a owl:ObjectProperty ;
+    rdfs:label "upPathChgSub" ;
+    rdfs:comment "Property representing the upPathChgSub." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement,
+        TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:UpPathChgEvent .
+
+TS29514_Npcf_PolicyAuthorization:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Npcf_PolicyAuthorizationServiceAPI ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Npcf_PolicyAuthorizationServiceAPI ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:vlanTags a owl:DatatypeProperty ;
+    rdfs:label "vlanTags" ;
+    rdfs:comment "Property representing the vlanTags." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string .
+
+TS29514_Npcf_PolicyAuthorization:waitTime a owl:ObjectProperty ;
+    rdfs:label "waitTime" ;
+    rdfs:comment "Property representing the waitTime." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    rdfs:range TS29571_CommonData:DurationSec .
+
+TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateDataPatch a owl:Class ;
+    rdfs:label "AppSessionContextUpdateDataPatch" ;
+    rdfs:comment "Identifies the modifications to an Individual Application Session Context and/or the modifications to the sub-resource Events Subscription." .
+
+TS29514_Npcf_PolicyAuthorization:accBwMedComps a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "accBwMedComps" ;
+    rdfs:comment "Property representing the accBwMedComps." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:accBwMedComps .
+
+TS29514_Npcf_PolicyAuthorization:medComponents a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "medComponents" ;
+    rdfs:comment "Property representing the medComponents." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData,
+        TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:medComponents .
+
+TS29514_Npcf_PolicyAuthorization:medSubComps a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "medSubComps" ;
+    rdfs:comment "Property representing the medSubComps." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent,
+        TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:medSubComps .
+
+TS29514_Npcf_PolicyAuthorization:presenceInfoList a owl:Class,
+        owl:ObjectProperty ;
+    rdfs:label "presenceInfoList" ;
+    rdfs:comment "Property representing the presenceInfoList." ;
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:SpatialValidity,
+        TS29514_Npcf_PolicyAuthorization:SpatialValidityRm ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:presenceInfoList ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation a owl:Class ;
+    rdfs:label "OutOfCreditInformation" ;
+    rdfs:comment "Indicates the SDFs without available credit and the corresponding termination action." .
+
+TS29514_Npcf_PolicyAuthorization:SpatialValidity a owl:Class ;
+    rdfs:label "SpatialValidity" ;
+    rdfs:comment "describes explicitly the route to an Application location" .
+
+TS29514_Npcf_PolicyAuthorization:SpatialValidityRm a owl:Class ;
+    rdfs:label "SpatialValidityRm" ;
+    rdfs:comment "this data type is defined in the same way as the SpatialValidity data type, but with the OpenAPI nullable property set to true" .
+
+TS29514_Npcf_PolicyAuthorization:TerminationInfo a owl:Class ;
+    rdfs:label "TerminationInfo" ;
+    rdfs:comment "indicates the cause for requesting the deletion of the Individual Application Session Context resource" .
+
+TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo a owl:Class ;
+    rdfs:label "AcceptableServiceInfo" ;
+    rdfs:comment "Indicates the maximum bandwidth that shall be authorized by the PCF." .
+
+TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier a owl:Class ;
+    rdfs:label "AccessNetChargingIdentifier" ;
+    rdfs:comment "Describes the access network charging identifier." .
+
+TS29514_Npcf_PolicyAuthorization:AfEventNotification a owl:Class ;
+    rdfs:label "AfEventNotification" ;
+    rdfs:comment "describes the event information delivered in the notification" .
+
+TS29514_Npcf_PolicyAuthorization:AnGwAddress a owl:Class ;
+    rdfs:label "AnGwAddress" ;
+    rdfs:comment "describes the address of the access network gateway control node" .
+
+TS29514_Npcf_PolicyAuthorization:AppSessionContext a owl:Class ;
+    rdfs:label "AppSessionContext" ;
+    rdfs:comment "Represents an Individual Application Session Context resource." .
+
+TS29514_Npcf_PolicyAuthorization:TemporalValidity a owl:Class ;
+    rdfs:label "TemporalValidity" ;
+    rdfs:comment "Indicates the time interval(s) during which the AF request is to be applied" .
+
+TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData a owl:Class ;
+    rdfs:label "AppSessionContextRespData" ;
+    rdfs:comment "Describes the authorization data of an Individual Application Session Context created by the PCF." .
+
+TS29514_Npcf_PolicyAuthorization:Flows a owl:Class ;
+    rdfs:label "Flows" ;
+    rdfs:comment "Identifies the flows" .
+
+TS29514_Npcf_PolicyAuthorization:Npcf_PolicyAuthorizationServiceAPI a owl:Class ;
+    rdfs:label "Npcf_PolicyAuthorization Service API" ;
+    rdfs:comment "Class representing the Npcf_PolicyAuthorization Service API document metadata." .
+
+TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge a owl:Class ;
+    rdfs:label "PduSessionTsnBridge" ;
+    rdfs:comment "Contains the new 5GS Bridge information and may contain the DS-TT port and/or NW-TT port management information." .
+
+TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation a owl:Class ;
+    rdfs:label "QosMonitoringInformation" ;
+    rdfs:comment "Indicates the QoS Monitoring information to report, i.e. UL and/or DL and or round trip delay." .
+
+TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm a owl:Class ;
+    rdfs:label "QosMonitoringInformationRm" ;
+    rdfs:comment "this data type is defined in the same way as the QosMonitoringInformation data type, but with the OpenAPI nullable property set to true." .
+
+TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo a owl:Class ;
+    rdfs:label "QosNotificationControlInfo" ;
+    rdfs:comment "Indicates whether the QoS targets for a GRB flow are not guaranteed or guaranteed again" .
+
+TS29514_Npcf_PolicyAuthorization:TscaiInputContainer a owl:Class ;
+    rdfs:label "TscaiInputContainer" ;
+    rdfs:comment "Indicates TSC Traffic pattern." .
+
+TS29514_Npcf_PolicyAuthorization:TsnQosContainer a owl:Class ;
+    rdfs:label "TsnQosContainer" ;
+    rdfs:comment "Indicates TSC Traffic QoS." .
+
+TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm a owl:Class ;
+    rdfs:label "TsnQosContainerRm" ;
+    rdfs:comment "Indicates removable TSC Traffic QoS." .
+
+TS29514_Npcf_PolicyAuthorization:UeIdentityInfo a owl:Class ;
+    rdfs:label "UeIdentityInfo" ;
+    rdfs:comment "Represents 5GS-Level UE identities." .
+
+TS29514_Npcf_PolicyAuthorization:AfEventSubscription a owl:Class ;
+    rdfs:label "AfEventSubscription" ;
+    rdfs:comment "describes the event information delivered in the subscription" .
+
+TS29514_Npcf_PolicyAuthorization:QosMonitoringReport a owl:Class ;
+    rdfs:label "QosMonitoringReport" ;
+    rdfs:comment "QoS Monitoring reporting information" .
+
+TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo a owl:Class ;
+    rdfs:label "ResourcesAllocationInfo" ;
+    rdfs:comment "describes the status of the PCC rule(s) related to certain media components." .
+
+TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData a owl:Class ;
+    rdfs:label "PcscfRestorationRequestData" ;
+    rdfs:comment "Indicates P-CSCF restoration." .
+
+TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement a owl:Class ;
+    rdfs:label "AfRoutingRequirement" ;
+    rdfs:comment "describes the event information delivered in the subscription" .
+
+TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm a owl:Class ;
+    rdfs:label "AfRoutingRequirementRm" ;
+    rdfs:comment "this data type is defined in the same way as the AfRoutingRequirement data type, but with the OpenAPI nullable property set to true and the spVal and tempVals attributes defined as removable." .
+
+TS29514_Npcf_PolicyAuthorization:EventsSubscReqData a owl:Class ;
+    rdfs:label "EventsSubscReqData" ;
+    rdfs:comment "Identifies the events the application subscribes to." .
+
+TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm a owl:Class ;
+    rdfs:label "EventsSubscReqDataRm" ;
+    rdfs:comment "this data type is defined in the same way as the EventsSubscReqData data type, but with the OpenAPI nullable property set to true." .
+
+TS29514_Npcf_PolicyAuthorization:EthFlowDescription a owl:Class ;
+    rdfs:label "EthFlowDescription" ;
+    rdfs:comment "Identifies an Ethernet flow" .
+
+TS29514_Npcf_PolicyAuthorization:MediaSubComponent a owl:Class ;
+    rdfs:label "MediaSubComponent" ;
+    rdfs:comment "Identifies a media subcomponent" .
+
+TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm a owl:Class ;
+    rdfs:label "MediaSubComponentRm" ;
+    rdfs:comment "This data type is defined in the same way as the MediaSubComponent data type, but with the OpenAPI nullable property set to true. Removable attributes marBwDl and marBwUl are defined with the corresponding removable data type." .
+
+TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData a owl:Class ;
+    rdfs:label "AppSessionContextUpdateData" ;
+    rdfs:comment "Identifies the modifications to the \"ascReqData\" property of an Individual Application Session Context which may include the modifications to the sub-resource Events Subscription." .
+
+TS29514_Npcf_PolicyAuthorization:EventsNotification a owl:Class ;
+    rdfs:label "EventsNotification" ;
+    rdfs:comment "describes the notification of a matched event" .
+
+TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData a owl:Class ;
+    rdfs:label "AppSessionContextReqData" ;
+    rdfs:comment "Identifies the service requirements of an Individual Application Session Context." .
+
+TS29514_Npcf_PolicyAuthorization:MediaComponent a owl:Class ;
+    rdfs:label "MediaComponent" ;
+    rdfs:comment "Identifies a media component." .
+
+TS29514_Npcf_PolicyAuthorization:MediaComponentRm a owl:Class ;
+    rdfs:label "MediaComponentRm" ;
+    rdfs:comment "This data type is defined in the same way as the MediaComponent data type, but with the OpenAPI nullable property set to true" .
+

@@ -1,0 +1,484 @@
+@prefix TS28111_FaultNrm: <http://ericsson.com/models/3gpp/rdf/TS28111_FaultNrm.yaml#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/rdf/TS28623_ComDefs#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28111_FaultNrm:AlarmListAlignmentRequirement a owl:Class ;
+    rdfs:label "AlarmListAlignmentRequirement" ;
+    rdfs:comment "Enumeration of AlarmListAlignmentRequirement values." ;
+    owl:oneOf ( TS28111_FaultNrm:ALIGNMENT_REQUIRED TS28111_FaultNrm:ALIGNMENT_NOT_REQUIRED ) .
+
+TS28111_FaultNrm:AlarmNotificationTypes a owl:Class ;
+    rdfs:label "AlarmNotificationTypes" ;
+    rdfs:comment "Enumeration of AlarmNotificationTypes values." ;
+    owl:oneOf ( TS28111_FaultNrm:notifyNewAlarm TS28111_FaultNrm:notifyChangedAlarm TS28111_FaultNrm:notifyChangedAlarmGeneral TS28111_FaultNrm:notifyAckStateChanged TS28111_FaultNrm:notifyCorrelatedNotificationChanged TS28111_FaultNrm:notifyComments TS28111_FaultNrm:notifyClearedAlarm TS28111_FaultNrm:notifyAlarmListRebuilt TS28111_FaultNrm:notifyPotentialFaultyAlarmList ) .
+
+TS28111_FaultNrm:Comments a owl:Class ;
+    rdfs:label "Comments" ;
+    rdfs:comment "Collection of comments. The comment identifiers are allocated by the MnS producer and used as key in the map." .
+
+TS28111_FaultNrm:FaultManagementNRMInstance a TS28111_FaultNrm:FaultManagementNRM ;
+    TS28111_FaultNrm:description "OAS 3.0.1 definition of the Fault Supervision MnS © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28111_FaultNrm:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.111/" ;
+    TS28111_FaultNrm:version "18.1.0" .
+
+TS28111_FaultNrm:ackState a owl:ObjectProperty ;
+    rdfs:label "ackState" ;
+    rdfs:comment "Property representing the ackState." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:AckState .
+
+TS28111_FaultNrm:ackSystemId a owl:DatatypeProperty ;
+    rdfs:label "ackSystemId" ;
+    rdfs:comment "Property representing the ackSystemId." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:ackTime a owl:ObjectProperty ;
+    rdfs:label "ackTime" ;
+    rdfs:comment "Property representing the ackTime." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:ackUserId a owl:DatatypeProperty ;
+    rdfs:label "ackUserId" ;
+    rdfs:comment "Property representing the ackUserId." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:additionalInformation a owl:ObjectProperty ;
+    rdfs:label "additionalInformation" ;
+    rdfs:comment "Property representing the additionalInformation." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28111_FaultNrm:additionalText a owl:DatatypeProperty ;
+    rdfs:label "additionalText" ;
+    rdfs:comment "Property representing the additionalText." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:alarmChangedTime a owl:ObjectProperty ;
+    rdfs:label "alarmChangedTime" ;
+    rdfs:comment "Property representing the alarmChangedTime." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:alarmClearedTime a owl:ObjectProperty ;
+    rdfs:label "alarmClearedTime" ;
+    rdfs:comment "Property representing the alarmClearedTime." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:alarmRaisedTime a owl:ObjectProperty ;
+    rdfs:label "alarmRaisedTime" ;
+    rdfs:comment "Property representing the alarmRaisedTime." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:alarmType a owl:ObjectProperty ;
+    rdfs:label "alarmType" ;
+    rdfs:comment "Property representing the alarmType." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:AlarmType .
+
+TS28111_FaultNrm:armTime a owl:ObjectProperty ;
+    rdfs:label "armTime" ;
+    rdfs:comment "Property representing the armTime." ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:backUpObject a owl:ObjectProperty ;
+    rdfs:label "backUpObject" ;
+    rdfs:comment "Property representing the backUpObject." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28111_FaultNrm:backedUpStatus a owl:DatatypeProperty ;
+    rdfs:label "backedUpStatus" ;
+    rdfs:comment "Property representing the backedUpStatus." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:boolean .
+
+TS28111_FaultNrm:clearSystemId a owl:DatatypeProperty ;
+    rdfs:label "clearSystemId" ;
+    rdfs:comment "Property representing the clearSystemId." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:clearUserId a owl:DatatypeProperty ;
+    rdfs:label "clearUserId" ;
+    rdfs:comment "Property representing the clearUserId." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:commentSystemId a owl:DatatypeProperty ;
+    rdfs:label "commentSystemId" ;
+    rdfs:comment "Property representing the commentSystemId." ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:commentText a owl:DatatypeProperty ;
+    rdfs:label "commentText" ;
+    rdfs:comment "Property representing the commentText." ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:commentTime a owl:ObjectProperty ;
+    rdfs:label "commentTime" ;
+    rdfs:comment "Property representing the commentTime." ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:commentUserId a owl:DatatypeProperty ;
+    rdfs:label "commentUserId" ;
+    rdfs:comment "Property representing the commentUserId." ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:correlatedNotifications a owl:ObjectProperty ;
+    rdfs:label "correlatedNotifications" ;
+    rdfs:comment "Property representing the correlatedNotifications." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:CorrelatedNotifications .
+
+TS28111_FaultNrm:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28111_FaultNrm:FaultManagementNRM ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:high a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "high" ;
+    rdfs:comment "Property representing the high." ;
+    rdfs:domain TS28111_FaultNrm:ThresholdHysteresis ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS28111_FaultNrm:low a owl:DatatypeProperty ;
+    rdfs:label "low" ;
+    rdfs:comment "Property representing the low." ;
+    rdfs:domain TS28111_FaultNrm:ThresholdHysteresis ;
+    rdfs:range TS28623_ComDefs:Float .
+
+TS28111_FaultNrm:monitoredAttributes a owl:ObjectProperty ;
+    rdfs:label "monitoredAttributes" ;
+    rdfs:comment "Property representing the monitoredAttributes." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28111_FaultNrm:notificationId a owl:ObjectProperty ;
+    rdfs:label "notificationId" ;
+    rdfs:comment "Property representing the notificationId." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:NotificationId .
+
+TS28111_FaultNrm:notificationIds a owl:ObjectProperty ;
+    rdfs:label "notificationIds" ;
+    rdfs:comment "Property representing the notificationIds." ;
+    rdfs:domain TS28111_FaultNrm:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:NotificationId ;
+    owl:minCardinality 1 .
+
+TS28111_FaultNrm:objectInstance a owl:ObjectProperty ;
+    rdfs:label "objectInstance" ;
+    rdfs:comment "Property representing the objectInstance." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28111_FaultNrm:observedMeasurement a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "observedMeasurement" ;
+    rdfs:comment "Property representing the observedMeasurement." ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range xsd:string ;
+    owl:minCardinality 1 .
+
+TS28111_FaultNrm:observedValue a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "observedValue" ;
+    rdfs:comment "Property representing the observedValue." ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range xsd:double ;
+    owl:minCardinality 1 .
+
+TS28111_FaultNrm:perceivedSeverity a owl:ObjectProperty ;
+    rdfs:label "perceivedSeverity" ;
+    rdfs:comment "Property representing the perceivedSeverity." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:PerceivedSeverity .
+
+TS28111_FaultNrm:probableCause a owl:ObjectProperty ;
+    rdfs:label "probableCause" ;
+    rdfs:comment "Property representing the probableCause." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:ProbableCause .
+
+TS28111_FaultNrm:proposedRepairActions a owl:DatatypeProperty ;
+    rdfs:label "proposedRepairActions" ;
+    rdfs:comment "Property representing the proposedRepairActions." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:resources_faultNrm a owl:Class ;
+    rdfs:label "resources faultNrm" ;
+    rdfs:comment "Represents a resource that can be one of several types related to resources faultNrm." ;
+    owl:oneOf ( TS28111_FaultNrm:AlarmList_Single ) .
+
+TS28111_FaultNrm:rootCauseIndicator a owl:DatatypeProperty ;
+    rdfs:label "rootCauseIndicator" ;
+    rdfs:comment "Property representing the rootCauseIndicator." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:boolean .
+
+TS28111_FaultNrm:securityAlarmDetector a owl:DatatypeProperty ;
+    rdfs:label "securityAlarmDetector" ;
+    rdfs:comment "Property representing the securityAlarmDetector." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:serviceProvider a owl:DatatypeProperty ;
+    rdfs:label "serviceProvider" ;
+    rdfs:comment "Property representing the serviceProvider." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:serviceUser a owl:DatatypeProperty ;
+    rdfs:label "serviceUser" ;
+    rdfs:comment "Property representing the serviceUser." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:sourceObjectInstance a owl:ObjectProperty ;
+    rdfs:label "sourceObjectInstance" ;
+    rdfs:comment "Property representing the sourceObjectInstance." ;
+    rdfs:domain TS28111_FaultNrm:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:Dn ;
+    owl:maxCardinality 1 ;
+    owl:minCardinality 1 .
+
+TS28111_FaultNrm:specificProblem a owl:ObjectProperty ;
+    rdfs:label "specificProblem" ;
+    rdfs:comment "Property representing the specificProblem." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:SpecificProblem .
+
+TS28111_FaultNrm:stateChangeDefinition a owl:ObjectProperty ;
+    rdfs:label "stateChangeDefinition" ;
+    rdfs:comment "Property representing the stateChangeDefinition." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:AttributeValueChangeSet .
+
+TS28111_FaultNrm:thresholdLevel a owl:ObjectProperty ;
+    rdfs:label "thresholdLevel" ;
+    rdfs:comment "Property representing the thresholdLevel." ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range TS28111_FaultNrm:ThresholdLevelInd .
+
+TS28111_FaultNrm:thresholdinfo a owl:ObjectProperty ;
+    rdfs:label "thresholdinfo" ;
+    rdfs:comment "Property representing the thresholdinfo." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:ThresholdInfo .
+
+TS28111_FaultNrm:trendIndication a owl:ObjectProperty ;
+    rdfs:label "trendIndication" ;
+    rdfs:comment "Property representing the trendIndication." ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:TrendIndication .
+
+TS28111_FaultNrm:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28111_FaultNrm:FaultManagementNRM ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28111_FaultNrm:FaultManagementNRM ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:ACKNOWLEDGED a owl:NamedIndividual ;
+    rdfs:label "ACKNOWLEDGED" ;
+    rdfs:comment "Indicates that the AckState value is ACKNOWLEDGED." .
+
+TS28111_FaultNrm:ALIGNMENT_NOT_REQUIRED a owl:NamedIndividual ;
+    rdfs:label "ALIGNMENT_NOT_REQUIRED" ;
+    rdfs:comment "Indicates that the AlarmListAlignmentRequirement value is ALIGNMENT_NOT_REQUIRED." .
+
+TS28111_FaultNrm:ALIGNMENT_REQUIRED a owl:NamedIndividual ;
+    rdfs:label "ALIGNMENT_REQUIRED" ;
+    rdfs:comment "Indicates that the AlarmListAlignmentRequirement value is ALIGNMENT_REQUIRED." .
+
+TS28111_FaultNrm:AckState a owl:Class ;
+    rdfs:label "AckState" ;
+    rdfs:comment "Enumeration of AckState values." ;
+    owl:oneOf ( TS28111_FaultNrm:ACKNOWLEDGED TS28111_FaultNrm:UNACKNOWLEDGED ) .
+
+TS28111_FaultNrm:AlarmType a owl:Class ;
+    rdfs:label "AlarmType" ;
+    rdfs:comment "Enumeration of AlarmType values." ;
+    owl:oneOf ( TS28111_FaultNrm:COMMUNICATIONS_ALARM TS28111_FaultNrm:QUALITY_OF_SERVICE_ALARM TS28111_FaultNrm:PROCESSING_ERROR_ALARM TS28111_FaultNrm:EQUIPMENT_ALARM TS28111_FaultNrm:ENVIRONMENTAL_ALARM TS28111_FaultNrm:INTEGRITY_VIOLATION TS28111_FaultNrm:OPERATIONAL_VIOLATION TS28111_FaultNrm:PHYSICAL_VIOLATION TS28111_FaultNrm:SECURITY_SERVICE_OR_MECHANISM_VIOLATION TS28111_FaultNrm:TIME_DOMAIN_VIOLATION ) .
+
+TS28111_FaultNrm:CLEARED a owl:NamedIndividual ;
+    rdfs:label "CLEARED" ;
+    rdfs:comment "Indicates that the PerceivedSeverity value is CLEARED." .
+
+TS28111_FaultNrm:COMMUNICATIONS_ALARM a owl:NamedIndividual ;
+    rdfs:label "COMMUNICATIONS_ALARM" ;
+    rdfs:comment "Indicates that the AlarmType value is COMMUNICATIONS_ALARM." .
+
+TS28111_FaultNrm:CRITICAL a owl:NamedIndividual ;
+    rdfs:label "CRITICAL" ;
+    rdfs:comment "Indicates that the PerceivedSeverity value is CRITICAL." .
+
+TS28111_FaultNrm:ENVIRONMENTAL_ALARM a owl:NamedIndividual ;
+    rdfs:label "ENVIRONMENTAL_ALARM" ;
+    rdfs:comment "Indicates that the AlarmType value is ENVIRONMENTAL_ALARM." .
+
+TS28111_FaultNrm:EQUIPMENT_ALARM a owl:NamedIndividual ;
+    rdfs:label "EQUIPMENT_ALARM" ;
+    rdfs:comment "Indicates that the AlarmType value is EQUIPMENT_ALARM." .
+
+TS28111_FaultNrm:INDETERMINATE a owl:NamedIndividual ;
+    rdfs:label "INDETERMINATE" ;
+    rdfs:comment "Indicates that the PerceivedSeverity value is INDETERMINATE." .
+
+TS28111_FaultNrm:INTEGRITY_VIOLATION a owl:NamedIndividual ;
+    rdfs:label "INTEGRITY_VIOLATION" ;
+    rdfs:comment "Indicates that the AlarmType value is INTEGRITY_VIOLATION." .
+
+TS28111_FaultNrm:LESS_SEVERE a owl:NamedIndividual ;
+    rdfs:label "LESS_SEVERE" ;
+    rdfs:comment "Indicates that the TrendIndication value is LESS_SEVERE." .
+
+TS28111_FaultNrm:MAJOR a owl:NamedIndividual ;
+    rdfs:label "MAJOR" ;
+    rdfs:comment "Indicates that the PerceivedSeverity value is MAJOR." .
+
+TS28111_FaultNrm:MINOR a owl:NamedIndividual ;
+    rdfs:label "MINOR" ;
+    rdfs:comment "Indicates that the PerceivedSeverity value is MINOR." .
+
+TS28111_FaultNrm:MORE_SEVERE a owl:NamedIndividual ;
+    rdfs:label "MORE_SEVERE" ;
+    rdfs:comment "Indicates that the TrendIndication value is MORE_SEVERE." .
+
+TS28111_FaultNrm:NO_CHANGE a owl:NamedIndividual ;
+    rdfs:label "NO_CHANGE" ;
+    rdfs:comment "Indicates that the TrendIndication value is NO_CHANGE." .
+
+TS28111_FaultNrm:OPERATIONAL_VIOLATION a owl:NamedIndividual ;
+    rdfs:label "OPERATIONAL_VIOLATION" ;
+    rdfs:comment "Indicates that the AlarmType value is OPERATIONAL_VIOLATION." .
+
+TS28111_FaultNrm:PHYSICAL_VIOLATION a owl:NamedIndividual ;
+    rdfs:label "PHYSICAL_VIOLATION" ;
+    rdfs:comment "Indicates that the AlarmType value is PHYSICAL_VIOLATION." .
+
+TS28111_FaultNrm:PROCESSING_ERROR_ALARM a owl:NamedIndividual ;
+    rdfs:label "PROCESSING_ERROR_ALARM" ;
+    rdfs:comment "Indicates that the AlarmType value is PROCESSING_ERROR_ALARM." .
+
+TS28111_FaultNrm:PerceivedSeverity a owl:Class ;
+    rdfs:label "PerceivedSeverity" ;
+    rdfs:comment "Enumeration of PerceivedSeverity values." ;
+    owl:oneOf ( TS28111_FaultNrm:INDETERMINATE TS28111_FaultNrm:CRITICAL TS28111_FaultNrm:MAJOR TS28111_FaultNrm:MINOR TS28111_FaultNrm:WARNING TS28111_FaultNrm:CLEARED ) .
+
+TS28111_FaultNrm:ProbableCause a owl:Class ;
+    rdfs:label "ProbableCause" ;
+    rdfs:comment "Represents a resource that can be one of several types related to ProbableCause." .
+
+TS28111_FaultNrm:QUALITY_OF_SERVICE_ALARM a owl:NamedIndividual ;
+    rdfs:label "QUALITY_OF_SERVICE_ALARM" ;
+    rdfs:comment "Indicates that the AlarmType value is QUALITY_OF_SERVICE_ALARM." .
+
+TS28111_FaultNrm:SECURITY_SERVICE_OR_MECHANISM_VIOLATION a owl:NamedIndividual ;
+    rdfs:label "SECURITY_SERVICE_OR_MECHANISM_VIOLATION" ;
+    rdfs:comment "Indicates that the AlarmType value is SECURITY_SERVICE_OR_MECHANISM_VIOLATION." .
+
+TS28111_FaultNrm:SpecificProblem a owl:Class ;
+    rdfs:label "SpecificProblem" ;
+    rdfs:comment "Represents a resource that can be one of several types related to SpecificProblem." .
+
+TS28111_FaultNrm:TIME_DOMAIN_VIOLATION a owl:NamedIndividual ;
+    rdfs:label "TIME_DOMAIN_VIOLATION" ;
+    rdfs:comment "Indicates that the AlarmType value is TIME_DOMAIN_VIOLATION." .
+
+TS28111_FaultNrm:ThresholdLevelInd a owl:Class ;
+    rdfs:label "ThresholdLevelInd" ;
+    rdfs:comment "Represents a resource that can be one of several types related to ThresholdLevelInd." .
+
+TS28111_FaultNrm:TrendIndication a owl:Class ;
+    rdfs:label "TrendIndication" ;
+    rdfs:comment "Enumeration of TrendIndication values." ;
+    owl:oneOf ( TS28111_FaultNrm:MORE_SEVERE TS28111_FaultNrm:NO_CHANGE TS28111_FaultNrm:LESS_SEVERE ) .
+
+TS28111_FaultNrm:UNACKNOWLEDGED a owl:NamedIndividual ;
+    rdfs:label "UNACKNOWLEDGED" ;
+    rdfs:comment "Indicates that the AckState value is UNACKNOWLEDGED." .
+
+TS28111_FaultNrm:WARNING a owl:NamedIndividual ;
+    rdfs:label "WARNING" ;
+    rdfs:comment "Indicates that the PerceivedSeverity value is WARNING." .
+
+TS28111_FaultNrm:notifyAckStateChanged a owl:NamedIndividual ;
+    rdfs:label "notifyAckStateChanged" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyAckStateChanged." .
+
+TS28111_FaultNrm:notifyAlarmListRebuilt a owl:NamedIndividual ;
+    rdfs:label "notifyAlarmListRebuilt" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyAlarmListRebuilt." .
+
+TS28111_FaultNrm:notifyChangedAlarm a owl:NamedIndividual ;
+    rdfs:label "notifyChangedAlarm" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyChangedAlarm." .
+
+TS28111_FaultNrm:notifyChangedAlarmGeneral a owl:NamedIndividual ;
+    rdfs:label "notifyChangedAlarmGeneral" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyChangedAlarmGeneral." .
+
+TS28111_FaultNrm:notifyClearedAlarm a owl:NamedIndividual ;
+    rdfs:label "notifyClearedAlarm" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyClearedAlarm." .
+
+TS28111_FaultNrm:notifyComments a owl:NamedIndividual ;
+    rdfs:label "notifyComments" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyComments." .
+
+TS28111_FaultNrm:notifyCorrelatedNotificationChanged a owl:NamedIndividual ;
+    rdfs:label "notifyCorrelatedNotificationChanged" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyCorrelatedNotificationChanged." .
+
+TS28111_FaultNrm:notifyNewAlarm a owl:NamedIndividual ;
+    rdfs:label "notifyNewAlarm" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyNewAlarm." .
+
+TS28111_FaultNrm:notifyPotentialFaultyAlarmList a owl:NamedIndividual ;
+    rdfs:label "notifyPotentialFaultyAlarmList" ;
+    rdfs:comment "Indicates that the AlarmNotificationTypes value is notifyPotentialFaultyAlarmList." .
+
+TS28111_FaultNrm:CorrelatedNotification a owl:Class ;
+    rdfs:label "CorrelatedNotification" .
+
+TS28111_FaultNrm:ThresholdHysteresis a owl:Class ;
+    rdfs:label "ThresholdHysteresis" .
+
+TS28111_FaultNrm:Comment a owl:Class ;
+    rdfs:label "Comment" .
+
+TS28111_FaultNrm:FaultManagementNRM a owl:Class ;
+    rdfs:label "Fault Management NRM" ;
+    rdfs:comment "Class representing the Fault Management NRM document metadata." .
+
+TS28111_FaultNrm:ThresholdInfo a owl:Class ;
+    rdfs:label "ThresholdInfo" .
+
+TS28111_FaultNrm:AlarmRecord a owl:Class ;
+    rdfs:label "AlarmRecord" ;
+    rdfs:comment "The alarmId is not a property of an alarm record. It is used as key in the map of alarm records instead." .
+

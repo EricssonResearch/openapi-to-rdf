@@ -1,0 +1,370 @@
+@prefix TS28538_EdgeNrm: <http://ericsson.com/models/3gpp/rdf/TS28538_EdgeNrm.yaml#> .
+@prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/rdf/TS28541_NrNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/rdf/TS28623_ComDefs#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28538_EdgeNrm:3GPPEdgeNRMInstance a TS28538_EdgeNrm:3GPPEdgeNRM ;
+    TS28538_EdgeNrm:description "OAS 3.0.1 specification of the Edge NRM © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved." ;
+    TS28538_EdgeNrm:url "http://www.3gpp.org/ftp/Specs/archive/28_series/28.538/" ;
+    TS28538_EdgeNrm:version "19.0.0" .
+
+TS28538_EdgeNrm:EASBundle a owl:ObjectProperty ;
+    rdfs:label "EASBundle" ;
+    rdfs:comment "Property representing the EASBundle." ;
+    rdfs:domain TS28538_EdgeNrm:SubNetwork_ncO_EdgeNrm ;
+    rdfs:range TS28538_EdgeNrm:EASBundle_Multiple .
+
+TS28538_EdgeNrm:EASServicePermission a owl:Class ;
+    rdfs:label "EASServicePermission" ;
+    rdfs:comment "Enumeration of EASServicePermission values." ;
+    owl:oneOf ( TS28538_EdgeNrm:TRIAL TS28538_EdgeNrm:SILVER TS28538_EdgeNrm:GOLD ) .
+
+TS28538_EdgeNrm:EASStatus a owl:Class ;
+    rdfs:label "EASStatus" ;
+    rdfs:comment "Enumeration of EASStatus values." ;
+    owl:oneOf ( TS28538_EdgeNrm:ENABLED TS28538_EdgeNrm:DISABLED ) .
+
+TS28538_EdgeNrm:ECSFunction a owl:ObjectProperty ;
+    rdfs:label "ECSFunction" ;
+    rdfs:comment "Property representing the ECSFunction." ;
+    rdfs:domain TS28538_EdgeNrm:SubNetwork_ncO_EdgeNrm ;
+    rdfs:range TS28538_EdgeNrm:ECSFunction_Multiple .
+
+TS28538_EdgeNrm:EdgeDataNetwork a owl:ObjectProperty ;
+    rdfs:label "EdgeDataNetwork" ;
+    rdfs:comment "Property representing the EdgeDataNetwork." ;
+    rdfs:domain TS28538_EdgeNrm:SubNetwork_ncO_EdgeNrm ;
+    rdfs:range TS28538_EdgeNrm:EdgeDataNetwork_Multiple .
+
+TS28538_EdgeNrm:affinityEAS a owl:DatatypeProperty ;
+    rdfs:label "affinityEAS" ;
+    rdfs:comment "Property representing the affinityEAS." ;
+    rdfs:domain TS28538_EdgeNrm:AffinityAntiAffinity ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:antiAffinityEAS a owl:DatatypeProperty ;
+    rdfs:label "antiAffinityEAS" ;
+    rdfs:comment "Property representing the antiAffinityEAS." ;
+    rdfs:domain TS28538_EdgeNrm:AffinityAntiAffinity ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:cellIdList a owl:DatatypeProperty ;
+    rdfs:label "cellIdList" ;
+    rdfs:comment "Property representing the cellIdList." ;
+    rdfs:domain TS28538_EdgeNrm:TopologicalServiceArea ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:civicLocation a owl:DatatypeProperty ;
+    rdfs:label "civicLocation" ;
+    rdfs:comment "Property representing the civicLocation." ;
+    rdfs:domain TS28538_EdgeNrm:GeoLoc ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:computeRequirement a owl:DatatypeProperty ;
+    rdfs:label "computeRequirement" ;
+    rdfs:comment "Property representing the computeRequirement." ;
+    rdfs:domain TS28538_EdgeNrm:ResourceReservationRequirement ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:dNN a owl:DatatypeProperty ;
+    rdfs:label "dNN" ;
+    rdfs:comment "Property representing the dNN." ;
+    rdfs:domain TS28538_EdgeNrm:EDNConnectionInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:description a owl:DatatypeProperty ;
+    rdfs:label "Description" ;
+    rdfs:comment "A description of the document." ;
+    rdfs:domain TS28538_EdgeNrm:3GPPEdgeNRM ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:discFormat a owl:DatatypeProperty ;
+    rdfs:label "discFormat" ;
+    rdfs:comment "Property representing the discFormat." ;
+    rdfs:domain TS28538_EdgeNrm:SoftwareImageInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:eDNServiceArea a owl:ObjectProperty ;
+    rdfs:label "eDNServiceArea" ;
+    rdfs:comment "Property representing the eDNServiceArea." ;
+    rdfs:domain TS28538_EdgeNrm:EDNConnectionInfo ;
+    rdfs:range TS28538_EdgeNrm:ServingLocation .
+
+TS28538_EdgeNrm:endTime a owl:ObjectProperty ;
+    rdfs:label "endTime" ;
+    rdfs:comment "Property representing the endTime." ;
+    rdfs:domain TS28538_EdgeNrm:Duration ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28538_EdgeNrm:federateECSIdentifier a owl:ObjectProperty ;
+    rdfs:label "federateECSIdentifier" ;
+    rdfs:comment "Property representing the federateECSIdentifier." ;
+    rdfs:domain TS28538_EdgeNrm:FederatedECSInfo ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28538_EdgeNrm:federatedECSProfile a owl:DatatypeProperty ;
+    rdfs:label "federatedECSProfile" ;
+    rdfs:comment "Property representing the federatedECSProfile." ;
+    rdfs:domain TS28538_EdgeNrm:FederatedECSInfo ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:futuristicTriggerTime a owl:ObjectProperty ;
+    rdfs:label "futuristicTriggerTime" ;
+    rdfs:comment "Property representing the futuristicTriggerTime." ;
+    rdfs:domain TS28538_EdgeNrm:RelocationTriggerInfo ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28538_EdgeNrm:geographicalCoordinates a owl:ObjectProperty ;
+    rdfs:label "geographicalCoordinates" ;
+    rdfs:comment "Property representing the geographicalCoordinates." ;
+    rdfs:domain TS28538_EdgeNrm:GeoLoc ;
+    rdfs:range TS28538_EdgeNrm:GeographicalCoordinates .
+
+TS28538_EdgeNrm:geographicalLocation a owl:ObjectProperty ;
+    rdfs:label "geographicalLocation" ;
+    rdfs:comment "Property representing the geographicalLocation." ;
+    rdfs:domain TS28538_EdgeNrm:ServingLocation ;
+    rdfs:range TS28538_EdgeNrm:GeoLoc .
+
+TS28538_EdgeNrm:latitude a owl:DatatypeProperty ;
+    rdfs:label "latitude" ;
+    rdfs:comment "Property representing the latitude." ;
+    rdfs:domain TS28538_EdgeNrm:GeographicalCoordinates ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:longitude a owl:DatatypeProperty ;
+    rdfs:label "longitude" ;
+    rdfs:comment "Property representing the longitude." ;
+    rdfs:domain TS28538_EdgeNrm:GeographicalCoordinates ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:minimumDisk a owl:DatatypeProperty ;
+    rdfs:label "minimumDisk" ;
+    rdfs:comment "Property representing the minimumDisk." ;
+    rdfs:domain TS28538_EdgeNrm:SoftwareImageInfo ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:minimumRAM a owl:DatatypeProperty ;
+    rdfs:label "minimumRAM" ;
+    rdfs:comment "Property representing the minimumRAM." ;
+    rdfs:domain TS28538_EdgeNrm:SoftwareImageInfo ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:networkingRequirement a owl:DatatypeProperty ;
+    rdfs:label "networkingRequirement" ;
+    rdfs:comment "Property representing the networkingRequirement." ;
+    rdfs:domain TS28538_EdgeNrm:ResourceReservationRequirement ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:operatingSystem a owl:DatatypeProperty ;
+    rdfs:label "operatingSystem" ;
+    rdfs:comment "Property representing the operatingSystem." ;
+    rdfs:domain TS28538_EdgeNrm:SoftwareImageInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:registrationExpiry a owl:DatatypeProperty ;
+    rdfs:label "registrationExpiry" ;
+    rdfs:comment "Property representing the registrationExpiry." ;
+    rdfs:domain TS28538_EdgeNrm:RegistrationInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:registrationID a owl:DatatypeProperty ;
+    rdfs:label "registrationID" ;
+    rdfs:comment "Property representing the registrationID." ;
+    rdfs:domain TS28538_EdgeNrm:RegistrationInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:reservationStatus a owl:DatatypeProperty ;
+    rdfs:label "reservationStatus" ;
+    rdfs:comment "Property representing the reservationStatus." ;
+    rdfs:domain TS28538_EdgeNrm:ResourceReservationStatus ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:resourceId a owl:DatatypeProperty ;
+    rdfs:label "resourceId" ;
+    rdfs:comment "Property representing the resourceId." ;
+    rdfs:domain TS28538_EdgeNrm:ResourceReservationStatus ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:resourceQuota a owl:ObjectProperty ;
+    rdfs:label "resourceQuota" ;
+    rdfs:comment "Property representing the resourceQuota." ;
+    rdfs:domain TS28538_EdgeNrm:AvailableEDNList ;
+    rdfs:range TS28538_EdgeNrm:VirtualResource .
+
+TS28538_EdgeNrm:resources_edgeNrm a owl:Class ;
+    rdfs:label "resources edgeNrm" ;
+    rdfs:comment "Represents a resource that can be one of several types related to resources edgeNrm." ;
+    owl:oneOf ( TS28538_EdgeNrm:EASFunction_Single TS28538_EdgeNrm:ECSFunction_Single TS28538_EdgeNrm:EESFunction_Single TS28538_EdgeNrm:EdgeDataNetwork_Single TS28538_EdgeNrm:EASRequirements_Single TS28538_EdgeNrm:EASProfile_Single TS28538_EdgeNrm:EdgeFederation_Single TS28538_EdgeNrm:OperatorEdgeFederation_Single TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single TS28538_EdgeNrm:EASResourceReservationJob_Single TS28538_EdgeNrm:EASBundle_Single ) .
+
+TS28538_EdgeNrm:secCredential a owl:DatatypeProperty ;
+    rdfs:label "secCredential" ;
+    rdfs:comment "Property representing the secCredential." ;
+    rdfs:domain TS28538_EdgeNrm:RegistrationInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:servedEASList a owl:ObjectProperty ;
+    rdfs:label "servedEASList" ;
+    rdfs:comment "Property representing the servedEASList." ;
+    rdfs:domain TS28538_EdgeNrm:FederatedECSInfo ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28538_EdgeNrm:servedEESList a owl:ObjectProperty ;
+    rdfs:label "servedEESList" ;
+    rdfs:comment "Property representing the servedEESList." ;
+    rdfs:domain TS28538_EdgeNrm:FederatedECSInfo ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28538_EdgeNrm:servingPLMN a owl:ObjectProperty ;
+    rdfs:label "servingPLMN" ;
+    rdfs:comment "Property representing the servingPLMN." ;
+    rdfs:domain TS28538_EdgeNrm:TopologicalServiceArea ;
+    rdfs:range TS28623_ComDefs:PlmnId .
+
+TS28538_EdgeNrm:startTime a owl:ObjectProperty ;
+    rdfs:label "startTime" ;
+    rdfs:comment "Property representing the startTime." ;
+    rdfs:domain TS28538_EdgeNrm:Duration ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28538_EdgeNrm:storageRequirement a owl:DatatypeProperty ;
+    rdfs:label "storageRequirement" ;
+    rdfs:comment "Property representing the storageRequirement." ;
+    rdfs:domain TS28538_EdgeNrm:ResourceReservationRequirement ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:swImageRef a owl:DatatypeProperty ;
+    rdfs:label "swImageRef" ;
+    rdfs:comment "Property representing the swImageRef." ;
+    rdfs:domain TS28538_EdgeNrm:SoftwareImageInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:topologicalLocation a owl:ObjectProperty ;
+    rdfs:label "topologicalLocation" ;
+    rdfs:comment "Property representing the topologicalLocation." ;
+    rdfs:domain TS28538_EdgeNrm:ServingLocation ;
+    rdfs:range TS28538_EdgeNrm:TopologicalServiceArea .
+
+TS28538_EdgeNrm:trackingAreaIdList a owl:ObjectProperty ;
+    rdfs:label "trackingAreaIdList" ;
+    rdfs:comment "Property representing the trackingAreaIdList." ;
+    rdfs:domain TS28538_EdgeNrm:TopologicalServiceArea ;
+    rdfs:range TS28541_NrNrm:TaiList .
+
+TS28538_EdgeNrm:triggerType a owl:DatatypeProperty ;
+    rdfs:label "triggerType" ;
+    rdfs:comment "Property representing the triggerType." ;
+    rdfs:domain TS28538_EdgeNrm:RelocationTriggerInfo ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:url a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL for external documentation related to the document." ;
+    rdfs:domain TS28538_EdgeNrm:3GPPEdgeNRM ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:version a owl:FunctionalProperty ;
+    rdfs:label "Version" ;
+    rdfs:comment "The version of the document." ;
+    rdfs:domain TS28538_EdgeNrm:3GPPEdgeNRM ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:virtualCPU a owl:DatatypeProperty ;
+    rdfs:label "virtualCPU" ;
+    rdfs:comment "Property representing the virtualCPU." ;
+    rdfs:domain TS28538_EdgeNrm:VirtualResource ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:virtualDisk a owl:DatatypeProperty ;
+    rdfs:label "virtualDisk" ;
+    rdfs:comment "Property representing the virtualDisk." ;
+    rdfs:domain TS28538_EdgeNrm:VirtualResource ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:virtualMemory a owl:DatatypeProperty ;
+    rdfs:label "virtualMemory" ;
+    rdfs:comment "Property representing the virtualMemory." ;
+    rdfs:domain TS28538_EdgeNrm:VirtualResource ;
+    rdfs:range xsd:integer .
+
+TS28538_EdgeNrm:vnfdId a owl:DatatypeProperty ;
+    rdfs:label "vnfdId" ;
+    rdfs:comment "Property representing the vnfdId." ;
+    rdfs:domain TS28538_EdgeNrm:VirtualResource ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:AvailableEDNList a owl:Class ;
+    rdfs:label "AvailableEDNList" .
+
+TS28538_EdgeNrm:DISABLED a owl:NamedIndividual ;
+    rdfs:label "DISABLED" ;
+    rdfs:comment "Indicates that the EASStatus value is DISABLED." .
+
+TS28538_EdgeNrm:ENABLED a owl:NamedIndividual ;
+    rdfs:label "ENABLED" ;
+    rdfs:comment "Indicates that the EASStatus value is ENABLED." .
+
+TS28538_EdgeNrm:GOLD a owl:NamedIndividual ;
+    rdfs:label "GOLD" ;
+    rdfs:comment "Indicates that the EASServicePermission value is GOLD." .
+
+TS28538_EdgeNrm:SILVER a owl:NamedIndividual ;
+    rdfs:label "SILVER" ;
+    rdfs:comment "Indicates that the EASServicePermission value is SILVER." .
+
+TS28538_EdgeNrm:TRIAL a owl:NamedIndividual ;
+    rdfs:label "TRIAL" ;
+    rdfs:comment "Indicates that the EASServicePermission value is TRIAL." .
+
+TS28538_EdgeNrm:AffinityAntiAffinity a owl:Class ;
+    rdfs:label "AffinityAntiAffinity" .
+
+TS28538_EdgeNrm:Duration a owl:Class ;
+    rdfs:label "Duration" .
+
+TS28538_EdgeNrm:EDNConnectionInfo a owl:Class ;
+    rdfs:label "EDNConnectionInfo" .
+
+TS28538_EdgeNrm:RelocationTriggerInfo a owl:Class ;
+    rdfs:label "RelocationTriggerInfo" .
+
+TS28538_EdgeNrm:ResourceReservationStatus a owl:Class ;
+    rdfs:label "ResourceReservationStatus" .
+
+TS28538_EdgeNrm:GeoLoc a owl:Class ;
+    rdfs:label "GeoLoc" .
+
+TS28538_EdgeNrm:GeographicalCoordinates a owl:Class ;
+    rdfs:label "GeographicalCoordinates" .
+
+TS28538_EdgeNrm:RegistrationInfo a owl:Class ;
+    rdfs:label "RegistrationInfo" .
+
+TS28538_EdgeNrm:ResourceReservationRequirement a owl:Class ;
+    rdfs:label "ResourceReservationRequirement" .
+
+TS28538_EdgeNrm:ServingLocation a owl:Class ;
+    rdfs:label "ServingLocation" .
+
+TS28538_EdgeNrm:SubNetwork_ncO_EdgeNrm a owl:Class ;
+    rdfs:label "SubNetwork ncO EdgeNrm" .
+
+TS28538_EdgeNrm:3GPPEdgeNRM a owl:Class ;
+    rdfs:label "3GPP Edge NRM" ;
+    rdfs:comment "Class representing the 3GPP Edge NRM document metadata." .
+
+TS28538_EdgeNrm:FederatedECSInfo a owl:Class ;
+    rdfs:label "FederatedECSInfo" .
+
+TS28538_EdgeNrm:TopologicalServiceArea a owl:Class ;
+    rdfs:label "TopologicalServiceArea" .
+
+TS28538_EdgeNrm:SoftwareImageInfo a owl:Class ;
+    rdfs:label "SoftwareImageInfo" .
+
+TS28538_EdgeNrm:VirtualResource a owl:Class ;
+    rdfs:label "VirtualResource" .
+

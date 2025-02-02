@@ -1,0 +1,79 @@
+openapi: 3.0.1
+info:
+  title: MnS Registry NRM
+  version: 19.1.0
+  description: >-
+    OAS 3.0.1 definition of the MnS Registry NRM fragment
+    © 2024, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).
+    All rights reserved.
+externalDocs:
+  description: 3GPP TS 28.623; Generic NRM, MnS Registry NRM
+  url: http://www.3gpp.org/ftp/Specs/archive/28_series/28.623/
+paths: {}
+components:
+  schemas:
+  #-------- Definition of types for name-containments ------
+    SubNetwork-ncO-MnSRegistryNrm:
+      type: object
+      properties:
+        MnsRegistry:
+          $ref: '#/components/schemas/MnsRegistry-Single'
+    
+   #-------Definition of generic IOCs ----------# 
+
+#-------- Definition of types-----------------------------------------------------
+
+#-------- Definition of concrete IOCs --------------------------------------------          
+    MnsRegistry-Single:
+      allOf:
+        - $ref: 'TS28623_GenericNrm.yaml#/components/schemas/Top'
+        - type: object
+          properties:
+            MnsInfo:
+              $ref: '#/components/schemas/MnsInfo-Multiple'
+
+    MnsInfo-Single:
+      allOf:
+        - $ref: 'TS28623_GenericNrm.yaml#/components/schemas/Top'
+        - type: object
+          properties:
+             mnsLabel:
+               type: string
+               readOnly: true
+             mnsType:
+               type: string
+               readOnly: true 
+               enum:
+                 - PROV_MNS
+                 - FAULT_SUPERVISION_MNS
+                 - STREAMING_DATA_REPORTING_MNS
+                 - FILE_DATA_REPORTING_MNS
+             mnsVersion:
+               type: string
+               readOnly: true
+             mnsAddress:
+               description: Resource URI as defined in the relevant Technical Specification
+               $ref: 'TS28623_ComDefs.yaml#/components/schemas/UriRo'
+             mnsScope:
+               description: >-
+                 List of the managed object instances that can be accessed using the MnS.
+                 If a complete SubNetwork can be accessed using the MnS, this attribute may 
+                 contain the DN of the SubNetwork instead of the DNs of the individual managed 
+                 entities within the SubNetwork.
+               type: array
+               items:
+                 $ref: 'TS28623_ComDefs.yaml#/components/schemas/DnRo'
+
+#-------- Definition of YAML arrays for name-contained IOCs ----------------------
+
+    MnsInfo-Multiple:
+      type: array
+      items:
+        $ref: '#/components/schemas/MnsInfo-Single'
+
+
+#-------- Definitions in TS 28.623 for TS 28.532 ---------------------------------
+    resources-mnSRegistryNrm:
+      oneOf:
+       - $ref: '#/components/schemas/MnsInfo-Single'
+       - $ref: '#/components/schemas/MnsRegistry-Single'
