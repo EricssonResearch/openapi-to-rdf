@@ -41,10 +41,20 @@ class OpenAPIToRDFConverter:
         The namespace URI is generated from the base_namespace and the filename.
         """
         # Main file namespace
+        # filename = os.path.basename(self.yaml_file)
+        # file_prefix = self.format_name(os.path.splitext(filename)[0])
+        # ns_uri = self.base_namespace.rstrip("/") + "/" + filename + "#"
+        # main_ns = Namespace(ns_uri)
+
         filename = os.path.basename(self.yaml_file)
-        file_prefix = self.format_name(os.path.splitext(filename)[0])
-        ns_uri = self.base_namespace.rstrip("/") + "/" + filename + "#"
+        file_prefix = self.format_name(
+            os.path.splitext(filename)[0]
+        )  # Corrects filename format
+        ns_uri = (
+            self.base_namespace.rstrip("/") + "/" + file_prefix + "#"
+        )  # Use file_prefix instead of filename
         main_ns = Namespace(ns_uri)
+
         self.prefixes[file_prefix] = main_ns
         self.graph.bind(file_prefix, main_ns)
         self.main_prefix = main_ns
