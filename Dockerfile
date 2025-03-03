@@ -11,8 +11,12 @@ ARG TOKEN
 ARG PUBLIC_HOST=localhost
 ARG PUBLIC_PORT=3020
 
-COPY users.db /opt/server/
-COPY psettings.db /opt/server/settings.db
+COPY kb/users.db /opt/server/
+COPY kb/psettings.db /opt/server/settings.db
+
+ADD yaml_importer/config-available /opt/server/cpack/yaml_importer/config-available
+ADD yaml_importer/lib /opt/server/cpack/yaml_importer/lib
+ADD yaml_importer/rdf /opt/server/cpack/yaml_importer/rdf
 
 WORKDIR /opt
 
@@ -38,7 +42,7 @@ RUN apt-get update && \
     sh ../ClioPatria/configure && \
     sed -i 's|%PUBLIC_HOST%|'$PUBLIC_HOST'|g' settings.db && \
     sed -i 's/%PUBLIC_PORT%/'$PUBLIC_PORT'/g' settings.db && \
-    swipl run.pl --after_load='cpack_configure(reasoner), halt'
+    swipl run.pl --after_load='cpack_configure(reasoner), cpack_configure(yaml_importer), halt'
 
 WORKDIR /opt/server
 
