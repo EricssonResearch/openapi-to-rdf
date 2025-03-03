@@ -47,6 +47,7 @@ where `<USERNAME>` is your GitLab user name and `<TOKEN>` can be created [[here]
    git clone https://gitlab.internal.ericsson.com/cognitive-layer/reasoner.git
    git clone https://gitlab.internal.ericsson.com/er-brazil/yaml-to-rdf.git
    mv yaml-to-rdf/yaml_importer .
+   mv yaml-to-rdf/assets/MnS-Rel-19-OpenAPI/OpenAPI/*.yaml yaml_importer/assets/
    rm -rf yaml-to-rdf/
    ```
 6. Copy settings, start the server, configure cpacks

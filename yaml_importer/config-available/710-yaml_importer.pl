@@ -19,8 +19,14 @@ limitations under the License.
 /** <module> OpenAPI yaml importer
 */
 
-:- use_module(library(semweb/rdf11)).
 :- use_module(library(semweb/rdf_library)).
+:- use_module(library(messages)).
+:- use_module(library(yaml_importer)).
 
 :- rdf_attach_library(yaml_importer(rdf)).
 :- rdf_load_library(yaml_importer).
+
+:- listen_last(
+     reasoner(loaded),
+     import_yaml_assets
+   ).

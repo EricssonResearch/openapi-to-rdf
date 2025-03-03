@@ -14,6 +14,7 @@ ARG PUBLIC_PORT=3020
 COPY kb/users.db /opt/server/
 COPY kb/psettings.db /opt/server/settings.db
 
+COPY assets/MnS-Rel-19-OpenAPI/OpenAPI/*.yaml /opt/server/cpack/yaml_importer/assets/
 ADD yaml_importer/config-available /opt/server/cpack/yaml_importer/config-available
 ADD yaml_importer/lib /opt/server/cpack/yaml_importer/lib
 ADD yaml_importer/rdf /opt/server/cpack/yaml_importer/rdf

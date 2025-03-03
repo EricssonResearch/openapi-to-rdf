@@ -14,5 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-:- module(yaml_importer, []).
+:- module(yaml_importer, [import_yaml_assets/0]).
 
+:- use_module(library(yaml)).
+
+import_yaml_assets :-
+  catch((
+    atom_concat('cpack/yaml_importer/assets/', '*.yaml', Search),
+    expand_file_name(Search, Files),
+    forall(
+      ( member(Path, Files),
+        exists_file(Path)
+      ),
+      import_yaml_file(Path)
+    )
+  ), _, true).
+
+import_yaml_file(File) :-
+  debug(_, 'Importing [~w]...', [File]).
+  %yaml_read(File, Dom),
+  %print_term(Dom, []).
