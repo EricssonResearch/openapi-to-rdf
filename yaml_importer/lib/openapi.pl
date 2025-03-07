@@ -2,6 +2,62 @@
                      clear_cache/0,
                      openapi_clauses//4 ]).
 
+/*
+
+components:
+  schemas:
+     MyObj:
+       type: object                      :MyObj a rdfs:Class ;
+       properties:
+         MyProperty:                     :MyProperty a rdf:Property ;
+                                         :MyObj cc:definedProperty :MyProperty ;
+
+       allOf:
+         - $ref: 'TS../schemas/Top'      :MyObj a rdfs:Class ;
+         - type: object                         rdfs:subClassOf :Top ;
+
+       allOf:                            sh:and
+       anyOf:                            sh:or
+       oneOf:                            sh:xone
+       not:                              sh:not
+
+                                         sh:property [ sh:path MyObj ;
+             string                                    sh:datatype xsd:string ;
+       pattern: '^[A-Fa-f0-9]{6}$'                     sh:pattern: "^[A-Fa-f0-9]{6}$" ;
+       minLength: 0                                    sh:minLength 0 ;
+       maxLength: 255                                  sh:maxLength 255 ;
+
+       enum:                                           sh:in ( "UP" "DOWN" ) ;
+         - UP
+         - DOWN
+       default: UP                                     sh:defaultValue "UP" ;
+
+             number
+       minimum: 0                                      sh:minInclusive 0 ;
+       maximum: 100                                    sh:maxInclusive 100 ;
+       format: float                                   sh:datatype xsd:float;
+       format: double                                  sh:datatype xsd:double;
+             integer                                   sh:datatype xsd:integer;
+
+             date-time                                 sh:datatype xsd:dateTime;
+             full-time                                 sh:datatype xsd:time;
+             date-month                                sh:datatype xsd:gMonth;
+             date-mday                                 sh:datatype xsd:gMonthDay;
+             uuid                                      sh:datatype ?;
+
+                                                       @prefix dash: <https://datashapes.org/dash#>.
+             array                                     sh:node dash:ListShape ;
+       items:                                          sh:property [
+                                                         sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ;
+         type: string                                    sh:datatype xsd:string ;
+       minItems: 0                                       sh:minCount 0 ;
+       maxItems: 10                                      sh:maxCount 10
+                                                       ]
+
+                                                     ] ;
+
+*/
+
 :- dynamic cache/2.
 :- volatile cache/2.
 
@@ -160,14 +216,6 @@ json_type(_{properties:_{}}, Type, _Options, Seen, Seen) :-
 json_type(_Spec, 'InvalidType', _Options, Seen, Seen) :- % FIXME
     true.
 
-opts_json_type(Options, Spec, Type, Seen0, Seen) :-
-    json_type(Spec, Type, Options, Seen0, Seen).
-
-json_types([], [], _, Seen, Seen) :- !.
-json_types([H|T], [H2|T2], Options, Seen0, Seen) :-
-    json_type(H, H2, Options, Seen0, Seen1),
-    json_types(T, T2, Options, Seen1, Seen).
-
 schema_properties(_, _, [], [], Seen, Seen) :- !.
 schema_properties(Reqs, Options, [H|T], [H2|T2], Seen0, Seen) :-
     ( schema_property(Reqs, Options, H, H2, Seen0, Seen1)
@@ -182,6 +230,11 @@ schema_property(Reqs, Options, Name-Spec, p(Name, Type, TypeOpts), Seen0, Seen) 
     ;   TypeOpts = TypeOpts1
     ),
     json_type(Spec, Type, TypeOpts1, Options, Seen0, Seen).
+
+json_types([], [], _, Seen, Seen) :- !.
+json_types([H|T], [H2|T2], Options, Seen0, Seen) :-
+    json_type(H, H2, Options, Seen0, Seen1),
+    json_types(T, T2, Options, Seen1, Seen).
 
 api_type(Type, Format, TypeID) :-
     api_type(_Name, Type, Format, TypeID), !.
@@ -215,7 +268,7 @@ array_restrictions(Spec, Options) :-
 array_restriction(Spec, min_items(Min)) :-
     Min = Spec.get(minItems).
 array_restriction(Spec, max_items(Max)) :-
-    Max = Spec.get(minItems).
+    Max = Spec.get(maxItems).
 array_restriction(Spec, unique_items(true)) :-
     true == Spec.get(uniqueItems).
 
