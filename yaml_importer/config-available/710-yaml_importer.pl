@@ -21,10 +21,11 @@ limitations under the License.
 
 :- use_module(library(semweb/rdf_library)).
 :- use_module(library(messages)).
-:- use_module(library(yaml_importer)).
 
 :- rdf_attach_library(yaml_importer(rdf)).
 :- rdf_load_library(yaml_importer).
+
+:- use_module(library(yaml_importer)).
 
 :- listen_last(
      reasoner(loaded),

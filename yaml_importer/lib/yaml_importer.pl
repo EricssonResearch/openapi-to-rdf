@@ -24,30 +24,14 @@ import_yaml_assets :-
   -> true
   ; Dir = '.'
   ),
-  %prolog_ide(thread_monitor),
   atom_concat('cpack/yaml_importer/assets/', '*.yaml', Search),
   expand_file_name(Search, Files),
   %Files = ['cpack/yaml_importer/assets/TS29520_Nnwdaf_AnalyticsInfo.yaml'],
-  empty_assoc(E),
-  import_yaml_files(Files, Dir, [], E, Seen),
-  clear_cache,
-  assoc_to_keys(Seen, Keys),
-  sort(Keys, Sorted),
-  print_term(Sorted, []).
+  maplist(import_yaml_file(Dir, []), Files).
 
-import_yaml_files([], _, _, Seen, Seen) :- !.
-import_yaml_files([File|T], Dir, Options, Seen0, Seen) :-
-  import_yaml_file(File, Dir, Options, Seen0, Seen1),
-  import_yaml_files(T, Dir, Options, Seen1, Seen).
-
-import_yaml_file(File, Dir, Options0, Seen0, Seen) :-
-  absolute_file_name(File, Path,
-                     [ relative_to(Dir),
-                       extensions(['',json,yaml]),
-                       access(read)
-                     ]),
-  debug(_, 'Importing [~w]...', [Path]),
-  uri_file_name(BaseURI, Path),
-  openapi_read(Path, Spec),
-  merge_options(Options0, [base_uri(BaseURI)], Options),
-  phrase(openapi_clauses(Spec, Options, Seen0, Seen), _Clauses).
+import_yaml_file(Dir, Options, File) :-
+  absolute_file_name(File, Path, [ relative_to(Dir),
+                                   extensions(['',json,yaml]),
+                                   access(read)
+                                 ]),
+  openapi_read(Path, Options).
