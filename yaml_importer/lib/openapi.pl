@@ -105,37 +105,10 @@ components_clauses(Term, Options) :-
 components_clauses(_, _).
 
 schema_clause(Options, Schema-Spec) :-
-  _{type:"object"} :< Spec, !,
   option(base_prefix(Prefix), Options),
   atom_concat(Prefix, Schema, Subject),
-  rdf_assert(Subject, rdf:type, rdfs:'Class', Prefix),
-  ignore((
-    _{description:Description} :< Spec,
-    rdf_assert(Subject, rdfs:comment, Description, Prefix)
-  )),
-  ignore((
-    _{properties:Properties} :< Spec,
-    dict_pairs(Properties, _, PropertyPairs),
-    atom_concat(Subject, '_Shape', Shape),
-    rdf_assert(Shape, rdf:type, sh:'NodeShape', Prefix),
-    rdf_assert(Shape, sh:targetClass, Subject, Prefix),
-    maplist(property_clause(Subject, Shape, Options), PropertyPairs)
-  )).
-schema_clause(Options, Schema-Spec) :-
-  _{allOf:AllOf} :< Spec, !,
-  option(base_prefix(Prefix), Options),
-  atom_concat(Prefix, Schema, Subject),
-  maplist(ref_superclass(Subject,Prefix,Options), AllOf).
+  type_clause(Subject, _, Spec, Options), !.
 schema_clause(_, _).
-
-ref_superclass(Subject, Prefix, Options, RefObj) :-
-  ( is_dict(RefObj),
-    _{'$ref':Ref} :< RefObj,
-    ref_uri_fragment(Ref, SubClass, _, Options)
-  -> rdf_assert(Subject, rdf:type, rdfs:'Class', Prefix),
-     rdf_assert(Subject, rdfs:subClassOf, SubClass, Prefix)
-  ; true
-  ).
 
 ref_uri_fragment(Ref, URI, Fragment, Options) :-
   re_matchsub("(?<file>.*)#/components/schemas/(?<name>.*)", Ref, Sub),
@@ -152,24 +125,101 @@ ref_uri_fragment(Ref, URI, Fragment, Options) :-
 property_clause(Subject, Shape, Options, Property-Spec) :-
   option(base_prefix(Prefix), Options),
   atom_concat(Prefix, Property, Predicate),
-  rdf_assert(Subject, cc:definedProperty, Predicate, Prefix),
+  ignore((
+    nonvar(Subject),
+    rdf_assert(Subject, cc:definedProperty, Predicate, Prefix)
+  )),
   rdf_assert(Predicate, rdf:type, rdf:'Property', Prefix),
   ignore((
     _{description:Description} :< Spec,
     rdf_assert(Predicate, rdfs:comment, Description, Prefix)
   )),
   rdf_create_bnode(PropertyShape),
+  rdf_assert(PropertyShape, rdf:type, sh:'PropertyShape', Prefix),
   rdf_assert(Shape, sh:property, PropertyShape, Prefix),
   rdf_assert(PropertyShape, sh:path, Predicate, Prefix),
-  type_clause(PropertyShape, Spec, Options).
+  type_clause(Subject, PropertyShape, Spec, Options).
 
-% type_clause(PropertyShape, Spec, Options) :-
-%   _{anyOf: AnyOf} :< Spec, !,
-%   rdf_create_bnode(PropertyShape),
-
-type_clause(PropertyShape, Spec, Options) :-
-  _{type:"array", items:Items} :< Spec, !,
+type_clause(Subject, PropertyShape, Spec, Options) :-
+  _{'$ref':Ref} :< Spec, !,
+  ref_uri_fragment(Ref, Class, Fragment, Options),
   option(base_prefix(Prefix), Options),
+  ignore((
+    nonvar(Subject),
+    rdf_assert(Subject, rdfs:subClassOf, Class, Prefix)
+  )),
+  ignore((
+    nonvar(PropertyShape),
+    ( _{type:"object"} :< Fragment
+    -> rdf_assert(PropertyShape, sh:class, Class, Prefix)
+    ; type_clause(_, PropertyShape, Fragment, Options)
+    )
+  )).
+
+type_clause(Subject, PropertyShape, Spec, Options) :-
+  _{type:"object"} :< Spec, !,
+  option(base_prefix(Prefix), Options),
+  ignore((
+    nonvar(Subject),
+    rdf_assert(Subject, rdf:type, rdfs:'Class', Prefix),
+    ignore((
+      _{description:Description} :< Spec,
+      rdf_assert(Subject, rdfs:comment, Description, Prefix)
+    ))
+  )),
+  ignore((
+    _{properties:Properties} :< Spec,
+    dict_pairs(Properties, _, PropertyPairs),
+    ( nonvar(Subject)
+    -> atom_concat(Subject, '_Shape', NodeShape),
+       rdf_assert(NodeShape, sh:targetClass, Subject, Prefix)
+    ; rdf_create_bnode(NodeShape),
+      rdf_assert(PropertyShape, sh:node, NodeShape, Prefix)
+    ),
+    rdf_assert(NodeShape, rdf:type, sh:'NodeShape', Prefix),
+    maplist(property_clause(_, NodeShape, Options), PropertyPairs)
+  )).
+
+% type_clause(Subject, PropertyShape, Spec, Options) :-
+%   _{allOf: AllOf} :< Spec,
+%   nonvar(Subject),
+%   !,
+%   type_branches(Subject, AllOf, Options, List),
+%   ignore((
+%     nonvar(PropertyShape),
+%     option(base_prefix(Prefix), Options),
+%     rdf_assert_list(List, RDFList, Prefix),
+%     rdf_assert(PropertyShape, sh:and, RDFList, Prefix)
+%   )).
+
+type_clause(Subject, PropertyShape, Spec, Options) :-
+  _{anyOf: AnyOf} :< Spec, !,
+  type_branches(Subject, AnyOf, Options, List),
+  ignore((
+    nonvar(PropertyShape),
+    option(base_prefix(Prefix), Options),
+    rdf_assert_list(List, RDFList, Prefix),
+    rdf_assert(PropertyShape, sh:or, RDFList, Prefix)
+  )).
+
+type_clause(Subject, PropertyShape, Spec, Options) :-
+  _{oneOf: OneOf} :< Spec, !,
+  type_branches(Subject, OneOf, Options, List),
+  ignore((
+    nonvar(PropertyShape),
+    option(base_prefix(Prefix), Options),
+    rdf_assert_list(List, RDFList, Prefix),
+    rdf_assert(PropertyShape, sh:xone, RDFList, Prefix)
+  )).
+
+type_clause(Subject, PropertyShape, Spec, Options) :-
+  _{type:"array", items:Items} :< Spec,
+  nonvar(PropertyShape), !,
+  option(base_prefix(Prefix), Options),
+  ignore((
+    _{description: Description} :< Spec,
+    rdf_assert(PropertyShape, rdfs:comment, Description, Prefix)
+  )),
   rdf_assert(PropertyShape, sh:node, dash:'ListShape', Prefix),
   rdf_create_bnode(ItemShape),
   rdf_assert(PropertyShape, sh:property, ItemShape, Prefix),
@@ -185,19 +235,11 @@ type_clause(PropertyShape, Spec, Options) :-
     _{maxItems: MaxItems} :< Spec,
     rdf_assert(ItemShape, sh:maxCount, MaxItems, Prefix)
   )),
-  type_clause(ItemShape, Items, Options).
+  type_clause(Subject, ItemShape, Items, Options).
 
-type_clause(PropertyShape, Spec, Options) :-
-  _{'$ref':Ref} :< Spec,
-  ref_uri_fragment(Ref, Class, Fragment, Options), !,
-  ( _{type:"object"} :< Fragment
-  -> option(base_prefix(Prefix), Options),
-     rdf_assert(PropertyShape, sh:class, Class, Prefix)
-  ; type_clause(PropertyShape, Fragment, Options)
-  ).
-
-type_clause(PropertyShape, Spec, Options) :-
-  _{type:"string"} :< Spec, !,
+type_clause(_, PropertyShape, Spec, Options) :-
+  _{type:"string"} :< Spec,
+  nonvar(PropertyShape), !,
   option(base_prefix(Prefix), Options),
   ignore((_{format: "date-time"} :< Spec, rdf_global_id(xsd:dateTime, Type))),
   ignore((_{format: "full-time"} :< Spec, rdf_global_id(xsd:time, Type))),
@@ -205,6 +247,10 @@ type_clause(PropertyShape, Spec, Options) :-
   ignore((_{format: "date-mday"} :< Spec, rdf_global_id(xsd:gMonthDay, Type))),
   ( var(Type)
   -> rdf_global_id(xsd:string, Type),
+     ignore((
+       _{description: Description} :< Spec,
+       rdf_assert(PropertyShape, rdfs:comment, Description, Prefix)
+     )),
      ignore((
        _{pattern: Pattern} :< Spec,
        rdf_assert(PropertyShape, sh:pattern, Pattern, Prefix)
@@ -226,7 +272,7 @@ type_clause(PropertyShape, Spec, Options) :-
   ),
   rdf_assert(PropertyShape, sh:datatype, Type, Prefix).
 
-type_clause(PropertyShape, Spec, Options) :-
+type_clause(_, PropertyShape, Spec, Options) :-
   once((
     _{type:"integer"} :< Spec,
     rdf_global_id(xsd:integer, Type)
@@ -236,9 +282,14 @@ type_clause(PropertyShape, Spec, Options) :-
     ; _{format:"double"} :< Spec,
       rdf_global_id(xsd:double, Type)
     )
-  )), !,
+  )),
+  nonvar(PropertyShape), !,
   option(base_prefix(Prefix), Options),
   rdf_assert(PropertyShape, sh:datatype, Type, Prefix),
+  ignore((
+    _{description: Description} :< Spec,
+    rdf_assert(PropertyShape, rdfs:comment, Description, Prefix)
+  )),
   ignore((
     _{minimum: Minimum} :< Spec,
     rdf_assert(PropertyShape, sh:minInclusive, Minimum, Prefix)
@@ -248,4 +299,18 @@ type_clause(PropertyShape, Spec, Options) :-
     rdf_assert(PropertyShape, sh:maxInclusive, Maximum, Prefix)
   )).
 
-type_clause(_, _, _).
+type_clause(_, _, _, _).
+
+type_branches(_, [], _, []) :- !.
+type_branches(Subject, [Spec|T], Options, [Shape|T2]) :-
+  ( var(Subject)
+  -> rdf_create_bnode(Shape)
+  ; atom_concat(Subject, '_Shape', Shape)
+  ),
+  ignore((
+    _{description:Description} :< Spec,
+    option(base_prefix(Prefix), Options),
+    rdf_assert(Shape, rdfs:comment, Description, Prefix)
+  )),
+  type_clause(Subject, Shape, Spec, Options),
+  type_branches(Subject, T, Options, T2).
