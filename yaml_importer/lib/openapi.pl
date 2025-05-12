@@ -1,4 +1,5 @@
-:- module(openapi, [ openapi_read/2 ]).
+:- module(openapi, [ openapi_read/2,
+                     clear_cache/0 ]).
 
 /*
 
@@ -58,18 +59,37 @@ components:
 :- use_module(library(semweb/rdf11)).
 :- use_module(library(pcre)).
 
-openapi_read(Path, Options0) :-
-  file_name_extension(FilePath, yaml, Path),
-  path_prefix(FilePath, Prefix),
-  !,
-  debug(_, 'Importing [~w]...', [Path]),
-  setup_call_cleanup(
-    open(Path, read, In, [encoding(utf8)]),
-    yaml_read(In, Term),
-    close(In)
-  ),
-  merge_options(Options0, [base_prefix(Prefix)], Options),
-  components_clauses(Term, Options).
+:- dynamic cache/2.
+:- volatile cache/2.
+
+openapi_read(File, Options0) :-
+  path_prefix(File, Prefix),
+  debug(_, 'Importing [~w]...', [File]),
+  merge_options(Options0, [base_prefix(Prefix)], Options1),
+  read_yaml(File, Yaml, Options1),
+  merge_options(Options1, [yaml(Yaml)], Options),
+  components_clauses(Yaml, Options).
+
+read_yaml(File, Yaml, Options) :-
+  once((
+    cache(File, Yaml)
+  ; setup_call_cleanup(
+      ( option(base_path(BasePath), Options),
+        absolute_file_name(File, Path, [ relative_to(BasePath),
+                                         extensions(['',json,yaml]),
+                                         access(read)
+                                       ]),
+        open(Path, read, In, [encoding(utf8)])
+      ),
+      yaml_read(In, Yaml),
+      ( close(In),
+        assertz(cache(File, Yaml))
+      )
+    )
+  )).
+
+clear_cache :-
+  retractall(cache(_, _)).
 
 path_prefix(Path, Prefix) :-
   file_base_name(Path, File),
@@ -111,19 +131,23 @@ schema_clause(_, _).
 ref_superclass(Subject, Prefix, Options, RefObj) :-
   ( is_dict(RefObj),
     _{'$ref':Ref} :< RefObj,
-    ref_uri(Ref, SubClass, Options)
+    ref_uri_fragment(Ref, SubClass, _, Options)
   -> rdf_assert(Subject, rdf:type, rdfs:'Class', Prefix),
      rdf_assert(Subject, rdfs:subClassOf, SubClass, Prefix)
   ; true
   ).
 
-ref_uri(Ref, URI, Options) :-
+ref_uri_fragment(Ref, URI, Fragment, Options) :-
   re_matchsub("(?<file>.*)#/components/schemas/(?<name>.*)", Ref, Sub),
   ( Sub.file == ""
-  -> option(base_prefix(Prefix), Options)
-  ; path_prefix(Sub.file, Prefix)
+  -> option(base_prefix(Prefix), Options),
+     option(yaml(Yaml), Options)
+  ; path_prefix(Sub.file, Prefix),
+    read_yaml(Sub.file, Yaml, Options)
   ),
-  atom_concat(Prefix, Sub.name, URI).
+  atom_concat(Prefix, Sub.name, URI),
+  atom_string(Name, Sub.name),
+  Fragment = Yaml.get(components/schemas/Name).
 
 property_clause(Subject, Shape, Options, Property-Spec) :-
   option(base_prefix(Prefix), Options),
@@ -142,7 +166,6 @@ property_clause(Subject, Shape, Options, Property-Spec) :-
 % type_clause(PropertyShape, Spec, Options) :-
 %   _{anyOf: AnyOf} :< Spec, !,
 %   rdf_create_bnode(PropertyShape),
-
 
 type_clause(PropertyShape, Spec, Options) :-
   _{type:"array", items:Items} :< Spec, !,
@@ -166,9 +189,12 @@ type_clause(PropertyShape, Spec, Options) :-
 
 type_clause(PropertyShape, Spec, Options) :-
   _{'$ref':Ref} :< Spec,
-  ref_uri(Ref, Class, Options), !,
-  option(base_prefix(Prefix), Options),
-  rdf_assert(PropertyShape, sh:class, Class, Prefix).
+  ref_uri_fragment(Ref, Class, Fragment, Options), !,
+  ( _{type:"object"} :< Fragment
+  -> option(base_prefix(Prefix), Options),
+     rdf_assert(PropertyShape, sh:class, Class, Prefix)
+  ; type_clause(PropertyShape, Fragment, Options)
+  ).
 
 type_clause(PropertyShape, Spec, Options) :-
   _{type:"string"} :< Spec, !,

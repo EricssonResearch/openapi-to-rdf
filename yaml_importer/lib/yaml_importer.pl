@@ -24,14 +24,14 @@ import_yaml_assets :-
   -> true
   ; Dir = '.'
   ),
-  atom_concat('cpack/yaml_importer/assets/', '*.yaml', Search),
+  RelativePath = 'cpack/yaml_importer/assets/',
+  atom_concat(RelativePath, '*.yaml', Search),
   expand_file_name(Search, Files),
   %Files = ['cpack/yaml_importer/assets/TS29520_Nnwdaf_AnalyticsInfo.yaml'],
-  maplist(import_yaml_file(Dir, []), Files).
+  absolute_file_name(RelativePath, BasePath, [relative_to(Dir)]),
+  maplist(import_yaml_file([base_path(BasePath)]), Files),
+  clear_cache.
 
-import_yaml_file(Dir, Options, File) :-
-  absolute_file_name(File, Path, [ relative_to(Dir),
-                                   extensions(['',json,yaml]),
-                                   access(read)
-                                 ]),
-  openapi_read(Path, Options).
+import_yaml_file(Options, Path) :-
+  file_base_name(Path, File),
+  openapi_read(File, Options).
