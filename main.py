@@ -105,16 +105,16 @@ def main():
         epilog="""
 Examples:
   # Download 3GPP specifications
-  openapi-rdf-converter download --release Rel-18 --output-dir assets/
-  openapi-rdf-converter download --release Rel-19 --dry-run
+  openapi-to-rdf download --release Rel-18 --output-dir assets/
+  openapi-to-rdf download --release Rel-19 --dry-run
   
   # Convert OpenAPI files to RDF/SHACL
-  openapi-rdf-converter convert path/to/openapi.yaml
-  openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --format shacl
+  openapi-to-rdf convert path/to/openapi.yaml
+  openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/
   
   # Complete workflow
-  openapi-rdf-converter download --release Rel-18 --output-dir assets/
-  openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --format shacl --namespace-prefix "https://myorg.com/models/"
+  openapi-to-rdf download --release Rel-18 --output-dir assets/
+  openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
         """
     )
     

@@ -14,7 +14,7 @@ A Python tool for converting OpenAPI YAML specifications to RDF vocabularies and
 
 ```bash
 # Install directly from Git repository
-pip install git+https://github.com/your-username/openapi-rdf-converter.git
+pip install git+https://github.com/your-username/openapi-to-rdf.git
 ```
 
 ## Quick Start
@@ -23,39 +23,39 @@ pip install git+https://github.com/your-username/openapi-rdf-converter.git
 
 ```bash
 # Download all files from a specific release
-openapi-rdf-converter download --release Rel-18 --output-dir assets/
+openapi-to-rdf download --release Rel-18 --output-dir assets/
 
 # Preview what would be downloaded (dry run)
-openapi-rdf-converter download --release Rel-19 --dry-run
+openapi-to-rdf download --release Rel-19 --dry-run
 
 # List available releases
-openapi-rdf-converter download --list-releases
+openapi-to-rdf download --list-releases
 ```
 
 ### Step 2: Convert to RDF/SHACL
 
 ```bash
 # Convert single file
-openapi-rdf-converter convert path/to/openapi.yaml
+openapi-to-rdf convert path/to/openapi.yaml
 
 # Convert all files in directory
-openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/
+openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/
 
 # Use custom namespace prefix
-openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
+openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
 
 # Convert to OWL format (single file)
-openapi-rdf-converter convert path/to/openapi.yaml --format owl
+openapi-to-rdf convert path/to/openapi.yaml --format owl
 ```
 
 ### Complete Workflow Example
 
 ```bash
 # 1. Download Rel-18 specifications
-openapi-rdf-converter download --release Rel-18 --output-dir assets/
+openapi-to-rdf download --release Rel-18 --output-dir assets/
 
 # 2. Convert to RDF/SHACL with custom namespace
-openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
+openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
 ```
 
 ### Download Features

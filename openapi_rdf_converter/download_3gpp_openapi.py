@@ -262,7 +262,7 @@ class ThreeGPPDownloader:
         
         if downloaded_count > 0:
             print(f"\nTo use these files with the converter:")
-            print(f"  openapi-rdf-converter convert {release_dir}")
+            print(f"  openapi-to-rdf convert {release_dir}")
         
         return downloaded_count > 0
     
