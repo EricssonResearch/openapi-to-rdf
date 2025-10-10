@@ -1,23 +1,33 @@
 import argparse
+import logging
 import os
+import sys
 
-from yaml2rdf.converter import OpenAPIToRDFConverter
+from openapi_rdf_converter.shacl_converter import OpenAPIToSHACLConverter
+from openapi_rdf_converter.converter import OpenAPIToRDFConverter
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Convert OpenAPI YAML to RDF Turtle.")
+    parser = argparse.ArgumentParser(description="Convert OpenAPI YAML to separate RDF vocabulary + SHACL shapes (default) or RDF/OWL.")
     parser.add_argument(
         "input", help="Path to a YAML file or a directory containing YAML files."
     )
     parser.add_argument(
         "--base_namespace",
-        default="http://ericsson.com/models/3gpp/rdf/",
-        help="Base namespace for RDF output",
+        default=None,
+        help="Base namespace for RDF output (auto-generated if not provided)",
+    )
+    parser.add_argument(
+        "--format",
+        choices=["shacl", "owl"],
+        default="shacl",
+        help="Output format: 'shacl' for separate RDF vocabulary + SHACL shapes (default), 'owl' for RDF/OWL"
     )
     args = parser.parse_args()
 
     input_path = args.input
     base_namespace = args.base_namespace
+    output_format = args.format
 
     yaml_files = []
     if os.path.isdir(input_path):
@@ -35,5 +45,18 @@ if __name__ == "__main__":
         sys.exit(1)
 
     for yaml_file in yaml_files:
-        converter = OpenAPIToRDFConverter(yaml_file, base_namespace, external_refs=[])
+        print(f"Converting {yaml_file} to {output_format.upper()}...")
+        
+        if output_format == "shacl":
+            converter = OpenAPIToSHACLConverter(
+                yaml_file, 
+                base_namespace=base_namespace, 
+                external_refs=[]
+            )
+        else:  # owl
+            # Fallback to original namespace format for OWL if not provided
+            if base_namespace is None:
+                base_namespace = "http://ericsson.com/models/3gpp/rdf/"
+            converter = OpenAPIToRDFConverter(yaml_file, base_namespace, external_refs=[])
+        
         converter.run()
