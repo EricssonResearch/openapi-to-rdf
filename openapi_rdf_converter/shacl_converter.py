@@ -9,9 +9,10 @@ from rdflib.namespace import RDF, RDFS, XSD
 class OpenAPIToSHACLConverter:
     """Converts OpenAPI YAML to RDF/RDFS + SHACL, mimicking the Prolog implementation."""
     
-    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None):
+    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/"):
         """Initialize the converter with SHACL-based approach."""
         self.yaml_file = yaml_file
+        self.base_namespace_prefix = base_namespace_prefix
         self.base_namespace = base_namespace or self._generate_base_namespace()
         self.output_dir = output_dir
         self.external_refs = external_refs if external_refs is not None else []
@@ -27,7 +28,7 @@ class OpenAPIToSHACLConverter:
         self._bind_custom_namespaces()
 
     def _generate_base_namespace(self):
-        """Generate namespace from filename like Prolog system: TS28xxx_Name -> http://ericsson.com/models/3gpp/TSxxx/Name#"""
+        """Generate namespace from filename using configurable prefix: TS28xxx_Name -> {prefix}TSxxx/Name#"""
         filename = os.path.basename(self.yaml_file)
         name_without_ext = os.path.splitext(filename)[0]
         
@@ -36,9 +37,9 @@ class OpenAPIToSHACLConverter:
         if match:
             num_part = match.group('num')
             name_part = match.group('name')
-            return f"http://ericsson.com/models/3gpp/{num_part}/{name_part}#"
+            return f"{self.base_namespace_prefix}{num_part}/{name_part}#"
         else:
-            return f"http://ericsson.com/models/3gpp/rdf/{name_without_ext}#"
+            return f"{self.base_namespace_prefix}rdf/{name_without_ext}#"
 
     def _load_yaml(self):
         """Load the YAML file into a Python dictionary."""
@@ -89,15 +90,15 @@ class OpenAPIToSHACLConverter:
             self.shacl_graph.bind(ext_prefix, ext_ns)
 
     def _generate_namespace_for_file(self, filename):
-        """Generate namespace URI for external file."""
+        """Generate namespace URI for external file using configurable prefix."""
         name_without_ext = os.path.splitext(filename)[0]
         match = re.match(r"(?P<num>TS\d*)_(?P<name>.*)", name_without_ext)
         if match:
             num_part = match.group('num')
             name_part = match.group('name')
-            return f"http://ericsson.com/models/3gpp/{num_part}/{name_part}#"
+            return f"{self.base_namespace_prefix}{num_part}/{name_part}#"
         else:
-            return f"http://ericsson.com/models/3gpp/rdf/{name_without_ext}#"
+            return f"{self.base_namespace_prefix}rdf/{name_without_ext}#"
 
     def convert(self):
         """Convert the loaded YAML content into RDF/RDFS + SHACL."""
@@ -352,22 +353,87 @@ class OpenAPIToSHACLConverter:
         if property_shape is None:
             return
 
-        shapes_list = []
+        # For oneOf/anyOf with mixed types, we need to handle them differently
+        # Check if we have mixed datatypes and classes
+        has_datatypes = False
+        has_classes = False
+        
         for spec in specs_list:
-            if subject is not None:
-                shape = URIRef(f"{subject}_Shape")
+            if '$ref' in spec:
+                ref = spec['$ref']
+                if self._is_object_type_from_ref(ref):
+                    has_classes = True
+                else:
+                    has_datatypes = True
+            elif spec.get('type') in ['string', 'number', 'integer', 'boolean']:
+                has_datatypes = True
             else:
-                shape = self._create_bnode()
+                has_classes = True
+        
+        # If we have mixed types, we need to create separate constraints
+        if has_datatypes and has_classes:
+            # Create separate constraints for datatypes and classes
+            datatype_constraints = []
+            class_constraints = []
             
-            if "description" in spec:
-                self.shacl_graph.add((shape, RDFS.comment, Literal(spec["description"])))
+            for spec in specs_list:
+                if '$ref' in spec:
+                    ref = spec['$ref']
+                    if self._is_object_type_from_ref(ref):
+                        class_uri, _ = self._resolve_reference(ref)
+                        class_constraints.append(class_uri)
+                    else:
+                        datatype = self._get_datatype_from_ref(ref)
+                        datatype_constraints.append(datatype)
+                elif spec.get('type') in ['string', 'number', 'integer', 'boolean']:
+                    datatype = self._get_datatype_from_spec(spec)
+                    datatype_constraints.append(datatype)
+                else:
+                    # Handle other types as classes
+                    shape = self._create_bnode()
+                    self._type_clause(subject, shape, spec)
+                    class_constraints.append(shape)
             
-            self._type_clause(subject, shape, spec)
-            shapes_list.append(shape)
+            # Add datatype constraints
+            if datatype_constraints:
+                if len(datatype_constraints) == 1:
+                    self.shacl_graph.add((property_shape, self.SH.datatype, datatype_constraints[0]))
+                else:
+                    datatype_list = self._create_rdf_list(datatype_constraints)
+                    self.shacl_graph.add((property_shape, self.SH.datatype, datatype_list))
+            
+            # Add class constraints
+            if class_constraints:
+                if len(class_constraints) == 1:
+                    self.shacl_graph.add((property_shape, self.SH['class'], class_constraints[0]))
+                else:
+                    class_list = self._create_rdf_list(class_constraints)
+                    self.shacl_graph.add((property_shape, self.SH['class'], class_list))
+        else:
+            # For homogeneous types, inline the constraints instead of creating separate shapes
+            # This avoids the problem of undefined blank node references
+            if operator == self.SH.and_:
+                # For allOf, we can inline all constraints directly on the property_shape
+                for spec in specs_list:
+                    if "description" in spec:
+                        self.shacl_graph.add((property_shape, RDFS.comment, Literal(spec["description"])))
+                    self._type_clause(subject, property_shape, spec)
+            else:
+                # For oneOf/anyOf, we still need separate shapes but we'll inline them
+                shapes_list = []
+                for spec in specs_list:
+                    # Create inline shape definition
+                    shape = self._create_bnode()
+                    
+                    if "description" in spec:
+                        self.shacl_graph.add((shape, RDFS.comment, Literal(spec["description"])))
+                    
+                    self._type_clause(subject, shape, spec)
+                    shapes_list.append(shape)
 
-        # Create RDF list and add operator
-        rdf_list = self._create_rdf_list(shapes_list)
-        self.shacl_graph.add((property_shape, operator, rdf_list))
+                # Create RDF list and add operator
+                rdf_list = self._create_rdf_list(shapes_list)
+                self.shacl_graph.add((property_shape, operator, rdf_list))
 
     def _process_property(self, domain_class, node_shape, prop_name, prop_def, required_list):
         """Process a property within an object schema."""
@@ -471,6 +537,30 @@ class OpenAPIToSHACLConverter:
         elif "int" in ref_name or "integer" in ref_name:
             return XSD.integer
         elif "bool" in ref_name:
+            return XSD.boolean
+        else:
+            return XSD.string
+    
+    def _get_datatype_from_spec(self, spec):
+        """Get XSD datatype from a specification."""
+        spec_type = spec.get('type', 'string')
+        
+        if spec_type == 'string':
+            if 'format' in spec:
+                format_val = spec['format']
+                format_map = {
+                    'date-time': XSD.dateTime,
+                    'full-time': XSD.time,
+                    'date-month': XSD.gMonth,
+                    'date-mday': XSD.gMonthDay,
+                }
+                return format_map.get(format_val, XSD.string)
+            return XSD.string
+        elif spec_type == 'integer':
+            return XSD.integer
+        elif spec_type == 'number':
+            return XSD.double
+        elif spec_type == 'boolean':
             return XSD.boolean
         else:
             return XSD.string

@@ -1,0 +1,84 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
+
+[] sh:node dash:ListShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in_ ( "COVERAGE" "CAPACITY" "ENERGY_EFFICIENCY" "MOBILITY" "ACCESSIBILITY" ) ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementData ;
+    sh:xone ( "N2f527dead07e40b5a3d6104509c1f27b" "Nc9cdec942015404089e483324b24a132" ) .
+
+[] sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:resources_mgmtDataCollectionNrm ;
+    sh:xone ( "N8a7e18147174417286723c2dd5ba5093" ) .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
+            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ReportingCtrl ;
+            sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in_ ( "SNSSAI" "5QI" "PLMN" ) ;
+            sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:ManagementData ;
+            sh:path TS28623_ManagementDataCollectionNrm:managementData ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_ManagementDataCollectionNrm:attributes ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple ;
+            sh:path TS28623_ManagementDataCollectionNrm:ManagementDataCollection ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm .
+
+[] sh:node dash:ListShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_ManagementDataCollectionNrm:sst ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in_ ( "CP" "UP" ) ;
+            sh:path TS28623_ManagementDataCollectionNrm:cpUpType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_ManagementDataCollectionNrm:areaOfInterest ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in_ ( "CN" "RAN" ) ;
+            sh:path TS28623_ManagementDataCollectionNrm:networkDomain ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple .
+

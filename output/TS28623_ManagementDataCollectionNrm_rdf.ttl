@@ -1,0 +1,66 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_ManagementDataCollectionNrm:ManagementData a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple a rdfs:Class .
+
+TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28623_ManagementDataCollectionNrm:NodeFilter a rdfs:Class .
+
+TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm a rdfs:Class .
+
+TS28623_ManagementDataCollectionNrm:resources_mgmtDataCollectionNrm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28623_ManagementDataCollectionNrm:ManagementDataCollection a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm ;
+    rdfs:range TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple .
+
+TS28623_ManagementDataCollectionNrm:areaOfInterest a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
+    rdfs:range xsd:integer .
+
+TS28623_ManagementDataCollectionNrm:attributes a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    rdfs:range TS28623_ManagementDataCollectionNrm:InlineObject_128192804299328 .
+
+TS28623_ManagementDataCollectionNrm:collectionTimeWindow a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    rdfs:range TS28623_ComDefs:TimeWindow .
+
+TS28623_ManagementDataCollectionNrm:cpUpType a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
+    rdfs:range xsd:string .
+
+TS28623_ManagementDataCollectionNrm:dataScope a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    rdfs:range xsd:string .
+
+TS28623_ManagementDataCollectionNrm:managementData a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    rdfs:range TS28623_ManagementDataCollectionNrm:ManagementData .
+
+TS28623_ManagementDataCollectionNrm:networkDomain a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
+    rdfs:range xsd:string .
+
+TS28623_ManagementDataCollectionNrm:reportingCtrl a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    rdfs:range TS28623_GenericNrm:ReportingCtrl .
+
+TS28623_ManagementDataCollectionNrm:sst a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
+    rdfs:range xsd:integer .
+
+TS28623_ManagementDataCollectionNrm:targetNodeFilter a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    rdfs:range TS28623_ManagementDataCollectionNrm:NodeFilter .
+

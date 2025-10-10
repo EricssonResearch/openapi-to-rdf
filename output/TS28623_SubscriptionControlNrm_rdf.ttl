@@ -1,0 +1,75 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_SubscriptionControlNrm:HeartbeatControl_Single a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm a rdfs:Class .
+
+TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple a rdfs:Class .
+
+TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28623_SubscriptionControlNrm:Scope a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm a rdfs:Class .
+
+TS28623_SubscriptionControlNrm:resources_subscriptionControlNrm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28623_SubscriptionControlNrm:HeartbeatControl a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
+
+TS28623_SubscriptionControlNrm:NtfSubscriptionControl a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm,
+        TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm ;
+    rdfs:range TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple .
+
+TS28623_SubscriptionControlNrm:attributes a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:HeartbeatControl_Single,
+        TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_SubscriptionControlNrm:InlineObject_128192804050816,
+        TS28623_SubscriptionControlNrm:InlineObject_128192804055488 .
+
+TS28623_SubscriptionControlNrm:dataNodeSelector a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:Scope ;
+    rdfs:range xsd:string .
+
+TS28623_SubscriptionControlNrm:heartbeatNtfPeriod a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:HeartbeatControl_Single ;
+    rdfs:range xsd:integer .
+
+TS28623_SubscriptionControlNrm:notificationFilter a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_ComDefs:Filter .
+
+TS28623_SubscriptionControlNrm:notificationRecipientAddress a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_ComDefs:Uri .
+
+TS28623_SubscriptionControlNrm:notificationTypes a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_ComDefs:NotificationType .
+
+TS28623_SubscriptionControlNrm:scope a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_SubscriptionControlNrm:Scope .
+
+TS28623_SubscriptionControlNrm:scopeLevel a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:Scope ;
+    rdfs:range xsd:integer .
+
+TS28623_SubscriptionControlNrm:scopeType a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:Scope ;
+    rdfs:range xsd:string .
+
+TS28623_SubscriptionControlNrm:triggerHeartbeatNtf a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:HeartbeatControl_Single ;
+    rdfs:range xsd:boolean .
+

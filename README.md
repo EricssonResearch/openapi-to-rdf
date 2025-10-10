@@ -10,47 +10,61 @@ A Python tool for converting OpenAPI YAML specifications to RDF vocabularies and
 - **Professional Quality**: Generates clean, professional-grade RDF with proper semantic comments
 - **Comprehensive Testing**: Built-in test suite validates conversion completeness and semantic correctness
 
+## Installation
+
+```bash
+# Install directly from Git repository
+pip install git+https://github.com/your-username/openapi-rdf-converter.git
+```
+
 ## Quick Start
 
-### Prerequisites
-
-- Python 3.8+
-- Poetry (for dependency management)
-
-### Installation
+### Step 1: Download 3GPP OpenAPI Specifications
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd openapi-rdf-converter
+# Download all files from a specific release
+openapi-rdf-converter download --release Rel-18 --output-dir assets/
 
-# Install dependencies
-poetry install
+# Preview what would be downloaded (dry run)
+openapi-rdf-converter download --release Rel-19 --dry-run
+
+# List available releases
+openapi-rdf-converter download --list-releases
 ```
 
-### Basic Usage
+### Step 2: Convert to RDF/SHACL
 
 ```bash
-# Convert to SHACL format (separate RDF vocabulary + SHACL shapes)
-poetry run python main.py path/to/openapi.yaml
+# Convert single file
+openapi-rdf-converter convert path/to/openapi.yaml
 
-# Convert to OWL format (traditional RDF/OWL)
-poetry run python main.py path/to/openapi.yaml --format owl
+# Convert all files in directory
+openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/
 
-# Process entire directory
-poetry run python main.py assets/MnS-Rel-19-OpenAPI/OpenAPI/ --format shacl
+# Use custom namespace prefix
+openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
+
+# Convert to OWL format (single file)
+openapi-rdf-converter convert path/to/openapi.yaml --format owl
 ```
 
-### Example
+### Complete Workflow Example
 
 ```bash
-# Convert 3GPP ComDefs specification
-poetry run python main.py assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
+# 1. Download Rel-18 specifications
+openapi-rdf-converter download --release Rel-18 --output-dir assets/
 
-# Output files:
-# - output/TS28623_ComDefs_rdf.ttl    (RDF vocabulary)
-# - output/TS28623_ComDefs_shacl.ttl (SHACL validation shapes)
+# 2. Convert to RDF/SHACL with custom namespace
+openapi-rdf-converter convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
 ```
+
+### Download Features
+
+- **Multiple Discovery Methods**: Uses GitLab API, web scraping, and pattern matching
+- **Robust Error Handling**: Falls back to alternative methods if one fails
+- **Release Support**: Supports Rel-15 through Rel-19 and future releases
+- **Dry Run Mode**: Preview downloads without actually downloading files
+- **Organized Output**: Creates structured directories matching the repository layout
 
 ## Output Formats
 
@@ -63,69 +77,6 @@ Generates two separate files:
 ### OWL Format
 
 Generates a single RDF/OWL file (`*.ttl`) with traditional ontological modeling.
-
-## Testing
-
-The project includes a comprehensive testing framework:
-
-```bash
-# Run complete test suite
-cd tests
-poetry run python run_tests.py ../assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
-
-# Run individual tests
-poetry run python test_completeness.py <yaml_file> <rdf_file> <shacl_file>
-poetry run python test_semantic_correctness.py <yaml_file> <rdf_file> <shacl_file>
-```
-
-### Test Reports
-
-The testing framework provides:
-- **Schema Coverage**: Percentage of OpenAPI schemas converted to RDF classes
-- **Property Coverage**: Percentage of OpenAPI properties converted to RDF properties  
-- **Description Preservation**: Percentage of descriptions preserved as `rdfs:comment`
-- **W3C Compliance**: Validation against RDF/RDFS/SHACL standards
-- **Semantic Correctness**: Detection of ambiguous OpenAPI→RDF conversions
-
-## Architecture
-
-### Core Modules
-
-- **`main.py`**: Command-line interface supporting both SHACL and OWL formats
-- **`yaml2rdf/shacl_converter.py`**: Main SHACL converter implementation
-- **`yaml2rdf/converter.py`**: Legacy OWL converter
-- **`tests/`**: Comprehensive testing framework
-
-### Key Features
-
-#### Schema Type Support
-- **Objects**: Converted to `rdfs:Class` with property constraints
-- **Arrays**: Handled with `dash:ListShape` and item validation
-- **Simple Types**: String, number, integer with format support
-- **Logical Operators**: `oneOf`, `allOf`, `anyOf` with SHACL constraints
-- **Enumerations**: Proper enum value validation
-
-#### Standards Compliance
-- Uses standard W3C namespaces (`rdf:`, `rdfs:`, `sh:`, `xsd:`)
-- Proper `rdfs:domain` and `rdfs:range` specifications
-- SHACL constraint language for validation
-- Semantic comments for OpenAPI features that don't translate directly
-
-#### Namespace Management
-- Auto-generates namespaces from filenames (e.g., `TS28623_ComDefs.yaml` → `http://ericsson.com/models/3gpp/TS28623/ComDefs#`)
-- Handles external references between OpenAPI files
-- Consistent cross-file referencing
-
-## Docker Support
-
-```bash
-# Build image
-docker build -t openapi-rdf-converter .
-
-# Run converter
-docker run -v $(pwd)/assets:/input -v $(pwd)/output:/output openapi-rdf-converter \
-  python main.py /input/TS28623_ComDefs.yaml --format shacl
-```
 
 ## Example Output
 
@@ -163,6 +114,72 @@ Recent test results on TS28623_ComDefs.yaml:
 - **Property Coverage**: 100% (30/30 properties)  
 - **Description Preservation**: 100% (35/35 descriptions)
 - **Overall Quality Score**: 100% ✅ EXCELLENT
+
+## Development Mode
+
+For developers who want to contribute or modify the code:
+
+### Prerequisites
+
+- Python 3.8+
+- Poetry (for dependency management)
+
+### Development Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd openapi-rdf-converter
+
+# Install dependencies
+poetry install
+```
+
+### Development Usage
+
+```bash
+# Download 3GPP specifications
+poetry run python main.py download --release Rel-18 --output-dir assets/
+
+# Convert OpenAPI files
+poetry run python main.py convert path/to/openapi.yaml
+poetry run python main.py convert assets/directory/
+
+# Backward compatibility
+poetry run python main.py path/to/openapi.yaml
+```
+
+### Testing
+
+The project includes a comprehensive testing framework:
+
+```bash
+# Run complete test suite
+cd tests
+poetry run python run_tests.py ../assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
+
+# Run individual tests
+poetry run python test_completeness.py <yaml_file> <rdf_file> <shacl_file>
+poetry run python test_semantic_correctness.py <yaml_file> <rdf_file> <shacl_file>
+```
+
+### Architecture
+
+#### Core Modules
+
+- **`main.py`**: Command-line interface supporting both SHACL and OWL formats
+- **`openapi_rdf_converter/shacl_converter.py`**: Main SHACL converter implementation
+- **`openapi_rdf_converter/rdf_converter.py`**: Legacy OWL converter
+- **`openapi_rdf_converter/download_3gpp_openapi.py`**: 3GPP specification downloader
+- **`tests/`**: Comprehensive testing framework
+
+#### Key Features
+
+- **Schema Type Support**: Objects, arrays, enums, logical operators
+- **Standards Compliance**: W3C namespaces, proper domain/range specifications
+- **Namespace Management**: Auto-generated from filenames, configurable prefixes
+- **Input Processing**: Single files or entire directories
+- **Multiple Discovery Methods**: GitLab API, web scraping, pattern matching
 
 ## Contributing
 

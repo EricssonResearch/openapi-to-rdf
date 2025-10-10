@@ -1,0 +1,81 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_PmControlNrm: <http://ericsson.com/models/3gpp/TS28623/PmControlNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_PmControlNrm:PerfMetricJob_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AdministrativeState ;
+            sh:path TS28623_PmControlNrm:administrativeState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:OperationalState ;
+            sh:path TS28623_PmControlNrm:operationalState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28623_PmControlNrm:objectInstances ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_PmControlNrm:performanceMetrics ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28623_PmControlNrm:schedulerRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_PmControlNrm:jobId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ReportingCtrl ;
+            sh:path TS28623_PmControlNrm:reportingCtrl ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28623_PmControlNrm:rootObjectInstances ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_PmControlNrm:granularityPeriod ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28623_PmControlNrm:conditionMonitorRef ] ;
+    sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_PmControlNrm:PerfMetricJob_Multiple ;
+            sh:path TS28623_PmControlNrm:PerfMetricJob ] ;
+    sh:targetClass TS28623_PmControlNrm:ManagedElement_PmControlNrm .
+
+[] sh:class TS28623_PmControlNrm:PerfMetricJob_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_PmControlNrm:PerfMetricJob_Multiple ;
+            sh:path TS28623_PmControlNrm:PerfMetricJob ] ;
+    sh:targetClass TS28623_PmControlNrm:SubNetwork_ncO_PmControlNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:Files_Multiple ;
+            sh:path TS28623_PmControlNrm:Files ],
+        [ a sh:PropertyShape ;
+            sh:path TS28623_PmControlNrm:attributes ] ;
+    sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_PmControlNrm:resources_pmControlNrm ;
+    sh:xone ( "Na9e7f3ce85654103905e7d84ec0b9cdf" ) .
+

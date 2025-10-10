@@ -1,0 +1,69 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_ThresholdMonitorNrm: <http://ericsson.com/models/3gpp/TS28623/ThresholdMonitorNrm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_ThresholdMonitorNrm:ManagedElement_ncO_ThresholdMonitorNrm a rdfs:Class .
+
+TS28623_ThresholdMonitorNrm:SubNetwork_ncO_ThresholdMonitorNrm a rdfs:Class .
+
+TS28623_ThresholdMonitorNrm:ThresholdInfo a rdfs:Class .
+
+TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple a rdfs:Class .
+
+TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28623_ThresholdMonitorNrm:resources_thresholdMonitorNrm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28623_ThresholdMonitorNrm:ThresholdMonitor a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ManagedElement_ncO_ThresholdMonitorNrm,
+        TS28623_ThresholdMonitorNrm:SubNetwork_ncO_ThresholdMonitorNrm ;
+    rdfs:range TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple .
+
+TS28623_ThresholdMonitorNrm:administrativeState a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range TS28623_ComDefs:AdministrativeState .
+
+TS28623_ThresholdMonitorNrm:attributes a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range TS28623_ThresholdMonitorNrm:InlineObject_128192806121664 .
+
+TS28623_ThresholdMonitorNrm:hysteresis a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28623_ThresholdMonitorNrm:monitorGranularityPeriod a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range xsd:integer .
+
+TS28623_ThresholdMonitorNrm:objectInstances a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range TS28623_ComDefs:DnList .
+
+TS28623_ThresholdMonitorNrm:operationalState a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range TS28623_ComDefs:OperationalState .
+
+TS28623_ThresholdMonitorNrm:performanceMetrics a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28623_ThresholdMonitorNrm:rootObjectInstances a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range TS28623_ComDefs:DnList .
+
+TS28623_ThresholdMonitorNrm:thresholdDirection a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28623_ThresholdMonitorNrm:thresholdInfoList a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+    rdfs:range TS28623_ThresholdMonitorNrm:ThresholdInfo .
+
+TS28623_ThresholdMonitorNrm:thresholdValue a rdf:Property ;
+    rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+

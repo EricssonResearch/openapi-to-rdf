@@ -1,0 +1,92 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_ThresholdMonitorNrm: <http://ericsson.com/models/3gpp/TS28623/ThresholdMonitorNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_ThresholdMonitorNrm:attributes ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple .
+
+[] sh:datatype xsd:float .
+
+[] sh:datatype xsd:integer ;
+    sh:minInclusive 0 .
+
+[] sh:datatype xsd:float .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_ThresholdMonitorNrm:hysteresis ;
+            sh:xone ( "N25083a9330844046a56d63389465975a" "N2d7621614db049599a10513a8dbf4a0b" ) ],
+        [ a sh:PropertyShape ;
+            sh:path TS28623_ThresholdMonitorNrm:thresholdValue ;
+            sh:xone ( "N5d4c1c9fefd34e048045f6c516eb3d2b" "N17d4cb369ee142d5b5cd0a3804db84aa" ) ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ThresholdMonitorNrm:performanceMetrics ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in_ ( "UP" "DOWN" "UP_AND_DOWN" ) ;
+            sh:path TS28623_ThresholdMonitorNrm:thresholdDirection ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single .
+
+[] sh:datatype xsd:integer .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple ;
+            sh:path TS28623_ThresholdMonitorNrm:ThresholdMonitor ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ManagedElement_ncO_ThresholdMonitorNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AdministrativeState ;
+            sh:path TS28623_ThresholdMonitorNrm:administrativeState ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ThresholdMonitorNrm:thresholdInfoList ;
+            sh:property [ sh:class TS28623_ThresholdMonitorNrm:ThresholdInfo ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:OperationalState ;
+            sh:path TS28623_ThresholdMonitorNrm:operationalState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28623_ThresholdMonitorNrm:rootObjectInstances ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_ThresholdMonitorNrm:monitorGranularityPeriod ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28623_ThresholdMonitorNrm:objectInstances ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple ;
+            sh:path TS28623_ThresholdMonitorNrm:ThresholdMonitor ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:SubNetwork_ncO_ThresholdMonitorNrm .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:resources_thresholdMonitorNrm ;
+    sh:xone ( "Nedd47b262aa34d6b837759cec9cab91a" ) .
+
+[] sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor_Single .
+

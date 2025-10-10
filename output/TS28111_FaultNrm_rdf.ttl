@@ -1,0 +1,390 @@
+@prefix TS28111_FaultNrm: <http://ericsson.com/models/3gpp/TS28111/FaultNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28111_FaultNrm:AckState a rdfs:Class .
+
+TS28111_FaultNrm:AlarmId a rdfs:Class .
+
+TS28111_FaultNrm:AlarmListAlignmentRequirement a rdfs:Class .
+
+TS28111_FaultNrm:AlarmList_Single a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL",
+        "This resource represents a map of alarm records. The alarmIds are used as keys in the map." .
+
+TS28111_FaultNrm:AlarmNotificationTypes a rdfs:Class .
+
+TS28111_FaultNrm:AlarmRecord a rdfs:Class ;
+    rdfs:comment "The alarmId is not a property of an alarm record. It is used as key in the map of alarm records instead." .
+
+TS28111_FaultNrm:AlarmType a rdfs:Class .
+
+TS28111_FaultNrm:Comment a rdfs:Class .
+
+TS28111_FaultNrm:Comments a rdfs:Class ;
+    rdfs:comment "Collection of comments. The comment identifiers are allocated by the MnS producer and used as key in the map." .
+
+TS28111_FaultNrm:CorrelatedNotification a rdfs:Class .
+
+TS28111_FaultNrm:CorrelatedNotifications a rdfs:Class .
+
+TS28111_FaultNrm:NotifyAckStateChanged a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyAlarmListRebuilt a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyChangedAlarm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyChangedAlarmGeneral a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyChangedSecAlarmGeneral a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyClearedAlarm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyComments a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyCorrelatedNotificationChanged a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyNewAlarm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyNewSecAlarm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:NotifyPotentialFaultyAlarmList a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:PerceivedSeverity a rdfs:Class .
+
+TS28111_FaultNrm:ProbableCause a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:SpecificProblem a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:ThresholdHysteresis a rdfs:Class .
+
+TS28111_FaultNrm:ThresholdInfo a rdfs:Class .
+
+TS28111_FaultNrm:ThresholdLevelInd a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:TrendIndication a rdfs:Class .
+
+TS28111_FaultNrm:resources_faultNrm a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+
+TS28111_FaultNrm:ackState a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyAckStateChanged ;
+    rdfs:range TS28111_FaultNrm:AckState .
+
+TS28111_FaultNrm:ackSystemId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyAckStateChanged ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:ackTime a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:ackUserId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyAckStateChanged ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:additionalInformation a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28111_FaultNrm:additionalText a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:administrativeState a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range TS28623_ComDefs:AdministrativeState .
+
+TS28111_FaultNrm:alarmChangedTime a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:alarmClearedTime a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:alarmId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:NotifyAckStateChanged,
+        TS28111_FaultNrm:NotifyChangedAlarm,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyClearedAlarm,
+        TS28111_FaultNrm:NotifyComments,
+        TS28111_FaultNrm:NotifyCorrelatedNotificationChanged,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28111_FaultNrm:AlarmId .
+
+TS28111_FaultNrm:alarmListAlignmentRequirement a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:NotifyAlarmListRebuilt ;
+    rdfs:range TS28111_FaultNrm:AlarmListAlignmentRequirement .
+
+TS28111_FaultNrm:alarmRaisedTime a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:alarmRecords a rdf:Property ;
+    rdfs:comment "This resource represents a map of alarm records. The alarmIds are used as keys in the map." ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range TS28111_FaultNrm:InlineObject_128192804269376 .
+
+TS28111_FaultNrm:alarmType a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyAckStateChanged,
+        TS28111_FaultNrm:NotifyChangedAlarm,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyClearedAlarm,
+        TS28111_FaultNrm:NotifyComments,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28111_FaultNrm:AlarmType .
+
+TS28111_FaultNrm:armTime a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:attributes a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range TS28111_FaultNrm:InlineObject_128192804263488 .
+
+TS28111_FaultNrm:backUpObject a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28111_FaultNrm:backedUpStatus a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range xsd:boolean .
+
+TS28111_FaultNrm:changedAlarmAttributes a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28111_FaultNrm:clearSystemId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyClearedAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:clearUserId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyClearedAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:commentSystemId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:commentText a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:commentTime a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:commentUserId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:Comment ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:comments a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:NotifyComments ;
+    rdfs:range TS28111_FaultNrm:Comments .
+
+TS28111_FaultNrm:correlatedNotifications a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyClearedAlarm,
+        TS28111_FaultNrm:NotifyCorrelatedNotificationChanged,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28111_FaultNrm:CorrelatedNotifications .
+
+TS28111_FaultNrm:down a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdLevelInd ;
+    rdfs:range TS28111_FaultNrm:ThresholdHysteresis .
+
+TS28111_FaultNrm:high a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdHysteresis ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:lastModification a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range TS28623_ComDefs:DateTime .
+
+TS28111_FaultNrm:low a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdHysteresis ;
+    rdfs:range xsd:float .
+
+TS28111_FaultNrm:monitoredAttributes a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28111_FaultNrm:notificationId a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:NotificationId .
+
+TS28111_FaultNrm:notificationIds a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:NotificationId .
+
+TS28111_FaultNrm:numOfAlarmRecords a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range xsd:integer .
+
+TS28111_FaultNrm:objectInstance a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28111_FaultNrm:observedMeasurement a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:observedValue a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range xsd:double .
+
+TS28111_FaultNrm:operationalState a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range TS28623_ComDefs:OperationalState .
+
+TS28111_FaultNrm:perceivedSeverity a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyAckStateChanged,
+        TS28111_FaultNrm:NotifyChangedAlarm,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyClearedAlarm,
+        TS28111_FaultNrm:NotifyComments,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28111_FaultNrm:PerceivedSeverity .
+
+TS28111_FaultNrm:probableCause a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyAckStateChanged,
+        TS28111_FaultNrm:NotifyChangedAlarm,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyClearedAlarm,
+        TS28111_FaultNrm:NotifyComments,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28111_FaultNrm:ProbableCause .
+
+TS28111_FaultNrm:proposedRepairActions a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:reason a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:NotifyAlarmListRebuilt,
+        TS28111_FaultNrm:NotifyPotentialFaultyAlarmList ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:rootCauseIndicator a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyCorrelatedNotificationChanged,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range xsd:boolean .
+
+TS28111_FaultNrm:securityAlarmDetector a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:serviceProvider a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:serviceUser a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedSecAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range xsd:string .
+
+TS28111_FaultNrm:sourceObjectInstance a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28111_FaultNrm:specificProblem a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm,
+        TS28111_FaultNrm:NotifyNewSecAlarm ;
+    rdfs:range TS28111_FaultNrm:SpecificProblem .
+
+TS28111_FaultNrm:stateChangeDefinition a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range TS28623_ComDefs:AttributeValueChangeSet .
+
+TS28111_FaultNrm:thresholdInfo a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range TS28111_FaultNrm:ThresholdInfo .
+
+TS28111_FaultNrm:thresholdLevel a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdInfo ;
+    rdfs:range TS28111_FaultNrm:ThresholdLevelInd .
+
+TS28111_FaultNrm:thresholdinfo a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord ;
+    rdfs:range TS28111_FaultNrm:ThresholdInfo .
+
+TS28111_FaultNrm:trendIndication a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmRecord,
+        TS28111_FaultNrm:NotifyChangedAlarmGeneral,
+        TS28111_FaultNrm:NotifyNewAlarm ;
+    rdfs:range TS28111_FaultNrm:TrendIndication .
+
+TS28111_FaultNrm:unreliableAlarmScope a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:AlarmList_Single ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28111_FaultNrm:up a rdf:Property ;
+    rdfs:domain TS28111_FaultNrm:ThresholdLevelInd ;
+    rdfs:range TS28111_FaultNrm:ThresholdHysteresis .
+
