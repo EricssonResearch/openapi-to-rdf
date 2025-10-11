@@ -9,58 +9,40 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in_ ( "USERNAME" "EMAIL_ADDRESS" "PHONE_NUMBER" "IP_ADDRESS" "MACHINEUSER" ) ;
+            sh:path TS28319_MsacNrm:credential ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "USERNAME" "EMAIL_ADDRESS" "PHONE_NUMBER" "IP_ADDRESS" "MACHINEUSER" ) ;
             sh:path TS28319_MsacNrm:identityType ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DnList ;
             sh:path TS28319_MsacNrm:roleRefList ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28319_MsacNrm:identityName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28319_MsacNrm:credential ] ;
-    sh:targetClass TS28319_MsacNrm:Identity_Single .
-
-[] sh:class TS28319_MsacNrm:Identity_Single .
-
-[] sh:class TS28319_MsacNrm:Role_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
+            sh:path TS28319_MsacNrm:identityName ] ;
     sh:targetClass TS28319_MsacNrm:Identity_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:path TS28319_MsacNrm:attributes ] ;
-    sh:targetClass TS28319_MsacNrm:Role_Single .
+    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28319_MsacNrm:componentCData ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28319_MsacNrm:resources ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in_ ( "ALLOW" "DENY" ) ;
-            sh:path TS28319_MsacNrm:actions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28319_MsacNrm:ruleName ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28319_MsacNrm:operations ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28319_MsacNrm:Identity_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28319_MsacNrm:AccessRule_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28319_MsacNrm:resources_msacNrm ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28319_MsacNrm:Identity_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28319_MsacNrm:AccessRule_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28319_MsacNrm:Role_Single ] .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -75,19 +57,36 @@
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28319_MsacNrm:Role_Single .
 
-[] sh:class TS28319_MsacNrm:AccessRule_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28319_MsacNrm:attributes ] ;
-    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
-
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:path TS28319_MsacNrm:attributes ] ;
     sh:targetClass TS28319_MsacNrm:Identity_Single .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28319_MsacNrm:resources_msacNrm ;
-    sh:xone ( "N44185b9307f544efa9c7515dbfafd4ca" "N5eb9a309e4fb4e0682a251baba9b9227" "Nabceecd700ee4100a080e0f4538ff9c2" ) .
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28319_MsacNrm:operations ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28319_MsacNrm:ruleName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALLOW" "DENY" ) ;
+            sh:path TS28319_MsacNrm:actions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28319_MsacNrm:resources ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28319_MsacNrm:componentCData ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28319_MsacNrm:attributes ] ;
+    sh:targetClass TS28319_MsacNrm:Role_Single .
 

@@ -4,13 +4,13 @@ import os
 import sys
 from pathlib import Path
 
-from openapi_rdf_converter.shacl_converter import OpenAPIToSHACLConverter
-from openapi_rdf_converter.rdf_converter import OpenAPIToRDFConverter
+from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
+from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
 
 
 def download_command(args):
     """Handle the download subcommand."""
-    from openapi_rdf_converter.download_3gpp_openapi import ThreeGPPDownloader
+    from openapi_to_rdf.download_3gpp_openapi import ThreeGPPDownloader
     
     downloader = ThreeGPPDownloader(args.output_dir, args.dry_run)
     

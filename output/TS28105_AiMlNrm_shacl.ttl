@@ -9,120 +9,85 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:cancelRequest ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:RequestStatus ;
-            sh:path TS28105_AiMlNrm:requestStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelToLoadRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLUpdateProcessRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:path TS28105_AiMlNrm:updateTimeDeadline ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:newCapabilityVersionId ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:performanceGainThreshold ;
-            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:cancelRequest ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRefList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:RequestStatus ;
-            sh:path TS28105_AiMlNrm:requestStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:path TS28105_AiMlNrm:mLUpdateReportingPeriod ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLModelCoordinationGroup_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Multiple .
-
-[] sh:class TS28105_AiMlNrm:MLModelRepository_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingFunction_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Multiple .
-
-[] sh:class TS28105_AiMlNrm:MLTestingReport_Single .
-
-[] sh:class TS28105_AiMlNrm:MLTrainingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTestingRequest_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Multiple .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLModelRepository_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelRepository_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceReport_Multiple ;
-            sh:path TS28105_AiMlNrm:AIMLInferenceReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelLoadingProcess_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModelLoadingProcess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelLoadingRequest_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModelLoadingRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModel_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelLoadingPolicy_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModelLoadingPolicy ] ;
+            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
     sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
 
 [] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:AIMLInferenceReport_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Multiple .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:path TS28105_AiMlNrm:decisionConfidenceScore ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:inferenceOutputName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:path TS28105_AiMlNrm:performanceScore ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:performanceMetric ] ;
+    sh:targetClass TS28105_AiMlNrm:ModelPerformance .
 
-[] sh:class TS28105_AiMlNrm:MLUpdateFunction_Single .
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateFunction_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:memberMLModelRefList ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Single .
+            sh:path TS28105_AiMlNrm:mLModelRefList ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:inferenceOutputs ;
+            sh:property [ sh:class TS28105_AiMlNrm:InferenceOutput ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLModel_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
+            sh:path TS28105_AiMlNrm:cancelProcess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:ProcessMonitor ;
+            sh:path TS28105_AiMlNrm:progressStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:loadedMLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelLoadingPolicyRef ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:suspendProcess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelLoadingRequestRef ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -131,36 +96,51 @@
     sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Single .
 
 [] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTestingFunction_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:AIMLInferenceReport_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
             sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
-
-[] sh:class TS28105_AiMlNrm:MLTestingRequest_Single .
+    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Single .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
-
-[] sh:class TS28105_AiMlNrm:AIMLInferenceReport_Single .
-
-[] sh:class TS28105_AiMlNrm:MLUpdateReport_Single .
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLModelLoadingPolicy_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Multiple .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28105_AiMlNrm:ManagedActivationScope ;
-    sh:xone ( "N3b19e6b26c224ee78ecfad59af1e9f97" "N437c65fbf5d041ae83549cab9d0d6c44" "Nb2f5832cbcfc413d8741c9f85a89b143" ) .
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateRequest_Single ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingFunction_Single ;
             sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Multiple .
+    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -168,14 +148,84 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:RequestStatus ;
+            sh:path TS28105_AiMlNrm:requestStatus ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:performanceRequirements ;
+            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:path TS28105_AiMlNrm:trainingDataQualityScore ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLContext ;
+            sh:path TS28105_AiMlNrm:expectedRuntimeContext ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:candidateTrainingDataSource ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:cancelRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:trainingRequestSource ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:suspendRequest ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:aIMLInferenceName ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingProcess_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Multiple ;
+            sh:path TS28105_AiMlNrm:AIMLInferenceEmulationFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateFunction_Multiple ;
+            sh:path TS28105_AiMlNrm:MLUpdateFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelRepository_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModelRepository ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingFunction_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTestingFunction ],
+        [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLTrainingFunction_Multiple ;
             sh:path TS28105_AiMlNrm:MLTrainingFunction ],
         [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceFunction_Multiple ;
+            sh:path TS28105_AiMlNrm:AIMLInferenceFunction ] ;
+    sh:targetClass TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLTestingFunction_Multiple ;
             sh:path TS28105_AiMlNrm:MLTestingFunction ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLModelRepository_Multiple ;
             sh:path TS28105_AiMlNrm:MLModelRepository ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingFunction_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTrainingFunction ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Multiple ;
             sh:path TS28105_AiMlNrm:AIMLInferenceEmulationFunction ],
@@ -188,14 +238,15 @@
     sh:targetClass TS28105_AiMlNrm:ManagedElement_ncO_AiMlNrm .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Single .
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Single .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLModelLoadingRequest_Single ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingRequest_Single ;
             sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest_Multiple .
+    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -204,9 +255,74 @@
     sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
+    sh:targetClass TS28105_AiMlNrm:ManagedActivationScope ;
+    sh:xone [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:node dash:ListShape ;
+                    sh:path TS28105_AiMlNrm:geoPolygon ;
+                    sh:property [ sh:class TS28623_ComDefs:GeoArea ;
+                            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:node dash:ListShape ;
+                    sh:path TS28105_AiMlNrm:timeWindow ;
+                    sh:property [ sh:class TS28623_ComDefs:TimeWindow ;
+                            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:node dash:ListShape ;
+                    sh:path TS28105_AiMlNrm:dNList ;
+                    sh:property [ sh:class TS28623_ComDefs:Dn ;
+                            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingReport_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTrainingReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingReport_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTestingReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingRequest_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTestingRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingProcess_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTrainingProcess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingRequest_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTrainingRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple ;
+            sh:path TS28105_AiMlNrm:ThresholdMonitors ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:inferenceOutputId ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:inferenceOutputTime ;
+            sh:property [ sh:class TS28623_ComDefs:DateTime ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28105_AiMlNrm:outputResult ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:ModelPerformance ;
+            sh:path TS28105_AiMlNrm:inferencePerformance ] ;
+    sh:targetClass TS28105_AiMlNrm:InferenceOutput .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -218,365 +334,50 @@
     sh:targetClass TS28105_AiMlNrm:MLContext .
 
 [] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateProcess_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Multiple .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModel_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelCoordinationGroup_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModelCoordinationGroup ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelRepository_Single .
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Single .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingProcess_Single ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateRequest_Single ;
             sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:dNList ;
-            sh:property [ sh:class TS28623_ComDefs:Dn ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28105_AiMlNrm:ManagedActivationScope .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLModelLoadingPolicy_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
-
-[] sh:class TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
+    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTestingRequest_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:ProcessMonitor ;
-            sh:path TS28105_AiMlNrm:progressStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRefList ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:cancelProcess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLUpdateReportRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLUpdateRequestRefList ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendProcess ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTestingFunction_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:AIMLInferenceFunction_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:inferenceOutputs ;
-            sh:property [ sh:class TS28105_AiMlNrm:InferenceOutput ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRefList ] ;
     sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess_Single .
-
-[] sh:class TS28105_AiMlNrm:MLTestingFunction_Single .
-
-[] sh:class TS28105_AiMlNrm:MLUpdateProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28105_AiMlNrm:dataRatioTrainingAndValidation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28105_AiMlNrm:modelConfidenceIndication ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:modelPerformanceTraining ;
-            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:modelPerformanceValidation ;
-            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:areNewTrainingDataUsed ],
-        [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:trainingRequestRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:lastTrainingRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:trainingProcessRef ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:usedConsumerTrainingData ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupGeneratedRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelRepositoryRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateFunction_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
+            sh:path TS28105_AiMlNrm:memberMLModelRefList ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
     sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:ManagedFunction_ncO,
         TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:cancelProcess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendProcess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:trainingRequestRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:trainingReportRef ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:terminationConditions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28105_AiMlNrm:priority ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:ProcessMonitor ;
-            sh:path TS28105_AiMlNrm:progressStatus ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Single .
-
-[] sh:class TS28105_AiMlNrm:MLModel_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:ProcessMonitor ;
-            sh:path TS28105_AiMlNrm:progressStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelLoadingPolicyRef ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendProcess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelLoadingRequestRef ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:cancelProcess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:loadedMLModelRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModel_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingReport_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLModelRepository_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelRepository_Multiple ;
-            sh:path TS28105_AiMlNrm:MLModelRepository ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateFunction_Multiple ;
-            sh:path TS28105_AiMlNrm:MLUpdateFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingFunction_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTestingFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Multiple ;
-            sh:path TS28105_AiMlNrm:AIMLInferenceEmulationFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceFunction_Multiple ;
-            sh:path TS28105_AiMlNrm:AIMLInferenceFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingFunction_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTrainingFunction ] ;
-    sh:targetClass TS28105_AiMlNrm:SubNetwork_ncO_AiMlNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:timeWindow ;
-            sh:property [ sh:class TS28623_ComDefs:TimeWindow ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28105_AiMlNrm:ManagedActivationScope .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRef ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
-            sh:path TS28105_AiMlNrm:policyForLoading ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:cancelRequest ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:RequestStatus ;
-            sh:path TS28105_AiMlNrm:requestStatus ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateRequest_Multiple ;
-            sh:path TS28105_AiMlNrm:MLUpdateRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateReport_Multiple ;
-            sh:path TS28105_AiMlNrm:MLUpdateReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateProcess_Multiple ;
-            sh:path TS28105_AiMlNrm:MLUpdateProcess ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Single .
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -592,85 +393,21 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Single .
+    sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Single .
 
 [] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateProcess_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
     sh:targetClass TS28105_AiMlNrm:MLModel_Single .
 
-[] sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport_Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:isSupportedForTraining ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:performanceIndicatorName ],
-        [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:isSupportedForTesting ] ;
-    sh:targetClass TS28105_AiMlNrm:SupportedPerfIndicator .
-
-[] sh:class TS28105_AiMlNrm:AIMLInferenceFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:capabilityName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28105_AiMlNrm:mLCapabilityParameters ] ;
-    sh:targetClass TS28105_AiMlNrm:MLCapabilityInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:resultStateInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:progressStateInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28105_AiMlNrm:progressPercentage ] ;
-    sh:targetClass TS28105_AiMlNrm:ProcessMonitor .
+    sh:targetClass TS28105_AiMlNrm:MLModelRepository_Single .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
@@ -680,79 +417,347 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingRequest_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTestingRequest ],
+            sh:path TS28105_AiMlNrm:areNewTrainingDataUsed ],
         [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:mLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupGeneratedRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:lastTrainingRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28105_AiMlNrm:dataRatioTrainingAndValidation ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:modelPerformanceTraining ;
+            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:trainingRequestRef ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:usedConsumerTrainingData ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28105_AiMlNrm:modelConfidenceIndication ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:trainingProcessRef ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:modelPerformanceValidation ;
+            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:progressStateInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28105_AiMlNrm:progressPercentage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:resultStateInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:status ] ;
+    sh:targetClass TS28105_AiMlNrm:ProcessMonitor .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28105_AiMlNrm:resources_AiMlNrm ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingProcess_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingRequest_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModel_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingFunction_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateFunction_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingRequest_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingPolicy_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingProcess_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingRequest_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateProcess_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelCoordinationGroup_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingFunction_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingReport_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceFunction_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateReport_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceReport_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateRequest_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelRepository_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingReport_Single ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLTestingReport_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTestingReport ] ;
+            sh:path TS28105_AiMlNrm:MLTestingReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingRequest_Multiple ;
+            sh:path TS28105_AiMlNrm:MLTestingRequest ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateReport_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28105_AiMlNrm:mLCapabilityParameters ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:capabilityName ] ;
+    sh:targetClass TS28105_AiMlNrm:MLCapabilityInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateProcess_Multiple ;
+            sh:path TS28105_AiMlNrm:MLUpdateProcess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateRequest_Multiple ;
+            sh:path TS28105_AiMlNrm:MLUpdateRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateReport_Multiple ;
+            sh:path TS28105_AiMlNrm:MLUpdateReport ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTestingRequest_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:mLModelRef ] ;
     sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Single .
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:suspendRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:RequestStatus ;
+            sh:path TS28105_AiMlNrm:requestStatus ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:cancelRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:aIMLInferenceReportRefList ],
+            sh:path TS28105_AiMlNrm:suspendProcess ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:mLModelVersion ],
+            sh:path TS28105_AiMlNrm:cancelProcess ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:sourceTrainedMLModelRef ],
+            sh:path TS28105_AiMlNrm:mLUpdateReportRef ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:mLModelId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLContext ;
-            sh:path TS28105_AiMlNrm:trainingContext ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:mLCapabilitiesInfoList ;
-            sh:property [ sh:class TS28105_AiMlNrm:MLCapabilityInfo ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+            sh:class TS28105_AiMlNrm:ProcessMonitor ;
+            sh:path TS28105_AiMlNrm:progressStatus ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
+            sh:path TS28105_AiMlNrm:mLModelRefList ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLContext ;
-            sh:path TS28105_AiMlNrm:runTimeContext ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLContext ;
-            sh:path TS28105_AiMlNrm:expectedRunTimeContext ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:retrainingEventsMonitorRef ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:SupportedPerfIndicator ;
-            sh:path TS28105_AiMlNrm:supportedPerformanceIndicators ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModel_Single .
-
-[] sh:class TS28105_AiMlNrm:MLUpdateRequest_Single .
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:mLUpdateRequestRefList ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:mLCapabilityVersionId ;
-            sh:property [ sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:modelPerformanceTesting ;
+            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:testingRequestRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:mLTestingResult ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DnList ;
             sh:path TS28105_AiMlNrm:mLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:expectedPerformanceGains ;
+            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28105_AiMlNrm:availMLCapabilityReportID ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:expectedPerformanceGains ;
-            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
+            sh:path TS28105_AiMlNrm:mLCapabilityVersionId ;
+            sh:property [ sh:datatype xsd:string ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
     sh:targetClass TS28105_AiMlNrm:AvailMLCapabilityReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceReport_Multiple ;
+            sh:path TS28105_AiMlNrm:AIMLInferenceReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingProcess_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModelLoadingProcess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingPolicy_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModelLoadingPolicy ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModel_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingRequest_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModelLoadingRequest ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLModel_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModel_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLModelLoadingRequest_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest_Multiple .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTestingRequest_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLUpdateProcessRef ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:suspendRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:path TS28105_AiMlNrm:updateTimeDeadline ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:performanceGainThreshold ;
+            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:RequestStatus ;
+            sh:path TS28105_AiMlNrm:requestStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:path TS28105_AiMlNrm:mLUpdateReportingPeriod ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:mLModelRefList ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:newCapabilityVersionId ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:cancelRequest ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingRequest_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelRepositoryRef ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLModelCoordinationGroup_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -763,94 +768,67 @@
             sh:path TS28105_AiMlNrm:availMLCapabilityReport ] ;
     sh:targetClass TS28105_AiMlNrm:MLUpdateFunction_Single .
 
-[] sh:class TS28105_AiMlNrm:MLModelCoordinationGroup_Single .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModel_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelCoordinationGroup_Multiple ;
+            sh:path TS28105_AiMlNrm:MLModelCoordinationGroup ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelRepository_Single .
 
-[] sh:class TS28105_AiMlNrm:MLModelLoadingRequest_Single .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
+            sh:path TS28105_AiMlNrm:policyForLoading ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:mLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:aIMLInferenceName ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Single .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingRequest_Single ;
+    sh:property [ sh:class TS28105_AiMlNrm:AIMLInferenceFunction_Single ;
             sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Multiple .
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLTrainingReport_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingReport_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingProcess_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTrainingProcess ],
+            sh:path TS28105_AiMlNrm:isSupportedForTesting ],
         [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingReport_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTestingReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingRequest_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTestingRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingRequest_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTrainingRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor_Multiple ;
-            sh:path TS28105_AiMlNrm:ThresholdMonitors ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingReport_Multiple ;
-            sh:path TS28105_AiMlNrm:MLTrainingReport ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
-
-[] sh:class TS28105_AiMlNrm:MLTrainingFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:performanceMetric ],
+            sh:path TS28105_AiMlNrm:isSupportedForTraining ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:inferenceOutputName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:path TS28105_AiMlNrm:decisionConfidenceScore ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:path TS28105_AiMlNrm:performanceScore ] ;
-    sh:targetClass TS28105_AiMlNrm:ModelPerformance .
-
-[] sh:class TS28105_AiMlNrm:MLTrainingRequest_Single .
+            sh:path TS28105_AiMlNrm:performanceIndicatorName ] ;
+    sh:targetClass TS28105_AiMlNrm:SupportedPerfIndicator .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:geoPolygon ;
-            sh:property [ sh:class TS28623_ComDefs:GeoArea ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28105_AiMlNrm:ManagedActivationScope .
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28105_AiMlNrm:MLModelRepository_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelRepository_Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:modelPerformanceTesting ;
-            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:mLTestingResult ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:testingRequestRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingReport_Single .
-
-[] sh:class TS28105_AiMlNrm:MLTrainingReport_Single .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28105_AiMlNrm:resources_AiMlNrm ;
-    sh:xone ( "Ne0ba3f2ae3e44316abbfb304cceda268" "Ne41f353b36f147f199a8276acf7bc9d5" "N1aa920612c0c43b6940d5d1c35f7ebb2" "Ne9c320dabcca4abc87b09ad37bb5449a" "N9681420abe04475599d42d4ab933d1e3" "N0f97f992744845c8939259bc4c3310f7" "Ndd20b720e2534a01bfb3850a43078554" "N741b90a73e22404390142d41fea0744b" "N3b9fde664f1f40c6b23224427c3bbc2c" "N16ff3b8db3c44397821102ae6191878c" "Ndd34dfd4177b434d9271282f7671cdbf" "Nf6256f44dc89404088ecd9098c10c108" "N6450b2438893440eac41c59efb9735c9" "N3352bcd56cd148768eaef21580eaced2" "Nd3a2c11b6659445887c0c1b521b3082d" "N7b0ac1ffd1e04b0a9447bdb8aba6bae8" "N43c382d6de4648b480e79f61bf8ad53c" "Nbea1a9d4cb354d46b63b6633c97eaa65" "N40ed819c216f4bf0bbe7bbab86acdb9f" "Nb9a01147db2a4b5abae68ace4cfafad7" ) .
+    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -865,97 +843,111 @@
     sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Single .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
-            sh:path TS28105_AiMlNrm:managedActivationScope ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:mLModelRefList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in_ ( "ACTIVATED" "DEACTIVATED" ) ;
-            sh:path TS28105_AiMlNrm:activationStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:path TS28105_AiMlNrm:usedByFunctionRefList ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
-
-[] sh:class TS28105_AiMlNrm:MLModelLoadingProcess_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLUpdateReport_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateReport_Multiple .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28105_AiMlNrm:MLModel_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModel_Multiple .
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
             sh:path TS28105_AiMlNrm:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:inferenceOutputId ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28105_AiMlNrm:outputResult ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:inferenceOutputTime ;
-            sh:property [ sh:class TS28623_ComDefs:DateTime ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:ModelPerformance ;
-            sh:path TS28105_AiMlNrm:inferencePerformance ] ;
-    sh:targetClass TS28105_AiMlNrm:InferenceOutput .
+    sh:targetClass TS28105_AiMlNrm:MLTestingFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
+            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:path TS28105_AiMlNrm:trainingDataQualityScore ],
+            sh:path TS28105_AiMlNrm:suspendProcess ],
         [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:candidateTrainingDataSource ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:trainingRequestRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28105_AiMlNrm:priority ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:trainingReportRef ],
+        [ a sh:PropertyShape ;
+            sh:path TS28105_AiMlNrm:cancelProcess ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+            sh:path TS28105_AiMlNrm:terminationConditions ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
             sh:path TS28105_AiMlNrm:mLModelRef ],
         [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:ProcessMonitor ;
+            sh:path TS28105_AiMlNrm:progressStatus ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:RequestStatus ;
             sh:path TS28105_AiMlNrm:requestStatus ],
         [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:mLModelToLoadRef ],
+        [ a sh:PropertyShape ;
             sh:path TS28105_AiMlNrm:cancelRequest ],
         [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28105_AiMlNrm:performanceRequirements ;
-            sh:property [ sh:class TS28105_AiMlNrm:ModelPerformance ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+            sh:path TS28105_AiMlNrm:suspendRequest ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLContext ;
+            sh:path TS28105_AiMlNrm:trainingContext ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLContext ;
-            sh:path TS28105_AiMlNrm:expectedRuntimeContext ],
+            sh:path TS28105_AiMlNrm:runTimeContext ],
         [ a sh:PropertyShape ;
-            sh:path TS28105_AiMlNrm:suspendRequest ],
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:mLModelVersion ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28105_AiMlNrm:trainingRequestSource ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest_Single .
+            sh:path TS28105_AiMlNrm:retrainingEventsMonitorRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28105_AiMlNrm:mLCapabilitiesInfoList ;
+            sh:property [ sh:class TS28105_AiMlNrm:MLCapabilityInfo ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28105_AiMlNrm:sourceTrainedMLModelRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm:mLModelId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:SupportedPerfIndicator ;
+            sh:path TS28105_AiMlNrm:supportedPerformanceIndicators ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:aIMLInferenceReportRefList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLContext ;
+            sh:path TS28105_AiMlNrm:expectedRunTimeContext ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModel_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ACTIVATED" "DEACTIVATED" ) ;
+            sh:path TS28105_AiMlNrm:activationStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:mLModelRefList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
+            sh:path TS28105_AiMlNrm:managedActivationScope ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:path TS28105_AiMlNrm:usedByFunctionRefList ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction_Single .
 

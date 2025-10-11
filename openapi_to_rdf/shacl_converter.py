@@ -43,8 +43,18 @@ class OpenAPIToSHACLConverter:
 
     def _load_yaml(self):
         """Load the YAML file into a Python dictionary."""
-        with open(self.yaml_file, "r", encoding="utf-8") as file:
-            self.data = yaml.safe_load(file)
+        try:
+            with open(self.yaml_file, "r", encoding="utf-8") as file:
+                self.data = yaml.safe_load(file)
+        except FileNotFoundError:
+            raise ValueError(f"YAML file not found: {self.yaml_file}")
+        except yaml.YAMLError as e:
+            raise ValueError(f"Invalid YAML file: {self.yaml_file}. Error: {e}")
+        except Exception as e:
+            raise ValueError(f"Error loading YAML file: {self.yaml_file}. Error: {e}")
+        
+        if self.data is None:
+            raise ValueError(f"YAML file is empty: {self.yaml_file}")
 
     def _bind_standard_prefixes(self):
         """Bind standard RDF/RDFS/SHACL prefixes to both graphs."""
@@ -128,7 +138,7 @@ class OpenAPIToSHACLConverter:
             # Only create SHACL constraints for property shapes, not inheritance for classes
             if property_shape is not None:
                 if self._is_object_type_from_ref(ref):
-                    self.shacl_graph.add((property_shape, self.SH['class'], class_uri))
+                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_uri))
                 else:
                     # Handle datatype reference
                     datatype = self._get_datatype_from_ref(ref)
@@ -291,7 +301,7 @@ class OpenAPIToSHACLConverter:
         # Handle enumerations
         if "enum" in spec:
             enum_list = self._create_rdf_list(spec["enum"])
-            self.shacl_graph.add((property_shape, self.SH.in_, enum_list))
+            self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), enum_list))
 
     def _handle_numeric_type(self, subject, property_shape, spec):
         """Handle numeric type schemas (integer, number)."""
@@ -405,10 +415,10 @@ class OpenAPIToSHACLConverter:
             # Add class constraints
             if class_constraints:
                 if len(class_constraints) == 1:
-                    self.shacl_graph.add((property_shape, self.SH['class'], class_constraints[0]))
+                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_constraints[0]))
                 else:
                     class_list = self._create_rdf_list(class_constraints)
-                    self.shacl_graph.add((property_shape, self.SH['class'], class_list))
+                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_list))
         else:
             # For homogeneous types, inline the constraints instead of creating separate shapes
             # This avoids the problem of undefined blank node references
@@ -419,21 +429,85 @@ class OpenAPIToSHACLConverter:
                         self.shacl_graph.add((property_shape, RDFS.comment, Literal(spec["description"])))
                     self._type_clause(subject, property_shape, spec)
             else:
-                # For oneOf/anyOf, we still need separate shapes but we'll inline them
-                shapes_list = []
+                # For oneOf/anyOf, we need to create separate shapes but avoid RDF lists
+                # Create individual property shapes for each constraint
+                valid_constraints = []
+                
                 for spec in specs_list:
-                    # Create inline shape definition
-                    shape = self._create_bnode()
-                    
-                    if "description" in spec:
-                        self.shacl_graph.add((shape, RDFS.comment, Literal(spec["description"])))
-                    
-                    self._type_clause(subject, shape, spec)
-                    shapes_list.append(shape)
-
-                # Create RDF list and add operator
-                rdf_list = self._create_rdf_list(shapes_list)
-                self.shacl_graph.add((property_shape, operator, rdf_list))
+                    # For object types in logical operators, create a NodeShape instead of PropertyShape
+                    if spec.get("type") == "object" and "properties" in spec:
+                        # Create a NodeShape for object constraints in logical operators
+                        constraint_shape = self._create_bnode()
+                        self.shacl_graph.add((constraint_shape, RDF.type, self.SH.NodeShape))
+                        
+                        if "description" in spec:
+                            self.shacl_graph.add((constraint_shape, RDFS.comment, Literal(spec["description"])))
+                        
+                        # Process properties as SHACL property constraints
+                        properties = spec.get("properties", {})
+                        required_props = spec.get("required", [])
+                        
+                        for prop_name, prop_def in properties.items():
+                            safe_prop = self.format_name(prop_name)
+                            predicate_uri = self.main_prefix[safe_prop]
+                            
+                            # Create PropertyShape for this property
+                            prop_shape = self._create_bnode()
+                            self.shacl_graph.add((prop_shape, RDF.type, self.SH.PropertyShape))
+                            self.shacl_graph.add((constraint_shape, self.SH.property, prop_shape))
+                            self.shacl_graph.add((prop_shape, self.SH.path, predicate_uri))
+                            
+                            # Add cardinality if required
+                            if prop_name in required_props:
+                                self.shacl_graph.add((prop_shape, self.SH.minCount, Literal(1)))
+                            
+                            # Process the property constraints
+                            self._type_clause(subject, prop_shape, prop_def)
+                        
+                        valid_constraints.append(constraint_shape)
+                    else:
+                        # Create a PropertyShape for non-object constraints
+                        constraint_shape = self._create_bnode()
+                        self.shacl_graph.add((constraint_shape, RDF.type, self.SH.PropertyShape))
+                        
+                        if "description" in spec:
+                            self.shacl_graph.add((constraint_shape, RDFS.comment, Literal(spec["description"])))
+                        
+                        # Track triples before processing
+                        triples_before = len(self.shacl_graph)
+                        
+                        self._type_clause(subject, constraint_shape, spec)
+                        
+                        # Check if any meaningful constraints were added
+                        triples_after = len(self.shacl_graph)
+                        has_constraints = self._has_meaningful_constraints(constraint_shape)
+                        
+                        # Also check if we added any sh:property constraints
+                        has_properties = len(list(self.shacl_graph.objects(constraint_shape, self.SH.property))) > 0
+                        
+                        if has_constraints or has_properties or (triples_after > triples_before + 1):  # +1 for the PropertyShape type
+                            valid_constraints.append(constraint_shape)
+                        else:
+                            # Remove the empty PropertyShape and all its triples
+                            for p, o in list(self.shacl_graph.predicate_objects(constraint_shape)):
+                                self.shacl_graph.remove((constraint_shape, p, o))
+                
+                # Only add logical operator if we have valid constraints
+                if valid_constraints:
+                    if len(valid_constraints) == 1:
+                        # If only one valid constraint, don't use logical operator
+                        # Copy constraints directly to property_shape
+                        constraint = valid_constraints[0]
+                        for p, o in self.shacl_graph.predicate_objects(constraint):
+                            if p != RDF.type:  # Don't copy the PropertyShape type
+                                self.shacl_graph.add((property_shape, p, o))
+                        # Remove the now-redundant constraint shape
+                        for p, o in list(self.shacl_graph.predicate_objects(constraint)):
+                            self.shacl_graph.remove((constraint, p, o))
+                    else:
+                        # Add all valid constraints to the logical operator
+                        for constraint_shape in valid_constraints:
+                            self.shacl_graph.add((property_shape, operator, constraint_shape))
 
     def _process_property(self, domain_class, node_shape, prop_name, prop_def, required_list):
         """Process a property within an object schema."""
@@ -600,19 +674,56 @@ class OpenAPIToSHACLConverter:
         """Create a new blank node."""
         return BNode()
 
+    def _has_meaningful_constraints(self, property_shape):
+        """Check if a PropertyShape has meaningful SHACL constraints."""
+        meaningful_properties = {
+            self.SH.datatype, getattr(self.SH, 'class'), self.SH.node, self.SH.minCount,
+            self.SH.maxCount, self.SH.minLength, self.SH.maxLength, self.SH.pattern,
+            self.SH.minInclusive, self.SH.maxInclusive, getattr(self.SH, 'in'),
+            self.SH.hasValue, self.SH.equals, self.SH.disjoint, self.SH.lessThan,
+            self.SH.lessThanOrEquals, self.SH.path
+        }
+        
+        for predicate in self.shacl_graph.predicates(property_shape):
+            if predicate in meaningful_properties:
+                return True
+        return False
+
     def _create_rdf_list(self, items):
         """Create an RDF list from Python list."""
         if not items:
             return RDF.nil
         
-        list_node = self._create_bnode()
-        processed_items = []
-        for item in items:
+        if len(items) == 1:
+            # For single items, return the item directly instead of creating a list
+            item = items[0]
             if isinstance(item, (str, int, float, bool)):
-                processed_items.append(Literal(item))
+                return Literal(item)
             else:
-                processed_items.append(item)
-        Collection(self.shacl_graph, list_node, processed_items)
+                return item
+        
+        # For multiple items, create a proper RDF list structure
+        list_node = self._create_bnode()
+        current_node = list_node
+        
+        for i, item in enumerate(items):
+            if isinstance(item, (str, int, float, bool)):
+                processed_item = Literal(item)
+            else:
+                processed_item = item
+            
+            # Add the item to the current node
+            self.shacl_graph.add((current_node, RDF.first, processed_item))
+            
+            # Create next node if not the last item
+            if i < len(items) - 1:
+                next_node = self._create_bnode()
+                self.shacl_graph.add((current_node, RDF.rest, next_node))
+                current_node = next_node
+            else:
+                # Last item points to rdf:nil
+                self.shacl_graph.add((current_node, RDF.rest, RDF.nil))
+        
         return list_node
 
     def _generate_semantic_comments(self, spec):
@@ -660,19 +771,29 @@ class OpenAPIToSHACLConverter:
     def save_rdf(self):
         """Serialize both RDF and SHACL graphs as separate Turtle files."""
         base_filename = os.path.basename(self.yaml_file).replace(".yaml", "")
-        os.makedirs(self.output_dir, exist_ok=True)
+        
+        try:
+            os.makedirs(self.output_dir, exist_ok=True)
+        except OSError as e:
+            raise ValueError(f"Cannot create output directory {self.output_dir}: {e}")
         
         # Save RDF vocabulary file
         rdf_filename = f"{base_filename}_rdf.ttl"
         rdf_path = os.path.join(self.output_dir, rdf_filename)
-        self.rdf_graph.serialize(destination=rdf_path, format="turtle")
-        print(f"✅ RDF vocabulary file saved: {rdf_path}")
+        try:
+            self.rdf_graph.serialize(destination=rdf_path, format="turtle")
+            print(f"✅ RDF vocabulary file saved: {rdf_path}")
+        except Exception as e:
+            raise ValueError(f"Failed to serialize RDF graph to {rdf_path}: {e}")
         
         # Save SHACL shapes file
         shacl_filename = f"{base_filename}_shacl.ttl"
         shacl_path = os.path.join(self.output_dir, shacl_filename)
-        self.shacl_graph.serialize(destination=shacl_path, format="turtle")
-        print(f"✅ SHACL shapes file saved: {shacl_path}")
+        try:
+            self.shacl_graph.serialize(destination=shacl_path, format="turtle")
+            print(f"✅ SHACL shapes file saved: {shacl_path}")
+        except Exception as e:
+            raise ValueError(f"Failed to serialize SHACL graph to {shacl_path}: {e}")
 
     def run(self):
         """Run the full conversion process."""

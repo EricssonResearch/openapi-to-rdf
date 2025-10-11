@@ -7,37 +7,16 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] sh:class TS28317_RanScNrm:EnbId .
-
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Uri ;
-            sh:path TS28317_RanScNrm:configDataFileLocation ],
-        [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28317_RanScNrm:nEInformation ;
             sh:property [ sh:class TS28317_RanScNrm:NEInfomration ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28317_RanScNrm:ScMgmtProfile_Single .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS28317_RanScNrm:NEIdentification .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28317_RanScNrm:ScMgmtProfile_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28317_RanScNrm:ScMgmtProfile_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28317_RanScNrm:Sc_Process_Multiple ;
-            sh:path TS28317_RanScNrm:Sc_Process ],
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:class TS28317_RanScNrm:ScMgmtProfile_Multiple ;
-            sh:path TS28317_RanScNrm:ScMgmtProfile ] ;
-    sh:targetClass TS28317_RanScNrm:SubNetwork_ncO_RanScNrm .
+            sh:class TS28623_ComDefs:Uri ;
+            sh:path TS28317_RanScNrm:configDataFileLocation ] ;
+    sh:targetClass TS28317_RanScNrm:ScMgmtProfile_Single .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
@@ -50,76 +29,93 @@
     sh:targetClass TS28317_RanScNrm:Sc_Process_Single .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "Nd7afd0b1871d4879a798d420eef4bd5c" "N3bca264c26b849d7ba79e81695120ac2" ) ;
-    sh:targetClass TS28317_RanScNrm:NEInfomration .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in_ ( "NOT_STARTED" "RUNNING" "FINSHED" "FAILED" "CANCELLING" "CANCELLED" ) ;
-            sh:path TS28317_RanScNrm:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28317_RanScNrm:jobId ],
-        [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28317_RanScNrm:startTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in_ ( "NE_HEALTH_CHECK" "SW_DOWNLOAD" "SW_INSTALLATION" "SW_ACTIVATION" "PREPARE_BASIC_CONFIGURATION_AND_OAMLINK" "RETRIEVE_CONFIGURATION_DATA" "SETUP_PRECONFIGURED_SIGNALLING_LINKS" "SET_FINAL_STATE_OF_NE" ) ;
-            sh:path TS28317_RanScNrm:progressStateInfo ],
+            sh:path TS28317_RanScNrm:endTime ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxInclusive 100 ;
             sh:minInclusive 0 ;
             sh:path TS28317_RanScNrm:progressPercentage ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28317_RanScNrm:endTime ],
+            sh:datatype xsd:string ;
+            sh:path TS28317_RanScNrm:jobId ],
         [ a sh:PropertyShape ;
             sh:path TS28317_RanScNrm:resultStateInfo ;
-            sh:xone ( "Na811b9d83cc04c818a994f1e6f38df0a" "N39c2fbf914534650a3b5d8fb9d982ef8" ) ] ;
+            sh:xone [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "UNKNOWN" "INCORRECT_CONFIGURATION" "NE_HARDWARE_ERROR_DELECTED" "DISCONNECTION_BETWEEN_NE_AND_OAM" "OTHER" ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NE_HEALTH_CHECK" "SW_DOWNLOAD" "SW_INSTALLATION" "SW_ACTIVATION" "PREPARE_BASIC_CONFIGURATION_AND_OAMLINK" "RETRIEVE_CONFIGURATION_DATA" "SETUP_PRECONFIGURED_SIGNALLING_LINKS" "SET_FINAL_STATE_OF_NE" ) ;
+            sh:path TS28317_RanScNrm:progressStateInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28317_RanScNrm:startTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_STARTED" "RUNNING" "FINSHED" "FAILED" "CANCELLING" "CANCELLED" ) ;
+            sh:path TS28317_RanScNrm:status ] ;
     sh:targetClass TS28317_RanScNrm:ScProcessMonitor .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "UNKNOWN" "INCORRECT_CONFIGURATION" "NE_HARDWARE_ERROR_DELECTED" "DISCONNECTION_BETWEEN_NE_AND_OAM" "OTHER" ) .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28317_RanScNrm:ScMgmtProfile_Single .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28317_RanScNrm:NEIdentification ;
-    sh:xone ( "N0c4abb2a502e4bfcaab4311018db5c86" "Nf66e607da5854610997fb01b43d6b5da" "Nd3b40d47ef4f4e38846bcf31311a0981" ) .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28317_RanScNrm:resources_RanScNrm ;
-    sh:xone ( "Nd5e95e9cdffa4afe906097e8eeaa0aa0" "Nf0e5fb6146fe427291c73f0e0d7644d8" ) .
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:NEIdentification ],
+        [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:NEType ] ;
+    sh:targetClass TS28317_RanScNrm:NEInfomration .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             rdfs:comment "Setting this attribute to \"TRUE\" cancels the self configuration process. " ;
             sh:datatype xsd:string ;
-            sh:in_ ( true false ) ;
+            sh:in ( true false ) ;
             sh:path TS28317_RanScNrm:cancelScProcess ],
         [ a sh:PropertyShape ;
             sh:class TS28317_RanScNrm:NEIdentification ;
             sh:path TS28317_RanScNrm:nEIdentification ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28317_RanScNrm:scMgmtProfileRef ],
-        [ a sh:PropertyShape ;
             sh:class TS28317_RanScNrm:ScProcessMonitor ;
-            sh:path TS28317_RanScNrm:scProcessMonitor ] ;
+            sh:path TS28317_RanScNrm:scProcessMonitor ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28317_RanScNrm:scMgmtProfileRef ] ;
     sh:targetClass TS28317_RanScNrm:Sc_Process_Single .
 
-[] sh:class TS28623_ComDefs:Dn .
+[] a sh:NodeShape ;
+    sh:targetClass TS28317_RanScNrm:NEIdentification ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ],
+        [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:EnbId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:GnbId ] .
 
-[] sh:class TS28317_RanScNrm:ScMgmtProfile_Single .
+[] a sh:NodeShape ;
+    sh:targetClass TS28317_RanScNrm:resources_RanScNrm ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:ScMgmtProfile_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:Sc_Process_Single ] .
 
-[] sh:class TS28317_RanScNrm:NEType .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:Sc_Process_Multiple ;
+            sh:path TS28317_RanScNrm:Sc_Process ],
+        [ a sh:PropertyShape ;
+            sh:class TS28317_RanScNrm:ScMgmtProfile_Multiple ;
+            sh:path TS28317_RanScNrm:ScMgmtProfile ] ;
+    sh:targetClass TS28317_RanScNrm:SubNetwork_ncO_RanScNrm .
 
-[] sh:class TS28317_RanScNrm:Sc_Process_Single .
-
-[] sh:class TS28317_RanScNrm:GnbId .
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28317_RanScNrm:ScMgmtProfile_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28317_RanScNrm:ScMgmtProfile_Multiple .
 

@@ -1,5 +1,4 @@
 @prefix TS28104_MdaNrm: <http://ericsson.com/models/3gpp/TS28104/MdaNrm#> .
-@prefix TS28104_MdaReport: <http://ericsson.com/models/3gpp/TS28104/MdaReport#> .
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -68,10 +67,6 @@ TS28104_MdaNrm:analyticsScope a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDARequest_Single ;
     rdfs:range TS28104_MdaNrm:AnalyticsScopeType .
 
-TS28104_MdaNrm:areaScope a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:AnalyticsScopeType ;
-    rdfs:range TS28623_ComDefs:GeoArea .
-
 TS28104_MdaNrm:attributes a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDAFunction_Single,
         TS28104_MdaNrm:MDARequest_Single ;
@@ -80,10 +75,6 @@ TS28104_MdaNrm:attributes a rdf:Property ;
 TS28104_MdaNrm:filterValue a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
     rdfs:range xsd:string .
-
-TS28104_MdaNrm:granularityPeriod a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:AnalyticsSchedule ;
-    rdfs:range xsd:integer .
 
 TS28104_MdaNrm:hysteresis a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
@@ -103,10 +94,6 @@ TS28104_MdaNrm:mDAType a rdf:Property ;
 
 TS28104_MdaNrm:mLModelRefList a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDAFunction_Single ;
-    rdfs:range TS28623_ComDefs:DnList .
-
-TS28104_MdaNrm:managedEntitiesScope a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:AnalyticsScopeType ;
     rdfs:range TS28623_ComDefs:DnList .
 
 TS28104_MdaNrm:monitoredMDAOutputIE a rdf:Property ;
@@ -152,10 +139,6 @@ TS28104_MdaNrm:thresholdDirection a rdf:Property ;
 TS28104_MdaNrm:thresholdValue a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
     rdfs:range xsd:string .
-
-TS28104_MdaNrm:timeDurations a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:AnalyticsSchedule ;
-    rdfs:range TS28104_MdaReport:TimeWindow .
 
 TS28104_MdaNrm:timeOut a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;

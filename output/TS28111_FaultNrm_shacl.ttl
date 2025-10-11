@@ -7,272 +7,148 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:reason ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyPotentialFaultyAlarmList .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:attributes ] ;
     sh:targetClass TS28111_FaultNrm:AlarmList_Single .
 
 [] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyAlarmListRebuilt .
+
+[] a sh:NodeShape ;
+    sh:class TS28111_FaultNrm:AlarmList_Single ;
+    sh:targetClass TS28111_FaultNrm:resources_faultNrm .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AckState ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:ackState ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ],
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28111_FaultNrm:alarmChangedTime ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:serviceUser ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:TrendIndication ;
+            sh:path TS28111_FaultNrm:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:path TS28111_FaultNrm:ackUserId ],
         [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28111_FaultNrm:ackTime ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:backedUpStatus ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:clearSystemId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:proposedRepairActions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:serviceProvider ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28111_FaultNrm:alarmClearedTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28111_FaultNrm:alarmRaisedTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28111_FaultNrm:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:path TS28111_FaultNrm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AckState ;
+            sh:path TS28111_FaultNrm:ackState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28111_FaultNrm:backUpObject ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
+            sh:path TS28111_FaultNrm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:SpecificProblem ;
+            sh:path TS28111_FaultNrm:specificProblem ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:monitoredAttributes ],
+        [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:PerceivedSeverity ;
-            sh:minCount 1 ;
             sh:path TS28111_FaultNrm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
+            sh:path TS28111_FaultNrm:stateChangeDefinition ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmType ;
+            sh:path TS28111_FaultNrm:alarmType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ThresholdInfo ;
+            sh:path TS28111_FaultNrm:thresholdinfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:clearUserId ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28111_FaultNrm:ackSystemId ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:probableCause ] ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:securityAlarmDetector ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:NotificationId ;
+            sh:path TS28111_FaultNrm:notificationId ] ;
+    sh:targetClass TS28111_FaultNrm:AlarmRecord .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
     sh:targetClass TS28111_FaultNrm:NotifyAckStateChanged .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28111_FaultNrm:ThresholdLevelInd ;
-    sh:xone ( "Nb186bbdf972e4a64b1ef3f04d4431cfb" "N677dfce444a142dab24eab795a4a75a1" ) .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28111_FaultNrm:SpecificProblem ;
-    sh:xone ( "Nc6a5c7b7768e4770ad35140492065516" "Ndd4f60908ba446648032147173d6cf98" ) .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyNewSecAlarm .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "PROBABLE_CAUSE_001" "PROBABLE_CAUSE_002" "PROBABLE_CAUSE_003" "PROBABLE_CAUSE_004" "PROBABLE_CAUSE_005" ) .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarm .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:observedValue ],
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:commentSystemId ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:armTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdLevelInd ;
-            sh:path TS28111_FaultNrm:thresholdLevel ],
+            sh:path TS28111_FaultNrm:commentTime ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:observedMeasurement ] ;
-    sh:targetClass TS28111_FaultNrm:ThresholdInfo .
-
-[] a sh:NodeShape ;
-    sh:class [ sh:or_ ( "N2cf8499db1b34c2580220d7fe9559d05" "Na9bd623cdda848eba4bbc88740c6963f" ) ] ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS28111_FaultNrm:ProbableCause .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28111_FaultNrm:AlarmList_Single .
-
-[] sh:class TS28111_FaultNrm:AlarmList_Single .
+            sh:path TS28111_FaultNrm:commentText ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:commentUserId ] ;
+    sh:targetClass TS28111_FaultNrm:Comment .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28111_FaultNrm:Comments .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:reason ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmListAlignmentRequirement ;
-            sh:path TS28111_FaultNrm:alarmListAlignmentRequirement ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyAlarmListRebuilt .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmType ],
-        [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:PerceivedSeverity ;
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:probableCause ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:OperationalState ;
-            sh:path TS28111_FaultNrm:operationalState ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28111_FaultNrm:unreliableAlarmScope ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:lastModification ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AdministrativeState ;
-            sh:path TS28111_FaultNrm:administrativeState ],
-        [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:alarmRecords ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28111_FaultNrm:numOfAlarmRecords ] ;
-    sh:targetClass TS28111_FaultNrm:AlarmList_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmType ],
         [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:Comments ;
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:comments ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:PerceivedSeverity ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:perceivedSeverity ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyComments .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:path TS28111_FaultNrm:low ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:high ;
-            sh:xone ( "N69ab1a823a9e40aba84c7ea33d8477c0" "N95ab52c3574a4e1ea0282d8fa68e65ee" ) ] ;
-    sh:targetClass TS28111_FaultNrm:ThresholdHysteresis .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedSecAlarmGeneral .
-
-[] sh:datatype xsd:integer .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:alarmRaisedTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:monitoredAttributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:alarmChangedTime ],
-        [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28111_FaultNrm:objectInstance ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:ackTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:NotificationId ;
-            sh:path TS28111_FaultNrm:notificationId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:SpecificProblem ;
-            sh:path TS28111_FaultNrm:specificProblem ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:TrendIndication ;
-            sh:path TS28111_FaultNrm:trendIndication ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:ackSystemId ],
-        [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:backedUpStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:serviceUser ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
-            sh:path TS28111_FaultNrm:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:clearSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:alarmClearedTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:ackUserId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:clearUserId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:proposedRepairActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:securityAlarmDetector ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:serviceProvider ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
-            sh:path TS28111_FaultNrm:stateChangeDefinition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:PerceivedSeverity ;
-            sh:path TS28111_FaultNrm:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:path TS28111_FaultNrm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28111_FaultNrm:backUpObject ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AckState ;
-            sh:path TS28111_FaultNrm:ackState ],
-        [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:minCount 1 ;
             sh:path TS28111_FaultNrm:probableCause ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdInfo ;
-            sh:path TS28111_FaultNrm:thresholdinfo ] ;
-    sh:targetClass TS28111_FaultNrm:AlarmRecord .
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmType ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmType ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyComments .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
@@ -281,48 +157,67 @@
     sh:targetClass TS28111_FaultNrm:CorrelatedNotifications .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmType ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:probableCause ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarm .
+
+[] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyNewAlarm .
+    sh:targetClass TS28111_FaultNrm:NotifyComments .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28111_FaultNrm:AlarmList_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdHysteresis ;
-            sh:path TS28111_FaultNrm:up ] ;
-    sh:targetClass TS28111_FaultNrm:ThresholdLevelInd .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyCorrelatedNotificationChanged .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarmGeneral .
-
-[] sh:datatype xsd:float .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyClearedAlarm .
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:high ;
+            sh:xone [ a sh:PropertyShape ;
+                    sh:datatype xsd:integer ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:float ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:path TS28111_FaultNrm:low ] ;
+    sh:targetClass TS28111_FaultNrm:ThresholdHysteresis .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:TrendIndication ;
-            sh:path TS28111_FaultNrm:trendIndication ],
+            sh:path TS28111_FaultNrm:alarmRecords ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
-            sh:path TS28111_FaultNrm:stateChangeDefinition ],
+            sh:class TS28623_ComDefs:OperationalState ;
+            sh:path TS28111_FaultNrm:operationalState ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:SpecificProblem ;
-            sh:path TS28111_FaultNrm:specificProblem ],
+            sh:class TS28623_ComDefs:AdministrativeState ;
+            sh:path TS28111_FaultNrm:administrativeState ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
-            sh:path TS28111_FaultNrm:correlatedNotifications ],
+            sh:datatype xsd:integer ;
+            sh:path TS28111_FaultNrm:numOfAlarmRecords ],
         [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:rootCauseIndicator ],
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28111_FaultNrm:unreliableAlarmScope ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:proposedRepairActions ],
-        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28111_FaultNrm:lastModification ] ;
+    sh:targetClass TS28111_FaultNrm:AlarmList_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
             sh:path TS28111_FaultNrm:monitoredAttributes ],
         [ a sh:PropertyShape ;
@@ -330,34 +225,123 @@
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:alarmId ],
         [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:backedUpStatus ],
+            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
+            sh:path TS28111_FaultNrm:correlatedNotifications ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:additionalInformation ],
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:proposedRepairActions ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:rootCauseIndicator ],
         [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:PerceivedSeverity ;
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:perceivedSeverity ],
         [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:TrendIndication ;
+            sh:path TS28111_FaultNrm:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ThresholdInfo ;
+            sh:path TS28111_FaultNrm:thresholdInfo ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28111_FaultNrm:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:SpecificProblem ;
+            sh:path TS28111_FaultNrm:specificProblem ],
         [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:AlarmType ;
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:alarmType ],
         [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
+            sh:path TS28111_FaultNrm:stateChangeDefinition ],
+        [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
             sh:path TS28111_FaultNrm:backUpObject ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:backedUpStatus ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyNewAlarm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedSecAlarmGeneral .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28111_FaultNrm:SpecificProblem ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:path TS28111_FaultNrm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:path TS28111_FaultNrm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:TrendIndication ;
+            sh:path TS28111_FaultNrm:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:proposedRepairActions ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:backedUpStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:path TS28111_FaultNrm:backUpObject ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:changedAlarmAttributes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:SpecificProblem ;
+            sh:path TS28111_FaultNrm:specificProblem ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:monitoredAttributes ],
         [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:ThresholdInfo ;
             sh:path TS28111_FaultNrm:thresholdInfo ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
+            sh:path TS28111_FaultNrm:stateChangeDefinition ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
+            sh:path TS28111_FaultNrm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmType ;
             sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:probableCause ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyNewAlarm .
+            sh:path TS28111_FaultNrm:alarmType ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarmGeneral .
 
-[] sh:datatype xsd:string .
+[] a sh:NodeShape ;
+    sh:class [ sh:or_ [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "PROBABLE_CAUSE_001" "PROBABLE_CAUSE_002" "PROBABLE_CAUSE_003" "PROBABLE_CAUSE_004" "PROBABLE_CAUSE_005" ) ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ] ] ;
+    sh:datatype xsd:integer ;
+    sh:targetClass TS28111_FaultNrm:ProbableCause .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -365,31 +349,30 @@
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:alarmId ],
         [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:CorrelatedNotifications ;
-            sh:path TS28111_FaultNrm:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:clearSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:clearUserId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:PerceivedSeverity ;
             sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:probableCause ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyClearedAlarm .
+            sh:path TS28111_FaultNrm:correlatedNotifications ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyCorrelatedNotificationChanged .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyAlarmListRebuilt .
+    sh:targetClass TS28111_FaultNrm:ThresholdLevelInd ;
+    sh:xone [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:ThresholdHysteresis ;
+                    sh:path TS28111_FaultNrm:up ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:ThresholdHysteresis ;
+                    sh:path TS28111_FaultNrm:down ] ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:reason ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyPotentialFaultyAlarmList .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -405,175 +388,34 @@
     sh:targetClass TS28111_FaultNrm:CorrelatedNotification .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:proposedRepairActions ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:path TS28111_FaultNrm:backUpObject ],
-        [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:TrendIndication ;
-            sh:path TS28111_FaultNrm:trendIndication ],
-        [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:backedUpStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
-            sh:path TS28111_FaultNrm:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:SpecificProblem ;
-            sh:path TS28111_FaultNrm:specificProblem ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdInfo ;
-            sh:path TS28111_FaultNrm:thresholdInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:path TS28111_FaultNrm:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:changedAlarmAttributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:monitoredAttributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
-            sh:path TS28111_FaultNrm:stateChangeDefinition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:PerceivedSeverity ;
-            sh:path TS28111_FaultNrm:perceivedSeverity ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarmGeneral .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28111_FaultNrm:AlarmList_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:commentUserId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28111_FaultNrm:commentTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:commentSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:commentText ] ;
-    sh:targetClass TS28111_FaultNrm:Comment .
-
-[] sh:datatype xsd:string .
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyClearedAlarm .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyAckStateChanged .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:changedAlarmAttributes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:serviceProvider ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmType ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28111_FaultNrm:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:serviceUser ],
-        [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:securityAlarmDetector ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
-            sh:path TS28111_FaultNrm:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:path TS28111_FaultNrm:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:PerceivedSeverity ;
-            sh:path TS28111_FaultNrm:perceivedSeverity ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedSecAlarmGeneral .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28111_FaultNrm:resources_faultNrm ;
-    sh:xone ( "N412f32baa29a42babcc42e6f5c5a2a5e" ) .
+    sh:targetClass TS28111_FaultNrm:NotifyNewSecAlarm .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:targetClass TS28111_FaultNrm:NotifyPotentialFaultyAlarmList .
 
-[] sh:datatype xsd:integer .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28111_FaultNrm:NotifyComments .
-
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdHysteresis ;
-            sh:path TS28111_FaultNrm:down ] ;
-    sh:targetClass TS28111_FaultNrm:ThresholdLevelInd .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28111_FaultNrm:rootCauseIndicator ],
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:additionalText ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:correlatedNotifications ],
+            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:path TS28111_FaultNrm:perceivedSeverity ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyCorrelatedNotificationChanged .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:AlarmType ;
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm:alarmType ],
         [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:AlarmId ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:alarmId ],
+            sh:path TS28111_FaultNrm:securityAlarmDetector ],
         [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:ProbableCause ;
-            sh:minCount 1 ;
             sh:path TS28111_FaultNrm:probableCause ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
@@ -583,23 +425,171 @@
             sh:class TS28111_FaultNrm:CorrelatedNotifications ;
             sh:path TS28111_FaultNrm:correlatedNotifications ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:serviceProvider ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28111_FaultNrm:changedAlarmAttributes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:rootCauseIndicator ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedSecAlarmGeneral .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
+            sh:path TS28111_FaultNrm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:serviceUser ],
+        [ a sh:PropertyShape ;
             sh:class TS28111_FaultNrm:SpecificProblem ;
             sh:path TS28111_FaultNrm:specificProblem ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28111_FaultNrm:additionalText ],
+            sh:class TS28111_FaultNrm:AlarmType ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmType ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
             sh:path TS28111_FaultNrm:additionalInformation ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm:serviceProvider ],
+            sh:path TS28111_FaultNrm:additionalText ],
         [ a sh:PropertyShape ;
             sh:path TS28111_FaultNrm:rootCauseIndicator ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:serviceProvider ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
             sh:path TS28111_FaultNrm:securityAlarmDetector ] ;
     sh:targetClass TS28111_FaultNrm:NotifyNewSecAlarm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmListAlignmentRequirement ;
+            sh:path TS28111_FaultNrm:alarmListAlignmentRequirement ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:reason ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyAlarmListRebuilt .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarmGeneral .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:clearSystemId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmType ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotifications ;
+            sh:path TS28111_FaultNrm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:clearUserId ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyClearedAlarm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:PerceivedSeverity ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AckState ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:ackState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28111_FaultNrm:ackSystemId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ProbableCause ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmType ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:ackUserId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmId ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:alarmId ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyAckStateChanged .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyNewAlarm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28111_FaultNrm:attributes ] ;
+    sh:targetClass TS28111_FaultNrm:AlarmList_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:path TS28111_FaultNrm:armTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ThresholdLevelInd ;
+            sh:path TS28111_FaultNrm:thresholdLevel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:observedValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm:observedMeasurement ] ;
+    sh:targetClass TS28111_FaultNrm:ThresholdInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28111_FaultNrm:NotifyCorrelatedNotificationChanged .
 

@@ -5,315 +5,222 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "EAP_SUCCESS" "EAP_FAILURE" "PENDING" ) ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
 """ ;
-    sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf00377af17034ea5a19db4fb4ae57d62" "N14e4c7fa94554bd88edb42a098b05ea2" ) ;
-    sh:targetClass TS29571_CommonData:ScheduledCommunicationType .
-
-[] sh:class TS29571_CommonData:TwapId .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 120 240 480 640 1024 2048 5120 10240 20480 40960 60000 360000 720000 1800000 3600000 ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:bssId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:ssId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Bytes ;
-            sh:path TS29571_CommonData:civicAddress ] ;
-    sh:targetClass TS29571_CommonData:TnapId .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS29571_CommonData:LinksValueSchema ;
-    sh:xone ( "N235865483f9c4346b8edeb4baba41e5b" "Ne10e0f477cda464581e7ef286352ef59" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nc7b4d7c850524b8cb3258723366eea7a" "Nb144e7c7b815491682febe72f51aab96" ) ;
-    sh:targetClass TS29571_CommonData:LcsServiceAuth .
-
-[] sh:datatype xsd:string .
-
-[] sh:or_ ( "N202182268cb44409bd42d605eefce9cb" "N9b9825f5d0ee430ba821e8071df10cf4" ) .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N5eb7316e4e114199ad851168dc153b47" "N665c6c9bb7914312bd054bbe5f89081d" ) ;
-    sh:targetClass TS29571_CommonData:NotificationControlRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N892377f22c514b29957acea2d8809ea7" "N687fc973edbd4a76a81957c063474243" ) ;
-    sh:targetClass TS29571_CommonData:PreemptionVulnerabilityRm .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N0821b36bfd5f4ea89de4378152df71c6" "N2cf09185b1f04bddac9c7ce979dcf0eb" ) ;
-    sh:targetClass TS29571_CommonData:TwapIdRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Uri ;
-            sh:path TS29571_CommonData:acsUrl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv4Addr ;
-            sh:path TS29571_CommonData:acsIpv4Addr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv6Addr ;
-            sh:path TS29571_CommonData:acsIpv6Addr ] ;
-    sh:targetClass TS29571_CommonData:AcsInfo .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "NOT_PREEMPT" "MAY_PREEMPT" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv6Addr ;
-            sh:path TS29571_CommonData:ipv6Addr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:MacAddr48 ;
-            sh:path TS29571_CommonData:macAddr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:portNumber ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv4Addr ;
-            sh:path TS29571_CommonData:ipv4Addr ] ;
-    sh:targetClass TS29571_CommonData:DddTrafficDescriptor .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf50ca81648a2455795925a6cda397d29" "N8ddf597a2f954f378ace332495dbb50a" ) ;
-    sh:targetClass TS29571_CommonData:TransportProtocol .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Link ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:self ] ;
-    sh:targetClass TS29571_CommonData:SelfLink .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:reportInterval ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:measurementLteList ;
-            sh:property [ sh:class TS29571_CommonData:MeasurementLteForMdt ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ReportAmountMdt ;
-            sh:path TS29571_CommonData:reportAmount ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 34 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:eventThresholdRsrq ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:CollectionPeriodRmmNrMdt ;
-            sh:path TS29571_CommonData:collectionPeriodRmmNr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 127 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:eventThresholdRsrqNr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:LoggingDurationMdt ;
-            sh:path TS29571_CommonData:loggingDuration ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:MeasurementPeriodLteMdt ;
-            sh:path TS29571_CommonData:measurementPeriodLte ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:addPositioningMethodList ;
-            sh:property [ sh:class TS29571_CommonData:PositioningMethodMdt ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:CollectionPeriodRmmLteMdt ;
-            sh:path TS29571_CommonData:collectionPeriodRmmLte ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:JobType ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:jobType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PositioningMethodMdt ;
-            sh:path TS29571_CommonData:positioningMethod ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:LoggingDurationNrMdt ;
-            sh:path TS29571_CommonData:loggingDurationNr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ReportTypeMdt ;
-            sh:path TS29571_CommonData:reportType ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:mbsfnAreaList ;
-            sh:property [ sh:class TS29571_CommonData:MbsfnArea ;
-                    sh:maxCount 8 ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:mdtAllowedPlmnIdList ;
-            sh:property [ sh:class TS29571_CommonData:PlmnId ;
-                    sh:maxCount 16 ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 127 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:eventThresholdRsrpNr ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:sensorMeasurementList ;
-            sh:property [ sh:class TS29571_CommonData:SensorMeasurement ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:reportIntervalNr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:loggingInterval ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 97 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:eventThresholdRsrp ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:interFreqTargetList ;
-            sh:property [ sh:datatype xsd:integer ;
-                    sh:maxCount 8 ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:reportingTriggerList ;
-            sh:property [ sh:class TS29571_CommonData:ReportingTrigger ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AreaScope ;
-            sh:path TS29571_CommonData:areaScope ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:eventList ;
-            sh:property [ sh:class TS29571_CommonData:EventForMdt ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:measurementNrList ;
-            sh:property [ sh:class TS29571_CommonData:MeasurementNrForMdt ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:loggingIntervalNr ] ;
-    sh:targetClass TS29571_CommonData:MdtConfiguration .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N22ebe7d037f84c0692f935cdb3772675" "N5345fc8b2c854b1781516fff549e88c3" ) ;
-    sh:targetClass TS29571_CommonData:LineType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AmfName ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:backupAmf ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:guamiList ;
-            sh:property [ sh:class TS29571_CommonData:Guami ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:BackupAmfInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:ssId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Bytes ;
-            sh:path TS29571_CommonData:civicAddress ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:bssId ] ;
-    sh:targetClass TS29571_CommonData:TwapId .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "M1" "M2" "M3" "M4_DL" "M4_UL" "M5_DL" "M5_UL" "M6_DL" "M6_UL" "M7_DL" "M7_UL" "M8" "M9" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N7182d9b670c24bd79f5bce92a661f14a" "N0b42133cdb7943b8a9d6b0e01162f065" ) ;
-    sh:targetClass TS29571_CommonData:MeasurementNrForMdt .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "add" "copy" "move" "remove" "replace" "test" ) .
-
-[] sh:class TS29571_CommonData:RgWirelineCharacteristics .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:eventList ;
-            sh:pattern "^[A-Fa-f0-9]+$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:neTypeList ;
-            sh:pattern "^[A-Fa-f0-9]+$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv6Addr ;
-            sh:path TS29571_CommonData:collectionEntityIpv6Addr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TraceDepth ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:traceDepth ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv4Addr ;
-            sh:path TS29571_CommonData:collectionEntityIpv4Addr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:traceRef ;
-            sh:pattern "^[0-9]{3}[0-9]{2,3}-[A-Fa-f0-9]{6}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:interfaceList ;
-            sh:pattern "^[A-Fa-f0-9]+$" ] ;
-    sh:targetClass TS29571_CommonData:TraceData .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nd367c2e7b4044cd2b48535ad0ce21c71" "Ndfbdaf77bd004c1d93894c5360990986" ) ;
-    sh:targetClass TS29571_CommonData:GuamiRm .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Na2a34124b7a34c6d902417e4e1374ee6" "N75cd7db957ee4e7c9c79efe95a69ffe3" ) ;
+            sh:datatype xsd:string ] ;
     sh:targetClass TS29571_CommonData:AuthStatus .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "Nb30d828599ad4baebe623fc235b42567" "Nce1746e469e440d39748324a4eb1c2b2" ) ;
-    sh:targetClass TS29571_CommonData:ScheduledCommunicationTimeRm .
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnIdNid ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AmfId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:amfId ] ;
+    sh:targetClass TS29571_CommonData:Guami .
 
-[] sh:class TS29571_CommonData:NssaaStatus .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv4Addr ;
+            sh:path TS29571_CommonData:ipv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:portNumber ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv6Addr ;
+            sh:path TS29571_CommonData:ipv6Addr ] ;
+    sh:targetClass TS29571_CommonData:RouteInformation .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SINGLE_TRANS_UL" "SINGLE_TRANS_DL" "DUAL_TRANS_UL_FIRST" "DUAL_TRANS_DL_FIRST" "MULTI_TRANS" ) ] ;
+    sh:targetClass TS29571_CommonData:TrafficProfile .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PacketErrRate ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:packetErrRate ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:MaxDataBurstVol ;
+            sh:path TS29571_CommonData:maxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtMaxDataBurstVol ;
+            sh:path TS29571_CommonData:extMaxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PacketDelBudget ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:packetDelayBudget ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:QosResourceType ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:resourceType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtPacketDelBudget ;
+            sh:path TS29571_CommonData:cnPacketDelayBudgetDl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtPacketDelBudget ;
+            sh:path TS29571_CommonData:cnPacketDelayBudgetUl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AverWindow ;
+            sh:path TS29571_CommonData:averWindow ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtPacketDelBudget ;
+            sh:path TS29571_CommonData:extPacketDelBudget ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:5QiPriorityLevel ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:priorityLevel ] ;
+    sh:targetClass TS29571_CommonData:Dynamic5Qi .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PatchOperation ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:op ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:from ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:path ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:value ] ;
+    sh:targetClass TS29571_CommonData:PatchItem .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:tacs ;
+            sh:property [ sh:class TS29571_CommonData:Tac ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AreaCode ;
+            sh:path TS29571_CommonData:areaCode ] ;
+    sh:targetClass TS29571_CommonData:Area .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NotificationControl ] ;
+    sh:targetClass TS29571_CommonData:NotificationControlRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RoamingOdb ;
+            sh:path TS29571_CommonData:roamingOdb ] ;
+    sh:targetClass TS29571_CommonData:OdbData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:uplinkVolume ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:endTimeStamp ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:startTimeStamp ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Qfi ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:qfi ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:downlinkVolume ] ;
+    sh:targetClass TS29571_CommonData:QosFlowUsageReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Nid ;
+            sh:path TS29571_CommonData:nid ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NrCellId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:nrCellId ] ;
+    sh:targetClass TS29571_CommonData:Ncgi .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "REQUESTED" "NOT_REQUESTED" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:NotificationControl .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:HfcNId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:hfcNId ] ;
+    sh:targetClass TS29571_CommonData:HfcNodeId .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:cnfUnits ;
+            sh:property [ sh:class TS29571_CommonData:CnfUnit ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:Cnf .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NrLocation ] ;
+    sh:targetClass TS29571_CommonData:NrLocationRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ecgi ] ;
+    sh:targetClass TS29571_CommonData:EcgiRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:HttpMethod ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:method ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:title ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:properties ;
+            sh:property [ sh:class TS29571_CommonData:Property ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:contentType ] ;
+    sh:targetClass TS29571_CommonData:HalTemplate .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -323,40 +230,78 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29571_CommonData:rac ;
-            sh:pattern "^[A-Fa-f0-9]{2}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
             sh:path TS29571_CommonData:lac ;
             sh:pattern "^[A-Fa-f0-9]{4}$" ] ;
-    sh:targetClass TS29571_CommonData:RoutingAreaId .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "IMMEDIATE_MDT_ONLY" "LOGGED_MDT_ONLY" "TRACE_ONLY" "IMMEDIATE_MDT_AND_TRACE" "RLF_REPORTS_ONLY" "RCEF_REPORTS_ONLY" "LOGGED_MBSFN_MDT" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "NON_GBR" "NON_CRITICAL_GBR" "CRITICAL_GBR" ) .
+    sh:targetClass TS29571_CommonData:LocationAreaId .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:NrLocation ;
-            sh:path TS29571_CommonData:nrLocation ],
+            sh:class TS29571_CommonData:DateTime ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:startTimeStamp ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UtraLocation ;
-            sh:path TS29571_CommonData:utraLocation ],
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:uplinkVolume ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:N3gaLocation ;
-            sh:path TS29571_CommonData:n3gaLocation ],
+            sh:class TS29571_CommonData:DateTime ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:endTimeStamp ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:GeraLocation ;
-            sh:path TS29571_CommonData:geraLocation ],
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:downlinkVolume ] ;
+    sh:targetClass TS29571_CommonData:VolumeTimedReport .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DnaiChangeType ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:EutraLocation ;
-            sh:path TS29571_CommonData:eutraLocation ] ;
-    sh:targetClass TS29571_CommonData:UserLocation .
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:DnaiChangeTypeRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:detail ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:SupportedFeatures ;
+            sh:path TS29571_CommonData:supportedFeatures ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:invalidParams ;
+            sh:property [ sh:class TS29571_CommonData:InvalidParam ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:nrfId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:cause ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Uri ;
+            sh:path TS29571_CommonData:instance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:status ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Uri ;
+            sh:path TS29571_CommonData:type ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:title ] ;
+    sh:targetClass TS29571_CommonData:ProblemDetails .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:tacList ;
+            sh:property [ sh:class TS29571_CommonData:Tac ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:TacInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -372,481 +317,43 @@
             sh:path TS29571_CommonData:bitLength ] ;
     sh:targetClass TS29571_CommonData:GNbId .
 
-[] sh:datatype xsd:string ;
-    sh:in_ ( "MORE_LIKELY" ) .
-
-[] sh:datatype xsd:string .
-
 [] a sh:NodeShape ;
-    sh:or_ ( "N2b23a94488d34633a83c4725822e85c9" "N70355a4560ee4841bc278c82fcf27b7e" ) ;
-    sh:targetClass TS29571_CommonData:DlDataDeliveryStatus .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "DSL" "PON" ) .
-
-[] sh:node dash:ListShape ;
-    sh:property [ sh:class TS29571_CommonData:Link ;
-            sh:minCount 1 ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geodeticInformation ;
-            sh:pattern "^[0-9A-F]{20}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 32767 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:ageOfLocationInformation ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:ueLocationTimestamp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ncgi ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:ncgi ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Tai ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:tai ],
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geographicalInformation ;
-            sh:pattern "^[0-9A-F]{16}$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:GlobalRanNodeId ;
-            sh:path TS29571_CommonData:globalGnbId ] ;
-    sh:targetClass TS29571_CommonData:NrLocation .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nd57f4a354df447fa9555144b18aca756" "N5bd8a55aaec74aad82b8565897ed199f" ) ;
-    sh:targetClass TS29571_CommonData:EventForMdt .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nc77afdae8f8844258f5e0873b8189ced" "Nd36dcbdd4f024af6866f3058d8e39432" ) ;
-    sh:targetClass TS29571_CommonData:RefToBinaryDataRm .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtMaxDataBurstVol ;
-            sh:path TS29571_CommonData:extMaxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PacketErrRate ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:packetErrRate ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:5QiPriorityLevel ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:priorityLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:QosResourceType ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:resourceType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PacketDelBudget ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:packetDelayBudget ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtPacketDelBudget ;
-            sh:path TS29571_CommonData:extPacketDelBudget ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:MaxDataBurstVol ;
-            sh:path TS29571_CommonData:maxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtPacketDelBudget ;
-            sh:path TS29571_CommonData:cnPacketDelayBudgetDl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtPacketDelBudget ;
-            sh:path TS29571_CommonData:cnPacketDelayBudgetUl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AverWindow ;
-            sh:path TS29571_CommonData:averWindow ] ;
-    sh:targetClass TS29571_CommonData:Dynamic5Qi .
-
-[] sh:class TS29571_CommonData:BatteryIndication .
-
-[] sh:class TS29571_CommonData:DlDataDeliveryStatus .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N1b312ecb371340148d9d6efb2cc74b3f" "N69ae88a2cf404c83bd04c234a91073dc" ) ;
-    sh:targetClass TS29571_CommonData:QosResourceType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:dnfUnits ;
-            sh:property [ sh:class TS29571_CommonData:DnfUnit ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:Dnf .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N3f421b6254f54b388af51acbbd70433b" "Nd2c20b60ff1c441e8a94a4e6eae91588" ) ;
-    sh:targetClass TS29571_CommonData:ReportTypeMdt .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N1ab660be2f204c23be0cf9408c6c0c2b" "Naa09255ed1b142639c8d9a6762641bcf" ) ;
-    sh:targetClass TS29571_CommonData:JobType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:cellIdList ;
-            sh:property [ sh:class TS29571_CommonData:PhysCellId ;
-                    sh:maxCount 32 ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ArfcnValueNR ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:dlCarrierFreq ] ;
-    sh:targetClass TS29571_CommonData:InterFreqTargetInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 255 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:mbsfnAreaId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 262143 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:carrierFrequency ] ;
-    sh:targetClass TS29571_CommonData:MbsfnArea .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N78b1e20e8f8141c6942a3499ef56b35b" "Neb805397649842d99fb9961146279ba7" ) ;
-    sh:targetClass TS29571_CommonData:PositioningMethodMdt .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "BUFFERED" "TRANSMITTED" "DISCARDED" ) .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UeAuth ;
-            sh:path TS29571_CommonData:vehicleUeAuth ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UeAuth ;
-            sh:path TS29571_CommonData:pedestrianUeAuth ] ;
-    sh:targetClass TS29571_CommonData:NrV2xAuth .
-
-[] sh:class TS29571_CommonData:SscMode .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:properties ;
-            sh:property [ sh:class TS29571_CommonData:Property ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:title ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:contentType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:HttpMethod ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:method ] ;
-    sh:targetClass TS29571_CommonData:HalTemplate .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UpConfidentiality ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:upConfid ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:upIntegr ] ;
-    sh:targetClass TS29571_CommonData:UpSecurity .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:EutraCellId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:eutraCellId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Nid ;
-            sh:path TS29571_CommonData:nid ] ;
-    sh:targetClass TS29571_CommonData:Ecgi .
-
-[] sh:class TS29571_CommonData:CoreNetworkType .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Ne4eaafc788ff43a0b7b0b5e412fee3c0" "N75dedcdf2f9143cf9d4b3db030e7e2d4" ) ;
-    sh:targetClass TS29571_CommonData:TrafficProfileRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nc0f0483869894f32bcbdd2e3082c67a3" "N6a34be1a6a364172b92dba1f02db419e" ) ;
-    sh:targetClass TS29571_CommonData:AcsInfoRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nb03c51602d84461c947bcb05e98d52ea" "N55daf4cdc185421984b94c5e5b0b5a4d" ) ;
-    sh:targetClass TS29571_CommonData:RatTypeRm .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS29571_CommonData:UpIntegrityRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AreaCode ;
-            sh:path TS29571_CommonData:areaCode ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:tacs ;
-            sh:property [ sh:class TS29571_CommonData:Tac ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:Area .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:LineType .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N668383036495431e87db91f3c700d6b1" "N5a79c4c460584e828b84516454c87258" ) ;
-    sh:targetClass TS29571_CommonData:NotificationControl .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nce32059ec2e04daebb450fb1128ecdb8" "N1a86c7f933c54437a73945c374c9e3c5" ) ;
-    sh:targetClass TS29571_CommonData:TaiRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N4f8a7acddf444307a76f98674bfc263f" "N9b68692fd995489c9c0fe9ee0d6b5bdc" ) ;
-    sh:targetClass TS29571_CommonData:TrafficProfile .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:HfcNId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:hfcNId ] ;
-    sh:targetClass TS29571_CommonData:HfcNodeId .
-
-[] sh:class TS29571_CommonData:PreemptionCapability .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N538e0da4a59344fbbfbe38aea7cd2e4a" "Na540965edcc14375b74d25a2ecea3096" ) ;
-    sh:targetClass TS29571_CommonData:UriScheme .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N2e7454730fc94b47a38849f1e67422d2" "Nb144c163cf08466396f8cd121a121e8d" ) ;
-    sh:targetClass TS29571_CommonData:CoreNetworkTypeRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N1a2acd8469dc45b1b9b53bc93d49ca51" "Nd847a788e04c41e4928a285e72e32754" ) ;
-    sh:targetClass TS29571_CommonData:NssaaStatusRm .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "PERIODICAL" "EVENT_TRIGGED" ) .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Na7ed517d64ac4e608fbf236822101928" "N408e32e266664b16ac6ca7d5349d84be" ) ;
-    sh:targetClass TS29571_CommonData:SensorMeasurement .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N4c778c16a5674c818307383a0c6f7cb5" "Nfabb276a993f4e58ab06eb6cefa7cd5b" ) ;
-    sh:targetClass TS29571_CommonData:HfcNodeIdRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:contentId ] ;
-    sh:targetClass TS29571_CommonData:RefToBinaryData .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:NgeNbId ;
-            sh:path TS29571_CommonData:ngeNbId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:WAgfId ;
-            sh:path TS29571_CommonData:wagfId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TngfId ;
-            sh:path TS29571_CommonData:tngfId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:GNbId ;
-            sh:path TS29571_CommonData:gNbId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ENbId ;
-            sh:path TS29571_CommonData:eNbId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:N3IwfId ;
-            sh:path TS29571_CommonData:n3IwfId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Nid ;
-            sh:path TS29571_CommonData:nid ] ;
-    sh:targetClass TS29571_CommonData:GlobalRanNodeId .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:report ;
-            sh:property [ sh:class TS29571_CommonData:ReportItem ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:PatchResult .
-
-[] sh:datatype xsd:string .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "PERIODICAL" "EVENT_A2" "EVENT_A2_PERIODIC" "ALL_RRM_EVENT_TRIGGERS" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:path ] ;
-    sh:targetClass TS29571_CommonData:ReportItem .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AuthStatus ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:status ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:snssai ] ;
-    sh:targetClass TS29571_CommonData:NssaaStatus .
-
-[] sh:class TS29571_CommonData:EutraLocation .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nc1aa5d79b047445683d1421af07e1a9d" "Nd53a7e71021b47508a96374cb9a184c3" ) ;
+            sh:in ( 120 240 480 640 1024 2048 5120 10240 60000 360000 720000 1800000 3600000 ) ] ;
     sh:targetClass TS29571_CommonData:ReportIntervalMdt .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N9d630fdcc37040a7866e9497f5dbb27f" "Ne4e907b05bbd4a368c9ad607877ea541" ) ;
-    sh:targetClass TS29571_CommonData:ReportAmountMdt .
-
-[] sh:class TS29571_CommonData:HfcNodeId .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nda58745c973b486c90b54684388a421d" "Nbceab97e3b3b4f5d8cce9121ea43d9f3" ) ;
-    sh:targetClass TS29571_CommonData:AmbrRm .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UeAuth ;
-            sh:path TS29571_CommonData:pedestrianUeAuth ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UeAuth ;
-            sh:path TS29571_CommonData:vehicleUeAuth ] ;
-    sh:targetClass TS29571_CommonData:LteV2xAuth .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS29571_CommonData:AreaScope .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "SINGLE_TRANS_UL" "SINGLE_TRANS_DL" "DUAL_TRANS_UL_FIRST" "DUAL_TRANS_DL_FIRST" "MULTI_TRANS" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N9bdc4ca89d24416b9e12ec00d2eee4a3" "N7ead553a78c54ccbbc934d439971aaa9" ) ;
-    sh:targetClass TS29571_CommonData:RestrictionType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:dnfUnit ;
-            sh:property [ sh:class TS29571_CommonData:Atom ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:DnfUnit .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N1701de213653405fa2657c00453249d8" "N619b657b8c8241b29d1069baa9916a24" ) ;
-    sh:targetClass TS29571_CommonData:PatchOperation .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nfb61494db21945b481e7d91100058a22" "Ncf57c3894bd84a1ea753c806617ad5a6" ) ;
-    sh:targetClass TS29571_CommonData:PlmnIdRm .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "http" "https" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N5f1d29b4c65c4a3abe476d628160643b" "N898d83e08f844da09a7ac841281da7b8" ) ;
-    sh:targetClass TS29571_CommonData:TraceDepthRm .
-
-[] sh:class TS29571_CommonData:StationaryIndication .
-
-[] sh:class TS29571_CommonData:NrLocation .
-
-[] sh:class TS29571_CommonData:Cnf .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "IPV4" "IPV6" "IPV4V6" "UNSTRUCTURED" "ETHERNET" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N89a509b9aeff4784ae45dccb81c78c60" "N8f3bdbc4b8954955ad9603e7aaf73b8c" ) ;
-    sh:targetClass TS29571_CommonData:MeasurementPeriodLteMdt .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PreemptionVulnerability ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:preemptVuln ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ArpPriorityLevel ;
-            sh:minCount 1 ;
+            sh:class TS29571_CommonData:5QiPriorityLevel ;
             sh:path TS29571_CommonData:priorityLevel ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PreemptionCapability ;
+            sh:class TS29571_CommonData:5Qi ;
             sh:minCount 1 ;
-            sh:path TS29571_CommonData:preemptCap ] ;
-    sh:targetClass TS29571_CommonData:Arp .
+            sh:path TS29571_CommonData:5qi ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Arp ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:arp ] ;
+    sh:targetClass TS29571_CommonData:SubscribedDefaultQos .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "OUTSIDE_HOME_PLMN" "OUTSIDE_HOME_PLMN_COUNTRY" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:RoamingOdb .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 600 1200 2400 3600 5400 7200 ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:LoggingDurationNrMdt .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -855,428 +362,32 @@
     sh:targetClass TS29571_CommonData:Link .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N0bf6c72369a044f096dc319122da1060" "Ndffdfc7b858348d5826fffecbd5d53c6" ) ;
-    sh:targetClass TS29571_CommonData:AdditionalQosFlowInfo .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N7cfb1f29409a40f3b5625364304ad43d" "N51617bec6f644e5894d95bc2c4c95460" ) ;
-    sh:targetClass TS29571_CommonData:DnaiChangeType .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N9f20d41cf54342338e757793ac032725" "Nca0e791d56274da8a537da1aa742050c" ) ;
-    sh:targetClass TS29571_CommonData:NcgiRm .
-
-[] sh:datatype xsd:string .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:daysOfWeek ;
-            sh:property [ sh:class TS29571_CommonData:DayOfWeek ;
-                    sh:maxCount 6 ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RgWirelineCharacteristics ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TimeOfDay ;
-            sh:path TS29571_CommonData:timeOfDayStart ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TimeOfDay ;
-            sh:path TS29571_CommonData:timeOfDayEnd ] ;
-    sh:targetClass TS29571_CommonData:ScheduledCommunicationTime .
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:RgWirelineCharacteristicsRm .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N72335038756248859b2c889bcb3757d7" "N9f8fa5071637466cab18d7443bf4255f" ) ;
-    sh:targetClass TS29571_CommonData:ReflectiveQoSAttributeRm .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:NotificationControl .
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NR" "EUTRA" "WLAN" "VIRTUAL" "NBIOT" "WIRELINE" "WIRELINE_CABLE" "WIRELINE_BBF" "LTE-M" "NR_U" "EUTRA_U" "TRUSTED_N3GA" "TRUSTED_WLAN" "UTRA" "GERA" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:RatType .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geographicalInformation ;
-            sh:pattern "^[0-9A-F]{16}$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:LocationAreaId ;
-            sh:path TS29571_CommonData:lai ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RoutingAreaId ;
-            sh:path TS29571_CommonData:rai ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ServiceAreaId ;
-            sh:path TS29571_CommonData:sai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:mscNumber ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:CellGlobalId ;
-            sh:path TS29571_CommonData:cgi ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:vlrNumber ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 32767 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:ageOfLocationInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geodeticInformation ;
-            sh:pattern "^[0-9A-F]{20}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:locationNumber ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:ueLocationTimestamp ] ;
-    sh:targetClass TS29571_CommonData:GeraLocation .
-
-[] sh:class TS29571_CommonData:TraceDepth .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nfdafce8daef04d609dd875f1bf8a1b7d" "N2b53cd58a95e435294c62664f8bb3c6e" ) ;
-    sh:targetClass TS29571_CommonData:HttpMethod .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RatType ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:secondaryRatType ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:qosFlowsUsageData ;
-            sh:property [ sh:class TS29571_CommonData:QosFlowUsageReport ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:pduSessionUsageData ;
-            sh:property [ sh:class TS29571_CommonData:VolumeTimedReport ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:SecondaryRatUsageInfo .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N6d857fd2b04f4e0bb816a5af1de317fb" "N48e7704e13d84d85bcb1df128967fc52" ) ;
-    sh:targetClass TS29571_CommonData:LoggingDurationNrMdt .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:tacList ;
-            sh:property [ sh:class TS29571_CommonData:Tac ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:nrCellIdList ;
-            sh:property [ sh:class TS29571_CommonData:NrCellId ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:tacInfoPerPlmn ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:eutraCellIdList ;
-            sh:property [ sh:class TS29571_CommonData:EutraCellId ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:AreaScope .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:cellId ;
-            sh:pattern "^[A-Fa-f0-9]{4}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:lac ;
-            sh:pattern "^[A-Fa-f0-9]{4}$" ] ;
-    sh:targetClass TS29571_CommonData:CellGlobalId .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RoamingOdb ;
-            sh:path TS29571_CommonData:roamingOdb ] ;
-    sh:targetClass TS29571_CommonData:OdbData .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "REQUESTED" "NOT_REQUESTED" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Tac ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:tac ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Nid ;
-            sh:path TS29571_CommonData:nid ] ;
-    sh:targetClass TS29571_CommonData:Tai .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:cause ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Uri ;
-            sh:path TS29571_CommonData:targetScp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Uri ;
-            sh:path TS29571_CommonData:targetSepp ] ;
-    sh:targetClass TS29571_CommonData:RedirectResponse .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:lac ;
-            sh:pattern "^[A-Fa-f0-9]{4}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:sac ;
-            sh:pattern "^[A-Fa-f0-9]{4}$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ] ;
-    sh:targetClass TS29571_CommonData:ServiceAreaId .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "AUTHORIZED" "NOT_AUTHORIZED" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 600 1200 2400 3600 5400 7200 ) .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "ADD" "MOVE" "REMOVE" "REPLACE" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "M1" "M2" "M3" "M4_DL" "M4_UL" "M5_DL" "M5_UL" "M6_DL" "M6_UL" "M7_DL" "M7_UL" "M8" "M9" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nccedb8693aa04dc9b69a9bc7bef6650f" "Nee64fb62fc714d82a72ba9a639fc0dfe" ) ;
-    sh:targetClass TS29571_CommonData:CollectionPeriodRmmNrMdt .
-
-[] sh:class TS29571_CommonData:ReflectiveQoSAttribute .
-
-[] sh:class TS29571_CommonData:ScheduledCommunicationType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AmfId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:amfId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnIdNid ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ] ;
-    sh:targetClass TS29571_CommonData:Guami .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nbf1ef7e4685c4be0935271fb1dd6ed14" "Nb1b327b851154d999569919f01cde061" ) ;
-    sh:targetClass TS29571_CommonData:LoggingDurationMdt .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:value ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:group ] ;
-    sh:targetClass TS29571_CommonData:NgApCause .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N49994a4a63214d3ea84cd7fb0df386b5" "N21eac7eee9bd4fff91e11fd7c1ba3e4f" ) ;
-    sh:targetClass TS29571_CommonData:ReportingTrigger .
-
-[] sh:class TS29571_CommonData:RestrictionType .
-
-[] sh:class TS29571_CommonData:Fqdn .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "GNSS" "E_CELL_ID" ) .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N56311e062d57413d959350326d7ca978" "Na05a4392c7f34a3ebb43fa3fa5bfeda8" ) ;
-    sh:targetClass TS29571_CommonData:PduSessionType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtPacketDelBudget ;
-            sh:path TS29571_CommonData:cnPacketDelayBudgetDl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:5QiPriorityLevel ;
-            sh:path TS29571_CommonData:priorityLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtMaxDataBurstVol ;
-            sh:path TS29571_CommonData:extMaxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AverWindow ;
-            sh:path TS29571_CommonData:averWindow ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:MaxDataBurstVol ;
-            sh:path TS29571_CommonData:maxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ExtPacketDelBudget ;
-            sh:path TS29571_CommonData:cnPacketDelayBudgetUl ] ;
-    sh:targetClass TS29571_CommonData:NonDynamic5Qi .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS29571_CommonData:EmptyObject .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf776d8ed2cde4d979cae0559e133f0c6" "N9e067232bc004747b49d47cc9eda7bc9" ) ;
-    sh:targetClass TS29571_CommonData:LoggingIntervalMdt .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "ALL_PACKET_SERVICES" "ROAMER_ACCESS_HPLMN_AP" "ROAMER_ACCESS_VPLMN_AP" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "EARLY" "EARLY_LATE" "LATE" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "RQOS" "NO_RQOS" ) .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N7f673c9fde224a838dd4bdb2bcbd538a" "N042b3c611baf4498b14603a63cc6a441" ) ;
-    sh:targetClass TS29571_CommonData:StationaryIndication .
-
-[] sh:class TS29571_CommonData:Arp .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:UpSecurity .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "STATIONARY" "MOBILE" ) .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:end ;
-            sh:pattern "^[A-Fa-f0-9]{6}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:start ;
-            sh:pattern "^[A-Fa-f0-9]{6}$" ] ;
-    sh:targetClass TS29571_CommonData:SdRange .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N78499da2f7d347e790fc07f3fb0ba02e" "N45aca4a6218946be96b2d35795de8a4d" ) ;
-    sh:targetClass TS29571_CommonData:FqdnRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nb94faf80d1c248d6a6a3f730b50309e0" "N5231ad77238944d4967f8466508c4733" ) ;
-    sh:targetClass TS29571_CommonData:CoreNetworkType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:replaceableInd ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:rechargeableInd ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:batteryInd ] ;
-    sh:targetClass TS29571_CommonData:BatteryIndication .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:cnfUnit ;
-            sh:property [ sh:class TS29571_CommonData:Atom ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:CnfUnit .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N26caecd5c32243cfad892474818c7bc7" "Ncef4746094214601b695bf9a055019ef" ) ;
-    sh:targetClass TS29571_CommonData:DlDataDeliveryStatusRm .
-
-[] sh:class TS29571_CommonData:PreemptionVulnerability .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 1024 1280 2048 2560 5120 10240 60000 ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:globaleNbIdList ;
-            sh:property [ sh:class TS29571_CommonData:GlobalRanNodeId ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:praId ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:ncgiList ;
-            sh:property [ sh:class TS29571_CommonData:Ncgi ;
-                    sh:minCount 0 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PresenceState ;
-            sh:path TS29571_CommonData:presenceState ],
+            sh:path TS29571_CommonData:additionalPraId ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS29571_CommonData:globalRanNodeIdList ;
             sh:property [ sh:class TS29571_CommonData:GlobalRanNodeId ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:ecgiList ;
-            sh:property [ sh:class TS29571_CommonData:Ecgi ;
-                    sh:minCount 0 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:praId ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS29571_CommonData:trackingAreaList ;
@@ -1284,400 +395,6 @@
                     sh:minCount 0 ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:additionalPraId ] ;
-    sh:targetClass TS29571_CommonData:PresenceInfoRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf345b2397f594d09a9415480661b1735" "N28eb0ebeeff54bbd91239dbf1e05c954" ) ;
-    sh:targetClass TS29571_CommonData:UpIntegrity .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N7e8090e7ba574cdaa225154ba623c870" "N3be8d0fb619145c0a3bc053c6495052e" ) ;
-    sh:targetClass TS29571_CommonData:ArpRm .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nb175a69be6fb42938c5652bebcf6b0fc" "Ne584e02a46a54a6bbf640bbec7f403f9" ) ;
-    sh:targetClass TS29571_CommonData:EcgiRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Neec674bd85304a49bb92608c0bd63d0f" "N6f689a3ef8694b6ba807b64ac4061fc7" ) ;
-    sh:targetClass TS29571_CommonData:PreemptionVulnerability .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:value ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:negative ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:attr ] ;
-    sh:targetClass TS29571_CommonData:Atom .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:HfcNodeId ;
-            sh:path TS29571_CommonData:hfcNodeId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Tai ;
-            sh:path TS29571_CommonData:n3gppTai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:n3IwfId ;
-            sh:pattern "^[A-Fa-f0-9]+$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Gli ;
-            sh:path TS29571_CommonData:gli ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv4Addr ;
-            sh:path TS29571_CommonData:ueIpv4Addr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:LineType ;
-            sh:path TS29571_CommonData:w5gbanLineType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Gci ;
-            sh:path TS29571_CommonData:gci ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:portNumber ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TransportProtocol ;
-            sh:path TS29571_CommonData:protocol ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TnapId ;
-            sh:path TS29571_CommonData:tnapId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TwapId ;
-            sh:path TS29571_CommonData:twapId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv6Addr ;
-            sh:path TS29571_CommonData:ueIpv6Addr ] ;
-    sh:targetClass TS29571_CommonData:N3gaLocation .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf84ea9b780224782a0c396f2b4d36a76" "Ndfb9ed2d6c4042f59b3dfa71be918fd7" ) ;
-    sh:targetClass TS29571_CommonData:CollectionPeriodRmmLteMdt .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Ne95065b205ac4dcba5c77e17b2039456" "Nc7260ceebd844a16981fe842aa8685e9" ) ;
-    sh:targetClass TS29571_CommonData:RatType .
-
-[] sh:class TS29571_CommonData:TnapId .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:datatype xsd:string .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "ALLOWED_AREAS" "NOT_ALLOWED_AREAS" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N5494514f35db4473992dcd28e250eff2" "N8fbcae99b6c842c89cc4d3ec42cd1a8a" ) ;
-    sh:targetClass TS29571_CommonData:StationaryIndicationRm .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 1 2 4 8 16 32 64 "infinity" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Ne57831aeae654ee28994cc98dd81b793" "N3ae3ba420f454078940557185b1c9d60" ) ;
-    sh:targetClass TS29571_CommonData:SscMode .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv6Addr ;
-            sh:path TS29571_CommonData:ipv6Addr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:portNumber ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ipv4Addr ;
-            sh:path TS29571_CommonData:ipv4Addr ] ;
-    sh:targetClass TS29571_CommonData:RouteInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Mnc ;
-            sh:path TS29571_CommonData:mnc ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Mcc ;
-            sh:path TS29571_CommonData:mcc ] ;
-    sh:targetClass TS29571_CommonData:NetworkId .
-
-[] sh:class TS29571_CommonData:Ncgi .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N2d0595b842c14044a548f44b7411aa77" "N19c44ade038f435f8fd816c600184948" ) ;
-    sh:targetClass TS29571_CommonData:SscModeRm .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "EAP_SUCCESS" "EAP_FAILURE" "PENDING" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "IN_AREA" "OUT_OF_AREA" "UNKNOWN" "INACTIVE" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "MINIMUM" "MEDIUM" "MAXIMUM" "MINIMUM_WO_VENDOR_EXTENSION" "MEDIUM_WO_VENDOR_EXTENSION" "MAXIMUM_WO_VENDOR_EXTENSION" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Arp ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:arp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:5QiPriorityLevel ;
-            sh:path TS29571_CommonData:priorityLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:5Qi ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:5qi ] ;
-    sh:targetClass TS29571_CommonData:SubscribedDefaultQos .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:endTimeStamp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:startTimeStamp ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:downlinkVolume ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:uplinkVolume ] ;
-    sh:targetClass TS29571_CommonData:VolumeTimedReport .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:DnaiChangeType .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:Snssai,
-        TS29571_CommonData:SnssaiExtension ;
-    sh:targetClass TS29571_CommonData:ExtSnssai .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Na55389e4272e4074a9a71e25cf044557" "N9407886b016a422289df6643f2927410" ) ;
-    sh:targetClass TS29571_CommonData:DnaiChangeTypeRm .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "BAROMETRIC_PRESSURE" "UE_SPEED" "UE_ORIENTATION" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:wildcardSd ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:sdRanges ;
-            sh:property [ sh:class TS29571_CommonData:SdRange ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:SnssaiExtension .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N705fcc34f37f440f9647c6970bd7773a" "N79886a32517545e7bed899f62f7ea37b" ) ;
-    sh:targetClass TS29571_CommonData:ChangeType .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nbba4a27ff9f3498886802e449bfa9538" "Naa90f040f31a4000a50933f67e17418b" ) ;
-    sh:targetClass TS29571_CommonData:UpConfidentialityRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N1784f79cd755474dba5ab7c54d94a7f9" "N94b398db53594e4d8a31a8dde9cb20df" ) ;
-    sh:targetClass TS29571_CommonData:RgWirelineCharacteristicsRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nd209101e04a643af987f2429e569ac59" "N5e6d08599ba9428eb988dccb3d5dc491" ) ;
-    sh:targetClass TS29571_CommonData:AccessTypeRm .
-
-[] sh:or_ ( "N7cd59200bd884b7f8569a4d825e0e0a6" "N6ae84d37eaa7430a864f0f114687a502" ) .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:RatType .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-    sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:Ecgi .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:ScheduledCommunicationTime .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N72d5df978a304a08bdcd851b50b46e2d" "Nb417979c006a4c9dad5528102e7e6e60" ) ;
-    sh:targetClass TS29571_CommonData:ScheduledCommunicationTypeRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:maxNumOfTAs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RestrictionType ;
-            sh:path TS29571_CommonData:restrictionType ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:areas ;
-            sh:property [ sh:class TS29571_CommonData:Area ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:maxNumOfTAsForNotAllowedAreas ] ;
-    sh:targetClass TS29571_CommonData:ServiceAreaRestriction .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Na395360fe7f247f5b87c5df7c389296b" "N346ddb7b86af46ae82e452a5e01eced0" ) ;
-    sh:targetClass TS29571_CommonData:TraceDepth .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf20aea83d19e4d29b59f5099c5422870" "N944d30924c98458088aad8f432148778" ) ;
-    sh:targetClass TS29571_CommonData:UpConfidentiality .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:NrCellId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:nrCellId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Nid ;
-            sh:path TS29571_CommonData:nid ] ;
-    sh:targetClass TS29571_CommonData:Ncgi .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:uplinkVolume ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:endTimeStamp ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:downlinkVolume ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Qfi ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:qfi ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:startTimeStamp ] ;
-    sh:targetClass TS29571_CommonData:QosFlowUsageReport .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "5GC" "EPC" ) .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS29571_CommonData:ComplexQuery ;
-    sh:xone ( "N559d907a54654c35b09d6b627ecfe920" "Nc7e29516550540338dcfbe1690f6dbf7" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N4c0a36dd2aac41b3804516619513a442" "N46eceea138ef401da873499274034f97" ) ;
-    sh:targetClass TS29571_CommonData:EutraLocationRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:cnfUnits ;
-            sh:property [ sh:class TS29571_CommonData:CnfUnit ;
-                    sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:Cnf .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:GlobalRanNodeId ;
-            sh:path TS29571_CommonData:globalNgenbId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:ueLocationTimestamp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:GlobalRanNodeId ;
-            sh:path TS29571_CommonData:globalENbId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 32767 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:ageOfLocationInformation ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Tai ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:tai ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:ignoreTai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geographicalInformation ;
-            sh:pattern "^[0-9A-F]{16}$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ecgi ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:ecgi ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:ignoreEcgi ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geodeticInformation ;
-            sh:pattern "^[0-9A-F]{20}$" ] ;
-    sh:targetClass TS29571_CommonData:EutraLocation .
-
-[] sh:class TS29571_CommonData:UpConfidentiality .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 600 1200 2400 3600 5400 7200 ) .
-
-[] sh:class TS29571_CommonData:AcsInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS29571_CommonData:globaleNbIdList ;
             sh:property [ sh:class TS29571_CommonData:GlobalRanNodeId ;
@@ -1685,14 +402,131 @@
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:globalRanNodeIdList ;
-            sh:property [ sh:class TS29571_CommonData:GlobalRanNodeId ;
-                    sh:minCount 1 ;
+            sh:path TS29571_CommonData:ncgiList ;
+            sh:property [ sh:class TS29571_CommonData:Ncgi ;
+                    sh:minCount 0 ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:praId ],
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:ecgiList ;
+            sh:property [ sh:class TS29571_CommonData:Ecgi ;
+                    sh:minCount 0 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PresenceState ;
+            sh:path TS29571_CommonData:presenceState ] ;
+    sh:targetClass TS29571_CommonData:PresenceInfoRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ENbId ;
+            sh:path TS29571_CommonData:eNbId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:WAgfId ;
+            sh:path TS29571_CommonData:wagfId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:GNbId ;
+            sh:path TS29571_CommonData:gNbId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Nid ;
+            sh:path TS29571_CommonData:nid ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TngfId ;
+            sh:path TS29571_CommonData:tngfId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:N3IwfId ;
+            sh:path TS29571_CommonData:n3IwfId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NgeNbId ;
+            sh:path TS29571_CommonData:ngeNbId ] ;
+    sh:targetClass TS29571_CommonData:GlobalRanNodeId .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ChangeType ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:op ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:origValue ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:newValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:path ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:from ] ;
+    sh:targetClass TS29571_CommonData:ChangeItem .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Uri ;
+            sh:path TS29571_CommonData:targetScp ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:cause ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Uri ;
+            sh:path TS29571_CommonData:targetSepp ] ;
+    sh:targetClass TS29571_CommonData:RedirectResponse .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PreemptionVulnerability ] ;
+    sh:targetClass TS29571_CommonData:PreemptionVulnerabilityRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERIODICAL" "EVENT_A2" "EVENT_A2_PERIODIC" "ALL_RRM_EVENT_TRIGGERS" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:ReportingTrigger .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "M1" "M2" "M3" "M4_DL" "M4_UL" "M5_DL" "M5_UL" "M6_DL" "M6_UL" "M7_DL" "M7_UL" "M8" "M9" ) ] ;
+    sh:targetClass TS29571_CommonData:MeasurementLteForMdt .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS29571_CommonData:ComplexQuery ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Cnf ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Dnf ] .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ReflectiveQoSAttribute ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:ReflectiveQoSAttributeRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERIODICAL" "EVENT_TRIGGED" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:ReportTypeMdt .
+
+[] a sh:NodeShape ;
+    sh:class TS29571_CommonData:Snssai,
+        TS29571_CommonData:SnssaiExtension ;
+    sh:targetClass TS29571_CommonData:ExtSnssai .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:PresenceState ;
             sh:path TS29571_CommonData:presenceState ],
         [ a sh:PropertyShape ;
@@ -1703,7 +537,22 @@
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:praId ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:globaleNbIdList ;
+            sh:property [ sh:class TS29571_CommonData:GlobalRanNodeId ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:path TS29571_CommonData:additionalPraId ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:globalRanNodeIdList ;
+            sh:property [ sh:class TS29571_CommonData:GlobalRanNodeId ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS29571_CommonData:trackingAreaList ;
@@ -1718,37 +567,1100 @@
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
     sh:targetClass TS29571_CommonData:PresenceInfo .
 
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 120 240 480 640 1024 2048 5120 10240 60000 360000 720000 1800000 3600000 ) .
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ambr ] ;
+    sh:targetClass TS29571_CommonData:AmbrRm .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "Nfac2d602f2fe4aec962aeb8bb7b8f610" "Nc67bc616cbf243e69163ebadbe2c0963" ) ;
-    sh:targetClass TS29571_CommonData:RoamingOdb .
-
-[] sh:class TS29571_CommonData:QosResourceType .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nc4b438da87e145ef95a0838cd676831a" "N7d4df49642d744be9d3677918aa5ea40" ) ;
-    sh:targetClass TS29571_CommonData:QosResourceTypeRm .
-
-[] sh:datatype xsd:string .
-
-[] sh:datatype xsd:string .
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RatType ] ;
+    sh:targetClass TS29571_CommonData:RatTypeRm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:rttWithoutPmf ],
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:reason ],
         [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:atsssLL ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:mptcp ] ;
-    sh:targetClass TS29571_CommonData:AtsssCapability .
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:param ] ;
+    sh:targetClass TS29571_CommonData:InvalidParam .
 
-[] sh:class TS29571_CommonData:RefToBinaryData .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:pduSessionUsageData ;
+            sh:property [ sh:class TS29571_CommonData:VolumeTimedReport ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:qosFlowsUsageData ;
+            sh:property [ sh:class TS29571_CommonData:QosFlowUsageReport ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RatType ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:secondaryRatType ] ;
+    sh:targetClass TS29571_CommonData:SecondaryRatUsageInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:mbsfnAreaList ;
+            sh:property [ sh:class TS29571_CommonData:MbsfnArea ;
+                    sh:maxCount 8 ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:reportingTriggerList ;
+            sh:property [ sh:class TS29571_CommonData:ReportingTrigger ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 127 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:eventThresholdRsrpNr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:CollectionPeriodRmmLteMdt ;
+            sh:path TS29571_CommonData:collectionPeriodRmmLte ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:reportInterval ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:sensorMeasurementList ;
+            sh:property [ sh:class TS29571_CommonData:SensorMeasurement ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:measurementNrList ;
+            sh:property [ sh:class TS29571_CommonData:MeasurementNrForMdt ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:eventList ;
+            sh:property [ sh:class TS29571_CommonData:EventForMdt ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PositioningMethodMdt ;
+            sh:path TS29571_CommonData:positioningMethod ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:interFreqTargetList ;
+            sh:property [ sh:datatype xsd:integer ;
+                    sh:maxCount 8 ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:addPositioningMethodList ;
+            sh:property [ sh:class TS29571_CommonData:PositioningMethodMdt ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 127 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:eventThresholdRsrqNr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 34 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:eventThresholdRsrq ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:LoggingDurationMdt ;
+            sh:path TS29571_CommonData:loggingDuration ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:loggingIntervalNr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ReportTypeMdt ;
+            sh:path TS29571_CommonData:reportType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ReportAmountMdt ;
+            sh:path TS29571_CommonData:reportAmount ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:loggingInterval ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:CollectionPeriodRmmNrMdt ;
+            sh:path TS29571_CommonData:collectionPeriodRmmNr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:reportIntervalNr ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:mdtAllowedPlmnIdList ;
+            sh:property [ sh:class TS29571_CommonData:PlmnId ;
+                    sh:maxCount 16 ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:MeasurementPeriodLteMdt ;
+            sh:path TS29571_CommonData:measurementPeriodLte ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 97 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:eventThresholdRsrp ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:measurementLteList ;
+            sh:property [ sh:class TS29571_CommonData:MeasurementLteForMdt ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:JobType ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:jobType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AreaScope ;
+            sh:path TS29571_CommonData:areaScope ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:LoggingDurationNrMdt ;
+            sh:path TS29571_CommonData:loggingDurationNr ] ;
+    sh:targetClass TS29571_CommonData:MdtConfiguration .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:hfcNIds ;
+            sh:property [ sh:class TS29571_CommonData:HfcNId ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AreaCode ;
+            sh:path TS29571_CommonData:areaCodeC ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AreaCode ;
+            sh:path TS29571_CommonData:areaCodeB ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:globalLineIds ;
+            sh:property [ sh:class TS29571_CommonData:Gli ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:WirelineArea .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ScheduledCommunicationType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:ScheduledCommunicationTypeRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "OUT_OF_COVERAG" "A2_EVENT" ) ] ;
+    sh:targetClass TS29571_CommonData:EventForMdt .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ncgi ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:ncgi ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geodeticInformation ;
+            sh:pattern "^[0-9A-F]{20}$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Tai ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:tai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geographicalInformation ;
+            sh:pattern "^[0-9A-F]{16}$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:GlobalRanNodeId ;
+            sh:path TS29571_CommonData:globalGnbId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:path TS29571_CommonData:ueLocationTimestamp ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 32767 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:ageOfLocationInformation ] ;
+    sh:targetClass TS29571_CommonData:NrLocation .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:or_ [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ALL_PACKET_SERVICES" "ROAMER_ACCESS_HPLMN_AP" "ROAMER_ACCESS_VPLMN_AP" ) ] ] ;
+    sh:targetClass TS29571_CommonData:OdbPacketServices .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS29571_CommonData:AreaScope .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "http" "https" ) ] ;
+    sh:targetClass TS29571_CommonData:UriScheme .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALLOWED_AREAS" "NOT_ALLOWED_AREAS" ) ] ;
+    sh:targetClass TS29571_CommonData:RestrictionType .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1024 1280 2048 2560 5120 10240 60000 ) ] ;
+    sh:targetClass TS29571_CommonData:MeasurementPeriodLteMdt .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:path TS29571_CommonData:validityTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainExReportsUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainPacketsDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainPacketsUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainExReportsDl ] ;
+    sh:targetClass TS29571_CommonData:ApnRateStatus .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SSC_MODE_1" "SSC_MODE_2" "SSC_MODE_3" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:SscMode .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TraceDepth ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:traceDepth ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:interfaceList ;
+            sh:pattern "^[A-Fa-f0-9]+$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:traceRef ;
+            sh:pattern "^[0-9]{3}[0-9]{2,3}-[A-Fa-f0-9]{6}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:eventList ;
+            sh:pattern "^[A-Fa-f0-9]+$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:neTypeList ;
+            sh:pattern "^[A-Fa-f0-9]+$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv6Addr ;
+            sh:path TS29571_CommonData:collectionEntityIpv6Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv4Addr ;
+            sh:path TS29571_CommonData:collectionEntityIpv4Addr ] ;
+    sh:targetClass TS29571_CommonData:TraceData .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 120 240 480 640 1024 2048 5120 10240 20480 40960 60000 360000 720000 1800000 3600000 ) ] ;
+    sh:targetClass TS29571_CommonData:ReportIntervalNrMdt .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:lac ;
+            sh:pattern "^[A-Fa-f0-9]{4}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:cellId ;
+            sh:pattern "^[A-Fa-f0-9]{4}$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ] ;
+    sh:targetClass TS29571_CommonData:CellGlobalId .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "STATIONARY" "MOBILE" ) ] ;
+    sh:targetClass TS29571_CommonData:StationaryIndication .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DSL" "PON" ) ] ;
+    sh:targetClass TS29571_CommonData:LineType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:rechargeableInd ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:batteryInd ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:replaceableInd ] ;
+    sh:targetClass TS29571_CommonData:BatteryIndication .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Arp ] ;
+    sh:targetClass TS29571_CommonData:ArpRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:HfcNodeId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:HfcNodeIdRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:CoreNetworkType ] ;
+    sh:targetClass TS29571_CommonData:CoreNetworkTypeRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:contentId ] ;
+    sh:targetClass TS29571_CommonData:RefToBinaryData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainExReportsDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainPacketsUl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:path TS29571_CommonData:validityTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainExReportsUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:remainPacketsDl ] ;
+    sh:targetClass TS29571_CommonData:SmallDataRateStatus .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AcsInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:AcsInfoRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AmfName ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:backupAmf ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:guamiList ;
+            sh:property [ sh:class TS29571_CommonData:Guami ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:BackupAmfInfo .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RefToBinaryData ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:RefToBinaryDataRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:upIntegr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UpConfidentiality ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:upConfid ] ;
+    sh:targetClass TS29571_CommonData:UpSecurity .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:areas ;
+            sh:property [ sh:class TS29571_CommonData:Area ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:maxNumOfTAsForNotAllowedAreas ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RestrictionType ;
+            sh:path TS29571_CommonData:restrictionType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:maxNumOfTAs ] ;
+    sh:targetClass TS29571_CommonData:ServiceAreaRestriction .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1024 2048 5120 10240 60000 ) ] ;
+    sh:targetClass TS29571_CommonData:CollectionPeriodRmmNrMdt .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RQOS" "NO_RQOS" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:ReflectiveQoSAttribute .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_PREEMPTABLE" "PREEMPTABLE" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:PreemptionVulnerability .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 128 256 512 1024 2048 3072 4096 6144 ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:LoggingIntervalMdt .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Mcc ;
+            sh:path TS29571_CommonData:mcc ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Mnc ;
+            sh:path TS29571_CommonData:mnc ] ;
+    sh:targetClass TS29571_CommonData:NetworkId .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "M1" "M2" "M3" "M4_DL" "M4_UL" "M5_DL" "M5_UL" "M6_DL" "M6_UL" "M7_DL" "M7_UL" "M8" "M9" ) ] ;
+    sh:targetClass TS29571_CommonData:MeasurementNrForMdt .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Bytes ;
+            sh:path TS29571_CommonData:civicAddress ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:ssId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:bssId ] ;
+    sh:targetClass TS29571_CommonData:TwapId .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:dnfUnit ;
+            sh:property [ sh:class TS29571_CommonData:Atom ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:DnfUnit .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RestrictionType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:RestrictionTypeRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:rac ;
+            sh:pattern "^[A-Fa-f0-9]{2}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:lac ;
+            sh:pattern "^[A-Fa-f0-9]{4}$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ] ;
+    sh:targetClass TS29571_CommonData:RoutingAreaId .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1024 1280 2048 2560 5120 10240 60000 ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:CollectionPeriodRmmLteMdt .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1 2 4 8 16 32 64 "infinity" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:ReportAmountMdt .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:BatteryIndication ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:BatteryIndicationRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Uri ;
+            sh:path TS29571_CommonData:href ] ;
+    sh:targetClass TS29571_CommonData:LinkRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:path TS29571_CommonData:ueLocationTimestamp ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geographicalInformation ;
+            sh:pattern "^[0-9A-F]{16}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geodeticInformation ;
+            sh:pattern "^[0-9A-F]{20}$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:LocationAreaId ;
+            sh:path TS29571_CommonData:lai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 32767 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:ageOfLocationInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ServiceAreaId ;
+            sh:path TS29571_CommonData:sai ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RoutingAreaId ;
+            sh:path TS29571_CommonData:rai ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:CellGlobalId ;
+            sh:path TS29571_CommonData:cgi ] ;
+    sh:targetClass TS29571_CommonData:UtraLocation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:areas ;
+            sh:property [ sh:class TS29571_CommonData:WirelineArea ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RestrictionType ;
+            sh:path TS29571_CommonData:restrictionType ] ;
+    sh:targetClass TS29571_CommonData:WirelineServiceAreaRestriction .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv4Addr ;
+            sh:path TS29571_CommonData:ipv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:MacAddr48 ;
+            sh:path TS29571_CommonData:macAddr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv6Addr ;
+            sh:path TS29571_CommonData:ipv6Addr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:portNumber ] ;
+    sh:targetClass TS29571_CommonData:DddTrafficDescriptor .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS29571_CommonData:EmptyObject .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TnapId ] ;
+    sh:targetClass TS29571_CommonData:TnapIdRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "BAROMETRIC_PRESSURE" "UE_SPEED" "UE_ORIENTATION" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:SensorMeasurement .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:name ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:value ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:regex ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:required ] ;
+    sh:targetClass TS29571_CommonData:Property .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ADD" "MOVE" "REMOVE" "REPLACE" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:ChangeType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UeAuth ;
+            sh:path TS29571_CommonData:pedestrianUeAuth ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UeAuth ;
+            sh:path TS29571_CommonData:vehicleUeAuth ] ;
+    sh:targetClass TS29571_CommonData:NrV2xAuth .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:group ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:value ] ;
+    sh:targetClass TS29571_CommonData:NgApCause .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:counter ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:path TS29571_CommonData:timeStamp ] ;
+    sh:targetClass TS29571_CommonData:MoExpDataCounter .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ] ;
+    sh:targetClass TS29571_CommonData:PlmnIdRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TimeOfDay ;
+            sh:path TS29571_CommonData:timeOfDayEnd ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TimeOfDay ;
+            sh:path TS29571_CommonData:timeOfDayStart ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:daysOfWeek ;
+            sh:property [ sh:class TS29571_CommonData:DayOfWeek ;
+                    sh:maxCount 6 ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:ScheduledCommunicationTime .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 128 256 512 1024 2048 3072 4096 6144 320 640 "infinity" ) ] ;
+    sh:targetClass TS29571_CommonData:LoggingIntervalNrMdt .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "REQUIRED" "PREFERRED" "NOT_NEEDED" ) ] ;
+    sh:targetClass TS29571_CommonData:UpConfidentiality .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AccessType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:AccessTypeRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DlDataDeliveryStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:DlDataDeliveryStatusRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UeAuth ;
+            sh:path TS29571_CommonData:vehicleUeAuth ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UeAuth ;
+            sh:path TS29571_CommonData:pedestrianUeAuth ] ;
+    sh:targetClass TS29571_CommonData:LteV2xAuth .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Nid ;
+            sh:path TS29571_CommonData:nid ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:EutraCellId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:eutraCellId ] ;
+    sh:targetClass TS29571_CommonData:Ecgi .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:QosResourceType ] ;
+    sh:targetClass TS29571_CommonData:QosResourceTypeRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "EARLY" "EARLY_LATE" "LATE" ) ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:DnaiChangeType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:dnfUnits ;
+            sh:property [ sh:class TS29571_CommonData:DnfUnit ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:Dnf .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ScheduledCommunicationTime ] ;
+    sh:targetClass TS29571_CommonData:ScheduledCommunicationTimeRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TnapId ;
+            sh:path TS29571_CommonData:tnapId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TransportProtocol ;
+            sh:path TS29571_CommonData:protocol ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:LineType ;
+            sh:path TS29571_CommonData:w5gbanLineType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Tai ;
+            sh:path TS29571_CommonData:n3gppTai ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TwapId ;
+            sh:path TS29571_CommonData:twapId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Gli ;
+            sh:path TS29571_CommonData:gli ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:HfcNodeId ;
+            sh:path TS29571_CommonData:hfcNodeId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:n3IwfId ;
+            sh:pattern "^[A-Fa-f0-9]+$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv6Addr ;
+            sh:path TS29571_CommonData:ueIpv6Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Gci ;
+            sh:path TS29571_CommonData:gci ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:portNumber ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv4Addr ;
+            sh:path TS29571_CommonData:ueIpv4Addr ] ;
+    sh:targetClass TS29571_CommonData:N3gaLocation .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MINIMUM" "MEDIUM" "MAXIMUM" "MINIMUM_WO_VENDOR_EXTENSION" "MEDIUM_WO_VENDOR_EXTENSION" "MAXIMUM_WO_VENDOR_EXTENSION" ) ] ;
+    sh:targetClass TS29571_CommonData:TraceDepth .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:LineType ] ;
+    sh:targetClass TS29571_CommonData:LineTypeRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_PREEMPT" "MAY_PREEMPT" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:PreemptionCapability .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Tac ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:tac ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Nid ;
+            sh:path TS29571_CommonData:nid ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ] ;
+    sh:targetClass TS29571_CommonData:Tai .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TwapId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:TwapIdRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TrafficProfile ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:TrafficProfileRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:pc5QosFlowList ;
+            sh:property [ sh:class TS29571_CommonData:Pc5QosFlowItem ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:BitRate ;
+            sh:path TS29571_CommonData:pc5LinkAmbr ] ;
+    sh:targetClass TS29571_CommonData:Pc5QoSPara .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NssaaStatus ] ;
+    sh:targetClass TS29571_CommonData:NssaaStatusRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "5GC" "EPC" ) ] ;
+    sh:targetClass TS29571_CommonData:CoreNetworkType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:routeProfId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Dnai ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:dnai ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RouteInformation ;
+            sh:path TS29571_CommonData:routeInfo ] ;
+    sh:targetClass TS29571_CommonData:RouteToLocation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geographicalInformation ;
+            sh:pattern "^[0-9A-F]{16}$" ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:ignoreEcgi ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geodeticInformation ;
+            sh:pattern "^[0-9A-F]{20}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 32767 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:ageOfLocationInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:DateTime ;
+            sh:path TS29571_CommonData:ueLocationTimestamp ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:GlobalRanNodeId ;
+            sh:path TS29571_CommonData:globalNgenbId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:GlobalRanNodeId ;
+            sh:path TS29571_CommonData:globalENbId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ecgi ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:ecgi ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Tai ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:tai ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:ignoreTai ] ;
+    sh:targetClass TS29571_CommonData:EutraLocation .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Fqdn ] ;
+    sh:targetClass TS29571_CommonData:FqdnRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:StationaryIndication ] ;
+    sh:targetClass TS29571_CommonData:StationaryIndicationRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:5Qi ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:pqi ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Pc5FlowBitRates ;
+            sh:path TS29571_CommonData:pc5FlowBitRates ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS29571_CommonData:range ] ;
+    sh:targetClass TS29571_CommonData:Pc5QosFlowItem .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:TraceDepth ] ;
+    sh:targetClass TS29571_CommonData:TraceDepthRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IN_AREA" "OUT_OF_AREA" "UNKNOWN" "INACTIVE" ) ] ;
+    sh:targetClass TS29571_CommonData:PresenceState .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:attr ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:negative ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:value ] ;
+    sh:targetClass TS29571_CommonData:Atom .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:ssId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:bssId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Bytes ;
+            sh:path TS29571_CommonData:civicAddress ] ;
+    sh:targetClass TS29571_CommonData:TnapId .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GET" "POST" "PUT" "DELETE" "PATCH" "OPTIONS" "HEAD" "CONNECT" "TRACE" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:HttpMethod .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -1763,157 +1675,41 @@
             sh:pattern "^[A-Fa-f0-9]{6}$" ] ;
     sh:targetClass TS29571_CommonData:Snssai .
 
-[] sh:datatype xsd:string ;
-    sh:in_ ( "LOCATION_ALLOWED_WITH_NOTIFICATION" "LOCATION_ALLOWED_WITHOUT_NOTIFICATION" "LOCATION_ALLOWED_WITHOUT_RESPONSE" "LOCATION_RESTRICTED_WITHOUT_RESPONSE" "NOTIFICATION_ONLY" "NOTIFICATION_AND_VERIFICATION_ONLY" ) .
-
-[] sh:class TS29571_CommonData:Dnf .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RestrictionType ;
-            sh:path TS29571_CommonData:restrictionType ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:areas ;
-            sh:property [ sh:class TS29571_CommonData:WirelineArea ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:WirelineServiceAreaRestriction .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:BitRate ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:uplink ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:BitRate ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:downlink ] ;
-    sh:targetClass TS29571_CommonData:Ambr .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Na2bd1d55ff4d4cc8945e92066293cf5a" "N7fec9f2e91a9427cb1272a27e1f5e0a5" ) ;
-    sh:targetClass TS29571_CommonData:PresenceState .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N9aee9c10a98f4504a197779bf7104392" "N2479eec4ae824eefa19a1b0a5afaca30" ) ;
-    sh:targetClass TS29571_CommonData:TnapIdRm .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 1024 2048 5120 10240 60000 ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainPacketsUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainExReportsDl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:validityTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainPacketsDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainExReportsUl ] ;
-    sh:targetClass TS29571_CommonData:SmallDataRateStatus .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:Tai .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:NullValue .
-
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:minCount 1 ;
             sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:tacList ;
-            sh:property [ sh:class TS29571_CommonData:Tac ;
+            sh:path TS29571_CommonData:cnfUnit ;
+            sh:property [ sh:class TS29571_CommonData:Atom ;
                     sh:minCount 1 ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:TacInfo .
-
-[] sh:class TS29571_CommonData:AccessType .
+    sh:targetClass TS29571_CommonData:CnfUnit .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N15d24eab58ed47549858fec18da47c46" "N13be8f61831842668cf5e0a505cbac0b" ) ;
-    sh:targetClass TS29571_CommonData:MeasurementLteForMdt .
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UpSecurity ] ;
+    sh:targetClass TS29571_CommonData:UpSecurityRm .
 
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:Guami .
-
-[] sh:class TS29571_CommonData:NullValue .
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "add" "copy" "move" "remove" "replace" "test" ) ] ;
+    sh:targetClass TS29571_CommonData:PatchOperation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Mcc ;
+            sh:class TS29571_CommonData:AuthStatus ;
             sh:minCount 1 ;
-            sh:path TS29571_CommonData:mcc ],
+            sh:path TS29571_CommonData:status ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Nid ;
-            sh:path TS29571_CommonData:nid ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Mnc ;
+            sh:class TS29571_CommonData:Snssai ;
             sh:minCount 1 ;
-            sh:path TS29571_CommonData:mnc ] ;
-    sh:targetClass TS29571_CommonData:PlmnIdNid .
-
-[] sh:datatype xsd:string .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "OUT_OF_COVERAG" "A2_EVENT" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:regex ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:name ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:value ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:required ] ;
-    sh:targetClass TS29571_CommonData:Property .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Ne899547fba6842bc801658363013beb4" "Nc55a22cee2344aafbbf100ab5e9d7a1a" ) ;
-    sh:targetClass TS29571_CommonData:PduSessionTypeRm .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:Ambr .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:reason ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:param ] ;
-    sh:targetClass TS29571_CommonData:InvalidParam .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N7d403b1916554adc8740bb4a5e076beb" "Ne1a4f48ed27d4b469de2447f72d5874d" ) ;
-    sh:targetClass TS29571_CommonData:ReflectiveQoSAttribute .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N08263a393d764b438efce64802994977" "N0d34b76ffcd34adea2ff8e47ef7e031e" ) ;
-    sh:targetClass TS29571_CommonData:ReportIntervalNrMdt .
+            sh:path TS29571_CommonData:snssai ] ;
+    sh:targetClass TS29571_CommonData:NssaaStatus .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -1923,53 +1719,88 @@
         [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:Mcc ;
             sh:minCount 1 ;
-            sh:path TS29571_CommonData:mcc ] ;
-    sh:targetClass TS29571_CommonData:PlmnId .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N39d4627317454ee49b7e75d08fc707ae" "N3f52822d563942319b22605b36c92f15" ) ;
-    sh:targetClass TS29571_CommonData:PreemptionCapabilityRm .
-
-[] sh:datatype xsd:string .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:class TS29571_CommonData:Link .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:BitRate ;
-            sh:path TS29571_CommonData:pc5LinkAmbr ],
+            sh:path TS29571_CommonData:mcc ],
         [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:pc5QosFlowList ;
-            sh:property [ sh:class TS29571_CommonData:Pc5QosFlowItem ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS29571_CommonData:Pc5QoSPara .
+            sh:class TS29571_CommonData:Nid ;
+            sh:path TS29571_CommonData:nid ] ;
+    sh:targetClass TS29571_CommonData:PlmnIdNid .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GNSS" "E_CELL_ID" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:PositioningMethodMdt .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "BUFFERED" "TRANSMITTED" "DISCARDED" ) ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:DlDataDeliveryStatus .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Tai ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:TaiRm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Uri ;
-            sh:path TS29571_CommonData:href ] ;
-    sh:targetClass TS29571_CommonData:LinkRm .
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:start ;
+            sh:pattern "^[A-Fa-f0-9]{6}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:end ;
+            sh:pattern "^[A-Fa-f0-9]{6}$" ] ;
+    sh:targetClass TS29571_CommonData:SdRange .
 
-[] sh:datatype xsd:string .
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Guami ] ;
+    sh:targetClass TS29571_CommonData:GuamiRm .
 
-[] sh:class TS29571_CommonData:TrafficProfile .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:wildcardSd ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:sdRanges ;
+            sh:property [ sh:class TS29571_CommonData:SdRange ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:SnssaiExtension .
 
-[] sh:datatype xsd:string ;
-    sh:in_ ( "SSC_MODE_1" "SSC_MODE_2" "SSC_MODE_3" ) .
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IPV4" "IPV6" "IPV4V6" "UNSTRUCTURED" "ETHERNET" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:PduSessionType .
 
-[] sh:class TS29571_CommonData:NullValue .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ArpPriorityLevel ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:priorityLevel ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PreemptionVulnerability ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:preemptVuln ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PreemptionCapability ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:preemptCap ] ;
+    sh:targetClass TS29571_CommonData:Arp .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -1986,126 +1817,308 @@
     sh:targetClass TS29571_CommonData:NotifyItem .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N54dcaf639b5042f4839a2ddb80694520" "Naec013caf1ac44cf93d9bb9592383de0" ) ;
-    sh:targetClass TS29571_CommonData:NrLocationRm .
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:AverWindow ;
+            sh:path TS29571_CommonData:averWindow ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:5QiPriorityLevel ;
+            sh:path TS29571_CommonData:priorityLevel ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtPacketDelBudget ;
+            sh:path TS29571_CommonData:cnPacketDelayBudgetUl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtPacketDelBudget ;
+            sh:path TS29571_CommonData:cnPacketDelayBudgetDl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:MaxDataBurstVol ;
+            sh:path TS29571_CommonData:maxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ExtMaxDataBurstVol ;
+            sh:path TS29571_CommonData:extMaxDataBurstVol ] ;
+    sh:targetClass TS29571_CommonData:NonDynamic5Qi .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RouteInformation ;
-            sh:path TS29571_CommonData:routeInfo ],
+            sh:path TS29571_CommonData:mptcp ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Dnai ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:dnai ],
+            sh:path TS29571_CommonData:rttWithoutPmf ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:atsssLL ] ;
+    sh:targetClass TS29571_CommonData:AtsssCapability .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:CellGlobalId ;
+            sh:path TS29571_CommonData:cgi ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:routeProfId ] ;
-    sh:targetClass TS29571_CommonData:RouteToLocation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:vlrNumber ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geodeticInformation ;
+            sh:pattern "^[0-9A-F]{20}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:geographicalInformation ;
+            sh:pattern "^[0-9A-F]{16}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:mscNumber ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:RoutingAreaId ;
+            sh:path TS29571_CommonData:rai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 32767 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:ageOfLocationInformation ],
+        [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:timeStamp ],
+            sh:path TS29571_CommonData:ueLocationTimestamp ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:counter ] ;
-    sh:targetClass TS29571_CommonData:MoExpDataCounter .
+            sh:class TS29571_CommonData:ServiceAreaId ;
+            sh:path TS29571_CommonData:sai ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:LocationAreaId ;
+            sh:path TS29571_CommonData:lai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS29571_CommonData:locationNumber ] ;
+    sh:targetClass TS29571_CommonData:GeraLocation .
 
-[] sh:class TS29571_CommonData:PduSessionType .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "NR" "EUTRA" "WLAN" "VIRTUAL" "NBIOT" "WIRELINE" "WIRELINE_CABLE" "WIRELINE_BBF" "LTE-M" "NR_U" "EUTRA_U" "TRUSTED_N3GA" "TRUSTED_WLAN" "UTRA" "GERA" ) .
-
-[] sh:class TS29571_CommonData:NullValue .
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 600 1200 2400 3600 5400 7200 ) ] ;
+    sh:targetClass TS29571_CommonData:LoggingDurationMdt .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:range ],
+            sh:maxInclusive 255 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:mbsfnAreaId ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:5Qi ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:pqi ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Pc5FlowBitRates ;
-            sh:path TS29571_CommonData:pc5FlowBitRates ] ;
-    sh:targetClass TS29571_CommonData:Pc5QosFlowItem .
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 262143 ;
+            sh:minInclusive 0 ;
+            sh:path TS29571_CommonData:carrierFrequency ] ;
+    sh:targetClass TS29571_CommonData:MbsfnArea .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N262a14fe5f534f16955272ee30d37d0e" "Ndc795a542e894975a72e253326d7683e" ) ;
-    sh:targetClass TS29571_CommonData:BatteryIndicationRm .
-
-[] sh:datatype xsd:string .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
+    sh:targetClass TS29571_CommonData:LinksValueSchema ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Link ],
+        [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:invalidParams ;
-            sh:property [ sh:class TS29571_CommonData:InvalidParam ;
+            sh:property [ sh:class TS29571_CommonData:Link ;
                     sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PreemptionCapability ] ;
+    sh:targetClass TS29571_CommonData:PreemptionCapabilityRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UDP" "TCP" ) ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:TransportProtocol .
+
+[] a sh:NodeShape ;
+    sh:class TS29571_CommonData:NullValue ;
+    sh:datatype xsd:integer ;
+    sh:targetClass TS29571_CommonData:UpIntegrityRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:path ] ;
+    sh:targetClass TS29571_CommonData:ReportItem .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:SscMode ] ;
+    sh:targetClass TS29571_CommonData:SscModeRm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:ArfcnValueNR ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:dlCarrierFreq ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:cellIdList ;
+            sh:property [ sh:class TS29571_CommonData:PhysCellId ;
+                    sh:maxCount 32 ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:InterFreqTargetInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv4Addr ;
+            sh:path TS29571_CommonData:acsIpv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ipv6Addr ;
+            sh:path TS29571_CommonData:acsIpv6Addr ],
         [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:Uri ;
-            sh:path TS29571_CommonData:type ],
+            sh:path TS29571_CommonData:acsUrl ] ;
+    sh:targetClass TS29571_CommonData:AcsInfo .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DOWNLINK_ONLY" "UPLINK_ONLY" "BIDIRECTIONAL" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:ScheduledCommunicationType .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:EutraLocation ] ;
+    sh:targetClass TS29571_CommonData:EutraLocationRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PduSessionType ] ;
+    sh:targetClass TS29571_CommonData:PduSessionTypeRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "AUTHORIZED" "NOT_AUTHORIZED" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:UeAuth .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Link ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:self ] ;
+    sh:targetClass TS29571_CommonData:SelfLink .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:PlmnId ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:plmnId ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:nrfId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:SupportedFeatures ;
-            sh:path TS29571_CommonData:supportedFeatures ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS29571_CommonData:status ],
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:sac ;
+            sh:pattern "^[A-Fa-f0-9]{4}$" ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:cause ],
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:lac ;
+            sh:pattern "^[A-Fa-f0-9]{4}$" ] ;
+    sh:targetClass TS29571_CommonData:ServiceAreaId .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ],
         [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Ncgi ] ;
+    sh:targetClass TS29571_CommonData:NcgiRm .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:title ],
+            sh:in ( "IMMEDIATE_MDT_ONLY" "LOGGED_MDT_ONLY" "TRACE_ONLY" "IMMEDIATE_MDT_AND_TRACE" "RLF_REPORTS_ONLY" "RCEF_REPORTS_ONLY" "LOGGED_MBSFN_MDT" ) ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Uri ;
-            sh:path TS29571_CommonData:instance ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:detail ] ;
-    sh:targetClass TS29571_CommonData:ProblemDetails .
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:JobType .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:hfcNIds ;
-            sh:property [ sh:class TS29571_CommonData:HfcNId ;
+            sh:path TS29571_CommonData:nrCellIdList ;
+            sh:property [ sh:class TS29571_CommonData:NrCellId ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:path TS29571_CommonData:tacInfoPerPlmn ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:eutraCellIdList ;
+            sh:property [ sh:class TS29571_CommonData:EutraCellId ;
                     sh:minCount 1 ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS29571_CommonData:globalLineIds ;
-            sh:property [ sh:class TS29571_CommonData:Gli ;
+            sh:path TS29571_CommonData:tacList ;
+            sh:property [ sh:class TS29571_CommonData:Tac ;
                     sh:minCount 1 ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:AreaScope .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+            sh:datatype xsd:string ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AreaCode ;
-            sh:path TS29571_CommonData:areaCodeB ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AreaCode ;
-            sh:path TS29571_CommonData:areaCodeC ] ;
-    sh:targetClass TS29571_CommonData:WirelineArea .
+            sh:datatype xsd:string ;
+            sh:in ( "LOCATION_ALLOWED_WITH_NOTIFICATION" "LOCATION_ALLOWED_WITHOUT_NOTIFICATION" "LOCATION_ALLOWED_WITHOUT_RESPONSE" "LOCATION_RESTRICTED_WITHOUT_RESPONSE" "NOTIFICATION_ONLY" "NOTIFICATION_AND_VERIFICATION_ONLY" ) ] ;
+    sh:targetClass TS29571_CommonData:LcsServiceAuth .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:BitRate ;
-            sh:path TS29571_CommonData:guaFbr ],
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:downlink ],
         [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:BitRate ;
-            sh:path TS29571_CommonData:maxFbr ] ;
-    sh:targetClass TS29571_CommonData:Pc5FlowBitRates .
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:uplink ] ;
+    sh:targetClass TS29571_CommonData:Ambr .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N771d93c89c6943db948ceb93351dcc16" "N0ee5428ff3c74410b089bd65f4adbc9f" ) ;
-    sh:targetClass TS29571_CommonData:RestrictionTypeRm .
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node dash:ListShape ;
+            sh:path TS29571_CommonData:report ;
+            sh:property [ sh:class TS29571_CommonData:ReportItem ;
+                    sh:minCount 1 ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS29571_CommonData:PatchResult .
 
-[] sh:datatype xsd:string .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Mcc ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:mcc ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Mnc ;
+            sh:minCount 1 ;
+            sh:path TS29571_CommonData:mnc ] ;
+    sh:targetClass TS29571_CommonData:PlmnId .
+
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UpConfidentiality ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:UpConfidentialityRm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -2121,162 +2134,57 @@
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
     sh:targetClass TS29571_CommonData:SecondaryRatUsageReport .
 
-[] sh:datatype xsd:string ;
-    sh:in_ ( "NOT_PREEMPTABLE" "PREEMPTABLE" ) .
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:NrLocation ;
+            sh:path TS29571_CommonData:nrLocation ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:EutraLocation ;
+            sh:path TS29571_CommonData:eutraLocation ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UtraLocation ;
+            sh:path TS29571_CommonData:utraLocation ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:N3gaLocation ;
+            sh:path TS29571_CommonData:n3gaLocation ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:GeraLocation ;
+            sh:path TS29571_CommonData:geraLocation ] ;
+    sh:targetClass TS29571_CommonData:UserLocation .
 
 [] a sh:NodeShape ;
-    sh:or_ ( "N6c11c78613cd4e6cabdea439b1f6919b" "Ndf6a2e8dce634e0f990f9eef9caa49e2" ) ;
-    sh:targetClass TS29571_CommonData:UeAuth .
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NON_GBR" "NON_CRITICAL_GBR" "CRITICAL_GBR" ) ] ;
+    sh:targetClass TS29571_CommonData:QosResourceType .
 
-[] sh:datatype xsd:string ;
-    sh:in_ ( "DOWNLINK_ONLY" "UPLINK_ONLY" "BIDIRECTIONAL" ) .
+[] a sh:NodeShape ;
+    sh:or_ [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "REQUIRED" "PREFERRED" "NOT_NEEDED" ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ] ;
+    sh:targetClass TS29571_CommonData:UpIntegrity .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:lac ;
-            sh:pattern "^[A-Fa-f0-9]{4}$" ],
+            sh:class TS29571_CommonData:BitRate ;
+            sh:path TS29571_CommonData:guaFbr ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnId ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:plmnId ] ;
-    sh:targetClass TS29571_CommonData:LocationAreaId .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "REQUIRED" "PREFERRED" "NOT_NEEDED" ) .
+            sh:class TS29571_CommonData:BitRate ;
+            sh:path TS29571_CommonData:maxFbr ] ;
+    sh:targetClass TS29571_CommonData:Pc5FlowBitRates .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:path ],
+    sh:or_ [ a sh:PropertyShape ;
+            sh:or_ [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in "MORE_LIKELY" ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ] ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PatchOperation ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:op ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:value ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:from ] ;
-    sh:targetClass TS29571_CommonData:PatchItem .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "REQUIRED" "PREFERRED" "NOT_NEEDED" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainExReportsDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainPacketsDl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:validityTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainExReportsUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:remainPacketsUl ] ;
-    sh:targetClass TS29571_CommonData:ApnRateStatus .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N7f0c260be2a64ee6aefc6be9ecaa4e9f" "Nea2a7c0fd9534cd6bbd51bc63f908945" ) ;
-    sh:targetClass TS29571_CommonData:UpSecurityRm .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nad7fb6dcda5d47939424b1a52e8c952e" "N7033b86450e246f2a323c30526e0ed38" ) ;
-    sh:targetClass TS29571_CommonData:OdbPacketServices .
-
-[] sh:datatype xsd:string .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "UDP" "TCP" ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 128 256 512 1024 2048 3072 4096 6144 320 640 "infinity" ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N111ba75dd43a4952a99c967b4f59a6a3" "N4c22783aab2a4167a424ea82edade3b8" ) ;
-    sh:targetClass TS29571_CommonData:PreemptionCapability .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 128 256 512 1024 2048 3072 4096 6144 ) .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( 1024 1280 2048 2560 5120 10240 60000 ) .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "N34c972f44fb441c79f10cfeb86c60c54" "Nc19dd3224aca49e3bbc18c1c5380e832" ) ;
-    sh:targetClass TS29571_CommonData:LineTypeRm .
-
-[] sh:class TS29571_CommonData:NullValue .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "OUTSIDE_HOME_PLMN" "OUTSIDE_HOME_PLMN_COUNTRY" ) .
-
-[] sh:class TS29571_CommonData:PlmnId .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:LocationAreaId ;
-            sh:path TS29571_CommonData:lai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geodeticInformation ;
-            sh:pattern "^[0-9A-F]{20}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxInclusive 32767 ;
-            sh:minInclusive 0 ;
-            sh:path TS29571_CommonData:ageOfLocationInformation ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DateTime ;
-            sh:path TS29571_CommonData:ueLocationTimestamp ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:geographicalInformation ;
-            sh:pattern "^[0-9A-F]{16}$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RoutingAreaId ;
-            sh:path TS29571_CommonData:rai ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ServiceAreaId ;
-            sh:path TS29571_CommonData:sai ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:CellGlobalId ;
-            sh:path TS29571_CommonData:cgi ] ;
-    sh:targetClass TS29571_CommonData:UtraLocation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:path ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ChangeType ;
-            sh:minCount 1 ;
-            sh:path TS29571_CommonData:op ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS29571_CommonData:from ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:newValue ],
-        [ a sh:PropertyShape ;
-            sh:path TS29571_CommonData:origValue ] ;
-    sh:targetClass TS29571_CommonData:ChangeItem .
-
-[] a sh:NodeShape ;
-    sh:or_ ( "Nf521f24345284847ad0b2c5bafd4bd56" "Nf4997c3a1e6d49fda2e0024dee0bf02a" ) ;
-    sh:targetClass TS29571_CommonData:LoggingIntervalNrMdt .
-
-[] sh:datatype xsd:string ;
-    sh:in_ ( "GET" "POST" "PUT" "DELETE" "PATCH" "OPTIONS" "HEAD" "CONNECT" "TRACE" ) .
+            sh:class TS29571_CommonData:NullValue ] ;
+    sh:targetClass TS29571_CommonData:AdditionalQosFlowInfo .
 

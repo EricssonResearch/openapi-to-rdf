@@ -10,121 +10,86 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-[] sh:class TS28532_FileDataReportingMnS:FileNotificationTypes .
-
-[] sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ComDefs:EutraCellId ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
-
 [] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:HostAddr ;
-    sh:xone ( "N47ab877eedcc415e952735afcd0b47d9" "N9a98f6903a7447f38d1af6fbf5f32d13" "Nabb74e8e3a6f4d5a844f32aaf85f1205" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:FullTime ;
-            sh:path TS28623_ComDefs:intervalEnd ],
+    sh:targetClass TS28623_ComDefs:Host ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:IpAddr ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:FullTime ;
-            sh:path TS28623_ComDefs:intervalStart ] ;
-    sh:targetClass TS28623_ComDefs:TimeInterval .
+            sh:class TS28623_ComDefs:Fqdn ] .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_ComDefs:Dn ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_ComDefs:DnList .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTimeRo ;
-            sh:path TS28623_ComDefs:startTime ] ;
-    sh:targetClass TS28623_ComDefs:TimeWindowRo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:ConvexGeoPolygon ;
-            sh:path TS28623_ComDefs:convexGeoPolygon ] ;
-    sh:targetClass TS28623_ComDefs:GeoArea .
-
-[] sh:class TS28111_FaultNrm:AlarmNotificationTypes .
-
-[] sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ComDefs:GeoAreaToCellMapping ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
-
-[] sh:class TS28623_ComDefs:Ipv6Prefix .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:AttributeNameValuePairSet .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:title ],
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:badQueryParams ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS28623_ComDefs:badOp ],
+            sh:path TS28623_ComDefs:type ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:reason ],
+            sh:path TS28623_ComDefs:title ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28623_ComDefs:status ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:type ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponsePatch .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:IpAddrRo ;
-    sh:xone ( "N9aecfd99ae3d4ce28b75f67b3490a6cb" "N3eea4130f72b400aac5160cbf7a9d23e" "N60692bbe1bf24d8fbfa336372fd948c5" ) .
-
-[] sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ComDefs:UtraCellId ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ComDefs:DnRo ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28623_ComDefs:DnListRo .
+            sh:path TS28623_ComDefs:reason ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponseGet .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:badAttributes ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:errorInfo ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponse .
-
-[] sh:class TS28623_ComDefs:Ipv6AddrRo .
-
-[] sh:class TS28623_ComDefs:Ipv4Addr .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:IpAddr ;
-    sh:xone ( "Na59177afeed54dc380e73911c7f47310" "Nb34c833e69254bd69c925c1e6a54af03" "N1d9c8a06b247424aa48b224880442e30" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28623_ComDefs:startTime ] ;
-    sh:targetClass TS28623_ComDefs:TimeWindow .
-
-[] sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_GenericNrm:Tai ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
-
-[] sh:class TS28623_ComDefs:Ipv6PrefixRo .
+            sh:path TS28623_ComDefs:title ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:badObjects ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:type ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:reason ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponseDefault .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTimeRo ;
-            sh:path TS28623_ComDefs:endTime ] ;
-    sh:targetClass TS28623_ComDefs:TimeWindowRo .
+    sh:targetClass TS28623_ComDefs:AttributeNameValuePairSet .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28623_ComDefs:TimeWindow ;
-    sh:xone ( "N40b3a820cb9f4f0498e068fbbdf2baa2" "N12dc66789852478a8b0f7f665772a27c" "Nef2906b8b8084c5e9d0160618961ed66" ) .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:NotificationType ;
-    sh:xone ( "N183eb51c710f471a91a4b09bc1528cc9" "Nebe7c332cc304d53a34ccb0972b064bd" "Na3854119f0db421db99b289c229933a9" "N9103bc5a681646d9b5bef4c285ddd874" "N01d40cc9b7e8413fadfecfa46e0639d3" ) .
+    sh:xone [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTime ;
+                    sh:path TS28623_ComDefs:endTime ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTime ;
+                    sh:path TS28623_ComDefs:startTime ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTime ;
+                    sh:path TS28623_ComDefs:endTime ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTime ;
+                    sh:path TS28623_ComDefs:startTime ] ] .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
@@ -135,242 +100,27 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Mnc ;
-            sh:path TS28623_ComDefs:mnc ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Mcc ;
-            sh:path TS28623_ComDefs:mcc ] ;
-    sh:targetClass TS28623_ComDefs:PlmnId .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28623_ComDefs:error ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponse .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:status ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:badAttributes ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:badObjects ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:reason ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:type ],
-        [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28623_ComDefs:otherProblems ;
             sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:title ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponseDefault .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:title ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
             sh:path TS28623_ComDefs:type ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:path TS28623_ComDefs:reason ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:otherProblems ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28623_ComDefs:badQueryParams ;
             sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponseGet .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTimeRo ;
-            sh:path TS28623_ComDefs:endTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTimeRo ;
-            sh:path TS28623_ComDefs:startTime ] ;
-    sh:targetClass TS28623_ComDefs:TimeWindowRo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateMonth ;
-            sh:path TS28623_ComDefs:month ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateMonthDay ;
-            sh:path TS28623_ComDefs:monthDay ] ;
-    sh:targetClass TS28623_ComDefs:DayInYear .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:type ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:otherProblems ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28623_ComDefs:title ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:badOP ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:reason ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28623_ComDefs:status ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponsePatch .
-
-[] sh:class TS28532_HeartbeatNtf:HeartbeatNotificationTypes .
-
-[] sh:class TS28623_ComDefs:Fqdn .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28623_ComDefs:endTime ] ;
-    sh:targetClass TS28623_ComDefs:TimeWindow .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:Host ;
-    sh:xone ( "Nf99e9ce97bd3487f97b090045c0d8592" "N92ba8cafd05a4da9a92026bb4b4ea007" ) .
-
-[] sh:class TS28623_ComDefs:Ipv6Addr .
-
-[] sh:class TS28623_ComDefs:Ipv4AddrRo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:type ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:title ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:badAttributes ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:badObjects ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:reason ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponseDefault .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Uri ;
-            sh:path TS28623_ComDefs:consumerReference ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Filter ;
-            sh:path TS28623_ComDefs:filter ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28623_ComDefs:timeTick ] ;
-    sh:targetClass TS28623_ComDefs:Subscription .
-
-[] sh:class TS28532_PerfMnS:PerfNotificationTypes .
-
-[] sh:class TS28623_ComDefs:Ipv4Addr .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28623_ComDefs:endTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:path TS28623_ComDefs:startTime ] ;
-    sh:targetClass TS28623_ComDefs:TimeWindow .
-
-[] sh:class TS28623_ComDefs:Fqdn .
-
-[] sh:class TS28623_ComDefs:Ipv6Addr .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:AreaOfInterest ;
-    sh:xone ( "N19583ba2b6fc40c5a80f012da95ea60d" "N53d007a4ba154022bc36ea7466f74a60" "Nea5afd972d644bfc9c51e8a0d4b39bd0" "N0bca9ceffefc4653b2c3b2160866368b" "N323a84faeb2a43ae87c98e6c66c88f71" ) .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:MncRo ;
-            sh:path TS28623_ComDefs:mnc ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:MccRo ;
-            sh:path TS28623_ComDefs:mcc ] ;
-    sh:targetClass TS28623_ComDefs:PlmnIdRo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:NotificationType ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:notificationType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Uri ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:href ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:SystemDN ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:systemDN ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:eventTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:NotificationId ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:notificationId ] ;
-    sh:targetClass TS28623_ComDefs:NotificationHeader .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:reason ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_ComDefs:badQueryParams ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs:title ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs:type ] ;
     sh:targetClass TS28623_ComDefs:ErrorResponseGet .
 
 [] a sh:NodeShape ;
@@ -383,40 +133,270 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28623_ComDefs:associationThreshold ],
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:reason ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:GeoArea ;
-            sh:path TS28623_ComDefs:geoArea ] ;
-    sh:targetClass TS28623_ComDefs:GeoAreaToCellMapping .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ComDefs:Dn ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28623_ComDefs:DnList .
-
-[] sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ComDefs:NrCellId ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] .
-
-[] sh:class TS28532_ProvMnS:CmNotificationTypes .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:TimeWindowRo ;
-    sh:xone ( "Ne202899957824ce2a6069fe40fe660bd" "Ne13d6762a27a4c4a8c24dc51654cb6bb" "Nba42eeeef1474d15884803ea875100ab" ) .
-
-[] sh:class TS28623_ComDefs:IpAddr .
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:type ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:badAttributes ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:status ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:badObjects ;
+            sh:property [ sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:title ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:otherProblems ;
+            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponseDefault .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_ComDefs:error ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponse .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_ComDefs:DnRo ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_ComDefs:DnListRo .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:IpAddrRo ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv6AddrRo ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv6PrefixRo ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv4AddrRo ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateMonth ;
+            sh:path TS28623_ComDefs:month ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateMonthDay ;
+            sh:path TS28623_ComDefs:monthDay ] ;
+    sh:targetClass TS28623_ComDefs:DayInYear .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:MccRo ;
+            sh:path TS28623_ComDefs:mcc ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:MncRo ;
+            sh:path TS28623_ComDefs:mnc ] ;
+    sh:targetClass TS28623_ComDefs:PlmnIdRo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Filter ;
+            sh:path TS28623_ComDefs:filter ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Uri ;
+            sh:path TS28623_ComDefs:consumerReference ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_ComDefs:timeTick ] ;
+    sh:targetClass TS28623_ComDefs:Subscription .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Mnc ;
+            sh:path TS28623_ComDefs:mnc ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Mcc ;
+            sh:path TS28623_ComDefs:mcc ] ;
+    sh:targetClass TS28623_ComDefs:PlmnId .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:title ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_ComDefs:otherProblems ;
+            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:type ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:badOP ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponsePatch .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:path TS28623_ComDefs:altitude ],
+        [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Latitude ;
             sh:path TS28623_ComDefs:latitude ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Longitude ;
-            sh:path TS28623_ComDefs:longitude ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:path TS28623_ComDefs:altitude ] ;
+            sh:path TS28623_ComDefs:longitude ] ;
     sh:targetClass TS28623_ComDefs:GeoCoordinate .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:FullTime ;
+            sh:path TS28623_ComDefs:intervalStart ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:FullTime ;
+            sh:path TS28623_ComDefs:intervalEnd ] ;
+    sh:targetClass TS28623_ComDefs:TimeInterval .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:ConvexGeoPolygon ;
+            sh:path TS28623_ComDefs:convexGeoPolygon ] ;
+    sh:targetClass TS28623_ComDefs:GeoArea .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:IpAddr ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv6Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv6Prefix ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:errorInfo ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponse .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:AreaOfInterest ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:property [ sh:class TS28623_GenericNrm:Tai ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:property [ sh:class TS28623_ComDefs:GeoAreaToCellMapping ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:property [ sh:class TS28623_ComDefs:NrCellId ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:property [ sh:class TS28623_ComDefs:EutraCellId ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:property [ sh:class TS28623_ComDefs:UtraCellId ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:HostAddr ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Fqdn ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Ipv6Addr ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:NotificationId ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:notificationId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:NotificationType ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:notificationType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:SystemDN ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:systemDN ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:eventTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Uri ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:href ] ;
+    sh:targetClass TS28623_ComDefs:NotificationHeader .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:TimeWindowRo ;
+    sh:xone [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTimeRo ;
+                    sh:path TS28623_ComDefs:startTime ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTimeRo ;
+                    sh:path TS28623_ComDefs:endTime ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTimeRo ;
+                    sh:path TS28623_ComDefs:startTime ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DateTimeRo ;
+                    sh:path TS28623_ComDefs:endTime ] ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:type ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs:title ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs:badOp ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponsePatch .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:GeoArea ;
+            sh:path TS28623_ComDefs:geoArea ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_ComDefs:associationThreshold ] ;
+    sh:targetClass TS28623_ComDefs:GeoAreaToCellMapping .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:NotificationType ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28532_ProvMnS:CmNotificationTypes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_FileDataReportingMnS:FileNotificationTypes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_HeartbeatNtf:HeartbeatNotificationTypes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_PerfMnS:PerfNotificationTypes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmNotificationTypes ] .
 

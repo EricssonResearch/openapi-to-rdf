@@ -5,26 +5,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Common Commands
 
 ### Python Development
-- **Run SHACL converter (default)**: `python main.py <input_yaml_file_or_directory> [--base_namespace <namespace>]`
+- **Install dependencies**: `poetry install`
+- **Run SHACL converter (default)**: `poetry run python main.py convert <input_yaml_file_or_directory>`
   - Generates separate `*_rdf.ttl` (vocabulary) and `*_shacl.ttl` (shapes) files
-- **Run OWL converter**: `python main.py <input> --format owl [--base_namespace <namespace>]`
-- **Install dependencies**: `poetry install` 
-- **Run with Poetry**: `poetry run python main.py <input>`
+- **Run OWL converter**: `poetry run python main.py convert <input> --format owl`
+- **Download 3GPP specs**: `poetry run python main.py download --release Rel-19 --output-dir assets/`
+- **List available releases**: `poetry run python main.py download --list-releases`
 
-### Docker Development  
-- **Build image**: `docker build --build-arg USER=<USERNAME> --build-arg TOKEN=<TOKEN> -t knowledgebase .`
-- **Run container**: `docker run -i -p 3020:3020 -t knowledgebase`
+### Backward Compatibility
+- **Legacy syntax**: `poetry run python main.py <input> [--format shacl|owl]` (still supported)
+
+### Testing
+- **Run complete test suite**: `cd tests && poetry run python run_tests.py ../assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml`
+- **Individual tests**: `poetry run python test_completeness.py <yaml> <rdf> <shacl>`
+- **SHACL syntax validation**: `poetry run python test_shacl_syntax.py <shacl_file>`
 
 ## Architecture Overview
 
 This project converts OpenAPI YAML specifications to RDF formats with **two conversion approaches**:
 
-### Python Component (`openapi_rdf_converter/`)
-- **Entry point**: `main.py` - CLI interface supporting both SHACL and OWL formats
-- **SHACL converter**: `openapi_rdf_converter/shacl_converter.py` - `OpenAPIToSHACLConverter` class (default, mimics Prolog approach)
-- **OWL converter**: `openapi_rdf_converter/converter.py` - `OpenAPIToRDFConverter` class (legacy ontological approach)
-- **Parser**: `openapi_rdf_converter/parser.py` - `OpenAPIParser` for parsing OpenAPI YAML files (removed)
-- **AI prompts**: `openapi_rdf_converter/prompts.py` - LangChain prompts for AI-assisted conversion (removed)
+### Core Architecture (`openapi_to_rdf/`)
+- **Entry point**: `main.py` - Modern CLI with subcommands (convert, download) + backward compatibility
+- **SHACL converter**: `openapi_to_rdf/shacl_converter.py` - `OpenAPIToSHACLConverter` class (default)
+- **OWL converter**: `openapi_to_rdf/rdf_converter.py` - `OpenAPIToRDFConverter` class (legacy)
+- **3GPP downloader**: `openapi_to_rdf/download_3gpp_openapi.py` - `ThreeGPPDownloader` class for spec retrieval
+- **Testing framework**: `tests/` - Comprehensive validation suite with quality metrics
 
 
 ### Data Flow
@@ -62,32 +67,60 @@ This project converts OpenAPI YAML specifications to RDF formats with **two conv
 - External references resolved via namespace prefixes
 - Naming: dashes converted to underscores for RDF compatibility
 
+## CLI Structure and Package Management
+
+### Modern CLI Interface
+The tool supports both new subcommand syntax and backward compatibility:
+- **New syntax**: `openapi-to-rdf download|convert [options]` (preferred)
+- **Legacy syntax**: `openapi-to-rdf <input> [--format shacl|owl]` (maintained for backward compatibility)
+- **Console script**: Defined in `pyproject.toml` as `openapi-to-rdf = "main:main"`
+
+### Package Dependencies (pyproject.toml)
+- **Python**: ^3.11.6 (minimum version requirement)
+- **Core dependencies**: rdflib ^7.1.3, PyYAML ^6.0.2, requests ^2.32.5
+- **Build system**: Poetry with modern pyproject.toml configuration
+- **Package structure**: `openapi_to_rdf/` module with proper `__init__.py`
+
 ## Development Notes
 
-### Input Data
-The project primarily works with 3GPP Management and Service (MnS) OpenAPI specifications located in `assets/MnS-Rel-19-OpenAPI/OpenAPI/`. These are telecommunications standard specifications that define network management interfaces.
+### Input Data Sources
+1. **Local assets**: 3GPP specifications in `assets/MnS-Rel-19-OpenAPI/OpenAPI/`
+2. **Remote download**: Automated retrieval via `ThreeGPPDownloader` with GitLab API, web scraping fallbacks
+3. **Release support**: Rel-15 through Rel-19 and future releases with pattern-based discovery
 
-### Dependencies
-- **Python**: rdflib, PyYAML for RDF manipulation and YAML parsing  
-- **Docker**: Containerized deployment option available
+### Multi-Method Download Strategy
+The downloader implements robust retrieval with fallback mechanisms:
+1. **GitLab API**: Primary method for structured file discovery
+2. **Web scraping**: Secondary method for HTML page parsing
+3. **Pattern matching**: Tertiary method for predictable URL structures
+4. **Dry run mode**: Preview downloads without filesystem changes
 
-### Testing
-No formal test suite is currently implemented. Manual testing is done by running conversions on sample YAML files and validating the generated RDF output.
+### Testing Framework
+Comprehensive test suite with automated quality metrics and validation:
 
-**Quick test commands:**
+**Test Components**:
+- `test_completeness.py` - Schema, property, and description coverage analysis
+- `test_semantic_correctness.py` - RDF semantic validation and consistency checks  
+- `test_shacl_syntax.py` - SHACL syntax validation and constraint verification
+- `run_tests.py` - Unified test runner with quality scoring
+
+**Quality Metrics**:
+- Schema Coverage: Percentage of OpenAPI schemas converted to RDF classes
+- Property Coverage: Percentage of object properties converted to RDF properties
+- Description Preservation: Percentage of descriptions preserved as `rdfs:comment`
+- Overall Quality Score: Composite score with EXCELLENT/GOOD/FAIR/POOR ratings
+
+**Quick test workflow:**
 ```bash
-# Test SHACL conversion (default)
-poetry run python main.py assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
+# Convert and test a single file
+poetry run python main.py convert assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
+cd tests && poetry run python run_tests.py ../assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
 
-# Test OWL conversion
-poetry run python main.py assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml --format owl
-
-# Test directory conversion
-poetry run python main.py assets/MnS-Rel-19-OpenAPI/OpenAPI/
+# Validate SHACL syntax only
+poetry run python test_shacl_syntax.py ../output/TS28623_ComDefs_shacl.ttl
 ```
 
-**Output validation:**
-- SHACL RDF files: Look for `rdfs:Class`, `rdf:Property`, `cc:definedProperty` patterns
-- SHACL shapes files: Look for `sh:NodeShape`, `sh:PropertyShape`, `sh:targetClass` patterns  
-- OWL files: Look for `owl:Class`, `owl:ObjectProperty`, `owl:DatatypeProperty` patterns
-- All files should have proper namespace bindings
+**Output validation patterns:**
+- SHACL RDF files: `rdfs:Class`, `rdf:Property`, `cc:definedProperty`, proper namespace bindings
+- SHACL shapes files: `sh:NodeShape`, `sh:PropertyShape`, `sh:targetClass`, constraint properties
+- OWL files: `owl:Class`, `owl:ObjectProperty`, `owl:DatatypeProperty`, cardinality restrictions
