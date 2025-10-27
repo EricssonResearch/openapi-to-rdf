@@ -136,13 +136,14 @@ class OpenAPIToSHACLConverter:
             ref = spec['$ref']
             class_uri, _ = self._resolve_reference(ref)
             # Only create SHACL constraints for property shapes, not inheritance for classes
-            if property_shape is not None:
+            if property_shape is not None and class_uri is not None:
                 if self._is_object_type_from_ref(ref):
                     self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_uri))
                 else:
                     # Handle datatype reference
                     datatype = self._get_datatype_from_ref(ref)
-                    self.shacl_graph.add((property_shape, self.SH.datatype, datatype))
+                    if datatype is not None:
+                        self.shacl_graph.add((property_shape, self.SH.datatype, datatype))
             return
 
         # Handle object type
@@ -300,7 +301,14 @@ class OpenAPIToSHACLConverter:
 
         # Handle enumerations
         if "enum" in spec:
-            enum_list = self._create_rdf_list(spec["enum"])
+            # Convert Python None values back to "NULL" strings (YAML parsing artifact)
+            processed_enum = []
+            for value in spec["enum"]:
+                if value is None:
+                    processed_enum.append("NULL")
+                else:
+                    processed_enum.append(value)
+            enum_list = self._create_rdf_list(processed_enum)
             self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), enum_list))
 
     def _handle_numeric_type(self, subject, property_shape, spec):
@@ -391,10 +399,12 @@ class OpenAPIToSHACLConverter:
                     ref = spec['$ref']
                     if self._is_object_type_from_ref(ref):
                         class_uri, _ = self._resolve_reference(ref)
-                        class_constraints.append(class_uri)
+                        if class_uri is not None:
+                            class_constraints.append(class_uri)
                     else:
                         datatype = self._get_datatype_from_ref(ref)
-                        datatype_constraints.append(datatype)
+                        if datatype is not None:
+                            datatype_constraints.append(datatype)
                 elif spec.get('type') in ['string', 'number', 'integer', 'boolean']:
                     datatype = self._get_datatype_from_spec(spec)
                     datatype_constraints.append(datatype)
@@ -552,11 +562,16 @@ class OpenAPIToSHACLConverter:
         if "$ref" in prop_def:
             ref = prop_def["$ref"]
             class_uri, _ = self._resolve_reference(ref)
-            if self._is_object_type_from_ref(ref):
-                return RDF.Property, class_uri
+            if class_uri is not None:
+                if self._is_object_type_from_ref(ref):
+                    return RDF.Property, class_uri
+                else:
+                    # Assume datatype property for simple types
+                    datatype = self._get_datatype_from_ref(ref)
+                    return RDF.Property, datatype if datatype is not None else XSD.string
             else:
-                # Assume datatype property for simple types
-                return RDF.Property, self._get_datatype_from_ref(ref)
+                # Fallback if reference cannot be resolved
+                return RDF.Property, XSD.string
         
         # Handle basic types
         elif prop_def.get("type") == "string":
@@ -605,6 +620,8 @@ class OpenAPIToSHACLConverter:
 
     def _get_datatype_from_ref(self, ref):
         """Get appropriate XSD datatype from a reference (heuristic)."""
+        if ref is None:
+            return XSD.string
         ref_name = ref.split("/")[-1].lower()
         if "float" in ref_name:
             return XSD.float
@@ -661,7 +678,10 @@ class OpenAPIToSHACLConverter:
             
             return self.prefixes[ext_prefix][self.format_name(ref_name)], None
         
-        return None, None
+        # Handle unresolvable references by creating a placeholder URI
+        print(f"Warning: Could not resolve reference '{ref}', creating placeholder")
+        safe_ref = self.format_name(ref.replace("/", "_").replace("#", "_"))
+        return self.main_prefix[f"UnresolvedRef_{safe_ref}"], None
 
     def _is_object_type_from_ref(self, ref):
         """Determine if a reference points to an object type (heuristic)."""
@@ -797,8 +817,15 @@ class OpenAPIToSHACLConverter:
 
     def run(self):
         """Run the full conversion process."""
-        self.convert()
-        self.save_rdf()
+        try:
+            self.convert()
+            self.save_rdf()
+        except Exception as e:
+            import traceback
+            print(f"Error during conversion: {e}")
+            print("Full traceback:")
+            traceback.print_exc()
+            raise
 
 
 # Example Usage

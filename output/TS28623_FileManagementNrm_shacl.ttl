@@ -1,0 +1,179 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_STARTED" "RUNNING" "FINSHED" "FAILED" "CANCELLING" "CANCELLED" ) ;
+            sh:path TS28623_FileManagementNrm:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_FileManagementNrm:timer ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28623_FileManagementNrm:progressPercentage ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTimeRo ;
+            sh:path TS28623_FileManagementNrm:endTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTimeRo ;
+            sh:path TS28623_FileManagementNrm:startTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:progressStateInfo ],
+        [ a sh:PropertyShape ;
+            sh:path TS28623_FileManagementNrm:resultStateInfo ;
+            sh:xone [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "NULL" "UNKNOWN" "NO_STORAGE" "LOW_MEMROY" "NO_CONNECTION_TO_REMOTE_SERVER" "FILE_NOT_AVAILABLE" "DNS_CANNOT_BE_RESOLVED" "TIMER_EXPIRED" "OTHER" ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:jobId ] ;
+    sh:targetClass TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:FileDownloadJob_Multiple ;
+            sh:path TS28623_FileManagementNrm:FileDownloadJob ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:Files_Multiple ;
+            sh:path TS28623_FileManagementNrm:Files ] ;
+    sh:targetClass TS28623_FileManagementNrm:ManagedElement_ncO_FileManagementNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_FileManagementNrm:attributes ] ;
+    sh:targetClass TS28623_FileManagementNrm:Files_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Uri ;
+            sh:path TS28623_FileManagementNrm:notificationRecipientAddress ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:fileLocation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( true false ) ;
+            sh:path TS28623_FileManagementNrm:cancelJob ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
+            sh:path TS28623_FileManagementNrm:jobMonitor ] ;
+    sh:targetClass TS28623_FileManagementNrm:FileDownloadJob_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_FileManagementNrm:fileSize ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:fileCompression ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTimeRo ;
+            sh:path TS28623_FileManagementNrm:fileReadyTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTimeRo ;
+            sh:path TS28623_FileManagementNrm:fileExpirationTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:fileContent ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnRo ;
+            sh:path TS28623_FileManagementNrm:jobRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:jobId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERFORMANCE" "TRACE" "ANALYTICS" "PROPRIETARY" ) ;
+            sh:path TS28623_FileManagementNrm:fileDataType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:fileFormat ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:UriRo ;
+            sh:path TS28623_FileManagementNrm:fileLocation ] ;
+    sh:targetClass TS28623_FileManagementNrm:File_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_FileManagementNrm:File_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnRo ;
+            sh:path TS28623_FileManagementNrm:jobRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_FileManagementNrm:jobId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_FileManagementNrm:numberOfFiles ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:File_Multiple ;
+            sh:path TS28623_FileManagementNrm:File ] ;
+    sh:targetClass TS28623_FileManagementNrm:Files_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_FileManagementNrm:File_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_FileManagementNrm:File_Multiple .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_FileManagementNrm:FileDownloadJob_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_FileManagementNrm:FileDownloadJob_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_FileManagementNrm:attributes ] ;
+    sh:targetClass TS28623_FileManagementNrm:File_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_FileManagementNrm:Files_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_FileManagementNrm:Files_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:FileDownloadJob_Multiple ;
+            sh:path TS28623_FileManagementNrm:FileDownloadJob ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:Files_Multiple ;
+            sh:path TS28623_FileManagementNrm:Files ] ;
+    sh:targetClass TS28623_FileManagementNrm:SubNetwork_ncO_FileManagementNrm .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_FileManagementNrm:resources_fileMgmtNrm ;
+    sh:xone [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:File_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:Files_Single ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_FileManagementNrm:FileDownloadJob_Single ] .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_FileManagementNrm:FileDownloadJob_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_FileManagementNrm:Files_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:path TS28623_FileManagementNrm:attributes ] ;
+    sh:targetClass TS28623_FileManagementNrm:FileDownloadJob_Single .
+

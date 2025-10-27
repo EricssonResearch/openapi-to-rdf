@@ -68,9 +68,11 @@ class ThreeGPPDownloader:
         return []
     
     def _try_gitlab_api(self, branch, path):
-        """Try GitLab API method."""
+        """Try GitLab API method with correct project ID."""
         try:
-            api_url = "https://forge.3gpp.org/api/v4/projects/104/repository/tree"
+            # Use the correct project ID
+            project_id = "12"
+            api_url = f"https://forge.3gpp.org/api/v4/projects/{project_id}/repository/tree"
             params = {
                 "ref": branch,
                 "path": path,
@@ -78,8 +80,13 @@ class ThreeGPPDownloader:
             }
             
             response = requests.get(api_url, params=params, timeout=30)
-            response.raise_for_status()
             
+            # If that fails, skip GitLab API entirely since it may not be publicly accessible
+            if response.status_code == 404:
+                print("✗ GitLab API not accessible (404)")
+                return []
+                
+            response.raise_for_status()
             tree_data = response.json()
             
             yaml_files = []
@@ -100,31 +107,39 @@ class ThreeGPPDownloader:
         return []
     
     def _try_web_scraping(self, branch, path):
-        """Try web scraping method."""
+        """Try web scraping method with improved GitLab patterns."""
         try:
             url = f"https://forge.3gpp.org/rep/sa5/MnS/-/tree/{branch}/{path}"
+            print(f"Trying web scraping: {url}")
             response = requests.get(url, timeout=30)
             response.raise_for_status()
             
             import re
             
-            # Look for GitLab file browser patterns
+            # Enhanced patterns for GitLab's file browser
             yaml_patterns = [
-                r'href="[^"]*/([^/"]+\.yaml)"',
-                r'"([^"]+\.yaml)"',
+                # GitLab file links
+                r'href="[^"]*/-/blob/[^"]*?/([^/]+\.yaml)"',
+                r'href="[^"]*?/([A-Za-z0-9_]+\.yaml)"',
+                # General file patterns
+                r'"name":"([^"]+\.yaml)"',
+                r'>([TS][0-9]+[^<]*\.yaml)<',
+                r'([TS][0-9]{5}_[A-Za-z0-9_]+\.yaml)',
+                # Backup patterns
                 r'([A-Za-z0-9_]+\.yaml)',
             ]
             
-            files = []
+            files = set()  # Use set to avoid duplicates
             for pattern in yaml_patterns:
-                matches = re.findall(pattern, response.text)
+                matches = re.findall(pattern, response.text, re.IGNORECASE)
                 for match in matches:
-                    if match not in files and match.endswith('.yaml'):
-                        files.append(match)
+                    if match.endswith('.yaml') and match.startswith('TS'):
+                        files.add(match)
             
-            if files:
-                print(f"✓ Web scraping found {len(files)} files")
-                return files
+            file_list = sorted(list(files))
+            if file_list:
+                print(f"✓ Web scraping found {len(file_list)} files")
+                return file_list
             
         except requests.RequestException as e:
             print(f"✗ Web scraping failed: {e}")
