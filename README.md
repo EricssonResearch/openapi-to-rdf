@@ -1,20 +1,20 @@
 # OpenAPI RDF Converter
 
-A Python tool for converting OpenAPI YAML specifications to RDF vocabularies and SHACL validation shapes, following W3C standards and best practices.
+A Python tool for converting OpenAPI YAML specifications into RDF vocabularies and SHACL validation shapes, adhering to W3C standards and best practices. Special thanks to Leonid Mokrushin and Marlin Orlic for their contributions to the initial version of this project.
 
 ## Features
 
 - **Dual Output Formats**: Generate separate RDF vocabulary + SHACL shapes (default) or traditional RDF/OWL
-- **100% Schema Coverage**: Converts all OpenAPI schemas including objects, arrays, enums, and logical operators
-- **W3C Standards Compliant**: Uses proper `rdfs:domain`, `rdfs:range`, and SHACL vocabulary
-- **Professional Quality**: Generates clean, professional-grade RDF with proper semantic comments
-- **Comprehensive Testing**: Built-in test suite validates conversion completeness and semantic correctness
+- **Schema Coverage**: Converts OpenAPI schemas including objects, arrays, enums, and logical operators
+- **W3C Standards Compliant**: Assigns proper `rdfs:domain`, `rdfs:range` to properties, and constraints via SHACL vocabulary
+- **Documentation**: Generates clean, professional-grade RDF maintaining the original comments (useful for downstream tasks based on text-embeddings)
+- **Testing**: Built-in test suite to validate conversion completeness and semantic correctness
 
 ## Installation
 
 ```bash
-# Install directly from Git repository
-pip install git+https://github.com/your-username/openapi-to-rdf.git
+# UPDATE Install directly from Git repository
+pip install https://github.com/EricssonResearch/openapi-to-rdf.git
 ```
 
 ## Quick Start
@@ -113,7 +113,6 @@ Recent test results on TS28623_ComDefs.yaml:
 - **Schema Coverage**: 100% (64/64 schemas)
 - **Property Coverage**: 100% (30/30 properties)  
 - **Description Preservation**: 100% (35/35 descriptions)
-- **Overall Quality Score**: 100% ✅ EXCELLENT
 
 ## Development Mode
 
@@ -167,27 +166,9 @@ poetry run python test_semantic_correctness.py <yaml_file> <rdf_file> <shacl_fil
 
 #### Core Modules
 
-- **`main.py`**: Command-line interface supporting both SHACL and OWL formats
-- **`openapi_rdf_converter/shacl_converter.py`**: Main SHACL converter implementation
-- **`openapi_rdf_converter/rdf_converter.py`**: Legacy OWL converter
-- **`openapi_rdf_converter/download_3gpp_openapi.py`**: 3GPP specification downloader
-- **`tests/`**: Comprehensive testing framework
+- **`openapi_to_rdf.py`**: Central command-line interface supporting both modern SHACL shapes and legacy RDF/OWL outputs.
+- **`openapi_to_rdf/shacl_converter.py`**: Primary module for converting OpenAPI schemas into SHACL validation shapes.
+- **`openapi_to_rdf/owl_converter.py`**: Legacy module for generating traditional RDF/OWL outputs.
+- **`openapi_to_rdf/download_3gpp.py`**: Module dedicated to downloading the latest 3GPP OpenAPI specification files.
+- **`tests/`**: Comprehensive testing framework ensuring conversion accuracy and compliance.
 
-#### Key Features
-
-- **Schema Type Support**: Objects, arrays, enums, logical operators
-- **Standards Compliance**: W3C namespaces, proper domain/range specifications
-- **Namespace Management**: Auto-generated from filenames, configurable prefixes
-- **Input Processing**: Single files or entire directories
-- **Multiple Discovery Methods**: GitLab API, web scraping, pattern matching
-
-## Contributing
-
-1. Make changes to the converter code
-2. Run the test suite to verify quality metrics
-3. Update documentation as needed
-4. Ensure all tests pass before submitting
-
-## License
-
-[License information]

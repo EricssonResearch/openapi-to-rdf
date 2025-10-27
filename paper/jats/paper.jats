@@ -18,16 +18,31 @@
 <article-id pub-id-type="publisher-id">0</article-id>
 <article-id pub-id-type="doi">N/A</article-id>
 <title-group>
-<article-title>OpenAPI to RDF Converter: Automated Generation of RDF
-Vocabularies and SHACL Validation Shapes from OpenAPI
-Specifications</article-title>
+<article-title>OpenAPI to RDF: Automated Generation of RDF Vocabularies
+and SHACL Validation Shapes from OpenAPI Specifications</article-title>
 </title-group>
 <contrib-group>
 <contrib contrib-type="author" equal-contrib="yes">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0003-2112-3723</contrib-id>
 <name>
-<surname>Jean Martins</surname>
-<given-names>Marin Orlic</given-names>
-<suffix>Leonid Mokrushin</suffix>
+<surname>Martins</surname>
+<given-names>Jean</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<contrib contrib-type="author" equal-contrib="yes">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0009-0007-3438-2720</contrib-id>
+<name>
+<surname>Mokrushin</surname>
+<given-names>Leonid</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<contrib contrib-type="author" equal-contrib="yes">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0009-0008-8411-5935</contrib-id>
+<name>
+<surname>Orlic</surname>
+<given-names>Marin</given-names>
 </name>
 <xref ref-type="aff" rid="aff-1"/>
 </contrib>
@@ -64,354 +79,156 @@ a Creative Commons Attribution 4.0 International License (CC BY
 <kwd>SHACL</kwd>
 <kwd>semantic web</kwd>
 <kwd>data validation</kwd>
-<kwd>schema conversion</kwd>
-<kwd>W3C standards</kwd>
-<kwd>3GPP telecommunications</kwd>
-<kwd>TM Forum</kwd>
+<kwd>telecommunications</kwd>
 </kwd-group>
 </article-meta>
 </front>
 <body>
 <sec id="summary">
   <title>Summary</title>
-  <p>The <bold>OpenAPI to RDF Converter</bold> is a Python tool that
-  transforms <bold>3GPP OpenAPI YAML specifications</bold> into
-  <bold>RDF vocabularies</bold> and <bold>SHACL validation shapes</bold>
-  required for <bold>TM Forum intent-based automation</bold>. This
-  conversion addresses a key interoperability challenge: TM Forum
-  intents must be represented in RDF, but 3GPP specifications—the
-  authoritative definitions of mobile network functions—are published as
-  OpenAPI and YANG artifacts that cannot be directly used in semantic
-  intent frameworks.</p>
-  <p>The converter bridges this gap by generating <bold>domain-specific
-  RDF ontologies</bold> aligned with 3GPP models, enabling operators to
-  author machine-understandable intents consistent with standardized
-  network models. It simultaneously produces <bold>SHACL validation
-  shapes</bold>, allowing automated conformance checking of intents
-  against 3GPP constraints using off-the-shelf SHACL validators.</p>
-  <p>This approach creates a reproducible and evolvable path between
-  3GPP’s service-based architecture (SBA) APIs and TM Forum’s RDF-based
-  intent management ecosystem—supporting formal validation, semantic
-  interoperability, and automation at scale.</p>
+  <p><monospace>openapi-to-rdf</monospace> is a Python package that
+  automatically converts data schemas from OpenAPI specifications into
+  semantic web formats. OpenAPI is a widely-used standard for describing
+  web APIs and data structures, commonly used in telecommunications,
+  cloud computing, and web services. While OpenAPI specifications
+  include API endpoints, parameters, and responses, this tool
+  specifically focuses on the schema definitions that describe the
+  structure and constraints of data models.</p>
+  <p>The package transforms these schema definitions from OpenAPI YAML
+  files into two complementary outputs: RDF (Resource Description
+  Framework) vocabularies that define concepts and their relationships,
+  and SHACL (Shapes Constraint Language) validation shapes that enable
+  automated data validation. This conversion bridges the gap between
+  syntactic schema definitions and semantic web technologies, enabling
+  automated reasoning, validation, and integration across different
+  systems.</p>
+  <p>The converter handles all major OpenAPI schema features including
+  nested objects, arrays, enumerations, and complex logical
+  relationships (<monospace>oneOf</monospace>,
+  <monospace>anyOf</monospace>, <monospace>allOf</monospace>). It
+  resolves cross-references between multiple specification files and
+  generates globally unique identifiers for all schema components. The
+  package provides both command-line tools and a Python API, with
+  comprehensive quality assurance reporting.</p>
+  <p>Testing on 34 telecommunications specifications shows 100%
+  conversion success, processing over 2,000 data structures and 5,000
+  properties with complete preservation of constraints and
+  documentation. The tool has enabled automated validation systems and
+  semantic integration projects in the telecommunications industry.</p>
 </sec>
 <sec id="statement-of-need">
   <title>Statement of Need</title>
-  <p>Telecommunications operators are progressing toward
-  <bold>autonomous networks</bold> driven by high-level business intents
-  rather than manual configuration. Within TM Forum’s
-  <italic>Intent-Based Automation</italic> framework, an
-  <italic>intent</italic> is defined as “the formal specification of all
-  expectations including requirements, goals and constraints given to a
-  technical system”
-  (<xref alt="TM Forum, 2024a" rid="ref-TMForumANLAV2024" ref-type="bibr">TM
-  Forum, 2024a</xref>). The framework’s <bold>Intent Common Model
-  (TR290v)</bold> and <bold>Intent Ontology (TIO)</bold> define how
-  intents are expressed semantically using <bold>RDF vocabularies</bold>
-  and <bold>SHACL constraints</bold>
-  (<xref alt="TM Forum, 2024b" rid="ref-TMForumTR290v2024" ref-type="bibr">TM
-  Forum, 2024b</xref>,
-  <xref alt="2024e" rid="ref-TMForumTR2922024" ref-type="bibr">2024e</xref>).</p>
-  <p>However, TM Forum intentionally provides only
-  <bold>domain-agnostic</bold> ontologies. It explicitly delegates the
-  definition of <bold>domain-specific extensions</bold>—such as those
-  describing radio, core, and transport network elements—to the
-  implementing organizations and standards development bodies. In
-  practice, this means that operators must map domain models from
-  <bold>3GPP specifications</bold> (written in OpenAPI or YANG) into RDF
-  before they can use them for intent representation.</p>
-  <p>3GPP’s RESTful Service-Based Architecture (SBA), introduced in
-  <italic>TS 29.501</italic> and expanded across many <italic>TS
-  29.xxx</italic> specifications, defines hundreds of OpenAPI schemas
-  describing network functions, policies, and services across releases
-  15 to 19+
+  <p>Modern software systems increasingly rely on APIs (Application
+  Programming Interfaces) to communicate and share data. OpenAPI has
+  emerged as the de facto standard for documenting these APIs, with
+  thousands of specifications available across industries. While OpenAPI
+  specifications describe complete APIs including endpoints and
+  operations, the schema definitions within these specifications—which
+  define data structures, validation rules, and relationships—exist in
+  isolation without explicit semantic relationships to other schemas,
+  making integration and automated processing difficult.</p>
+  <p>The telecommunications industry exemplifies this challenge. The 3rd
+  Generation Partnership Project (3GPP) publishes hundreds of OpenAPI
+  specifications defining network functions and data models
   (<xref alt="3GPP, 2023" rid="ref-3GPP2023" ref-type="bibr">3GPP,
-  2023</xref>). These are published as YAML files on 3GPP’s public Forge
-  repositories. While these APIs define the authoritative data and
-  interface models, they are <bold>syntactic</bold>, not
-  <bold>semantic</bold>. TM Forum’s intent framework, by contrast,
-  requires RDF
+  2023</xref>). These specifications contain rich schema definitions
+  describing network elements, policies, and service data structures.
+  Meanwhile, industry frameworks like TM Forum’s Intent-Based Automation
+  require semantic representations using RDF and SHACL for automated
+  network management
+  (<xref alt="TM Forum, 2024a" rid="ref-TMForumTR290v2024" ref-type="bibr">TM
+  Forum, 2024a</xref>,
+  <xref alt="2024b" rid="ref-TMForumTR2922024" ref-type="bibr">2024b</xref>).
+  Currently, bridging between these syntactic schema definitions and
+  semantic frameworks requires manual, error-prone translation.</p>
+  <p>Existing tools for OpenAPI processing focus on code generation,
+  documentation, or testing, but none systematically convert schema
+  definitions to semantic web formats. Academic research has explored
+  individual aspects of API-to-RDF conversion
+  (<xref alt="Dimou et al., 2014" rid="ref-Dimou2014" ref-type="bibr">Dimou
+  et al., 2014</xref>;
+  <xref alt="Michel et al., 2016" rid="ref-Michel2016" ref-type="bibr">Michel
+  et al., 2016</xref>), but lacks comprehensive tooling for real-world
+  schema specifications with complex dependencies and domain-specific
+  requirements.</p>
+  <p>The <monospace>openapi-to-rdf</monospace> package addresses this
+  gap by providing automated, validated conversion from OpenAPI schema
+  definitions to W3C-standard semantic formats
   (<xref alt="W3C, 2014" rid="ref-W3C2014RDF" ref-type="bibr">W3C,
-  2014</xref>) for semantic interoperability, graph reasoning, and
-  formal validation.</p>
-  <p>This misalignment creates a <bold>critical format gap</bold>:</p>
+  2014</xref>,
+  <xref alt="2017" rid="ref-W3C2017SHACL" ref-type="bibr">2017</xref>).
+  This enables:</p>
   <list list-type="bullet">
     <list-item>
-      <p><bold>Incompatible representations:</bold> 3GPP’s OpenAPI/YANG
-      models cannot be used directly in RDF-based intent frameworks.
+      <p><bold>Automated integration</bold>: Systems can discover and
+      understand data models without manual mapping</p>
+    </list-item>
+    <list-item>
+      <p><bold>Semantic validation</bold>: Automated checking of data
+      consistency across multiple APIs
       </p>
     </list-item>
     <list-item>
-      <p><bold>Manual conversion bottleneck:</bold> Manual
-      transformation of OpenAPI to RDF is slow, error-prone, and cannot
-      keep pace with frequent 3GPP release cycles.
-      </p>
+      <p><bold>Knowledge graphs</bold>: Integration of API data into
+      larger semantic knowledge bases</p>
     </list-item>
     <list-item>
-      <p><bold>Validation requirement:</bold> TM Forum’s
-      <bold>Autonomous Networks Level Assessment and Validation
-      (ANLAV)</bold> framework requires formal, machine-readable
-      validation of intents against constraints.
-      </p>
-    </list-item>
-    <list-item>
-      <p><bold>Cross-domain consistency:</bold> Intent-driven systems
-      integrate multiple domains (e.g., radio + core + transport),
-      making consistent ontology generation across evolving 3GPP
-      releases essential.</p>
+      <p><bold>Standards compliance</bold>: Generated outputs conform to
+      W3C semantic web standards</p>
     </list-item>
   </list>
-  <p>Recent TM Forum efforts—such as <bold>TR294A</bold>, which defines
-  the model connection between TM Forum intents and <italic>3GPP TS
-  28.312 Intent Extension Models</italic>—reinforce the need for
-  reliable, machine-generated RDF versions of 3GPP data models
-  (<xref alt="TM Forum, 2024d" rid="ref-TMForumTR294A2024" ref-type="bibr">TM
-  Forum, 2024d</xref>). Yet, no publicly available tooling automates
-  this translation.</p>
-  <p>The <bold>OpenAPI to RDF Converter</bold> addresses this unmet need
-  by automating the generation of <bold>RDF vocabularies</bold> and
-  <bold>SHACL validation shapes</bold> directly from 3GPP OpenAPI
-  definitions. It operationalizes TM Forum’s guidance by providing:</p>
-  <list list-type="order">
-    <list-item>
-      <p>Automated and version-aware translation of OpenAPI schemas to
-      RDF vocabularies consistent with TM Forum’s TIO;
-      </p>
-    </list-item>
-    <list-item>
-      <p>SHACL shapes that formalize 3GPP validation constraints for
-      automated intent verification;
-      </p>
-    </list-item>
-    <list-item>
-      <p>Namespace management and cross-reference resolution to maintain
-      semantic integrity across specifications.</p>
-    </list-item>
-  </list>
-  <p>This enables operators to construct <bold>3GPP domain-specific
-  intent models</bold> compatible with TM Forum’s intent framework,
-  thereby bridging two essential standards ecosystems: 3GPP’s API-driven
-  data modeling and TM Forum’s RDF-based autonomous network
-  management.</p>
-</sec>
-<sec id="functionality-and-architecture">
-  <title>Functionality and Architecture</title>
-  <p>The converter implements a <bold>dual-output architecture</bold>,
-  supporting both SHACL-based (default) and OWL-based output modes. The
-  SHACL mode aligns directly with TM Forum’s validation-oriented intent
-  frameworks, while the OWL mode supports ontology reasoning and
-  knowledge graph integration.</p>
-  <sec id="shacl-conversion-default">
-    <title>SHACL Conversion (Default)</title>
-    <p>Following W3C best practices
-    (<xref alt="W3C, 2014" rid="ref-W3C2014RDF" ref-type="bibr">W3C,
-    2014</xref>,
-    <xref alt="2017" rid="ref-W3C2017SHACL" ref-type="bibr">2017</xref>),
-    two complementary artifacts are produced:</p>
-    <list list-type="bullet">
-      <list-item>
-        <p><bold>RDF Vocabulary
-        (<monospace>*_rdf.ttl</monospace>)</bold>: Defines classes and
-        properties, with appropriate <monospace>rdfs:domain</monospace>,
-        <monospace>rdfs:range</monospace>, and human-readable
-        documentation (<monospace>rdfs:comment</monospace>).
-        </p>
-      </list-item>
-      <list-item>
-        <p><bold>SHACL Shapes
-        (<monospace>*_shacl.ttl</monospace>)</bold>: Defines validation
-        constraints (<monospace>sh:NodeShape</monospace>,
-        <monospace>sh:PropertyShape</monospace>) that mirror OpenAPI
-        schema rules.</p>
-      </list-item>
-    </list>
-  </sec>
-  <sec id="core-technical-features">
-    <title>Core Technical Features</title>
-    <p><bold>Comprehensive Schema Support:</bold>
-    Supports all OpenAPI schema constructs
-    (<xref alt="OpenAPI Initiative, 2021" rid="ref-OpenAPI2021" ref-type="bibr">OpenAPI
-    Initiative, 2021</xref>)—objects, arrays, enumerations, and
-    compositional logic (<monospace>oneOf</monospace>,
-    <monospace>anyOf</monospace>, <monospace>allOf</monospace>)—with
-    faithful translation to SHACL constructs.</p>
-    <p><bold>Logical Operator Mapping:</bold>
-    - <monospace>oneOf</monospace> → <monospace>sh:xone</monospace>
-    (exclusive alternatives)
-    - <monospace>anyOf</monospace> → <monospace>sh:or</monospace>
-    (constraint disjunction)
-    - <monospace>allOf</monospace> → <monospace>sh:and</monospace>
-    (constraint conjunction)</p>
-    <p><bold>Namespace and Version Management:</bold>
-    Namespaces are derived from OpenAPI filenames and version metadata,
-    ensuring globally unique URIs. The converter automatically resolves
-    <monospace>$ref</monospace> dependencies across multiple OpenAPI
-    files, with conflict detection and cycle prevention.</p>
-    <p><bold>Documentation Preservation:</bold>
-    Descriptions and notes in OpenAPI are preserved as
-    <monospace>rdfs:comment</monospace> and
-    <monospace>skos:definition</monospace> statements, enabling readable
-    ontologies.</p>
-    <p><bold>Quality Validation Framework:</bold>
-    A self-validation stage computes coverage metrics: - Schema
-    completeness
-    - Property completeness
-    - Description preservation
-    - SHACL syntax correctness</p>
-    <p>These are automatically tested using W3C SHACL validators
-    (<xref alt="W3C, 2017" rid="ref-W3C2017SHACL" ref-type="bibr">W3C,
-    2017</xref>) during the conversion process.</p>
-    <code language="python"># Example validation summary from TS28623_ComDefs.yaml
-Schema Coverage: 100% (64/64)
-Property Coverage: 100% (30/30)
-Description Preservation: 100% (35/35)
-Overall Quality Score: 100% — EXCELLENT</code>
-  </sec>
-  <sec id="integration-with-3gpp-specifications">
-    <title>Integration with 3GPP Specifications</title>
-    <p>The converter natively supports <bold>3GPP Forge
-    repositories</bold>, implementing:</p>
-    <list list-type="bullet">
-      <list-item>
-        <p><bold>Automated discovery</bold> of OpenAPI YAML files via
-        GitLab API and pattern matching;</p>
-      </list-item>
-      <list-item>
-        <p><bold>Release management</bold> for Rel-15 → Rel-19+,
-        adapting to evolving schema organization;</p>
-      </list-item>
-      <list-item>
-        <p><bold>Cross-specification resolution</bold> for shared
-        definitions (e.g., <italic>CommonData.yaml</italic>);</p>
-      </list-item>
-      <list-item>
-        <p><bold>Fallback YANG translation</bold> for cases where only
-        YANG models exist.</p>
-      </list-item>
-    </list>
-    <p>This capability enables a sustainable bridge from 3GPP’s
-    OpenAPI-defined network models to RDF vocabularies usable within TM
-    Forum’s intent and ANLAV ecosystems.</p>
-  </sec>
-</sec>
-<sec id="quality-assurance-and-validation">
-  <title>Quality Assurance and Validation</title>
-  <p>The converter includes an integrated <bold>quality assurance
-  pipeline</bold> that verifies:</p>
-  <list list-type="bullet">
-    <list-item>
-      <p><bold>Completeness:</bold> All schemas and properties are
-      converted.</p>
-    </list-item>
-    <list-item>
-      <p><bold>Semantic correctness:</bold> Each property has correct
-      domain/range assignments.</p>
-    </list-item>
-    <list-item>
-      <p><bold>SHACL validation:</bold> All generated SHACL shapes pass
-      syntax and structural checks.</p>
-    </list-item>
-    <list-item>
-      <p><bold>Cross-reference integrity:</bold> All
-      <monospace>$ref</monospace> dependencies resolve correctly across
-      files.</p>
-    </list-item>
-    <list-item>
-      <p><bold>Namespace uniqueness:</bold> Conflicting prefixes are
-      detected and flagged.</p>
-    </list-item>
-  </list>
-  <p>Regression testing is performed on representative 3GPP
-  specifications, including:</p>
-  <list list-type="bullet">
-    <list-item>
-      <p><bold>TS 28.541</bold> (Network Slice Management)</p>
-    </list-item>
-    <list-item>
-      <p><bold>TS 28.111</bold> (Fault Management)</p>
-    </list-item>
-    <list-item>
-      <p><bold>TS 28.532</bold> (Performance Management)</p>
-    </list-item>
-  </list>
-  <p>Each shows full conversion with validated SHACL output. Benchmark
-  tests demonstrate linear time complexity relative to schema count,
-  supporting practical use across hundreds of OpenAPI definitions per
-  release.</p>
-</sec>
-<sec id="impact-and-applications">
-  <title>Impact and Applications</title>
-  <p>The OpenAPI to RDF Converter delivers several key benefits across
-  the telecommunications automation landscape:</p>
-  <p><bold>1. 3GPP Domain-Specific Intent Specification</bold> Enables
-  operators to express TM Forum intents using canonical 3GPP network
-  models in RDF, ensuring semantic consistency between operational
-  systems and intent-based orchestration platforms.</p>
-  <p><bold>2. Automated Validation and ANLAV Compliance</bold> Generated
-  SHACL shapes support formal validation of intents, aligning with TM
-  Forum’s ANLAV framework and facilitating autonomous verification of
-  cognitive abilities (Intent, Awareness, Analysis, Decision,
-  Execution).</p>
-  <p><bold>3. Cross-Domain Semantic Interoperability</bold> Creates a
-  foundation for integrating multiple technology domains—3GPP, ETSI,
-  O-RAN, or vendor-specific APIs—within a unified RDF-based
-  ecosystem.</p>
-  <p><bold>4. Evolution-Resilient Architecture</bold> Handles continuous
-  3GPP evolution (Rel-15 → Rel-19+) through automated schema retrieval
-  and version management, ensuring sustainable ontology generation.</p>
-  <p><bold>5. Broader Industry Applicability</bold> Beyond
-  telecommunications, the methodology applies to any domain using
-  OpenAPI, providing a blueprint for RDF-based validation and semantic
-  interoperability across industries (cloud, IoT, energy).</p>
-  <p><bold>6. Open Source Foundation for Collaboration</bold> The
-  converter is published as open source, providing a foundation for
-  community-driven improvement and alignment with emerging TM Forum
-  Catalyst initiatives such as <bold>Intent-Driven Autonomous Networks
-  (IDAN)</bold>
-  (<xref alt="TM Forum, 2024c" rid="ref-TMForumIDAN2024" ref-type="bibr">TM
-  Forum, 2024c</xref>).</p>
-</sec>
-<sec id="future-work">
-  <title>Future Work</title>
-  <p>Several research and engineering challenges remain:</p>
-  <list list-type="bullet">
-    <list-item>
-      <p>Enhancing translation of nested logical constraints
-      (<monospace>not</monospace>, conditional schemas).</p>
-    </list-item>
-    <list-item>
-      <p>Introducing <bold>round-trip validation</bold> between SHACL
-      and OpenAPI to ensure semantic fidelity.</p>
-    </list-item>
-    <list-item>
-      <p>Extending support for <bold>temporal and cross-domain
-      constraints</bold>, as required in complex intent scenarios.</p>
-    </list-item>
-    <list-item>
-      <p>Formal mapping to <bold>TM Forum’s TR294A Intent Extension
-      Model</bold> for consistent ontology alignment.</p>
-    </list-item>
-    <list-item>
-      <p>Benchmarking performance on large-scale 3GPP specification sets
-      for industrial deployment.</p>
-    </list-item>
-  </list>
-  <p>These enhancements will further solidify the tool’s role as a
-  standards-aligned bridge between syntax-based APIs and semantic intent
-  ecosystems.</p>
+  <p>The tool has particular relevance for telecommunications, where it
+  enables automated network management systems, but applies broadly to
+  any domain using OpenAPI specifications including cloud platforms, IoT
+  systems, and web services.</p>
 </sec>
 <sec id="acknowledgements">
   <title>Acknowledgements</title>
-  <p>The author acknowledges the <bold>TM Forum</bold> for pioneering
-  intent-based automation and the <bold>3GPP community</bold> for
-  maintaining comprehensive OpenAPI specifications essential to modern
-  telecommunications. Special recognition is given to the <bold>W3C RDF
-  and SHACL communities</bold>, whose open standards make formal
-  semantic validation possible.</p>
+  <p>We thank TM Forum for developing intent-based automation frameworks
+  and 3GPP for maintaining comprehensive OpenAPI specifications. We
+  acknowledge the W3C semantic web community for creating the standards
+  that enable automated semantic processing. This work was supported by
+  Ericsson’s research and development programs.</p>
 </sec>
 </body>
 <back>
 <ref-list>
   <title></title>
+  <ref id="ref-Dimou2014">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Dimou</surname><given-names>Anastasia</given-names></name>
+        <name><surname>Vander Sande</surname><given-names>Miel</given-names></name>
+        <name><surname>Colpaert</surname><given-names>Pieter</given-names></name>
+        <name><surname>Verborgh</surname><given-names>Ruben</given-names></name>
+        <name><surname>Mannens</surname><given-names>Erik</given-names></name>
+        <name><surname>Van de Walle</surname><given-names>Rik</given-names></name>
+      </person-group>
+      <article-title>RML: A generic language for integrated RDF mappings of heterogeneous data</article-title>
+      <source>Proceedings of the 7th workshop on linked data on the web (LDOW2014)</source>
+      <publisher-name>CEUR-WS</publisher-name>
+      <year iso-8601-date="2014">2014</year>
+      <uri>https://ceur-ws.org/Vol-1184/ldow2014_paper_01.pdf</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-Michel2016">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Michel</surname><given-names>Franck</given-names></name>
+        <name><surname>Djoko</surname><given-names>Loïc</given-names></name>
+        <name><surname>Faron-Zucker</surname><given-names>Catherine</given-names></name>
+        <name><surname>Montagnat</surname><given-names>Johan</given-names></name>
+      </person-group>
+      <article-title>Translation of relational and non-relational databases into RDF with xR2RML</article-title>
+      <source>Proceedings of the 11th international conference on web information systems and technologies (WEBIST 2016)</source>
+      <publisher-name>SciTePress</publisher-name>
+      <year iso-8601-date="2016">2016</year>
+      <uri>https://hal.archives-ouvertes.fr/hal-01345128</uri>
+      <pub-id pub-id-type="doi">10.5220/0005992404430454</pub-id>
+      <fpage>443</fpage>
+      <lpage>454</lpage>
+    </element-citation>
+  </ref>
   <ref id="ref-W3C2014RDF">
     <element-citation>
       <person-group person-group-type="author">
@@ -434,17 +251,6 @@ Overall Quality Score: 100% — EXCELLENT</code>
       <uri>https://www.w3.org/TR/shacl/</uri>
     </element-citation>
   </ref>
-  <ref id="ref-OpenAPI2021">
-    <element-citation>
-      <person-group person-group-type="author">
-        <string-name>OpenAPI Initiative</string-name>
-      </person-group>
-      <article-title>OpenAPI specification version 3.0.3</article-title>
-      <publisher-name>OpenAPI Initiative Specification</publisher-name>
-      <year iso-8601-date="2021">2021</year>
-      <uri>https://spec.openapis.org/oas/v3.0.3</uri>
-    </element-citation>
-  </ref>
   <ref id="ref-3GPP2023">
     <element-citation>
       <person-group person-group-type="author">
@@ -454,17 +260,6 @@ Overall Quality Score: 100% — EXCELLENT</code>
       <publisher-name>Technical Specification Group Services and System Aspects (SA)</publisher-name>
       <year iso-8601-date="2023">2023</year>
       <uri>https://www.3gpp.org/specifications</uri>
-    </element-citation>
-  </ref>
-  <ref id="ref-TMForumANLAV2024">
-    <element-citation>
-      <person-group person-group-type="author">
-        <string-name>TM Forum</string-name>
-      </person-group>
-      <article-title>Autonomous networks level assessment and validation (ANLAV) framework</article-title>
-      <publisher-name>Autonomous Networks Project</publisher-name>
-      <year iso-8601-date="2024">2024</year>
-      <uri>https://www.tmforum.org/topics/autonomous-networks/</uri>
     </element-citation>
   </ref>
   <ref id="ref-TMForumTR290v2024">
@@ -487,28 +282,6 @@ Overall Quality Score: 100% — EXCELLENT</code>
       <publisher-name>TM Forum Technical Report / Ontology</publisher-name>
       <year iso-8601-date="2024">2024</year>
       <uri>https://www.tmforum.org/resources/introductory-guide/tm-forum-intent-ontology-tio-v3-4-0-tr292/</uri>
-    </element-citation>
-  </ref>
-  <ref id="ref-TMForumTR294A2024">
-    <element-citation>
-      <person-group person-group-type="author">
-        <string-name>TM Forum</string-name>
-      </person-group>
-      <article-title>Model connection to 3GPP TS 28.312 – intent extension model (TR294A) v1.0.0</article-title>
-      <publisher-name>TM Forum Introductory Guide</publisher-name>
-      <year iso-8601-date="2024">2024</year>
-      <uri>https://www.tmforum.org/resources/introductory-guide/tr294a-model-connection-to-3gpp-ts-28-312-intent-extension-model-v1-0-0/</uri>
-    </element-citation>
-  </ref>
-  <ref id="ref-TMForumIDAN2024">
-    <element-citation>
-      <person-group person-group-type="author">
-        <string-name>TM Forum</string-name>
-      </person-group>
-      <article-title>Intent-driven autonomous networks (IDAN) catalyst project – phase III</article-title>
-      <publisher-name>TM Forum Catalyst Program</publisher-name>
-      <year iso-8601-date="2024">2024</year>
-      <uri>https://www.tmforum.org/catalysts/projects/c23-0-563-intentdriven-autonomous-networks-phase-iii/</uri>
     </element-citation>
   </ref>
 </ref-list>

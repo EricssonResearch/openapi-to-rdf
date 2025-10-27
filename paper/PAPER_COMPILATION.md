@@ -14,11 +14,7 @@ This directory contains the paper submission for the Journal of Open Source Soft
 To compile the paper using Docker (as recommended by JOSS):
 
 ```bash
-docker run --rm \
-    --volume $PWD/paper:/data \
-    --user $(id -u):$(id -g) \
-    --env JOURNAL=joss \
-    openjournals/inara
+docker run --rm --volume $PWD:/data --user $(id -u):$(id -g)  --env JOURNAL=joss  openjournals/inara
 ```
 
 This command will:
