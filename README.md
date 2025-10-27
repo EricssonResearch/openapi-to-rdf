@@ -1,14 +1,14 @@
 # OpenAPI RDF Converter
 
-A Python tool for converting OpenAPI YAML specifications into RDF vocabularies and SHACL validation shapes, adhering to W3C standards and best practices. Special thanks to Leonid Mokrushin and Marlin Orlic for their contributions to the initial version of this project.
+A Python tool for converting OpenAPI YAML specifications into RDF vocabularies and SHACL validation shapes, adhering to W3C standards and best practices. Special thanks to Leonid Mokrushin and Marlin Orlic for their contributions to qthis project.
 
 ## Features
 
 - **Dual Output Formats**: Generate separate RDF vocabulary + SHACL shapes (default) or traditional RDF/OWL
 - **Schema Coverage**: Converts OpenAPI schemas including objects, arrays, enums, and logical operators
 - **W3C Standards Compliant**: Assigns proper `rdfs:domain`, `rdfs:range` to properties, and constraints via SHACL vocabulary
-- **Documentation**: Generates clean, professional-grade RDF maintaining the original comments (useful for downstream tasks based on text-embeddings)
-- **Testing**: Built-in test suite to validate conversion completeness and semantic correctness
+- **Documentation**: Generates RDF maintaining the original comments (useful for downstream tasks based on text-embeddings)
+- **Testing**: Built-in test suite to partially validate the conversion completeness and semantic correctness
 
 ## Installation
 
@@ -95,53 +95,4 @@ TS28623_ComDefs:startTime a rdf:Property ;
         sh:class TS28623_ComDefs:DateTime ;
         sh:minCount 1 ] .
 ```
-
-## Development Mode
-
-For developers who want to contribute or modify the code:
-
-### Prerequisites
-
-- Python 3.8+
-- Poetry (for dependency management)
-
-### Development Installation
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd openapi-rdf-converter
-
-# Install dependencies
-poetry install
-```
-
-### Development Usage
-
-```bash
-# Download 3GPP specifications
-poetry run python main.py download --release Rel-18 --output-dir assets/
-
-# Convert OpenAPI files
-poetry run python main.py convert path/to/openapi.yaml
-poetry run python main.py convert assets/directory/
-
-# Backward compatibility
-poetry run python main.py path/to/openapi.yaml
-```
-
-### Testing
-
-The project includes a comprehensive testing framework:
-
-```bash
-# Run complete test suite
-cd tests
-poetry run python run_tests.py ../assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_ComDefs.yaml
-
-# Run individual tests
-poetry run python test_completeness.py <yaml_file> <rdf_file> <shacl_file>
-poetry run python test_semantic_correctness.py <yaml_file> <rdf_file> <shacl_file>
-```
-
 
