@@ -1,6 +1,6 @@
 # OpenAPI RDF Converter
 
-A Python tool for converting OpenAPI YAML specifications into RDF vocabularies and SHACL validation shapes, adhering to W3C standards and best practices. Special thanks to Leonid Mokrushin and Marlin Orlic for their contributions to qthis project.
+A Python tool for converting OpenAPI YAML specifications into RDF vocabularies and SHACL validation shapes, adhering to W3C standards and best practices. Special thanks to Leonid Mokrushin and Marlin Orlic for their contributions to this project.
 
 ## Features
 
