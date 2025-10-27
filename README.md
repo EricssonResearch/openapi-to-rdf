@@ -58,14 +58,6 @@ openapi-to-rdf download --release Rel-18 --output-dir assets/
 openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
 ```
 
-### Download Features
-
-- **Multiple Discovery Methods**: Uses GitLab API, web scraping, and pattern matching
-- **Robust Error Handling**: Falls back to alternative methods if one fails
-- **Release Support**: Supports Rel-15 through Rel-19 and future releases
-- **Dry Run Mode**: Preview downloads without actually downloading files
-- **Organized Output**: Creates structured directories matching the repository layout
-
 ## Output Formats
 
 ### SHACL Format (Default)
@@ -74,9 +66,6 @@ Generates two separate files:
 - **RDF Vocabulary** (`*_rdf.ttl`): Classes and properties with proper domain/range
 - **SHACL Shapes** (`*_shacl.ttl`): Validation constraints and cardinality rules
 
-### OWL Format
-
-Generates a single RDF/OWL file (`*.ttl`) with traditional ontological modeling.
 
 ## Example Output
 
@@ -106,13 +95,6 @@ TS28623_ComDefs:startTime a rdf:Property ;
         sh:class TS28623_ComDefs:DateTime ;
         sh:minCount 1 ] .
 ```
-
-## Quality Metrics
-
-Recent test results on TS28623_ComDefs.yaml:
-- **Schema Coverage**: 100% (64/64 schemas)
-- **Property Coverage**: 100% (30/30 properties)  
-- **Description Preservation**: 100% (35/35 descriptions)
 
 ## Development Mode
 
@@ -162,13 +144,4 @@ poetry run python test_completeness.py <yaml_file> <rdf_file> <shacl_file>
 poetry run python test_semantic_correctness.py <yaml_file> <rdf_file> <shacl_file>
 ```
 
-### Architecture
-
-#### Core Modules
-
-- **`openapi_to_rdf.py`**: Central command-line interface supporting both modern SHACL shapes and legacy RDF/OWL outputs.
-- **`openapi_to_rdf/shacl_converter.py`**: Primary module for converting OpenAPI schemas into SHACL validation shapes.
-- **`openapi_to_rdf/owl_converter.py`**: Legacy module for generating traditional RDF/OWL outputs.
-- **`openapi_to_rdf/download_3gpp.py`**: Module dedicated to downloading the latest 3GPP OpenAPI specification files.
-- **`tests/`**: Comprehensive testing framework ensuring conversion accuracy and compliance.
 
