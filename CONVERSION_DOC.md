@@ -7,14 +7,15 @@ This comprehensive documentation explains how OpenAPI YAML specifications are co
 1. [Overview](#overview)
 2. [Basic Data Types](#basic-data-types)
 3. [Object Schemas](#object-schemas)
-4. [Array Schemas](#array-schemas)
-5. [Reference Schemas](#reference-schemas)
-6. [Logical Operators](#logical-operators)
-7. [String Constraints](#string-constraints)
-8. [Numeric Constraints](#numeric-constraints)
-9. [OpenAPI-Specific Features](#openapi-specific-features)
-10. [Namespace Management](#namespace-management)
-11. [Output Structure](#output-structure)
+4. [Cardinality Constraints](#cardinality-constraints)
+5. [Array Schemas](#array-schemas)
+6. [Reference Schemas](#reference-schemas)
+7. [Logical Operators](#logical-operators)
+8. [String Constraints](#string-constraints)
+9. [Numeric Constraints](#numeric-constraints)
+10. [OpenAPI-Specific Features](#openapi-specific-features)
+11. [Namespace Management](#namespace-management)
+12. [Output Structure](#output-structure)
 
 ## Overview
 
@@ -163,11 +164,13 @@ ts28623_comdefs:monthDay a rdf:Property ;
     sh:targetClass ts28623_comdefs:DayInYear ;
     sh:property [
         sh:path ts28623_comdefs:month ;
-        sh:class ts28623_comdefs:DateMonth
+        sh:class ts28623_comdefs:DateMonth ;
+        sh:maxCount 1
     ] ;
     sh:property [
         sh:path ts28623_comdefs:monthDay ;
-        sh:class ts28623_comdefs:DateMonthDay
+        sh:class ts28623_comdefs:DateMonthDay ;
+        sh:maxCount 1
     ] .
 ```
 
@@ -223,12 +226,14 @@ ts28623_comdefs:age a rdf:Property ;
         sh:path ts28623_comdefs:name ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
+        sh:maxCount 1 ;
         rdfs:comment "User's full name"
     ] ;
     sh:property [
         sh:path ts28623_comdefs:email ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
+        sh:maxCount 1 ;
         rdfs:comment "User's email address"
     ] ;
     sh:property [
@@ -236,9 +241,81 @@ ts28623_comdefs:age a rdf:Property ;
         sh:datatype xsd:integer ;
         sh:minInclusive 0 ;
         sh:maxInclusive 150 ;
+        sh:maxCount 1 ;
         rdfs:comment "User's age"
     ] .
 ```
+
+## Cardinality Constraints
+
+**RDF Approach**: Properties in OpenAPI are single-valued by default unless explicitly defined as arrays. The converter enforces this semantic by adding `sh:maxCount 1` to all non-array properties, ensuring single-valued semantics. Required properties additionally get `sh:minCount 1`, making them both required and single-valued.
+
+### Single-Valued Properties
+
+All non-array properties automatically receive `sh:maxCount 1` to enforce single-valued semantics:
+
+**OpenAPI:**
+```yaml
+ProcessMonitor:
+  type: object
+  properties:
+    startTime:
+      $ref: 'TS28623_ComDefs.yaml#/components/schemas/DateTimeRo'
+    endTime:
+      $ref: 'TS28623_ComDefs.yaml#/components/schemas/DateTimeRo'
+```
+
+**SHACL Output:**
+```turtle
+[] a sh:NodeShape ;
+    sh:targetClass ts28623_comdefs:ProcessMonitor ;
+    sh:property [
+        sh:path ts28623_comdefs:startTime ;
+        sh:class ts28623_comdefs:DateTimeRo ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path ts28623_comdefs:endTime ;
+        sh:class ts28623_comdefs:DateTimeRo ;
+        sh:maxCount 1
+    ] .
+```
+
+### Required Single-Valued Properties
+
+Required properties get both `sh:minCount 1` (required) and `sh:maxCount 1` (single-valued):
+
+**OpenAPI:**
+```yaml
+User:
+  type: object
+  required:
+    - id
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+```
+
+**SHACL Output:**
+```turtle
+[] a sh:NodeShape ;
+    sh:targetClass ts28623_comdefs:User ;
+    sh:property [
+        sh:path ts28623_comdefs:id ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ;
+    sh:property [
+        sh:path ts28623_comdefs:name ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1
+    ] .
+```
+
+This ensures semantic correctness - for example, a process can only have one `startTime`, a user can only have one `id`, etc.
 
 ## Array Schemas
 
@@ -346,11 +423,13 @@ ts28623_comdefs:longitude a rdf:Property ;
     sh:targetClass ts28623_comdefs:Location ;
     sh:property [
         sh:path ts28623_comdefs:latitude ;
-        sh:class ts28623_comdefs:Latitude
+        sh:class ts28623_comdefs:Latitude ;
+        sh:maxCount 1
     ] ;
     sh:property [
         sh:path ts28623_comdefs:longitude ;
-        sh:class ts28623_comdefs:Longitude
+        sh:class ts28623_comdefs:Longitude ;
+        sh:maxCount 1
     ] .
 ```
 
@@ -382,7 +461,8 @@ ts28623_comdefs:commonData a rdf:Property ;
     sh:targetClass ts28623_comdefs:ExternalRef ;
     sh:property [
         sh:path ts28623_comdefs:commonData ;
-        sh:class ts29571_commondata:CommonData
+        sh:class ts29571_commondata:CommonData ;
+        sh:maxCount 1
     ] .
 ```
 
@@ -822,7 +902,8 @@ ts28623_comdefs:propertyName a rdf:Property ;
     sh:property [
         sh:path ts28623_comdefs:propertyName ;
         sh:datatype xsd:string ;
-        sh:minCount 1
+        sh:minCount 1 ;
+        sh:maxCount 1
     ] .
 ```
 
