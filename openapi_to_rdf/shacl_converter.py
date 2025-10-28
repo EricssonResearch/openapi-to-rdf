@@ -601,10 +601,9 @@ class OpenAPIToSHACLConverter:
             return RDF.Property, XSD.boolean
             
         elif prop_def.get("type") == "object":
-            # Inline object definition - create a class for it
-            inline_class_name = self.format_name(f"InlineObject_{id(prop_def)}")
-            inline_class_uri = self.main_prefix[inline_class_name]
-            return RDF.Property, inline_class_uri
+            # Inline object definition - use generic object range
+            # The actual structure will be defined in SHACL constraints
+            return RDF.Property, RDFS.Resource
             
         elif prop_def.get("type") == "array":
             items = prop_def.get("items", {})
