@@ -7,65 +7,35 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple ;
-            sh:path TS28623_ManagementDataCollectionNrm:ManagementDataCollection ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm .
-
-[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
 
 [] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:resources_mgmtDataCollectionNrm .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:path TS28623_ManagementDataCollectionNrm:attributes ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ManagementDataCollectionNrm:ManagementData ;
-            sh:path TS28623_ManagementDataCollectionNrm:managementData ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ReportingCtrl ;
-            sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
-            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "SNSSAI" "5QI" "PLMN" ) ;
-            sh:path TS28623_ManagementDataCollectionNrm:dataScope ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
+            sh:in ( "CP" "UP" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:cpUpType ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
             sh:path TS28623_ManagementDataCollectionNrm:areaOfInterest ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
             sh:path TS28623_ManagementDataCollectionNrm:sst ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "CN" "RAN" ) ;
-            sh:path TS28623_ManagementDataCollectionNrm:networkDomain ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CP" "UP" ) ;
-            sh:path TS28623_ManagementDataCollectionNrm:cpUpType ] ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:networkDomain ] ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:attributes ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementData ;
@@ -78,4 +48,45 @@
             sh:node dash:ListShape ;
             sh:property [ sh:datatype xsd:string ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SNSSAI" "5QI" "PLMN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:ManagementData ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:managementData ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ReportingCtrl ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:resources_mgmtDataCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm:ManagementDataCollection ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple .
 

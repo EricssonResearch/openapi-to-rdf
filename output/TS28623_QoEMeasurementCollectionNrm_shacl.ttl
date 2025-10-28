@@ -9,37 +9,13 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob_Single ;
-    sh:targetClass TS28623_QoEMeasurementCollectionNrm:resources_qoEMeasuremetCollectionNrm .
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:attributes ] ;
+    sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:sliceScope ;
-            sh:property [ sh:class TS28541_NrNrm:Snssai ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:areaScope ;
-            sh:property [ sh:class TS28623_GenericNrm:AreaScope ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:qoEReference ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:jobId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "DASH" "MTSI" "VR" ) ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:serviceType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:PlmnId ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:pLMNTarget ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:qMCConfigFile ],
-        [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28623_QoEMeasurementCollectionNrm:availableRANqoEMetrics ;
             sh:property [ sh:datatype xsd:string ;
@@ -48,34 +24,54 @@
                     sh:minCount 0 ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:IpAddr ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:qoECollectionEntityAddress ],
-        [ a sh:PropertyShape ;
             sh:class TS28623_TraceControlNrm:traceReference_Type ;
+            sh:maxCount 1 ;
             sh:path TS28623_QoEMeasurementCollectionNrm:mDTAlignmentInformation ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "BROADCAST" "MULTICAST" ) ;
+            sh:maxCount 1 ;
             sh:path TS28623_QoEMeasurementCollectionNrm:mBSCommunicationServiceType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:qoETarget ] ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:qoETarget ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:qMCConfigFile ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:IpAddr ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:qoECollectionEntityAddress ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:areaScope ;
+            sh:property [ sh:class TS28623_GenericNrm:AreaScope ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DASH" "MTSI" "VR" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:serviceType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:PlmnId ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:pLMNTarget ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:jobId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:qoEReference ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:sliceScope ;
+            sh:property [ sh:class TS28541_NrNrm:Snssai ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
     sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:attributes ] ;
-    sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob_Multiple ;
-            sh:path TS28623_QoEMeasurementCollectionNrm:QMCJobs ] ;
-    sh:targetClass TS28623_QoEMeasurementCollectionNrm:ManagedElement_ncO_QoEMeasurementCollectionNrm .
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
@@ -86,6 +82,22 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob_Multiple ;
+            sh:maxCount 1 ;
             sh:path TS28623_QoEMeasurementCollectionNrm:QMCJobs ] ;
     sh:targetClass TS28623_QoEMeasurementCollectionNrm:SubNetwork_ncO_QoEMeasurementCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28623_QoEMeasurementCollectionNrm:QMCJobs ] ;
+    sh:targetClass TS28623_QoEMeasurementCollectionNrm:ManagedElement_ncO_QoEMeasurementCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob_Single ;
+    sh:targetClass TS28623_QoEMeasurementCollectionNrm:resources_qoEMeasuremetCollectionNrm .
 
