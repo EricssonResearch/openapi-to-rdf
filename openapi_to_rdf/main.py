@@ -8,54 +8,43 @@ from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
 from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
 
 
-def download_command(args):
-    """Handle the download subcommand."""
-    from openapi_to_rdf.download_3gpp_openapi import ThreeGPPDownloader
-    
-    downloader = ThreeGPPDownloader(args.output_dir, args.dry_run)
-    
-    if args.list_releases:
-        downloader.list_available_releases()
-        return
-    
-    if not args.release:
-        print("Error: --release is required (use --list-releases to see available options)")
-        sys.exit(1)
-    
-    success = downloader.download_release(args.release)
-    sys.exit(0 if success else 1)
-
-
-def convert_command(args):
-    """Handle the convert subcommand (default behavior)."""
-    input_path = args.input
+def convert_files(args):
+    """Convert OpenAPI YAML files to RDF/SHACL."""
+    input_paths = args.input
     base_namespace = args.base_namespace
     output_format = args.format
     namespace_prefix = args.namespace_prefix
 
-    # Validate input path exists
-    if not os.path.exists(input_path):
-        logging.error(f"Input path does not exist: {input_path}")
-        sys.exit(1)
-
+    # Collect all YAML files from all input paths
     yaml_files = []
-    if os.path.isdir(input_path):
-        # Always search recursively by default - find all YAML files in directory and subdirectories
-        yaml_files = list(Path(input_path).rglob("*.yaml"))
-        yaml_files = [str(f) for f in yaml_files]
-        print(f"Found {len(yaml_files)} YAML files in {input_path}")
-    elif os.path.isfile(input_path) and input_path.endswith(".yaml"):
-        yaml_files.append(input_path)
-        print(f"Processing single file: {input_path}")
-    else:
-        logging.error(
-            "Invalid input: must be a YAML file or a directory containing YAML files."
-        )
-        sys.exit(1)
+    
+    for input_path in input_paths:
+        # Validate input path exists
+        if not os.path.exists(input_path):
+            logging.error(f"Input path does not exist: {input_path}")
+            sys.exit(1)
+
+        if os.path.isdir(input_path):
+            # Find all YAML files in directory and subdirectories
+            dir_yaml_files = list(Path(input_path).rglob("*.yaml"))
+            dir_yaml_files = [str(f) for f in dir_yaml_files]
+            yaml_files.extend(dir_yaml_files)
+            print(f"Found {len(dir_yaml_files)} YAML files in {input_path}")
+        elif os.path.isfile(input_path) and input_path.endswith(".yaml"):
+            yaml_files.append(input_path)
+            print(f"Processing file: {input_path}")
+        else:
+            logging.error(
+                f"Invalid input: {input_path} must be a YAML file or a directory containing YAML files."
+            )
+            sys.exit(1)
 
     if not yaml_files:
         logging.error("No YAML files found to process.")
         sys.exit(1)
+
+    # Remove duplicates while preserving order
+    yaml_files = list(dict.fromkeys(yaml_files))
 
     # Process each YAML file
     successful_conversions = 0
@@ -98,110 +87,62 @@ def convert_command(args):
 
 
 def main():
-    """Main entry point for the openapi-rdf-converter CLI."""
+    """Main entry point for the openapi-to-rdf CLI."""
     parser = argparse.ArgumentParser(
-        description="OpenAPI RDF Converter - Download 3GPP specifications and convert to RDF/SHACL",
+        description="Convert OpenAPI YAML specifications to RDF vocabularies and SHACL validation shapes",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Download 3GPP specifications
-  openapi-to-rdf download --release Rel-18 --output-dir assets/
-  openapi-to-rdf download --release Rel-19 --dry-run
+  # Convert single file
+  openapi-to-rdf openapi-spec.yaml
   
-  # Convert OpenAPI files to RDF/SHACL
-  openapi-to-rdf convert path/to/openapi.yaml
-  openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/
+  # Convert multiple files
+  openapi-to-rdf file1.yaml file2.yaml file3.yaml
   
-  # Complete workflow
-  openapi-to-rdf download --release Rel-18 --output-dir assets/
-  openapi-to-rdf convert assets/MnS-Rel-18-OpenAPI/OpenAPI/ --namespace-prefix "https://myorg.com/models/"
+  # Convert all YAML files in a directory
+  openapi-to-rdf /path/to/openapi/specs/
+  
+  # Convert with custom namespace prefix
+  openapi-to-rdf openapi-spec.yaml --namespace-prefix "https://myorg.com/models/"
+  
+  # Convert to OWL format instead of SHACL
+  openapi-to-rdf openapi-spec.yaml --format owl
+
+Common OpenAPI sources:
+  - 3GPP specifications: https://forge.3gpp.org/rep/sa5/MnS/-/tree/Rel-18/OpenAPI
+  - TMForum APIs: https://github.com/tmforum-oda
         """
     )
     
-    subparsers = parser.add_subparsers(dest='command', help='Available commands')
-    
-    # Download subcommand
-    download_parser = subparsers.add_parser('download', help='Download 3GPP OpenAPI specifications')
-    download_parser.add_argument(
-        "--release",
-        help="3GPP release to download (e.g., Rel-18, Rel-19)"
+    parser.add_argument(
+        "input", 
+        nargs="+",
+        help="Path(s) to YAML file(s) or directory(ies) containing YAML files"
     )
-    download_parser.add_argument(
-        "--output-dir",
-        default="assets",
-        help="Output directory for downloaded files (default: assets/)"
-    )
-    download_parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Show what would be downloaded without actually downloading"
-    )
-    download_parser.add_argument(
-        "--list-releases",
-        action="store_true",
-        help="List available releases and exit"
-    )
-    
-    # Convert subcommand
-    convert_parser = subparsers.add_parser('convert', help='Convert OpenAPI YAML to RDF/SHACL')
-    convert_parser.add_argument(
-        "input", help="Path to a YAML file or a directory containing YAML files."
-    )
-    convert_parser.add_argument(
-        "--base_namespace",
+    parser.add_argument(
+        "--base-namespace",
         default=None,
         help="Base namespace for RDF output (auto-generated if not provided)",
     )
-    convert_parser.add_argument(
+    parser.add_argument(
         "--format",
         choices=["shacl", "owl"],
         default="shacl",
         help="Output format: 'shacl' for separate RDF vocabulary + SHACL shapes (default), 'owl' for RDF/OWL"
     )
-    convert_parser.add_argument(
+    parser.add_argument(
         "--namespace-prefix",
         default="http://ericsson.com/models/3gpp/",
         help="Base namespace prefix for generated URIs (default: http://ericsson.com/models/3gpp/)"
     )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version="%(prog)s 0.1.0"
+    )
     
-    # Check for backward compatibility first
-    if len(sys.argv) > 1 and sys.argv[1] not in ['download', 'convert', '--help', '-h']:
-        # Old syntax - treat as convert command
-        convert_args = argparse.Namespace()
-        convert_args.input = sys.argv[1]
-        convert_args.base_namespace = None
-        convert_args.format = 'shacl'
-        convert_args.namespace_prefix = 'http://ericsson.com/models/3gpp/'
-        
-        # Parse additional arguments
-        remaining_args = sys.argv[2:] if len(sys.argv) > 2 else []
-        i = 0
-        while i < len(remaining_args):
-            arg = remaining_args[i]
-            if arg == '--format' and i + 1 < len(remaining_args):
-                convert_args.format = remaining_args[i + 1]
-                i += 2
-            elif arg == '--namespace-prefix' and i + 1 < len(remaining_args):
-                convert_args.namespace_prefix = remaining_args[i + 1]
-                i += 2
-            elif arg == '--base_namespace' and i + 1 < len(remaining_args):
-                convert_args.base_namespace = remaining_args[i + 1]
-                i += 2
-            else:
-                i += 1
-        
-        convert_command(convert_args)
-    else:
-        # New subcommand syntax
-        args = parser.parse_args()
-        
-        if args.command == 'download':
-            download_command(args)
-        elif args.command == 'convert':
-            convert_command(args)
-        else:
-            parser.print_help()
-            sys.exit(1)
+    args = parser.parse_args()
+    convert_files(args)
 
 
 if __name__ == "__main__":
