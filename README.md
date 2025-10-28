@@ -108,3 +108,5 @@ TS28623_ComDefs:startTime a rdf:Property ;
         sh:maxCount 1 ] .
 ```
 
+📖 **For comprehensive conversion examples and detailed explanations of all OpenAPI patterns, see [CONVERSION_DOC.md](CONVERSION_DOC.md)**
+
