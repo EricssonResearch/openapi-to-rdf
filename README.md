@@ -10,6 +10,7 @@ Convert OpenAPI YAML **schema definitions** to RDF vocabularies and SHACL valida
 - **Schema Coverage**: Converts OpenAPI schemas including objects, arrays, enums, and logical operators
 - **W3C Standards Compliant**: Assigns proper `rdfs:domain`, `rdfs:range` to properties, and constraints via SHACL vocabulary
 - **Universality**: Should works with any OpenAPI schema specification, althoug only tested with 3GPP input.
+- **3GPP SA5 RDF/SHACL**: We provide pre-generated RDF/SHACL output for 3GPP SA5 Release-19 OpenAPI schemas (downloaded from `https://forge.3gpp.org/rep/sa5/MnS/` into `assets/`)
 
 ## Installation
 
