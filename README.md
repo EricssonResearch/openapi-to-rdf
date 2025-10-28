@@ -6,12 +6,10 @@ Convert OpenAPI YAML **schema definitions** to RDF vocabularies and SHACL valida
 
 ## Features
 
-- **Simple CLI**: Direct conversion without complex subcommands
 - **Dual Output Formats**: Generate separate RDF vocabulary + SHACL shapes (default) or traditional RDF/OWL
 - **Schema Coverage**: Converts OpenAPI schemas including objects, arrays, enums, and logical operators
 - **W3C Standards Compliant**: Assigns proper `rdfs:domain`, `rdfs:range` to properties, and constraints via SHACL vocabulary
-- **Robust Parsing**: Handles edge cases like YAML NULL values and complex references
-- **Universal**: Works with any OpenAPI specification, not just 3GPP
+- **Universality**: Should works with any OpenAPI schema specification, althoug only tested with 3GPP input.
 
 ## Installation
 
