@@ -105,6 +105,6 @@ TS28623_ComDefs:startTime a rdf:Property ;
     sh:property [ a sh:PropertyShape ;
         sh:path TS28623_ComDefs:startTime ;
         sh:class TS28623_ComDefs:DateTime ;
-        sh:minCount 1 ] .
+        sh:maxCount 1 ] .
 ```
 

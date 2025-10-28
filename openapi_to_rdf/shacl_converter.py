@@ -548,9 +548,13 @@ class OpenAPIToSHACLConverter:
             self.shacl_graph.add((node_shape, self.SH.property, property_shape))
         self.shacl_graph.add((property_shape, self.SH.path, predicate_uri))
 
-        # Add cardinality constraints for required properties
+        # Add cardinality constraints
         if prop_name in required_list:
             self.shacl_graph.add((property_shape, self.SH.minCount, Literal(1)))
+        
+        # Add maxCount 1 for non-array properties to ensure single-valued semantics
+        if prop_def.get("type") != "array" and "items" not in prop_def:
+            self.shacl_graph.add((property_shape, self.SH.maxCount, Literal(1)))
 
         # Process the property type
         self._type_clause(domain_class, property_shape, prop_def)
