@@ -28,8 +28,4 @@ This command will:
 - Paper files in `paper/` directory
 - Internet connection (for Docker image download)
 
-## JOSS Submission
-
-The generated `paper.pdf` can be submitted to JOSS along with the repository URL. The JATS XML format is used by JOSS for final publication.
-
 For more information, see: https://joss.readthedocs.io/en/latest/paper.html

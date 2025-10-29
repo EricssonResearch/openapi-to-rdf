@@ -19,10 +19,10 @@
 <article-id pub-id-type="doi">N/A</article-id>
 <title-group>
 <article-title>OpenAPI to RDF: Automated Generation of RDF Vocabularies
-and SHACL Validation Shapes from OpenAPI Specifications</article-title>
+and SHACL Validation Shapes from OpenAPI Schema</article-title>
 </title-group>
 <contrib-group>
-<contrib contrib-type="author" equal-contrib="yes">
+<contrib contrib-type="author">
 <contrib-id contrib-id-type="orcid">https://orcid.org/0000-0003-2112-3723</contrib-id>
 <name>
 <surname>Martins</surname>
@@ -30,7 +30,7 @@ and SHACL Validation Shapes from OpenAPI Specifications</article-title>
 </name>
 <xref ref-type="aff" rid="aff-1"/>
 </contrib>
-<contrib contrib-type="author" equal-contrib="yes">
+<contrib contrib-type="author">
 <contrib-id contrib-id-type="orcid">https://orcid.org/0009-0007-3438-2720</contrib-id>
 <name>
 <surname>Mokrushin</surname>
@@ -38,7 +38,7 @@ and SHACL Validation Shapes from OpenAPI Specifications</article-title>
 </name>
 <xref ref-type="aff" rid="aff-1"/>
 </contrib>
-<contrib contrib-type="author" equal-contrib="yes">
+<contrib contrib-type="author">
 <contrib-id contrib-id-type="orcid">https://orcid.org/0009-0008-8411-5935</contrib-id>
 <name>
 <surname>Orlic</surname>
@@ -48,12 +48,12 @@ and SHACL Validation Shapes from OpenAPI Specifications</article-title>
 </contrib>
 <aff id="aff-1">
 <institution-wrap>
-<institution>Ericsson</institution>
+<institution>Ericsson Research</institution>
 </institution-wrap>
 </aff>
 </contrib-group>
-<pub-date date-type="pub" publication-format="electronic" iso-8601-date="2025-10-15">
-<day>15</day>
+<pub-date date-type="pub" publication-format="electronic" iso-8601-date="2025-10-28">
+<day>28</day>
 <month>10</month>
 <year>2025</year>
 </pub-date>
@@ -120,10 +120,10 @@ a Creative Commons Attribution 4.0 International License (CC BY
   <title>Statement of Need</title>
   <p>Modern software systems increasingly rely on APIs (Application
   Programming Interfaces) to communicate and share data. OpenAPI has
-  emerged as the de facto standard for documenting these APIs, with
-  thousands of specifications available across industries. While OpenAPI
+  emerged as the standard for documenting these APIs, with thousands of
+  specifications available across industries. While OpenAPI
   specifications describe complete APIs including endpoints and
-  operations, the schema definitions within these specifications—which
+  operations, the schema definitions within these specifications – which
   define data structures, validation rules, and relationships—exist in
   isolation without explicit semantic relationships to other schemas,
   making integration and automated processing difficult.</p>
@@ -144,91 +144,43 @@ a Creative Commons Attribution 4.0 International License (CC BY
   <p>Existing tools for OpenAPI processing focus on code generation,
   documentation, or testing, but none systematically convert schema
   definitions to semantic web formats. Academic research has explored
-  individual aspects of API-to-RDF conversion
-  (<xref alt="Dimou et al., 2014" rid="ref-Dimou2014" ref-type="bibr">Dimou
-  et al., 2014</xref>;
-  <xref alt="Michel et al., 2016" rid="ref-Michel2016" ref-type="bibr">Michel
-  et al., 2016</xref>), but lacks comprehensive tooling for real-world
-  schema specifications with complex dependencies and domain-specific
-  requirements.</p>
+  individual aspects of API-to-RDF conversion but lacks comprehensive
+  tooling for real-world schema specifications with complex dependencies
+  and domain-specific requirements.</p>
   <p>The <monospace>openapi-to-rdf</monospace> package addresses this
-  gap by providing automated, validated conversion from OpenAPI schema
-  definitions to W3C-standard semantic formats
+  gap by providing automated conversion from OpenAPI schema definitions
+  to W3C-standard semantic formats
   (<xref alt="W3C, 2014" rid="ref-W3C2014RDF" ref-type="bibr">W3C,
   2014</xref>,
   <xref alt="2017" rid="ref-W3C2017SHACL" ref-type="bibr">2017</xref>).
   This enables:</p>
   <list list-type="bullet">
     <list-item>
-      <p><bold>Automated integration</bold>: Systems can discover and
-      understand data models without manual mapping</p>
+      <p><bold>Intent-based automation</bold>: Enable semantic
+      representation of telecom network models for TM Forum Intent-Based
+      Automation frameworks</p>
     </list-item>
     <list-item>
-      <p><bold>Semantic validation</bold>: Automated checking of data
-      consistency across multiple APIs
-      </p>
+      <p><bold>Domain knowledge integration</bold>: Convert 3GPP
+      information models from OpenAPI schemas to RDF vocabularies to
+      extend TM Forum Intent Ontology (TIO)</p>
     </list-item>
     <list-item>
-      <p><bold>Knowledge graphs</bold>: Integration of API data into
-      larger semantic knowledge bases</p>
-    </list-item>
-    <list-item>
-      <p><bold>Standards compliance</bold>: Generated outputs conform to
-      W3C semantic web standards</p>
+      <p><bold>Automated SHACL validation</bold>: Generate SHACL
+      validation shapes that enable automated verification of intent
+      compliance against domain specific 3GPP models</p>
     </list-item>
   </list>
-  <p>The tool has particular relevance for telecommunications, where it
-  enables automated network management systems, but applies broadly to
-  any domain using OpenAPI specifications including cloud platforms, IoT
-  systems, and web services.</p>
-</sec>
-<sec id="acknowledgements">
-  <title>Acknowledgements</title>
-  <p>We thank TM Forum for developing intent-based automation frameworks
-  and 3GPP for maintaining comprehensive OpenAPI specifications. We
-  acknowledge the W3C semantic web community for creating the standards
-  that enable automated semantic processing. This work was supported by
-  Ericsson’s research and development programs.</p>
+  <p>Therefore, the tool has particular relevance for
+  telecommunications, where it enables intent-based network management
+  systems, but applies broadly to any domain using OpenAPI
+  specifications including cloud platforms, IoT systems, and web
+  services.</p>
 </sec>
 </body>
 <back>
 <ref-list>
   <title></title>
-  <ref id="ref-Dimou2014">
-    <element-citation publication-type="paper-conference">
-      <person-group person-group-type="author">
-        <name><surname>Dimou</surname><given-names>Anastasia</given-names></name>
-        <name><surname>Vander Sande</surname><given-names>Miel</given-names></name>
-        <name><surname>Colpaert</surname><given-names>Pieter</given-names></name>
-        <name><surname>Verborgh</surname><given-names>Ruben</given-names></name>
-        <name><surname>Mannens</surname><given-names>Erik</given-names></name>
-        <name><surname>Van de Walle</surname><given-names>Rik</given-names></name>
-      </person-group>
-      <article-title>RML: A generic language for integrated RDF mappings of heterogeneous data</article-title>
-      <source>Proceedings of the 7th workshop on linked data on the web (LDOW2014)</source>
-      <publisher-name>CEUR-WS</publisher-name>
-      <year iso-8601-date="2014">2014</year>
-      <uri>https://ceur-ws.org/Vol-1184/ldow2014_paper_01.pdf</uri>
-    </element-citation>
-  </ref>
-  <ref id="ref-Michel2016">
-    <element-citation publication-type="paper-conference">
-      <person-group person-group-type="author">
-        <name><surname>Michel</surname><given-names>Franck</given-names></name>
-        <name><surname>Djoko</surname><given-names>Loïc</given-names></name>
-        <name><surname>Faron-Zucker</surname><given-names>Catherine</given-names></name>
-        <name><surname>Montagnat</surname><given-names>Johan</given-names></name>
-      </person-group>
-      <article-title>Translation of relational and non-relational databases into RDF with xR2RML</article-title>
-      <source>Proceedings of the 11th international conference on web information systems and technologies (WEBIST 2016)</source>
-      <publisher-name>SciTePress</publisher-name>
-      <year iso-8601-date="2016">2016</year>
-      <uri>https://hal.archives-ouvertes.fr/hal-01345128</uri>
-      <pub-id pub-id-type="doi">10.5220/0005992404430454</pub-id>
-      <fpage>443</fpage>
-      <lpage>454</lpage>
-    </element-citation>
-  </ref>
   <ref id="ref-W3C2014RDF">
     <element-citation>
       <person-group person-group-type="author">
