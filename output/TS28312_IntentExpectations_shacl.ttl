@@ -13,153 +13,9 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "DlLatency" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:DLLatencyTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "DlFrequency" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28312_IntentNrm:Frequency ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:DlFrequencyContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_GREATER_THAN" ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "RANEnergyEfficiency" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:RANEnergyEfficiencyTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:objectContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "EdgeService_Support" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectInstance ] ;
-    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "ServiceType" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_NrNrm:Sst ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:ServiceTypeContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "LowSINRThreshold" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ] ;
-    sh:targetClass TS28312_IntentExpectations:LowSINRContext .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "Dnn" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:DnnContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "NfType" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28541_5GcNrm:NFType ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:NfTypeContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "WeakRSRPRatio" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
@@ -168,251 +24,22 @@
             sh:path TS28312_IntentExpectations:targetValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:WeakRSRPContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ] ;
-    sh:targetClass TS28312_IntentExpectations:WeakRSRPRatioTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_GREATER_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "UlThptPerUE" ;
+            sh:in ( "AveDLPrbLoad" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:ULThptPerUETarget .
+    sh:targetClass TS28312_IntentExpectations:AveDLPrbLoadTarget .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetCondition ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "OutgoingData" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:OutgoingDataTarget .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "NfInstanceLocation" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:NfInstanceLocationContext .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "MaxNumberofPDUsessions" ;
+            sh:in ( "MaxNumberofRegisteredsubscribers" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:5GSessionContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ] ;
-    sh:targetClass TS28312_IntentExpectations:MaxNumberofPDUsessionsTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "HighDLPrbLoadThreshold" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ] ;
-    sh:targetClass TS28312_IntentExpectations:HighDLPrbLoadContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "ResourceSharingLevel" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:SharingLevel ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:ResourceSharingLevelContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:MobilityLevel ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "UEMobilityLevel" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ] ;
-    sh:targetClass TS28312_IntentExpectations:UEMobilityLevelContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "RANEnergyConsumption" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:RANEnergyConsumptionTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "LowDLRANUEThptRatio" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:LowDLRANUEThptContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ] ;
-    sh:targetClass TS28312_IntentExpectations:LowDLRANUEThptRatioTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "maxNumberofUEs" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:MaxNumberofUEsTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "RAT" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:in ( "UTRAN" "EUTRAN" "NR" ) ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:RATContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "ServiceEndTime" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:ServiceEndTimeContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "MaxNumberofRegisteredsubscribers" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
@@ -422,36 +49,19 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "StartTime" ;
+            sh:in ( "IncomingData" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:StartTimeContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "5GSession" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_less_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
+            sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:5GSessionContext .
+            sh:path TS28312_IntentExpectations:targetValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:IncomingDataTarget .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -460,76 +70,147 @@
             sh:path TS28312_IntentExpectations:targetValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "AveDLRANUEThpt" ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "maxNumberofUEs" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ] ;
+    sh:targetClass TS28312_IntentExpectations:MaxNumberofUEsTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ResourceSharingLevel" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:SharingLevel ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:ResourceSharingLevelContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "LowDLRANUEThptRatio" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:LowDLRANUEThptContext ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:LowDLRANUEThptRatioTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:GeoCoordinate ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "edgeIdentificationTarget" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:EdgeIdentificationLocContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "AveULRANUEThpt" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_GREATER_THAN" ;
+            sh:in ( "IS_GREATER_THAN" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:AveDLRANUEThptTarget .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectationObject .
+    sh:targetClass TS28312_IntentExpectations:AveULRANUEThptTarget .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "edgeIdentificationId" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:EdgeIdentificationIdContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "TargetAssuranceTime" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:TargetAssuranceTimeContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "Tai" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28623_GenericNrm:Tai ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:Tac ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
+            sh:in ( "CoverageAreaTac" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:TaiContext .
+    sh:targetClass TS28312_IntentExpectations:CoverageTACContext .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectationObject .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "Dnn" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:DnnContext .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectation .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CoverageAreaPolygon" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:GeoArea ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:CoverageAreaPolygonContext .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -538,262 +219,157 @@
             sh:minCount 1 ;
             sh:path TS28312_IntentExpectations:expectationId ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:RadioNetworkExpectationObject ;
+            sh:class TS28312_IntentExpectations:RadioServiceExpectationObject ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:expectationObject ],
         [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationTargets ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+            sh:class TS28312_IntentNrm:ExpectationVerb ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationVerb ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28312_IntentExpectations:expectationContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:Context ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationVerb ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationVerb ] ;
-    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectation .
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationTargets ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectation .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "LowDLRANUEThptThreshold" ;
+            sh:in ( "HighULPrbLoadThreshold" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:HighULPrbLoadContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "AveULPrbLoad" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:AveULPrbLoadTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RAN_SubNetwork" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectType ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:objectContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectInstance ] ;
+    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectationObject .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DlFrequency" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextAttribute ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "IS_ALL_OF" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextCondition ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:Frequency ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:DlFrequencyContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:LowDLRANUEThptContext .
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "HighDLPrbLoadThreshold" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:HighDLPrbLoadContext .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28623_ComDefs:Tac ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "coverageAreaTA" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ] ;
-    sh:targetClass TS28312_IntentExpectations:CoverageAreaTAContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28312_IntentNrm:UEGroup ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "UEGroup" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:UEGroupContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:maxInclusive 100 ;
             sh:minInclusive 0 ;
             sh:path TS28312_IntentExpectations:targetValueRange ],
         [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:LowULRANUEThptContext ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetContexts ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "LowULRANUEThptRatio" ;
+            sh:in ( "LowULRANUEThptRatio" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:LowULRANUEThptContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ] ;
+            sh:path TS28312_IntentExpectations:targetCondition ] ;
     sh:targetClass TS28312_IntentExpectations:LowULRANUEThptRatioTarget .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "ServiceStartTime" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:ServiceStartTimeContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "PLMN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28623_ComDefs:PlmnId ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:PLMNContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:HighDLPrbLoadContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "HighDLPrbLoadRatio" ;
+            sh:in ( "uESpeed" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:HighDLPrbLoadRatioTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectInstance ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "RAN_SubNetwork" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectType ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:objectContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "UlFrequency" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28312_IntentNrm:Frequency ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:UlFrequencyContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:objectContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "Radio_Service" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectInstance ] ;
-    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_GREATER_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "DlThptPerUE" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:DLThptPerUETarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "LowSINRRatio" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:LowSINRContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ] ;
-    sh:targetClass TS28312_IntentExpectations:LowSINRRatioTarget .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "uESpeed" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetCondition ],
         [ a sh:PropertyShape ;
@@ -805,114 +381,159 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "WeakRSRPThreshold" ;
+            sh:in ( "coverageAreaTA" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextAttribute ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:Tac ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:WeakRSRPContext .
+            sh:path TS28312_IntentExpectations:contextCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:CoverageAreaTAContext .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:maxInclusive 100 ;
             sh:minInclusive 0 ;
             sh:path TS28312_IntentExpectations:targetValueRange ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "AveDLPrbLoad" ;
+            sh:class TS28312_IntentExpectations:HighDLPrbLoadContext ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ],
+            sh:path TS28312_IntentExpectations:targetContexts ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "HighDLPrbLoadRatio" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:AveDLPrbLoadTarget .
+            sh:path TS28312_IntentExpectations:targetName ] ;
+    sh:targetClass TS28312_IntentExpectations:HighDLPrbLoadRatioTarget .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectationObject .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "ServingScope" ;
+            sh:in ( "5GC_SubNetwork" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
+            sh:path TS28312_IntentExpectations:objectType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectInstance ],
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:ServingScopeContext .
+            sh:path TS28312_IntentExpectations:objectContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectationObject .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectationObject .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:GeoArea ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
+            sh:in ( "LowDLRANUEThptThreshold" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:LowDLRANUEThptContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ServingScope" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:ServingScopeContext .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NfInstanceLocation" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:NfInstanceLocationContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextCondition ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "CoverageAreaPolygon" ;
+            sh:in ( "TargetAssuranceTime" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextAttribute ] ;
-    sh:targetClass TS28312_IntentExpectations:CoverageAreaPolygonContext .
+    sh:targetClass TS28312_IntentExpectations:TargetAssuranceTimeContext .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
+            sh:in ( "DlThptPerUE" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_GREATER_THAN" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:targetCondition ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:class TS28541_SliceNrm:XLThpt ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "activityFactor" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:ActivityFactorTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:EdgeServiceSupportExpectationObject ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationObject ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationVerb ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationVerb ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationTargets ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectation .
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:DLThptPerUETarget .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -921,232 +542,636 @@
             sh:path TS28312_IntentExpectations:targetValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "RANEnergyEfficiency" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
+            sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IncomingData" ;
+            sh:in ( "IS_GREATER_THAN" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:IncomingDataTarget .
+            sh:path TS28312_IntentExpectations:targetCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:RANEnergyEfficiencyTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "HighULPrbLoadRatio" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:HighULPrbLoadContext ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:HighULPrbLoadRatioTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UlLatency" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:ULLatencyTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "StartTime" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:StartTimeContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UEMobilityLevel" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MobilityLevel ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:UEMobilityLevelContext .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "AveULPrbLoad" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:AveULPrbLoadTarget .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_GREATER_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "AveULRANUEThpt" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:AveULRANUEThptTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:HighULPrbLoadContext ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetContexts ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "HighULPrbLoadRatio" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:HighULPrbLoadRatioTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:objectContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "5GC_SubNetwork" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:objectInstance ] ;
-    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "UlLatency" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:targetName ] ;
-    sh:targetClass TS28312_IntentExpectations:ULLatencyTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationObjects ;
-            sh:property [ sh:class TS28312_IntentExpectations:5GCNetworkExpectationObject ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationVerb ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationVerb ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationContexts ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationId ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationTargets ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "IS_ALL_OF" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "CoverageAreaTac" ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:contextValueRange ;
-            sh:property [ sh:class TS28623_ComDefs:Tac ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:CoverageTACContext .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentExpectations:RadioServiceExpectationObject ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationObject ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationId ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationTargets ;
-            sh:property [ sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationVerb ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:expectationVerb ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28312_IntentExpectations:expectationContexts ;
-            sh:property [ sh:class TS28312_IntentNrm:Context ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:double ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "Is_less_than" ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextCondition ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "LowULRANUEThptThreshold" ;
+            sh:in ( "WeakRSRPThreshold" ) ;
             sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:WeakRSRPContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "AveDLRANUEThpt" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_GREATER_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:AveDLRANUEThptTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationId ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationObjects ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentExpectations:5GCNetworkExpectationObject ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationTargets ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:ExpectationVerb ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationVerb ] ;
+    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PLMN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:PlmnId ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:PLMNContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "activityFactor" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:ActivityFactorTarget .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectationObject .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RANEnergyConsumption" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:RANEnergyConsumptionTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:ExpectationVerb ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationVerb ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationId ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationTargets ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:RadioNetworkExpectationObject ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationObject ] ;
+    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NfType" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28541_5GcNrm:NFType ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:NfTypeContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UEGroup" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:UEGroup ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:UEGroupContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:5GSessionContext ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MaxNumberofPDUsessions" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:MaxNumberofPDUsessionsTarget .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:RadioNetworkExpectation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_NrNrm:Sst ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ServiceType" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:ServiceTypeContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "OutgoingData" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:OutgoingDataTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "LowSINRThreshold" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:LowSINRContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_GenericNrm:Tai ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "Tai" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ] ;
+    sh:targetClass TS28312_IntentExpectations:TaiContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RAT" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "UTRAN" "EUTRAN" "NR" ) ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:RATContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_less_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "5GSession" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:5GSessionContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "edgeIdentificationId" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:EdgeIdentificationIdContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "LowULRANUEThptThreshold" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "Is_less_than" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ] ;
     sh:targetClass TS28312_IntentExpectations:LowULRANUEThptContext .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "edgeIdentificationTarget" ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
+            sh:path TS28312_IntentExpectations:targetValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_EQUAL_TO" ;
+            sh:in ( "IS_LESS_THAN" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ],
+            sh:path TS28312_IntentExpectations:targetCondition ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:GeoCoordinate ;
+            sh:datatype xsd:string ;
+            sh:in ( "DlLatency" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextValueRange ] ;
-    sh:targetClass TS28312_IntentExpectations:EdgeIdentificationLocContext .
+            sh:path TS28312_IntentExpectations:targetName ] ;
+    sh:targetClass TS28312_IntentExpectations:DLLatencyTarget .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in "HighULPrbLoadThreshold" ;
+            sh:class TS28312_IntentExpectations:LowSINRContext ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextAttribute ],
+            sh:path TS28312_IntentExpectations:targetContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "LowSINRRatio" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:maxInclusive 100 ;
             sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:LowSINRRatioTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:EdgeServiceSupportExpectationObject ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationObject ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:ExpectationVerb ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationVerb ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationTargets ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:expectationContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentExpectations:expectationId ] ;
+    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:maxCount 1 ;
             sh:path TS28312_IntentExpectations:contextValueRange ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in "IS_LESS_THAN" ;
+            sh:in ( "IS_EQUAL_TO" ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentExpectations:contextCondition ] ;
-    sh:targetClass TS28312_IntentExpectations:HighULPrbLoadContext .
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ServiceStartTime" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:ServiceStartTimeContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ServiceEndTime" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ] ;
+    sh:targetClass TS28312_IntentExpectations:ServiceEndTimeContext .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_LESS_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentExpectations:WeakRSRPContext ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "WeakRSRPRatio" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ] ;
+    sh:targetClass TS28312_IntentExpectations:WeakRSRPRatioTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:objectContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "EdgeService_Support" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectType ] ;
+    sh:targetClass TS28312_IntentExpectations:EdgeServiceSupportExpectationObject .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28312_IntentExpectations:5GCNetworkExpectationObject .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_ALL_OF" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UlFrequency" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:contextAttribute ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:contextValueRange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:Frequency ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28312_IntentExpectations:UlFrequencyContext .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28312_IntentExpectations:objectContexts ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "Radio_Service" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:objectType ] ;
+    sh:targetClass TS28312_IntentExpectations:RadioServiceExpectationObject .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_GREATER_THAN" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UlThptPerUE" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentExpectations:targetName ] ;
+    sh:targetClass TS28312_IntentExpectations:ULThptPerUETarget .
 

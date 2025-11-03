@@ -7,45 +7,25 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:class TS28623_ComDefs:DateTime ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:reason ],
+            sh:path TS28532_FileDataReportingMnS:fileExpirationTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_FileDataReportingMnS:FileDataType ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS:fileDataType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:additionalText ],
+            sh:path TS28532_FileDataReportingMnS:fileCompression ],
         [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_FileDataReportingMnS:fileInfoList ;
-            sh:property [ sh:class TS28532_FileDataReportingMnS:FileInfo ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_FileDataReportingMnS:fileInfoList ;
-            sh:property [ sh:class TS28532_FileDataReportingMnS:FileInfo ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:additionalText ] ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:path TS28532_FileDataReportingMnS:fileSize ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS:fileFormat ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DateTime ;
             sh:maxCount 1 ;
@@ -53,22 +33,44 @@
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Uri ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileLocation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileExpirationTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileFormat ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileCompression ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_FileDataReportingMnS:FileDataType ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileDataType ] ;
+            sh:path TS28532_FileDataReportingMnS:fileLocation ] ;
     sh:targetClass TS28532_FileDataReportingMnS:FileInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_FileDataReportingMnS:fileInfoList ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_FileDataReportingMnS:FileInfo ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS:additionalText ] ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_FileDataReportingMnS:fileInfoList ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_FileDataReportingMnS:FileInfo ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
 

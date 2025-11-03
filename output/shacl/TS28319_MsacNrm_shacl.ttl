@@ -1,0 +1,107 @@
+@prefix TS28319_MsacNrm: <http://ericsson.com/models/3gpp/TS28319/MsacNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:roleName ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:accessRulesList ] ;
+    sh:targetClass TS28319_MsacNrm:Role_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:roleRefList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "USERNAME" "EMAIL_ADDRESS" "PHONE_NUMBER" "IP_ADDRESS" "MACHINEUSER" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:identityType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:credential ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:identityName ] ;
+    sh:targetClass TS28319_MsacNrm:Identity_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28319_MsacNrm:attributes ] ;
+    sh:targetClass TS28319_MsacNrm:Role_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28319_MsacNrm:attributes ] ;
+    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28319_MsacNrm:resources_msacNrm ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:class TS28319_MsacNrm:Identity_Single ] [ a sh:NodeShape ;
+                sh:class TS28319_MsacNrm:Role_Single ] [ a sh:NodeShape ;
+                sh:class TS28319_MsacNrm:AccessRule_Single ] ) .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28319_MsacNrm:Identity_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28319_MsacNrm:Role_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28319_MsacNrm:attributes ] ;
+    sh:targetClass TS28319_MsacNrm:Identity_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:ruleName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALLOW" "DENY" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:actions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28319_MsacNrm:resources ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28319_MsacNrm:operations ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28319_MsacNrm:componentCData ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
+

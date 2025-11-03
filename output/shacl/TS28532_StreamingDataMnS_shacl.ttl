@@ -1,0 +1,170 @@
+@prefix TS28532_StreamingDataMnS: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS#> .
+@prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_TraceControlNrm:TraceJob_Attr ;
+    sh:targetClass TS28532_StreamingDataMnS:traceInfo_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:producerId_Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:producer ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_StreamingDataMnS:streams ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_StreamingDataMnS:streamInfo_Type ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28532_StreamingDataMnS:connectionRequest_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28532_StreamingDataMnS:error ] ;
+    sh:targetClass TS28532_StreamingDataMnS:errorResponse_Type .
+
+[] a sh:NodeShape ;
+    sh:class TS28532_StreamingDataMnS:systemDN_Type ;
+    sh:targetClass TS28532_StreamingDataMnS:producerId_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:errorInfo ] ;
+    sh:targetClass TS28532_StreamingDataMnS:errorResponse_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:streamInfo_Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:streamInfo ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_StreamingDataMnS:reporters ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_StreamingDataMnS:producerId_Type ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28532_StreamingDataMnS:streamInfoWithReporters_Type .
+
+[] a sh:NodeShape ;
+    sh:class TS28532_StreamingDataMnS:systemDN_Type ;
+    sh:targetClass TS28532_StreamingDataMnS:measObjDn_Type .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28532_StreamingDataMnS:performanceMetrics_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:connectionId_Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:connection ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_StreamingDataMnS:streams ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_StreamingDataMnS:streamId_Type ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:producerId_Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:producer ] ;
+    sh:targetClass TS28532_StreamingDataMnS:connectionInfo_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:activityDetails ] ;
+    sh:targetClass TS28532_StreamingDataMnS:analyticsInfo_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:vsDataType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:vsDataFormatVersion ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:vsData ] ;
+    sh:targetClass TS28532_StreamingDataMnS:vsDataContainer_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_StreamingDataMnS:error ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:nodeKind sh:IRI ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28532_StreamingDataMnS:failedConnectionResponse_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:performanceMetrics_Type ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS:performanceMetrics ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:measObjDn_Type ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS:measObjDn ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:jobId ] ;
+    sh:targetClass TS28532_StreamingDataMnS:performanceInfo_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:errorReason ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:streamId_Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:streamId ] ;
+    sh:targetClass TS28532_StreamingDataMnS:failedConnectionResponse_Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS:additionalInfo ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:traceInfo_Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:performanceInfo_Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:analyticsInfo_Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:vsDataContainer_Type ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:serializationFormat_Type ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS:serializationFormat ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS:streamId ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:streamId_Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:traceReference_Type ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:streamType_Type ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS:streamType ] ;
+    sh:targetClass TS28532_StreamingDataMnS:streamInfo_Type .
+

@@ -8,43 +8,14 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:mLModelRefList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDATypes ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:supportedMDACapabilities ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ] ;
-    sh:targetClass TS28104_MdaNrm:MDAFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:attributes ] ;
-    sh:targetClass TS28104_MdaNrm:MDARequest_Single .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputs .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28104_MdaNrm:MDAReport_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28104_MdaNrm:MDAReport_Multiple .
-
-[] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28104_MdaNrm:MDATypes .
+    sh:targetClass TS28104_MdaNrm:AnalyticsScopeType ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:class TS28623_ComDefs:DnList ;
+                        sh:path TS28104_MdaNrm:managedEntitiesScope ] ] [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:class TS28623_ComDefs:GeoArea ;
+                        sh:path TS28104_MdaNrm:areaScope ] ] ) .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -58,97 +29,30 @@
     sh:targetClass TS28104_MdaNrm:MDAFunction_Single .
 
 [] a sh:NodeShape ;
-    sh:node dash:ListShape ;
-    sh:property [ sh:class TS28104_MdaNrm:MDAFunction_Single ;
-            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
-    sh:targetClass TS28104_MdaNrm:MDAFunction_Multiple .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:hysteresis ;
-            sh:xone [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:minInclusive 0 ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:float ;
-                    sh:minInclusive 0 ] ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:thresholdValue ;
-            sh:xone [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:float ] ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:monitoredMDAOutputIE ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:thresholdValue ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:float ] ) ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:hysteresis ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ;
+                        sh:minInclusive 0 ] [ a sh:NodeShape ;
+                        sh:datatype xsd:float ;
+                        sh:minInclusive 0 ] ) ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "UP" "DOWN" "UP_AND_DOWN" ) ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:thresholdDirection ] ;
     sh:targetClass TS28104_MdaNrm:ThresholdInfo .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28104_MdaNrm:AnalyticsSchedule ;
-    sh:xone [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:path TS28104_MdaNrm:granularityPeriod ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:node dash:ListShape ;
-                    sh:path TS28104_MdaNrm:timeDurations ;
-                    sh:property [ sh:class TS28104_MdaReport:TimeWindow ;
-                            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ] .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAFunction_Multiple ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:MDAFunction ] ;
-    sh:targetClass TS28104_MdaNrm:ManagedElement_ncO_MdaNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:timeOut ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:ThresholdInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:threshold ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:filterValue ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:mDAOutputIEName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:AnalyticsSchedule ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:analyticsPeriod ] ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputIEFilter .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAReport_Multiple ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:MDAReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAFunction_Multiple ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:MDAFunction ] ;
-    sh:targetClass TS28104_MdaNrm:SubNetwork_ncO_MdaNrm .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28104_MdaNrm:MDAFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -158,33 +62,18 @@
     sh:targetClass TS28104_MdaNrm:MDAFunction_Single .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28104_MdaNrm:AnalyticsScopeType ;
-    sh:xone [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:DnList ;
-                    sh:path TS28104_MdaNrm:managedEntitiesScope ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:GeoArea ;
-                    sh:path TS28104_MdaNrm:areaScope ] ] .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:AnalyticsScopeType ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:analyticsScope ],
-        [ a sh:PropertyShape ;
             sh:class TS28104_MdaNrm:ReportingMethod ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:reportingMethod ],
         [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:AnalyticsScopeType ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:analyticsScope ],
+        [ a sh:PropertyShape ;
             sh:class TS28104_MdaNrm:ReportingTarget ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:reportingTarget ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm:stopTime ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DateTime ;
             sh:maxCount 1 ;
@@ -194,39 +83,151 @@
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:requestedMDAOutputs ],
         [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:stopTime ],
+        [ a sh:PropertyShape ;
             sh:class TS28104_MdaNrm:AnalyticsScopeType ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:recommendationFilter ] ;
     sh:targetClass TS28104_MdaNrm:MDARequest_Single .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAFunction_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:MDAFunction ] ;
+    sh:targetClass TS28104_MdaNrm:ManagedElement_ncO_MdaNrm .
+
+[] a sh:NodeShape ;
     sh:node dash:ListShape ;
-    sh:property [ sh:class TS28104_MdaNrm:MDARequest_Single ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAFunction_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28104_MdaNrm:MDAFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDATypes ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:supportedMDACapabilities ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DnList ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:mLModelRefList ] ;
+    sh:targetClass TS28104_MdaNrm:MDAFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:mDAOutputIEName ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:ThresholdInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:threshold ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:DateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:timeOut ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:AnalyticsSchedule ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:analyticsPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:filterValue ] ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputIEFilter .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28104_MdaNrm:MDATypes .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDARequest_Single ;
             sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
     sh:targetClass TS28104_MdaNrm:MDARequest_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28104_MdaNrm:MDARequest_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28104_MdaNrm:resources_mdaNrm ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:class TS28104_MdaNrm:MDAFunction_Single ] [ a sh:NodeShape ;
+                sh:class TS28104_MdaNrm:MDARequest_Single ] [ a sh:NodeShape ;
+                sh:class TS28104_MdaNrm:MDAReport_Single ] ) .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28104_MdaNrm:MDAFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputs .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:attributes ] ;
+    sh:targetClass TS28104_MdaNrm:MDARequest_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAReport_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28104_MdaNrm:MDAReport_Multiple .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28104_MdaNrm:AnalyticsSchedule ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:node dash:ListShape ;
+                        sh:path TS28104_MdaNrm:timeDurations ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28104_MdaReport:TimeWindow ;
+                                sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ] [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:datatype xsd:integer ;
+                        sh:path TS28104_MdaNrm:granularityPeriod ] ] ) .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAFunction_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:MDAFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAReport_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm:MDAReport ] ;
+    sh:targetClass TS28104_MdaNrm:SubNetwork_ncO_MdaNrm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28104_MdaNrm:mDAOutputIEFilters ;
-            sh:property [ sh:class TS28104_MdaNrm:MDAOutputIEFilter ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28104_MdaNrm:MDAOutputIEFilter ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm:mDAType ] ;
     sh:targetClass TS28104_MdaNrm:MDAOutputPerMDAType .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28104_MdaNrm:resources_mdaNrm ;
-    sh:xone [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAReport_Single ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAFunction_Single ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDARequest_Single ] .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28104_MdaNrm:MDARequest_Single .
 

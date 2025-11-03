@@ -4,6 +4,7 @@ import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
+from rdflib.term import URIRef as URIRefTerm
 
 
 class OpenAPIToSHACLConverter:
@@ -169,6 +170,41 @@ class OpenAPIToSHACLConverter:
             self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
         elif "allOf" in spec:
             self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH.and_)
+        
+        # If we're processing a property_shape and haven't added any value constraints,
+        # add a default constraint to satisfy GraphDB's requirement
+        # PropertyShapes must have at least one value constraint (sh:datatype, sh:class, sh:node, etc.)
+        if property_shape is not None:
+            # Check if we've added any value constraints by checking predicates directly
+            # Value constraints are: sh:datatype, sh:class, sh:node, sh:in, sh:hasValue, sh:shape, sh:nodeKind, sh:or, sh:xone, sh:and
+            has_value_constraint = False
+            
+            # Check all triples with this property_shape as subject
+            predicates_for_shape = list(self.shacl_graph.predicates(property_shape))
+            
+            # Value constraint predicates to check
+            value_constraint_predicates = [
+                self.SH.datatype,
+                getattr(self.SH, 'class'),
+                self.SH.node,
+                getattr(self.SH, 'in'),
+                self.SH.hasValue,
+                self.SH.nodeKind,
+                self.SH.or_,
+                self.SH.xone,
+                self.SH.and_
+            ]
+            
+            # Check if any predicate is a value constraint
+            for pred in predicates_for_shape:
+                if pred in value_constraint_predicates:
+                    has_value_constraint = True
+                    break
+            
+            # If no value constraint was added, add a default one
+            # Use sh:nodeKind sh:IRI as a permissive default (allows any IRI or blank node)
+            if not has_value_constraint:
+                self.shacl_graph.add((property_shape, self.SH.nodeKind, self.SH.IRI))
 
     def _handle_object_type(self, subject, property_shape, spec):
         """Handle object type schemas (type: object)."""
@@ -230,29 +266,34 @@ class OpenAPIToSHACLConverter:
         if property_shape is not None and subject is None and "description" in spec:
             self.shacl_graph.add((property_shape, RDFS.comment, Literal(spec["description"])))
 
-        # Use dash:ListShape for array validation
+        # Use dash:ListShape for array validation (GraphDB-compatible)
         self.shacl_graph.add((property_shape, self.SH.node, self.DASH.ListShape))
 
-        # Create property shape for array items
-        item_shape = self._create_bnode()
-        self.shacl_graph.add((property_shape, self.SH.property, item_shape))
-
-        # Create path for array items: ( [ sh:zeroOrMorePath rdf:rest ] rdf:first )
-        rest_path = self._create_bnode()
-        self.shacl_graph.add((rest_path, self.SH.zeroOrMorePath, RDF.rest))
-        path_list = self._create_bnode()
-        Collection(self.shacl_graph, path_list, [rest_path, RDF.first])
-        self.shacl_graph.add((item_shape, self.SH.path, path_list))
-
-        # Add cardinality constraints
-        if "minItems" in spec:
-            self.shacl_graph.add((item_shape, self.SH.minCount, Literal(spec["minItems"])))
-        if "maxItems" in spec:
-            self.shacl_graph.add((item_shape, self.SH.maxCount, Literal(spec["maxItems"])))
-
-        # Process items type
+        # For array items validation, use DASH ListShape with proper SHACL sequence path
         if "items" in spec:
+            # Create a property shape for list items using standard DASH ListShape pattern
+            item_shape = self._create_bnode()
+            self.shacl_graph.add((item_shape, RDF.type, self.SH.PropertyShape))
+            
+            # Create SHACL sequence path: ( [ sh:zeroOrMorePath rdf:rest ] rdf:first )
+            # This path follows RDF list semantics: follow rdf:rest zero or more times, then rdf:first
+            path_list = self._create_shacl_list_path()
+            
+            # Apply this path to the item shape
+            self.shacl_graph.add((item_shape, self.SH.path, path_list))
+            
+            # Add cardinality constraints for the list on the PropertyShape
+            # PySHACL meta-validation: minCount/maxCount should be on PropertyShape, not NodeShape
+            if "minItems" in spec:
+                self.shacl_graph.add((item_shape, self.SH.minCount, Literal(spec["minItems"])))
+            if "maxItems" in spec:
+                self.shacl_graph.add((item_shape, self.SH.maxCount, Literal(spec["maxItems"])))
+            
+            # Apply item type constraints
             self._type_clause(subject, item_shape, spec["items"])
+            
+            # Add the item constraint to the property shape
+            self.shacl_graph.add((property_shape, self.SH.property, item_shape))
 
     def _handle_string_type(self, subject, property_shape, spec):
         """Handle string type schemas."""
@@ -415,20 +456,68 @@ class OpenAPIToSHACLConverter:
                     class_constraints.append(shape)
             
             # Add datatype constraints
+            # SHACL spec: sh:datatype must be a single IRI, not a list
+            # For multiple datatypes, use sh:or with separate PropertyShapes
             if datatype_constraints:
+                # Remove duplicates
+                datatype_constraints = list(dict.fromkeys(datatype_constraints))
+                
                 if len(datatype_constraints) == 1:
                     self.shacl_graph.add((property_shape, self.SH.datatype, datatype_constraints[0]))
                 else:
-                    datatype_list = self._create_rdf_list(datatype_constraints)
-                    self.shacl_graph.add((property_shape, self.SH.datatype, datatype_list))
+                    # Create separate NodeShapes for each datatype, then use sh:or
+                    # Use NodeShape instead of PropertyShape since these are constraint shapes without paths
+                    datatype_shapes = []
+                    for datatype in datatype_constraints:
+                        dt_shape = self._create_bnode()
+                        self.shacl_graph.add((dt_shape, RDF.type, self.SH.NodeShape))
+                        self.shacl_graph.add((dt_shape, self.SH.datatype, datatype))
+                        datatype_shapes.append(dt_shape)
+                    
+                    # Use sh:or to combine multiple datatype constraints
+                    or_list = self._create_bnode()
+                    Collection(self.shacl_graph, or_list, datatype_shapes)
+                    self.shacl_graph.add((property_shape, self.SH.or_, or_list))
             
             # Add class constraints
+            # SHACL spec: sh:class must be a single IRI, not a list
+            # For multiple classes, use sh:or with separate NodeShapes
+            # Note: class_constraints can contain URIRefs (classes) or NodeShapes (from anyOf/oneOf)
             if class_constraints:
-                if len(class_constraints) == 1:
-                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_constraints[0]))
-                else:
-                    class_list = self._create_rdf_list(class_constraints)
-                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_list))
+                # Separate URIRefs (actual classes) from NodeShapes (constraint shapes)
+                class_uris = []
+                constraint_shapes = []
+                for constraint in class_constraints:
+                    if isinstance(constraint, URIRef):
+                        class_uris.append(constraint)
+                    else:
+                        # It's a NodeShape from anyOf/oneOf - use as constraint shape
+                        constraint_shapes.append(constraint)
+                
+                # Remove duplicate URIs
+                class_uris = list(dict.fromkeys(class_uris))
+                
+                # Combine all constraints (class URIs and NodeShapes) in sh:or
+                all_shapes = []
+                
+                # Add NodeShapes for each class URI
+                for class_uri in class_uris:
+                    class_shape = self._create_bnode()
+                    self.shacl_graph.add((class_shape, RDF.type, self.SH.NodeShape))
+                    self.shacl_graph.add((class_shape, getattr(self.SH, 'class'), class_uri))
+                    all_shapes.append(class_shape)
+                
+                # Add existing constraint shapes (NodeShapes from anyOf/oneOf)
+                all_shapes.extend(constraint_shapes)
+                
+                # If we have only one shape and it's a class URI (no constraint shapes), use it directly
+                if len(all_shapes) == 1 and len(class_uris) == 1 and len(constraint_shapes) == 0:
+                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_uris[0]))
+                elif len(all_shapes) > 0:
+                    # Use sh:or to combine all constraints
+                    or_list = self._create_bnode()
+                    Collection(self.shacl_graph, or_list, all_shapes)
+                    self.shacl_graph.add((property_shape, self.SH.or_, or_list))
         else:
             # For homogeneous types, inline the constraints instead of creating separate shapes
             # This avoids the problem of undefined blank node references
@@ -476,9 +565,12 @@ class OpenAPIToSHACLConverter:
                         
                         valid_constraints.append(constraint_shape)
                     else:
-                        # Create a PropertyShape for non-object constraints
+                        # Create a NodeShape for non-object constraints in logical operators
+                        # PropertyShapes require sh:path in GraphDB, but these constraint shapes
+                        # are used in logical operators (sh:xone/sh:or/sh:and) and don't validate
+                        # a specific property, so NodeShape is more appropriate
                         constraint_shape = self._create_bnode()
-                        self.shacl_graph.add((constraint_shape, RDF.type, self.SH.PropertyShape))
+                        self.shacl_graph.add((constraint_shape, RDF.type, self.SH.NodeShape))
                         
                         if "description" in spec:
                             self.shacl_graph.add((constraint_shape, RDFS.comment, Literal(spec["description"])))
@@ -495,10 +587,10 @@ class OpenAPIToSHACLConverter:
                         # Also check if we added any sh:property constraints
                         has_properties = len(list(self.shacl_graph.objects(constraint_shape, self.SH.property))) > 0
                         
-                        if has_constraints or has_properties or (triples_after > triples_before + 1):  # +1 for the PropertyShape type
+                        if has_constraints or has_properties or (triples_after > triples_before + 1):  # +1 for the NodeShape type
                             valid_constraints.append(constraint_shape)
                         else:
-                            # Remove the empty PropertyShape and all its triples
+                            # Remove the empty NodeShape and all its triples
                             for p, o in list(self.shacl_graph.predicate_objects(constraint_shape)):
                                 self.shacl_graph.remove((constraint_shape, p, o))
                 
@@ -515,9 +607,11 @@ class OpenAPIToSHACLConverter:
                         for p, o in list(self.shacl_graph.predicate_objects(constraint)):
                             self.shacl_graph.remove((constraint, p, o))
                     else:
-                        # Add all valid constraints to the logical operator
-                        for constraint_shape in valid_constraints:
-                            self.shacl_graph.add((property_shape, operator, constraint_shape))
+                        # Add all valid constraints to the logical operator as an RDF list
+                        # GraphDB requires sh:xone, sh:or, sh:and to use RDF lists, not blank nodes
+                        constraint_list = self._create_bnode()
+                        Collection(self.shacl_graph, constraint_list, valid_constraints)
+                        self.shacl_graph.add((property_shape, operator, constraint_list))
 
     def _process_property(self, domain_class, node_shape, prop_name, prop_def, required_list):
         """Process a property within an object schema."""
@@ -697,6 +791,30 @@ class OpenAPIToSHACLConverter:
         """Create a new blank node."""
         return BNode()
 
+    def _create_shacl_list_path(self):
+        """
+        Create SHACL sequence path for list validation: ( [ sh:zeroOrMorePath rdf:rest ] rdf:first )
+        
+        This creates an RDF list representing the SHACL sequence path where:
+        - First element: a blank node with sh:zeroOrMorePath pointing to rdf:rest
+        - Second element: rdf:first
+        
+        Uses rdflib.Collection to ensure proper RDF list structure that GraphDB can validate.
+        
+        Returns the head of the RDF list.
+        """
+        # Create blank node for zeroOrMorePath
+        zero_or_more_node = self._create_bnode()
+        self.shacl_graph.add((zero_or_more_node, self.SH.zeroOrMorePath, RDF.rest))
+        
+        # Use rdflib.Collection to create a proper RDF list with two elements:
+        # [sh:zeroOrMorePath rdf:rest] and rdf:first
+        # This ensures GraphDB-compatible list structure where every list node has both rdf:first and rdf:rest
+        path_list = self._create_bnode()
+        Collection(self.shacl_graph, path_list, [zero_or_more_node, RDF.first])
+        
+        return path_list
+
     def _has_meaningful_constraints(self, property_shape):
         """Check if a PropertyShape has meaningful SHACL constraints."""
         meaningful_properties = {
@@ -713,26 +831,59 @@ class OpenAPIToSHACLConverter:
         return False
 
     def _create_rdf_list(self, items):
-        """Create an RDF list from Python list."""
+        """
+        Create an RDF list from Python list.
+        
+        For sh:class and sh:datatype, items should be URIRef objects (IRIs), not Literals.
+        For sh:in (enum values), items can be Literals.
+        """
         if not items:
             return RDF.nil
         
-        if len(items) == 1:
-            # For single items, return the item directly instead of creating a list
-            item = items[0]
-            if isinstance(item, (str, int, float, bool)):
-                return Literal(item)
-            else:
-                return item
-        
-        # For multiple items, create a proper RDF list structure
+        # Always create a proper RDF list structure, even for single items
+        # GraphDB requires sh:in to be an RDF list (Resource), not a Literal
         list_node = self._create_bnode()
         current_node = list_node
         
         for i, item in enumerate(items):
-            if isinstance(item, (str, int, float, bool)):
+            # Convert item to string representation for checking
+            item_str = str(item) if item is not None else ""
+            
+            # First, check if item is already a proper RDF term (URIRef, BNode, etc.)
+            if isinstance(item, URIRef):
+                # Already a URIRef (including XSD types which are URIRefs) - use as-is
+                processed_item = item
+            elif isinstance(item, (BNode, Namespace)):
+                # Already an RDF term - use as-is
+                processed_item = item
+            elif item_str.startswith("http://") or item_str.startswith("https://") or item_str.startswith("urn:"):
+                # It's a URI string - convert to URIRef
+                # This ensures sh:class and sh:datatype use URIRefs, not Literals
+                processed_item = URIRef(item_str)
+            elif item_str.startswith("xsd:") or "XMLSchema" in item_str:
+                # XSD datatype reference - convert to URIRef
+                if item_str == "xsd:string" or item_str.endswith("#string") or "string" in item_str.lower():
+                    processed_item = XSD.string
+                elif item_str == "xsd:integer" or item_str.endswith("#integer") or "integer" in item_str.lower():
+                    processed_item = XSD.integer
+                elif item_str == "xsd:double" or item_str.endswith("#double") or "double" in item_str.lower():
+                    processed_item = XSD.double
+                elif item_str == "xsd:boolean" or item_str.endswith("#boolean") or "boolean" in item_str.lower():
+                    processed_item = XSD.boolean
+                elif item_str == "xsd:float" or item_str.endswith("#float") or "float" in item_str.lower():
+                    processed_item = XSD.float
+                else:
+                    # Parse XSD URI
+                    xsd_uri = item_str.replace("xsd:", "http://www.w3.org/2001/XMLSchema#")
+                    processed_item = URIRef(xsd_uri)
+            elif isinstance(item, (int, float, bool)):
+                # Numeric/boolean values - keep as Literal
+                processed_item = Literal(item)
+            elif isinstance(item, str):
+                # Regular string - keep as Literal (for enum values in sh:in)
                 processed_item = Literal(item)
             else:
+                # Other types - use as-is
                 processed_item = item
             
             # Add the item to the current node
@@ -792,26 +943,31 @@ class OpenAPIToSHACLConverter:
         return name.replace("-", "_")
 
     def save_rdf(self):
-        """Serialize both RDF and SHACL graphs as separate Turtle files."""
+        """Serialize both RDF and SHACL graphs as separate Turtle files in subdirectories."""
         base_filename = os.path.basename(self.yaml_file).replace(".yaml", "")
         
-        try:
-            os.makedirs(self.output_dir, exist_ok=True)
-        except OSError as e:
-            raise ValueError(f"Cannot create output directory {self.output_dir}: {e}")
+        # Create separate subdirectories for RDF and SHACL files
+        rdf_dir = os.path.join(self.output_dir, "rdf")
+        shacl_dir = os.path.join(self.output_dir, "shacl")
         
-        # Save RDF vocabulary file
+        try:
+            os.makedirs(rdf_dir, exist_ok=True)
+            os.makedirs(shacl_dir, exist_ok=True)
+        except OSError as e:
+            raise ValueError(f"Cannot create output directories: {e}")
+        
+        # Save RDF vocabulary file to rdf/ subdirectory
         rdf_filename = f"{base_filename}_rdf.ttl"
-        rdf_path = os.path.join(self.output_dir, rdf_filename)
+        rdf_path = os.path.join(rdf_dir, rdf_filename)
         try:
             self.rdf_graph.serialize(destination=rdf_path, format="turtle")
             print(f"✅ RDF vocabulary file saved: {rdf_path}")
         except Exception as e:
             raise ValueError(f"Failed to serialize RDF graph to {rdf_path}: {e}")
         
-        # Save SHACL shapes file
+        # Save SHACL shapes file to shacl/ subdirectory
         shacl_filename = f"{base_filename}_shacl.ttl"
-        shacl_path = os.path.join(self.output_dir, shacl_filename)
+        shacl_path = os.path.join(shacl_dir, shacl_filename)
         try:
             self.shacl_graph.serialize(destination=shacl_path, format="turtle")
             print(f"✅ SHACL shapes file saved: {shacl_path}")

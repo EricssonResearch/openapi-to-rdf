@@ -1,0 +1,155 @@
+@prefix TS28550_PerfMeasJobCtrlMnS: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28550_PerfMeasJobCtrlMnS:dateTime_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:dayOfWeek_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:error_ResponseType a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:measJobCreation_ResponseType a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:measJobsRetrieval_ResponseType a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:priority_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:reportingMethod_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:scheduleOption_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:schedule_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:timeInterval_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:unsupportedMeas_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:uri_Type a rdfs:Class .
+
+TS28550_PerfMeasJobCtrlMnS:dailySchedule a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:timeInterval_Type .
+
+TS28550_PerfMeasJobCtrlMnS:dayOfWeek a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:dayOfWeek_Type .
+
+TS28550_PerfMeasJobCtrlMnS:error a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:error_ResponseType ;
+    rdfs:range rdfs:Resource .
+
+TS28550_PerfMeasJobCtrlMnS:errorInfo a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:error_ResponseType ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:granularityPeriod a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range xsd:integer .
+
+TS28550_PerfMeasJobCtrlMnS:href a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:uri_Type .
+
+TS28550_PerfMeasJobCtrlMnS:iOCInstance a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:unsupportedMeas_Type ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:uri_Type .
+
+TS28550_PerfMeasJobCtrlMnS:iOCInstanceList a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:uri_Type .
+
+TS28550_PerfMeasJobCtrlMnS:iOCName a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:intervalEnd a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:intervalStart a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:intervalsOfDay a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:timeInterval_Type .
+
+TS28550_PerfMeasJobCtrlMnS:jobInfoList a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobsRetrieval_ResponseType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType .
+
+TS28550_PerfMeasJobCtrlMnS:measurementCategoryList a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:measurementTypeName a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:unsupportedMeas_Type ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:priority a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:priority_Type .
+
+TS28550_PerfMeasJobCtrlMnS:reason a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:unsupportedMeas_Type ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:reliability a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:reportingMethod a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:reportingMethod_Type .
+
+TS28550_PerfMeasJobCtrlMnS:reportingPeriod a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range xsd:integer .
+
+TS28550_PerfMeasJobCtrlMnS:schedule a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:schedule_Type .
+
+TS28550_PerfMeasJobCtrlMnS:scheduleOption a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:scheduleOption_Type .
+
+TS28550_PerfMeasJobCtrlMnS:startTime a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:dateTime_Type .
+
+TS28550_PerfMeasJobCtrlMnS:stopTime a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:dateTime_Type .
+
+TS28550_PerfMeasJobCtrlMnS:streamTarget a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType,
+        TS28550_PerfMeasJobCtrlMnS:measJobInfo_ResourceType ;
+    rdfs:range xsd:string .
+
+TS28550_PerfMeasJobCtrlMnS:unsupportedList a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:measJobCreation_ResponseType ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:unsupportedMeas_Type .
+
+TS28550_PerfMeasJobCtrlMnS:weeklySchedule a rdf:Property ;
+    rdfs:domain TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
+    rdfs:range TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type .
+

@@ -9,6 +9,17 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_PmControlNrm:PerfMetricJob_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28623_PmControlNrm:PerfMetricJob ] ;
+    sh:targetClass TS28623_PmControlNrm:SubNetwork_ncO_PmControlNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_PmControlNrm:jobId ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 1 ;
@@ -26,22 +37,19 @@
             sh:maxCount 1 ;
             sh:path TS28623_PmControlNrm:objectInstances ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:OperationalState ;
-            sh:maxCount 1 ;
-            sh:path TS28623_PmControlNrm:operationalState ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_PmControlNrm:jobId ],
-        [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28623_PmControlNrm:performanceMetrics ;
-            sh:property [ sh:datatype xsd:string ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
             sh:maxCount 1 ;
             sh:path TS28623_PmControlNrm:conditionMonitorRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:OperationalState ;
+            sh:maxCount 1 ;
+            sh:path TS28623_PmControlNrm:operationalState ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:DnList ;
             sh:maxCount 1 ;
@@ -53,22 +61,18 @@
     sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_PmControlNrm:PerfMetricJob_Multiple ;
-            sh:maxCount 1 ;
-            sh:path TS28623_PmControlNrm:PerfMetricJob ] ;
-    sh:targetClass TS28623_PmControlNrm:ManagedElement_PmControlNrm .
-
-[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_PmControlNrm:PerfMetricJob_Multiple ;
+            sh:class TS28623_FileManagementNrm:Files_Multiple ;
             sh:maxCount 1 ;
-            sh:path TS28623_PmControlNrm:PerfMetricJob ] ;
-    sh:targetClass TS28623_PmControlNrm:SubNetwork_ncO_PmControlNrm .
+            sh:path TS28623_PmControlNrm:Files ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_PmControlNrm:attributes ] ;
+    sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_PmControlNrm:PerfMetricJob_Single ;
@@ -76,17 +80,15 @@
 
 [] a sh:NodeShape ;
     sh:node dash:ListShape ;
-    sh:property [ sh:class TS28623_PmControlNrm:PerfMetricJob_Single ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_PmControlNrm:PerfMetricJob_Single ;
             sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
     sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_PmControlNrm:PerfMetricJob_Multiple ;
             sh:maxCount 1 ;
-            sh:path TS28623_PmControlNrm:attributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_FileManagementNrm:Files_Multiple ;
-            sh:maxCount 1 ;
-            sh:path TS28623_PmControlNrm:Files ] ;
-    sh:targetClass TS28623_PmControlNrm:PerfMetricJob_Single .
+            sh:path TS28623_PmControlNrm:PerfMetricJob ] ;
+    sh:targetClass TS28623_PmControlNrm:ManagedElement_PmControlNrm .
 

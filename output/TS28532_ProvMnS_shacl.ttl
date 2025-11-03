@@ -7,11 +7,16 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_ProvMnS:NotifyMoiChanges .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:minCount 1 ;
             sh:node dash:ListShape ;
             sh:path TS28532_ProvMnS:notificationIds ;
-            sh:property [ sh:class TS28623_ComDefs:NotificationId ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:NotificationId ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:Dn ;
@@ -19,110 +24,6 @@
             sh:minCount 1 ;
             sh:path TS28532_ProvMnS:source ] ;
     sh:targetClass TS28532_ProvMnS:CorrelatedNotification .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_ProvMnS:correlatedNotifications ;
-            sh:property [ sh:class TS28532_ProvMnS:CorrelatedNotification ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:attributeList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_ProvMnS:SourceIndicator ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:sourceIndicator ] ;
-    sh:targetClass TS28532_ProvMnS:NotifyMoiDeletion .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_ProvMnS:NotifyMoiDeletion .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28532_ProvMnS:Resource ;
-    sh:xone [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:path TS28532_ProvMnS:objectClass ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:minCount 1 ;
-                    sh:path TS28532_ProvMnS:id ],
-                [ a sh:PropertyShape ;
-                    sh:path TS28532_ProvMnS:attributes ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:Dn ;
-                    sh:path TS28532_ProvMnS:objectInstance ] ],
-        [ a sh:PropertyShape ;
-            sh:class ( "http://ericsson.com/models/3gpp/TS28623/GenericNrm#resources_genericNrm" "http://ericsson.com/models/3gpp/TS28541/NrNrm#resources_nrNrm" "http://ericsson.com/models/3gpp/TS28541/5GcNrm#resources_5gcNrm" "http://ericsson.com/models/3gpp/TS28541/SliceNrm#resources_sliceNrm" "http://ericsson.com/models/3gpp/TS28536/CoslaNrm#resources_coslaNrm" "http://ericsson.com/models/3gpp/TS28104/MdaNrm#resources_mdaNrm" "http://ericsson.com/models/3gpp/TS28105/AiMlNrm#resources_AiMlNrm" "http://ericsson.com/models/3gpp/TS28538/EdgeNrm#resources_edgeNrm" "http://ericsson.com/models/3gpp/TS28317/RanScNrm#resources_RanScNrm" "http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#resources_fileMgmtNrm" "http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#resources_mgmtDataCollectionNrm" "http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#resources_mnSRegistryNrm" "http://ericsson.com/models/3gpp/TS28623/PmControlNrm#resources_pmControlNrm" "http://ericsson.com/models/3gpp/TS28111/FaultNrm#resources_faultNrm" "http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm#resources_qoEMeasuremetCollectionNrm" "http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#resources_subscriptionControlNrm" "http://ericsson.com/models/3gpp/TS28623/ThresholdMonitorNrm#resources_thresholdMonitorNrm" "http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#resources_traceControlNrm" "http://ericsson.com/models/3gpp/TS28319/MsacNrm#resources_msacNrm" "http://ericsson.com/models/3gpp/TS28318/DsoNrm#resources_DSORecovery" ) ;
-            sh:datatype xsd:integer ] .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_ProvMnS:NotifyMoiChanges .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_ProvMnS:SourceIndicator ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:sourceIndicator ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_ProvMnS:correlatedNotifications ;
-            sh:property [ sh:class TS28532_ProvMnS:CorrelatedNotification ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:attributeListValueChanges ] ;
-    sh:targetClass TS28532_ProvMnS:NotifyMoiAttributeValueChanges .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:value ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_ProvMnS:PatchOperation ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:op ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:from ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:path ] ;
-    sh:targetClass TS28532_ProvMnS:PatchItem .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:SpecificProblem ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:specificProblem ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:additionalInformation ] ;
-    sh:targetClass TS28532_ProvMnS:NotifyEvent .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -137,62 +38,118 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:value ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_ProvMnS:Insert ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:insert ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_ProvMnS:Operation ;
+            sh:class TS28111_FaultNrm:SpecificProblem ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:op ],
+            sh:path TS28532_ProvMnS:specificProblem ],
         [ a sh:PropertyShape ;
-            sh:class TS28532_ProvMnS:SourceIndicator ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
             sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:sourceIndicator ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Uri ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:path ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:oldValue ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_ProvMnS:correlatedNotifications ;
-            sh:property [ sh:class TS28532_ProvMnS:CorrelatedNotification ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:NotificationId ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_ProvMnS:notificationId ],
+            sh:path TS28532_ProvMnS:additionalInformation ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28532_ProvMnS:additionalText ] ;
-    sh:targetClass TS28532_ProvMnS:MoiChange .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_ProvMnS:NotifyMoiCreation .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28532_ProvMnS:Resource .
+    sh:targetClass TS28532_ProvMnS:NotifyEvent .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:targetClass TS28532_ProvMnS:NotifyMoiAttributeValueChanges .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_ProvMnS:NotifyEvent .
+    sh:targetClass TS28532_ProvMnS:Resource ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:class TS28623_ComDefs:Dn ;
+                        sh:path TS28532_ProvMnS:objectInstance ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:path TS28532_ProvMnS:objectClass ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:minCount 1 ;
+                        sh:path TS28532_ProvMnS:id ],
+                    [ a sh:PropertyShape ;
+                        sh:path TS28532_ProvMnS:attributes ] ] [ a sh:NodeShape ;
+                sh:class ( "http://ericsson.com/models/3gpp/TS28623/GenericNrm#resources_genericNrm" "http://ericsson.com/models/3gpp/TS28541/NrNrm#resources_nrNrm" "http://ericsson.com/models/3gpp/TS28541/5GcNrm#resources_5gcNrm" "http://ericsson.com/models/3gpp/TS28541/SliceNrm#resources_sliceNrm" "http://ericsson.com/models/3gpp/TS28536/CoslaNrm#resources_coslaNrm" "http://ericsson.com/models/3gpp/TS28104/MdaNrm#resources_mdaNrm" "http://ericsson.com/models/3gpp/TS28105/AiMlNrm#resources_AiMlNrm" "http://ericsson.com/models/3gpp/TS28538/EdgeNrm#resources_edgeNrm" "http://ericsson.com/models/3gpp/TS28317/RanScNrm#resources_RanScNrm" "http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#resources_fileMgmtNrm" "http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#resources_mgmtDataCollectionNrm" "http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#resources_mnSRegistryNrm" "http://ericsson.com/models/3gpp/TS28623/PmControlNrm#resources_pmControlNrm" "http://ericsson.com/models/3gpp/TS28111/FaultNrm#resources_faultNrm" "http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm#resources_qoEMeasuremetCollectionNrm" "http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#resources_subscriptionControlNrm" "http://ericsson.com/models/3gpp/TS28623/ThresholdMonitorNrm#resources_thresholdMonitorNrm" "http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#resources_traceControlNrm" "http://ericsson.com/models/3gpp/TS28319/MsacNrm#resources_msacNrm" "http://ericsson.com/models/3gpp/TS28318/DsoNrm#resources_DSORecovery" ) ;
+                sh:datatype xsd:integer ] ) .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28532_ProvMnS:Resource .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:attributeList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_ProvMnS:SourceIndicator ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:sourceIndicator ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_ProvMnS:correlatedNotifications ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_ProvMnS:CorrelatedNotification ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28532_ProvMnS:NotifyMoiDeletion .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_ProvMnS:path ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_ProvMnS:PatchOperation ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_ProvMnS:op ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:value ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:from ] ;
+    sh:targetClass TS28532_ProvMnS:PatchItem .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_ProvMnS:NotifyMoiCreation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_ProvMnS:correlatedNotifications ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_ProvMnS:CorrelatedNotification ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeValueChangeSet ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_ProvMnS:attributeListValueChanges ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_ProvMnS:SourceIndicator ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:sourceIndicator ] ;
+    sh:targetClass TS28532_ProvMnS:NotifyMoiAttributeValueChanges .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:attributeList ],
+        [ a sh:PropertyShape ;
             sh:class TS28532_ProvMnS:SourceIndicator ;
             sh:maxCount 1 ;
             sh:path TS28532_ProvMnS:sourceIndicator ],
@@ -203,20 +160,68 @@
         [ a sh:PropertyShape ;
             sh:node dash:ListShape ;
             sh:path TS28532_ProvMnS:correlatedNotifications ;
-            sh:property [ sh:class TS28532_ProvMnS:CorrelatedNotification ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_ProvMnS:CorrelatedNotification ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28532_ProvMnS:NotifyMoiCreation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:value ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:NotificationId ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_ProvMnS:notificationId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_ProvMnS:Operation ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_ProvMnS:op ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Uri ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_ProvMnS:path ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28532_ProvMnS:correlatedNotifications ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_ProvMnS:CorrelatedNotification ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:class TS28532_ProvMnS:SourceIndicator ;
             sh:maxCount 1 ;
-            sh:path TS28532_ProvMnS:attributeList ] ;
-    sh:targetClass TS28532_ProvMnS:NotifyMoiCreation .
+            sh:path TS28532_ProvMnS:sourceIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_ProvMnS:Insert ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:insert ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28532_ProvMnS:oldValue ] ;
+    sh:targetClass TS28532_ProvMnS:MoiChange .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:minCount 1 ;
             sh:node dash:ListShape ;
             sh:path TS28532_ProvMnS:moiChanges ;
-            sh:property [ sh:class TS28532_ProvMnS:MoiChange ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28532_ProvMnS:MoiChange ;
                     sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
     sh:targetClass TS28532_ProvMnS:NotifyMoiChanges .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_ProvMnS:NotifyEvent .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_ProvMnS:NotifyMoiDeletion .
 

@@ -1,0 +1,69 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MnsRegistry_Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm:MnsRegistry ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:SubNetwork_ncO_MnSRegistryNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PROV_MNS" "FAULT_SUPERVISION_MNS" "STREAMING_DATA_REPORTING_MNS" "FILE_DATA_REPORTING_MNS" ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm:mnsType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm:mnsVersion ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_MnSRegistryNrm:mnsScope ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:DnRo ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm:mnsLabel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:UriRo ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm:mnsAddress ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MnsInfo_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm:MnsInfo ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsRegistry_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_MnSRegistryNrm:resources_mnSRegistryNrm ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:class TS28623_MnSRegistryNrm:MnsInfo_Single ] [ a sh:NodeShape ;
+                sh:class TS28623_MnSRegistryNrm:MnsRegistry_Single ] ) .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MnsInfo_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsRegistry_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo_Single .
+

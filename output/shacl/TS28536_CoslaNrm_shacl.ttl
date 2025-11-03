@@ -1,0 +1,241 @@
+@prefix TS28536_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm#> .
+@prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/TS28541/NrNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:ObservationTime ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:observationTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceScope ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceScope ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:serviceProfileId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:sliceProfileId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTargetList ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetList ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:AssuranceClosedControlLoop ] ;
+    sh:targetClass TS28536_CoslaNrm:SubNetwork_ncO_CoslaNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceReport_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTargetStatusObserved ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetStatusObserved ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTargetName ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetName ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTargetStatusPredicted ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetStatusPredicted ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetStatusId ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatus .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoalStatus ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusList .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28536_CoslaNrm:AttributeNameList .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_NrNrm:TaiList ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:taiList ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceScope .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AttributeNameList ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:attributeNameList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:managedEntityIdentifier ] ;
+    sh:targetClass TS28536_CoslaNrm:ACCLDisallowedAttributes .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:AssuranceClosedControlLoop ] ;
+    sh:targetClass TS28536_CoslaNrm:ManagedElement_ncO_CoslaNrm .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTarget ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoalStatusObserved ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceGoalStatusObserved ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceGoalStatusId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoalStatusPredicted ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceGoalStatusPredicted ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceGoalRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceGoalId ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28536_CoslaNrm:attributes ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceReport_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoal_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28536_CoslaNrm:attributes ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoalStatusList ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceGoalStatusList ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceReport_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetValue ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTargetName ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:assuranceTargetName ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTarget .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceTargetStatus ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatusList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AdministrativeState ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:administrativeState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:ControlLoopLifeCyclePhase ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:controlLoopLifeCyclePhase ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:OperationalState ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:operationalState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:networkSliceRef ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:ACCLDisallowedAttributes ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:aCCLDisallowedList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:networkSliceSubnetRef ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28536_CoslaNrm:attributes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoal_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:AssuranceGoal ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceReport_Single ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm:AssuranceReport ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28536_CoslaNrm:resources_coslaNrm ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ] [ a sh:NodeShape ;
+                sh:class TS28536_CoslaNrm:AssuranceGoal_Single ] [ a sh:NodeShape ;
+                sh:class TS28536_CoslaNrm:AssuranceReport_Single ] ) .
+

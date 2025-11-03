@@ -1,0 +1,108 @@
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_SubscriptionControlNrm:resources_subscriptionControlNrm ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:class TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ] [ a sh:NodeShape ;
+                sh:class TS28623_SubscriptionControlNrm:HeartbeatControl_Single ] ) .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Uri ;
+            sh:maxCount 1 ;
+            sh:path TS28623_SubscriptionControlNrm:notificationRecipientAddress ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:Filter ;
+            sh:maxCount 1 ;
+            sh:path TS28623_SubscriptionControlNrm:notificationFilter ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_SubscriptionControlNrm:Scope ;
+            sh:maxCount 1 ;
+            sh:path TS28623_SubscriptionControlNrm:scope ],
+        [ a sh:PropertyShape ;
+            sh:node dash:ListShape ;
+            sh:path TS28623_SubscriptionControlNrm:notificationTypes ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:NotificationType ;
+                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_SubscriptionControlNrm:HeartbeatControl_Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_SubscriptionControlNrm:HeartbeatControl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28623_SubscriptionControlNrm:attributes ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_SubscriptionControlNrm:Scope ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:datatype xsd:integer ;
+                        sh:path TS28623_SubscriptionControlNrm:scopeLevel ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "BASE_ONLY" "BASE_ALL" "BASE_NTH_LEVEL" "BASE_SUBTREE" ) ;
+                        sh:path TS28623_SubscriptionControlNrm:scopeType ] ] [ a sh:NodeShape ;
+                sh:property [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:path TS28623_SubscriptionControlNrm:dataNodeSelector ] ] ) .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28623_SubscriptionControlNrm:NtfSubscriptionControl ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple ;
+            sh:maxCount 1 ;
+            sh:path TS28623_SubscriptionControlNrm:NtfSubscriptionControl ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28623_SubscriptionControlNrm:attributes ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
+
+[] a sh:NodeShape ;
+    sh:node dash:ListShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+            sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS28623_SubscriptionControlNrm:heartbeatNtfPeriod ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:path TS28623_SubscriptionControlNrm:triggerHeartbeatNtf ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single .
+
