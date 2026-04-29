@@ -6,7 +6,18 @@ from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 from rdflib.term import URIRef as URIRefTerm
 
+from openapi_to_rdf.property_index import PropertyIndex
 from openapi_to_rdf.property_uri import class_namespace, property_uri
+
+
+def _package_version() -> str:
+    """Best-effort lookup of the installed package version."""
+    try:
+        from importlib.metadata import PackageNotFoundError, version
+
+        return version("openapi-to-rdf")
+    except Exception:
+        return "unknown"
 
 
 class OpenAPIToSHACLConverter:
@@ -25,7 +36,14 @@ class OpenAPIToSHACLConverter:
         self.rdf_graph = Graph()
         self.shacl_graph = Graph()
         self.prefixes = {}  # Mapping from prefix string to Namespace object
-        
+
+        # Sidecar property index — populated during _process_property and
+        # flushed to disk alongside the TTL files in save_rdf.
+        self.property_index = PropertyIndex(
+            source=os.path.basename(yaml_file),
+            generated_by=f"openapi-to-rdf {_package_version()}",
+        )
+
         self._load_yaml()
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -784,6 +802,18 @@ class OpenAPIToSHACLConverter:
         if "description" in prop_def:
             self.rdf_graph.add((predicate_uri, RDFS.comment, Literal(prop_def["description"])))
 
+        # Record this property in the sidecar index.
+        owner_name = None
+        if domain_class is not None:
+            owner_name = str(domain_class).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
+        self.property_index.add(
+            local_name=prop_name,
+            uri=str(predicate_uri),
+            owner_class=owner_name,
+            range_uri=range_uri,
+            description=prop_def.get("description"),
+        )
+
         # Create PropertyShape
         property_shape = self._create_bnode()
         self.shacl_graph.add((property_shape, RDF.type, self.SH.PropertyShape))
@@ -1142,10 +1172,12 @@ class OpenAPIToSHACLConverter:
         # Create separate subdirectories for RDF and SHACL files
         rdf_dir = os.path.join(self.output_dir, "rdf")
         shacl_dir = os.path.join(self.output_dir, "shacl")
+        index_dir = os.path.join(self.output_dir, "index")
         
         try:
             os.makedirs(rdf_dir, exist_ok=True)
             os.makedirs(shacl_dir, exist_ok=True)
+            os.makedirs(index_dir, exist_ok=True)
         except OSError as e:
             raise ValueError(f"Cannot create output directories: {e}")
         
@@ -1166,6 +1198,15 @@ class OpenAPIToSHACLConverter:
             print(f"✅ SHACL shapes file saved: {shacl_path}")
         except Exception as e:
             raise ValueError(f"Failed to serialize SHACL graph to {shacl_path}: {e}")
+
+        # Save property index sidecar
+        index_filename = f"{base_filename}_property_index.yaml"
+        index_path = os.path.join(index_dir, index_filename)
+        try:
+            self.property_index.write(index_path)
+            print(f"✅ Property index saved: {index_path}")
+        except Exception as e:
+            raise ValueError(f"Failed to write property index to {index_path}: {e}")
 
     def run(self):
         """Run the full conversion process."""

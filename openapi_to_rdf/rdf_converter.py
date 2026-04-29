@@ -6,7 +6,18 @@ from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 
+from openapi_to_rdf.property_index import PropertyIndex
 from openapi_to_rdf.property_uri import class_namespace, property_uri
+
+
+def _package_version() -> str:
+    """Best-effort lookup of the installed package version."""
+    try:
+        from importlib.metadata import version
+
+        return version("openapi-to-rdf")
+    except Exception:
+        return "unknown"
 
 
 class OpenAPIToRDFConverter:
@@ -21,6 +32,14 @@ class OpenAPIToRDFConverter:
         self.data = None
         self.graph = Graph()
         self.prefixes = {}  # Mapping from prefix string to Namespace object
+
+        # Sidecar property index — populated in _process_property and
+        # flushed to disk in save_rdf.
+        self.property_index = PropertyIndex(
+            source=os.path.basename(yaml_file),
+            generated_by=f"openapi-to-rdf {_package_version()}",
+        )
+
         self._load_yaml()
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -344,6 +363,18 @@ class OpenAPIToRDFConverter:
             )
         )
 
+        # Record in the sidecar index.
+        owner_name = None
+        if domain_uri is not None:
+            owner_name = str(domain_uri).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+        self.property_index.add(
+            local_name=prop_name,
+            uri=str(prop_uri),
+            owner_class=owner_name,
+            range_uri=range_uri,
+            description=prop_def.get("description"),
+        )
+
         # Cardinality constraints: if the property is required, add a minimum cardinality.
         if required_list and prop_name in required_list:
             self.graph.add((prop_uri, OWL.minCardinality, Literal(1)))
@@ -422,6 +453,14 @@ class OpenAPIToRDFConverter:
         os.makedirs(self.output_dir, exist_ok=True)
         self.graph.serialize(destination=output_path, format="turtle")
         print(f"✅ RDF file saved: {output_path}")
+
+        # Sidecar property index, written under <output_dir>/index/.
+        base_filename = os.path.basename(self.yaml_file).replace(".yaml", "")
+        index_dir = os.path.join(self.output_dir, "index")
+        os.makedirs(index_dir, exist_ok=True)
+        index_path = os.path.join(index_dir, f"{base_filename}_property_index.yaml")
+        self.property_index.write(index_path)
+        print(f"✅ Property index saved: {index_path}")
 
     def run(self):
         """Run the full conversion process."""
