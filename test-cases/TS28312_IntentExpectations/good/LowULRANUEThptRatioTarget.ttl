@@ -1,0 +1,13 @@
+@prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowULRANUEThptRatioTarget#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:LowULRANUEThptRatioTarget ;
+    TS28312_IntentExpectations:targetCondition "IS_LESS_THAN"^^xsd:string ;
+    TS28312_IntentExpectations:targetName "LowULRANUEThptRatio"^^xsd:string ;
+    TS28312_IntentExpectations:targetValueRange 50 ;
+    ns1:targetContexts [ a TS28312_IntentExpectations:LowULRANUEThptContext ;
+            TS28312_IntentExpectations:contextAttribute "LowULRANUEThptThreshold"^^xsd:string ;
+            TS28312_IntentExpectations:contextCondition "Is_less_than"^^xsd:string ;
+            TS28312_IntentExpectations:contextValueRange 5e+01 ] .
+

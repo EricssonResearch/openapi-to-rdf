@@ -1,4 +1,3 @@
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
@@ -9,7 +8,7 @@
 TS28623_TraceControlNrm:AreaConfig a rdfs:Class .
 
 TS28623_TraceControlNrm:AreaScope a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28623_TraceControlNrm:FreqInfo a rdfs:Class ;
     rdfs:comment "specifies the carrier frequency and bands used in a cell." .
@@ -28,43 +27,13 @@ TS28623_TraceControlNrm:TraceJob_Attr a rdfs:Class ;
 TS28623_TraceControlNrm:TraceJob_Multiple a rdfs:Class .
 
 TS28623_TraceControlNrm:TraceJob_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28623_TraceControlNrm:UECoreMeasConfig_Type a rdfs:Class ;
     rdfs:comment "UE level measurements configuration parameters for 5G system. See details in 3GPP TS 28.622 clause 4.3.x." .
 
-TS28623_TraceControlNrm:anonymizationOfMdtData_Type a rdfs:Class ;
-    rdfs:comment "Specifies level of MDT anonymization. For additional details see 3GPP TS 32.422 clause 5.10.12." .
-
-TS28623_TraceControlNrm:collectionPeriodM6LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.32." .
-
-TS28623_TraceControlNrm:collectionPeriodM6NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.34." .
-
-TS28623_TraceControlNrm:collectionPeriodM7LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.33." .
-
-TS28623_TraceControlNrm:collectionPeriodM7NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.35." .
-
-TS28623_TraceControlNrm:collectionPeriodRRMLTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.20." .
-
-TS28623_TraceControlNrm:collectionPeriodRRMNR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.30." .
-
-TS28623_TraceControlNrm:collectionPeriodRRMUMTS_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.21." .
-
-TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.28." .
-
 TS28623_TraceControlNrm:eventThresholdL1_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.36." .
-
-TS28623_TraceControlNrm:eventThresholdUphUMTS_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.39." .
 
 TS28623_TraceControlNrm:eventThreshold_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.7 (LTE/NR Event A2 RSRP, RSRQ, SINR), 5.10.13 (UMTS Event 1f) and 5.10.14 (UMTS Event 1i)." .
@@ -75,14 +44,8 @@ TS28623_TraceControlNrm:excessPacketDelayThreshold_Type a rdfs:Class ;
 TS28623_TraceControlNrm:excessPacketDelayThresholds_Type a rdfs:Class ;
     rdfs:comment "Array of type excessPacketDelayThreshold-Type." .
 
-TS28623_TraceControlNrm:hysteresisL1_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.37." .
-
 TS28623_TraceControlNrm:immediateMDTConfig_Type a rdfs:Class ;
     rdfs:comment "Immediate MDT configuration parameters. See details in 3GPP TS 28.622 clause 4.3.30." .
-
-TS28623_TraceControlNrm:jobType_Type a rdfs:Class ;
-    rdfs:comment "Specifies whether the TraceJob represents only MDT, Logged MBSFN MDT, Trace or a combined Trace and MDT job. Applicable for Trace, MDT, RCEF and RLF reporting. See 3GPP TS 32.422 clause 5.9a for additional details." .
 
 TS28623_TraceControlNrm:listOfInterfaces_Type a rdfs:Class ;
     rdfs:comment "The interfaces to be recorded in the Network Element. See 3GPP TS 32.422 clause 5.5 for additional details." .
@@ -102,23 +65,11 @@ TS28623_TraceControlNrm:listOfTraceMetrics a rdf:Property,
 TS28623_TraceControlNrm:loggedMDTConfig_Type a rdfs:Class ;
     rdfs:comment "Logged MDT configuration parameters. See details in 3GPP TS 28.622 clause 4.3.30." .
 
-TS28623_TraceControlNrm:loggingDuration_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.9." .
-
 TS28623_TraceControlNrm:loggingInterval_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.8." .
 
 TS28623_TraceControlNrm:mdtConfig_Type a rdfs:Class ;
     rdfs:comment "MDT config parameters. See details in 3GPP TS 28.622 clause 4.3.30." .
-
-TS28623_TraceControlNrm:measurementPeriodLTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.23." .
-
-TS28623_TraceControlNrm:measurementPeriodUMTS_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.22." .
-
-TS28623_TraceControlNrm:measurementQuantity_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.15." .
 
 TS28623_TraceControlNrm:plmnList_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.24." .
@@ -126,74 +77,23 @@ TS28623_TraceControlNrm:plmnList_Type a rdfs:Class ;
 TS28623_TraceControlNrm:plmnTarget_Type a rdfs:Class ;
     rdfs:comment "The PLMN for which sessions shall be selected in the Trace Session in case of management based activation when several PLMNs are supported in the RAN (this means that shared cells and not shared cells are allowed for the specified PLMN. Note that the PLMN Target might differ from the PLMN specified in the Trace Reference, as that specifies the PLMN that is containing the management system requesting the Trace Session from the NE. See 3GPP TS 32.422 clause 5.9b for additional details." .
 
-TS28623_TraceControlNrm:positioningMethod_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.19." .
-
-TS28623_TraceControlNrm:reportAmountM1LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM1NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM4LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM4NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM5LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM5NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM6LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM6NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM7LTE_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM7NR_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmount_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
 TS28623_TraceControlNrm:reportInterval_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.5." .
-
-TS28623_TraceControlNrm:reportType_Type a rdfs:Class ;
-    rdfs:comment "Report type for logged NR MDT. See details in 3GPP TS 32.422 clause 5.10.27." .
 
 TS28623_TraceControlNrm:reportingTrigger_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.4." .
 
 TS28623_TraceControlNrm:resources_traceControlNrm a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28623_TraceControlNrm:sensorInformation_Type a rdfs:Class ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.29." .
 
-TS28623_TraceControlNrm:timeToTriggerL1_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.38." .
-
-TS28623_TraceControlNrm:traceCollectionEntityId_Type a rdfs:Class ;
-    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.11. Only TCE Id value may be sent over the air to the UE being configured for Logged MDT." .
-
 TS28623_TraceControlNrm:traceConfig_Type a rdfs:Class ;
     rdfs:comment "Trace configuration parameters for NR. See details in 3GPP TS 28.622 clause 4.3.30." .
 
-TS28623_TraceControlNrm:traceDepth_Type a rdfs:Class ;
-    rdfs:comment "Specifies how detailed information should be recorded in the Network Element. The Trace Depth is a paremeter for Trace Session level, i.e., the Trace Depth is the same for all of the NEs to be traced in the same Trace Session. See 3GPP TS 32.422 clause 5.3 for additional details." .
-
 TS28623_TraceControlNrm:traceReference_Type a rdfs:Class ;
     rdfs:comment "The Trace Reference parameter shall be globally unique, therefore the Trace Reference shall compose as follows - MCC+MNC+Trace ID, where the MCC and MNC are coming with the Trace activation request from the management system to identify one PLMN containing the management system, and Trace ID is a 3 byte Octet String. See 3GPP TS 32.422 clause 5.6 for additional details." .
-
-TS28623_TraceControlNrm:traceReportingFormat_Type a rdfs:Class ;
-    rdfs:comment "Specifies whether file-based or streaming reporting shall be used for this Trace Session. See 3GPP TS 32.422 clause 5.11 for additional details." .
 
 TS28623_TraceControlNrm:traceTarget_Type a rdfs:Class ;
     rdfs:comment "Trace target conveying both the type and value of the target ID. For additional details see 3GPP TS 32.422" .
@@ -234,11 +134,9 @@ TS28623_TraceControlNrm:BM_SCInterfaces a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:CPICH_EcNo a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
     rdfs:range xsd:integer .
 
 TS28623_TraceControlNrm:CPICH_RSCP a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
     rdfs:range xsd:integer .
 
 TS28623_TraceControlNrm:EIRInterfaces a rdf:Property ;
@@ -298,9 +196,7 @@ TS28623_TraceControlNrm:I_CSCFInterfaces a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfMeasurements_Type,
-        TS28623_TraceControlNrm:loggingInterval_Type,
-        TS28623_TraceControlNrm:reportInterval_Type ;
+    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:MGCFInterfaces a rdf:Property ;
@@ -344,9 +240,7 @@ TS28623_TraceControlNrm:NEFInterfaces a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfMeasurements_Type,
-        TS28623_TraceControlNrm:loggingInterval_Type,
-        TS28623_TraceControlNrm:reportInterval_Type ;
+    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:NRF a rdf:Property ;
@@ -386,7 +280,6 @@ TS28623_TraceControlNrm:P_CSCFInterfaces a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:PathLoss a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
     rdfs:range xsd:integer .
 
 TS28623_TraceControlNrm:RNCInterfaces a rdf:Property ;
@@ -446,8 +339,6 @@ TS28623_TraceControlNrm:TargetIdValue a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:TraceJob a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:ManagedElement_ncO_TraceControlNrm,
-        TS28623_TraceControlNrm:SubNetwork_ncO_TraceControlNrm ;
     rdfs:range TS28623_TraceControlNrm:TraceJob_Multiple .
 
 TS28623_TraceControlNrm:UDM a rdf:Property ;
@@ -459,9 +350,7 @@ TS28623_TraceControlNrm:UDMInterfaces a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:UMTS a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfMeasurements_Type,
-        TS28623_TraceControlNrm:loggingInterval_Type,
-        TS28623_TraceControlNrm:reportInterval_Type ;
+    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:UPF a rdf:Property ;
@@ -474,7 +363,10 @@ TS28623_TraceControlNrm:UPFInterfaces a rdf:Property ;
 
 TS28623_TraceControlNrm:anonymizationOfMdtData a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:anonymizationOfMdtData_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:anonymizationOfMdtData_Type a rdfs:Datatype ;
+    rdfs:comment "Specifies level of MDT anonymization. For additional details see 3GPP TS 32.422 clause 5.10.12." .
 
 TS28623_TraceControlNrm:areaConfigurationForNeighCell a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
@@ -494,35 +386,56 @@ TS28623_TraceControlNrm:attributes a rdf:Property ;
 
 TS28623_TraceControlNrm:beamLevelMeasurement a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:beamLevelMeasurement_Type .
+    rdfs:range xsd:boolean .
 
 TS28623_TraceControlNrm:collectionPeriodM6LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodM6LTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:collectionPeriodM6LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.32." .
 
 TS28623_TraceControlNrm:collectionPeriodM6NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodM6NR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:collectionPeriodM6NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.34." .
 
 TS28623_TraceControlNrm:collectionPeriodM7LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodM7LTE_Type .
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm:collectionPeriodM7LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.33." .
 
 TS28623_TraceControlNrm:collectionPeriodM7NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodM7NR_Type .
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm:collectionPeriodM7NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.35." .
 
 TS28623_TraceControlNrm:collectionPeriodRRMLTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodRRMLTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:collectionPeriodRRMLTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.20." .
 
 TS28623_TraceControlNrm:collectionPeriodRRMNR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodRRMNR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:collectionPeriodRRMNR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.30." .
 
 TS28623_TraceControlNrm:collectionPeriodRRMUMTS a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:collectionPeriodRRMUMTS_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:collectionPeriodRRMUMTS_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.21." .
 
 TS28623_TraceControlNrm:eNBInterfaces a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
@@ -538,7 +451,10 @@ TS28623_TraceControlNrm:en_gNBInterfaces a rdf:Property ;
 
 TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.28." .
 
 TS28623_TraceControlNrm:eventThreshold a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
@@ -550,7 +466,10 @@ TS28623_TraceControlNrm:eventThresholdL1 a rdf:Property ;
 
 TS28623_TraceControlNrm:eventThresholdUphUMTS a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:eventThresholdUphUMTS_Type .
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm:eventThresholdUphUMTS_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.39." .
 
 TS28623_TraceControlNrm:excessPacketDelayThresholdValue a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:excessPacketDelayThreshold_Type ;
@@ -586,7 +505,10 @@ TS28623_TraceControlNrm:gNB_DUInterfaces a rdf:Property ;
 
 TS28623_TraceControlNrm:hysteresisL1 a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:hysteresisL1_Type .
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm:hysteresisL1_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.37." .
 
 TS28623_TraceControlNrm:immediateMDTConfig a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
@@ -598,11 +520,14 @@ TS28623_TraceControlNrm:jobId a rdf:Property ;
 
 TS28623_TraceControlNrm:jobType a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_TraceControlNrm:jobType_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:jobType_Type a rdfs:Datatype ;
+    rdfs:comment "Specifies whether the TraceJob represents only MDT, Logged MBSFN MDT, Trace or a combined Trace and MDT job. Applicable for Trace, MDT, RCEF and RLF reporting. See 3GPP TS 32.422 clause 5.9a for additional details." .
 
 TS28623_TraceControlNrm:listOfInterfaces a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28623_TraceControlNrm:listOfInterfaces_Type .
 
 TS28623_TraceControlNrm:listOfMeasurements a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
@@ -610,7 +535,7 @@ TS28623_TraceControlNrm:listOfMeasurements a rdf:Property ;
 
 TS28623_TraceControlNrm:listOfNeTypes a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:listOfNeTypes_Type .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:loggedMDTConfig a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
@@ -618,11 +543,14 @@ TS28623_TraceControlNrm:loggedMDTConfig a rdf:Property ;
 
 TS28623_TraceControlNrm:loggingDuration a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:loggingDuration_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:loggingDuration_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.9." .
 
 TS28623_TraceControlNrm:loggingInterval a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28623_TraceControlNrm:loggingInterval_Type .
 
 TS28623_TraceControlNrm:mbsfnAreaId a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:MbsfnArea ;
@@ -633,11 +561,8 @@ TS28623_TraceControlNrm:mbsfnAreaList a rdf:Property ;
     rdfs:range TS28623_TraceControlNrm:MbsfnArea .
 
 TS28623_TraceControlNrm:mcc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai,
-        TS28623_TraceControlNrm:plmnList_Type,
-        TS28623_TraceControlNrm:plmnTarget_Type,
-        TS28623_TraceControlNrm:traceReference_Type ;
-    rdfs:range TS28623_ComDefs:Mcc .
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:mdtConfig a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
@@ -645,22 +570,28 @@ TS28623_TraceControlNrm:mdtConfig a rdf:Property ;
 
 TS28623_TraceControlNrm:measurementPeriodLTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:measurementPeriodLTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:measurementPeriodLTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.23." .
 
 TS28623_TraceControlNrm:measurementPeriodUMTS a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:measurementPeriodUMTS_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:measurementPeriodUMTS_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.22." .
 
 TS28623_TraceControlNrm:measurementQuantity a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:measurementQuantity_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:measurementQuantity_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.15." .
 
 TS28623_TraceControlNrm:mnc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai,
-        TS28623_TraceControlNrm:plmnList_Type,
-        TS28623_TraceControlNrm:plmnTarget_Type,
-        TS28623_TraceControlNrm:traceReference_Type ;
-    rdfs:range TS28623_ComDefs:Mnc .
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:nPNIdentityList a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
@@ -680,7 +611,7 @@ TS28623_TraceControlNrm:ng_eNBInterfaces a rdf:Property ;
 
 TS28623_TraceControlNrm:objectInstances a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
-    rdfs:range TS28623_ComDefs:DnList .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:pciList a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:AreaConfig ;
@@ -696,83 +627,128 @@ TS28623_TraceControlNrm:plmnTarget a rdf:Property ;
 
 TS28623_TraceControlNrm:positioningMethod a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:positioningMethod_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:positioningMethod_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.19." .
 
 TS28623_TraceControlNrm:reportAmount a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmount_Type .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:reportAmountM1LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM1LTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM1LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM1NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM1NR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM1NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM4LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM4LTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM4LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM4NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM4NR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM4NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM5LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM5LTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM5LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM5NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM5NR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM5NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM6LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM6LTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM6LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM6NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM6NR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM6NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM7LTE a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM7LTE_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM7LTE_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportAmountM7NR a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportAmountM7NR_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportAmountM7NR_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
+
+TS28623_TraceControlNrm:reportAmount_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
 TS28623_TraceControlNrm:reportInterval a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28623_TraceControlNrm:reportInterval_Type .
 
 TS28623_TraceControlNrm:reportType a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportType_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:reportType_Type a rdfs:Datatype ;
+    rdfs:comment "Report type for logged NR MDT. See details in 3GPP TS 32.422 clause 5.10.27." .
 
 TS28623_TraceControlNrm:reportingTrigger a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportingTrigger_Type .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:rootObjectInstances a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
-    rdfs:range TS28623_ComDefs:DnList .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:sensorInformation a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:sensorInformation_Type .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:tac a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:Tai ;
-    rdfs:range TS28623_ComDefs:Tac .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:timeToTriggerL1 a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:timeToTriggerL1_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:timeToTriggerL1_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.38." .
 
 TS28623_TraceControlNrm:traceCollectionEntityId a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:traceCollectionEntityId_Type .
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm:traceCollectionEntityId_Type a rdfs:Datatype ;
+    rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.11. Only TCE Id value may be sent over the air to the UE being configured for Logged MDT." .
 
 TS28623_TraceControlNrm:traceCollectionEntityIpAddress a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
@@ -784,7 +760,10 @@ TS28623_TraceControlNrm:traceConfig a rdf:Property ;
 
 TS28623_TraceControlNrm:traceDepth a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:traceDepth_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:traceDepth_Type a rdfs:Datatype ;
+    rdfs:comment "Specifies how detailed information should be recorded in the Network Element. The Trace Depth is a paremeter for Trace Session level, i.e., the Trace Depth is the same for all of the NEs to be traced in the same Trace Session. See 3GPP TS 32.422 clause 5.3 for additional details." .
 
 TS28623_TraceControlNrm:traceId a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:traceReference_Type ;
@@ -796,11 +775,14 @@ TS28623_TraceControlNrm:traceReference a rdf:Property ;
 
 TS28623_TraceControlNrm:traceReportingConsumerUri a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_ComDefs:Uri .
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:traceReportingFormat a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_TraceControlNrm:traceReportingFormat_Type .
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm:traceReportingFormat_Type a rdfs:Datatype ;
+    rdfs:comment "Specifies whether file-based or streaming reporting shall be used for this Trace Session. See 3GPP TS 32.422 clause 5.11 for additional details." .
 
 TS28623_TraceControlNrm:traceTarget a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;

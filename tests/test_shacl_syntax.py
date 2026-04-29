@@ -193,8 +193,8 @@ def test_shacl_syntax():
     return all_passed
 
 
-def test_specific_file(shacl_file):
-    """Test a specific SHACL file."""
+def _validate_specific_file(shacl_file):
+    """Validate a specific SHACL file (CLI helper, not a pytest test)."""
     validator = SHACLSyntaxValidator(shacl_file)
     passed = validator.load_and_validate()
     print(validator.generate_report())
@@ -205,8 +205,6 @@ if __name__ == "__main__":
     import sys
     
     if len(sys.argv) > 1:
-        # Test specific file
-        test_specific_file(sys.argv[1])
+        _validate_specific_file(sys.argv[1])
     else:
-        # Test all files
         test_shacl_syntax()

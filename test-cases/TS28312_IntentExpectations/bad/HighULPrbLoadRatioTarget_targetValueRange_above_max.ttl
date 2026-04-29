@@ -1,0 +1,14 @@
+@prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/HighULPrbLoadContext#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/HighULPrbLoadRatioTarget#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:HighULPrbLoadRatioTarget ;
+    TS28312_IntentExpectations:targetCondition "IS_LESS_THAN"^^xsd:string ;
+    TS28312_IntentExpectations:targetName "HighULPrbLoadRatio"^^xsd:string ;
+    TS28312_IntentExpectations:targetValueRange 101 ;
+    ns2:targetContexts [ a TS28312_IntentExpectations:HighULPrbLoadContext ;
+            TS28312_IntentExpectations:contextAttribute "HighULPrbLoadThreshold"^^xsd:string ;
+            TS28312_IntentExpectations:contextCondition "IS_LESS_THAN"^^xsd:string ;
+            ns1:contextValueRange 50 ] .
+

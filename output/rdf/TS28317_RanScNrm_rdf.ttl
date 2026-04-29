@@ -1,28 +1,18 @@
 @prefix TS28317_RanScNrm: <http://ericsson.com/models/3gpp/TS28317/RanScNrm#> .
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-TS28317_RanScNrm:EnbId a rdfs:Class ;
-    rdfs:comment "It is the identity of ng-eNB" .
-
-TS28317_RanScNrm:GnbId a rdfs:Class ;
-    rdfs:comment "It is the identity of gNB" .
-
 TS28317_RanScNrm:NEIdentification a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28317_RanScNrm:NEInfomration a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI or_ - complex logical constraints partially supported in SHACL" .
-
-TS28317_RanScNrm:NEType a rdfs:Class ;
-    rdfs:comment "It defines the type of RAN NE" .
+    rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
 
 TS28317_RanScNrm:ScMgmtProfile_Multiple a rdfs:Class .
 
 TS28317_RanScNrm:ScMgmtProfile_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28317_RanScNrm:ScProcessMonitor a rdfs:Class ;
     rdfs:comment "This data type is the \"ProcessMonitor\" data type with specialisations for usage in the RANSC management for monitoring for the self configuration process." .
@@ -30,12 +20,21 @@ TS28317_RanScNrm:ScProcessMonitor a rdfs:Class ;
 TS28317_RanScNrm:Sc_Process_Multiple a rdfs:Class .
 
 TS28317_RanScNrm:Sc_Process_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28317_RanScNrm:SubNetwork_ncO_RanScNrm a rdfs:Class .
 
 TS28317_RanScNrm:resources_RanScNrm a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
+TS28317_RanScNrm:EnbId a rdfs:Datatype ;
+    rdfs:comment "It is the identity of ng-eNB" .
+
+TS28317_RanScNrm:GnbId a rdfs:Datatype ;
+    rdfs:comment "It is the identity of gNB" .
+
+TS28317_RanScNrm:NEType a rdfs:Datatype ;
+    rdfs:comment "It defines the type of RAN NE" .
 
 TS28317_RanScNrm:ScMgmtProfile a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:SubNetwork_ncO_RanScNrm ;
@@ -52,11 +51,11 @@ TS28317_RanScNrm:cancelScProcess a rdf:Property ;
 
 TS28317_RanScNrm:configDataFileLocation a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScMgmtProfile_Single ;
-    rdfs:range TS28623_ComDefs:Uri .
+    rdfs:range xsd:string .
 
 TS28317_RanScNrm:endTime a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28317_RanScNrm:jobId a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
@@ -85,7 +84,7 @@ TS28317_RanScNrm:resultStateInfo a rdf:Property ;
 
 TS28317_RanScNrm:scMgmtProfileRef a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:Sc_Process_Single ;
-    rdfs:range TS28623_ComDefs:Dn .
+    rdfs:range xsd:string .
 
 TS28317_RanScNrm:scProcessMonitor a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:Sc_Process_Single ;
@@ -93,7 +92,7 @@ TS28317_RanScNrm:scProcessMonitor a rdf:Property ;
 
 TS28317_RanScNrm:startTime a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28317_RanScNrm:status a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;

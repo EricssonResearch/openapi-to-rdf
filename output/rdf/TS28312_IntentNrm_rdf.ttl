@@ -1,11 +1,8 @@
 @prefix TS28312_IntentNrm: <http://ericsson.com/models/3gpp/TS28312/IntentNrm#> .
 @prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/TS28541/NrNrm#> .
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-TS28312_IntentNrm:Condition a rdfs:Class .
 
 TS28312_IntentNrm:Context a rdfs:Class ;
     rdfs:comment "This data type is the \"Context\" data type without specialisations        " .
@@ -19,17 +16,11 @@ TS28312_IntentNrm:ExpectationObject a rdfs:Class ;
 TS28312_IntentNrm:ExpectationTarget a rdfs:Class ;
     rdfs:comment "This data type represents the target of the IntentExpectation that are required to be achieved. This data type is the \"ExpectationTarget\" data type without specialisations" .
 
-TS28312_IntentNrm:ExpectationVerb a rdfs:Class ;
-    rdfs:comment "It describes the characteristic of the intentExpectation and is the property that describes the types of intentExpectations. Vendor extensions are allowed" .
-
 TS28312_IntentNrm:Frequency a rdfs:Class ;
     rdfs:comment "It desribes the RF reference frequency (i.e. Absolute Radio Frequency Channel Number)  and/or the frequency operating band used for a given direction (UL or DL) in FDD or  for both UL and DL directions in TDD.      " .
 
 TS28312_IntentNrm:FulfilmentInfo a rdfs:Class ;
     rdfs:comment "This dataType represents the properties of a specific fulfilment information for an aspect of  the intent (i.e. either an expectation, a target or the whole intent).     " .
-
-TS28312_IntentNrm:FulfilmentStatus a rdfs:Class ;
-    rdfs:comment "It describes the current status of the intent fulfilment result." .
 
 TS28312_IntentNrm:IntentConflictReport a rdfs:Class ;
     rdfs:comment "It represents the conflict information for the detected conflict This attribute shall be supported when intent conflict information is supported by IntentReport         " .
@@ -49,23 +40,17 @@ TS28312_IntentNrm:IntentHandlingCapability a rdfs:Class ;
 TS28312_IntentNrm:IntentHandlingFunction_Multiple a rdfs:Class .
 
 TS28312_IntentNrm:IntentHandlingFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28312_IntentNrm:IntentReport_Multiple a rdfs:Class .
 
 TS28312_IntentNrm:IntentReport_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28312_IntentNrm:Intent_Multiple a rdfs:Class .
 
 TS28312_IntentNrm:Intent_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL",
-        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
-TS28312_IntentNrm:NotFulfilledState a rdfs:Class ;
-    rdfs:comment "It describes the current progress of or the reason for not achieving fulfilment for the intent, intentExpectation or expectationTarget. An attribute which is used when FulfilmentInfo is implemented for IntentFulfilmentInfo" .
-
-TS28312_IntentNrm:Selectivity a rdfs:Class .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28312_IntentNrm:SubNetwork_ncO_IntentNrm a rdfs:Class .
 
@@ -76,22 +61,35 @@ TS28312_IntentNrm:UEGroup a rdfs:Class ;
     rdfs:comment "It describes the UE Group, which is  represented by specific 5QI, specific S-NSSAI, or a specific combination  of S-NSSAI and 5QI" .
 
 TS28312_IntentNrm:ValueRangeType a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28312_IntentNrm:resources_intentNrm a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
+TS28312_IntentNrm:Condition a rdfs:Datatype .
+
+TS28312_IntentNrm:ExpectationVerb a rdfs:Datatype ;
+    rdfs:comment "It describes the characteristic of the intentExpectation and is the property that describes the types of intentExpectations. Vendor extensions are allowed" .
+
+TS28312_IntentNrm:FulfilmentStatus a rdfs:Datatype ;
+    rdfs:comment "It describes the current status of the intent fulfilment result." .
 
 TS28312_IntentNrm:Intent a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentHandlingFunction_Single ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28312_IntentNrm:Intent_Multiple .
 
 TS28312_IntentNrm:IntentHandlingFunction a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:SubNetwork_ncO_IntentNrm ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28312_IntentNrm:IntentHandlingFunction_Multiple .
 
 TS28312_IntentNrm:IntentReport a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentHandlingFunction_Single ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28312_IntentNrm:IntentReport_Multiple .
+
+TS28312_IntentNrm:NotFulfilledState a rdfs:Datatype ;
+    rdfs:comment "It describes the current progress of or the reason for not achieving fulfilment for the intent, intentExpectation or expectationTarget. An attribute which is used when FulfilmentInfo is implemented for IntentFulfilmentInfo" .
+
+TS28312_IntentNrm:Selectivity a rdfs:Datatype .
 
 TS28312_IntentNrm:arfcn a rdf:Property ;
     rdfs:comment "This attribute shall be supported, when the frequency information represent RF reference frequency. The allowed values for NR see TS 38.104 subclause 5.4.2.1; The allowed values for EUTRAN see TS 36.104 [X] subclause 5.7.3; " ;
@@ -114,7 +112,7 @@ TS28312_IntentNrm:conflictingExpectation a rdf:Property ;
 TS28312_IntentNrm:conflictingIntent a rdf:Property ;
     rdfs:comment "This will be present if the value of conflictType is INTENT_CONFLICT. It describes the DN of the conflicting intent" ;
     rdfs:domain TS28312_IntentNrm:IntentConflictReport ;
-    rdfs:range TS28623_ComDefs:Dn .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:conflictingTarget a rdf:Property ;
     rdfs:comment "This will be present if the value of conflictType is TARGET_CONFLICT. It describes the targetName of the conflicting ExpectationTarget with an IntentExpectation           " ;
@@ -127,13 +125,11 @@ TS28312_IntentNrm:contextAttribute a rdf:Property ;
 
 TS28312_IntentNrm:contextCondition a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:Context ;
-    rdfs:range TS28312_IntentNrm:Condition .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:contextSelectivity a rdf:Property ;
-    rdfs:domain TS28312_IntentNrm:ExpectationTarget,
-        TS28312_IntentNrm:IntentExpectation,
-        TS28312_IntentNrm:Intent_Single ;
-    rdfs:range TS28312_IntentNrm:Selectivity .
+    rdfs:domain TS28312_IntentNrm:ExpectationTarget ;
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:contextValueRange a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:Context ;
@@ -170,7 +166,7 @@ TS28312_IntentNrm:expectationTargets a rdf:Property ;
 
 TS28312_IntentNrm:expectationVerb a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentExpectation ;
-    rdfs:range TS28312_IntentNrm:ExpectationVerb .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:feasibilityCheckResult a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentFeasibilityCheckReport ;
@@ -187,7 +183,7 @@ TS28312_IntentNrm:freqband a rdf:Property ;
 
 TS28312_IntentNrm:fulfilmentStatus a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:FulfilmentInfo ;
-    rdfs:range TS28312_IntentNrm:FulfilmentStatus .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:infeasibilityReason a rdf:Property ;
     rdfs:comment "An attribute which is used when feasibilityCheckResult is INFEASIBLE" ;
@@ -214,7 +210,7 @@ TS28312_IntentNrm:intentExpectations a rdf:Property ;
 
 TS28312_IntentNrm:intentFeasibilityCheckReport a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentReport_Single ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28312_IntentNrm:IntentFeasibilityCheckReport .
 
 TS28312_IntentNrm:intentFulfilmentInfo a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentFulfilmentReport ;
@@ -222,7 +218,7 @@ TS28312_IntentNrm:intentFulfilmentInfo a rdf:Property ;
 
 TS28312_IntentNrm:intentFulfilmentReport a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentReport_Single ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28312_IntentNrm:IntentFulfilmentReport .
 
 TS28312_IntentNrm:intentHandlingCapabilityId a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentHandlingCapability ;
@@ -243,15 +239,15 @@ TS28312_IntentNrm:intentPriority a rdf:Property ;
 
 TS28312_IntentNrm:intentReference a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentReport_Single ;
-    rdfs:range TS28623_ComDefs:Dn .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:intentReportReference a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:Intent_Single ;
-    rdfs:range TS28623_ComDefs:Dn .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:lastUpdatedTime a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:IntentReport_Single ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28312_IntentNrm:notFulfilledReasons a rdf:Property ;
     rdfs:comment "An attribute which is used when FulfilmentInfo is implemented for IntentFulfilmentInfo" ;
@@ -260,7 +256,7 @@ TS28312_IntentNrm:notFulfilledReasons a rdf:Property ;
 
 TS28312_IntentNrm:notFullfilledState a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:FulfilmentInfo ;
-    rdfs:range TS28312_IntentNrm:NotFulfilledState .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:objectContexts a rdf:Property ;
     rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions to be  used as filter information to identify the object(s) to which a given intentExpectation should apply." ;
@@ -269,7 +265,7 @@ TS28312_IntentNrm:objectContexts a rdf:Property ;
 
 TS28312_IntentNrm:objectInstance a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:ExpectationObject ;
-    rdfs:range TS28623_ComDefs:Dn .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:objectType a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:ExpectationObject ;
@@ -305,7 +301,7 @@ TS28312_IntentNrm:targetAchievedValue a rdf:Property ;
 
 TS28312_IntentNrm:targetCondition a rdf:Property ;
     rdfs:domain TS28312_IntentNrm:ExpectationTarget ;
-    rdfs:range TS28312_IntentNrm:Condition .
+    rdfs:range xsd:string .
 
 TS28312_IntentNrm:targetContexts a rdf:Property ;
     rdfs:comment "It describes the list of constraints and conditions that should apply for a specific expectationTarget." ;
@@ -321,8 +317,6 @@ TS28312_IntentNrm:targetFulfilmentResult a rdf:Property ;
     rdfs:range TS28312_IntentNrm:TargetFulfilmentResult .
 
 TS28312_IntentNrm:targetName a rdf:Property ;
-    rdfs:domain TS28312_IntentNrm:ExpectationTarget,
-        TS28312_IntentNrm:TargetFulfilmentResult ;
     rdfs:range xsd:string .
 
 TS28312_IntentNrm:targetValueRange a rdf:Property ;

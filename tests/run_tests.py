@@ -20,8 +20,8 @@ def run_conversion_tests(yaml_file):
     # Get output file paths
     base_name = Path(yaml_file).stem
     output_dir = Path(__file__).parent.parent / "output"
-    rdf_file = output_dir / f"{base_name}_rdf.ttl"
-    shacl_file = output_dir / f"{base_name}_shacl.ttl"
+    rdf_file = output_dir / "rdf" / f"{base_name}_rdf.ttl"
+    shacl_file = output_dir / "shacl" / f"{base_name}_shacl.ttl"
     
     print(f"🧪 Testing conversion of {yaml_file}")
     print(f"📊 RDF output: {rdf_file}")

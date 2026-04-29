@@ -7,19 +7,19 @@
 TS28318_DsoNrm:DsoThresholdMonitor_Multiple a rdfs:Class .
 
 TS28318_DsoNrm:DsoThresholdMonitor_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28318_DsoNrm:EnergyServiceLocation a rdfs:Class .
 
 TS28318_DsoNrm:OutageAndRecoveryInfo_Multiple a rdfs:Class .
 
 TS28318_DsoNrm:OutageAndRecoveryInfo_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI and_ - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS28318_DsoNrm:SubNetwork_ncO_DsoNrm a rdfs:Class .
 
 TS28318_DsoNrm:resources_DSORecovery a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI xone - complex logical constraints partially supported in SHACL" .
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28318_DsoNrm:CGI a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:EnergyServiceLocation ;
@@ -35,7 +35,7 @@ TS28318_DsoNrm:OutageAndRecoveryInfo a rdf:Property ;
 
 TS28318_DsoNrm:actualOutageEndTime a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28318_DsoNrm:affectedArea a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
@@ -47,7 +47,7 @@ TS28318_DsoNrm:dsoRapidInterventionDuration a rdf:Property ;
 
 TS28318_DsoNrm:dsoRapidInterventionTime a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28318_DsoNrm:energySupplyId a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:EnergyServiceLocation ;
@@ -55,7 +55,7 @@ TS28318_DsoNrm:energySupplyId a rdf:Property ;
 
 TS28318_DsoNrm:expectedOutageEndTime a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28318_DsoNrm:isAffectedAreaPriority a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
@@ -67,7 +67,7 @@ TS28318_DsoNrm:mnoInterventionDuration a rdf:Property ;
 
 TS28318_DsoNrm:mnoInterventionTime a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28318_DsoNrm:mnoMaxServiceDuration a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
@@ -75,9 +75,9 @@ TS28318_DsoNrm:mnoMaxServiceDuration a rdf:Property ;
 
 TS28318_DsoNrm:outageStartTime a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:OutageAndRecoveryInfo_Single ;
-    rdfs:range TS28623_ComDefs:DateTime .
+    rdfs:range xsd:dateTime .
 
 TS28318_DsoNrm:targetThresholdLocation a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:DsoThresholdMonitor_Single ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28623_ComDefs:AreaOfInterest .
 

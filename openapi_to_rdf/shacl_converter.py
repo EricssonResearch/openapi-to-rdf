@@ -111,6 +111,48 @@ class OpenAPIToSHACLConverter:
         else:
             return f"{self.base_namespace_prefix}rdf/{name_without_ext}#"
 
+    def _get_schemas(self):
+        """Return the components/schemas dict, or empty dict."""
+        if isinstance(self.data, dict) and "components" in self.data:
+            return self.data["components"].get("schemas", {})
+        return {}
+
+    def _is_primitive_schema(self, schema_name):
+        """Check if a schema name refers to a primitive (non-object, non-array) type."""
+        schemas = self._get_schemas()
+        return self._is_primitive_def(schemas.get(schema_name), schemas, depth=0)
+
+    def _is_primitive_def(self, schema_def, schemas, depth=0):
+        """Recursively check if a schema definition resolves to a primitive type."""
+        if schema_def is None or not isinstance(schema_def, dict) or depth > 10:
+            return False
+        # Direct $ref — follow it
+        if "$ref" in schema_def:
+            ref = schema_def["$ref"]
+            if ref.startswith("#/components/schemas/"):
+                return self._is_primitive_def(schemas.get(ref.split("/")[-1]), schemas, depth + 1)
+            return False
+        t = schema_def.get("type")
+        if t in ("string", "integer", "number", "boolean"):
+            return True
+        if t == "array":
+            items = schema_def.get("items", {})
+            return self._is_primitive_def(items, schemas, depth + 1)
+        # anyOf/oneOf where all options are primitive
+        for key in ("anyOf", "oneOf"):
+            if key in schema_def:
+                if all(self._is_primitive_def(o, schemas, depth + 1) for o in schema_def[key]):
+                    return True
+        return False
+
+    def _get_xsd_for_schema(self, schema_name):
+        """Get the XSD datatype for a primitive schema by looking up its definition."""
+        schemas = self._get_schemas()
+        schema_def = schemas.get(schema_name)
+        if schema_def is None:
+            return None
+        return self._get_datatype_from_spec(schema_def)
+
     def convert(self):
         """Convert the loaded YAML content into RDF/RDFS + SHACL."""
         if isinstance(self.data, dict) and "components" in self.data:
@@ -138,13 +180,23 @@ class OpenAPIToSHACLConverter:
             class_uri, _ = self._resolve_reference(ref)
             # Only create SHACL constraints for property shapes, not inheritance for classes
             if property_shape is not None and class_uri is not None:
-                if self._is_object_type_from_ref(ref):
+                # Check if ref points to an array type — delegate to array handler
+                ref_schema = None
+                if ref.startswith("#/components/schemas/"):
+                    ref_schema = self._get_schemas().get(ref.split("/")[-1])
+                elif ".yaml#" in ref:
+                    ref_schema = self._load_external_schema(ref)
+                if isinstance(ref_schema, dict) and ref_schema.get("type") == "array":
+                    self._handle_array_type(None, property_shape, ref_schema)
+                elif self._is_object_type_from_ref(ref):
                     self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_uri))
                 else:
-                    # Handle datatype reference
+                    # Handle datatype reference — inline constraints from the referenced schema
                     datatype = self._get_datatype_from_ref(ref)
                     if datatype is not None:
                         self.shacl_graph.add((property_shape, self.SH.datatype, datatype))
+                    # Inline constraints (pattern, enum, min/max) from the referenced primitive
+                    self._inline_primitive_constraints(property_shape, ref_schema)
             return
 
         # Handle object type
@@ -158,18 +210,47 @@ class OpenAPIToSHACLConverter:
         # Handle string type
         elif spec.get("type") == "string":
             self._handle_string_type(subject, property_shape, spec)
+            # Also process allOf/anyOf/oneOf if present alongside type
+            if "allOf" in spec:
+                self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
+            elif "anyOf" in spec:
+                self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH["or"])
+            elif "oneOf" in spec:
+                self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
 
         # Handle numeric types (integer, number)
         elif spec.get("type") in ["integer", "number"]:
             self._handle_numeric_type(subject, property_shape, spec)
 
-        # Handle logical operators (anyOf, oneOf, allOf)
+        # Handle boolean type
+        elif spec.get("type") == "boolean":
+            if property_shape is not None:
+                self.shacl_graph.add((property_shape, self.SH.datatype, XSD.boolean))
+
+        # Handle logical operators (anyOf, oneOf, allOf) without type
         elif "anyOf" in spec:
-            self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH.or_)
+            self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH["or"])
         elif "oneOf" in spec:
             self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
         elif "allOf" in spec:
-            self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH.and_)
+            self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
+
+        # Handle bare constraint specs (e.g. {pattern: "..."} without type) inside allOf/oneOf
+        elif property_shape is not None and not spec.get("type"):
+            if "pattern" in spec:
+                self.shacl_graph.add((property_shape, self.SH.pattern, Literal(spec["pattern"])))
+            if "minLength" in spec:
+                self.shacl_graph.add((property_shape, self.SH.minLength, Literal(spec["minLength"])))
+            if "maxLength" in spec:
+                self.shacl_graph.add((property_shape, self.SH.maxLength, Literal(spec["maxLength"])))
+            if "minimum" in spec:
+                self.shacl_graph.add((property_shape, self.SH.minInclusive, Literal(spec["minimum"])))
+            if "maximum" in spec:
+                self.shacl_graph.add((property_shape, self.SH.maxInclusive, Literal(spec["maximum"])))
+            if "enum" in spec:
+                processed_enum = ["NULL" if v is None else v for v in spec["enum"]]
+                enum_list = self._create_rdf_list(processed_enum)
+                self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), enum_list))
         
         # If we're processing a property_shape and haven't added any value constraints,
         # add a default constraint to satisfy GraphDB's requirement
@@ -190,9 +271,9 @@ class OpenAPIToSHACLConverter:
                 getattr(self.SH, 'in'),
                 self.SH.hasValue,
                 self.SH.nodeKind,
-                self.SH.or_,
+                self.SH["or"],
                 self.SH.xone,
-                self.SH.and_
+                self.SH["and"]
             ]
             
             # Check if any predicate is a value constraint
@@ -205,6 +286,26 @@ class OpenAPIToSHACLConverter:
             # Use sh:nodeKind sh:IRI as a permissive default (allows any IRI or blank node)
             if not has_value_constraint:
                 self.shacl_graph.add((property_shape, self.SH.nodeKind, self.SH.IRI))
+
+    def _inline_primitive_constraints(self, property_shape, ref_schema):
+        """Inline constraints from a referenced primitive schema onto a PropertyShape."""
+        if not isinstance(ref_schema, dict):
+            return
+        if "pattern" in ref_schema:
+            self.shacl_graph.add((property_shape, self.SH.pattern, Literal(ref_schema["pattern"])))
+        if "minLength" in ref_schema:
+            self.shacl_graph.add((property_shape, self.SH.minLength, Literal(ref_schema["minLength"])))
+        if "maxLength" in ref_schema:
+            self.shacl_graph.add((property_shape, self.SH.maxLength, Literal(ref_schema["maxLength"])))
+        # Only add numeric constraints for numeric types (not strings with erroneous min/max)
+        if ref_schema.get("type") in ("integer", "number"):
+            if "minimum" in ref_schema:
+                self.shacl_graph.add((property_shape, self.SH.minInclusive, Literal(ref_schema["minimum"])))
+            if "maximum" in ref_schema:
+                self.shacl_graph.add((property_shape, self.SH.maxInclusive, Literal(ref_schema["maximum"])))
+        if "enum" in ref_schema:
+            processed = ["NULL" if v is None else v for v in ref_schema["enum"]]
+            self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), self._create_rdf_list(processed)))
 
     def _handle_object_type(self, subject, property_shape, spec):
         """Handle object type schemas (type: object)."""
@@ -243,70 +344,74 @@ class OpenAPIToSHACLConverter:
                 self._process_property(subject, node_shape, prop_name, prop_def, required_props)
 
     def _handle_array_type(self, subject, property_shape, spec):
-        """Handle array type schemas."""
+        """Handle array type schemas.
+        
+        Arrays are represented as repeated properties in RDF.
+        Cardinality: minItems/maxItems → sh:minCount/sh:maxCount.
+        Item type constraints go directly on the property shape.
+        """
         # Handle top-level array schemas (like DnList, ConvexGeoPolygon)
         if subject is not None and property_shape is None:
-            # Create rdfs:Class in RDF graph
             self.rdf_graph.add((subject, RDF.type, RDFS.Class))
-            
-            # Add description if present
             if "description" in spec:
                 self.rdf_graph.add((subject, RDFS.comment, Literal(spec["description"])))
-            
-            # Create NodeShape for SHACL validation
             node_shape = self._create_bnode()
             self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
             self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
             property_shape = node_shape
-            
         elif property_shape is None:
             return
 
-        # Add description if present for property-level arrays
         if property_shape is not None and subject is None and "description" in spec:
             self.shacl_graph.add((property_shape, RDFS.comment, Literal(spec["description"])))
 
-        # Use dash:ListShape for array validation (GraphDB-compatible)
-        self.shacl_graph.add((property_shape, self.SH.node, self.DASH.ListShape))
-
-        # For array items validation, use DASH ListShape with proper SHACL sequence path
-        if "items" in spec:
-            # Create a property shape for list items using standard DASH ListShape pattern
-            item_shape = self._create_bnode()
-            self.shacl_graph.add((item_shape, RDF.type, self.SH.PropertyShape))
-            
-            # Create SHACL sequence path: ( [ sh:zeroOrMorePath rdf:rest ] rdf:first )
-            # This path follows RDF list semantics: follow rdf:rest zero or more times, then rdf:first
-            path_list = self._create_shacl_list_path()
-            
-            # Apply this path to the item shape
-            self.shacl_graph.add((item_shape, self.SH.path, path_list))
-            
-            # Add cardinality constraints for the list on the PropertyShape
-            # PySHACL meta-validation: minCount/maxCount should be on PropertyShape, not NodeShape
+        # Cardinality from minItems/maxItems (only on PropertyShapes, not top-level NodeShapes)
+        if subject is None:  # property-level array, not top-level
             if "minItems" in spec:
-                self.shacl_graph.add((item_shape, self.SH.minCount, Literal(spec["minItems"])))
+                self.shacl_graph.add((property_shape, self.SH.minCount, Literal(spec["minItems"])))
             if "maxItems" in spec:
-                self.shacl_graph.add((item_shape, self.SH.maxCount, Literal(spec["maxItems"])))
-            
-            # Apply item type constraints
-            self._type_clause(subject, item_shape, spec["items"])
-            
-            # Add the item constraint to the property shape
-            self.shacl_graph.add((property_shape, self.SH.property, item_shape))
+                self.shacl_graph.add((property_shape, self.SH.maxCount, Literal(spec["maxItems"])))
+
+        # Item type constraints applied directly to the property shape
+        if "items" in spec:
+            self._type_clause(None, property_shape, spec["items"])
 
     def _handle_string_type(self, subject, property_shape, spec):
         """Handle string type schemas."""
-        # Handle top-level string schemas (like enums) as classes
+        # Handle top-level string schemas as datatypes
         if subject is not None and property_shape is None:
-            # Create rdfs:Class in RDF graph
-            self.rdf_graph.add((subject, RDF.type, RDFS.Class))
+            self.rdf_graph.add((subject, RDF.type, RDFS.Datatype))
             
-            # Add description if present
             if "description" in spec:
                 self.rdf_graph.add((subject, RDFS.comment, Literal(spec["description"])))
-                
-            # For enum types, we could create individuals, but for now just create the class
+
+            # Create NodeShape with constraints for top-level string types
+            node_shape = self._create_bnode()
+            self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+            self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+
+            datatype = XSD.string
+            if "format" in spec:
+                format_map = {
+                    "date-time": XSD.dateTime,
+                    "full-time": XSD.time,
+                    "date-month": XSD.gMonth,
+                    "date-mday": XSD.gMonthDay,
+                }
+                datatype = format_map.get(spec["format"], XSD.string)
+            self.shacl_graph.add((node_shape, self.SH.datatype, datatype))
+
+            if "pattern" in spec:
+                self.shacl_graph.add((node_shape, self.SH.pattern, Literal(spec["pattern"])))
+            if "minLength" in spec:
+                self.shacl_graph.add((node_shape, self.SH.minLength, Literal(spec["minLength"])))
+            if "maxLength" in spec:
+                self.shacl_graph.add((node_shape, self.SH.maxLength, Literal(spec["maxLength"])))
+            if "enum" in spec:
+                processed_enum = ["NULL" if v is None else v for v in spec["enum"]]
+                enum_list = self._create_rdf_list(processed_enum)
+                self.shacl_graph.add((node_shape, getattr(self.SH, 'in'), enum_list))
+
             return
         
         # Handle property-level string constraints
@@ -354,15 +459,29 @@ class OpenAPIToSHACLConverter:
 
     def _handle_numeric_type(self, subject, property_shape, spec):
         """Handle numeric type schemas (integer, number)."""
-        # Handle top-level numeric schemas as classes
+        # Handle top-level numeric schemas as datatypes
         if subject is not None and property_shape is None:
-            # Create rdfs:Class in RDF graph
-            self.rdf_graph.add((subject, RDF.type, RDFS.Class))
+            self.rdf_graph.add((subject, RDF.type, RDFS.Datatype))
             
-            # Add description if present
             if "description" in spec:
                 self.rdf_graph.add((subject, RDFS.comment, Literal(spec["description"])))
-                
+
+            # Create NodeShape with constraints
+            node_shape = self._create_bnode()
+            self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+            self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+
+            if spec["type"] == "integer":
+                datatype = XSD.integer
+            else:
+                datatype = XSD.float if spec.get("format") == "float" else XSD.double
+            self.shacl_graph.add((node_shape, self.SH.datatype, datatype))
+
+            if "minimum" in spec:
+                self.shacl_graph.add((node_shape, self.SH.minInclusive, Literal(spec["minimum"])))
+            if "maximum" in spec:
+                self.shacl_graph.add((node_shape, self.SH.maxInclusive, Literal(spec["maximum"])))
+
             return
         
         # Handle property-level numeric constraints
@@ -399,8 +518,9 @@ class OpenAPIToSHACLConverter:
             self.rdf_graph.add((subject, RDF.type, RDFS.Class))
             
             # Add semantic comment about logical constraint
-            operator_name = str(operator).split('#')[-1]
-            comment = f"Note: Uses OpenAPI {operator_name} - complex logical constraints partially supported in SHACL"
+            operator_map = {str(self.SH.xone): "oneOf", str(self.SH["or"]): "anyOf", str(self.SH["and"]): "allOf"}
+            openapi_name = operator_map.get(str(operator), str(operator).split('#')[-1])
+            comment = f"Note: Uses OpenAPI {openapi_name} - complex logical constraints partially supported in SHACL"
             self.rdf_graph.add((subject, RDFS.comment, Literal(comment)))
             
             # Create NodeShape for SHACL validation
@@ -477,7 +597,7 @@ class OpenAPIToSHACLConverter:
                     # Use sh:or to combine multiple datatype constraints
                     or_list = self._create_bnode()
                     Collection(self.shacl_graph, or_list, datatype_shapes)
-                    self.shacl_graph.add((property_shape, self.SH.or_, or_list))
+                    self.shacl_graph.add((property_shape, self.SH["or"], or_list))
             
             # Add class constraints
             # SHACL spec: sh:class must be a single IRI, not a list
@@ -517,11 +637,11 @@ class OpenAPIToSHACLConverter:
                     # Use sh:or to combine all constraints
                     or_list = self._create_bnode()
                     Collection(self.shacl_graph, or_list, all_shapes)
-                    self.shacl_graph.add((property_shape, self.SH.or_, or_list))
+                    self.shacl_graph.add((property_shape, self.SH["or"], or_list))
         else:
             # For homogeneous types, inline the constraints instead of creating separate shapes
             # This avoids the problem of undefined blank node references
-            if operator == self.SH.and_:
+            if operator == self.SH["and"]:
                 # For allOf, we can inline all constraints directly on the property_shape
                 for spec in specs_list:
                     if "description" in spec:
@@ -616,17 +736,40 @@ class OpenAPIToSHACLConverter:
     def _process_property(self, domain_class, node_shape, prop_name, prop_def, required_list):
         """Process a property within an object schema."""
         safe_prop = self.format_name(prop_name)
-        predicate_uri = self.main_prefix[safe_prop]
+        base_uri = self.main_prefix[safe_prop]
 
         # Determine property type and range for proper domain/range specification
         prop_type, range_uri = self._determine_property_type_and_range(prop_def)
+
+        # Scope only on genuine range conflict (different semantics).
+        # Domain conflicts are handled by SHACL shapes, not rdfs:domain.
+        predicate_uri = base_uri
+        existing_ranges = set(self.rdf_graph.objects(base_uri, RDFS.range))
+        if existing_ranges and range_uri is not None and range_uri not in existing_ranges:
+            # Genuine range conflict — use per-class namespace
+            if domain_class is not None:
+                class_local = str(domain_class).split('#')[-1]
+                class_ns_uri = self.base_namespace.rstrip('#') + '/' + class_local + '#'
+                class_ns = Namespace(class_ns_uri)
+                class_ns_prefix = self.format_name(os.path.splitext(os.path.basename(self.yaml_file))[0]) + '_' + class_local
+                self.rdf_graph.bind(class_ns_prefix, class_ns)
+                self.shacl_graph.bind(class_ns_prefix, class_ns)
+                predicate_uri = class_ns[safe_prop]
         
         # Create property with proper type in RDF graph
         self.rdf_graph.add((predicate_uri, RDF.type, prop_type))
         
-        # Add standard W3C domain/range relationships
+        # Only add rdfs:domain when it won't cause intersection conflicts.
+        # Shared properties (used by multiple classes) let SHACL define associations.
         if domain_class is not None:
-            self.rdf_graph.add((predicate_uri, RDFS.domain, domain_class))
+            existing_domains = set(self.rdf_graph.objects(predicate_uri, RDFS.domain))
+            if not existing_domains:
+                # First class to use this property — add domain
+                self.rdf_graph.add((predicate_uri, RDFS.domain, domain_class))
+            elif domain_class not in existing_domains:
+                # Second+ class — remove domain to avoid intersection semantics
+                for ed in existing_domains:
+                    self.rdf_graph.remove((predicate_uri, RDFS.domain, ed))
         
         if range_uri is not None:
             self.rdf_graph.add((predicate_uri, RDFS.range, range_uri))
@@ -647,11 +790,19 @@ class OpenAPIToSHACLConverter:
             self.shacl_graph.add((property_shape, self.SH.minCount, Literal(1)))
         
         # Add maxCount 1 for non-array properties to ensure single-valued semantics
-        if prop_def.get("type") != "array" and "items" not in prop_def:
+        is_array = prop_def.get("type") == "array" or "items" in prop_def
+        if not is_array and "$ref" in prop_def:
+            ref = prop_def["$ref"]
+            ref_name = ref.split("/")[-1]
+            if ref.startswith("#/components/schemas/"):
+                ref_schema = self._get_schemas().get(ref_name, {})
+                if isinstance(ref_schema, dict) and ref_schema.get("type") == "array":
+                    is_array = True
+        if not is_array:
             self.shacl_graph.add((property_shape, self.SH.maxCount, Literal(1)))
 
         # Process the property type
-        self._type_clause(domain_class, property_shape, prop_def)
+        self._type_clause(None, property_shape, prop_def)
 
     def _determine_property_type_and_range(self, prop_def):
         """Determine the appropriate RDF property type and range for a property definition."""
@@ -664,11 +815,9 @@ class OpenAPIToSHACLConverter:
                 if self._is_object_type_from_ref(ref):
                     return RDF.Property, class_uri
                 else:
-                    # Assume datatype property for simple types
                     datatype = self._get_datatype_from_ref(ref)
                     return RDF.Property, datatype if datatype is not None else XSD.string
             else:
-                # Fallback if reference cannot be resolved
                 return RDF.Property, XSD.string
         
         # Handle basic types
@@ -716,42 +865,49 @@ class OpenAPIToSHACLConverter:
         return RDF.Property, XSD.string
 
     def _get_datatype_from_ref(self, ref):
-        """Get appropriate XSD datatype from a reference (heuristic)."""
+        """Get appropriate XSD datatype from a reference by looking up the schema."""
         if ref is None:
             return XSD.string
-        ref_name = ref.split("/")[-1].lower()
-        if "float" in ref_name:
-            return XSD.float
-        elif "int" in ref_name or "integer" in ref_name:
-            return XSD.integer
-        elif "bool" in ref_name:
-            return XSD.boolean
-        else:
-            return XSD.string
+        ref_name = ref.split("/")[-1]
+        if ref.startswith("#/components/schemas/"):
+            xsd = self._get_xsd_for_schema(ref_name)
+            if xsd is not None:
+                return xsd
+        # For external refs, load the file
+        ext_schema = self._load_external_schema(ref) if ".yaml#" in ref else None
+        if ext_schema is not None:
+            return self._get_datatype_from_spec(ext_schema)
+        # Last resort heuristic
+        ref_lower = ref_name.lower()
+        if "float" in ref_lower: return XSD.float
+        elif "int" in ref_lower or "integer" in ref_lower: return XSD.integer
+        elif "bool" in ref_lower: return XSD.boolean
+        else: return XSD.string
     
     def _get_datatype_from_spec(self, spec):
         """Get XSD datatype from a specification."""
+        if not isinstance(spec, dict):
+            return XSD.string
+        # Follow $ref
+        if "$ref" in spec and spec["$ref"].startswith("#/components/schemas/"):
+            ref_name = spec["$ref"].split("/")[-1]
+            ref_def = self._get_schemas().get(ref_name)
+            if ref_def:
+                return self._get_datatype_from_spec(ref_def)
         spec_type = spec.get('type', 'string')
-        
         if spec_type == 'string':
-            if 'format' in spec:
-                format_val = spec['format']
-                format_map = {
-                    'date-time': XSD.dateTime,
-                    'full-time': XSD.time,
-                    'date-month': XSD.gMonth,
-                    'date-mday': XSD.gMonthDay,
-                }
-                return format_map.get(format_val, XSD.string)
-            return XSD.string
-        elif spec_type == 'integer':
-            return XSD.integer
-        elif spec_type == 'number':
-            return XSD.double
-        elif spec_type == 'boolean':
-            return XSD.boolean
-        else:
-            return XSD.string
+            fmt = spec.get('format')
+            return {'date-time': XSD.dateTime, 'full-time': XSD.time,
+                    'date-month': XSD.gMonth, 'date-mday': XSD.gMonthDay}.get(fmt, XSD.string)
+        if spec_type == 'integer': return XSD.integer
+        if spec_type == 'number': return XSD.float if spec.get('format') == 'float' else XSD.double
+        if spec_type == 'boolean': return XSD.boolean
+        if spec_type == 'array': return self._get_datatype_from_spec(spec.get('items', {}))
+        # anyOf/oneOf — use first option
+        for key in ('anyOf', 'oneOf'):
+            if key in spec and spec[key]:
+                return self._get_datatype_from_spec(spec[key][0])
+        return XSD.string
 
     def _resolve_reference(self, ref):
         """Resolve a $ref reference to an RDF URI."""
@@ -780,12 +936,43 @@ class OpenAPIToSHACLConverter:
         safe_ref = self.format_name(ref.replace("/", "_").replace("#", "_"))
         return self.main_prefix[f"UnresolvedRef_{safe_ref}"], None
 
+    def _load_external_schema(self, ref):
+        """Load a schema definition from an external YAML file reference."""
+        if ".yaml#" not in ref:
+            return None
+        filename, remainder = ref.split("#/components/schemas/")
+        schema_name = remainder
+        # Resolve relative to current file's directory
+        yaml_dir = os.path.dirname(self.yaml_file)
+        ext_path = os.path.join(yaml_dir, filename)
+        if not os.path.exists(ext_path):
+            return None
+        if not hasattr(self, '_ext_schema_cache'):
+            self._ext_schema_cache = {}
+        if ext_path not in self._ext_schema_cache:
+            try:
+                with open(ext_path, "r", encoding="utf-8") as f:
+                    self._ext_schema_cache[ext_path] = yaml.safe_load(f).get("components", {}).get("schemas", {})
+            except Exception:
+                self._ext_schema_cache[ext_path] = {}
+        return self._ext_schema_cache[ext_path].get(schema_name)
+
     def _is_object_type_from_ref(self, ref):
-        """Determine if a reference points to an object type (heuristic)."""
-        # This is a simplified heuristic - in practice, you'd need to load the referenced schema
-        # For now, assume most references are to object types unless they contain type indicators
-        ref_name = ref.split("/")[-1].lower()
-        return not any(x in ref_name for x in ["float", "int", "string", "bool"])
+        """Determine if a reference points to an object type by looking up the schema."""
+        if ref is None:
+            return True
+        ref_name = ref.split("/")[-1]
+        if ref.startswith("#/components/schemas/"):
+            return not self._is_primitive_schema(ref_name)
+        # For external refs, load the file and check
+        ext_schema = self._load_external_schema(ref)
+        if ext_schema is not None:
+            schemas = self._ext_schema_cache.get(
+                os.path.join(os.path.dirname(self.yaml_file), ref.split("#")[0]), {})
+            return not self._is_primitive_def(ext_schema, schemas)
+        # Last resort heuristic
+        ref_lower = ref_name.lower()
+        return not any(x in ref_lower for x in ["float", "int", "string", "bool"])
 
     def _create_bnode(self):
         """Create a new blank node."""
@@ -880,8 +1067,8 @@ class OpenAPIToSHACLConverter:
                 # Numeric/boolean values - keep as Literal
                 processed_item = Literal(item)
             elif isinstance(item, str):
-                # Regular string - keep as Literal (for enum values in sh:in)
-                processed_item = Literal(item)
+                # Regular string - use xsd:string typed literal for SHACL sh:in compatibility
+                processed_item = Literal(item, datatype=XSD.string)
             else:
                 # Other types - use as-is
                 processed_item = item
