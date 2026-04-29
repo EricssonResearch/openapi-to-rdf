@@ -1,4 +1,17 @@
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_ComDefs_DayInYear: <http://ericsson.com/models/3gpp/TS28623/ComDefs/DayInYear#> .
+@prefix TS28623_ComDefs_ErrorResponse: <http://ericsson.com/models/3gpp/TS28623/ComDefs/ErrorResponse#> .
+@prefix TS28623_ComDefs_ErrorResponseDefault: <http://ericsson.com/models/3gpp/TS28623/ComDefs/ErrorResponseDefault#> .
+@prefix TS28623_ComDefs_ErrorResponseGet: <http://ericsson.com/models/3gpp/TS28623/ComDefs/ErrorResponseGet#> .
+@prefix TS28623_ComDefs_ErrorResponsePatch: <http://ericsson.com/models/3gpp/TS28623/ComDefs/ErrorResponsePatch#> .
+@prefix TS28623_ComDefs_GeoArea: <http://ericsson.com/models/3gpp/TS28623/ComDefs/GeoArea#> .
+@prefix TS28623_ComDefs_GeoAreaToCellMapping: <http://ericsson.com/models/3gpp/TS28623/ComDefs/GeoAreaToCellMapping#> .
+@prefix TS28623_ComDefs_GeoCoordinate: <http://ericsson.com/models/3gpp/TS28623/ComDefs/GeoCoordinate#> .
+@prefix TS28623_ComDefs_NotificationHeader: <http://ericsson.com/models/3gpp/TS28623/ComDefs/NotificationHeader#> .
+@prefix TS28623_ComDefs_PlmnId: <http://ericsson.com/models/3gpp/TS28623/ComDefs/PlmnId#> .
+@prefix TS28623_ComDefs_PlmnIdRo: <http://ericsson.com/models/3gpp/TS28623/ComDefs/PlmnIdRo#> .
+@prefix TS28623_ComDefs_Subscription: <http://ericsson.com/models/3gpp/TS28623/ComDefs/Subscription#> .
+@prefix TS28623_ComDefs_TimeInterval: <http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeInterval#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -178,127 +191,198 @@ TS28623_ComDefs:UsageState a rdfs:Datatype .
 
 TS28623_ComDefs:UtraCellId a rdfs:Datatype .
 
-TS28623_ComDefs:altitude a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoCoordinate ;
-    rdfs:range xsd:float .
-
-TS28623_ComDefs:associationThreshold a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoAreaToCellMapping ;
-    rdfs:range xsd:integer .
-
 TS28623_ComDefs:badAttributes a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:badOP a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
     rdfs:range xsd:string .
 
 TS28623_ComDefs:badObjects a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
     rdfs:range xsd:string .
 
 TS28623_ComDefs:badOp a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_ComDefs:badQueryParams a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
     rdfs:range xsd:string .
-
-TS28623_ComDefs:consumerReference a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:Subscription ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:convexGeoPolygon a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoArea ;
-    rdfs:range TS28623_ComDefs:ConvexGeoPolygon .
-
-TS28623_ComDefs:error a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponse ;
-    rdfs:range rdfs:Resource .
 
 TS28623_ComDefs:errorInfo a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28623_ComDefs:eventTime a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:NotificationHeader ;
-    rdfs:range xsd:dateTime .
-
-TS28623_ComDefs:filter a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:Subscription ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:geoArea a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoAreaToCellMapping ;
-    rdfs:range TS28623_ComDefs:GeoArea .
-
-TS28623_ComDefs:href a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:NotificationHeader ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:intervalEnd a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:TimeInterval ;
-    rdfs:range xsd:time .
-
-TS28623_ComDefs:intervalStart a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:TimeInterval ;
-    rdfs:range xsd:time .
-
-TS28623_ComDefs:latitude a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoCoordinate ;
-    rdfs:range xsd:float .
-
-TS28623_ComDefs:longitude a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoCoordinate ;
-    rdfs:range xsd:float .
-
-TS28623_ComDefs:mcc a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:mnc a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:month a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:DayInYear ;
-    rdfs:range xsd:gMonth .
-
-TS28623_ComDefs:monthDay a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:DayInYear ;
-    rdfs:range xsd:gMonthDay .
-
-TS28623_ComDefs:notificationId a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:NotificationHeader ;
-    rdfs:range xsd:integer .
-
-TS28623_ComDefs:notificationType a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:NotificationHeader ;
-    rdfs:range TS28623_ComDefs:NotificationType .
-
-TS28623_ComDefs:otherProblems a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
-    rdfs:range xsd:string .
-
 TS28623_ComDefs:reason a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
     rdfs:range xsd:string .
 
 TS28623_ComDefs:status a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
     rdfs:range xsd:string .
-
-TS28623_ComDefs:systemDN a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:NotificationHeader ;
-    rdfs:range xsd:string .
-
-TS28623_ComDefs:timeTick a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:Subscription ;
-    rdfs:range xsd:integer .
 
 TS28623_ComDefs:title a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
     rdfs:range xsd:string .
 
 TS28623_ComDefs:type a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_DayInYear:month a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:DayInYear ;
+    rdfs:range xsd:gMonth .
+
+TS28623_ComDefs_DayInYear:monthDay a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:DayInYear ;
+    rdfs:range xsd:gMonthDay .
+
+TS28623_ComDefs_ErrorResponse:error a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponse ;
+    rdfs:range rdfs:Resource .
+
+TS28623_ComDefs_ErrorResponseDefault:badAttributes a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseDefault:badObjects a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseDefault:otherProblems a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseDefault:reason a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseDefault:status a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseDefault:title a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseDefault:type a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseDefault ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseGet:badQueryParams a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseGet:otherProblems a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseGet:reason a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseGet:status a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseGet:title a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponseGet:type a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponsePatch:badOP a rdf:Property ;
     rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
     rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponsePatch:otherProblems a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponsePatch:reason a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponsePatch:status a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponsePatch:title a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_ErrorResponsePatch:type a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_GeoArea:convexGeoPolygon a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoArea ;
+    rdfs:range TS28623_ComDefs:ConvexGeoPolygon .
+
+TS28623_ComDefs_GeoAreaToCellMapping:associationThreshold a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoAreaToCellMapping ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_GeoAreaToCellMapping:geoArea a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoAreaToCellMapping ;
+    rdfs:range TS28623_ComDefs:GeoArea .
+
+TS28623_ComDefs_GeoCoordinate:altitude a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoCoordinate ;
+    rdfs:range xsd:float .
+
+TS28623_ComDefs_GeoCoordinate:latitude a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoCoordinate ;
+    rdfs:range xsd:float .
+
+TS28623_ComDefs_GeoCoordinate:longitude a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoCoordinate ;
+    rdfs:range xsd:float .
+
+TS28623_ComDefs_NotificationHeader:eventTime a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range xsd:dateTime .
+
+TS28623_ComDefs_NotificationHeader:href a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_NotificationHeader:notificationId a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_NotificationHeader:notificationType a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range TS28623_ComDefs:NotificationType .
+
+TS28623_ComDefs_NotificationHeader:systemDN a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_PlmnId:mcc a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:PlmnId ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_PlmnId:mnc a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:PlmnId ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_PlmnIdRo:mcc a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:PlmnIdRo ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_PlmnIdRo:mnc a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:PlmnIdRo ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_Subscription:consumerReference a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:Subscription ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_Subscription:filter a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:Subscription ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_Subscription:timeTick a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:Subscription ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_TimeInterval:intervalEnd a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:TimeInterval ;
+    rdfs:range xsd:time .
+
+TS28623_ComDefs_TimeInterval:intervalStart a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:TimeInterval ;
+    rdfs:range xsd:time .
 

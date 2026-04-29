@@ -1,12 +1,14 @@
 @prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/WeakRSRPRatioTarget#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/WeakRSRPContext#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:WeakRSRPRatioTarget ;
-    TS28312_IntentExpectations:targetCondition "IS_LESS_THAN"^^xsd:string ;
-    TS28312_IntentExpectations:targetContexts [ a TS28312_IntentExpectations:WeakRSRPContext ;
-            TS28312_IntentExpectations:contextAttribute "WeakRSRPThreshold"^^xsd:string ;
-            TS28312_IntentExpectations:contextCondition "IS_LESS_THAN"^^xsd:string ;
-            TS28312_IntentExpectations:contextValueRange 5e+01 ] ;
-    TS28312_IntentExpectations:targetName "WeakRSRPRatio"^^xsd:string ;
-    TS28312_IntentExpectations:targetValueRange -1 .
+    ns1:targetCondition "IS_LESS_THAN"^^xsd:string ;
+    ns1:targetContexts [ a TS28312_IntentExpectations:WeakRSRPContext ;
+            ns2:contextAttribute "WeakRSRPThreshold"^^xsd:string ;
+            ns2:contextCondition "IS_LESS_THAN"^^xsd:string ;
+            ns2:contextValueRange 5e+01 ] ;
+    ns1:targetName "WeakRSRPRatio"^^xsd:string ;
+    ns1:targetValueRange -1 .
 

@@ -1,4 +1,11 @@
 @prefix TS28104_MdaNrm: <http://ericsson.com/models/3gpp/TS28104/MdaNrm#> .
+@prefix TS28104_MdaNrm_MDAFunction_Single: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/MDAFunction_Single#> .
+@prefix TS28104_MdaNrm_MDAOutputIEFilter: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/MDAOutputIEFilter#> .
+@prefix TS28104_MdaNrm_MDAOutputPerMDAType: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/MDAOutputPerMDAType#> .
+@prefix TS28104_MdaNrm_MDARequest_Single: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/MDARequest_Single#> .
+@prefix TS28104_MdaNrm_ManagedElement_ncO_MdaNrm: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/ManagedElement_ncO_MdaNrm#> .
+@prefix TS28104_MdaNrm_SubNetwork_ncO_MdaNrm: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/SubNetwork_ncO_MdaNrm#> .
+@prefix TS28104_MdaNrm_ThresholdInfo: <http://ericsson.com/models/3gpp/TS28104/MdaNrm/ThresholdInfo#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -38,56 +45,15 @@ TS28104_MdaNrm:ThresholdInfo a rdfs:Class .
 TS28104_MdaNrm:resources_mdaNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
-TS28104_MdaNrm:MDAFunction a rdf:Property ;
-    rdfs:range TS28104_MdaNrm:MDAFunction_Multiple .
-
-TS28104_MdaNrm:MDAReport a rdf:Property ;
-    rdfs:range TS28104_MdaNrm:MDAReport_Multiple .
-
-TS28104_MdaNrm:MDARequest a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:MDAFunction_Single ;
-    rdfs:range TS28104_MdaNrm:MDARequest_Multiple .
-
 TS28104_MdaNrm:ReportingMethod a rdfs:Datatype .
 
 TS28104_MdaNrm:aIMLInferenceFunctionRefList a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28104_MdaNrm:analyticsPeriod a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
-    rdfs:range TS28104_MdaNrm:AnalyticsSchedule .
-
 TS28104_MdaNrm:analyticsScope a rdf:Property ;
     rdfs:range TS28104_MdaNrm:AnalyticsScopeType .
 
-TS28104_MdaNrm:attributes a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:filterValue a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:hysteresis a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:mDAOutputIEFilters a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:MDAOutputPerMDAType ;
-    rdfs:range TS28104_MdaNrm:MDAOutputIEFilter .
-
-TS28104_MdaNrm:mDAOutputIEName a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:mDAType a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:MDAOutputPerMDAType ;
-    rdfs:range xsd:string .
-
 TS28104_MdaNrm:mLModelRefList a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:monitoredMDAOutputIE a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
     rdfs:range xsd:string .
 
 TS28104_MdaNrm:recommendationFilter a rdf:Property ;
@@ -111,19 +77,75 @@ TS28104_MdaNrm:stopTime a rdf:Property ;
 TS28104_MdaNrm:supportedMDACapabilities a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28104_MdaNrm:threshold a rdf:Property ;
+TS28104_MdaNrm_MDAFunction_Single:MDAReport a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAFunction_Single ;
+    rdfs:range TS28104_MdaNrm:MDAReport_Multiple .
+
+TS28104_MdaNrm_MDAFunction_Single:MDARequest a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAFunction_Single ;
+    rdfs:range TS28104_MdaNrm:MDARequest_Multiple .
+
+TS28104_MdaNrm_MDAFunction_Single:attributes a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAFunction_Single ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_MDAOutputIEFilter:analyticsPeriod a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
+    rdfs:range TS28104_MdaNrm:AnalyticsSchedule .
+
+TS28104_MdaNrm_MDAOutputIEFilter:filterValue a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_MDAOutputIEFilter:mDAOutputIEName a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_MDAOutputIEFilter:threshold a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
     rdfs:range TS28104_MdaNrm:ThresholdInfo .
 
-TS28104_MdaNrm:thresholdDirection a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:thresholdValue a rdf:Property ;
-    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
-    rdfs:range xsd:string .
-
-TS28104_MdaNrm:timeOut a rdf:Property ;
+TS28104_MdaNrm_MDAOutputIEFilter:timeOut a rdf:Property ;
     rdfs:domain TS28104_MdaNrm:MDAOutputIEFilter ;
     rdfs:range xsd:dateTime .
+
+TS28104_MdaNrm_MDAOutputPerMDAType:mDAOutputIEFilters a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAOutputPerMDAType ;
+    rdfs:range TS28104_MdaNrm:MDAOutputIEFilter .
+
+TS28104_MdaNrm_MDAOutputPerMDAType:mDAType a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDAOutputPerMDAType ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_MDARequest_Single:attributes a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:MDARequest_Single ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_ManagedElement_ncO_MdaNrm:MDAFunction a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:ManagedElement_ncO_MdaNrm ;
+    rdfs:range TS28104_MdaNrm:MDAFunction_Multiple .
+
+TS28104_MdaNrm_SubNetwork_ncO_MdaNrm:MDAFunction a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:SubNetwork_ncO_MdaNrm ;
+    rdfs:range TS28104_MdaNrm:MDAFunction_Multiple .
+
+TS28104_MdaNrm_SubNetwork_ncO_MdaNrm:MDAReport a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:SubNetwork_ncO_MdaNrm ;
+    rdfs:range TS28104_MdaNrm:MDAReport_Multiple .
+
+TS28104_MdaNrm_ThresholdInfo:hysteresis a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_ThresholdInfo:monitoredMDAOutputIE a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_ThresholdInfo:thresholdDirection a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
+
+TS28104_MdaNrm_ThresholdInfo:thresholdValue a rdf:Property ;
+    rdfs:domain TS28104_MdaNrm:ThresholdInfo ;
+    rdfs:range xsd:string .
 

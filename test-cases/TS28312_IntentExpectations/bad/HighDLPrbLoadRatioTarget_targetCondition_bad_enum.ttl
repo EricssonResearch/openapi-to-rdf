@@ -1,14 +1,14 @@
 @prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
-@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/HighDLPrbLoadContext#> .
-@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/HighDLPrbLoadRatioTarget#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/HighDLPrbLoadRatioTarget#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/HighDLPrbLoadContext#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:HighDLPrbLoadRatioTarget ;
-    TS28312_IntentExpectations:targetCondition "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
-    TS28312_IntentExpectations:targetName "HighDLPrbLoadRatio"^^xsd:string ;
-    TS28312_IntentExpectations:targetValueRange 50 ;
-    ns2:targetContexts [ a TS28312_IntentExpectations:HighDLPrbLoadContext ;
-            TS28312_IntentExpectations:contextAttribute "HighDLPrbLoadThreshold"^^xsd:string ;
-            TS28312_IntentExpectations:contextCondition "IS_LESS_THAN"^^xsd:string ;
-            ns1:contextValueRange 50 ] .
+    ns1:targetCondition "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns1:targetContexts [ a TS28312_IntentExpectations:HighDLPrbLoadContext ;
+            ns2:contextAttribute "HighDLPrbLoadThreshold"^^xsd:string ;
+            ns2:contextCondition "IS_LESS_THAN"^^xsd:string ;
+            ns2:contextValueRange 50 ] ;
+    ns1:targetName "HighDLPrbLoadRatio"^^xsd:string ;
+    ns1:targetValueRange 50 .
 

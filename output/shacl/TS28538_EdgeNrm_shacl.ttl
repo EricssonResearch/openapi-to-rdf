@@ -1,4 +1,31 @@
 @prefix TS28538_EdgeNrm: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm#> .
+@prefix TS28538_EdgeNrm_AffinityAntiAffinity: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/AffinityAntiAffinity#> .
+@prefix TS28538_EdgeNrm_AvailableEDNList: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/AvailableEDNList#> .
+@prefix TS28538_EdgeNrm_Duration: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/Duration#> .
+@prefix TS28538_EdgeNrm_EASBundle_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EASBundle_Single#> .
+@prefix TS28538_EdgeNrm_EASFunction_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EASFunction_Single#> .
+@prefix TS28538_EdgeNrm_EASProfile_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EASProfile_Single#> .
+@prefix TS28538_EdgeNrm_EASRequirements_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EASRequirements_Single#> .
+@prefix TS28538_EdgeNrm_EASResourceReservationJob_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EASResourceReservationJob_Single#> .
+@prefix TS28538_EdgeNrm_ECSFunction_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/ECSFunction_Single#> .
+@prefix TS28538_EdgeNrm_EDNConnectionInfo: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EDNConnectionInfo#> .
+@prefix TS28538_EdgeNrm_EESFunction_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EESFunction_Single#> .
+@prefix TS28538_EdgeNrm_EdgeDataNetwork_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EdgeDataNetwork_Single#> .
+@prefix TS28538_EdgeNrm_EdgeFederation_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/EdgeFederation_Single#> .
+@prefix TS28538_EdgeNrm_FederatedECSInfo: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/FederatedECSInfo#> .
+@prefix TS28538_EdgeNrm_GeoLoc: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/GeoLoc#> .
+@prefix TS28538_EdgeNrm_GeographicalCoordinates: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/GeographicalCoordinates#> .
+@prefix TS28538_EdgeNrm_OperatorEdgeDataNetwork_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/OperatorEdgeDataNetwork_Single#> .
+@prefix TS28538_EdgeNrm_OperatorEdgeFederation_Single: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/OperatorEdgeFederation_Single#> .
+@prefix TS28538_EdgeNrm_RegistrationInfo: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/RegistrationInfo#> .
+@prefix TS28538_EdgeNrm_RelocationTriggerInfo: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/RelocationTriggerInfo#> .
+@prefix TS28538_EdgeNrm_ResourceReservationRequirement: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/ResourceReservationRequirement#> .
+@prefix TS28538_EdgeNrm_ResourceReservationStatus: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/ResourceReservationStatus#> .
+@prefix TS28538_EdgeNrm_ServingLocation: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/ServingLocation#> .
+@prefix TS28538_EdgeNrm_SoftwareImageInfo: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/SoftwareImageInfo#> .
+@prefix TS28538_EdgeNrm_SubNetwork_ncO_EdgeNrm: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/SubNetwork_ncO_EdgeNrm#> .
+@prefix TS28538_EdgeNrm_TopologicalServiceArea: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/TopologicalServiceArea#> .
+@prefix TS28538_EdgeNrm_VirtualResource: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm/VirtualResource#> .
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -8,136 +35,54 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:class TS28623_GenericNrm:Tai ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:reservationJobRef ],
+            sh:path TS28538_EdgeNrm_TopologicalServiceArea:trackingAreaIdList ],
         [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:AffinityAntiAffinity ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:affinityAntiAffinity ],
+            sh:datatype xsd:integer ;
+            sh:path TS28538_EdgeNrm_TopologicalServiceArea:cellIdList ],
         [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:Duration ;
+            sh:class TS28623_ComDefs:PlmnId ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASSchedule ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:federationID ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ProcessMonitor ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASDeploymentMonitor ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "any of enumrated value" ;
-            sh:datatype xsd:string ;
-            sh:in ( true false "YESwNOTIFY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:relocationPolicy ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:serviceContinuity ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:VirtualResource ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:virtualResource ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:ServingLocation ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:requiredEASservingLocation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:SoftwareImageInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:softwareImageInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASFeature ] ;
-    sh:targetClass TS28538_EdgeNrm:EASRequirements_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:participatingOPiD ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:leadingOPiD ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:FederatedECSInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:federatedECSInfo ] ;
-    sh:targetClass TS28538_EdgeNrm:EdgeFederation_Single .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28538_EdgeNrm:EASFeature .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
-            sh:class TS28538_EdgeNrm:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:availableEASResource ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
-            sh:class TS28538_EdgeNrm:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:edgeDataNetworkRef ] ;
-    sh:targetClass TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:TopologicalServiceArea ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:topologicalLocation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:GeoLoc ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:geographicalLocation ] ;
-    sh:targetClass TS28538_EdgeNrm:ServingLocation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:availableEdgeVirtualResources ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:EASFunction_Single ;
-            sh:path TS28538_EdgeNrm:EASFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:EESFunction_Single ;
-            sh:path TS28538_EdgeNrm:EESFunction ] ;
-    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:EASProfile_Single ;
-    sh:targetClass TS28538_EdgeNrm:EASProfile_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:VirtualResource ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:resourceQuota ] ;
-    sh:targetClass TS28538_EdgeNrm:AvailableEDNList .
+            sh:path TS28538_EdgeNrm_TopologicalServiceArea:servingPLMN ] ;
+    sh:targetClass TS28538_EdgeNrm:TopologicalServiceArea .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28538_EdgeNrm:EASProfile_Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:EASFunction_Single .
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:OperatorEdgeFederation_Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single ;
-    sh:targetClass TS28538_EdgeNrm:OperatorEdgeDataNetwork_Multiple .
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:EESFunction_Single ;
+            sh:path TS28538_EdgeNrm_EdgeDataNetwork_Single:EESFunction ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EdgeDataNetwork_Single:availableEdgeVirtualResources ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:EASFunction_Single ;
+            sh:path TS28538_EdgeNrm_EdgeDataNetwork_Single:EASFunction ] ;
+    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:EdgeDataNetwork_Single ;
+            sh:path TS28538_EdgeNrm_SubNetwork_ncO_EdgeNrm:EdgeDataNetwork ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:ECSFunction_Single ;
+            sh:path TS28538_EdgeNrm_SubNetwork_ncO_EdgeNrm:ECSFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:EASBundle_Single ;
+            sh:path TS28538_EdgeNrm_SubNetwork_ncO_EdgeNrm:EASBundle ] ;
+    sh:targetClass TS28538_EdgeNrm:SubNetwork_ncO_EdgeNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:EASResourceReservationJob_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -145,9 +90,493 @@
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28538_EdgeNrm:eASAddress ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28538_EdgeNrm:RegistrationInfo ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:registrationInfo ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:relocationRejectByASP ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:eASRequirementsRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:eASIdentifier ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28538_EdgeNrm:RelocationTriggerInfo ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:relocationTriggerInfo ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28538_EdgeNrm:eESAddress ] ] ;
+            sh:path TS28538_EdgeNrm_EASFunction_Single:attributes ] ;
+    sh:targetClass TS28538_EdgeNrm:EASFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASFeature ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "TRIAL"^^xsd:string "SILVER"^^xsd:string "GOLD"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASServicePermissionLevel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASdescription ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:GeoLoc ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASGeographicalServiceArea ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:TopologicalServiceArea ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASTopologicalServiceArea ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:Duration ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASSchedule ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASAvailabilityReportingPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:aCID ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASServiceContinuitySupport ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASProvider ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASStatus ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASProfile_Single:eASDNAI ] ;
+    sh:targetClass TS28538_EdgeNrm:EASProfile_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:EASBundle_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "any of enumrated value" ;
+            sh:datatype xsd:string ;
+            sh:in ( "IMMEDIATE"^^xsd:string "FUTURE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_RelocationTriggerInfo:triggerType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_RelocationTriggerInfo:futuristicTriggerTime ] ;
+    sh:targetClass TS28538_EdgeNrm:RelocationTriggerInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:EdgeDataNetwork_Single ;
+    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EDNConnectionInfo:dNN ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:ServingLocation ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EDNConnectionInfo:eDNServiceArea ] ;
+    sh:targetClass TS28538_EdgeNrm:EDNConnectionInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:EASBundle_Single ;
+    sh:targetClass TS28538_EdgeNrm:EASBundle_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:Duration ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:eASSchedule ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:serviceContinuity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:ServingLocation ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:requiredEASservingLocation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:eASFeature ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:SoftwareImageInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:softwareImageInfo ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "any of enumrated value" ;
+            sh:datatype xsd:string ;
+            sh:in ( true false "YESwNOTIFY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:relocationPolicy ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:federationID ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ProcessMonitor ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:eASDeploymentMonitor ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:AffinityAntiAffinity ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:affinityAntiAffinity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:VirtualResource ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:virtualResource ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASRequirements_Single:reservationJobRef ] ;
+    sh:targetClass TS28538_EdgeNrm:EASRequirements_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:coordinatedEASDiscovery ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:coordinatedACR ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "any of enumrated value" ;
+            sh:datatype xsd:string ;
+            sh:in ( "STRONG"^^xsd:string "WEAK"^^xsd:string "PREFERRED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:eDNAffinity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:bundledEASIdentifier ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:bundleType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:bundleIdentifier ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASBundle_Single:mainEASIdentifier ] ;
+    sh:targetClass TS28538_EdgeNrm:EASBundle_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_GeographicalCoordinates:longitude ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_GeographicalCoordinates:latitude ] ;
+    sh:targetClass TS28538_EdgeNrm:GeographicalCoordinates .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:class TS28538_EdgeNrm:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeDataNetwork_Single:edgeDataNetworkRef ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:class TS28538_EdgeNrm:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeDataNetwork_Single:availableEASResource ] ;
+    sh:targetClass TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:EASFunction_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_FederatedECSInfo:federateECSIdentifier ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_FederatedECSInfo:servedEASList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_FederatedECSInfo:federatedECSProfile ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_FederatedECSInfo:servedEESList ] ;
+    sh:targetClass TS28538_EdgeNrm:FederatedECSInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:ECSFunction_Single ;
+    sh:targetClass TS28538_EdgeNrm:ECSFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+    sh:targetClass TS28538_EdgeNrm:EASStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_VirtualResource:vnfdId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_VirtualResource:virtualCPU ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_VirtualResource:virtualDisk ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_VirtualResource:virtualMemory ] ;
+    sh:targetClass TS28538_EdgeNrm:VirtualResource .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_Duration:startTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_Duration:endTime ] ;
+    sh:targetClass TS28538_EdgeNrm:Duration .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28538_EdgeNrm_AffinityAntiAffinity:antiAffinityEAS ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28538_EdgeNrm_AffinityAntiAffinity:affinityEAS ] ;
+    sh:targetClass TS28538_EdgeNrm:AffinityAntiAffinity .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_RegistrationInfo:secCredential ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_RegistrationInfo:registrationExpiry ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_RegistrationInfo:registrationID ] ;
+    sh:targetClass TS28538_EdgeNrm:RegistrationInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:EASProfile_Single ;
+    sh:targetClass TS28538_EdgeNrm:EdgeFederation_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:EESFunction_Single ;
+    sh:targetClass TS28538_EdgeNrm:EESFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ResourceReservationRequirement:networkingRequirement ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ResourceReservationRequirement:storageRequirement ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ResourceReservationRequirement:computeRequirement ] ;
+    sh:targetClass TS28538_EdgeNrm:ResourceReservationRequirement .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EdgeDataNetwork_Single:ednIdentifier ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:EDNConnectionInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EdgeDataNetwork_Single:eDNConnectionInfo ] ;
+    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:OperatorEdgeFederation_Single ;
+    sh:targetClass TS28538_EdgeNrm:OperatorEdgeFederation_Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_SoftwareImageInfo:operatingSystem ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_SoftwareImageInfo:discFormat ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_SoftwareImageInfo:minimumRAM ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_SoftwareImageInfo:swImageRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_SoftwareImageInfo:minimumDisk ] ;
+    sh:targetClass TS28538_EdgeNrm:SoftwareImageInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:EdgeFederation_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASResourceReservationJob_Single:requestedReservationExpiration ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:ResourceReservationStatus ;
+            sh:path TS28538_EdgeNrm_EASResourceReservationJob_Single:resourceReservationStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:ServingLocation ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_EASResourceReservationJob_Single:reservationLocation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:ResourceReservationRequirement ;
+            sh:path TS28538_EdgeNrm_EASResourceReservationJob_Single:resourceReservationRequirement ] ;
+    sh:targetClass TS28538_EdgeNrm:EASResourceReservationJob_Single .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "TRIAL"^^xsd:string "SILVER"^^xsd:string "GOLD"^^xsd:string ) ;
+    sh:targetClass TS28538_EdgeNrm:EASServicePermission .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:EASFunction_Single ;
+    sh:targetClass TS28538_EdgeNrm:EASFunction_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:EASProfile_Single ;
+    sh:targetClass TS28538_EdgeNrm:EASProfile_Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:EASRequirements_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeFederation_Single:federationID ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeFederation_Single:leadingOPiD ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeFederation_Single:FederationExpiry ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:class TS28538_EdgeNrm:Dn ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeFederation_Single:acceptedEDN ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:AvailableEDNList ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_OperatorEdgeFederation_Single:avaibleEDNList ] ;
+    sh:targetClass TS28538_EdgeNrm:OperatorEdgeFederation_Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:GeoLoc ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ServingLocation:geographicalLocation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28538_EdgeNrm:TopologicalServiceArea ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ServingLocation:topologicalLocation ] ;
+    sh:targetClass TS28538_EdgeNrm:ServingLocation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ResourceReservationStatus:resourceId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "any of enumrated value" ;
+            sh:datatype xsd:string ;
+            sh:in ( "RESERVED"^^xsd:string "USEd"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28538_EdgeNrm_ResourceReservationStatus:reservationStatus ] ;
+    sh:targetClass TS28538_EdgeNrm:ResourceReservationStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:eCSAddress ],
+                        [ a sh:PropertyShape ;
                             sh:class TS28538_EdgeNrm:FederatedECSInfo ;
                             sh:maxCount 1 ;
                             sh:path TS28538_EdgeNrm:sharedECSInfo ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:class TS28538_EdgeNrm:Dn ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:edgeDataNetworkRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:providerIdentifier ],
                         [ a sh:PropertyShape ;
                             sh:class TS28538_EdgeNrm:SoftwareImageInfo ;
                             sh:maxCount 1 ;
@@ -156,30 +585,22 @@
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:class TS28538_EdgeNrm:Dn ;
                             sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:edgeDataNetworkRef ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:class TS28538_EdgeNrm:Dn ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:eESFuncitonRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:eCSAddress ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:providerIdentifier ] ] ;
-            sh:path TS28538_EdgeNrm:attributes ] ;
+                            sh:path TS28538_EdgeNrm:eESFuncitonRef ] ] ;
+            sh:path TS28538_EdgeNrm_ECSFunction_Single:attributes ] ;
     sh:targetClass TS28538_EdgeNrm:ECSFunction_Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:OperatorEdgeFederation_Single .
+    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28538_EdgeNrm:ECSFunction_Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:OperatorEdgeFederation_Single ;
-    sh:targetClass TS28538_EdgeNrm:OperatorEdgeFederation_Multiple .
+    sh:datatype xsd:string ;
+    sh:targetClass TS28538_EdgeNrm:EASFeature .
+
+[] a sh:NodeShape ;
+    sh:class TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single ;
+    sh:targetClass TS28538_EdgeNrm:OperatorEdgeDataNetwork_Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:ManagedFunction_ncO,
@@ -190,86 +611,16 @@
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:dNN ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:ServingLocation ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eDNServiceArea ] ;
-    sh:targetClass TS28538_EdgeNrm:EDNConnectionInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Tai ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:trackingAreaIdList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28538_EdgeNrm:cellIdList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:PlmnId ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:servingPLMN ] ;
-    sh:targetClass TS28538_EdgeNrm:TopologicalServiceArea .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:federateECSIdentifier ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:federatedECSProfile ],
+            sh:path TS28538_EdgeNrm_EdgeFederation_Single:leadingOPiD ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:servedEESList ],
+            sh:path TS28538_EdgeNrm_EdgeFederation_Single:participatingOPiD ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:class TS28538_EdgeNrm:FederatedECSInfo ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:servedEASList ] ;
-    sh:targetClass TS28538_EdgeNrm:FederatedECSInfo .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:EASBundle_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:ECSFunction_Single ;
-    sh:targetClass TS28538_EdgeNrm:ECSFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:EASFunction_Single ;
-    sh:targetClass TS28538_EdgeNrm:EASFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:ECSFunction_Single ;
-            sh:path TS28538_EdgeNrm:ECSFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:EdgeDataNetwork_Single ;
-            sh:path TS28538_EdgeNrm:EdgeDataNetwork ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:EASBundle_Single ;
-            sh:path TS28538_EdgeNrm:EASBundle ] ;
-    sh:targetClass TS28538_EdgeNrm:SubNetwork_ncO_EdgeNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:ResourceReservationRequirement ;
-            sh:path TS28538_EdgeNrm:resourceReservationRequirement ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:ServingLocation ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:reservationLocation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:ResourceReservationStatus ;
-            sh:path TS28538_EdgeNrm:resourceReservationStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:requestedReservationExpiration ] ;
-    sh:targetClass TS28538_EdgeNrm:EASResourceReservationJob_Single .
+            sh:path TS28538_EdgeNrm_EdgeFederation_Single:federatedECSInfo ] ;
+    sh:targetClass TS28538_EdgeNrm:EdgeFederation_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -277,156 +628,13 @@
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:relocationRejectByASP ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28538_EdgeNrm:eESAddress ],
-                        [ a sh:PropertyShape ;
                             sh:class TS28538_EdgeNrm:RegistrationInfo ;
                             sh:maxCount 1 ;
                             sh:path TS28538_EdgeNrm:registrationInfo ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28538_EdgeNrm:eASAddress ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28538_EdgeNrm:RelocationTriggerInfo ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:relocationTriggerInfo ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:eASRequirementsRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:eASIdentifier ] ] ;
-            sh:path TS28538_EdgeNrm:attributes ] ;
-    sh:targetClass TS28538_EdgeNrm:EASFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:secCredential ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:registrationExpiry ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:registrationID ] ;
-    sh:targetClass TS28538_EdgeNrm:RegistrationInfo .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:EASRequirements_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:computeRequirement ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:networkingRequirement ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:storageRequirement ] ;
-    sh:targetClass TS28538_EdgeNrm:ResourceReservationRequirement .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:longitude ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:latitude ] ;
-    sh:targetClass TS28538_EdgeNrm:GeographicalCoordinates .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:EASResourceReservationJob_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:bundleType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:mainEASIdentifier ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:bundleIdentifier ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:coordinatedACR ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "any of enumrated value" ;
-            sh:datatype xsd:string ;
-            sh:in ( "STRONG"^^xsd:string "WEAK"^^xsd:string "PREFERRED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eDNAffinity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:bundledEASIdentifier ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:coordinatedEASDiscovery ] ;
-    sh:targetClass TS28538_EdgeNrm:EASBundle_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:EASProfile_Single ;
-    sh:targetClass TS28538_EdgeNrm:EdgeFederation_Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:EDNConnectionInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eDNConnectionInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:ednIdentifier ] ;
-    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:EESFunction_Single ;
-    sh:targetClass TS28538_EdgeNrm:EESFunction_Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:OperatorEdgeDataNetwork_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction_Attr ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
                             sh:path TS28538_EdgeNrm:eESIdentifier ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28538_EdgeNrm:RegistrationInfo ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:registrationInfo ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28538_EdgeNrm:serviceContinuitySupport ],
                         [ a sh:PropertyShape ;
                             sh:class TS28538_EdgeNrm:ServingLocation ;
                             sh:path TS28538_EdgeNrm:eESServingLocation ],
@@ -436,172 +644,25 @@
                             sh:maxCount 1 ;
                             sh:path TS28538_EdgeNrm:eASFunctionRef ],
                         [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28538_EdgeNrm:eESAddress ],
+                        [ a sh:PropertyShape ;
                             sh:class TS28538_EdgeNrm:SoftwareImageInfo ;
                             sh:maxCount 1 ;
                             sh:path TS28538_EdgeNrm:softwareImageInfo ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28538_EdgeNrm:eESAddress ] ] ;
-            sh:path TS28538_EdgeNrm:attributes ] ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28538_EdgeNrm:serviceContinuitySupport ] ] ;
+            sh:path TS28538_EdgeNrm_EESFunction_Single:attributes ] ;
     sh:targetClass TS28538_EdgeNrm:EESFunction_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
+            sh:class TS28538_EdgeNrm:VirtualResource ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:startTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:endTime ] ;
-    sh:targetClass TS28538_EdgeNrm:Duration .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "TRIAL"^^xsd:string "SILVER"^^xsd:string "GOLD"^^xsd:string ) ;
-    sh:targetClass TS28538_EdgeNrm:EASServicePermission .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction_ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:ECSFunction_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:federationID ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:FederationExpiry ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
-            sh:class TS28538_EdgeNrm:Dn ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:acceptedEDN ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:AvailableEDNList ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:avaibleEDNList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:leadingOPiD ] ;
-    sh:targetClass TS28538_EdgeNrm:OperatorEdgeFederation_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASFeature ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:GeoLoc ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASGeographicalServiceArea ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASdescription ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASServiceContinuitySupport ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "TRIAL"^^xsd:string "SILVER"^^xsd:string "GOLD"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASServicePermissionLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:Duration ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASSchedule ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASDNAI ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASAvailabilityReportingPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASProvider ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS28538_EdgeNrm:TopologicalServiceArea ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:eASTopologicalServiceArea ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:aCID ] ;
-    sh:targetClass TS28538_EdgeNrm:EASProfile_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28538_EdgeNrm:affinityEAS ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28538_EdgeNrm:antiAffinityEAS ] ;
-    sh:targetClass TS28538_EdgeNrm:AffinityAntiAffinity .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:EdgeDataNetwork_Single ;
-    sh:targetClass TS28538_EdgeNrm:EdgeDataNetwork_Multiple .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-    sh:targetClass TS28538_EdgeNrm:EASStatus .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:virtualDisk ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:vnfdId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:virtualCPU ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:virtualMemory ] ;
-    sh:targetClass TS28538_EdgeNrm:VirtualResource .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:minimumRAM ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:swImageRef ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:minimumDisk ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:discFormat ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:operatingSystem ] ;
-    sh:targetClass TS28538_EdgeNrm:SoftwareImageInfo .
+            sh:path TS28538_EdgeNrm_AvailableEDNList:resourceQuota ] ;
+    sh:targetClass TS28538_EdgeNrm:AvailableEDNList .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28538_EdgeNrm:resources_edgeNrm ;
@@ -622,44 +683,10 @@
     sh:property [ a sh:PropertyShape ;
             sh:class TS28538_EdgeNrm:GeographicalCoordinates ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:geographicalCoordinates ],
+            sh:path TS28538_EdgeNrm_GeoLoc:geographicalCoordinates ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:civicLocation ] ;
+            sh:path TS28538_EdgeNrm_GeoLoc:civicLocation ] ;
     sh:targetClass TS28538_EdgeNrm:GeoLoc .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "any of enumrated value" ;
-            sh:datatype xsd:string ;
-            sh:in ( "IMMEDIATE"^^xsd:string "FUTURE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:triggerType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:futuristicTriggerTime ] ;
-    sh:targetClass TS28538_EdgeNrm:RelocationTriggerInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "any of enumrated value" ;
-            sh:datatype xsd:string ;
-            sh:in ( "RESERVED"^^xsd:string "USEd"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:reservationStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28538_EdgeNrm:resourceId ] ;
-    sh:targetClass TS28538_EdgeNrm:ResourceReservationStatus .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28538_EdgeNrm:EdgeFederation_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28538_EdgeNrm:EASBundle_Single ;
-    sh:targetClass TS28538_EdgeNrm:EASBundle_Multiple .
 

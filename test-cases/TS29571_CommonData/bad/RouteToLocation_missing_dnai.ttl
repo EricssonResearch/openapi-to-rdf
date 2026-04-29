@@ -1,10 +1,12 @@
 @prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/RouteToLocation#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/RouteInformation#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:RouteToLocation ;
-    TS29571_CommonData:routeInfo [ a TS29571_CommonData:RouteInformation ;
-            TS29571_CommonData:ipv4Addr "aaaa"^^xsd:string ;
-            TS29571_CommonData:ipv6Addr "test-value"^^xsd:string ;
-            TS29571_CommonData:portNumber 50 ] ;
-    TS29571_CommonData:routeProfId "test-value"^^xsd:string .
+    ns1:routeInfo [ a TS29571_CommonData:RouteInformation ;
+            ns2:ipv4Addr "aaaa"^^xsd:string ;
+            ns2:ipv6Addr "test-value"^^xsd:string ;
+            ns2:portNumber 50 ] ;
+    ns1:routeProfId "test-value"^^xsd:string .
 

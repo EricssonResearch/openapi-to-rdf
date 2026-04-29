@@ -1,6 +1,9 @@
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#> .
+@prefix TS28623_ManagementDataCollectionNrm_ManagementDataCollection_Single: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm/ManagementDataCollection_Single#> .
+@prefix TS28623_ManagementDataCollectionNrm_NodeFilter: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm/NodeFilter#> .
+@prefix TS28623_ManagementDataCollectionNrm_SubNetwork_ncO_ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm/SubNetwork_ncO_ManagementDataCollectionNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -11,52 +14,13 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AreaOfInterest ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm:areaOfInterest ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CN"^^xsd:string "RAN"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm:networkDomain ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm:sst ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CP"^^xsd:string "UP"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm:cpUpType ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
+            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+            sh:path TS28623_ManagementDataCollectionNrm_SubNetwork_ncO_ManagementDataCollectionNrm:ManagementDataCollection ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:class TS28623_GenericNrm:ReportingCtrl ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_ComDefs:TimeWindow ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:managementData ] ] ;
-            sh:path TS28623_ManagementDataCollectionNrm:attributes ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
+    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementData ;
@@ -66,16 +30,55 @@
                 sh:datatype xsd:string ] ) .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CN"^^xsd:string "RAN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:networkDomain ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:sst ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CP"^^xsd:string "UP"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:cpUpType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AreaOfInterest ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:areaOfInterest ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
+
+[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
-            sh:path TS28623_ManagementDataCollectionNrm:ManagementDataCollection ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork_ncO_ManagementDataCollectionNrm .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Multiple .
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:managementData ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_GenericNrm:ReportingCtrl ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_ComDefs:TimeWindow ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:dataScope ] ] ;
+            sh:path TS28623_ManagementDataCollectionNrm_ManagementDataCollection_Single:attributes ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection_Single .
 

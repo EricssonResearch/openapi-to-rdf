@@ -1,14 +1,17 @@
 @prefix TS28550_PerfMeasJobCtrlMnS: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/scheduleOfDay_Type#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/schedule_Type#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/timeInterval_Type#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28550_PerfMeasJobCtrlMnS:test_instance a TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
-    TS28550_PerfMeasJobCtrlMnS:dailySchedule [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
-            TS28550_PerfMeasJobCtrlMnS:intervalEnd "test-value"^^xsd:string ;
-            TS28550_PerfMeasJobCtrlMnS:intervalStart "test-value"^^xsd:string ] ;
-    TS28550_PerfMeasJobCtrlMnS:scheduleOption "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:weeklySchedule [ a TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
-            TS28550_PerfMeasJobCtrlMnS:dayOfWeek "Monday"^^xsd:string ;
-            TS28550_PerfMeasJobCtrlMnS:intervalsOfDay [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
-                    TS28550_PerfMeasJobCtrlMnS:intervalEnd "test-value"^^xsd:string ;
-                    TS28550_PerfMeasJobCtrlMnS:intervalStart "test-value"^^xsd:string ] ] .
+    ns2:dailySchedule [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
+            ns3:intervalEnd "test-value"^^xsd:string ;
+            ns3:intervalStart "test-value"^^xsd:string ] ;
+    ns2:scheduleOption "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns2:weeklySchedule [ a TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
+            ns1:dayOfWeek "Monday"^^xsd:string ;
+            ns1:intervalsOfDay [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
+                    ns3:intervalEnd "test-value"^^xsd:string ;
+                    ns3:intervalStart "test-value"^^xsd:string ] ] .
 

@@ -1,23 +1,27 @@
 @prefix TS28550_PerfMeasJobCtrlMnS: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/timeInterval_Type#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/measJobCreation_RequestType#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/schedule_Type#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/scheduleOfDay_Type#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28550_PerfMeasJobCtrlMnS:test_instance a TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType ;
-    TS28550_PerfMeasJobCtrlMnS:granularityPeriod 50 ;
-    TS28550_PerfMeasJobCtrlMnS:iOCInstanceList "test-value"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:iOCName "test-value"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:measurementCategoryList "test-value"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:priority "low"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:reliability "test-value"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:reportingMethod "file"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:reportingPeriod 50 ;
-    TS28550_PerfMeasJobCtrlMnS:schedule [ a TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
-            TS28550_PerfMeasJobCtrlMnS:dailySchedule [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
-                    TS28550_PerfMeasJobCtrlMnS:intervalEnd "test-value"^^xsd:string ;
-                    TS28550_PerfMeasJobCtrlMnS:intervalStart "test-value"^^xsd:string ] ;
-            TS28550_PerfMeasJobCtrlMnS:scheduleOption "daily"^^xsd:string ;
-            TS28550_PerfMeasJobCtrlMnS:weeklySchedule [ a TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
-                    TS28550_PerfMeasJobCtrlMnS:dayOfWeek "Monday"^^xsd:string ] ] ;
-    TS28550_PerfMeasJobCtrlMnS:startTime "test-value"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:stopTime "test-value"^^xsd:string ;
-    TS28550_PerfMeasJobCtrlMnS:streamTarget "test-value"^^xsd:string .
+    ns2:granularityPeriod 50 ;
+    ns2:iOCInstanceList "test-value"^^xsd:string ;
+    ns2:iOCName "test-value"^^xsd:string ;
+    ns2:measurementCategoryList "test-value"^^xsd:string ;
+    ns2:priority "low"^^xsd:string ;
+    ns2:reliability "test-value"^^xsd:string ;
+    ns2:reportingMethod "file"^^xsd:string ;
+    ns2:reportingPeriod 50 ;
+    ns2:schedule [ a TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
+            ns3:dailySchedule [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
+                    ns1:intervalEnd "test-value"^^xsd:string ;
+                    ns1:intervalStart "test-value"^^xsd:string ] ;
+            ns3:scheduleOption "daily"^^xsd:string ;
+            ns3:weeklySchedule [ a TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
+                    ns4:dayOfWeek "Monday"^^xsd:string ] ] ;
+    ns2:startTime "test-value"^^xsd:string ;
+    ns2:stopTime "test-value"^^xsd:string ;
+    ns2:streamTarget "test-value"^^xsd:string .
 

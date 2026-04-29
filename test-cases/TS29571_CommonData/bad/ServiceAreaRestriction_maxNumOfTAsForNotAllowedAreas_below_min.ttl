@@ -1,11 +1,13 @@
 @prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/ServiceAreaRestriction#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/Area#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:ServiceAreaRestriction ;
-    TS29571_CommonData:areas [ a TS29571_CommonData:Area ;
-            TS29571_CommonData:areaCode "test-value"^^xsd:string ;
-            TS29571_CommonData:tacs "aaaa"^^xsd:string ] ;
-    TS29571_CommonData:maxNumOfTAs 50 ;
-    TS29571_CommonData:maxNumOfTAsForNotAllowedAreas -1 ;
-    TS29571_CommonData:restrictionType "ALLOWED_AREAS"^^xsd:string .
+    ns1:areas [ a TS29571_CommonData:Area ;
+            ns2:areaCode "test-value"^^xsd:string ;
+            ns2:tacs "aaaa"^^xsd:string ] ;
+    ns1:maxNumOfTAs 50 ;
+    ns1:maxNumOfTAsForNotAllowedAreas -1 ;
+    ns1:restrictionType "ALLOWED_AREAS"^^xsd:string .
 

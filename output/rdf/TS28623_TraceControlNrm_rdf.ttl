@@ -1,6 +1,30 @@
 @prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
+@prefix TS28623_TraceControlNrm_AreaConfig: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/AreaConfig#> .
+@prefix TS28623_TraceControlNrm_FreqInfo: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/FreqInfo#> .
+@prefix TS28623_TraceControlNrm_ManagedElement_ncO_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/ManagedElement_ncO_TraceControlNrm#> .
+@prefix TS28623_TraceControlNrm_MbsfnArea: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/MbsfnArea#> .
+@prefix TS28623_TraceControlNrm_SubNetwork_ncO_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/SubNetwork_ncO_TraceControlNrm#> .
+@prefix TS28623_TraceControlNrm_Tai: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/Tai#> .
+@prefix TS28623_TraceControlNrm_TraceJob_Attr: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/TraceJob_Attr#> .
+@prefix TS28623_TraceControlNrm_TraceJob_Single: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/TraceJob_Single#> .
+@prefix TS28623_TraceControlNrm_UECoreMeasConfig_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/UECoreMeasConfig_Type#> .
+@prefix TS28623_TraceControlNrm_eventThresholdL1_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/eventThresholdL1_Type#> .
+@prefix TS28623_TraceControlNrm_eventThreshold_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/eventThreshold_Type#> .
+@prefix TS28623_TraceControlNrm_excessPacketDelayThreshold_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/excessPacketDelayThreshold_Type#> .
+@prefix TS28623_TraceControlNrm_immediateMDTConfig_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/immediateMDTConfig_Type#> .
+@prefix TS28623_TraceControlNrm_listOfInterfaces_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/listOfInterfaces_Type#> .
+@prefix TS28623_TraceControlNrm_listOfMeasurements_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/listOfMeasurements_Type#> .
+@prefix TS28623_TraceControlNrm_loggedMDTConfig_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/loggedMDTConfig_Type#> .
+@prefix TS28623_TraceControlNrm_loggingInterval_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/loggingInterval_Type#> .
+@prefix TS28623_TraceControlNrm_mdtConfig_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/mdtConfig_Type#> .
+@prefix TS28623_TraceControlNrm_plmnTarget_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/plmnTarget_Type#> .
+@prefix TS28623_TraceControlNrm_reportInterval_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/reportInterval_Type#> .
+@prefix TS28623_TraceControlNrm_traceConfig_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/traceConfig_Type#> .
+@prefix TS28623_TraceControlNrm_traceReference_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/traceReference_Type#> .
+@prefix TS28623_TraceControlNrm_traceTarget_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/traceTarget_Type#> .
+@prefix TS28623_TraceControlNrm_triggeringEvents_Type: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/triggeringEvents_Type#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -56,11 +80,8 @@ TS28623_TraceControlNrm:listOfMeasurements_Type a rdfs:Class ;
 TS28623_TraceControlNrm:listOfNeTypes_Type a rdfs:Class ;
     rdfs:comment "The Network Element types where Trace Session activation is needed. See 3GPP TS 32.422 clause 5.4 for additional details." .
 
-TS28623_TraceControlNrm:listOfTraceMetrics a rdf:Property,
-        rdfs:Class ;
-    rdfs:comment "The trace metrics to be reported. See 3GPP TS 32.422 clause 10 for additional details." ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range xsd:string .
+TS28623_TraceControlNrm:listOfTraceMetrics a rdfs:Class ;
+    rdfs:comment "The trace metrics to be reported. See 3GPP TS 32.422 clause 10 for additional details." .
 
 TS28623_TraceControlNrm:loggedMDTConfig_Type a rdfs:Class ;
     rdfs:comment "Logged MDT configuration parameters. See details in 3GPP TS 28.622 clause 4.3.30." .
@@ -101,607 +122,98 @@ TS28623_TraceControlNrm:traceTarget_Type a rdfs:Class ;
 TS28623_TraceControlNrm:triggeringEvents_Type a rdfs:Class ;
     rdfs:comment "Specifies when to start a Trace Recording Session and which message shall be recorded first, when to stop a Trace Recording Session and which message shall be recorded last respectively. See 3GPP TS 32.422 clause 5.1 for additional details." .
 
-TS28623_TraceControlNrm:AMF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:AMFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:ASInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:AUSF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:AUSFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:BGCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:BM_SC a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:BM_SCInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:CPICH_EcNo a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28623_TraceControlNrm:CPICH_RSCP a rdf:Property ;
     rdfs:range xsd:integer .
 
-TS28623_TraceControlNrm:EIRInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:E_CSCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:EventThreshold1F a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
-    rdfs:range rdfs:Resource .
-
-TS28623_TraceControlNrm:EventThreshold1I a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:EventThresholdRSRP a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:EventThresholdRSRQ a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:EventThresholdSINR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:Files a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Single ;
-    rdfs:range TS28623_FileManagementNrm:Files_Multiple .
-
-TS28623_TraceControlNrm:GGSN a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:GGSNInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:HSSInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:IBCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:IMS a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:I_CSCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MGCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MGW a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MGWInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MME a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MMEInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MRFCInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MSCServerInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:MSC_SERVER a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NEF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NEFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NRF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NRFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NSSF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:NSSFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:PCF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:PCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:PDN_GWInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:PGW a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:P_CSCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:PathLoss a rdf:Property ;
     rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:RNCInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:RSRP a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThresholdL1_Type ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:RSRQ a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:eventThresholdL1_Type ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:SGSN a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SGSNInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SGW a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SGWInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SMF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SMFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SMSF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:SMSFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:S_CSCFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:TargetIdType a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceTarget_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:TargetIdValue a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceTarget_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:TraceJob a rdf:Property ;
-    rdfs:range TS28623_TraceControlNrm:TraceJob_Multiple .
-
-TS28623_TraceControlNrm:UDM a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:UDMInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:UMTS a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:UPF a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:UPFInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:anonymizationOfMdtData a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:anonymizationOfMdtData_Type a rdfs:Datatype ;
     rdfs:comment "Specifies level of MDT anonymization. For additional details see 3GPP TS 32.422 clause 5.10.12." .
 
-TS28623_TraceControlNrm:areaConfigurationForNeighCell a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:AreaConfig .
-
-TS28623_TraceControlNrm:areaScope a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:AreaScope .
-
-TS28623_TraceControlNrm:arfcn a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:FreqInfo ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:attributes a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Single ;
-    rdfs:range TS28623_TraceControlNrm:TraceJob_Attr .
-
-TS28623_TraceControlNrm:beamLevelMeasurement a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:boolean .
-
-TS28623_TraceControlNrm:collectionPeriodM6LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:collectionPeriodM6LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.32." .
-
-TS28623_TraceControlNrm:collectionPeriodM6NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:collectionPeriodM6NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.34." .
 
-TS28623_TraceControlNrm:collectionPeriodM7LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:integer .
-
 TS28623_TraceControlNrm:collectionPeriodM7LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.33." .
-
-TS28623_TraceControlNrm:collectionPeriodM7NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:integer .
 
 TS28623_TraceControlNrm:collectionPeriodM7NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.35." .
 
-TS28623_TraceControlNrm:collectionPeriodRRMLTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:collectionPeriodRRMLTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.20." .
-
-TS28623_TraceControlNrm:collectionPeriodRRMNR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:collectionPeriodRRMNR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.30." .
 
-TS28623_TraceControlNrm:collectionPeriodRRMUMTS a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:collectionPeriodRRMUMTS_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.21." .
-
-TS28623_TraceControlNrm:eNBInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:earfcn a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:MbsfnArea ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:en_gNBInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.28." .
 
-TS28623_TraceControlNrm:eventThreshold a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:eventThreshold_Type .
-
-TS28623_TraceControlNrm:eventThresholdL1 a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:eventThresholdL1_Type .
-
-TS28623_TraceControlNrm:eventThresholdUphUMTS a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:integer .
-
 TS28623_TraceControlNrm:eventThresholdUphUMTS_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.39." .
-
-TS28623_TraceControlNrm:excessPacketDelayThresholdValue a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:excessPacketDelayThreshold_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:excessPacketDelayThresholds a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:excessPacketDelayThresholds_Type .
-
-TS28623_TraceControlNrm:fiveQIValue a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:excessPacketDelayThreshold_Type ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:freqBands a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:FreqInfo ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:freqInfo a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:AreaConfig ;
-    rdfs:range TS28623_TraceControlNrm:FreqInfo .
-
-TS28623_TraceControlNrm:gNB_CU_CPInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:gNB_CU_UPInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:gNB_DUInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:hysteresisL1 a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:integer .
 
 TS28623_TraceControlNrm:hysteresisL1_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.37." .
 
-TS28623_TraceControlNrm:immediateMDTConfig a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:immediateMDTConfig_Type .
-
-TS28623_TraceControlNrm:jobId a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:jobType a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:jobType_Type a rdfs:Datatype ;
     rdfs:comment "Specifies whether the TraceJob represents only MDT, Logged MBSFN MDT, Trace or a combined Trace and MDT job. Applicable for Trace, MDT, RCEF and RLF reporting. See 3GPP TS 32.422 clause 5.9a for additional details." .
-
-TS28623_TraceControlNrm:listOfInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:listOfInterfaces_Type .
-
-TS28623_TraceControlNrm:listOfMeasurements a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:listOfMeasurements_Type .
-
-TS28623_TraceControlNrm:listOfNeTypes a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:loggedMDTConfig a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:loggedMDTConfig_Type .
-
-TS28623_TraceControlNrm:loggingDuration a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:loggingDuration_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.9." .
 
-TS28623_TraceControlNrm:loggingInterval a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:loggingInterval_Type .
-
-TS28623_TraceControlNrm:mbsfnAreaId a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:MbsfnArea ;
-    rdfs:range xsd:integer .
-
-TS28623_TraceControlNrm:mbsfnAreaList a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:MbsfnArea .
-
 TS28623_TraceControlNrm:mcc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:mdtConfig a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_TraceControlNrm:mdtConfig_Type .
-
-TS28623_TraceControlNrm:measurementPeriodLTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:measurementPeriodLTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.23." .
 
-TS28623_TraceControlNrm:measurementPeriodUMTS a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:measurementPeriodUMTS_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.22." .
-
-TS28623_TraceControlNrm:measurementQuantity a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:measurementQuantity_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.15." .
 
 TS28623_TraceControlNrm:mnc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:nPNIdentityList a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_GenericNrm:NpnId_Type .
-
-TS28623_TraceControlNrm:nPNTarget a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_GenericNrm:NpnId_Type .
-
-TS28623_TraceControlNrm:nfTypeToMeasure a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:ng_eNBInterfaces a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:objectInstances a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:pciList a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:AreaConfig ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:plmnList a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:plmnList_Type .
-
-TS28623_TraceControlNrm:plmnTarget a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_TraceControlNrm:plmnTarget_Type .
-
-TS28623_TraceControlNrm:positioningMethod a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:positioningMethod_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.19." .
 
-TS28623_TraceControlNrm:reportAmount a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:reportAmountM1LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:reportAmountM1LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM1NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:reportAmountM1NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
-TS28623_TraceControlNrm:reportAmountM4LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:reportAmountM4LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM4NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:reportAmountM4NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
-TS28623_TraceControlNrm:reportAmountM5LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:reportAmountM5LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM5NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:reportAmountM5NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
-TS28623_TraceControlNrm:reportAmountM6LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:reportAmountM6LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM6NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:reportAmountM6NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
-TS28623_TraceControlNrm:reportAmountM7LTE a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:reportAmountM7LTE_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
-
-TS28623_TraceControlNrm:reportAmountM7NR a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:reportAmountM7NR_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
@@ -709,98 +221,662 @@ TS28623_TraceControlNrm:reportAmountM7NR_Type a rdfs:Datatype ;
 TS28623_TraceControlNrm:reportAmount_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.6." .
 
-TS28623_TraceControlNrm:reportInterval a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:reportInterval_Type .
-
-TS28623_TraceControlNrm:reportType a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:reportType_Type a rdfs:Datatype ;
     rdfs:comment "Report type for logged NR MDT. See details in 3GPP TS 32.422 clause 5.10.27." .
-
-TS28623_TraceControlNrm:reportingTrigger a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:rootObjectInstances a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:sensorInformation a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:tac a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:timeToTriggerL1 a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:timeToTriggerL1_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.38." .
 
-TS28623_TraceControlNrm:traceCollectionEntityId a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
-    rdfs:range xsd:integer .
-
 TS28623_TraceControlNrm:traceCollectionEntityId_Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.11. Only TCE Id value may be sent over the air to the UE being configured for Logged MDT." .
-
-TS28623_TraceControlNrm:traceCollectionEntityIpAddress a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_GenericNrm:IpAddr .
-
-TS28623_TraceControlNrm:traceConfig a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_TraceControlNrm:traceConfig_Type .
-
-TS28623_TraceControlNrm:traceDepth a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:traceDepth_Type a rdfs:Datatype ;
     rdfs:comment "Specifies how detailed information should be recorded in the Network Element. The Trace Depth is a paremeter for Trace Session level, i.e., the Trace Depth is the same for all of the NEs to be traced in the same Trace Session. See 3GPP TS 32.422 clause 5.3 for additional details." .
 
-TS28623_TraceControlNrm:traceId a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceReference_Type ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:traceReference a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range TS28623_TraceControlNrm:traceReference_Type .
-
-TS28623_TraceControlNrm:traceReportingConsumerUri a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range xsd:string .
-
-TS28623_TraceControlNrm:traceReportingFormat a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
-    rdfs:range xsd:string .
-
 TS28623_TraceControlNrm:traceReportingFormat_Type a rdfs:Datatype ;
     rdfs:comment "Specifies whether file-based or streaming reporting shall be used for this Trace Session. See 3GPP TS 32.422 clause 5.11 for additional details." .
 
-TS28623_TraceControlNrm:traceTarget a rdf:Property ;
+TS28623_TraceControlNrm_AreaConfig:freqInfo a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:AreaConfig ;
+    rdfs:range TS28623_TraceControlNrm:FreqInfo .
+
+TS28623_TraceControlNrm_AreaConfig:pciList a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:AreaConfig ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_FreqInfo:arfcn a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:FreqInfo ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_FreqInfo:freqBands a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:FreqInfo ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_ManagedElement_ncO_TraceControlNrm:TraceJob a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:ManagedElement_ncO_TraceControlNrm ;
+    rdfs:range TS28623_TraceControlNrm:TraceJob_Multiple .
+
+TS28623_TraceControlNrm_MbsfnArea:earfcn a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:MbsfnArea ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_MbsfnArea:mbsfnAreaId a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:MbsfnArea ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_SubNetwork_ncO_TraceControlNrm:TraceJob a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:SubNetwork_ncO_TraceControlNrm ;
+    rdfs:range TS28623_TraceControlNrm:TraceJob_Multiple .
+
+TS28623_TraceControlNrm_Tai:mcc a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_Tai:mnc a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_Tai:tac a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_TraceJob_Attr:jobId a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_TraceJob_Attr:jobType a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_TraceJob_Attr:listOfTraceMetrics a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_TraceJob_Attr:mdtConfig a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range TS28623_TraceControlNrm:mdtConfig_Type .
+
+TS28623_TraceControlNrm_TraceJob_Attr:nPNTarget a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range TS28623_GenericNrm:NpnId_Type .
+
+TS28623_TraceControlNrm_TraceJob_Attr:plmnTarget a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range TS28623_TraceControlNrm:plmnTarget_Type .
+
+TS28623_TraceControlNrm_TraceJob_Attr:traceCollectionEntityIpAddress a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range TS28623_GenericNrm:IpAddr .
+
+TS28623_TraceControlNrm_TraceJob_Attr:traceConfig a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range TS28623_TraceControlNrm:traceConfig_Type .
+
+TS28623_TraceControlNrm_TraceJob_Attr:traceReference a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range TS28623_TraceControlNrm:traceReference_Type .
+
+TS28623_TraceControlNrm_TraceJob_Attr:traceReportingConsumerUri a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_TraceJob_Attr:traceReportingFormat a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_TraceJob_Attr:traceTarget a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
     rdfs:range TS28623_TraceControlNrm:traceTarget_Type .
 
-TS28623_TraceControlNrm:triggeringEvents a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
-    rdfs:range TS28623_TraceControlNrm:triggeringEvents_Type .
-
-TS28623_TraceControlNrm:ueCoreMeasConfig a rdf:Property ;
+TS28623_TraceControlNrm_TraceJob_Attr:ueCoreMeasConfig a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob_Attr ;
     rdfs:range TS28623_TraceControlNrm:UECoreMeasConfig_Type .
 
-TS28623_TraceControlNrm:ueCoreMeasGranularityPeriod a rdf:Property ;
+TS28623_TraceControlNrm_TraceJob_Single:Files a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Single ;
+    rdfs:range TS28623_FileManagementNrm:Files_Multiple .
+
+TS28623_TraceControlNrm_TraceJob_Single:attributes a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:TraceJob_Single ;
+    rdfs:range TS28623_TraceControlNrm:TraceJob_Attr .
+
+TS28623_TraceControlNrm_UECoreMeasConfig_Type:nfTypeToMeasure a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_UECoreMeasConfig_Type:objectInstances a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_UECoreMeasConfig_Type:rootObjectInstances a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_UECoreMeasConfig_Type:ueCoreMeasGranularityPeriod a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
     rdfs:range xsd:integer .
 
-TS28623_TraceControlNrm:ueCoreMeasurements a rdf:Property ;
+TS28623_TraceControlNrm_UECoreMeasConfig_Type:ueCoreMeasurements a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_eventThresholdL1_Type:RSRP a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThresholdL1_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_eventThresholdL1_Type:RSRQ a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThresholdL1_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_eventThreshold_Type:EventThreshold1F a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
+    rdfs:range rdfs:Resource .
+
+TS28623_TraceControlNrm_eventThreshold_Type:EventThreshold1I a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_eventThreshold_Type:EventThresholdRSRP a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_eventThreshold_Type:EventThresholdRSRQ a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_eventThreshold_Type:EventThresholdSINR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:eventThreshold_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_excessPacketDelayThreshold_Type:excessPacketDelayThresholdValue a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:excessPacketDelayThreshold_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_excessPacketDelayThreshold_Type:fiveQIValue a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:excessPacketDelayThreshold_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:beamLevelMeasurement a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:boolean .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodM6LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodM6NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodM7LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodM7NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodRRMLTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodRRMNR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:collectionPeriodRRMUMTS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:eventThreshold a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:eventThreshold_Type .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:eventThresholdUphUMTS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:excessPacketDelayThresholds a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:excessPacketDelayThresholds_Type .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:listOfMeasurements a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:listOfMeasurements_Type .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:measurementPeriodLTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:measurementPeriodUMTS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:measurementQuantity a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:positioningMethod a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmount a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM1LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM1NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM4LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM4NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM5LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM5NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM6LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM6NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM7LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportAmountM7NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportInterval a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:reportInterval_Type .
+
+TS28623_TraceControlNrm_immediateMDTConfig_Type:reportingTrigger a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:AMFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:ASInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:AUSFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:BGCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:BM_SCInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:EIRInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:E_CSCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:GGSNInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:HSSInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:IBCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:I_CSCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:MGCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:MGWInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:MMEInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:MRFCInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:MSCServerInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:NEFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:NRFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:NSSFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:PCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:PDN_GWInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:P_CSCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:RNCInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:SGSNInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:SGWInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:SMFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:SMSFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:S_CSCFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:UDMInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:UPFInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:eNBInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:en_gNBInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:gNB_CU_CPInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:gNB_CU_UPInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:gNB_DUInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfInterfaces_Type:ng_eNBInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfInterfaces_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfMeasurements_Type:LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfMeasurements_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfMeasurements_Type:NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfMeasurements_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_listOfMeasurements_Type:UMTS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:listOfMeasurements_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:areaConfigurationForNeighCell a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:AreaConfig .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:eventListForEventTriggeredMeasurement a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:eventThresholdL1 a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:eventThresholdL1_Type .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:hysteresisL1 a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:loggingDuration a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:loggingInterval a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:loggingInterval_Type .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:mbsfnAreaList a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:MbsfnArea .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:nPNIdentityList a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range TS28623_GenericNrm:NpnId_Type .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:plmnList a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:plmnList_Type .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:reportType a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:timeToTriggerL1 a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggedMDTConfig_Type:traceCollectionEntityId a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig_Type ;
+    rdfs:range xsd:integer .
+
+TS28623_TraceControlNrm_loggingInterval_Type:LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggingInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggingInterval_Type:NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggingInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_loggingInterval_Type:UMTS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:loggingInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_mdtConfig_Type:anonymizationOfMdtData a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_mdtConfig_Type:areaScope a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:AreaScope .
+
+TS28623_TraceControlNrm_mdtConfig_Type:immediateMDTConfig a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:immediateMDTConfig_Type .
+
+TS28623_TraceControlNrm_mdtConfig_Type:loggedMDTConfig a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:loggedMDTConfig_Type .
+
+TS28623_TraceControlNrm_mdtConfig_Type:sensorInformation a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:mdtConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_plmnTarget_Type:mcc a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:plmnTarget_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_plmnTarget_Type:mnc a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:plmnTarget_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_reportInterval_Type:LTE a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_reportInterval_Type:NR a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_reportInterval_Type:UMTS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:reportInterval_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceConfig_Type:listOfInterfaces a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:listOfInterfaces_Type .
+
+TS28623_TraceControlNrm_traceConfig_Type:listOfNeTypes a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceConfig_Type:traceDepth a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceConfig_Type:triggeringEvents a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceConfig_Type ;
+    rdfs:range TS28623_TraceControlNrm:triggeringEvents_Type .
+
+TS28623_TraceControlNrm_traceReference_Type:mcc a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceReference_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceReference_Type:mnc a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceReference_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceReference_Type:traceId a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceReference_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceTarget_Type:TargetIdType a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceTarget_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_traceTarget_Type:TargetIdValue a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:traceTarget_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:AMF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:AUSF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:BM_SC a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:GGSN a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:IMS a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:MGW a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:MME a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:MSC_SERVER a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:NEF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:NRF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:NSSF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:PCF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:PGW a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:SGSN a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:SGW a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:SMF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:SMSF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:UDM a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
+    rdfs:range xsd:string .
+
+TS28623_TraceControlNrm_triggeringEvents_Type:UPF a rdf:Property ;
+    rdfs:domain TS28623_TraceControlNrm:triggeringEvents_Type ;
     rdfs:range xsd:string .
 

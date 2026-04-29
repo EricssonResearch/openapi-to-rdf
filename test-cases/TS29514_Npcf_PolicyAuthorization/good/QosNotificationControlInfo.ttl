@@ -1,11 +1,13 @@
 @prefix TS29514_Npcf_PolicyAuthorization: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/Flows#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/QosNotificationControlInfo#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29514_Npcf_PolicyAuthorization:test_instance a TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo ;
-    TS29514_Npcf_PolicyAuthorization:altSerReq "test-value"^^xsd:string ;
-    TS29514_Npcf_PolicyAuthorization:flows [ a TS29514_Npcf_PolicyAuthorization:Flows ;
-            TS29514_Npcf_PolicyAuthorization:contVers 50 ;
-            TS29514_Npcf_PolicyAuthorization:fNums 50 ;
-            TS29514_Npcf_PolicyAuthorization:medCompN 50 ] ;
-    TS29514_Npcf_PolicyAuthorization:notifType "GUARANTEED"^^xsd:string .
+    ns2:altSerReq "test-value"^^xsd:string ;
+    ns2:flows [ a TS29514_Npcf_PolicyAuthorization:Flows ;
+            ns1:contVers 50 ;
+            ns1:fNums 50 ;
+            ns1:medCompN 50 ] ;
+    ns2:notifType "GUARANTEED"^^xsd:string .
 

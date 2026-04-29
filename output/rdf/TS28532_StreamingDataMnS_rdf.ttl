@@ -1,6 +1,13 @@
 @prefix TS28532_StreamingDataMnS: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS#> .
+@prefix TS28532_StreamingDataMnS_analyticsInfo_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/analyticsInfo_Type#> .
+@prefix TS28532_StreamingDataMnS_connectionInfo_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/connectionInfo_Type#> .
 @prefix TS28532_StreamingDataMnS_connectionRequest_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/connectionRequest_Type#> .
+@prefix TS28532_StreamingDataMnS_errorResponse_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/errorResponse_Type#> .
 @prefix TS28532_StreamingDataMnS_failedConnectionResponse_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/failedConnectionResponse_Type#> .
+@prefix TS28532_StreamingDataMnS_performanceInfo_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/performanceInfo_Type#> .
+@prefix TS28532_StreamingDataMnS_streamInfoWithReporters_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfoWithReporters_Type#> .
+@prefix TS28532_StreamingDataMnS_streamInfo_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfo_Type#> .
+@prefix TS28532_StreamingDataMnS_vsDataContainer_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/vsDataContainer_Type#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -40,70 +47,18 @@ TS28532_StreamingDataMnS:traceInfo_Type a rdfs:Class ;
 TS28532_StreamingDataMnS:vsDataContainer_Type a rdfs:Class ;
     rdfs:comment "container for vendor specific data (see 3GPP TS 28.622)" .
 
-TS28532_StreamingDataMnS:activityDetails a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:analyticsInfo_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:additionalInfo a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:connection a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:error a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:errorResponse_Type ;
-    rdfs:range rdfs:Resource .
-
 TS28532_StreamingDataMnS:errorInfo a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_StreamingDataMnS:errorReason a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28532_StreamingDataMnS:jobId a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:measObjDn a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
-    rdfs:range TS28532_StreamingDataMnS:measObjDn_Type .
-
-TS28532_StreamingDataMnS:performanceMetrics a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:producer a rdf:Property ;
-    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
-
-TS28532_StreamingDataMnS:reporters a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters_Type ;
-    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
-
-TS28532_StreamingDataMnS:serializationFormat a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
-    rdfs:range xsd:string .
-
 TS28532_StreamingDataMnS:serializationFormat_Type a rdfs:Datatype .
 
 TS28532_StreamingDataMnS:streamId a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:streamInfo a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters_Type ;
-    rdfs:range TS28532_StreamingDataMnS:streamInfo_Type .
-
-TS28532_StreamingDataMnS:streamType a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
     rdfs:range xsd:string .
 
 TS28532_StreamingDataMnS:streamType_Type a rdfs:Datatype .
-
-TS28532_StreamingDataMnS:streams a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type ;
-    rdfs:range TS28532_StreamingDataMnS:streamId_Type .
 
 TS28532_StreamingDataMnS:systemDN_Type a rdfs:Datatype ;
     rdfs:comment "See 3GPP TS 32.300 for details" .
@@ -113,18 +68,6 @@ TS28532_StreamingDataMnS:traceReference_Type a rdfs:Datatype ;
 
 TS28532_StreamingDataMnS:uri_Type a rdfs:Datatype ;
     rdfs:comment "Resource URI" .
-
-TS28532_StreamingDataMnS:vsData a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:vsDataFormatVersion a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:vsDataType a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
-    rdfs:range xsd:string .
 
 TS28532_StreamingDataMnS:websocketHeaderConnection_Type a rdfs:Datatype ;
     rdfs:comment "Header value for the upgrade request and response." .
@@ -147,12 +90,84 @@ TS28532_StreamingDataMnS:websocketHeader_Sec_WebSocket_Protocol_Type a rdfs:Data
 TS28532_StreamingDataMnS:websocketHeader_Sec_WebSocket_Version_Type a rdfs:Datatype ;
     rdfs:comment "Header value for secure WebSocket request and response. Carries the WebSocket protocol version to be used." .
 
+TS28532_StreamingDataMnS_analyticsInfo_Type:activityDetails a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:analyticsInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_connectionInfo_Type:connection a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_connectionInfo_Type:producer a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
+
+TS28532_StreamingDataMnS_connectionInfo_Type:streams a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:streamId_Type .
+
+TS28532_StreamingDataMnS_connectionRequest_Type:producer a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:connectionRequest_Type ;
+    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
+
 TS28532_StreamingDataMnS_connectionRequest_Type:streams a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:connectionRequest_Type ;
     rdfs:range TS28532_StreamingDataMnS:streamInfo_Type .
 
+TS28532_StreamingDataMnS_errorResponse_Type:error a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:errorResponse_Type ;
+    rdfs:range rdfs:Resource .
+
 TS28532_StreamingDataMnS_failedConnectionResponse_Type:error a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:failedConnectionResponse_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_performanceInfo_Type:jobId a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_performanceInfo_Type:measObjDn a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
+    rdfs:range TS28532_StreamingDataMnS:measObjDn_Type .
+
+TS28532_StreamingDataMnS_performanceInfo_Type:performanceMetrics a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_streamInfoWithReporters_Type:reporters a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters_Type ;
+    rdfs:range TS28532_StreamingDataMnS:producerId_Type .
+
+TS28532_StreamingDataMnS_streamInfoWithReporters_Type:streamInfo a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters_Type ;
+    rdfs:range TS28532_StreamingDataMnS:streamInfo_Type .
+
+TS28532_StreamingDataMnS_streamInfo_Type:additionalInfo a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_streamInfo_Type:serializationFormat a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_streamInfo_Type:streamId a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_streamInfo_Type:streamType a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_vsDataContainer_Type:vsData a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_vsDataContainer_Type:vsDataFormatVersion a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS_vsDataContainer_Type:vsDataType a rdf:Property ;
+    rdfs:domain TS28532_StreamingDataMnS:vsDataContainer_Type ;
     rdfs:range xsd:string .
 
 TS28532_StreamingDataMnS:streamId_Type a rdfs:Datatype ;

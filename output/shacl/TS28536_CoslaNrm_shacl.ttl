@@ -1,6 +1,14 @@
 @prefix TS28536_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm#> .
+@prefix TS28536_CoslaNrm_ACCLDisallowedAttributes: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/ACCLDisallowedAttributes#> .
+@prefix TS28536_CoslaNrm_AssuranceClosedControlLoop_Single: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceClosedControlLoop_Single#> .
+@prefix TS28536_CoslaNrm_AssuranceGoalStatus: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceGoalStatus#> .
 @prefix TS28536_CoslaNrm_AssuranceGoal_Single: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceGoal_Single#> .
 @prefix TS28536_CoslaNrm_AssuranceReport_Single: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceReport_Single#> .
+@prefix TS28536_CoslaNrm_AssuranceScope: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceScope#> .
+@prefix TS28536_CoslaNrm_AssuranceTarget: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceTarget#> .
+@prefix TS28536_CoslaNrm_AssuranceTargetStatus: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/AssuranceTargetStatus#> .
+@prefix TS28536_CoslaNrm_ManagedElement_ncO_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/ManagedElement_ncO_CoslaNrm#> .
+@prefix TS28536_CoslaNrm_SubNetwork_ncO_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/SubNetwork_ncO_CoslaNrm#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -9,75 +17,57 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceGoalStatusId ],
+            sh:path TS28536_CoslaNrm_ACCLDisallowedAttributes:attributeNameList ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceGoalRef ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceGoalId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceGoalStatusObserved ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceGoalStatusPredicted ] ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatus .
+            sh:path TS28536_CoslaNrm_ACCLDisallowedAttributes:managedEntityIdentifier ] ;
+    sh:targetClass TS28536_CoslaNrm:ACCLDisallowedAttributes .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusPredicted .
+
+[] a sh:NodeShape ;
+    sh:class TS28536_CoslaNrm:AssuranceTargetStatus ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatusList .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceTargetValue ],
+            sh:path TS28536_CoslaNrm_AssuranceTargetStatus:assuranceTargetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceTargetStatus:assuranceTargetStatusPredicted ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceTargetName ] ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceTarget .
+            sh:path TS28536_CoslaNrm_AssuranceTargetStatus:assuranceTargetStatusId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceTargetStatus:assuranceTargetStatusObserved ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatus .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Multiple .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS28536_CoslaNrm:ObservationTime .
-
-[] a sh:NodeShape ;
-    sh:class TS28536_CoslaNrm:AssuranceTarget ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceTargetList .
+    sh:targetClass TS28536_CoslaNrm:AssuranceReport_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceTargetStatusId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceTargetStatusObserved ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceTargetStatusPredicted ],
+            sh:path TS28536_CoslaNrm_AssuranceTarget:assuranceTargetName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:assuranceTargetName ] ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatus .
+            sh:path TS28536_CoslaNrm_AssuranceTarget:assuranceTargetValue ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTarget .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -86,65 +76,12 @@
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusObserved .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:networkSliceRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28536_CoslaNrm:ACCLDisallowedAttributes ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:aCCLDisallowedList ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:networkSliceSubnetRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "PREPARATION"^^xsd:string "COMMISSIONING"^^xsd:string "OPERATION"^^xsd:string "DECOMMISSIONING"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:controlLoopLifeCyclePhase ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:operationalState ] ] ;
-            sh:path TS28536_CoslaNrm:attributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28536_CoslaNrm:AssuranceGoal_Single ;
-            sh:path TS28536_CoslaNrm:AssuranceGoal ],
-        [ a sh:PropertyShape ;
-            sh:class TS28536_CoslaNrm:AssuranceReport_Single ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:AssuranceReport ] ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceTargetName .
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatusObserved .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
     sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatusPredicted .
-
-[] a sh:NodeShape ;
-    sh:class TS28536_CoslaNrm:AssuranceTargetStatus ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatusList .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceReport_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -157,39 +94,34 @@
     sh:targetClass TS28536_CoslaNrm:AssuranceReport_Single .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ;
-            sh:path TS28536_CoslaNrm:AssuranceClosedControlLoop ] ;
-    sh:targetClass TS28536_CoslaNrm:ManagedElement_ncO_CoslaNrm .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "PREPARATION"^^xsd:string "COMMISSIONING"^^xsd:string "OPERATION"^^xsd:string "DECOMMISSIONING"^^xsd:string ) ;
-    sh:targetClass TS28536_CoslaNrm:ControlLoopLifeCyclePhase .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceTargetStatusObserved .
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ;
-            sh:path TS28536_CoslaNrm:AssuranceClosedControlLoop ] ;
+            sh:path TS28536_CoslaNrm_SubNetwork_ncO_CoslaNrm:AssuranceClosedControlLoop ] ;
     sh:targetClass TS28536_CoslaNrm:SubNetwork_ncO_CoslaNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:sliceProfileId ],
-                        [ a sh:PropertyShape ;
                             sh:datatype xsd:integer ;
                             sh:maxCount 1 ;
                             sh:path TS28536_CoslaNrm:observationTime ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:serviceProfileId ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28536_CoslaNrm:AssuranceTarget ;
+                            sh:path TS28536_CoslaNrm:assuranceTargetList ],
                         [ a sh:PropertyShape ;
                             sh:class TS28536_CoslaNrm:AssuranceScope ;
                             sh:maxCount 1 ;
@@ -197,17 +129,105 @@
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28536_CoslaNrm:serviceProfileId ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28536_CoslaNrm:AssuranceTarget ;
-                            sh:path TS28536_CoslaNrm:assuranceTargetList ] ] ;
+                            sh:path TS28536_CoslaNrm:sliceProfileId ] ] ;
             sh:path TS28536_CoslaNrm_AssuranceGoal_Single:attributes ] ;
     sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Single .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceReport_Single ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceClosedControlLoop_Single:AssuranceReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceGoal_Single ;
+            sh:path TS28536_CoslaNrm_AssuranceClosedControlLoop_Single:AssuranceGoal ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:networkSliceRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:operationalState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "PREPARATION"^^xsd:string "COMMISSIONING"^^xsd:string "OPERATION"^^xsd:string "DECOMMISSIONING"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:controlLoopLifeCyclePhase ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28536_CoslaNrm:ACCLDisallowedAttributes ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:aCCLDisallowedList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28536_CoslaNrm:networkSliceSubnetRef ] ] ;
+            sh:path TS28536_CoslaNrm_AssuranceClosedControlLoop_Single:attributes ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28536_CoslaNrm:AssuranceTarget ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:Tai ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceScope:taiList ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceScope .
+
+[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusPredicted .
+    sh:in ( "PREPARATION"^^xsd:string "COMMISSIONING"^^xsd:string "OPERATION"^^xsd:string "DECOMMISSIONING"^^xsd:string ) ;
+    sh:targetClass TS28536_CoslaNrm:ControlLoopLifeCyclePhase .
+
+[] a sh:NodeShape ;
+    sh:class TS28536_CoslaNrm:AssuranceGoalStatus ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceGoalStatus:assuranceGoalId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceGoalStatus:assuranceGoalRef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceGoalStatus:assuranceGoalStatusObserved ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceGoalStatus:assuranceGoalStatusPredicted ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28536_CoslaNrm_AssuranceGoalStatus:assuranceGoalStatusId ] ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28536_CoslaNrm:AssuranceClosedControlLoop_Single ;
+            sh:path TS28536_CoslaNrm_ManagedElement_ncO_CoslaNrm:AssuranceClosedControlLoop ] ;
+    sh:targetClass TS28536_CoslaNrm:ManagedElement_ncO_CoslaNrm .
 
 [] a sh:NodeShape ;
     sh:targetClass TS28536_CoslaNrm:resources_coslaNrm ;
@@ -217,31 +237,19 @@
                 sh:class TS28536_CoslaNrm:AssuranceReport_Single ] ) .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceClosedControlLoop_Single .
+    sh:datatype xsd:string ;
+    sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusObserved .
 
 [] a sh:NodeShape ;
     sh:class TS28536_CoslaNrm:AssuranceGoal_Single ;
     sh:targetClass TS28536_CoslaNrm:AssuranceGoal_Multiple .
 
 [] a sh:NodeShape ;
-    sh:class TS28536_CoslaNrm:AssuranceGoalStatus ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceGoalStatusList .
+    sh:datatype xsd:integer ;
+    sh:targetClass TS28536_CoslaNrm:ObservationTime .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Tai ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:taiList ] ;
-    sh:targetClass TS28536_CoslaNrm:AssuranceScope .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28536_CoslaNrm:managedEntityIdentifier ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28536_CoslaNrm:attributeNameList ] ;
-    sh:targetClass TS28536_CoslaNrm:ACCLDisallowedAttributes .
+    sh:datatype xsd:string ;
+    sh:targetClass TS28536_CoslaNrm:AssuranceTargetName .
 

@@ -1,14 +1,14 @@
 @prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
-@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowSINRContext#> .
-@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowSINRRatioTarget#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowSINRRatioTarget#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowSINRContext#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:LowSINRRatioTarget ;
-    TS28312_IntentExpectations:targetCondition "IS_LESS_THAN"^^xsd:string ;
-    TS28312_IntentExpectations:targetName "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
-    TS28312_IntentExpectations:targetValueRange 50 ;
-    ns2:targetContexts [ a TS28312_IntentExpectations:LowSINRContext ;
-            TS28312_IntentExpectations:contextAttribute "LowSINRThreshold"^^xsd:string ;
-            TS28312_IntentExpectations:contextCondition "IS_LESS_THAN"^^xsd:string ;
-            ns1:contextValueRange 50 ] .
+    ns1:targetCondition "IS_LESS_THAN"^^xsd:string ;
+    ns1:targetContexts [ a TS28312_IntentExpectations:LowSINRContext ;
+            ns2:contextAttribute "LowSINRThreshold"^^xsd:string ;
+            ns2:contextCondition "IS_LESS_THAN"^^xsd:string ;
+            ns2:contextValueRange 50 ] ;
+    ns1:targetName "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns1:targetValueRange 50 .
 

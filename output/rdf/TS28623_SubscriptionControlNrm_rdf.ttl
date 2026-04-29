@@ -1,5 +1,9 @@
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix TS28623_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#> .
+@prefix TS28623_SubscriptionControlNrm_HeartbeatControl_Single: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm/HeartbeatControl_Single#> .
+@prefix TS28623_SubscriptionControlNrm_ManagedElement_ncO_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm/ManagedElement_ncO_SubscriptionControlNrm#> .
+@prefix TS28623_SubscriptionControlNrm_NtfSubscriptionControl_Single: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm/NtfSubscriptionControl_Single#> .
+@prefix TS28623_SubscriptionControlNrm_SubNetwork_ncO_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm/SubNetwork_ncO_SubscriptionControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -22,16 +26,6 @@ TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm a rdfs:Clas
 TS28623_SubscriptionControlNrm:resources_subscriptionControlNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
-TS28623_SubscriptionControlNrm:HeartbeatControl a rdf:Property ;
-    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
-    rdfs:range TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
-
-TS28623_SubscriptionControlNrm:NtfSubscriptionControl a rdf:Property ;
-    rdfs:range TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple .
-
-TS28623_SubscriptionControlNrm:attributes a rdf:Property ;
-    rdfs:range rdfs:Resource .
-
 TS28623_SubscriptionControlNrm:heartbeatNtfPeriod a rdf:Property ;
     rdfs:range xsd:integer .
 
@@ -49,4 +43,24 @@ TS28623_SubscriptionControlNrm:scope a rdf:Property ;
 
 TS28623_SubscriptionControlNrm:triggerHeartbeatNtf a rdf:Property ;
     rdfs:range xsd:boolean .
+
+TS28623_SubscriptionControlNrm_HeartbeatControl_Single:attributes a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:HeartbeatControl_Single ;
+    rdfs:range rdfs:Resource .
+
+TS28623_SubscriptionControlNrm_ManagedElement_ncO_SubscriptionControlNrm:NtfSubscriptionControl a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm ;
+    rdfs:range TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple .
+
+TS28623_SubscriptionControlNrm_NtfSubscriptionControl_Single:HeartbeatControl a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
+
+TS28623_SubscriptionControlNrm_NtfSubscriptionControl_Single:attributes a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single ;
+    rdfs:range rdfs:Resource .
+
+TS28623_SubscriptionControlNrm_SubNetwork_ncO_SubscriptionControlNrm:NtfSubscriptionControl a rdf:Property ;
+    rdfs:domain TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm ;
+    rdfs:range TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple .
 

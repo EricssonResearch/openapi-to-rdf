@@ -2,6 +2,9 @@
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_QoEMeasurementCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm#> .
+@prefix TS28623_QoEMeasurementCollectionNrm_ManagedElement_ncO_QoEMeasurementCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm/ManagedElement_ncO_QoEMeasurementCollectionNrm#> .
+@prefix TS28623_QoEMeasurementCollectionNrm_QMCJob_Single: <http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm/QMCJob_Single#> .
+@prefix TS28623_QoEMeasurementCollectionNrm_SubNetwork_ncO_QoEMeasurementCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm/SubNetwork_ncO_QoEMeasurementCollectionNrm#> .
 @prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -19,15 +22,8 @@ TS28623_QoEMeasurementCollectionNrm:SubNetwork_ncO_QoEMeasurementCollectionNrm a
 TS28623_QoEMeasurementCollectionNrm:resources_qoEMeasuremetCollectionNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
-TS28623_QoEMeasurementCollectionNrm:QMCJobs a rdf:Property ;
-    rdfs:range TS28623_QoEMeasurementCollectionNrm:QMCJob_Multiple .
-
 TS28623_QoEMeasurementCollectionNrm:areaScope a rdf:Property ;
     rdfs:range TS28623_GenericNrm:AreaScope .
-
-TS28623_QoEMeasurementCollectionNrm:attributes a rdf:Property ;
-    rdfs:domain TS28623_QoEMeasurementCollectionNrm:QMCJob_Single ;
-    rdfs:range rdfs:Resource .
 
 TS28623_QoEMeasurementCollectionNrm:availableRANqoEMetrics a rdf:Property ;
     rdfs:range xsd:string .
@@ -61,4 +57,16 @@ TS28623_QoEMeasurementCollectionNrm:serviceType a rdf:Property ;
 
 TS28623_QoEMeasurementCollectionNrm:sliceScope a rdf:Property ;
     rdfs:range TS28541_NrNrm:Snssai .
+
+TS28623_QoEMeasurementCollectionNrm_ManagedElement_ncO_QoEMeasurementCollectionNrm:QMCJobs a rdf:Property ;
+    rdfs:domain TS28623_QoEMeasurementCollectionNrm:ManagedElement_ncO_QoEMeasurementCollectionNrm ;
+    rdfs:range TS28623_QoEMeasurementCollectionNrm:QMCJob_Multiple .
+
+TS28623_QoEMeasurementCollectionNrm_QMCJob_Single:attributes a rdf:Property ;
+    rdfs:domain TS28623_QoEMeasurementCollectionNrm:QMCJob_Single ;
+    rdfs:range rdfs:Resource .
+
+TS28623_QoEMeasurementCollectionNrm_SubNetwork_ncO_QoEMeasurementCollectionNrm:QMCJobs a rdf:Property ;
+    rdfs:domain TS28623_QoEMeasurementCollectionNrm:SubNetwork_ncO_QoEMeasurementCollectionNrm ;
+    rdfs:range TS28623_QoEMeasurementCollectionNrm:QMCJob_Multiple .
 
