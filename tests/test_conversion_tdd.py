@@ -9,10 +9,16 @@ import yaml
 from rdflib import Literal, Namespace
 from rdflib.namespace import RDF, RDFS, XSD
 
+from openapi_to_rdf.property_uri import property_uri
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 DASH = Namespace("http://datashapes.org/dash#")
+
+
+def _prop(converter, class_name, property_name):
+    """Build the class-scoped URI for a property in a converter's namespace."""
+    return property_uri(converter.base_namespace, class_name, property_name)
 
 
 def _convert(spec):
@@ -51,32 +57,35 @@ class TestObjectSchema:
         assert (self.ns.Person, RDFS.comment, Literal("A person")) in self.c.rdf_graph
 
     def test_property_declared(self):
-        assert (self.ns.name, RDF.type, RDF.Property) in self.c.rdf_graph
+        assert (_prop(self.c, "Person", "name"), RDF.type, RDF.Property) in self.c.rdf_graph
 
     def test_property_domain(self):
-        assert (self.ns.name, RDFS.domain, self.ns.Person) in self.c.rdf_graph
+        assert (_prop(self.c, "Person", "name"), RDFS.domain, self.ns.Person) in self.c.rdf_graph
 
     def test_string_range(self):
-        assert (self.ns.name, RDFS.range, XSD.string) in self.c.rdf_graph
+        assert (_prop(self.c, "Person", "name"), RDFS.range, XSD.string) in self.c.rdf_graph
 
     def test_integer_range(self):
-        assert (self.ns.age, RDFS.range, XSD.integer) in self.c.rdf_graph
+        assert (_prop(self.c, "Person", "age"), RDFS.range, XSD.integer) in self.c.rdf_graph
 
     def test_nodeshape_exists(self):
         assert len(list(self.c.shacl_graph.subjects(SH.targetClass, self.ns.Person))) == 1
 
     def test_required_has_mincount(self):
-        for shape in self.c.shacl_graph.subjects(SH.path, self.ns.name):
+        name_uri = _prop(self.c, "Person", "name")
+        for shape in self.c.shacl_graph.subjects(SH.path, name_uri):
             if (shape, SH.minCount, Literal(1)) in self.c.shacl_graph:
                 return
         pytest.fail("Required property 'name' missing sh:minCount 1")
 
     def test_non_required_no_mincount(self):
-        for shape in self.c.shacl_graph.subjects(SH.path, self.ns.age):
+        age_uri = _prop(self.c, "Person", "age")
+        for shape in self.c.shacl_graph.subjects(SH.path, age_uri):
             assert (shape, SH.minCount, Literal(1)) not in self.c.shacl_graph
 
     def test_non_array_has_maxcount_1(self):
-        for shape in self.c.shacl_graph.subjects(SH.path, self.ns.name):
+        name_uri = _prop(self.c, "Person", "name")
+        for shape in self.c.shacl_graph.subjects(SH.path, name_uri):
             if (shape, SH.maxCount, Literal(1)) in self.c.shacl_graph:
                 return
         pytest.fail("Non-array property missing sh:maxCount 1")
@@ -96,19 +105,23 @@ class TestStringConstraints:
         self.ns = self.c.main_prefix
 
     def test_datatype(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.code):
+        code_uri = _prop(self.c, "W", "code")
+        for s in self.c.shacl_graph.subjects(SH.path, code_uri):
             assert (s, SH.datatype, XSD.string) in self.c.shacl_graph
 
     def test_pattern(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.code):
+        code_uri = _prop(self.c, "W", "code")
+        for s in self.c.shacl_graph.subjects(SH.path, code_uri):
             assert (s, SH.pattern, Literal("^[A-Z]{3}$")) in self.c.shacl_graph
 
     def test_minlength(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.code):
+        code_uri = _prop(self.c, "W", "code")
+        for s in self.c.shacl_graph.subjects(SH.path, code_uri):
             assert (s, SH.minLength, Literal(3)) in self.c.shacl_graph
 
     def test_maxlength(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.code):
+        code_uri = _prop(self.c, "W", "code")
+        for s in self.c.shacl_graph.subjects(SH.path, code_uri):
             assert (s, SH.maxLength, Literal(3)) in self.c.shacl_graph
 
 
@@ -127,19 +140,23 @@ class TestNumericConstraints:
         self.ns = self.c.main_prefix
 
     def test_float_datatype(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.lat):
+        lat_uri = _prop(self.c, "W", "lat")
+        for s in self.c.shacl_graph.subjects(SH.path, lat_uri):
             assert (s, SH.datatype, XSD.float) in self.c.shacl_graph
 
     def test_min(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.lat):
+        lat_uri = _prop(self.c, "W", "lat")
+        for s in self.c.shacl_graph.subjects(SH.path, lat_uri):
             assert (s, SH.minInclusive, Literal(-90)) in self.c.shacl_graph
 
     def test_max(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.lat):
+        lat_uri = _prop(self.c, "W", "lat")
+        for s in self.c.shacl_graph.subjects(SH.path, lat_uri):
             assert (s, SH.maxInclusive, Literal(90)) in self.c.shacl_graph
 
     def test_integer_datatype(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.count):
+        count_uri = _prop(self.c, "W", "count")
+        for s in self.c.shacl_graph.subjects(SH.path, count_uri):
             assert (s, SH.datatype, XSD.integer) in self.c.shacl_graph
 
 
@@ -157,7 +174,8 @@ class TestEnum:
         self.ns = self.c.main_prefix
 
     def test_has_sh_in(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.status):
+        status_uri = _prop(self.c, "W", "status")
+        for s in self.c.shacl_graph.subjects(SH.path, status_uri):
             assert len(list(self.c.shacl_graph.objects(s, SH["in"]))) > 0
 
 
@@ -179,12 +197,14 @@ class TestArray:
 
     def test_array_no_maxcount_1(self):
         """Array properties should NOT have sh:maxCount 1."""
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.items):
+        items_uri = _prop(self.c, "W", "items")
+        for s in self.c.shacl_graph.subjects(SH.path, items_uri):
             assert (s, SH.maxCount, Literal(1)) not in self.c.shacl_graph
 
     def test_array_item_type(self):
         """Array items $ref should produce sh:class on the property shape."""
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.items):
+        items_uri = _prop(self.c, "W", "items")
+        for s in self.c.shacl_graph.subjects(SH.path, items_uri):
             assert (s, SH["class"], self.ns.Item) in self.c.shacl_graph
 
 
@@ -205,10 +225,11 @@ class TestInternalRefObject:
         self.ns = self.c.main_prefix
 
     def test_range(self):
-        assert (self.ns.address, RDFS.range, self.ns.Address) in self.c.rdf_graph
+        assert (_prop(self.c, "Person", "address"), RDFS.range, self.ns.Address) in self.c.rdf_graph
 
     def test_sh_class(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.address):
+        address_uri = _prop(self.c, "Person", "address")
+        for s in self.c.shacl_graph.subjects(SH.path, address_uri):
             assert (s, SH["class"], self.ns.Address) in self.c.shacl_graph
 
 
@@ -232,18 +253,20 @@ class TestInternalRefPrimitive:
         self.ns = self.c.main_prefix
 
     def test_datetime_ref_range_is_xsd(self):
-        assert (self.ns.when, RDFS.range, XSD.dateTime) in self.c.rdf_graph
+        assert (_prop(self.c, "Event", "when"), RDFS.range, XSD.dateTime) in self.c.rdf_graph
 
     def test_datetime_ref_shacl_datatype(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.when):
+        when_uri = _prop(self.c, "Event", "when")
+        for s in self.c.shacl_graph.subjects(SH.path, when_uri):
             assert (s, SH.datatype, XSD.dateTime) in self.c.shacl_graph
             assert (s, SH["class"], self.ns.DateTime) not in self.c.shacl_graph
 
     def test_string_ref_range_is_xsd(self):
-        assert (self.ns.mcc, RDFS.range, XSD.string) in self.c.rdf_graph
+        assert (_prop(self.c, "Event", "mcc"), RDFS.range, XSD.string) in self.c.rdf_graph
 
     def test_string_ref_shacl_datatype(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.mcc):
+        mcc_uri = _prop(self.c, "Event", "mcc")
+        for s in self.c.shacl_graph.subjects(SH.path, mcc_uri):
             assert (s, SH.datatype, XSD.string) in self.c.shacl_graph
 
 
@@ -297,16 +320,17 @@ class TestFormatMapping:
         self.ns = self.c.main_prefix
 
     def test_datetime_range(self):
-        assert (self.ns.created, RDFS.range, XSD.dateTime) in self.c.rdf_graph
+        assert (_prop(self.c, "W", "created"), RDFS.range, XSD.dateTime) in self.c.rdf_graph
 
     def test_time_range(self):
-        assert (self.ns.time, RDFS.range, XSD.time) in self.c.rdf_graph
+        assert (_prop(self.c, "W", "time"), RDFS.range, XSD.time) in self.c.rdf_graph
 
     def test_string_range(self):
-        assert (self.ns.plain, RDFS.range, XSD.string) in self.c.rdf_graph
+        assert (_prop(self.c, "W", "plain"), RDFS.range, XSD.string) in self.c.rdf_graph
 
     def test_shacl_datetime(self):
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.created):
+        created_uri = _prop(self.c, "W", "created")
+        for s in self.c.shacl_graph.subjects(SH.path, created_uri):
             assert (s, SH.datatype, XSD.dateTime) in self.c.shacl_graph
 
 
@@ -413,23 +437,32 @@ class TestPropertyCollision:
         self.c = _convert(COLLISION_SPEC)
         self.ns = self.c.main_prefix
 
-    def test_first_property_unscoped(self):
-        """First occurrence keeps the base URI."""
-        assert (self.ns.name, RDFS.domain, self.ns.A) in self.c.rdf_graph
-        assert (self.ns.name, RDFS.range, XSD.string) in self.c.rdf_graph
+    def test_both_properties_scoped(self):
+        """Both occurrences get distinct, class-scoped URIs."""
+        a_name = _prop(self.c, "A", "name")
+        b_name = _prop(self.c, "B", "name")
+        assert a_name != b_name
+        assert (a_name, RDFS.domain, self.ns.A) in self.c.rdf_graph
+        assert (a_name, RDFS.range, XSD.string) in self.c.rdf_graph
+        assert (b_name, RDFS.domain, self.ns.B) in self.c.rdf_graph
+        assert (b_name, RDFS.range, XSD.integer) in self.c.rdf_graph
 
-    def test_second_property_scoped(self):
-        """Second occurrence with different range gets per-class namespace URI."""
-        # Per-class namespace: base_ns + '/B#name'
-        base = self.c.base_namespace.rstrip('#')
-        scoped_ns = Namespace(base + '/B#')
-        assert (scoped_ns.name, RDFS.domain, self.ns.B) in self.c.rdf_graph
-        assert (scoped_ns.name, RDFS.range, XSD.integer) in self.c.rdf_graph
+    def test_flat_uri_unused(self):
+        """No triples are produced on the old flat <base>#name URI."""
+        flat = self.ns.name
+        assert not list(self.c.rdf_graph.predicates(flat))
 
-    def test_no_conflicting_ranges_on_base(self):
-        """Base URI should NOT have xsd:integer range."""
-        ranges = set(self.c.rdf_graph.objects(self.ns.name, RDFS.range))
-        assert XSD.integer not in ranges
+    def test_single_domain_per_property(self):
+        """Every property has exactly one rdfs:domain."""
+        for p in {_prop(self.c, "A", "name"), _prop(self.c, "B", "name")}:
+            domains = list(self.c.rdf_graph.objects(p, RDFS.domain))
+            assert len(domains) == 1, f"{p} has domains {domains}"
+
+    def test_single_range_per_property(self):
+        """Every property has exactly one rdfs:range."""
+        for p in {_prop(self.c, "A", "name"), _prop(self.c, "B", "name")}:
+            ranges = list(self.c.rdf_graph.objects(p, RDFS.range))
+            assert len(ranges) == 1, f"{p} has ranges {ranges}"
 
 
 # ── 14. allOf with pattern-only items ────────────────────────────────────
@@ -448,7 +481,8 @@ class TestAllOfPatterns:
     def test_both_patterns_preserved(self):
         """Both patterns from allOf should appear as sh:pattern constraints."""
         patterns = set()
-        for s in self.c.shacl_graph.subjects(SH.path, self.ns.ip):
+        ip_uri = _prop(self.c, "W", "ip")
+        for s in self.c.shacl_graph.subjects(SH.path, ip_uri):
             for o in self.c.shacl_graph.objects(s, SH.pattern):
                 patterns.add(str(o))
         assert "^[0-9]+$" in patterns

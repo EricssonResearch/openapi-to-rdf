@@ -6,6 +6,8 @@ from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 from rdflib.term import URIRef as URIRefTerm
 
+from openapi_to_rdf.property_uri import class_namespace, property_uri
+
 
 class OpenAPIToSHACLConverter:
     """Converts OpenAPI YAML to RDF/RDFS + SHACL, mimicking the Prolog implementation."""
@@ -734,43 +736,47 @@ class OpenAPIToSHACLConverter:
                         self.shacl_graph.add((property_shape, operator, constraint_list))
 
     def _process_property(self, domain_class, node_shape, prop_name, prop_def, required_list):
-        """Process a property within an object schema."""
+        """Process a property within an object schema.
+
+        Every property is minted under a per-class namespace so that two
+        schemas declaring the same property name produce distinct URIs.
+        See :mod:`openapi_to_rdf.property_uri` for the URI shape and the
+        rationale.
+
+        If ``domain_class`` is ``None`` (inline anonymous sub-object, no
+        owning schema class), we fall back to the file-level base
+        namespace for the property URI.
+        """
         safe_prop = self.format_name(prop_name)
-        base_uri = self.main_prefix[safe_prop]
 
         # Determine property type and range for proper domain/range specification
         prop_type, range_uri = self._determine_property_type_and_range(prop_def)
 
-        # Scope only on genuine range conflict (different semantics).
-        # Domain conflicts are handled by SHACL shapes, not rdfs:domain.
-        predicate_uri = base_uri
-        existing_ranges = set(self.rdf_graph.objects(base_uri, RDFS.range))
-        if existing_ranges and range_uri is not None and range_uri not in existing_ranges:
-            # Genuine range conflict — use per-class namespace
-            if domain_class is not None:
-                class_local = str(domain_class).split('#')[-1]
-                class_ns_uri = self.base_namespace.rstrip('#') + '/' + class_local + '#'
-                class_ns = Namespace(class_ns_uri)
-                class_ns_prefix = self.format_name(os.path.splitext(os.path.basename(self.yaml_file))[0]) + '_' + class_local
-                self.rdf_graph.bind(class_ns_prefix, class_ns)
-                self.shacl_graph.bind(class_ns_prefix, class_ns)
-                predicate_uri = class_ns[safe_prop]
-        
+        # Mint a class-scoped property URI whenever we have an owning class.
+        if domain_class is not None:
+            class_local = str(domain_class).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
+            predicate_uri = property_uri(self.base_namespace, class_local, prop_name)
+
+            # Bind a readable prefix for the per-class namespace on first sight.
+            class_ns_uri = class_namespace(self.base_namespace, class_local)
+            class_ns = Namespace(class_ns_uri)
+            file_prefix = self.format_name(os.path.splitext(os.path.basename(self.yaml_file))[0])
+            class_ns_prefix = f"{file_prefix}_{class_local}"
+            # rdflib's bind is idempotent for an identical prefix/namespace pair.
+            self.rdf_graph.bind(class_ns_prefix, class_ns)
+            self.shacl_graph.bind(class_ns_prefix, class_ns)
+        else:
+            # No owning class — inline sub-object without its own schema name.
+            predicate_uri = self.main_prefix[safe_prop]
+
         # Create property with proper type in RDF graph
         self.rdf_graph.add((predicate_uri, RDF.type, prop_type))
-        
-        # Only add rdfs:domain when it won't cause intersection conflicts.
-        # Shared properties (used by multiple classes) let SHACL define associations.
+
+        # Single rdfs:domain per property — guaranteed because the URI is
+        # class-scoped and therefore unique to this (class, property) pair.
         if domain_class is not None:
-            existing_domains = set(self.rdf_graph.objects(predicate_uri, RDFS.domain))
-            if not existing_domains:
-                # First class to use this property — add domain
-                self.rdf_graph.add((predicate_uri, RDFS.domain, domain_class))
-            elif domain_class not in existing_domains:
-                # Second+ class — remove domain to avoid intersection semantics
-                for ed in existing_domains:
-                    self.rdf_graph.remove((predicate_uri, RDFS.domain, ed))
-        
+            self.rdf_graph.add((predicate_uri, RDFS.domain, domain_class))
+
         if range_uri is not None:
             self.rdf_graph.add((predicate_uri, RDFS.range, range_uri))
 

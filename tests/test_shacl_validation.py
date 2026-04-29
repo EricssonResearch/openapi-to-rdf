@@ -19,6 +19,7 @@ from pyshacl import validate as shacl_validate
 from rdflib import Graph, Literal, Namespace, BNode
 from rdflib.namespace import RDF, RDFS, XSD
 
+from openapi_to_rdf.property_uri import property_uri as _class_scoped_uri
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
@@ -82,9 +83,13 @@ XSD_MAP = {
 }
 
 
-def _instance_to_rdf(instance, class_uri, ns, converter):
+def _instance_to_rdf(instance, class_uri, ns, converter, owner_class_name):
     """Convert a JSON object instance to an RDF data graph.
-    
+
+    ``owner_class_name`` is the OpenAPI schema name of the outer class, so
+    we can mint class-scoped property URIs that match the SHACL
+    ``sh:path`` values produced by the converter.
+
     Uses the SHACL shapes to determine correct XSD datatypes for literals,
     so that pyshacl datatype checks work correctly.
     """
@@ -97,12 +102,18 @@ def _instance_to_rdf(instance, class_uri, ns, converter):
 
     if isinstance(instance, dict):
         for key, value in instance.items():
-            prop_uri = ns[converter.format_name(key)]
+            prop_uri = _class_scoped_uri(converter.base_namespace, owner_class_name, key)
             if isinstance(value, dict):
+                # Nested object: we don't know its OpenAPI class here, so
+                # the converter's matching shape would be on the nested
+                # type. For now, keep the nested properties under the
+                # outer owner's namespace — deep-nested inline validation
+                # is out of scope for these test cases.
                 child = BNode()
                 g.add((subject, prop_uri, child))
                 for k2, v2 in value.items():
-                    g.add((child, ns[converter.format_name(k2)], Literal(v2)))
+                    nested_prop = _class_scoped_uri(converter.base_namespace, owner_class_name, k2)
+                    g.add((child, nested_prop, Literal(v2)))
             elif isinstance(value, list):
                 for item in value:
                     g.add((subject, prop_uri, _typed_literal(item, prop_uri, converter)))
@@ -225,7 +236,7 @@ class TestObjectInstanceValidation:
 
         # 2. Convert instance to RDF
         class_uri = self.ns[schema_name]
-        data_graph = _instance_to_rdf(instance, class_uri, self.ns, self.c)
+        data_graph = _instance_to_rdf(instance, class_uri, self.ns, self.c, schema_name)
 
         # 3. SHACL validation
         shacl_valid = _shacl_conforms(data_graph, self.c.shacl_graph)
@@ -305,7 +316,7 @@ class TestPrimitivePropertyValidation:
 
         # 2. RDF instance
         class_uri = self.ns[wrapper_name]
-        data_graph = _instance_to_rdf(instance, class_uri, self.ns, self.c)
+        data_graph = _instance_to_rdf(instance, class_uri, self.ns, self.c, wrapper_name)
 
         # 3. SHACL
         shacl_valid = _shacl_conforms(data_graph, self.c.shacl_graph)
