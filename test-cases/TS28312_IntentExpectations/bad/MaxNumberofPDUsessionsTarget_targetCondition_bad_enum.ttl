@@ -1,0 +1,14 @@
+@prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/MaxNumberofPDUsessionsTarget#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/5GSessionContext#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:MaxNumberofPDUsessionsTarget ;
+    ns1:targetCondition "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns1:targetContexts [ a TS28312_IntentExpectations:5GSessionContext ;
+            ns2:contextAttribute "5GSession"^^xsd:string ;
+            ns2:contextCondition "IS_less_THAN"^^xsd:string ;
+            ns2:contextValueRange 50 ] ;
+    ns1:targetName "MaxNumberofPDUsessions"^^xsd:string ;
+    ns1:targetValueRange 50 .
+

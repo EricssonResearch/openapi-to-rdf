@@ -1,76 +1,83 @@
 @prefix TS28532_FileDataReportingMnS: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS#> .
+@prefix TS28532_FileDataReportingMnS_FileInfo: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS/FileInfo#> .
+@prefix TS28532_FileDataReportingMnS_NotifyFilePreparationError: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS/NotifyFilePreparationError#> .
+@prefix TS28532_FileDataReportingMnS_NotifyFileReady: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS/NotifyFileReady#> .
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
-@prefix dash: <http://datashapes.org/dash#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28532_FileDataReportingMnS:FileInfo ;
+            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:fileInfoList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:additionalText ] ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "notifyFileReady"^^xsd:string "notifyFilePreparationError"^^xsd:string ) ;
+    sh:targetClass TS28532_FileDataReportingMnS:FileNotificationTypes .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "Performance"^^xsd:string "Trace"^^xsd:string "Analytics"^^xsd:string "Proprietary"^^xsd:string ) ;
+    sh:targetClass TS28532_FileDataReportingMnS:FileDataType .
+
+[] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:additionalText ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileFormat ],
         [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_FileDataReportingMnS:fileInfoList ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28532_FileDataReportingMnS:FileInfo ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileFormat ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileExpirationTime ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileCompression ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileLocation ],
         [ a sh:PropertyShape ;
-            sh:class TS28532_FileDataReportingMnS:FileDataType ;
+            sh:datatype xsd:string ;
+            sh:in ( "Performance"^^xsd:string "Trace"^^xsd:string "Analytics"^^xsd:string "Proprietary"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileDataType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:Uri ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileLocation ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileDataType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileSize ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileSize ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileReadyTime ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileCompression ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DateTime ;
+            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:fileExpirationTime ] ;
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileReadyTime ] ;
     sh:targetClass TS28532_FileDataReportingMnS:FileInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:additionalText ],
+            sh:path TS28532_FileDataReportingMnS_NotifyFileReady:additionalText ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS:reason ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28532_FileDataReportingMnS:fileInfoList ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28532_FileDataReportingMnS:FileInfo ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
+            sh:class TS28532_FileDataReportingMnS:FileInfo ;
+            sh:path TS28532_FileDataReportingMnS_NotifyFileReady:fileInfoList ] ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
 

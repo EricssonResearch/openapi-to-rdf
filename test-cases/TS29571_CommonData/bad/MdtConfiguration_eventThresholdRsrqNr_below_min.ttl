@@ -1,0 +1,46 @@
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/MdtConfiguration#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/AreaScope#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/MbsfnArea#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/InterFreqTargetInfo#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:MdtConfiguration ;
+    ns1:addPositioningMethodList "GNSS"^^xsd:string ;
+    ns1:areaScope [ a TS29571_CommonData:AreaScope ;
+            ns2:eutraCellIdList "AFaf09A"^^xsd:string ;
+            ns2:nrCellIdList "AFaf09AFa"^^xsd:string ;
+            ns2:tacList "aaaa"^^xsd:string ] ;
+    ns1:collectionPeriodRmmLte "1024"^^xsd:string ;
+    ns1:collectionPeriodRmmNr "1024"^^xsd:string ;
+    ns1:eventList "OUT_OF_COVERAG"^^xsd:string ;
+    ns1:eventThresholdRsrp 48 ;
+    ns1:eventThresholdRsrpNr 63 ;
+    ns1:eventThresholdRsrq 17 ;
+    ns1:eventThresholdRsrqNr -1 ;
+    ns1:interFreqTargetList [ a TS29571_CommonData:InterFreqTargetInfo ;
+            ns5:cellIdList 503 ;
+            ns5:dlCarrierFreq 1639582 ] ;
+    ns1:jobType "IMMEDIATE_MDT_ONLY"^^xsd:string ;
+    ns1:loggingDuration "600"^^xsd:string ;
+    ns1:loggingDurationNr "600"^^xsd:string ;
+    ns1:loggingInterval "128"^^xsd:string ;
+    ns1:loggingIntervalNr "128"^^xsd:string ;
+    ns1:mbsfnAreaList [ a TS29571_CommonData:MbsfnArea ;
+            ns4:carrierFrequency 131071 ;
+            ns4:mbsfnAreaId 127 ] ;
+    ns1:mdtAllowedPlmnIdList [ a TS29571_CommonData:PlmnId ;
+            ns3:mcc "aaaa"^^xsd:string ;
+            ns3:mnc "aaaa"^^xsd:string ] ;
+    ns1:measurementLteList "M1"^^xsd:string ;
+    ns1:measurementNrList "M1"^^xsd:string ;
+    ns1:measurementPeriodLte "1024"^^xsd:string ;
+    ns1:positioningMethod "GNSS"^^xsd:string ;
+    ns1:reportAmount "1"^^xsd:string ;
+    ns1:reportInterval "120"^^xsd:string ;
+    ns1:reportIntervalNr "120"^^xsd:string ;
+    ns1:reportType "PERIODICAL"^^xsd:string ;
+    ns1:reportingTriggerList "PERIODICAL"^^xsd:string ;
+    ns1:sensorMeasurementList "BAROMETRIC_PRESSURE"^^xsd:string .
+

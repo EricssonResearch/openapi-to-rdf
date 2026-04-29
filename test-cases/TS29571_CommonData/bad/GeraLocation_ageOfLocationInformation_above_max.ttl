@@ -1,0 +1,41 @@
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/ServiceAreaId#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/GeraLocation#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/CellGlobalId#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/RoutingAreaId#> .
+@prefix ns6: <http://ericsson.com/models/3gpp/TS29571/CommonData/LocationAreaId#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:GeraLocation ;
+    ns3:ageOfLocationInformation 32768 ;
+    ns3:cgi [ a TS29571_CommonData:CellGlobalId ;
+            ns4:cellId "AFaf"^^xsd:string ;
+            ns4:lac "AFaf"^^xsd:string ;
+            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ] ;
+    ns3:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
+    ns3:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
+    ns3:lai [ a TS29571_CommonData:LocationAreaId ;
+            ns6:lac "AFaf"^^xsd:string ;
+            ns6:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ] ;
+    ns3:locationNumber "test-value"^^xsd:string ;
+    ns3:mscNumber "test-value"^^xsd:string ;
+    ns3:rai [ a TS29571_CommonData:RoutingAreaId ;
+            ns5:lac "AFaf"^^xsd:string ;
+            ns5:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ;
+            ns5:rac "AF"^^xsd:string ] ;
+    ns3:sai [ a TS29571_CommonData:ServiceAreaId ;
+            ns1:lac "AFaf"^^xsd:string ;
+            ns1:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ;
+            ns1:sac "AFaf"^^xsd:string ] ;
+    ns3:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime ;
+    ns3:vlrNumber "test-value"^^xsd:string .
+

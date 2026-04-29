@@ -1,0 +1,35 @@
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/TwapId#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/N3gaLocation#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/HfcNodeId#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/Tai#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/TnapId#> .
+@prefix ns6: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:N3gaLocation ;
+    ns2:gci "test-value"^^xsd:string ;
+    ns2:gli "test-value"^^xsd:string ;
+    ns2:hfcNodeId [ a TS29571_CommonData:HfcNodeId ;
+            ns3:hfcNId "test-value"^^xsd:string ] ;
+    ns2:n3IwfId "aaaa"^^xsd:string ;
+    ns2:n3gppTai [ a TS29571_CommonData:Tai ;
+            ns4:nid "AFaf09AFaf0"^^xsd:string ;
+            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns6:mcc "aaaa"^^xsd:string ;
+                    ns6:mnc "aaaa"^^xsd:string ] ;
+            ns4:tac "aaaa"^^xsd:string ] ;
+    ns2:portNumber -1 ;
+    ns2:protocol "UDP"^^xsd:string ;
+    ns2:tnapId [ a TS29571_CommonData:TnapId ;
+            ns5:bssId "test-value"^^xsd:string ;
+            ns5:civicAddress "test-value"^^xsd:string ;
+            ns5:ssId "test-value"^^xsd:string ] ;
+    ns2:twapId [ a TS29571_CommonData:TwapId ;
+            ns1:bssId "test-value"^^xsd:string ;
+            ns1:civicAddress "test-value"^^xsd:string ;
+            ns1:ssId "test-value"^^xsd:string ] ;
+    ns2:ueIpv4Addr "aaaa"^^xsd:string ;
+    ns2:ueIpv6Addr "test-value"^^xsd:string ;
+    ns2:w5gbanLineType "DSL"^^xsd:string .
+

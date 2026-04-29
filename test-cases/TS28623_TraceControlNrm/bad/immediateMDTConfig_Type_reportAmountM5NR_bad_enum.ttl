@@ -1,0 +1,55 @@
+@prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/immediateMDTConfig_Type#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/reportInterval_Type#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/listOfMeasurements_Type#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/eventThreshold_Type#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm/excessPacketDelayThreshold_Type#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_TraceControlNrm:test_instance a TS28623_TraceControlNrm:immediateMDTConfig_Type ;
+    ns1:beamLevelMeasurement true ;
+    ns1:collectionPeriodM6LTE "1024ms"^^xsd:string ;
+    ns1:collectionPeriodM6NR "120ms"^^xsd:string ;
+    ns1:collectionPeriodM7LTE 30 ;
+    ns1:collectionPeriodM7NR 30 ;
+    ns1:collectionPeriodRRMLTE "100ms"^^xsd:string ;
+    ns1:collectionPeriodRRMNR "1024ms"^^xsd:string ;
+    ns1:collectionPeriodRRMUMTS "100ms"^^xsd:string ;
+    ns1:eventThreshold [ a TS28623_TraceControlNrm:eventThreshold_Type ;
+            ns4:EventThreshold1F [ a TS28623_TraceControlNrm:EventThreshold1F ;
+                    TS28623_TraceControlNrm:CPICH_EcNo -12 ;
+                    TS28623_TraceControlNrm:CPICH_RSCP -48 ;
+                    TS28623_TraceControlNrm:PathLoss 97 ] ;
+            ns4:EventThreshold1I -48 ;
+            ns4:EventThresholdRSRP "48"^^xsd:string ;
+            ns4:EventThresholdRSRQ "17"^^xsd:string ;
+            ns4:EventThresholdSINR 63 ] ;
+    ns1:eventThresholdUphUMTS 15 ;
+    ns1:excessPacketDelayThresholds [ a TS28623_TraceControlNrm:excessPacketDelayThreshold_Type ;
+            ns5:excessPacketDelayThresholdValue "0.25MS"^^xsd:string ;
+            ns5:fiveQIValue 50 ] ;
+    ns1:listOfMeasurements [ a TS28623_TraceControlNrm:listOfMeasurements_Type ;
+            ns3:LTE "M1"^^xsd:string ;
+            ns3:NR "M1"^^xsd:string ;
+            ns3:UMTS "M1"^^xsd:string ] ;
+    ns1:measurementPeriodLTE "1024ms"^^xsd:string ;
+    ns1:measurementPeriodUMTS "1000ms"^^xsd:string ;
+    ns1:measurementQuantity "CPICH_ECNO"^^xsd:string ;
+    ns1:positioningMethod "GNSS"^^xsd:string ;
+    ns1:reportAmount "1"^^xsd:string ;
+    ns1:reportAmountM1LTE "1"^^xsd:string ;
+    ns1:reportAmountM1NR "1"^^xsd:string ;
+    ns1:reportAmountM4LTE "1"^^xsd:string ;
+    ns1:reportAmountM4NR "1"^^xsd:string ;
+    ns1:reportAmountM5LTE "1"^^xsd:string ;
+    ns1:reportAmountM5NR "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns1:reportAmountM6LTE "1"^^xsd:string ;
+    ns1:reportAmountM6NR "1"^^xsd:string ;
+    ns1:reportAmountM7LTE "1"^^xsd:string ;
+    ns1:reportAmountM7NR "1"^^xsd:string ;
+    ns1:reportInterval [ a TS28623_TraceControlNrm:reportInterval_Type ;
+            ns2:LTE "120ms"^^xsd:string ;
+            ns2:NR "120ms"^^xsd:string ;
+            ns2:UMTS "250ms"^^xsd:string ] ;
+    ns1:reportingTrigger "PERIODICAL"^^xsd:string .
+

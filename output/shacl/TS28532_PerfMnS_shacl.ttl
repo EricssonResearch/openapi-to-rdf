@@ -1,47 +1,59 @@
 @prefix TS28532_PerfMnS: <http://ericsson.com/models/3gpp/TS28532/PerfMnS#> .
+@prefix TS28532_PerfMnS_NotifyThresholdCrossing: <http://ericsson.com/models/3gpp/TS28532/PerfMnS/NotifyThresholdCrossing#> .
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:targetClass TS28532_PerfMnS:PerfMetricValue ;
-    sh:xone ( [ a sh:NodeShape ;
-                sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                sh:datatype xsd:float ] ) .
+    sh:datatype xsd:string ;
+    sh:in ( "notifyThresholdCrossing"^^xsd:string ) ;
+    sh:targetClass TS28532_PerfMnS:PerfNotificationTypes .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28532_PerfMnS:PerfMetricDirection ;
+            sh:class TS28532_PerfMnS:PerfMetricValue ;
             sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:observedPerfMetricDirection ],
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:hysteresis ],
         [ a sh:PropertyShape ;
             sh:class TS28532_PerfMnS:PerfMetricValue ;
             sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:hysteresis ],
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:thresholdValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricDirection ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_PerfMnS:PerfMetricValue ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:monitorGranularityPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:observedPerfMetricName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_PerfMnS:PerfMetricValue ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:observedPerfMetricValue ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_PerfMnS:PerfMetricValue ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS:thresholdValue ] ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:monitorGranularityPeriod ] ;
     sh:targetClass TS28532_PerfMnS:NotifyThresholdCrossing .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string ) ;
+    sh:targetClass TS28532_PerfMnS:PerfMetricDirection .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:targetClass TS28532_PerfMnS:NotifyThresholdCrossing .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28532_PerfMnS:PerfMetricValue ;
+    sh:xone ( [ a sh:NodeShape ;
+                sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                sh:datatype xsd:float ] ) .
 

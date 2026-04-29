@@ -1,0 +1,20 @@
+@prefix TS28312_IntentNrm: <http://ericsson.com/models/3gpp/TS28312/IntentNrm#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentNrm/FulfilmentInfo#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentNrm/TargetFulfilmentResult#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS28312/IntentNrm/ExpectationFulfilmentResult#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28312_IntentNrm:test_instance a TS28312_IntentNrm:ExpectationFulfilmentResult ;
+    ns3:expectaitonId "test-value"^^xsd:string ;
+    ns3:expectationFulfilmentInfo [ a TS28312_IntentNrm:FulfilmentInfo ;
+            ns1:fulfilmentStatus "FULFILLED"^^xsd:string ;
+            ns1:notFulfilledReasons "test-value"^^xsd:string ;
+            ns1:notFullfilledState "ACKNOWLEDGED"^^xsd:string ] ;
+    ns3:targetFulfilmentResult [ a TS28312_IntentNrm:TargetFulfilmentResult ;
+            ns2:targetAchievedValue 5e+01 ;
+            ns2:targetFulfilmentInfo [ a TS28312_IntentNrm:FulfilmentInfo ;
+                    ns1:fulfilmentStatus "FULFILLED"^^xsd:string ;
+                    ns1:notFulfilledReasons "test-value"^^xsd:string ;
+                    ns1:notFullfilledState "ACKNOWLEDGED"^^xsd:string ] ;
+            ns2:targetName "test-value"^^xsd:string ] .
+

@@ -1,0 +1,40 @@
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/GNbId#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/Tai#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/Ncgi#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/NrLocation#> .
+@prefix ns6: <http://ericsson.com/models/3gpp/TS29571/CommonData/GlobalRanNodeId#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
+    ns5:ageOfLocationInformation 16383 ;
+    ns5:geodeticInformation "!!!INVALID!!!"^^xsd:string ;
+    ns5:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
+    ns5:globalGnbId [ a TS29571_CommonData:GlobalRanNodeId ;
+            ns6:eNbId "aaaa"^^xsd:string ;
+            ns6:gNbId [ a TS29571_CommonData:GNbId ;
+                    ns2:bitLength 27 ;
+                    ns2:gNBValue "AFaf09"^^xsd:string ] ;
+            ns6:n3IwfId "aaaa"^^xsd:string ;
+            ns6:ngeNbId "aaaa"^^xsd:string ;
+            ns6:nid "AFaf09AFaf0"^^xsd:string ;
+            ns6:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns1:mcc "aaaa"^^xsd:string ;
+                    ns1:mnc "aaaa"^^xsd:string ] ;
+            ns6:tngfId "aaaa"^^xsd:string ;
+            ns6:wagfId "aaaa"^^xsd:string ] ;
+    ns5:ncgi [ a TS29571_CommonData:Ncgi ;
+            ns4:nid "AFaf09AFaf0"^^xsd:string ;
+            ns4:nrCellId "AFaf09AFa"^^xsd:string ;
+            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns1:mcc "aaaa"^^xsd:string ;
+                    ns1:mnc "aaaa"^^xsd:string ] ] ;
+    ns5:tai [ a TS29571_CommonData:Tai ;
+            ns3:nid "AFaf09AFaf0"^^xsd:string ;
+            ns3:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns1:mcc "aaaa"^^xsd:string ;
+                    ns1:mnc "aaaa"^^xsd:string ] ;
+            ns3:tac "aaaa"^^xsd:string ] ;
+    ns5:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
+

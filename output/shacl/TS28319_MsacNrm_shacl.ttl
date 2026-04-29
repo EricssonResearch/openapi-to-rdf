@@ -1,58 +1,62 @@
 @prefix TS28319_MsacNrm: <http://ericsson.com/models/3gpp/TS28319/MsacNrm#> .
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28319_MsacNrm_AccessRule_Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/AccessRule_Single#> .
+@prefix TS28319_MsacNrm_Identity_Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/Identity_Single#> .
+@prefix TS28319_MsacNrm_Role_Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/Role_Single#> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
-@prefix dash: <http://datashapes.org/dash#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:roleName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:accessRulesList ] ;
-    sh:targetClass TS28319_MsacNrm:Role_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:DnList ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:roleRefList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "USERNAME" "EMAIL_ADDRESS" "PHONE_NUMBER" "IP_ADDRESS" "MACHINEUSER" ) ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:identityType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:credential ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:identityName ] ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:credential ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "USERNAME"^^xsd:string "EMAIL_ADDRESS"^^xsd:string "PHONE_NUMBER"^^xsd:string "IP_ADDRESS"^^xsd:string "MACHINEUSER"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:identityType ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:identityName ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:class TS28319_MsacNrm:Dn ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:roleRefList ] ] ;
+            sh:path TS28319_MsacNrm_Identity_Single:attributes ] ;
     sh:targetClass TS28319_MsacNrm:Identity_Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:targetClass TS28319_MsacNrm:AccessRule_Single .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:path TS28319_MsacNrm:attributes ] ;
-    sh:targetClass TS28319_MsacNrm:Role_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:path TS28319_MsacNrm:attributes ] ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ALLOW"^^xsd:string "DENY"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:actions ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28319_MsacNrm:operations ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:ruleName ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28319_MsacNrm:componentCData ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:resources ] ] ;
+            sh:path TS28319_MsacNrm_AccessRule_Single:attributes ] ;
     sh:targetClass TS28319_MsacNrm:AccessRule_Single .
 
 [] a sh:NodeShape ;
@@ -67,41 +71,26 @@
     sh:targetClass TS28319_MsacNrm:Identity_Single .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:roleName ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:class TS28319_MsacNrm:Dn ;
+                            sh:maxCount 1 ;
+                            sh:path TS28319_MsacNrm:accessRulesList ] ] ;
+            sh:path TS28319_MsacNrm_Role_Single:attributes ] ;
+    sh:targetClass TS28319_MsacNrm:Role_Single .
+
+[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28319_MsacNrm:Role_Single .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:path TS28319_MsacNrm:attributes ] ;
-    sh:targetClass TS28319_MsacNrm:Identity_Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:ruleName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ALLOW" "DENY" ) ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:actions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28319_MsacNrm:resources ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28319_MsacNrm:operations ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ],
-        [ a sh:PropertyShape ;
-            sh:node dash:ListShape ;
-            sh:path TS28319_MsacNrm:componentCData ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:path ( [ sh:zeroOrMorePath rdf:rest ] rdf:first ) ] ] ;
+    sh:class TS28623_GenericNrm:Top ;
     sh:targetClass TS28319_MsacNrm:AccessRule_Single .
 

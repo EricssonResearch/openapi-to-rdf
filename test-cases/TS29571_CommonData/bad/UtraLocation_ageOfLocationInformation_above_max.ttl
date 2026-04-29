@@ -1,0 +1,38 @@
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/UtraLocation#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/CellGlobalId#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/ServiceAreaId#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/LocationAreaId#> .
+@prefix ns6: <http://ericsson.com/models/3gpp/TS29571/CommonData/RoutingAreaId#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:UtraLocation ;
+    ns1:ageOfLocationInformation 32768 ;
+    ns1:cgi [ a TS29571_CommonData:CellGlobalId ;
+            ns3:cellId "AFaf"^^xsd:string ;
+            ns3:lac "AFaf"^^xsd:string ;
+            ns3:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ] ;
+    ns1:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
+    ns1:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
+    ns1:lai [ a TS29571_CommonData:LocationAreaId ;
+            ns5:lac "AFaf"^^xsd:string ;
+            ns5:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ] ;
+    ns1:rai [ a TS29571_CommonData:RoutingAreaId ;
+            ns6:lac "AFaf"^^xsd:string ;
+            ns6:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ;
+            ns6:rac "AF"^^xsd:string ] ;
+    ns1:sai [ a TS29571_CommonData:ServiceAreaId ;
+            ns4:lac "AFaf"^^xsd:string ;
+            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns2:mcc "aaaa"^^xsd:string ;
+                    ns2:mnc "aaaa"^^xsd:string ] ;
+            ns4:sac "AFaf"^^xsd:string ] ;
+    ns1:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
+

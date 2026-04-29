@@ -1,0 +1,14 @@
+@prefix TS28312_IntentExpectations: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowULRANUEThptContext#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28312/IntentExpectations/LowULRANUEThptRatioTarget#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:LowULRANUEThptRatioTarget ;
+    ns2:targetCondition "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns2:targetContexts [ a TS28312_IntentExpectations:LowULRANUEThptContext ;
+            ns1:contextAttribute "LowULRANUEThptThreshold"^^xsd:string ;
+            ns1:contextCondition "Is_less_than"^^xsd:string ;
+            ns1:contextValueRange 5e+01 ] ;
+    ns2:targetName "LowULRANUEThptRatio"^^xsd:string ;
+    ns2:targetValueRange 50 .
+

@@ -1,0 +1,27 @@
+@prefix TS28550_PerfMeasJobCtrlMnS: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/schedule_Type#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/timeInterval_Type#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/measJobCreation_RequestType#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/scheduleOfDay_Type#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28550_PerfMeasJobCtrlMnS:test_instance a TS28550_PerfMeasJobCtrlMnS:measJobCreation_RequestType ;
+    ns3:granularityPeriod 50 ;
+    ns3:iOCInstanceList "test-value"^^xsd:string ;
+    ns3:iOCName "test-value"^^xsd:string ;
+    ns3:measurementCategoryList "test-value"^^xsd:string ;
+    ns3:priority "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns3:reliability "test-value"^^xsd:string ;
+    ns3:reportingMethod "file"^^xsd:string ;
+    ns3:reportingPeriod 50 ;
+    ns3:schedule [ a TS28550_PerfMeasJobCtrlMnS:schedule_Type ;
+            ns1:dailySchedule [ a TS28550_PerfMeasJobCtrlMnS:timeInterval_Type ;
+                    ns2:intervalEnd "test-value"^^xsd:string ;
+                    ns2:intervalStart "test-value"^^xsd:string ] ;
+            ns1:scheduleOption "daily"^^xsd:string ;
+            ns1:weeklySchedule [ a TS28550_PerfMeasJobCtrlMnS:scheduleOfDay_Type ;
+                    ns4:dayOfWeek "Monday"^^xsd:string ] ] ;
+    ns3:startTime "test-value"^^xsd:string ;
+    ns3:stopTime "test-value"^^xsd:string ;
+    ns3:streamTarget "test-value"^^xsd:string .
+
