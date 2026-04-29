@@ -508,3 +508,59 @@ class TestTopLevelEnum:
     def test_shacl_has_in(self):
         for t in self.c.shacl_graph.subjects(SH.targetClass, self.ns.Status):
             assert len(list(self.c.shacl_graph.objects(t, SH["in"]))) > 0
+
+
+# ── 16. Enum on same property name across classes keeps per-class sh:in ──
+
+ENUM_COLLISION_SPEC = {"components": {"schemas": {
+    "DelayTolerance": {
+        "type": "object",
+        "properties": {"support": {"type": "string", "enum": ["SUPPORTED", "NOT_SUPPORTED"]}},
+    },
+    "UserMgmtOpen": {
+        "type": "object",
+        "properties": {"support": {"type": "string", "enum": ["YES", "NO"]}},
+    },
+}}}
+
+
+class TestEnumCollisionAcrossClasses:
+    """Regression test: when two classes declare a same-named string
+    property with different enum value sets, each class's property shape
+    must carry its own sh:in with its own enum list. Under the old flat
+    URI scheme only one class kept the constraint; the other silently
+    accepted any string.
+    """
+
+    @pytest.fixture(autouse=True)
+    def setup(self):
+        self.c = _convert(ENUM_COLLISION_SPEC)
+
+    def _enum_values_for(self, cls, prop):
+        """Return the set of stringified sh:in members for (cls, prop)."""
+        path = _prop(self.c, cls, prop)
+        values = set()
+        for shape in self.c.shacl_graph.subjects(SH.path, path):
+            for head in self.c.shacl_graph.objects(shape, SH["in"]):
+                # sh:in is an RDF list — walk it.
+                node = head
+                while node and node != RDF.nil:
+                    first = next(self.c.shacl_graph.objects(node, RDF.first), None)
+                    if first is not None:
+                        values.add(str(first))
+                    node = next(self.c.shacl_graph.objects(node, RDF.rest), None)
+        return values
+
+    def test_delay_tolerance_keeps_its_enum(self):
+        vals = self._enum_values_for("DelayTolerance", "support")
+        assert vals == {"SUPPORTED", "NOT_SUPPORTED"}
+
+    def test_user_mgmt_open_keeps_its_enum(self):
+        vals = self._enum_values_for("UserMgmtOpen", "support")
+        assert vals == {"YES", "NO"}
+
+    def test_enums_are_not_merged(self):
+        """The two shapes have disjoint enum sets — no intersection."""
+        a = self._enum_values_for("DelayTolerance", "support")
+        b = self._enum_values_for("UserMgmtOpen", "support")
+        assert a & b == set(), f"Enums unexpectedly overlap: {a & b}"

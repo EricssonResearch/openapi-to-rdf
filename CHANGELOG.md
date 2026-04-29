@@ -55,6 +55,21 @@ as much as possible for a pre-1.0 project.
   - `tests/test_property_index.py` (sidecar unit + integration tests)
   - collision-fixture tests in `tests/test_conversion_tdd.py`
 
+### Fixed
+
+- **Per-class enum constraints on same-named properties no longer
+  collapse.** Under the old flat URI scheme, when two OpenAPI schemas
+  declared a property with the same name but different `enum` value
+  sets (e.g. `DelayTolerance.support` with `[SUPPORTED, NOT_SUPPORTED]`
+  and `UserMgmtOpen.support` with `[YES, NO]`), the converter attached
+  `sh:in` to only one of the two generated property shapes. Validation
+  of instances of the "loser" class silently accepted any string. With
+  class-scoped URIs each class's property shape now carries its own
+  `sh:in`, and invalid enum values are correctly rejected. This
+  resolves 22 previously-failing cases in
+  `tests/test_3gpp_shacl_coverage.py` covering the 3GPP
+  `TS28541_SliceNrm` schemas.
+
 ### Changed
 
 - `shacl_converter._process_property` no longer contains the
