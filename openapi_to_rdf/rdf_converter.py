@@ -6,6 +6,8 @@ from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 
+from openapi_to_rdf.property_uri import class_namespace, property_uri
+
 
 class OpenAPIToRDFConverter:
     def __init__(
@@ -101,8 +103,21 @@ class OpenAPIToRDFConverter:
         comment = f"Class representing the {title} document metadata."
         self.graph.add((class_uri, RDFS.comment, Literal(comment)))
 
+        # Bind a readable prefix for the metadata class namespace.
+        meta_ns_uri = class_namespace(str(self.main_prefix), class_name)
+        meta_ns = Namespace(meta_ns_uri)
+        filename = os.path.basename(self.yaml_file)
+        file_prefix = self.format_name(os.path.splitext(filename)[0])
+        self.graph.bind(f"{file_prefix}_{class_name}", meta_ns)
+
+        # Header-level properties live under the metadata class namespace
+        # so they cannot collide with same-named properties on other
+        # schemas.
+        def _meta_prop(name):
+            return property_uri(str(self.main_prefix), class_name, name)
+
         # Define the 'version' property as a functional property.
-        prop_version = self.main_prefix["version"]
+        prop_version = _meta_prop("version")
         self.graph.add((prop_version, RDF.type, OWL.FunctionalProperty))
         self.graph.add((prop_version, RDFS.domain, class_uri))
         self.graph.add((prop_version, RDFS.range, XSD.string))
@@ -112,7 +127,7 @@ class OpenAPIToRDFConverter:
         )
 
         # Define the 'description' property.
-        prop_description = self.main_prefix["description"]
+        prop_description = _meta_prop("description")
         self.graph.add((prop_description, RDF.type, OWL.DatatypeProperty))
         self.graph.add((prop_description, RDFS.domain, class_uri))
         self.graph.add((prop_description, RDFS.range, XSD.string))
@@ -123,7 +138,7 @@ class OpenAPIToRDFConverter:
 
         # Define the 'url' property if externalDocs provides one.
         if "url" in external_docs:
-            prop_url = self.main_prefix["url"]
+            prop_url = _meta_prop("url")
             self.graph.add((prop_url, RDF.type, OWL.DatatypeProperty))
             self.graph.add((prop_url, RDFS.domain, class_uri))
             self.graph.add((prop_url, RDFS.range, XSD.string))
@@ -240,9 +255,29 @@ class OpenAPIToRDFConverter:
         Process an individual property of an object schema.
         Determines the property type (object, datatype) and range,
         and applies cardinality constraints if the property is required.
+
+        Property URIs are class-scoped: two schemas declaring a property
+        with the same name produce two distinct URIs, one per class. See
+        :mod:`openapi_to_rdf.property_uri`. When ``domain_uri`` is
+        ``None`` (inline anonymous sub-object) the URI falls back to the
+        file-level base namespace.
         """
         safe_prop = self.format_name(prop_name)
-        prop_uri = self.main_prefix[safe_prop]
+
+        if domain_uri is not None:
+            class_local = str(domain_uri).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
+            prop_uri = property_uri(
+                str(self.main_prefix), class_local, prop_name
+            )
+            # Bind a readable prefix for the per-class namespace.
+            class_ns_uri = class_namespace(str(self.main_prefix), class_local)
+            class_ns = Namespace(class_ns_uri)
+            filename = os.path.basename(self.yaml_file)
+            file_prefix = self.format_name(os.path.splitext(filename)[0])
+            class_ns_prefix = f"{file_prefix}_{class_local}"
+            self.graph.bind(class_ns_prefix, class_ns)
+        else:
+            prop_uri = self.main_prefix[safe_prop]
 
         # Determine property type and range.
         if "$ref" in prop_def:
@@ -294,9 +329,11 @@ class OpenAPIToRDFConverter:
             prop_type = OWL.DatatypeProperty
             range_uri = XSD.string
 
-        # Add property triple definitions.
+        # Add property triple definitions. Each class-scoped URI has a
+        # single rdfs:domain and a single rdfs:range by construction.
         self.graph.add((prop_uri, RDF.type, prop_type))
-        self.graph.add((prop_uri, RDFS.domain, domain_uri))
+        if domain_uri is not None:
+            self.graph.add((prop_uri, RDFS.domain, domain_uri))
         self.graph.add((prop_uri, RDFS.range, range_uri))
         self.graph.add((prop_uri, RDFS.label, Literal(self.human_readable(safe_prop))))
         self.graph.add(
