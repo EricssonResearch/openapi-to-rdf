@@ -933,3 +933,100 @@ The converter adds semantic comments for OpenAPI features that don't translate d
 4. **External References**: Include external YAML files in the `external_refs` parameter
 
 This documentation provides comprehensive coverage of all conversion patterns supported by the OpenAPI to RDF/SHACL converter, enabling users to understand exactly how their OpenAPI specifications will be transformed into semantic web standards.
+
+## Property identity and merging
+
+OpenAPI property names are **locally scoped to their containing
+schema**. Two schemas that happen to use the same property name (e.g.
+`status` on `Subscription` and `status` on `PerfMetricJob`) are
+declaring two distinct fields, not the same one. Merging them into a
+single RDF property is a modelling decision that the transformer is not
+entitled to make unilaterally: it requires knowledge of the API
+author's intent.
+
+Accordingly, the converter operates in two stages; only Stage 1 is
+implemented today.
+
+### Stage 1 — Faithful, class-scoped projection (default, implemented)
+
+Every property URI is minted under a **per-class namespace**:
+
+    <base>/<ClassName>#<propertyName>
+
+For example, `TimeWindow.startTime` in `TS28623_ComDefs.yaml` becomes:
+
+    http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeWindow#startTime
+
+This is distinct from any `startTime` declared elsewhere. By
+construction, each property has exactly one `rdfs:domain` and one
+`rdfs:range`, so the unwanted intersection semantics that arise from
+shared URIs with multiple domains/ranges in RDFS/OWL are avoided.
+
+### Sidecar property index manifest
+
+Alongside the RDF and SHACL output, the converter writes a YAML
+manifest per input file describing every generated property. The
+manifest is designed to be the input for Stage 2. It lives at
+`<output_dir>/index/<base>_property_index.yaml`.
+
+Schema:
+
+```yaml
+source: TS28623_ComDefs.yaml
+generated_by: openapi-to-rdf <version>
+properties:
+  - local_name: startTime
+    uri: http://.../TS28623/ComDefs/TimeWindow#startTime
+    owner_class: TimeWindow
+    range: http://.../TS28623/ComDefs#DateTime
+    description: "..."
+  # ... one entry per (class, property) pair
+collisions:
+  - local_name: startTime
+    members:
+      - http://.../TS28623/ComDefs/TimeWindow#startTime
+      - http://.../TS28623/ComDefs/PerfMetricJob#startTime
+    differs_on: [range]        # or [description], or both
+```
+
+Field meanings:
+
+- **`properties`** — one entry per `(class, property)` pair produced by
+  Stage 1. The `uri` is the canonical class-scoped URI; `owner_class`
+  is the OpenAPI schema name that declared the property (or `null` for
+  properties minted inside inline anonymous objects, e.g. inside a
+  `oneOf` branch without its own schema name).
+- **`collisions`** — groups of entries that share a local name but
+  disagree on `range` and/or `description`. Entries that agree on all
+  these fields are **not** flagged as collisions: they are the same
+  concept declared on multiple classes, and Stage 2 can merge them
+  safely. Entries that differ are exactly the cases where an
+  opinion-based decision is required.
+
+### Stage 2 — Opinion-driven merging (deferred)
+
+A future `openapi-to-rdf merge` subcommand will consume an edited
+property-index file where the human reviewer has annotated merge
+groups, e.g.:
+
+```yaml
+merge_groups:
+  - canonical_uri: http://.../common#startTime
+    members:
+      - http://.../TS28623/ComDefs/TimeWindow#startTime
+      - http://.../TS28623/ComDefs/PerfMetricJob#startTime
+    domain_strategy: union      # emit owl:unionOf, not a list of domains
+    range_strategy: union
+```
+
+and will rewrite the Stage-1 RDF/SHACL output accordingly — for example,
+by:
+
+- replacing member URIs with the canonical URI (or linking them via
+  `owl:equivalentProperty`),
+- emitting `rdfs:domain [ owl:unionOf ( :A :B ) ]` instead of two
+  bare `rdfs:domain` triples (which RDFS reads as an intersection).
+
+The Stage-1 output is intentionally left untouched by Stage 2: the
+merged artefact is a separate file, produced by an explicit,
+reviewable step.
