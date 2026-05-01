@@ -253,6 +253,13 @@ class OpenAPIToSHACLConverter:
         elif "oneOf" in spec:
             self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
         elif "allOf" in spec:
+            # At the top of a named schema, allOf expresses class composition:
+            # every `$ref` item is a parent (emit rdfs:subClassOf) and inline
+            # object items contribute properties directly to this class.
+            # `_handle_logical_operator` still runs to keep the existing SHACL
+            # sh:and / sh:class semantics.
+            if subject is not None and property_shape is None:
+                self._handle_allof_as_inheritance(subject, spec["allOf"])
             self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
 
         # Handle bare constraint specs (e.g. {pattern: "..."} without type) inside allOf/oneOf
@@ -529,6 +536,55 @@ class OpenAPIToSHACLConverter:
             self.shacl_graph.add((property_shape, self.SH.minInclusive, Literal(spec["minimum"])))
         if "maximum" in spec:
             self.shacl_graph.add((property_shape, self.SH.maxInclusive, Literal(spec["maximum"])))
+
+    def _handle_allof_as_inheritance(self, subject, allof_items):
+        """Express a schema's top-level `allOf` as class inheritance.
+
+        For every item that is a `$ref` to a named object schema, emit
+        ``subject rdfs:subClassOf <referenced class>`` in the RDF graph.
+        For every inline ``type: object`` item, emit the schema-level
+        triples (class declaration + NodeShape) onto ``subject`` and merge
+        its ``properties`` onto the child class, so the child collects the
+        fields rather than spawning a synthetic sibling class.
+
+        The existing ``_handle_logical_operator`` pass still runs afterwards
+        to emit the SHACL ``sh:and`` / ``sh:class`` conjunction semantics
+        that consumers validate against.
+        """
+        if not isinstance(allof_items, list):
+            return
+        # Ensure the subject is declared as a class even if no inline
+        # `type: object` item exists (pure `$ref` composition).
+        self.rdf_graph.add((subject, RDF.type, RDFS.Class))
+        for item in allof_items:
+            if not isinstance(item, dict):
+                continue
+            # Case 1: $ref to another named schema → inheritance edge.
+            if "$ref" in item:
+                ref = item["$ref"]
+                if not self._is_object_type_from_ref(ref):
+                    # Only emit subClassOf when the parent is itself an
+                    # object-type class. Datatype refs stay at SHACL level.
+                    continue
+                parent_uri, _ = self._resolve_reference(ref)
+                if parent_uri is not None:
+                    self.rdf_graph.add((subject, RDFS.subClassOf, parent_uri))
+                continue
+            # Case 2: inline object — merge properties onto the subject.
+            if item.get("type") == "object":
+                properties = item.get("properties")
+                if isinstance(properties, dict):
+                    required_props = item.get("required", []) or []
+                    # Reuse the per-class property-shape pipeline by creating
+                    # a NodeShape targeted at `subject` and threading property
+                    # processing through it, matching `_handle_object_type`.
+                    node_shape = self._create_bnode()
+                    self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+                    self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+                    for prop_name, prop_def in properties.items():
+                        self._process_property(
+                            subject, node_shape, prop_name, prop_def, required_props
+                        )
 
     def _handle_logical_operator(self, subject, property_shape, specs_list, operator):
         """Handle logical operators (anyOf, oneOf, allOf)."""
