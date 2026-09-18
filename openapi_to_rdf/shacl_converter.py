@@ -918,6 +918,12 @@ class OpenAPIToSHACLConverter:
         if domain_class is not None:
             self.rdf_graph.add((predicate_uri, RDFS.domain, domain_class))
 
+        # Per RDF Schema (W3C Recommendation), rdfs:range propagates under
+        # entailment rather than validating. An invented range is not a loose
+        # constraint, it is a false axiom. Emit rdfs:range only where it is
+        # provably true: datatype ranges always, class ranges only for
+        # single-target properties. Multi-target and un-analyzable properties
+        # defer their constraint to SHACL, where it binds without entailing.
         if range_uri is not None:
             self.rdf_graph.add((predicate_uri, RDFS.range, range_uri))
 
@@ -964,8 +970,21 @@ class OpenAPIToSHACLConverter:
         self._type_clause(None, property_shape, prop_def)
 
     def _determine_property_type_and_range(self, prop_def):
-        """Determine the appropriate RDF property type and range for a property definition."""
-        
+        """Determine the appropriate RDF property type and range for a property definition.
+
+        Returns (RDF.Property, range_uri) where range_uri may be None.
+        Per RDFS (W3C Recommendation), rdfs:range propagates under entailment
+        rather than validating, so we emit it only where it is provably true:
+        datatype ranges always, class ranges only for single-target properties.
+        Multi-target (anyOf/oneOf) and un-analyzable properties return None,
+        deferring their constraint to SHACL where it binds without entailing.
+        """
+
+        # Multi-target properties (anyOf, oneOf, allOf) cannot have a single
+        # rdfs:range — the constraint belongs in SHACL.
+        if any(k in prop_def for k in ("anyOf", "oneOf", "allOf")):
+            return RDF.Property, None
+
         # Handle $ref references
         if "$ref" in prop_def:
             ref = prop_def["$ref"]
@@ -975,9 +994,10 @@ class OpenAPIToSHACLConverter:
                     return RDF.Property, class_uri
                 else:
                     datatype = self._get_datatype_from_ref(ref)
-                    return RDF.Property, datatype if datatype is not None else XSD.string
+                    return RDF.Property, datatype if datatype is not None else None
             else:
-                return RDF.Property, XSD.string
+                # Unresolved reference — no range can be determined.
+                return RDF.Property, None
         
         # Handle basic types
         elif prop_def.get("type") == "string":
@@ -1017,11 +1037,11 @@ class OpenAPIToSHACLConverter:
                 ref_uri = self._resolve_reference(items["$ref"])[0]
                 return RDF.Property, ref_uri
             else:
-                # Array of simple types
-                return RDF.Property, XSD.string
-        
-        # Default fallback
-        return RDF.Property, XSD.string
+                # Array of unspecified item type — no determinate range.
+                return RDF.Property, None
+
+        # Default fallback: type could not be analyzed, no range determined.
+        return RDF.Property, None
 
     def _get_datatype_from_ref(self, ref):
         """Get appropriate XSD datatype from a reference by looking up the schema."""
