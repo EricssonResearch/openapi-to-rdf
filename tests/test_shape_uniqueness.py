@@ -96,3 +96,70 @@ def test_the_required_array_still_has_its_declared_lower_bound(shapes: Graph) ->
     }
     tags = [v for k, v in counts.items() if k.endswith("tags")]
     assert tags == [2], f"expected minCount 2 for a required array with minItems 2, got {tags}"
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason="oneOf with inline object + nested anyOf creates empty duplicate NodeShape. "
+    "Observed in Resource (TS28532_ProvMnS.yaml). Nested logical operators inside "
+    "oneOf may require different handling from top-level cases."
+)
+def test_nested_logical_operators_oneOf_with_anyOf() -> None:
+    """Reproduce the Resource duplicate: oneOf containing inline object + nested anyOf.
+
+    This is the minimal structure from TS28532_ProvMnS.yaml Resource schema that
+    produces two NodeShapes (one populated, one empty).
+    """
+    spec = {
+        "openapi": "3.0.0",
+        "info": {"title": "Test", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "RefTarget1": {"type": "object", "properties": {"x": {"type": "string"}}},
+                "RefTarget2": {"type": "object", "properties": {"y": {"type": "string"}}},
+                "ResourceLike": {
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "id": {"type": "string"},
+                                "objectClass": {"type": "string"},
+                                "attributes": {"type": "object"},
+                            },
+                            "additionalProperties": {
+                                "type": "array",
+                                "items": {"type": "object"}
+                            },
+                            "required": ["id"]
+                        },
+                        {
+                            "anyOf": [
+                                {"$ref": "#/components/schemas/RefTarget1"},
+                                {"$ref": "#/components/schemas/RefTarget2"},
+                            ]
+                        },
+                    ]
+                },
+            }
+        },
+    }
+
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        spec_file = Path(tmp) / "test.yaml"
+        spec_file.write_text(yaml.safe_dump(spec))
+        from openapi_to_rdf import OpenAPIToSHACLConverter
+
+        converter = OpenAPIToSHACLConverter(str(spec_file), output_dir=str(Path(tmp) / "out"))
+        converter.convert()
+        converter.save_rdf()
+
+        g = Graph()
+        g.parse(str(Path(tmp) / "out" / "shacl" / "test_shacl.ttl"), format="turtle")
+
+        targets = collections.Counter(str(o) for _, o in g.subject_objects(SH.targetClass))
+        resource_like = [k for k in targets.keys() if k.endswith("ResourceLike")]
+        assert len(resource_like) == 1, "Expected exactly one ResourceLike class"
+
+        count = targets[resource_like[0]]
+        assert count == 1, f"ResourceLike has {count} NodeShapes (expected 1); this is the Resource duplicate"
