@@ -292,13 +292,17 @@ class OpenAPIToSHACLConverter:
         # Handle string type
         elif spec.get("type") == "string":
             self._handle_string_type(subject, property_shape, spec)
-            # Also process allOf/anyOf/oneOf if present alongside type
-            if "allOf" in spec:
-                self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
-            elif "anyOf" in spec:
-                self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH["or"])
-            elif "oneOf" in spec:
-                self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
+            # Also process allOf/anyOf/oneOf if present alongside type.
+            # For top-level schemas (subject is not None, property_shape is None),
+            # _handle_string_type already created a NodeShape, so skip logical operators
+            # to avoid creating a second one.
+            if subject is None or property_shape is not None:
+                if "allOf" in spec:
+                    self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
+                elif "anyOf" in spec:
+                    self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH["or"])
+                elif "oneOf" in spec:
+                    self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
 
         # Handle numeric types (integer, number)
         elif spec.get("type") in ["integer", "number"]:
@@ -318,11 +322,18 @@ class OpenAPIToSHACLConverter:
             # At the top of a named schema, allOf expresses class composition:
             # every `$ref` item is a parent (emit rdfs:subClassOf) and inline
             # object items contribute properties directly to this class.
-            # `_handle_logical_operator` still runs to keep the existing SHACL
-            # sh:and / sh:class semantics.
+            # The inheritance path (_handle_allof_as_inheritance) creates
+            # exactly one NodeShape, which the logical operator path then
+            # augments with sh:class/sh:and validation constraints.
             if subject is not None and property_shape is None:
-                self._handle_allof_as_inheritance(subject, spec["allOf"])
-            self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
+                # Create NodeShape and add inheritance edges and properties.
+                node_shape = self._handle_allof_as_inheritance(subject, spec["allOf"])
+                # Add SHACL validation constraints to the same NodeShape.
+                if node_shape is not None:
+                    self._handle_logical_operator(subject, node_shape, spec["allOf"], self.SH["and"])
+            else:
+                # Property-level allOf: use logical operator semantics.
+                self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
 
         # Handle bare constraint specs (e.g. {pattern: "..."} without type) inside allOf/oneOf
         elif property_shape is not None and not spec.get("type"):
@@ -455,9 +466,8 @@ class OpenAPIToSHACLConverter:
             self.shacl_graph.add((property_shape, RDFS.comment, Literal(spec["description"])))
 
         # Cardinality from minItems/maxItems (only on PropertyShapes, not top-level NodeShapes)
+        # minCount is now computed once in _process_property, combining required and minItems.
         if subject is None:  # property-level array, not top-level
-            if "minItems" in spec:
-                self.shacl_graph.add((property_shape, self.SH.minCount, Literal(spec["minItems"])))
             if "maxItems" in spec:
                 self.shacl_graph.add((property_shape, self.SH.maxCount, Literal(spec["maxItems"])))
 
@@ -604,20 +614,28 @@ class OpenAPIToSHACLConverter:
 
         For every item that is a `$ref` to a named object schema, emit
         ``subject rdfs:subClassOf <referenced class>`` in the RDF graph.
-        For every inline ``type: object`` item, emit the schema-level
-        triples (class declaration + NodeShape) onto ``subject`` and merge
-        its ``properties`` onto the child class, so the child collects the
-        fields rather than spawning a synthetic sibling class.
+        For every inline ``type: object`` item, merge its ``properties``
+        onto the child class via a single NodeShape.
 
-        The existing ``_handle_logical_operator`` pass still runs afterwards
-        to emit the SHACL ``sh:and`` / ``sh:class`` conjunction semantics
-        that consumers validate against.
+        Always creates exactly one NodeShape for the subject, which
+        _handle_logical_operator can then augment with sh:class/sh:and
+        constraints for validation semantics.
+
+        Returns the NodeShape so the caller knows one was created.
         """
         if not isinstance(allof_items, list):
-            return
+            return None
         # Ensure the subject is declared as a class even if no inline
         # `type: object` item exists (pure `$ref` composition).
         self.rdf_graph.add((subject, RDF.type, RDFS.Class))
+
+        # Create exactly one NodeShape for this class. Even pure-ref allOf
+        # (no inline objects) needs a NodeShape so SHACL constraints from
+        # _handle_logical_operator have somewhere to attach.
+        node_shape = self._create_bnode()
+        self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+        self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+
         for item in allof_items:
             if not isinstance(item, dict):
                 continue
@@ -637,16 +655,12 @@ class OpenAPIToSHACLConverter:
                 properties = item.get("properties")
                 if isinstance(properties, dict):
                     required_props = item.get("required", []) or []
-                    # Reuse the per-class property-shape pipeline by creating
-                    # a NodeShape targeted at `subject` and threading property
-                    # processing through it, matching `_handle_object_type`.
-                    node_shape = self._create_bnode()
-                    self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
-                    self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
                     for prop_name, prop_def in properties.items():
                         self._process_property(
                             subject, node_shape, prop_name, prop_def, required_props
                         )
+
+        return node_shape
 
     def _handle_logical_operator(self, subject, property_shape, specs_list, operator):
         """Handle logical operators (anyOf, oneOf, allOf)."""
@@ -780,11 +794,24 @@ class OpenAPIToSHACLConverter:
             # For homogeneous types, inline the constraints instead of creating separate shapes
             # This avoids the problem of undefined blank node references
             if operator == self.SH["and"]:
-                # For allOf, we can inline all constraints directly on the property_shape
+                # For allOf, inline constraints directly on the property_shape.
+                # $refs become sh:class constraints; inline objects add their properties.
                 for spec in specs_list:
                     if "description" in spec:
                         self.shacl_graph.add((property_shape, RDFS.comment, Literal(spec["description"])))
-                    self._type_clause(subject, property_shape, spec)
+
+                    # Handle $ref: add sh:class constraint without creating a new NodeShape.
+                    # _handle_allof_as_inheritance already emitted rdfs:subClassOf for these.
+                    if "$ref" in spec:
+                        ref = spec["$ref"]
+                        if self._is_object_type_from_ref(ref):
+                            parent_uri, _ = self._resolve_reference(ref)
+                            if parent_uri is not None:
+                                self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), parent_uri))
+                    else:
+                        # Inline constraint/object: pass subject=None so _handle_object_type
+                        # doesn't create a duplicate NodeShape.
+                        self._type_clause(None, property_shape, spec)
             else:
                 # For oneOf/anyOf, we need to create separate shapes but avoid RDF lists
                 # Create individual property shapes for each constraint
@@ -951,11 +978,16 @@ class OpenAPIToSHACLConverter:
         self.shacl_graph.add((property_shape, self.SH.path, predicate_uri))
 
         # Add cardinality constraints
-        if prop_name in required_list:
-            self.shacl_graph.add((property_shape, self.SH.minCount, Literal(1)))
-        
-        # Add maxCount 1 for non-array properties to ensure single-valued semantics
+        # Compute lower bound once, combining required (implies min 1) and minItems.
+        # The stricter bound wins: minItems 2 beats required's implied 1.
         is_array = prop_def.get("type") == "array" or "items" in prop_def
+        min_items = prop_def.get("minItems", 0) if is_array else 0
+        is_required = 1 if prop_name in required_list else 0
+        lower_bound = max(is_required, min_items)
+        if lower_bound > 0:
+            self.shacl_graph.add((property_shape, self.SH.minCount, Literal(lower_bound)))
+
+        # Add maxCount 1 for non-array properties to ensure single-valued semantics
         if not is_array and "$ref" in prop_def:
             ref = prop_def["$ref"]
             ref_name = ref.split("/")[-1]
