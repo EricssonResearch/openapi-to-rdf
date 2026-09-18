@@ -2,18 +2,19 @@
 @prefix TS28319_MsacNrm_AccessRule_Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/AccessRule_Single#> .
 @prefix TS28319_MsacNrm_Identity_Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/Identity_Single#> .
 @prefix TS28319_MsacNrm_Role_Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/Role_Single#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28319_MsacNrm:AccessRule_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28319_MsacNrm:Identity_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28319_MsacNrm:Role_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28319_MsacNrm:resources_msacNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
@@ -24,8 +25,10 @@ TS28319_MsacNrm:accessRulesList a rdf:Property ;
 TS28319_MsacNrm:actions a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28319_MsacNrm:componentCData a rdf:Property ;
-    rdfs:range xsd:string .
+TS28319_MsacNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
+
+TS28319_MsacNrm:componentCData a rdf:Property .
 
 TS28319_MsacNrm:credential a rdf:Property ;
     rdfs:range xsd:string .
@@ -36,8 +39,7 @@ TS28319_MsacNrm:identityName a rdf:Property ;
 TS28319_MsacNrm:identityType a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28319_MsacNrm:operations a rdf:Property ;
-    rdfs:range xsd:string .
+TS28319_MsacNrm:operations a rdf:Property .
 
 TS28319_MsacNrm:resources a rdf:Property ;
     rdfs:range xsd:string .

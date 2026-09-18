@@ -1,5 +1,5 @@
 source: TS28532_StreamingDataMnS.yaml
-generated_by: openapi-to-rdf 0.2.0
+generated_by: openapi-to-rdf 0.1.1
 properties:
 - local_name: activityDetails
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/analyticsInfo_Type#activityDetails
@@ -9,7 +9,7 @@ properties:
 - local_name: additionalInfo
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfo_Type#additionalInfo
   owner_class: streamInfo_Type
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: null
   description: null
 - local_name: connection
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/connectionInfo_Type#connection
@@ -24,7 +24,7 @@ properties:
 - local_name: error
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/failedConnectionResponse_Type#error
   owner_class: failedConnectionResponse_Type
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: null
   description: null
 - local_name: errorInfo
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS#errorInfo
@@ -79,7 +79,7 @@ properties:
 - local_name: streamId
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfo_Type#streamId
   owner_class: streamInfo_Type
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: null
   description: null
 - local_name: streamInfo
   uri: http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfoWithReporters_Type#streamInfo
@@ -121,6 +121,12 @@ collisions:
   members:
   - http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/errorResponse_Type#error
   - http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/failedConnectionResponse_Type#error
+  differs_on:
+  - range
+- local_name: streamId
+  members:
+  - http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS#streamId
+  - http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfo_Type#streamId
   differs_on:
   - range
 - local_name: streams

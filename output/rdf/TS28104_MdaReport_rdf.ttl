@@ -3,6 +3,7 @@
 @prefix TS28104_MdaReport_MDAOutputs: <http://ericsson.com/models/3gpp/TS28104/MdaReport/MDAOutputs#> .
 @prefix TS28104_MdaReport_MDAReport: <http://ericsson.com/models/3gpp/TS28104/MdaReport/MDAReport#> .
 @prefix TS28104_MdaReport_TimeWindow: <http://ericsson.com/models/3gpp/TS28104/MdaReport/TimeWindow#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -12,9 +13,11 @@ TS28104_MdaReport:MDAOutputEntry a rdfs:Class .
 TS28104_MdaReport:MDAOutputs a rdfs:Class .
 
 TS28104_MdaReport:MDAReport a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28104_MdaReport:TimeWindow a rdfs:Class .
+
+TS28104_MdaReport:attributes a rdf:Property .
 
 TS28104_MdaReport:mDAOutputs a rdf:Property ;
     rdfs:range TS28104_MdaReport:MDAOutputs .
@@ -30,8 +33,7 @@ TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue a rdf:Property ;
-    rdfs:domain TS28104_MdaReport:MDAOutputEntry ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28104_MdaReport:MDAOutputEntry .
 
 TS28104_MdaReport_MDAOutputs:analyticsWindow a rdf:Property ;
     rdfs:domain TS28104_MdaReport:MDAOutputs ;
@@ -50,8 +52,7 @@ TS28104_MdaReport_MDAOutputs:mDAType a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28104_MdaReport_MDAReport:attributes a rdf:Property ;
-    rdfs:domain TS28104_MdaReport:MDAReport ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28104_MdaReport:MDAReport .
 
 TS28104_MdaReport_TimeWindow:mDAOutputEndTime a rdf:Property ;
     rdfs:domain TS28104_MdaReport:TimeWindow ;

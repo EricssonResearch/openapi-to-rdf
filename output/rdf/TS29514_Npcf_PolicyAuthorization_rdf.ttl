@@ -108,7 +108,7 @@ TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm a rdfs:Class ;
         "this data type is defined in the same way as the EventsSubscReqData data type, but with the OpenAPI nullable property set to true." .
 
 TS29514_Npcf_PolicyAuthorization:ExtendedProblemDetails a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS29571_CommonData:ProblemDetails .
 
 TS29514_Npcf_PolicyAuthorization:FlowStatus a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -247,6 +247,9 @@ TS29514_Npcf_PolicyAuthorization:TosTrafficClassRm a rdfs:Datatype ;
 TS29514_Npcf_PolicyAuthorization:TscPriorityLevel a rdfs:Datatype .
 
 TS29514_Npcf_PolicyAuthorization:TscPriorityLevelRm a rdfs:Datatype .
+
+TS29514_Npcf_PolicyAuthorization:acceptableServInfo a rdf:Property ;
+    rdfs:range TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo .
 
 TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:accBwMedComps a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
@@ -605,8 +608,7 @@ TS29514_Npcf_PolicyAuthorization_EthFlowDescription:srcMacAddrEnd a rdf:Property
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:vlanTags a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:accessType a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
@@ -758,8 +760,7 @@ TS29514_Npcf_PolicyAuthorization_Flows:contVers a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:ContentVersion .
 
 TS29514_Npcf_PolicyAuthorization_Flows:fNums a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:Flows ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:Flows .
 
 TS29514_Npcf_PolicyAuthorization_Flows:medCompN a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:Flows ;
@@ -774,8 +775,7 @@ TS29514_Npcf_PolicyAuthorization_MediaComponent:afRoutReq a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:altSerReqs a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:codecs a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
@@ -914,8 +914,7 @@ TS29514_Npcf_PolicyAuthorization_MediaComponentRm:afRoutReq a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:altSerReqs a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:codecs a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
@@ -1186,20 +1185,17 @@ TS29514_Npcf_PolicyAuthorization_QosMonitoringInformationRm:repThreshUl a rdf:Pr
     rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:dlDelays a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport .
 
 TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:flows a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:Flows .
 
 TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:rtDelays a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport .
 
 TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:ulDelays a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringReport .
 
 TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:altSerReq a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo ;

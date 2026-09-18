@@ -8,6 +8,7 @@
 @prefix TS28532_StreamingDataMnS_streamInfoWithReporters_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfoWithReporters_Type#> .
 @prefix TS28532_StreamingDataMnS_streamInfo_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfo_Type#> .
 @prefix TS28532_StreamingDataMnS_vsDataContainer_Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/vsDataContainer_Type#> .
+@prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -23,8 +24,7 @@ TS28532_StreamingDataMnS:errorResponse_Type a rdfs:Class .
 
 TS28532_StreamingDataMnS:failedConnectionResponse_Type a rdfs:Class .
 
-TS28532_StreamingDataMnS:measObjDn_Type a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+TS28532_StreamingDataMnS:measObjDn_Type a rdfs:Class .
 
 TS28532_StreamingDataMnS:performanceInfo_Type a rdfs:Class ;
     rdfs:comment "Information specific to performance data reporting" .
@@ -32,8 +32,7 @@ TS28532_StreamingDataMnS:performanceInfo_Type a rdfs:Class ;
 TS28532_StreamingDataMnS:performanceMetrics_Type a rdfs:Class ;
     rdfs:comment "an ordered list of performance metric names (see clause 4.4.1 of 3GPP TS 28.622[11]) whose values are to be reported by the Performance Data Stream Units (see Annex C of TS 28.550 [42]) via this stream. Performance metrics include measurement and KPI" .
 
-TS28532_StreamingDataMnS:producerId_Type a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+TS28532_StreamingDataMnS:producerId_Type a rdfs:Class .
 
 TS28532_StreamingDataMnS:streamInfoWithReporters_Type a rdfs:Class ;
     rdfs:comment "Reporting stream meta-data with added information about reporters." .
@@ -42,7 +41,7 @@ TS28532_StreamingDataMnS:streamInfo_Type a rdfs:Class ;
     rdfs:comment "Reporting stream meta-data." .
 
 TS28532_StreamingDataMnS:traceInfo_Type a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_TraceControlNrm:TraceJob_Attr .
 
 TS28532_StreamingDataMnS:vsDataContainer_Type a rdfs:Class ;
     rdfs:comment "container for vendor specific data (see 3GPP TS 28.622)" .
@@ -119,8 +118,7 @@ TS28532_StreamingDataMnS_errorResponse_Type:error a rdf:Property ;
     rdfs:range rdfs:Resource .
 
 TS28532_StreamingDataMnS_failedConnectionResponse_Type:error a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:failedConnectionResponse_Type ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28532_StreamingDataMnS:failedConnectionResponse_Type .
 
 TS28532_StreamingDataMnS_performanceInfo_Type:jobId a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:performanceInfo_Type ;
@@ -143,16 +141,14 @@ TS28532_StreamingDataMnS_streamInfoWithReporters_Type:streamInfo a rdf:Property 
     rdfs:range TS28532_StreamingDataMnS:streamInfo_Type .
 
 TS28532_StreamingDataMnS_streamInfo_Type:additionalInfo a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type .
 
 TS28532_StreamingDataMnS_streamInfo_Type:serializationFormat a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
     rdfs:range xsd:string .
 
 TS28532_StreamingDataMnS_streamInfo_Type:streamId a rdf:Property ;
-    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type .
 
 TS28532_StreamingDataMnS_streamInfo_Type:streamType a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:streamInfo_Type ;

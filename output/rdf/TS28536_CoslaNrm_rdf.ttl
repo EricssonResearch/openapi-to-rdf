@@ -10,6 +10,7 @@
 @prefix TS28536_CoslaNrm_ManagedElement_ncO_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/ManagedElement_ncO_CoslaNrm#> .
 @prefix TS28536_CoslaNrm_SubNetwork_ncO_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm/SubNetwork_ncO_CoslaNrm#> .
 @prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/TS28541/NrNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -19,7 +20,7 @@ TS28536_CoslaNrm:ACCLDisallowedAttributes a rdfs:Class .
 TS28536_CoslaNrm:AssuranceClosedControlLoop_Multiple a rdfs:Class .
 
 TS28536_CoslaNrm:AssuranceClosedControlLoop_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28536_CoslaNrm:AssuranceGoalStatus a rdfs:Class .
 
@@ -28,10 +29,10 @@ TS28536_CoslaNrm:AssuranceGoalStatusList a rdfs:Class .
 TS28536_CoslaNrm:AssuranceGoal_Multiple a rdfs:Class .
 
 TS28536_CoslaNrm:AssuranceGoal_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28536_CoslaNrm:AssuranceReport_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28536_CoslaNrm:AssuranceScope a rdfs:Class .
 
@@ -52,9 +53,15 @@ TS28536_CoslaNrm:SubNetwork_ncO_CoslaNrm a rdfs:Class .
 TS28536_CoslaNrm:resources_coslaNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
+TS28536_CoslaNrm:AssuranceGoal a rdf:Property ;
+    rdfs:range TS28536_CoslaNrm:AssuranceGoal_Multiple .
+
 TS28536_CoslaNrm:AssuranceGoalStatusObserved a rdfs:Datatype .
 
 TS28536_CoslaNrm:AssuranceGoalStatusPredicted a rdfs:Datatype .
+
+TS28536_CoslaNrm:AssuranceReport a rdf:Property ;
+    rdfs:range TS28536_CoslaNrm:AssuranceReport_Single .
 
 TS28536_CoslaNrm:AssuranceTargetName a rdfs:Datatype .
 
@@ -80,6 +87,9 @@ TS28536_CoslaNrm:assuranceScope a rdf:Property ;
 
 TS28536_CoslaNrm:assuranceTargetList a rdf:Property ;
     rdfs:range TS28536_CoslaNrm:AssuranceTargetList .
+
+TS28536_CoslaNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
 
 TS28536_CoslaNrm:controlLoopLifeCyclePhase a rdf:Property ;
     rdfs:range xsd:string .
@@ -143,12 +153,10 @@ TS28536_CoslaNrm_AssuranceGoalStatus:assuranceGoalStatusPredicted a rdf:Property
     rdfs:range xsd:string .
 
 TS28536_CoslaNrm_AssuranceGoal_Single:attributes a rdf:Property ;
-    rdfs:domain TS28536_CoslaNrm:AssuranceGoal_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28536_CoslaNrm:AssuranceGoal_Single .
 
 TS28536_CoslaNrm_AssuranceReport_Single:attributes a rdf:Property ;
-    rdfs:domain TS28536_CoslaNrm:AssuranceReport_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28536_CoslaNrm:AssuranceReport_Single .
 
 TS28536_CoslaNrm_AssuranceScope:taiList a rdf:Property ;
     rdfs:domain TS28536_CoslaNrm:AssuranceScope ;

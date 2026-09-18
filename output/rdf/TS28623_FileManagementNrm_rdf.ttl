@@ -5,6 +5,7 @@
 @prefix TS28623_FileManagementNrm_Files_Single: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/Files_Single#> .
 @prefix TS28623_FileManagementNrm_ManagedElement_ncO_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/ManagedElement_ncO_FileManagementNrm#> .
 @prefix TS28623_FileManagementNrm_SubNetwork_ncO_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/SubNetwork_ncO_FileManagementNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -15,17 +16,17 @@ TS28623_FileManagementNrm:FileDownloadJobProcessMonitor a rdfs:Class ;
 TS28623_FileManagementNrm:FileDownloadJob_Multiple a rdfs:Class .
 
 TS28623_FileManagementNrm:FileDownloadJob_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_FileManagementNrm:File_Multiple a rdfs:Class .
 
 TS28623_FileManagementNrm:File_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_FileManagementNrm:Files_Multiple a rdfs:Class .
 
 TS28623_FileManagementNrm:Files_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_FileManagementNrm:ManagedElement_ncO_FileManagementNrm a rdfs:Class .
 
@@ -36,6 +37,9 @@ TS28623_FileManagementNrm:resources_fileMgmtNrm a rdfs:Class ;
 
 TS28623_FileManagementNrm:File a rdf:Property ;
     rdfs:range TS28623_FileManagementNrm:File_Multiple .
+
+TS28623_FileManagementNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
 
 TS28623_FileManagementNrm:cancelJob a rdf:Property ;
     rdfs:range xsd:string .
@@ -96,8 +100,7 @@ TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:progressStateInfo a rdf:
     rdfs:range xsd:string .
 
 TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:resultStateInfo a rdf:Property ;
-    rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
 
 TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:startTime a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;

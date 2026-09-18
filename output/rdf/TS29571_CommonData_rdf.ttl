@@ -193,7 +193,8 @@ TS29571_CommonData:EventForMdt a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:ExtSnssai a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS29571_CommonData:Snssai,
+        TS29571_CommonData:SnssaiExtension .
 
 TS29571_CommonData:FqdnRm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -224,22 +225,6 @@ TS29571_CommonData:HttpMethod a rdfs:Class ;
 TS29571_CommonData:InterFreqTargetInfo a rdfs:Class .
 
 TS29571_CommonData:InvalidParam a rdfs:Class .
-
-TS29571_CommonData:Ipv6Addr a rdfs:Class,
-        rdfs:Datatype ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
-
-TS29571_CommonData:Ipv6AddrRm a rdfs:Class,
-        rdfs:Datatype ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
-
-TS29571_CommonData:Ipv6Prefix a rdfs:Class,
-        rdfs:Datatype ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
-
-TS29571_CommonData:Ipv6PrefixRm a rdfs:Class,
-        rdfs:Datatype ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:JobType a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -702,6 +687,14 @@ TS29571_CommonData:Ipv4AddrMaskRm a rdfs:Datatype .
 
 TS29571_CommonData:Ipv4AddrRm a rdfs:Datatype .
 
+TS29571_CommonData:Ipv6Addr a rdfs:Datatype .
+
+TS29571_CommonData:Ipv6AddrRm a rdfs:Datatype .
+
+TS29571_CommonData:Ipv6Prefix a rdfs:Datatype .
+
+TS29571_CommonData:Ipv6PrefixRm a rdfs:Datatype .
+
 TS29571_CommonData:MacAddr48 a rdfs:Datatype .
 
 TS29571_CommonData:MacAddr48Rm a rdfs:Datatype .
@@ -908,8 +901,7 @@ TS29571_CommonData_Atom:negative a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29571_CommonData_Atom:value a rdf:Property ;
-    rdfs:domain TS29571_CommonData:Atom ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:Atom .
 
 TS29571_CommonData_AtsssCapability:atsssLL a rdf:Property ;
     rdfs:domain TS29571_CommonData:AtsssCapability ;
@@ -960,16 +952,14 @@ TS29571_CommonData_ChangeItem:from a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29571_CommonData_ChangeItem:newValue a rdf:Property ;
-    rdfs:domain TS29571_CommonData:ChangeItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:ChangeItem .
 
 TS29571_CommonData_ChangeItem:op a rdf:Property ;
     rdfs:domain TS29571_CommonData:ChangeItem ;
     rdfs:range xsd:string .
 
 TS29571_CommonData_ChangeItem:origValue a rdf:Property ;
-    rdfs:domain TS29571_CommonData:ChangeItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:ChangeItem .
 
 TS29571_CommonData_ChangeItem:path a rdf:Property ;
     rdfs:domain TS29571_CommonData:ChangeItem ;
@@ -1544,8 +1534,7 @@ TS29571_CommonData_PatchItem:path a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29571_CommonData_PatchItem:value a rdf:Property ;
-    rdfs:domain TS29571_CommonData:PatchItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:PatchItem .
 
 TS29571_CommonData_PatchResult:report a rdf:Property ;
     rdfs:domain TS29571_CommonData:PatchResult ;

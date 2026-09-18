@@ -70,6 +70,10 @@ class OpenAPIToSHACLConverter:
             generated_by=f"openapi-to-rdf {_package_version()}",
         )
 
+        # Track how many properties carried no value constraint and were
+        # omitted (logged once per conversion).
+        self.properties_without_constraints = 0
+
         self._load_yaml()
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -234,6 +238,9 @@ class OpenAPIToSHACLConverter:
             if "schemas" in self.data["components"]:
                 self._parse_schemas(self.data["components"]["schemas"])
 
+        if self.properties_without_constraints > 0:
+            print(f"ℹ️  {self.properties_without_constraints} properties carried no value constraint and were omitted from SHACL shapes")
+
     def _parse_schemas(self, schemas):
         """Parse each schema definition in the OpenAPI components."""
         for schema_name, schema_def in schemas.items():
@@ -385,17 +392,22 @@ class OpenAPIToSHACLConverter:
                 enum_list = self._create_rdf_list(processed_enum)
                 self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), enum_list))
         
-        # If we're processing a property_shape and haven't added any value constraints,
-        # add a default constraint to satisfy GraphDB's requirement
-        # PropertyShapes must have at least one value constraint (sh:datatype, sh:class, sh:node, etc.)
+        # Per SHACL (W3C Recommendation), a PropertyShape must have at least one
+        # constraint component to be meaningful. If we're processing a property_shape
+        # and haven't added any value constraints, remove the PropertyShape entirely
+        # rather than inventing one — a shape says what the schema said, and the empty
+        # schema says nothing. If a downstream triple store requires every PropertyShape
+        # to carry a constraint, that store's loader should handle the requirement,
+        # not the converter baking a false assertion into published artifacts.
         if property_shape is not None:
-            # Check if we've added any value constraints by checking predicates directly
-            # Value constraints are: sh:datatype, sh:class, sh:node, sh:in, sh:hasValue, sh:shape, sh:nodeKind, sh:or, sh:xone, sh:and
+            # Check if we've added any value constraints by checking predicates directly.
+            # Value constraints per SHACL (W3C Recommendation) are: sh:datatype,
+            # sh:class, sh:node, sh:in, sh:hasValue, sh:nodeKind, sh:or, sh:xone, sh:and.
             has_value_constraint = False
-            
+
             # Check all triples with this property_shape as subject
             predicates_for_shape = list(self.shacl_graph.predicates(property_shape))
-            
+
             # Value constraint predicates to check
             value_constraint_predicates = [
                 self.SH.datatype,
@@ -408,17 +420,22 @@ class OpenAPIToSHACLConverter:
                 self.SH.xone,
                 self.SH["and"]
             ]
-            
+
             # Check if any predicate is a value constraint
             for pred in predicates_for_shape:
                 if pred in value_constraint_predicates:
                     has_value_constraint = True
                     break
-            
-            # If no value constraint was added, add a default one
-            # Use sh:nodeKind sh:IRI as a permissive default (allows any IRI or blank node)
+
+            # If no value constraint was added, remove the PropertyShape
             if not has_value_constraint:
-                self.shacl_graph.add((property_shape, self.SH.nodeKind, self.SH.IRI))
+                # Remove all triples where this property_shape is the subject
+                for p, o in list(self.shacl_graph.predicate_objects(property_shape)):
+                    self.shacl_graph.remove((property_shape, p, o))
+                # Remove all triples where this property_shape is the object
+                for s, p in list(self.shacl_graph.subject_predicates(property_shape)):
+                    self.shacl_graph.remove((s, p, property_shape))
+                self.properties_without_constraints += 1
 
     def _inline_primitive_constraints(self, property_shape, ref_schema):
         """Inline constraints from a referenced primitive schema onto a PropertyShape."""

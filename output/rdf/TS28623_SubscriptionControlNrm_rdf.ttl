@@ -1,4 +1,5 @@
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#> .
 @prefix TS28623_SubscriptionControlNrm_HeartbeatControl_Single: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm/HeartbeatControl_Single#> .
 @prefix TS28623_SubscriptionControlNrm_ManagedElement_ncO_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm/ManagedElement_ncO_SubscriptionControlNrm#> .
@@ -9,14 +10,14 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28623_SubscriptionControlNrm:HeartbeatControl_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_SubscriptionControlNrm:ManagedElement_ncO_SubscriptionControlNrm a rdfs:Class .
 
 TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Multiple a rdfs:Class .
 
 TS28623_SubscriptionControlNrm:NtfSubscriptionControl_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_SubscriptionControlNrm:Scope a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
@@ -25,6 +26,12 @@ TS28623_SubscriptionControlNrm:SubNetwork_ncO_SubscriptionControlNrm a rdfs:Clas
 
 TS28623_SubscriptionControlNrm:resources_subscriptionControlNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
+TS28623_SubscriptionControlNrm:HeartbeatControl a rdf:Property ;
+    rdfs:range TS28623_SubscriptionControlNrm:HeartbeatControl_Single .
+
+TS28623_SubscriptionControlNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
 
 TS28623_SubscriptionControlNrm:heartbeatNtfPeriod a rdf:Property ;
     rdfs:range xsd:integer .

@@ -1,11 +1,12 @@
 @prefix TS28532_PerfMnS: <http://ericsson.com/models/3gpp/TS28532/PerfMnS#> .
 @prefix TS28532_PerfMnS_NotifyThresholdCrossing: <http://ericsson.com/models/3gpp/TS28532/PerfMnS/NotifyThresholdCrossing#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28532_PerfMnS:NotifyThresholdCrossing a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_PerfMnS:PerfMetricValue a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
@@ -13,6 +14,27 @@ TS28532_PerfMnS:PerfMetricValue a rdfs:Class ;
 TS28532_PerfMnS:PerfMetricDirection a rdfs:Datatype .
 
 TS28532_PerfMnS:PerfNotificationTypes a rdfs:Datatype .
+
+TS28532_PerfMnS:additionalText a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_PerfMnS:hysteresis a rdf:Property ;
+    rdfs:range TS28532_PerfMnS:PerfMetricValue .
+
+TS28532_PerfMnS:monitorGranularityPeriod a rdf:Property ;
+    rdfs:range xsd:integer .
+
+TS28532_PerfMnS:observedPerfMetricDirection a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_PerfMnS:observedPerfMetricName a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_PerfMnS:observedPerfMetricValue a rdf:Property ;
+    rdfs:range TS28532_PerfMnS:PerfMetricValue .
+
+TS28532_PerfMnS:thresholdValue a rdf:Property ;
+    rdfs:range TS28532_PerfMnS:PerfMetricValue .
 
 TS28532_PerfMnS_NotifyThresholdCrossing:additionalText a rdf:Property ;
     rdfs:domain TS28532_PerfMnS:NotifyThresholdCrossing ;

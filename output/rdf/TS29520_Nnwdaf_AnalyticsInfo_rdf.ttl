@@ -51,7 +51,8 @@ TS29520_Nnwdaf_AnalyticsInfo:HistoricalData a rdfs:Class ;
     rdfs:comment "Contains historical data related to an analytics subscription." .
 
 TS29520_Nnwdaf_AnalyticsInfo:ProblemDetailsAnalyticsInfoRequest a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest,
+        TS29571_CommonData:ProblemDetails .
 
 TS29520_Nnwdaf_AnalyticsInfo:RequestedContext a rdfs:Class ;
     rdfs:comment "Contains types of analytics context information." .
@@ -312,8 +313,7 @@ TS29520_Nnwdaf_AnalyticsInfo_EventFilter:wlanReqs a rdf:Property ;
 
 TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:data a rdf:Property ;
     rdfs:comment "Historical data related to the analytics." ;
-    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData .
 
 TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:endTime a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;

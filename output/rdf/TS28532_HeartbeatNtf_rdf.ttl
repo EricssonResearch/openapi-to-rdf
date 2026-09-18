@@ -1,13 +1,17 @@
 @prefix TS28532_HeartbeatNtf: <http://ericsson.com/models/3gpp/TS28532/HeartbeatNtf#> .
 @prefix TS28532_HeartbeatNtf_NotifyHeartbeat: <http://ericsson.com/models/3gpp/TS28532/HeartbeatNtf/NotifyHeartbeat#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28532_HeartbeatNtf:NotifyHeartbeat a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_HeartbeatNtf:HeartbeatNotificationTypes a rdfs:Datatype .
+
+TS28532_HeartbeatNtf:heartbeatNtfPeriod a rdf:Property ;
+    rdfs:range xsd:integer .
 
 TS28532_HeartbeatNtf_NotifyHeartbeat:heartbeatNtfPeriod a rdf:Property ;
     rdfs:domain TS28532_HeartbeatNtf:NotifyHeartbeat ;

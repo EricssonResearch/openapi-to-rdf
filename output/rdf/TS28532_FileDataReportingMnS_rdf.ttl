@@ -2,6 +2,7 @@
 @prefix TS28532_FileDataReportingMnS_FileInfo: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS/FileInfo#> .
 @prefix TS28532_FileDataReportingMnS_NotifyFilePreparationError: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS/NotifyFilePreparationError#> .
 @prefix TS28532_FileDataReportingMnS_NotifyFileReady: <http://ericsson.com/models/3gpp/TS28532/FileDataReportingMnS/NotifyFileReady#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -9,14 +10,23 @@
 TS28532_FileDataReportingMnS:FileInfo a rdfs:Class .
 
 TS28532_FileDataReportingMnS:NotifyFilePreparationError a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_FileDataReportingMnS:NotifyFileReady a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_FileDataReportingMnS:FileDataType a rdfs:Datatype .
 
 TS28532_FileDataReportingMnS:FileNotificationTypes a rdfs:Datatype .
+
+TS28532_FileDataReportingMnS:additionalText a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_FileDataReportingMnS:fileInfoList a rdf:Property ;
+    rdfs:range TS28532_FileDataReportingMnS:FileInfo .
+
+TS28532_FileDataReportingMnS:reason a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28532_FileDataReportingMnS_FileInfo:fileCompression a rdf:Property ;
     rdfs:domain TS28532_FileDataReportingMnS:FileInfo ;

@@ -238,6 +238,7 @@
 @prefix TS28541_5GcNrm_dnaiSatelliteMapping: <http://ericsson.com/models/3gpp/TS28541/5GcNrm/dnaiSatelliteMapping#> .
 @prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/TS28541/NrNrm#> .
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS29512_Npcf_SMPolicyControl: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl#> .
 @prefix TS29514_Npcf_PolicyAuthorization: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization#> .
 @prefix TS29520_Nnwdaf_AnalyticsInfo: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo#> .
@@ -263,7 +264,8 @@ TS28541_5GcNrm:A2xCapability a rdfs:Class ;
 TS28541_5GcNrm:AanfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:AanfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AanfInfo a rdfs:Class ;
     rdfs:comment "Represents the information relative to an AAnF NF Instance." .
@@ -277,12 +279,16 @@ TS28541_5GcNrm:AfEventExposureData a rdfs:Class ;
 TS28541_5GcNrm:AfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:AfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AmfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:AmfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AmfIdentifier a rdfs:Class ;
     rdfs:comment "AmfIdentifier comprise of amfRegionId, amfSetId and amfPointer" .
@@ -293,15 +299,17 @@ TS28541_5GcNrm:AmfInfo a rdfs:Class ;
 TS28541_5GcNrm:AmfRegion_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:AmfRegion_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AmfSet_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:AmfSet_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AnLFFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AnNodeType a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -311,7 +319,9 @@ TS28541_5GcNrm:AtsssCapability a rdfs:Class .
 TS28541_5GcNrm:AusfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:AusfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:AusfInfo a rdfs:Class .
 
@@ -321,7 +331,9 @@ TS28541_5GcNrm:BlockedLocationInfoList a rdfs:Class ;
 TS28541_5GcNrm:BsfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:BsfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:BsfInfo a rdfs:Class ;
     rdfs:comment "Information of a BSF NF Instance" .
@@ -333,7 +345,9 @@ TS28541_5GcNrm:CapabilityList a rdfs:Class .
 TS28541_5GcNrm:ChfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:ChfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ChfInfo a rdfs:Class ;
     rdfs:comment "Information of a CHF NF Instance" .
@@ -345,15 +359,19 @@ TS28541_5GcNrm:CommModelList a rdfs:Class .
 TS28541_5GcNrm:Configurable5QISet_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:Configurable5QISet_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:DDNMFFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:DccfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:DccfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:DccfInfo a rdfs:Class ;
     rdfs:comment "Specific Data for DCCF" .
@@ -380,359 +398,361 @@ TS28541_5GcNrm:DnnUpfInfoItem a rdfs:Class ;
 TS28541_5GcNrm:Dynamic5QISet_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:Dynamic5QISet_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EASDFFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EASDFFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ECSAddrConfigInfo a rdfs:Class .
 
 TS28541_5GcNrm:EP_MAP_SMSC_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_MAP_SMSC_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N10_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N10_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N11_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N11_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N11mb_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N11mb_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N12_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N12_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N13_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N13_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N14_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N14_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N15_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N15_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N16_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N16_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N16mb_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N16mb_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N17_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N17_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N19mb_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N19mb_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N20_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N20_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N21_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N21_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N22_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N22_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N26_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N26_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N27_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N27_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N28_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N28_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N2_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N2_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N31_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N31_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N32_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N32_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N33_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N33_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N34_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N34_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N3_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N3_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N3mb_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N3mb_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N40_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N40_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N41_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N41_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N42_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N42_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N4_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N4_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N4mb_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N4mb_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N58_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N58_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N59_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N59_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N5_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N5_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N60_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N60_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N61_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N61_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N62_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N62_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N63_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N63_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N6_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N6_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N7_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N7_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N84_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N84_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N85_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N85_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N86_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N86_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N87_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N87_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N88_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N88_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N89_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N89_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N8_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N8_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N96_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N96_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_N9_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_N9_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL10_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL10_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL1_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL1_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL2_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL2_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL3_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL3_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL5_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL5_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL6_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL6_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL7_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL7_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL8_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL8_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_NL9_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_NL9_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Nmb1_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Nmb1_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Nmb9_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Nmb9_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Npc4_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Npc4_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Npc6_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Npc6_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Npc7_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Npc7_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Npc8_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Npc8_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_Rx_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_Rx_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_S5C_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_S5C_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_S5U_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_S5U_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_SM12_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_SM12_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_SM13_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_SM13_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EP_SM14_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EP_SM14_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:EasdfInfo a rdfs:Class ;
     rdfs:comment "Information of an EASDF NF Instance" .
@@ -740,12 +760,14 @@ TS28541_5GcNrm:EasdfInfo a rdfs:Class ;
 TS28541_5GcNrm:EcmConnectionInfo_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:EcmConnectionInfo_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ExternalAmfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:ExternalAmfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ExternalClientType a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -753,27 +775,33 @@ TS28541_5GcNrm:ExternalClientType a rdfs:Class ;
 TS28541_5GcNrm:ExternalNrfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:ExternalNrfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ExternalNssfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:ExternalNssfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ExternalSeppFunction_Nultiple a rdfs:Class .
 
 TS28541_5GcNrm:ExternalSeppFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:FiveQICharacteristics_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:FiveQICharacteristics_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:FiveQiDscpMapping a rdfs:Class .
 
 TS28541_5GcNrm:FiveQiDscpMappingSet_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:GUAMInfo a rdfs:Class .
 
@@ -784,7 +812,9 @@ TS28541_5GcNrm:GlobalRanNodeID a rdfs:Class ;
 TS28541_5GcNrm:GmlcFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:GmlcFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:GmlcInfo a rdfs:Class ;
     rdfs:comment "Information of a GMLC NF Instance" .
@@ -792,7 +822,7 @@ TS28541_5GcNrm:GmlcInfo a rdfs:Class ;
 TS28541_5GcNrm:GtpUPathDelayThresholdsType a rdfs:Class .
 
 TS28541_5GcNrm:GtpUPathQoSMonitoringControl_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:HssInfo a rdfs:Class ;
     rdfs:comment "Information of an HSS NF Instance" .
@@ -831,7 +861,9 @@ TS28541_5GcNrm:Ipv6PrefixRange a rdfs:Class ;
 TS28541_5GcNrm:LmfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:LmfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:LmfInfo a rdfs:Class ;
     rdfs:comment "Information of an LMF NF Instance" .
@@ -845,12 +877,14 @@ TS28541_5GcNrm:ManagedNFProfile a rdfs:Class .
 TS28541_5GcNrm:ManagedNFService_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:ManagedNFService_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:MbSmfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:MbSmfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:MbSmfInfo a rdfs:Class ;
     rdfs:comment "Information of an MB-SMF NF Instance" .
@@ -858,7 +892,9 @@ TS28541_5GcNrm:MbSmfInfo a rdfs:Class ;
 TS28541_5GcNrm:MbUpfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:MbUpfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:MbUpfInfo a rdfs:Class ;
     rdfs:comment "Information of an MB-UPF NF Instance" .
@@ -880,7 +916,9 @@ TS28541_5GcNrm:MbsSessionId a rdfs:Class ;
 TS28541_5GcNrm:MfafFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:MfafFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:MfafInfo a rdfs:Class ;
     rdfs:comment "Information of a MFAF NF Instance" .
@@ -891,7 +929,9 @@ TS28541_5GcNrm:MlAnalyticsInfo a rdfs:Class ;
 TS28541_5GcNrm:MnpfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:MnpfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:MnpfInfo a rdfs:Class ;
     rdfs:comment "Information of an MNPF Instance" .
@@ -903,7 +943,9 @@ TS28541_5GcNrm:N2InterfaceAmfInfo a rdfs:Class ;
 TS28541_5GcNrm:N3iwfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:N3iwfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NFProfile a rdfs:Class ;
     rdfs:comment "NF profile stored in NRF, defined in TS 29.510" .
@@ -928,7 +970,9 @@ TS28541_5GcNrm:NcgiTai a rdfs:Class ;
 TS28541_5GcNrm:NefFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NefFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NefInfo a rdfs:Class ;
     rdfs:comment "Information of an NEF NF Instance" .
@@ -947,12 +991,16 @@ TS28541_5GcNrm:NfInfo a rdfs:Class ;
 TS28541_5GcNrm:NgeirFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NgeirFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NrfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NrfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NrfInfo a rdfs:Class ;
     rdfs:comment "Information of an NRF NF Instance, used in hierarchical NRF deployments" .
@@ -964,7 +1012,9 @@ TS28541_5GcNrm:NsacfCapability a rdfs:Class ;
 TS28541_5GcNrm:NsacfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NsacfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NsacfInfo a rdfs:Class ;
     rdfs:comment "Information of a NSACF NF Instance" .
@@ -974,7 +1024,9 @@ TS28541_5GcNrm:NsacfInfoSnssai a rdfs:Class .
 TS28541_5GcNrm:NssaafFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NssaafFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NssaafInfo a rdfs:Class ;
     rdfs:comment "Information of a NSSAAF Instance" .
@@ -982,7 +1034,9 @@ TS28541_5GcNrm:NssaafInfo a rdfs:Class ;
 TS28541_5GcNrm:NssfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NssfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NwdafCapability a rdfs:Class ;
     rdfs:comment "Indicates the capability supported by the NWDAF" .
@@ -990,7 +1044,9 @@ TS28541_5GcNrm:NwdafCapability a rdfs:Class ;
 TS28541_5GcNrm:NwdafFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:NwdafFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:NwdafInfo a rdfs:Class ;
     rdfs:comment "Information of a NWDAF NF Instance" .
@@ -1004,7 +1060,9 @@ TS28541_5GcNrm:PccRule a rdfs:Class .
 TS28541_5GcNrm:PcfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:PcfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:PcfInfo a rdf:Property,
         rdfs:Class ;
@@ -1024,14 +1082,14 @@ TS28541_5GcNrm:PlmnRange a rdfs:Class ;
         "Range of PLMN IDs" .
 
 TS28541_5GcNrm:PredefinedPccRuleSet_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ProseCapability a rdfs:Class .
 
 TS28541_5GcNrm:QFPacketDelayThresholdsType a rdfs:Class .
 
 TS28541_5GcNrm:QFQoSMonitoringControl_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:QosData a rdfs:Class .
 
@@ -1048,7 +1106,9 @@ TS28541_5GcNrm:ScpDomainInfo a rdfs:Class ;
 TS28541_5GcNrm:ScpFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:ScpFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:ScpInfo a rdfs:Class ;
     rdfs:comment "Information of an SCP Instance" .
@@ -1056,7 +1116,9 @@ TS28541_5GcNrm:ScpInfo a rdfs:Class ;
 TS28541_5GcNrm:SeppFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:SeppFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:SeppInfo a rdfs:Class ;
     rdfs:comment "Information of a SEPP Instance" .
@@ -1071,7 +1133,9 @@ TS28541_5GcNrm:SliceExpiryInfo a rdfs:Class ;
 TS28541_5GcNrm:SmfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:SmfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:SmfInfo a rdf:Property,
         rdfs:Class ;
@@ -1081,7 +1145,9 @@ TS28541_5GcNrm:SmfInfo a rdf:Property,
 TS28541_5GcNrm:SmsfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:SmsfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:SmsfInfo a rdfs:Class ;
     rdfs:comment "Specific Data for SMSF" .
@@ -1168,7 +1234,9 @@ TS28541_5GcNrm:TrustAfInfo a rdfs:Class ;
 TS28541_5GcNrm:TsctsfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:TsctsfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:TsctsfInfo a rdfs:Class ;
     rdfs:comment "Information of a TSCTSF NF Instance" .
@@ -1178,7 +1246,9 @@ TS28541_5GcNrm:UPFConnectionInfo a rdfs:Class .
 TS28541_5GcNrm:UdmFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:UdmFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:UdmInfo a rdfs:Class ;
     rdfs:comment "Information of an UDM NF Instance" .
@@ -1186,7 +1256,9 @@ TS28541_5GcNrm:UdmInfo a rdfs:Class ;
 TS28541_5GcNrm:UdrFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:UdrFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:UdrInfo a rdfs:Class ;
     rdfs:comment "Information of an UDR NF Instance" .
@@ -1194,7 +1266,9 @@ TS28541_5GcNrm:UdrInfo a rdfs:Class ;
 TS28541_5GcNrm:UdsfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:UdsfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:UdsfInfo a rdfs:Class ;
     rdfs:comment "Information related to UDSF" .
@@ -1205,7 +1279,9 @@ TS28541_5GcNrm:UnTrustAfInfo a rdfs:Class ;
 TS28541_5GcNrm:UpfFunction_Multiple a rdfs:Class .
 
 TS28541_5GcNrm:UpfFunction_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28541_5GcNrm:ManagedFunction5GC_nc0,
+        TS28623_GenericNrm:ManagedFunction_ncO,
+        TS28623_GenericNrm:Top .
 
 TS28541_5GcNrm:UpfInfo a rdfs:Class ;
     rdfs:comment "Information of an UPF NF Instance" .
@@ -1226,11 +1302,221 @@ TS28541_5GcNrm:AmfRegionId a rdfs:Datatype ;
 TS28541_5GcNrm:AmfSetId a rdfs:Datatype ;
     rdfs:comment "AmfSetId is defined in TS 23.003" .
 
+TS28541_5GcNrm:AnLFFunction a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:AnLFFunction_Single .
+
 TS28541_5GcNrm:CNSIId a rdfs:Datatype ;
     rdfs:comment "CNSI Id is defined in TS 29.531, only for Core Network." .
 
 TS28541_5GcNrm:CommModelType a rdfs:Datatype ;
     rdfs:comment "any of enumerated value" .
+
+TS28541_5GcNrm:EP_MAP_SMSC a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_MAP_SMSC_Multiple .
+
+TS28541_5GcNrm:EP_N10 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N10_Multiple .
+
+TS28541_5GcNrm:EP_N11 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N11_Multiple .
+
+TS28541_5GcNrm:EP_N11mb a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N11mb_Multiple .
+
+TS28541_5GcNrm:EP_N12 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N12_Multiple .
+
+TS28541_5GcNrm:EP_N13 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N13_Multiple .
+
+TS28541_5GcNrm:EP_N14 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N14_Multiple .
+
+TS28541_5GcNrm:EP_N15 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N15_Multiple .
+
+TS28541_5GcNrm:EP_N16 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N16_Multiple .
+
+TS28541_5GcNrm:EP_N16mb a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N16mb_Multiple .
+
+TS28541_5GcNrm:EP_N17 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N17_Multiple .
+
+TS28541_5GcNrm:EP_N19mb a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N19mb_Multiple .
+
+TS28541_5GcNrm:EP_N2 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N2_Multiple .
+
+TS28541_5GcNrm:EP_N20 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N20_Multiple .
+
+TS28541_5GcNrm:EP_N21 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N21_Multiple .
+
+TS28541_5GcNrm:EP_N22 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N22_Multiple .
+
+TS28541_5GcNrm:EP_N26 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N26_Multiple .
+
+TS28541_5GcNrm:EP_N27 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N27_Multiple .
+
+TS28541_5GcNrm:EP_N28 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N28_Multiple .
+
+TS28541_5GcNrm:EP_N3 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N3_Multiple .
+
+TS28541_5GcNrm:EP_N31 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N31_Multiple .
+
+TS28541_5GcNrm:EP_N32 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N32_Multiple .
+
+TS28541_5GcNrm:EP_N33 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N33_Multiple .
+
+TS28541_5GcNrm:EP_N34 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N34_Multiple .
+
+TS28541_5GcNrm:EP_N3mb a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N3mb_Multiple .
+
+TS28541_5GcNrm:EP_N4 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N4_Multiple .
+
+TS28541_5GcNrm:EP_N40 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N40_Multiple .
+
+TS28541_5GcNrm:EP_N41 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N41_Multiple .
+
+TS28541_5GcNrm:EP_N42 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N42_Multiple .
+
+TS28541_5GcNrm:EP_N4mb a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N4mb_Multiple .
+
+TS28541_5GcNrm:EP_N5 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N5_Multiple .
+
+TS28541_5GcNrm:EP_N58 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N58_Multiple .
+
+TS28541_5GcNrm:EP_N59 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N13_Multiple .
+
+TS28541_5GcNrm:EP_N6 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N6_Multiple .
+
+TS28541_5GcNrm:EP_N60 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N60_Multiple .
+
+TS28541_5GcNrm:EP_N61 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N61_Multiple .
+
+TS28541_5GcNrm:EP_N62 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N62_Multiple .
+
+TS28541_5GcNrm:EP_N63 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N63_Multiple .
+
+TS28541_5GcNrm:EP_N7 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N7_Multiple .
+
+TS28541_5GcNrm:EP_N8 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N8_Multiple .
+
+TS28541_5GcNrm:EP_N84 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N84_Multiple .
+
+TS28541_5GcNrm:EP_N85 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N85_Multiple .
+
+TS28541_5GcNrm:EP_N86 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N86_Multiple .
+
+TS28541_5GcNrm:EP_N87 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N87_Multiple .
+
+TS28541_5GcNrm:EP_N88 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N88_Multiple .
+
+TS28541_5GcNrm:EP_N89 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N89_Multiple .
+
+TS28541_5GcNrm:EP_N9 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N9_Multiple .
+
+TS28541_5GcNrm:EP_N96 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_N96_Multiple .
+
+TS28541_5GcNrm:EP_NL1 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL1_Multiple .
+
+TS28541_5GcNrm:EP_NL10 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL10_Multiple .
+
+TS28541_5GcNrm:EP_NL2 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL2_Multiple .
+
+TS28541_5GcNrm:EP_NL3 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL3_Multiple .
+
+TS28541_5GcNrm:EP_NL5 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL5_Multiple .
+
+TS28541_5GcNrm:EP_NL6 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL6_Multiple .
+
+TS28541_5GcNrm:EP_NL7 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL7_Multiple .
+
+TS28541_5GcNrm:EP_NL8 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL8_Multiple .
+
+TS28541_5GcNrm:EP_NL9 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_NL9_Multiple .
+
+TS28541_5GcNrm:EP_Nmb1 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Nmb1_Multiple .
+
+TS28541_5GcNrm:EP_Nmb9 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Nmb9_Multiple .
+
+TS28541_5GcNrm:EP_Npc4 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Npc4_Multiple .
+
+TS28541_5GcNrm:EP_Npc6 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Npc6_Multiple .
+
+TS28541_5GcNrm:EP_Npc7 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Npc7_Multiple .
+
+TS28541_5GcNrm:EP_Npc8 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Npc8_Multiple .
+
+TS28541_5GcNrm:EP_Rx a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_Rx_Multiple .
+
+TS28541_5GcNrm:EP_S5C a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_S5C_Multiple .
+
+TS28541_5GcNrm:EP_S5U a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_S5U_Multiple .
+
+TS28541_5GcNrm:EP_SM12 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_SM12_Multiple .
+
+TS28541_5GcNrm:EP_SM13 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_SM13_Multiple .
+
+TS28541_5GcNrm:EP_SM14 a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:EP_SM14_Multiple .
 
 TS28541_5GcNrm:EnergySavingControl a rdfs:Datatype ;
     rdfs:comment "any of enumerated value" .
@@ -1240,6 +1526,12 @@ TS28541_5GcNrm:EnergySavingState a rdfs:Datatype ;
 
 TS28541_5GcNrm:FiveQiDscpMappingList a rdf:Property ;
     rdfs:range TS28541_5GcNrm:FiveQiDscpMapping .
+
+TS28541_5GcNrm:FiveQiDscpMappingSet a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:FiveQiDscpMappingSet_Single .
+
+TS28541_5GcNrm:GtpUPathQoSMonitoringControl a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:GtpUPathQoSMonitoringControl_Single .
 
 TS28541_5GcNrm:NFServiceType a rdfs:Datatype .
 
@@ -1251,6 +1543,12 @@ TS28541_5GcNrm:Nid a rdfs:Datatype .
 TS28541_5GcNrm:NotificationType a rdfs:Datatype .
 
 TS28541_5GcNrm:OperationSemantics a rdfs:Datatype .
+
+TS28541_5GcNrm:PredefinedPccRuleSet a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:PredefinedPccRuleSet_Single .
+
+TS28541_5GcNrm:QFQoSMonitoringControl a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:QFQoSMonitoringControl_Single .
 
 TS28541_5GcNrm:RegistrationState a rdfs:Datatype .
 
@@ -1301,8 +1599,14 @@ TS28541_5GcNrm:amfSetId a rdf:Property ;
 TS28541_5GcNrm:amfSetRef a rdf:Property ;
     rdfs:range xsd:string .
 
+TS28541_5GcNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
+
 TS28541_5GcNrm:ausfInfo a rdf:Property ;
     rdfs:range TS28541_5GcNrm:AusfInfo .
+
+TS28541_5GcNrm:averagingWindow a rdf:Property ;
+    rdfs:range xsd:integer .
 
 TS28541_5GcNrm:bsfInfo a rdf:Property ;
     rdfs:range TS28541_5GcNrm:BsfInfo .
@@ -1379,6 +1683,9 @@ TS28541_5GcNrm:epTransportRefs a rdf:Property ;
 TS28541_5GcNrm:ephemerisInfos a rdf:Property ;
     rdfs:range TS28541_NrNrm:EphemerisInfos .
 
+TS28541_5GcNrm:fiveQIValue a rdf:Property ;
+    rdfs:range xsd:integer .
+
 TS28541_5GcNrm:fqdn a rdf:Property ;
     rdfs:range xsd:string .
 
@@ -1433,6 +1740,9 @@ TS28541_5GcNrm:managedNFProfile a rdf:Property ;
 TS28541_5GcNrm:mappedCellIdInfoList a rdf:Property ;
     rdfs:range TS28541_NrNrm:MappedCellIdInfoList .
 
+TS28541_5GcNrm:maximumDataBurstVolume a rdf:Property ;
+    rdfs:range xsd:integer .
+
 TS28541_5GcNrm:mbSmfInfo a rdf:Property ;
     rdfs:range TS28541_5GcNrm:MbSmfInfo .
 
@@ -1448,8 +1758,7 @@ TS28541_5GcNrm:mfafInfo a rdf:Property ;
 TS28541_5GcNrm:mnpfInfo a rdf:Property ;
     rdfs:range TS28541_5GcNrm:MnpfInfo .
 
-TS28541_5GcNrm:monitoredDSCPs a rdf:Property ;
-    rdfs:range xsd:string .
+TS28541_5GcNrm:monitoredDSCPs a rdf:Property .
 
 TS28541_5GcNrm:n32cParas a rdf:Property ;
     rdfs:range xsd:string .
@@ -1502,6 +1811,12 @@ TS28541_5GcNrm:operations a rdf:Property ;
 TS28541_5GcNrm:pLMNInfoList a rdf:Property ;
     rdfs:range TS28541_NrNrm:PlmnInfoList .
 
+TS28541_5GcNrm:packetDelayBudget a rdf:Property ;
+    rdfs:range xsd:integer .
+
+TS28541_5GcNrm:packetErrorRate a rdf:Property ;
+    rdfs:range TS28541_5GcNrm:PacketErrorRate .
+
 TS28541_5GcNrm:plmnId a rdf:Property ;
     rdfs:range TS28623_ComDefs:PlmnId,
         TS28623_ComDefs:PlmnIdRo .
@@ -1518,14 +1833,16 @@ TS28541_5GcNrm:predefinedPccRuleSetRefs a rdf:Property ;
 TS28541_5GcNrm:predefinedPccRules a rdf:Property ;
     rdfs:range TS28541_5GcNrm:PccRule .
 
+TS28541_5GcNrm:priorityLevel a rdf:Property ;
+    rdfs:range xsd:integer .
+
 TS28541_5GcNrm:qFMeasurementPeriod a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28541_5GcNrm:qFMinimumWaitTime a rdf:Property ;
     rdfs:range xsd:integer .
 
-TS28541_5GcNrm:qFMonitored5QIs a rdf:Property ;
-    rdfs:range xsd:string .
+TS28541_5GcNrm:qFMonitored5QIs a rdf:Property .
 
 TS28541_5GcNrm:qFMonitoredSNSSAIs a rdf:Property ;
     rdfs:range TS28541_NrNrm:Snssai .
@@ -1550,6 +1867,9 @@ TS28541_5GcNrm:remoteSeppAddress a rdf:Property ;
 
 TS28541_5GcNrm:remoteSeppId a rdf:Property ;
     rdfs:range xsd:integer .
+
+TS28541_5GcNrm:resourceType a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28541_5GcNrm:sAP a rdf:Property ;
     rdfs:range TS28541_5GcNrm:SAP .
@@ -1660,24 +1980,20 @@ TS28541_5GcNrm_AanfFunction_Single:EP_N63 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N63_Multiple .
 
 TS28541_5GcNrm_AanfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AanfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AanfFunction_Single .
 
 TS28541_5GcNrm_AanfInfo:routingIndicators a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AanfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AanfInfo .
 
 TS28541_5GcNrm_AfEventExposureData:afEvents a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AfEventExposureData ;
     rdfs:range TS28541_5GcNrm:AfEvent .
 
 TS28541_5GcNrm_AfEventExposureData:afIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AfEventExposureData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AfEventExposureData .
 
 TS28541_5GcNrm_AfEventExposureData:appIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AfEventExposureData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AfEventExposureData .
 
 TS28541_5GcNrm_AfFunction_Single:EP_N5 a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AfFunction_Single ;
@@ -1696,8 +2012,7 @@ TS28541_5GcNrm_AfFunction_Single:EP_N86 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N86_Multiple .
 
 TS28541_5GcNrm_AfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AfFunction_Single .
 
 TS28541_5GcNrm_AmfFunction_Single:EP_N11 a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AmfFunction_Single ;
@@ -1768,8 +2083,7 @@ TS28541_5GcNrm_AmfFunction_Single:EP_NL2 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_NL2_Multiple .
 
 TS28541_5GcNrm_AmfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AmfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AmfFunction_Single .
 
 TS28541_5GcNrm_AmfIdentifier:amfPointer a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AmfIdentifier ;
@@ -1824,16 +2138,13 @@ TS28541_5GcNrm_AmfInfo:taiRangeList a rdf:Property ;
     rdfs:range TS28541_5GcNrm:TaiRange .
 
 TS28541_5GcNrm_AmfRegion_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AmfRegion_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AmfRegion_Single .
 
 TS28541_5GcNrm_AmfSet_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AmfSet_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AmfSet_Single .
 
 TS28541_5GcNrm_AnLFFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AnLFFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AnLFFunction_Single .
 
 TS28541_5GcNrm_AtsssCapability:atsssLL a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AtsssCapability ;
@@ -1860,16 +2171,14 @@ TS28541_5GcNrm_AusfFunction_Single:EP_N61 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N61_Multiple .
 
 TS28541_5GcNrm_AusfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AusfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AusfFunction_Single .
 
 TS28541_5GcNrm_AusfInfo:nFSrvGroupId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AusfInfo ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_AusfInfo:routingIndicators a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:AusfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:AusfInfo .
 
 TS28541_5GcNrm_AusfInfo:suciInfos a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:AusfInfo ;
@@ -1892,8 +2201,7 @@ TS28541_5GcNrm_BlockedLocationInfoList:blockedSlice a rdf:Property ;
     rdfs:range TS28541_NrNrm:Snssai .
 
 TS28541_5GcNrm_BsfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:BsfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:BsfFunction_Single .
 
 TS28541_5GcNrm_BsfInfo:dnnList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:BsfInfo ;
@@ -1908,8 +2216,7 @@ TS28541_5GcNrm_BsfInfo:groupId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_BsfInfo:ipDomainList a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:BsfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:BsfInfo .
 
 TS28541_5GcNrm_BsfInfo:ipv4AddressRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:BsfInfo ;
@@ -1948,8 +2255,7 @@ TS28541_5GcNrm_ChfFunction_Single:EP_N42 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N42_Multiple .
 
 TS28541_5GcNrm_ChfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ChfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ChfFunction_Single .
 
 TS28541_5GcNrm_ChfInfo:gpsiRangeList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ChfInfo ;
@@ -1992,8 +2298,7 @@ TS28541_5GcNrm_CommModel:targetNFServiceList a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_Configurable5QISet_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:Configurable5QISet_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:Configurable5QISet_Single .
 
 TS28541_5GcNrm_DDNMFFunction_Single:EP_Npc4 a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:DDNMFFunction_Single ;
@@ -2012,12 +2317,10 @@ TS28541_5GcNrm_DDNMFFunction_Single:EP_Npc8 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_Npc8_Multiple .
 
 TS28541_5GcNrm_DDNMFFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:DDNMFFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:DDNMFFunction_Single .
 
 TS28541_5GcNrm_DccfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:DccfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:DccfFunction_Single .
 
 TS28541_5GcNrm_DccfInfo:servingNfSetIdList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:DccfInfo ;
@@ -2064,16 +2367,13 @@ TS28541_5GcNrm_DnnEasdfInfoItem:dnaiList a rdf:Property ;
     rdfs:range TS29571_CommonData:Dnai .
 
 TS28541_5GcNrm_DnnEasdfInfoItem:dnn a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:DnnEasdfInfoItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:DnnEasdfInfoItem .
 
 TS28541_5GcNrm_DnnInfoItem:dnn a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:DnnInfoItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:DnnInfoItem .
 
 TS28541_5GcNrm_DnnMbSmfInfoItem:dnn a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:DnnMbSmfInfoItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:DnnMbSmfInfoItem .
 
 TS28541_5GcNrm_DnnSmfInfoItem:dnaiList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:DnnSmfInfoItem ;
@@ -2084,8 +2384,7 @@ TS28541_5GcNrm_DnnSmfInfoItem:dnn a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_DnnTsctsfInfoItem:dnn a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:DnnTsctsfInfoItem ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:DnnTsctsfInfoItem .
 
 TS28541_5GcNrm_DnnUpfInfoItem:dnaiList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:DnnUpfInfoItem ;
@@ -2136,292 +2435,221 @@ TS28541_5GcNrm_DnnUpfInfoItem:pduSessionTypes a rdf:Property ;
     rdfs:range TS29571_CommonData:PduSessionType .
 
 TS28541_5GcNrm_Dynamic5QISet_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:Dynamic5QISet_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:Dynamic5QISet_Single .
 
 TS28541_5GcNrm_EASDFFunction_Single:EP_N88 a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:EASDFFunction_Single ;
     rdfs:range TS28541_5GcNrm:EP_N88_Multiple .
 
 TS28541_5GcNrm_EASDFFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EASDFFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EASDFFunction_Single .
 
 TS28541_5GcNrm_EP_MAP_SMSC_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_MAP_SMSC_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_MAP_SMSC_Single .
 
 TS28541_5GcNrm_EP_N10_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N10_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N10_Single .
 
 TS28541_5GcNrm_EP_N11_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N11_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N11_Single .
 
 TS28541_5GcNrm_EP_N11mb_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N11mb_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N11mb_Single .
 
 TS28541_5GcNrm_EP_N12_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N12_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N12_Single .
 
 TS28541_5GcNrm_EP_N13_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N13_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N13_Single .
 
 TS28541_5GcNrm_EP_N14_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N14_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N14_Single .
 
 TS28541_5GcNrm_EP_N15_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N15_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N15_Single .
 
 TS28541_5GcNrm_EP_N16_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N16_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N16_Single .
 
 TS28541_5GcNrm_EP_N16mb_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N16mb_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N16mb_Single .
 
 TS28541_5GcNrm_EP_N17_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N17_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N17_Single .
 
 TS28541_5GcNrm_EP_N19mb_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N19mb_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N19mb_Single .
 
 TS28541_5GcNrm_EP_N20_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N20_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N20_Single .
 
 TS28541_5GcNrm_EP_N21_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N21_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N21_Single .
 
 TS28541_5GcNrm_EP_N22_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N22_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N22_Single .
 
 TS28541_5GcNrm_EP_N26_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N26_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N26_Single .
 
 TS28541_5GcNrm_EP_N27_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N27_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N27_Single .
 
 TS28541_5GcNrm_EP_N28_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N28_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N28_Single .
 
 TS28541_5GcNrm_EP_N2_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N2_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N2_Single .
 
 TS28541_5GcNrm_EP_N31_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N31_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N31_Single .
 
 TS28541_5GcNrm_EP_N32_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N32_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N32_Single .
 
 TS28541_5GcNrm_EP_N33_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N33_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N33_Single .
 
 TS28541_5GcNrm_EP_N34_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N34_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N34_Single .
 
 TS28541_5GcNrm_EP_N3_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N3_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N3_Single .
 
 TS28541_5GcNrm_EP_N3mb_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N3mb_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N3mb_Single .
 
 TS28541_5GcNrm_EP_N40_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N40_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N40_Single .
 
 TS28541_5GcNrm_EP_N41_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N41_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N41_Single .
 
 TS28541_5GcNrm_EP_N42_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N42_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N42_Single .
 
 TS28541_5GcNrm_EP_N4_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N4_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N4_Single .
 
 TS28541_5GcNrm_EP_N4mb_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N4mb_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N4mb_Single .
 
 TS28541_5GcNrm_EP_N58_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N58_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N58_Single .
 
 TS28541_5GcNrm_EP_N59_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N59_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N59_Single .
 
 TS28541_5GcNrm_EP_N5_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N5_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N5_Single .
 
 TS28541_5GcNrm_EP_N60_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N60_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N60_Single .
 
 TS28541_5GcNrm_EP_N61_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N61_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N61_Single .
 
 TS28541_5GcNrm_EP_N62_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N62_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N62_Single .
 
 TS28541_5GcNrm_EP_N63_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N63_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N63_Single .
 
 TS28541_5GcNrm_EP_N6_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N6_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N6_Single .
 
 TS28541_5GcNrm_EP_N7_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N7_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N7_Single .
 
 TS28541_5GcNrm_EP_N84_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N84_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N84_Single .
 
 TS28541_5GcNrm_EP_N85_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N85_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N85_Single .
 
 TS28541_5GcNrm_EP_N86_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N86_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N86_Single .
 
 TS28541_5GcNrm_EP_N87_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N87_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N87_Single .
 
 TS28541_5GcNrm_EP_N88_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N88_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N88_Single .
 
 TS28541_5GcNrm_EP_N89_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N89_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N89_Single .
 
 TS28541_5GcNrm_EP_N8_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N8_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N8_Single .
 
 TS28541_5GcNrm_EP_N96_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N96_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N96_Single .
 
 TS28541_5GcNrm_EP_N9_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_N9_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_N9_Single .
 
 TS28541_5GcNrm_EP_NL10_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL10_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL10_Single .
 
 TS28541_5GcNrm_EP_NL1_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL1_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL1_Single .
 
 TS28541_5GcNrm_EP_NL2_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL2_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL2_Single .
 
 TS28541_5GcNrm_EP_NL3_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL3_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL3_Single .
 
 TS28541_5GcNrm_EP_NL5_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL5_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL5_Single .
 
 TS28541_5GcNrm_EP_NL6_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL6_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL6_Single .
 
 TS28541_5GcNrm_EP_NL7_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL7_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL7_Single .
 
 TS28541_5GcNrm_EP_NL8_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL8_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL8_Single .
 
 TS28541_5GcNrm_EP_NL9_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_NL9_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_NL9_Single .
 
 TS28541_5GcNrm_EP_Nmb1_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Nmb1_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Nmb1_Single .
 
 TS28541_5GcNrm_EP_Nmb9_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Nmb9_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Nmb9_Single .
 
 TS28541_5GcNrm_EP_Npc4_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Npc4_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Npc4_Single .
 
 TS28541_5GcNrm_EP_Npc6_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Npc6_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Npc6_Single .
 
 TS28541_5GcNrm_EP_Npc7_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Npc7_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Npc7_Single .
 
 TS28541_5GcNrm_EP_Npc8_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Npc8_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Npc8_Single .
 
 TS28541_5GcNrm_EP_Rx_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_Rx_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_Rx_Single .
 
 TS28541_5GcNrm_EP_S5C_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_S5C_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_S5C_Single .
 
 TS28541_5GcNrm_EP_S5U_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_S5U_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_S5U_Single .
 
 TS28541_5GcNrm_EP_SM12_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_SM12_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_SM12_Single .
 
 TS28541_5GcNrm_EP_SM13_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_SM13_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_SM13_Single .
 
 TS28541_5GcNrm_EP_SM14_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EP_SM14_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EP_SM14_Single .
 
 TS28541_5GcNrm_EasdfInfo:easdfN6IpAddressList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:EasdfInfo ;
@@ -2436,24 +2664,19 @@ TS28541_5GcNrm_EasdfInfo:upfN6IpAddressList a rdf:Property ;
     rdfs:range TS28623_ComDefs:IpAddr .
 
 TS28541_5GcNrm_EcmConnectionInfo_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:EcmConnectionInfo_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:EcmConnectionInfo_Single .
 
 TS28541_5GcNrm_ExternalAmfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ExternalAmfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ExternalAmfFunction_Single .
 
 TS28541_5GcNrm_ExternalNrfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ExternalNrfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ExternalNrfFunction_Single .
 
 TS28541_5GcNrm_ExternalNssfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ExternalNssfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ExternalNssfFunction_Single .
 
 TS28541_5GcNrm_ExternalSeppFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ExternalSeppFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ExternalSeppFunction_Single .
 
 TS28541_5GcNrm_FiveQICharacteristics_Single:averagingWindow a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:FiveQICharacteristics_Single ;
@@ -2488,12 +2711,10 @@ TS28541_5GcNrm_FiveQiDscpMapping:dscp a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28541_5GcNrm_FiveQiDscpMapping:fiveQIValues a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:FiveQiDscpMapping ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:FiveQiDscpMapping .
 
 TS28541_5GcNrm_FiveQiDscpMappingSet_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:FiveQiDscpMappingSet_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:FiveQiDscpMappingSet_Single .
 
 TS28541_5GcNrm_GUAMInfo:aMFIdentifier a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:GUAMInfo ;
@@ -2556,12 +2777,10 @@ TS28541_5GcNrm_GmlcFunction_Single:EP_NL9 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_NL9_Multiple .
 
 TS28541_5GcNrm_GmlcFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:GmlcFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:GmlcFunction_Single .
 
 TS28541_5GcNrm_GmlcInfo:gmlcNumbers a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:GmlcInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:GmlcInfo .
 
 TS28541_5GcNrm_GmlcInfo:servingClientTypes a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:GmlcInfo ;
@@ -2592,8 +2811,7 @@ TS28541_5GcNrm_GtpUPathDelayThresholdsType:n9MinPacketDelayThreshold a rdf:Prope
     rdfs:range xsd:integer .
 
 TS28541_5GcNrm_GtpUPathQoSMonitoringControl_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:GtpUPathQoSMonitoringControl_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:GtpUPathQoSMonitoringControl_Single .
 
 TS28541_5GcNrm_HssInfo:additionalDiamAddresses a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:HssInfo ;
@@ -2748,8 +2966,7 @@ TS28541_5GcNrm_LmfFunction_Single:EP_NL8 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_NL8_Multiple .
 
 TS28541_5GcNrm_LmfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:LmfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:LmfFunction_Single .
 
 TS28541_5GcNrm_LmfInfo:lmfId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:LmfInfo ;
@@ -2928,8 +3145,7 @@ TS28541_5GcNrm_ManagedNFProfile:allowedNSSAIs a rdf:Property ;
     rdfs:range TS28541_NrNrm:Snssai .
 
 TS28541_5GcNrm_ManagedNFProfile:allowedNfDomains a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ManagedNFProfile .
 
 TS28541_5GcNrm_ManagedNFProfile:allowedNfTypes a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
@@ -2992,8 +3208,7 @@ TS28541_5GcNrm_ManagedNFProfile:nfServicePersistence a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS28541_5GcNrm_ManagedNFProfile:nfSetIdList a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ManagedNFProfile .
 
 TS28541_5GcNrm_ManagedNFProfile:nfSetRecoveryTimeList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
@@ -3016,16 +3231,14 @@ TS28541_5GcNrm_ManagedNFProfile:sNPNList a rdf:Property ;
     rdfs:range TS28541_5GcNrm:SnpnId .
 
 TS28541_5GcNrm_ManagedNFProfile:scpDomains a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ManagedNFProfile .
 
 TS28541_5GcNrm_ManagedNFProfile:serviceSetRecoveryTimeList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
     rdfs:range TS28623_ComDefs:DateTimeRo .
 
 TS28541_5GcNrm_ManagedNFProfile:servingScope a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ManagedNFProfile .
 
 TS28541_5GcNrm_ManagedNFProfile:vendorId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ManagedNFProfile ;
@@ -3052,18 +3265,15 @@ TS28541_5GcNrm_MbSmfFunction_Single:EP_Nmb1 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_Nmb1_Multiple .
 
 TS28541_5GcNrm_MbSmfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:MbSmfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbSmfFunction_Single .
 
 TS28541_5GcNrm_MbSmfInfo:mbsSessionList a rdf:Property ;
     rdfs:comment "A map (list of key-value pairs) where a valid JSON string serves as key" ;
-    rdfs:domain TS28541_5GcNrm:MbSmfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbSmfInfo .
 
 TS28541_5GcNrm_MbSmfInfo:sNssaiInfoList a rdf:Property ;
     rdfs:comment "A map (list of key-value pairs) where a valid JSON string serves as key" ;
-    rdfs:domain TS28541_5GcNrm:MbSmfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbSmfInfo .
 
 TS28541_5GcNrm_MbSmfInfo:taiList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MbSmfInfo ;
@@ -3075,8 +3285,7 @@ TS28541_5GcNrm_MbSmfInfo:taiRangeList a rdf:Property ;
 
 TS28541_5GcNrm_MbSmfInfo:tmgiRangeList a rdf:Property ;
     rdfs:comment "A map (list of key-value pairs) where a valid JSON string serves as key" ;
-    rdfs:domain TS28541_5GcNrm:MbSmfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbSmfInfo .
 
 TS28541_5GcNrm_MbUpfFunction_Single:EP_N19mb a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MbUpfFunction_Single ;
@@ -3095,16 +3304,14 @@ TS28541_5GcNrm_MbUpfFunction_Single:EP_Nmb9 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_Nmb9_Multiple .
 
 TS28541_5GcNrm_MbUpfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:MbUpfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbUpfFunction_Single .
 
 TS28541_5GcNrm_MbUpfInfo:interfaceMbUpfInfoList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MbUpfInfo ;
     rdfs:range TS28541_5GcNrm:InterfaceUpfInfoItem .
 
 TS28541_5GcNrm_MbUpfInfo:mbSmfServingArea a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:MbUpfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbUpfInfo .
 
 TS28541_5GcNrm_MbUpfInfo:priority a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MbUpfInfo ;
@@ -3146,8 +3353,7 @@ TS28541_5GcNrm_MbsServiceAreaInfo:mbsServiceArea a rdf:Property ;
 
 TS28541_5GcNrm_MbsSession:mbsAreaSessions a rdf:Property ;
     rdfs:comment "A map (list of key-value pairs) where the key identifies an areaSessionId" ;
-    rdfs:domain TS28541_5GcNrm:MbsSession ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MbsSession .
 
 TS28541_5GcNrm_MbsSession:mbsSessionId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MbsSession ;
@@ -3166,8 +3372,7 @@ TS28541_5GcNrm_MbsSessionId:tmgi a rdf:Property ;
     rdfs:range TS28541_5GcNrm:Tmgi .
 
 TS28541_5GcNrm_MfafFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:MfafFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MfafFunction_Single .
 
 TS28541_5GcNrm_MfafInfo:servingNfSetIdList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MfafInfo ;
@@ -3222,8 +3427,7 @@ TS28541_5GcNrm_MnpfFunction_Single:EP_SM14 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_SM14_Multiple .
 
 TS28541_5GcNrm_MnpfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:MnpfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:MnpfFunction_Single .
 
 TS28541_5GcNrm_MnpfInfo:msisdnRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:MnpfInfo ;
@@ -3250,8 +3454,7 @@ TS28541_5GcNrm_N3iwfFunction_Single:EP_N4 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N4_Multiple .
 
 TS28541_5GcNrm_N3iwfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:N3iwfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:N3iwfFunction_Single .
 
 TS28541_5GcNrm_NFProfile:fqdn a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NFProfile ;
@@ -3327,8 +3530,7 @@ TS28541_5GcNrm_NFService:serviceName a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_NFService:versions a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NFService ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NFService .
 
 TS28541_5GcNrm_NRTACRange:nRTACend a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NRTACRange ;
@@ -3392,8 +3594,7 @@ TS28541_5GcNrm_NefFunction_Single:EP_NL5 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_NL5_Multiple .
 
 TS28541_5GcNrm_NefFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NefFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NefFunction_Single .
 
 TS28541_5GcNrm_NefInfo:afEeData a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NefInfo ;
@@ -3428,8 +3629,7 @@ TS28541_5GcNrm_NefInfo:pfdData a rdf:Property ;
     rdfs:range TS28541_5GcNrm:PfdData .
 
 TS28541_5GcNrm_NefInfo:servedFqdnList a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NefInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NefInfo .
 
 TS28541_5GcNrm_NefInfo:taiList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NefInfo ;
@@ -3476,8 +3676,7 @@ TS28541_5GcNrm_NgeirFunction_Single:EP_N17 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N17_Multiple .
 
 TS28541_5GcNrm_NgeirFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NgeirFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NgeirFunction_Single .
 
 TS28541_5GcNrm_NrfFunction_Single:EP_N27 a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NrfFunction_Single ;
@@ -3492,8 +3691,7 @@ TS28541_5GcNrm_NrfFunction_Single:EP_SM14 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_SM14_Multiple .
 
 TS28541_5GcNrm_NrfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NrfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NrfFunction_Single .
 
 TS28541_5GcNrm_NrfInfo:served5gDdnmfInfo a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NrfInfo ;
@@ -3717,8 +3915,7 @@ TS28541_5GcNrm_NsacfFunction_Single:EP_N60 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N60_Multiple .
 
 TS28541_5GcNrm_NsacfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NsacfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NsacfFunction_Single .
 
 TS28541_5GcNrm_NsacfInfo:nsacfCapability a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NsacfInfo ;
@@ -3765,12 +3962,10 @@ TS28541_5GcNrm_NsacfInfoSnssai:numberofUEs a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28541_5GcNrm_NsacfInfoSnssai:uEIdList a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NsacfInfoSnssai ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NsacfInfoSnssai .
 
 TS28541_5GcNrm_NssaafFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NssaafFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NssaafFunction_Single .
 
 TS28541_5GcNrm_NssaafInfo:internalGroupIdentifiersRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NssaafInfo ;
@@ -3793,8 +3988,7 @@ TS28541_5GcNrm_NssfFunction_Single:EP_N34 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N34_Multiple .
 
 TS28541_5GcNrm_NssfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NssfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NssfFunction_Single .
 
 TS28541_5GcNrm_NwdafCapability:analyticsAggregation a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NwdafCapability ;
@@ -3817,8 +4011,7 @@ TS28541_5GcNrm_NwdafFunction_Single:EP_NL3 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_NL3_Multiple .
 
 TS28541_5GcNrm_NwdafFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:NwdafFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:NwdafFunction_Single .
 
 TS28541_5GcNrm_NwdafInfo:analyticsDelay a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NwdafInfo ;
@@ -3966,8 +4159,7 @@ TS28541_5GcNrm_PcfFunction_Single:EP_Rx a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_Rx_Multiple .
 
 TS28541_5GcNrm_PcfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:PcfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:PcfFunction_Single .
 
 TS28541_5GcNrm_PcfInfo:a2xCapability a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:PcfInfo ;
@@ -4062,12 +4254,10 @@ TS28541_5GcNrm_PcscfInfo:servedIpv6PrefixRanges a rdf:Property ;
     rdfs:range TS28541_5GcNrm:Ipv6PrefixRange .
 
 TS28541_5GcNrm_PfdData:afIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:PfdData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:PfdData .
 
 TS28541_5GcNrm_PfdData:appIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:PfdData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:PfdData .
 
 TS28541_5GcNrm_PlmnIdNid:mcc a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:PlmnIdNid ;
@@ -4094,8 +4284,7 @@ TS28541_5GcNrm_PlmnRange:start a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_PredefinedPccRuleSet_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:PredefinedPccRuleSet_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:PredefinedPccRuleSet_Single .
 
 TS28541_5GcNrm_ProseCapability:proseDirectCommunication a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ProseCapability ;
@@ -4134,8 +4323,7 @@ TS28541_5GcNrm_QFPacketDelayThresholdsType:thresholdUl a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28541_5GcNrm_QFQoSMonitoringControl_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:QFQoSMonitoringControl_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:QFQoSMonitoringControl_Single .
 
 TS28541_5GcNrm_QosData:arp a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:QosData ;
@@ -4202,8 +4390,7 @@ TS28541_5GcNrm_SAP:port a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28541_5GcNrm_SatelliteBackhaulInfo:SatelliteBackhaulCategory a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:SatelliteBackhaulInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:SatelliteBackhaulInfo .
 
 TS28541_5GcNrm_SatelliteBackhaulInfo:geoSatelliteId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SatelliteBackhaulInfo ;
@@ -4236,12 +4423,10 @@ TS28541_5GcNrm_ScpFunction_Single:EP_SM13 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_SM13_Multiple .
 
 TS28541_5GcNrm_ScpFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ScpFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ScpFunction_Single .
 
 TS28541_5GcNrm_ScpInfo:addressDomains a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:ScpInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:ScpInfo .
 
 TS28541_5GcNrm_ScpInfo:ipReachability a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ScpInfo ;
@@ -4300,8 +4485,7 @@ TS28541_5GcNrm_SeppFunction_Single:EP_N32 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N32_Multiple .
 
 TS28541_5GcNrm_SeppFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:SeppFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:SeppFunction_Single .
 
 TS28541_5GcNrm_SeppInfo:remotePlmnList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SeppInfo ;
@@ -4386,8 +4570,7 @@ TS28541_5GcNrm_SmfFunction_Single:QFQoSMonitoringControl a rdf:Property ;
     rdfs:range TS28541_5GcNrm:QFQoSMonitoringControl_Single .
 
 TS28541_5GcNrm_SmfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:SmfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:SmfFunction_Single .
 
 TS28541_5GcNrm_SmfInfo:accessType a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SmfInfo ;
@@ -4450,8 +4633,7 @@ TS28541_5GcNrm_SmsfFunction_Single:EP_N21 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N21_Multiple .
 
 TS28541_5GcNrm_SmsfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:SmsfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:SmsfFunction_Single .
 
 TS28541_5GcNrm_SmsfInfo:remotePlmnRangeList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SmsfInfo ;
@@ -4594,12 +4776,10 @@ TS28541_5GcNrm_SubNetwork_ncO_5GcNrm:ExternalNssfFunction a rdf:Property ;
     rdfs:range TS28541_5GcNrm:ExternalNssfFunction_Multiple .
 
 TS28541_5GcNrm_SuciInfo:hNwPubKeyIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:SuciInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:SuciInfo .
 
 TS28541_5GcNrm_SuciInfo:routingInds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:SuciInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:SuciInfo .
 
 TS28541_5GcNrm_SupiRange:end a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SupiRange ;
@@ -4735,16 +4915,14 @@ TS28541_5GcNrm_TrpMappingInfo:satelliteId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_TrpMappingInfo:trpIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:TrpMappingInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:TrpMappingInfo .
 
 TS28541_5GcNrm_TrustAfInfo:afEvents a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:TrustAfInfo ;
     rdfs:range TS28541_5GcNrm:AfEvent .
 
 TS28541_5GcNrm_TrustAfInfo:appIds a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:TrustAfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:TrustAfInfo .
 
 TS28541_5GcNrm_TrustAfInfo:internalGroupId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:TrustAfInfo ;
@@ -4783,8 +4961,7 @@ TS28541_5GcNrm_TsctsfFunction_Single:EP_N96 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_N96_Multiple .
 
 TS28541_5GcNrm_TsctsfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:TsctsfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:TsctsfFunction_Single .
 
 TS28541_5GcNrm_TsctsfInfo:externalGroupIdentifiersRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:TsctsfInfo ;
@@ -4800,8 +4977,7 @@ TS28541_5GcNrm_TsctsfInfo:internalGroupIdentifiersRanges a rdf:Property ;
 
 TS28541_5GcNrm_TsctsfInfo:sNssaiInfoList a rdf:Property ;
     rdfs:comment "A map (list of key-value pairs) where a valid JSON string serves as key" ;
-    rdfs:domain TS28541_5GcNrm:TsctsfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:TsctsfInfo .
 
 TS28541_5GcNrm_TsctsfInfo:supiRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:TsctsfInfo ;
@@ -4840,8 +5016,7 @@ TS28541_5GcNrm_UdmFunction_Single:EP_NL6 a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_NL6_Multiple .
 
 TS28541_5GcNrm_UdmFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:UdmFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:UdmFunction_Single .
 
 TS28541_5GcNrm_UdmInfo:externalGroupIdentifiersRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:UdmInfo ;
@@ -4860,8 +5035,7 @@ TS28541_5GcNrm_UdmInfo:internalGroupIdentifiersRanges a rdf:Property ;
     rdfs:range TS28541_5GcNrm:InternalGroupIdRange .
 
 TS28541_5GcNrm_UdmInfo:routingIndicators a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:UdmInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:UdmInfo .
 
 TS28541_5GcNrm_UdmInfo:suciInfos a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:UdmInfo ;
@@ -4872,8 +5046,7 @@ TS28541_5GcNrm_UdmInfo:supiRanges a rdf:Property ;
     rdfs:range TS28541_5GcNrm:SupiRange .
 
 TS28541_5GcNrm_UdrFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:UdrFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:UdrFunction_Single .
 
 TS28541_5GcNrm_UdrInfo:externalGroupIdentifiersRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:UdrInfo ;
@@ -4900,8 +5073,7 @@ TS28541_5GcNrm_UdrInfo:supportedDataSets a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_UdsfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:UdsfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:UdsfFunction_Single .
 
 TS28541_5GcNrm_UdsfInfo:groupId a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:UdsfInfo ;
@@ -4950,8 +5122,7 @@ TS28541_5GcNrm_UpfFunction_Single:EP_S5U a rdf:Property ;
     rdfs:range TS28541_5GcNrm:EP_S5U_Multiple .
 
 TS28541_5GcNrm_UpfFunction_Single:attributes a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:UpfFunction_Single ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:UpfFunction_Single .
 
 TS28541_5GcNrm_UpfInfo:atsssCapability a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:UpfInfo ;
@@ -4990,8 +5161,7 @@ TS28541_5GcNrm_UpfInfo:sNssaiUpfInfoList a rdf:Property ;
     rdfs:range TS28541_5GcNrm:SnssaiUpfInfoItem .
 
 TS28541_5GcNrm_UpfInfo:smfServingArea a rdf:Property ;
-    rdfs:domain TS28541_5GcNrm:UpfInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS28541_5GcNrm:UpfInfo .
 
 TS28541_5GcNrm_UpfInfo:supportedPfcpFeatures a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:UpfInfo ;

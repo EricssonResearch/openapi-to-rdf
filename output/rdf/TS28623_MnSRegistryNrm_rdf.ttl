@@ -1,4 +1,5 @@
 @prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#> .
 @prefix TS28623_MnSRegistryNrm_MnsInfo_Single: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/MnsInfo_Single#> .
 @prefix TS28623_MnSRegistryNrm_MnsRegistry_Single: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/MnsRegistry_Single#> .
@@ -10,15 +11,35 @@
 TS28623_MnSRegistryNrm:MnsInfo_Multiple a rdfs:Class .
 
 TS28623_MnSRegistryNrm:MnsInfo_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_MnSRegistryNrm:MnsRegistry_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_MnSRegistryNrm:SubNetwork_ncO_MnSRegistryNrm a rdfs:Class .
 
 TS28623_MnSRegistryNrm:resources_mnSRegistryNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
+TS28623_MnSRegistryNrm:MnsInfo a rdf:Property ;
+    rdfs:range TS28623_MnSRegistryNrm:MnsInfo_Multiple .
+
+TS28623_MnSRegistryNrm:mnsAddress a rdf:Property ;
+    rdfs:comment "Resource URI as defined in the relevant Technical Specification" ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:mnsLabel a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:mnsScope a rdf:Property ;
+    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
+    rdfs:range TS28623_ComDefs:DnRo .
+
+TS28623_MnSRegistryNrm:mnsType a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:mnsVersion a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm_MnsInfo_Single:mnsAddress a rdf:Property ;
     rdfs:comment "Resource URI as defined in the relevant Technical Specification" ;

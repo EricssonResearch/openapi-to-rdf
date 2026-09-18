@@ -13,15 +13,21 @@ TS28623_PmControlNrm:ManagedElement_PmControlNrm a rdfs:Class .
 TS28623_PmControlNrm:PerfMetricJob_Multiple a rdfs:Class .
 
 TS28623_PmControlNrm:PerfMetricJob_Single a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI allOf - complex logical constraints partially supported in SHACL" .
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_PmControlNrm:SubNetwork_ncO_PmControlNrm a rdfs:Class .
 
 TS28623_PmControlNrm:resources_pmControlNrm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
+TS28623_PmControlNrm:Files a rdf:Property ;
+    rdfs:range TS28623_FileManagementNrm:Files_Multiple .
+
 TS28623_PmControlNrm:administrativeState a rdf:Property ;
     rdfs:range xsd:string .
+
+TS28623_PmControlNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
 
 TS28623_PmControlNrm:conditionMonitorRef a rdf:Property ;
     rdfs:range xsd:string .
@@ -38,8 +44,7 @@ TS28623_PmControlNrm:objectInstances a rdf:Property ;
 TS28623_PmControlNrm:operationalState a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28623_PmControlNrm:performanceMetrics a rdf:Property ;
-    rdfs:range xsd:string .
+TS28623_PmControlNrm:performanceMetrics a rdf:Property .
 
 TS28623_PmControlNrm:reportingCtrl a rdf:Property ;
     rdfs:range TS28623_GenericNrm:ReportingCtrl .

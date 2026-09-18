@@ -264,9 +264,11 @@ class OpenAPIToRDFConverter:
                     if ref_uri is not None:
                         oneof_items.append(ref_uri)
             if oneof_items:
+                # Per OWL 2 (W3C Recommendation), owl:oneOf enumerates
+                # individuals, while a union of classes is owl:unionOf.
                 bnode = BNode()
                 Collection(self.graph, bnode, oneof_items)
-                self.graph.add((class_uri, OWL.oneOf, bnode))
+                self.graph.add((class_uri, OWL.unionOf, bnode))
         # Other types can be extended here as needed.
 
     def _process_property(self, domain_uri, prop_name, prop_def, required_list):
