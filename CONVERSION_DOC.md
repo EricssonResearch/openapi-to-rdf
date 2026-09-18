@@ -957,10 +957,11 @@ For example, `TimeWindow.startTime` in `TS28623_ComDefs.yaml` becomes:
 
     http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeWindow#startTime
 
-This is distinct from any `startTime` declared elsewhere. By
-construction, each property has exactly one `rdfs:domain` and one
-`rdfs:range`, so the unwanted intersection semantics that arise from
-shared URIs with multiple domains/ranges in RDFS/OWL are avoided.
+This is distinct from any `startTime` declared elsewhere. Each property
+has exactly one `rdfs:domain` and one `rdfs:range` (enforced by
+`tests/test_property_identity.py`), so the unwanted intersection
+semantics that arise from shared URIs with multiple domains/ranges in
+RDFS/OWL are avoided.
 
 ### Sidecar property index manifest
 

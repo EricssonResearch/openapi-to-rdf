@@ -25,16 +25,22 @@ from rdflib import URIRef
 def format_local_name(name: str) -> str:
     """Normalise a class or property local name for RDF.
 
-    Mirrors the pre-existing ``format_name`` rule used in the converters:
-    replace dashes with underscores. Anything else is left alone so we
-    don't silently mangle user-supplied identifiers.
+    Keeps characters that are legal in an IRI local name (RFC 3987). Dashes,
+    underscores, and most alphanumerics are legal and preserved as-is.
+
+    A lossy normalisation (e.g. folding ``my-prop`` and ``my_prop`` onto one
+    IRI) is a silent collision: two OpenAPI fields land on one RDF property,
+    which falsifies this tool's documented one-domain-one-range invariant.
+    Where a character genuinely must be escaped, escape it reversibly (e.g.
+    percent-encoding) so distinct source names cannot collide.
 
     Raises:
         ValueError: if ``name`` is empty or ``None``.
     """
     if not name:
         raise ValueError("local name must be a non-empty string")
-    return name.replace("-", "_")
+    # Dash is legal in IRI local names; keep it as-is rather than folding to underscore.
+    return name
 
 
 def class_namespace(base_namespace: str, class_name: str) -> str:

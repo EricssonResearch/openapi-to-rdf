@@ -15,16 +15,16 @@ from openapi_to_rdf.property_uri import (
 
 
 class TestFormatLocalName:
-    """Dash-to-underscore rule used for both class and property local names."""
+    """Preserves legal IRI characters, including dashes."""
 
     def test_plain_name_unchanged(self):
         assert format_local_name("startTime") == "startTime"
 
-    def test_dashes_become_underscores(self):
-        assert format_local_name("start-time") == "start_time"
+    def test_dashes_preserved(self):
+        assert format_local_name("start-time") == "start-time"
 
     def test_multiple_dashes(self):
-        assert format_local_name("a-b-c") == "a_b_c"
+        assert format_local_name("a-b-c") == "a-b-c"
 
     def test_underscores_preserved(self):
         assert format_local_name("already_safe") == "already_safe"
@@ -53,9 +53,9 @@ class TestClassNamespace:
         got = class_namespace("http://x/TS28623/ComDefs", "TimeWindow")
         assert got == "http://x/TS28623/ComDefs/TimeWindow#"
 
-    def test_class_name_with_dash_is_normalised(self):
+    def test_class_name_with_dash_is_preserved(self):
         got = class_namespace("http://x#", "Meta-Data")
-        assert got == "http://x/Meta_Data#"
+        assert got == "http://x/Meta-Data#"
 
     def test_underscored_class_name_preserved(self):
         got = class_namespace("http://x#", "Snake_Case")
@@ -84,7 +84,7 @@ class TestPropertyUri:
 
     def test_property_name_with_dash(self):
         got = property_uri("http://x#", "A", "has-value")
-        assert str(got) == "http://x/A#has_value"
+        assert str(got) == "http://x/A#has-value"
 
     def test_interops_with_rdflib_namespace(self):
         cls_ns = Namespace(class_namespace("http://x#", "A"))
