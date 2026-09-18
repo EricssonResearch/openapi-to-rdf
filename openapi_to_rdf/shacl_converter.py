@@ -74,6 +74,12 @@ class OpenAPIToSHACLConverter:
         # omitted (logged once per conversion).
         self.properties_without_constraints = 0
 
+        # Track unresolved $ref targets rather than inventing placeholders.
+        # A filesystem-relative string serialises to a file:/// IRI that
+        # leaks the build directory and breaks cross-machine reproducibility,
+        # so an unmatched ref is a parser gap, not vocabulary data.
+        self.unresolved_references = []
+
         self._load_yaml()
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -1182,9 +1188,13 @@ class OpenAPIToSHACLConverter:
         return RDF.Property, None
 
     def _get_datatype_from_ref(self, ref):
-        """Get appropriate XSD datatype from a reference by looking up the schema."""
+        """Get appropriate XSD datatype from a reference by looking up the schema.
+
+        Derive from the declared type/format only. Guessing from spelling is
+        how a rule starts inventing meaning (snm-api-native determination S3).
+        """
         if ref is None:
-            return XSD.string
+            return None
         ref_name = ref.split("/")[-1]
         if ref.startswith("#/components/schemas/"):
             xsd = self._get_xsd_for_schema(ref_name)
@@ -1194,12 +1204,9 @@ class OpenAPIToSHACLConverter:
         ext_schema = self._load_external_schema(ref) if ".yaml#" in ref else None
         if ext_schema is not None:
             return self._get_datatype_from_spec(ext_schema)
-        # Last resort heuristic
-        ref_lower = ref_name.lower()
-        if "float" in ref_lower: return XSD.float
-        elif "int" in ref_lower or "integer" in ref_lower: return XSD.integer
-        elif "bool" in ref_lower: return XSD.boolean
-        else: return XSD.string
+        # Could not determine datatype from declared schema — return None
+        # rather than guessing from the name.
+        return None
     
     def _get_datatype_from_spec(self, spec):
         """Get XSD datatype from a specification."""
@@ -1227,10 +1234,22 @@ class OpenAPIToSHACLConverter:
         return XSD.string
 
     def _resolve_reference(self, ref):
-        """Resolve a $ref reference to an RDF URI."""
+        """Resolve a $ref reference to an RDF URI.
+
+        A filesystem-relative string serialises to a file:/// IRI that leaks
+        the build directory and breaks cross-machine reproducibility, so an
+        unmatched ref is a parser gap, not vocabulary data (snm-api-native
+        determination S4).
+        """
         # Internal reference
         if ref.startswith("#/components/schemas/"):
             ref_name = ref.split("/")[-1]
+            # Check that the referenced schema actually exists
+            schemas = self._get_schemas()
+            if ref_name not in schemas:
+                # Schema doesn't exist — track as unresolved
+                self.unresolved_references.append(ref)
+                return None, None
             # When a per-schema namespace override is configured, point
             # the reference at that namespace so inheritance edges and
             # property class-shapes cross domain boundaries correctly.
@@ -1238,26 +1257,37 @@ class OpenAPIToSHACLConverter:
             if override_ns is not None:
                 return Namespace(override_ns)[self.format_name(ref_name)], None
             return self.main_prefix[self.format_name(ref_name)], None
-        
+
         # External reference
         elif ".yaml#" in ref:
             filename, remainder = ref.split("#/components/schemas/")
             ref_name = remainder
             ext_prefix = self.format_name(os.path.splitext(os.path.basename(filename))[0])
-            
+
             if ext_prefix not in self.prefixes:
                 ext_ns_uri = self._generate_namespace_for_file(filename)
                 ext_ns = Namespace(ext_ns_uri)
                 self.prefixes[ext_prefix] = ext_ns
                 self.rdf_graph.bind(ext_prefix, ext_ns)
                 self.shacl_graph.bind(ext_prefix, ext_ns)
-            
+
             return self.prefixes[ext_prefix][self.format_name(ref_name)], None
-        
-        # Handle unresolvable references by creating a placeholder URI
-        print(f"Warning: Could not resolve reference '{ref}', creating placeholder")
-        safe_ref = self.format_name(ref.replace("/", "_").replace("#", "_"))
-        return self.main_prefix[f"UnresolvedRef_{safe_ref}"], None
+
+        # Fragment-less $ref like "Money.yaml" — legal OAS 3.1 but not yet
+        # supported. Raise naming the spec section rather than silently
+        # mis-resolving. Zero occurrences in the current corpora, but this
+        # shape is legal and will eventually appear.
+        if ref.endswith(".yaml") or ref.endswith(".yml") or ref.endswith(".json"):
+            raise ValueError(
+                f"Fragment-less $ref '{ref}' is not supported. "
+                f"OAS 3.1 §4.8.24 permits this form, but it requires resolving "
+                f"the entire document as a schema, which this converter does not "
+                f"yet implement. Use an explicit fragment: '{ref}#/components/schemas/SchemaName'"
+            )
+
+        # Unresolvable reference — track it rather than inventing a placeholder.
+        self.unresolved_references.append(ref)
+        return None, None
 
     def _load_external_schema(self, ref):
         """Load a schema definition from an external YAML file reference."""
@@ -1281,9 +1311,13 @@ class OpenAPIToSHACLConverter:
         return self._ext_schema_cache[ext_path].get(schema_name)
 
     def _is_object_type_from_ref(self, ref):
-        """Determine if a reference points to an object type by looking up the schema."""
+        """Determine if a reference points to an object type by looking up the schema.
+
+        Derive from the declared type only. Guessing from spelling is how a
+        rule starts inventing meaning (snm-api-native determination S3).
+        """
         if ref is None:
-            return True
+            return False  # Conservative default: unresolved ref → unknown type
         ref_name = ref.split("/")[-1]
         if ref.startswith("#/components/schemas/"):
             return not self._is_primitive_schema(ref_name)
@@ -1293,9 +1327,9 @@ class OpenAPIToSHACLConverter:
             schemas = self._ext_schema_cache.get(
                 os.path.join(os.path.dirname(self.yaml_file), ref.split("#")[0]), {})
             return not self._is_primitive_def(ext_schema, schemas)
-        # Last resort heuristic
-        ref_lower = ref_name.lower()
-        return not any(x in ref_lower for x in ["float", "int", "string", "bool"])
+        # Could not determine type from declared schema — return False rather
+        # than guessing from the name.
+        return False
 
     def _create_bnode(self):
         """Create a new blank node."""
@@ -1371,16 +1405,19 @@ class OpenAPIToSHACLConverter:
                 # This ensures sh:class and sh:datatype use URIRefs, not Literals
                 processed_item = URIRef(item_str)
             elif item_str.startswith("xsd:") or "XMLSchema" in item_str:
-                # XSD datatype reference - convert to URIRef
-                if item_str == "xsd:string" or item_str.endswith("#string") or "string" in item_str.lower():
+                # XSD datatype reference - convert to URIRef.
+                # Only exact matches or full URI forms; no substring guessing.
+                # Guessing from spelling is how a rule starts inventing meaning
+                # (snm-api-native determination S3).
+                if item_str == "xsd:string" or item_str.endswith("#string"):
                     processed_item = XSD.string
-                elif item_str == "xsd:integer" or item_str.endswith("#integer") or "integer" in item_str.lower():
+                elif item_str == "xsd:integer" or item_str.endswith("#integer"):
                     processed_item = XSD.integer
-                elif item_str == "xsd:double" or item_str.endswith("#double") or "double" in item_str.lower():
+                elif item_str == "xsd:double" or item_str.endswith("#double"):
                     processed_item = XSD.double
-                elif item_str == "xsd:boolean" or item_str.endswith("#boolean") or "boolean" in item_str.lower():
+                elif item_str == "xsd:boolean" or item_str.endswith("#boolean"):
                     processed_item = XSD.boolean
-                elif item_str == "xsd:float" or item_str.endswith("#float") or "float" in item_str.lower():
+                elif item_str == "xsd:float" or item_str.endswith("#float"):
                     processed_item = XSD.float
                 else:
                     # Parse XSD URI

@@ -271,6 +271,29 @@ class OpenAPIToRDFConverter:
                 self.graph.add((class_uri, OWL.unionOf, bnode))
         # Other types can be extended here as needed.
 
+    def _is_primitive_schema(self, ref):
+        """Check if a $ref points to a primitive (non-object) schema.
+
+        Derive from the declared type only. Guessing from spelling is how a
+        rule starts inventing meaning (snm-api-native determination S3).
+
+        Returns True if the referenced schema has a primitive type (string,
+        integer, number, boolean), False for object types or if the schema
+        cannot be resolved.
+        """
+        if not ref.startswith("#/components/schemas/"):
+            # External refs not yet supported
+            return False
+        ref_name = ref.split("/")[-1]
+        schemas = self.data.get("components", {}).get("schemas", {})
+        schema_def = schemas.get(ref_name)
+        if schema_def is None:
+            return False
+        schema_type = schema_def.get("type")
+        # Primitives: string, integer, number, boolean
+        # Not primitives: object, array, or schemas with no explicit type
+        return schema_type in ("string", "integer", "number", "boolean")
+
     def _process_property(self, domain_uri, prop_name, prop_def, required_list):
         """
         Process an individual property of an object schema.
@@ -301,12 +324,12 @@ class OpenAPIToRDFConverter:
             prop_uri = self.main_prefix[safe_prop]
 
         # Determine property type and range.
+        # Derive from the declared type only. Guessing from spelling is how a
+        # rule starts inventing meaning (snm-api-native determination S3).
         if "$ref" in prop_def:
             ref_uri = self.resolve_reference(prop_def["$ref"])
-            # Heuristic: if the referenced name implies a simple type, use a DatatypeProperty.
-            if any(
-                x in ref_uri.split("/")[-1].lower() for x in ["float", "int", "string"]
-            ):
+            # Check the referenced schema's declared type
+            if self._is_primitive_schema(prop_def["$ref"]):
                 prop_type = OWL.DatatypeProperty
             else:
                 prop_type = OWL.ObjectProperty
@@ -332,10 +355,8 @@ class OpenAPIToRDFConverter:
             items = prop_def.get("items", {})
             if "$ref" in items:
                 ref_uri = self.resolve_reference(items["$ref"])
-                if any(
-                    x in ref_uri.split("/")[-1].lower()
-                    for x in ["float", "int", "string"]
-                ):
+                # Check the referenced schema's declared type, not its name
+                if self._is_primitive_schema(items["$ref"]):
                     prop_type = OWL.DatatypeProperty
                 else:
                     prop_type = OWL.ObjectProperty
