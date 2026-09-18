@@ -34,6 +34,24 @@ SPEC = {
                     "tags": {"type": "array", "items": {"type": "string"}, "minItems": 2}
                 },
             },
+            "Choice": {
+                "oneOf": [
+                    {"$ref": "#/components/schemas/Base"},
+                    {"type": "object", "properties": {"other": {"type": "string"}}},
+                ]
+            },
+            "Alternative": {
+                "anyOf": [
+                    {"$ref": "#/components/schemas/Base"},
+                    {"type": "object", "properties": {"fallback": {"type": "string"}}},
+                ]
+            },
+            "Complex": {
+                "oneOf": [
+                    {"type": "object", "properties": {"id": {"type": "string"}}, "required": ["id"]},
+                    {"anyOf": [{"$ref": "#/components/schemas/Base"}, {"$ref": "#/components/schemas/Derived"}]},
+                ]
+            },
         }
     },
 }
@@ -55,8 +73,8 @@ def test_each_target_class_has_exactly_one_node_shape(shapes: Graph) -> None:
     targets = collections.Counter(str(o) for _, o in shapes.subject_objects(SH.targetClass))
     duplicated = {k: v for k, v in targets.items() if v > 1}
     assert not duplicated, f"{len(duplicated)} class(es) with more than one NodeShape: {duplicated}"
-    # Not vacuous: three schemas in, so shapes must exist at all.
-    assert len(targets) >= 3, dict(targets)
+    # Not vacuous: six schemas with top-level constructs.
+    assert len(targets) >= 6, dict(targets)
 
 
 def test_a_required_array_gets_one_min_count_not_two(shapes: Graph) -> None:

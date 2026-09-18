@@ -296,7 +296,8 @@ class OpenAPIToSHACLConverter:
             # For top-level schemas (subject is not None, property_shape is None),
             # _handle_string_type already created a NodeShape, so skip logical operators
             # to avoid creating a second one.
-            if subject is None or property_shape is not None:
+            is_top_level = subject is not None and property_shape is None
+            if not is_top_level:
                 if "allOf" in spec:
                     self._handle_logical_operator(subject, property_shape, spec["allOf"], self.SH["and"])
                 elif "anyOf" in spec:
@@ -315,9 +316,41 @@ class OpenAPIToSHACLConverter:
 
         # Handle logical operators (anyOf, oneOf, allOf) without type
         elif "anyOf" in spec:
-            self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH["or"])
+            # At top level (subject not None, property_shape None), create NodeShape first
+            # to avoid _handle_logical_operator creating a duplicate.
+            if subject is not None and property_shape is None:
+                self.rdf_graph.add((subject, RDF.type, RDFS.Class))
+                comment = "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL"
+                self.rdf_graph.add((subject, RDFS.comment, Literal(comment)))
+                # Check if a NodeShape already exists for this subject to avoid duplicates
+                existing = list(self.shacl_graph.subjects(self.SH.targetClass, subject))
+                if existing:
+                    node_shape = existing[0]
+                else:
+                    node_shape = self._create_bnode()
+                    self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+                    self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+                self._handle_logical_operator(subject, node_shape, spec["anyOf"], self.SH["or"])
+            else:
+                self._handle_logical_operator(subject, property_shape, spec["anyOf"], self.SH["or"])
         elif "oneOf" in spec:
-            self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
+            # At top level (subject not None, property_shape None), create NodeShape first
+            # to avoid _handle_logical_operator creating a duplicate.
+            if subject is not None and property_shape is None:
+                self.rdf_graph.add((subject, RDF.type, RDFS.Class))
+                comment = "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL"
+                self.rdf_graph.add((subject, RDFS.comment, Literal(comment)))
+                # Check if a NodeShape already exists for this subject to avoid duplicates
+                existing = list(self.shacl_graph.subjects(self.SH.targetClass, subject))
+                if existing:
+                    node_shape = existing[0]
+                else:
+                    node_shape = self._create_bnode()
+                    self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+                    self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+                self._handle_logical_operator(subject, node_shape, spec["oneOf"], self.SH.xone)
+            else:
+                self._handle_logical_operator(subject, property_shape, spec["oneOf"], self.SH.xone)
         elif "allOf" in spec:
             # At the top of a named schema, allOf expresses class composition:
             # every `$ref` item is a parent (emit rdfs:subClassOf) and inline
@@ -632,9 +665,14 @@ class OpenAPIToSHACLConverter:
         # Create exactly one NodeShape for this class. Even pure-ref allOf
         # (no inline objects) needs a NodeShape so SHACL constraints from
         # _handle_logical_operator have somewhere to attach.
-        node_shape = self._create_bnode()
-        self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
-        self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+        # Check if a NodeShape already exists to avoid duplicates.
+        existing = list(self.shacl_graph.subjects(self.SH.targetClass, subject))
+        if existing:
+            node_shape = existing[0]
+        else:
+            node_shape = self._create_bnode()
+            self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+            self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
 
         for item in allof_items:
             if not isinstance(item, dict):
@@ -664,21 +702,28 @@ class OpenAPIToSHACLConverter:
 
     def _handle_logical_operator(self, subject, property_shape, specs_list, operator):
         """Handle logical operators (anyOf, oneOf, allOf)."""
-        # Handle top-level logical schemas as classes
+        # Handle top-level logical schemas as classes.
+        # After the uniqueness fix, anyOf/oneOf/allOf in _type_clause create NodeShapes
+        # first and pass them in, so this path should only be reached for edge cases or
+        # property-level logical operators with subject still set from outer context.
         if subject is not None and property_shape is None:
             # Create rdfs:Class in RDF graph
             self.rdf_graph.add((subject, RDF.type, RDFS.Class))
-            
+
             # Add semantic comment about logical constraint
             operator_map = {str(self.SH.xone): "oneOf", str(self.SH["or"]): "anyOf", str(self.SH["and"]): "allOf"}
             openapi_name = operator_map.get(str(operator), str(operator).split('#')[-1])
             comment = f"Note: Uses OpenAPI {openapi_name} - complex logical constraints partially supported in SHACL"
             self.rdf_graph.add((subject, RDFS.comment, Literal(comment)))
-            
-            # Create NodeShape for SHACL validation
-            node_shape = self._create_bnode()
-            self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
-            self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+
+            # Create NodeShape for SHACL validation (check if one exists first)
+            existing = list(self.shacl_graph.subjects(self.SH.targetClass, subject))
+            if existing:
+                node_shape = existing[0]
+            else:
+                node_shape = self._create_bnode()
+                self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
+                self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
             property_shape = node_shape
         
         if property_shape is None:
