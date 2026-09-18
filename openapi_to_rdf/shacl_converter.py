@@ -23,13 +23,39 @@ def _package_version() -> str:
 class OpenAPIToSHACLConverter:
     """Converts OpenAPI YAML to RDF/RDFS + SHACL, mimicking the Prolog implementation."""
     
-    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/"):
-        """Initialize the converter with SHACL-based approach."""
+    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/", schema_namespaces=None):
+        """Initialize the converter with SHACL-based approach.
+
+        Args:
+            yaml_file: Path to the OpenAPI YAML spec to convert.
+            base_namespace: Default namespace URI for every schema in the
+                spec. Used for all classes unless overridden by
+                ``schema_namespaces``.
+            output_dir: Directory for the ``output/rdf`` and
+                ``output/shacl`` subtrees.
+            external_refs: List of paths to sibling OpenAPI YAML files
+                whose schemas may appear as ``$ref`` targets.
+            base_namespace_prefix: URI prefix used when auto-deriving
+                per-file namespaces (e.g. from ``TS28623_ComDefs`` →
+                ``<prefix>TS28623/ComDefs#``).
+            schema_namespaces: Optional ``{ClassName: namespace_uri}``
+                map. When supplied, schemas listed here are emitted under
+                their declared namespace instead of ``base_namespace``,
+                and ``$ref`` resolutions honour the same map. This
+                enables a single-pass conversion over a merged multi-
+                domain spec (e.g. CTS topology), where ``Resource`` lives
+                under ``.../ctc/`` while ``WirelessNetFunction`` lives
+                under ``.../ctw/`` but refers back to ``Resource`` via
+                ``allOf``. Namespaces must end in ``#`` or ``/``.
+        """
         self.yaml_file = yaml_file
         self.base_namespace_prefix = base_namespace_prefix
         self.base_namespace = base_namespace or self._generate_base_namespace()
         self.output_dir = output_dir
         self.external_refs = external_refs if external_refs is not None else []
+        # Per-schema namespace overrides for cross-domain merged specs.
+        # See the ``schema_namespaces`` parameter docstring above.
+        self.schema_namespaces = dict(schema_namespaces or {})
         self.data = None
         
         # Separate graphs for RDF vocabulary and SHACL shapes
@@ -120,6 +146,35 @@ class OpenAPIToSHACLConverter:
             self.rdf_graph.bind(ext_prefix, ext_ns)
             self.shacl_graph.bind(ext_prefix, ext_ns)
 
+        # Bind per-schema override namespaces so their prefixes are
+        # serialised in the output Turtle rather than full IRIs.
+        for override_ns in set(self.schema_namespaces.values()):
+            ns_obj = Namespace(override_ns)
+            # Derive a readable prefix from the last non-empty path segment
+            # of the namespace URI (e.g. ".../cts/ctc/" → "ctc"). Falls
+            # back to a numbered prefix on collision.
+            candidate = override_ns.rstrip("#").rstrip("/").rsplit("/", 1)[-1] or "ns"
+            prefix = self.format_name(candidate)
+            i = 1
+            while prefix in self.prefixes and self.prefixes[prefix] != ns_obj:
+                i += 1
+                prefix = f"{self.format_name(candidate)}{i}"
+            if prefix not in self.prefixes:
+                self.prefixes[prefix] = ns_obj
+                self.rdf_graph.bind(prefix, ns_obj)
+                self.shacl_graph.bind(prefix, ns_obj)
+
+    def _namespace_for_schema(self, schema_name):
+        """Return the namespace URI to use for a named schema.
+
+        When ``schema_namespaces`` has an entry for ``schema_name`` it
+        wins; otherwise the file-level ``base_namespace`` is used. This
+        is the single point of decision for every class/ref/property URI
+        the converter mints.
+        """
+        ns = self.schema_namespaces.get(schema_name)
+        return ns if ns is not None else self.base_namespace
+
     def _generate_namespace_for_file(self, filename):
         """Generate namespace URI for external file using configurable prefix."""
         name_without_ext = os.path.splitext(filename)[0]
@@ -187,7 +242,14 @@ class OpenAPIToSHACLConverter:
     def _process_schema(self, schema_name, schema_def):
         """Process an individual schema following Prolog SHACL pattern."""
         safe_name = self.format_name(schema_name)
-        subject_uri = self.main_prefix[safe_name]
+        # Consult the per-schema namespace override (falls back to
+        # main_prefix when absent), so a merged multi-domain spec emits
+        # each class under its declared namespace.
+        ns_uri = self._namespace_for_schema(schema_name)
+        if ns_uri == self.base_namespace:
+            subject_uri = self.main_prefix[safe_name]
+        else:
+            subject_uri = Namespace(ns_uri)[safe_name]
 
         self._type_clause(subject_uri, None, schema_def)
 
@@ -829,10 +891,15 @@ class OpenAPIToSHACLConverter:
         # Mint a class-scoped property URI whenever we have an owning class.
         if domain_class is not None:
             class_local = str(domain_class).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
-            predicate_uri = property_uri(self.base_namespace, class_local, prop_name)
+            # Use the class's own namespace (which may differ from the
+            # file-level base_namespace when schema_namespaces overrides
+            # are in play) so the property URI stays under its owning
+            # class's namespace.
+            class_base = self._namespace_for_schema(class_local)
+            predicate_uri = property_uri(class_base, class_local, prop_name)
 
             # Bind a readable prefix for the per-class namespace on first sight.
-            class_ns_uri = class_namespace(self.base_namespace, class_local)
+            class_ns_uri = class_namespace(class_base, class_local)
             class_ns = Namespace(class_ns_uri)
             file_prefix = self.format_name(os.path.splitext(os.path.basename(self.yaml_file))[0])
             class_ns_prefix = f"{file_prefix}_{class_local}"
@@ -1006,6 +1073,12 @@ class OpenAPIToSHACLConverter:
         # Internal reference
         if ref.startswith("#/components/schemas/"):
             ref_name = ref.split("/")[-1]
+            # When a per-schema namespace override is configured, point
+            # the reference at that namespace so inheritance edges and
+            # property class-shapes cross domain boundaries correctly.
+            override_ns = self.schema_namespaces.get(ref_name)
+            if override_ns is not None:
+                return Namespace(override_ns)[self.format_name(ref_name)], None
             return self.main_prefix[self.format_name(ref_name)], None
         
         # External reference
