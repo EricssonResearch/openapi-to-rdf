@@ -82,6 +82,55 @@ def test_each_target_class_has_exactly_one_node_shape(shapes: Graph) -> None:
     }, dict(targets)
 
 
+@pytest.mark.parametrize(
+    ("spec_name", "expected_terms"),
+    [
+        ("TS29520_Nnwdaf_AnalyticsInfo.yaml", 16),
+        ("TS29520_Nnwdaf_EventsSubscription.yaml", 79),
+        ("TS29571_CommonData.yaml", 309),
+        ("TS28623_GenericNrm.yaml", 36),
+    ],
+)
+def test_every_declared_term_has_exactly_one_node_shape_on_real_specs(
+    spec_name: str, expected_terms: int, tmp_path: Path
+) -> None:
+    """Every ``rdfs:Class`` and ``rdfs:Datatype`` this tool declares gets one NodeShape.
+
+    **Over the real corpus, because a fixture could not see the defect this guards.** These four
+    3GPP documents are exactly the ones where 10 of 1,698 declared terms silently lost their
+    NodeShape: ``_type_clause`` deletes a shape that gained no value constraint, which is right for an
+    anonymous PropertyShape and removes a class's ``sh:targetClass`` when the shape handed to it is a
+    NodeShape. It fires on ``allOf: [{oneOf: [{required: [a]}, {required: [b]}]}]`` — a pure
+    co-occurrence rule with no value constraint anywhere in it — which both corpora write and no
+    hand-written fixture in this suite contained.
+
+    ``expected_terms`` is asserted so a document changing shape, or a path going stale after a
+    rename, fails loudly instead of quietly checking fewer terms.
+    """
+    from rdflib.namespace import RDF, RDFS as RDFS_NS
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    spec = Path("assets/MnS-Rel-19-OpenAPI/OpenAPI") / spec_name
+    assert spec.is_file(), f"corpus spec missing: {spec}"
+    converter = OpenAPIToSHACLConverter(str(spec), output_dir=str(tmp_path / "out"))
+    converter.convert()
+
+    terms = set(converter.rdf_graph.subjects(RDF.type, RDFS_NS.Class)) | set(
+        converter.rdf_graph.subjects(RDF.type, RDFS_NS.Datatype)
+    )
+    assert len(terms) == expected_terms, (
+        f"{spec_name} declares {len(terms)} terms, expected {expected_terms}"
+    )
+    counts = collections.Counter(
+        str(o) for _, o in converter.shacl_graph.subject_objects(SH.targetClass)
+    )
+    missing = sorted(str(t) for t in terms if counts[str(t)] == 0)
+    duplicated = {k: v for k, v in counts.items() if v > 1}
+    assert not missing, f"{len(missing)} declared term(s) with no NodeShape: {missing}"
+    assert not duplicated, f"term(s) with more than one NodeShape: {duplicated}"
+
+
 def test_a_required_array_gets_one_min_count_not_two(shapes: Graph) -> None:
     offenders = {
         str(shape): sorted(int(v) for v in shapes.objects(shape, SH.minCount))

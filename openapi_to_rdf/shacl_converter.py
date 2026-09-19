@@ -524,7 +524,24 @@ class OpenAPIToSHACLConverter:
         # schema says nothing. If a downstream triple store requires every PropertyShape
         # to carry a constraint, that store's loader should handle the requirement,
         # not the converter baking a false assertion into published artifacts.
-        if property_shape is not None:
+        if property_shape is not None and not list(
+            self.shacl_graph.objects(property_shape, self.SH.targetClass)
+        ):
+            # **A shape carrying sh:targetClass is a class's NodeShape and is never disposable.**
+            # The cleanup below deletes a shape that gained no value constraint, which is right for
+            # the anonymous PropertyShapes it was written for and catastrophic for a NodeShape: it
+            # removes the sh:targetClass too, so the class silently loses its shape entirely.
+            #
+            # Found on real data, not by a test. `_handle_object_type` now routes a schema declaring
+            # both `type: object` and `allOf` through `_handle_logical_operator`, passing the class's
+            # own NodeShape; where the `allOf` members carry no value constraint — TMF and 3GPP both
+            # write `allOf: [{oneOf: [{required: [a]}, {required: [b]}]}]`, a pure co-occurrence rule
+            # — this cleanup then deleted the NodeShape. Measured: **10 of 1,698** declared 3GPP terms
+            # lost their shape across 4 documents (`SpecificAnalyticsSubscription`,
+            # `SpecificDataSubscription`, `ServiceAreaRestriction`, `AreaScope` and 6 more), against
+            # 0 before. The suite was green throughout, which is why this is guarded by an assertion
+            # over the real corpus rather than by a fixture.
+            #
             # Check if we've added any value constraints by checking predicates directly.
             # Value constraints per SHACL (W3C Recommendation) are: sh:datatype,
             # sh:class, sh:node, sh:in, sh:hasValue, sh:nodeKind, sh:or, sh:xone, sh:and.
