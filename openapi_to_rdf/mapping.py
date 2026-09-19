@@ -52,13 +52,41 @@ already caught by its ``format``, and guessing from spelling is how a rule start
 meaning. This half is a convention with a source (TM Forum's own base schema), not a derivation,
 and saying so is the point.
 
-**Transport envelopes are classified, never dropped.** Notification wrappers, event payloads and
-JSON Patch documents are wire plumbing rather than domain concepts, so they are flagged
-(``ClassFact.is_transport``) and left in: excluding them outright broke nesting, measured on
-TMF641's own ``ServiceOrderCreateEvent``, where the inner ``ServiceOrder`` lifted 76 triples
-standalone and **1** through the envelope. The classification mirrors
-``snm_api.openapi_profile.is_plumbing`` in ``snm-api-native``, which is in a different
+**Transport envelopes are classified, never dropped** — and they get their own namespace and a
+marker. Notification wrappers, event payloads and JSON Patch documents are wire plumbing rather
+than domain concepts, so they are flagged (``ClassFact.is_transport``), minted under
+:data:`DEFAULT_TRANSPORT_NAMESPACE` rather than the document's own namespace, and left in.
+Excluding them outright broke nesting, measured on TMF641's own ``ServiceOrderCreateEvent``, where
+the inner ``ServiceOrder`` lifted **76** triples standalone and **1** through the envelope, because
+``event`` and ``serviceOrder`` had no terms and the path to the domain object was gone. So
+*omission is not the safe option*: a consumer wanting a pure domain ontology filters on the marker,
+and a consumer parsing wire format traverses through it. The classification mirrors
+``snm_api.openapi_profile.is_plumbing`` and the namespace/marker mirror ``TRANSPORT_NS`` /
+``TRANSPORT_MARKER`` in ``snm-api-native``'s ``scripts/emit_tbox.py``, which is in a different
 distribution and cannot be imported here.
+
+**A ``oneOf`` union gets no class.** A named schema whose body is a ``oneOf`` is a JSON Schema
+workaround for two things RDF does not need: *serialisation* (embed the entity or point at it) and
+*taxonomy* (enumerate the subclasses of a common ancestor, because JSON Schema cannot say "any
+subclass of X"). Neither is a new kind of thing, and TM Forum's own ``discriminator`` maps
+``@type`` to a member and **never** to the wrapper, so no conforming payload can select it.
+Measured in ``snm-api-native``: emitting one produced **14 unreachable classes and 14 unreachable
+context terms**. :func:`is_json_only_union` keys on the ``oneOf`` **shape**, not on the name — a
+name test (``endswith("RefOrValue")``) missed ``PartyRefOrPartyRoleRef`` and minted a referent
+called ``PartyRefOrPartyRole``, which names nothing in any TM Forum document. The union still
+constrains the *property* that accepts it: :func:`target_classes_for` expands it into its members,
+which a projection emits as ``sh:or``/``sh:xone``.
+
+**A reference contributes an edge to its referent, never a type.** ``ServiceRef`` keeps its class,
+because property domains (``EntityRef/href``) and the inheritance chain depend on it, but it is a
+serialisation artifact: typing a node ``a tmf:ServiceRef`` asserts the *referenced entity* is a
+reference, while the system that owns it says ``a svc:Service`` — one node, two classes,
+disagreeing only over which side embedded it. So ``ClassFact.referent`` records what the reference
+denotes (:func:`referent_name`), a projection emits an **edge** to it, and
+:func:`target_classes_for` resolves a reference-valued property to the referent. The referent name
+is minted **by convention, not looked up**: only one of TMF641/TMF622 declares a ``Party`` schema,
+so a presence check resolved ``PartyRef`` to ``Party`` in one document and left it as ``PartyRef``
+in the other — two specs disagreeing about one term, which is worse than the problem it fixed.
 
 **Ranges are recorded as facts, not as axioms.** ``PropertyFact.target_classes`` is a tuple
 because a property may constrain to several classes. ``rdfs:range`` may be emitted only for a
@@ -77,6 +105,7 @@ Nothing here writes the input document or touches the filesystem.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import quote
@@ -102,17 +131,43 @@ IRI_VALUED_NAMES = frozenset({"href"})
 #: class under another name. Stripped before classifying a name.
 VARIANT_SUFFIXES = ("_FVO", "_MVO")
 
-#: ``format`` → XSD datatype, for ``type: string``. Mirrors the map in
-#: ``shacl_converter._get_datatype_from_spec``; that copy disappears when the emitter is routed
-#: through this module.
-_STRING_FORMAT_DATATYPES = {
+#: ``format`` → XSD datatype, for ``type: string``. The single copy: the emitter held four
+#: hand-written duplicates of this map and now calls :func:`xsd_for_string_format`.
+STRING_FORMAT_DATATYPES = {
     "date-time": XSD.dateTime,
     "full-time": XSD.time,
     "date-month": XSD.gMonth,
     "date-mday": XSD.gMonthDay,
 }
 
+#: Namespace for transport envelopes (see the module docstring). **This namespace is OURS** and
+#: asserts no external authority; it exists so a consumer can tell a wire wrapper from a domain
+#: class by IRI alone, and it is overridable per conversion
+#: (``build_mapping(..., transport_namespace=...)``). Mirrors ``TRANSPORT_NS`` in
+#: ``snm-api-native``'s ``scripts/emit_tbox.py``.
+DEFAULT_TRANSPORT_NAMESPACE = "http://ericsson.com/models/transport/"
+
+#: Marker predicate asserting that a class is a wire envelope rather than a domain concept.
+#: Relative to the transport namespace in force. **Ours**, like the namespace.
+TRANSPORT_MARKER_LOCAL = "isTransportEnvelope"
+
+#: Marker predicate asserting that a class is a serialisation artifact — a *mention* of an entity
+#: rather than a kind of entity — and the predicate pointing at what it mentions. **Ours.**
+SERIALISATION_ARTIFACT_LOCAL = "isSerialisationArtifact"
+REFERS_TO_LOCAL = "refersTo"
+
 _MAX_REF_DEPTH = 10
+
+_VARIANT_SUFFIX_RE = re.compile(r"_(FVO|MVO)$")
+
+
+def xsd_for_string_format(fmt: Any, default: Any = XSD.string) -> Any:
+    """The XSD datatype an OpenAPI ``format`` names for a ``type: string``.
+
+    One implementation, because four hand-written copies of this map is four places for a new
+    format to be added in three of them.
+    """
+    return STRING_FORMAT_DATATYPES.get(fmt, default)
 
 
 @dataclass(frozen=True)
@@ -125,12 +180,18 @@ class ClassFact:
             Recorded for *every* class, transport envelopes included: a projection that emits
             ``rdfs:subClassOf`` for domain classes only left 0 of 14 owed edges in the consuming
             project.
-        is_transport: True for a wire envelope (see the module docstring).
+        is_transport: True for a wire envelope (see the module docstring). Its ``iri`` is minted
+            under the transport namespace, so a consumer can filter plumbing by IRI alone.
+        referent: For a ``*Ref`` schema, the name of what the reference *denotes*
+            (``ServiceRef`` → ``Service``); None otherwise. A reference contributes an **edge** to
+            this name, never a type — see the module docstring. Minted by convention, so it may
+            name a class this document does not declare.
     """
 
     iri: str
     parents: tuple[str, ...]
     is_transport: bool
+    referent: str | None = None
 
 
 @dataclass(frozen=True)
@@ -194,6 +255,45 @@ class Mapping:
     operations: dict[str, OperationFact]
     properties_by_class: dict[tuple[str, str], PropertyFact]
 
+    def declaring_class(self, class_name: str, property_name: str) -> str:
+        """The class that declares ``property_name`` for a node of ``class_name``.
+
+        **The single entry point for declaring-class attribution.** The SHACL emitter used to own a
+        second implementation that walked ``rdfs:subClassOf`` in the ``rdflib.Graph`` it was still
+        building and probed for an already-emitted ``rdfs:domain``; because the graph was incomplete,
+        its answer depended on the order schemas appear in the document, and where a parent was
+        declared after its child it fell back to the leaf. Measured before the collapse: **23 of 57**
+        non-trivial attributions differed on TMF641, **12 of 32** on TMF622 and **8 of 49** on
+        TMF620 — 43 of 138 across the three — while 3GPP showed **0 of 2,822**, because that corpus
+        contains no non-trivial attribution at all and so no 3GPP-only check could see the defect.
+
+        Resolved against ``properties_by_class``, which is keyed by *declaring* class, so asking
+        "does this ancestor own the property" is a lookup rather than a second walk over the
+        document. Equivalent to :func:`_resolve_declaring_class` by construction and reconciled
+        against it, over a different data path, by
+        ``tests/test_mapping.py::test_both_declaring_class_implementations_agree``.
+
+        Returns ``class_name`` when nothing in the ancestry declares the property, and for a name
+        this mapping holds no class for — an absent fact, never a guess.
+        """
+        if class_name not in self.classes:
+            return class_name
+        ancestry: list[str] = []
+        seen: set[str] = set()
+        queue = [class_name]
+        while queue:
+            current = queue.pop(0)
+            if current in seen:
+                continue
+            seen.add(current)
+            ancestry.append(current)
+            queue.extend(self.classes[current].parents if current in self.classes else ())
+        ancestry.reverse()  # most general ancestor first
+        for ancestor in ancestry:
+            if (ancestor, property_name) in self.properties_by_class:
+                return ancestor
+        return class_name
+
     def property_collisions(self) -> dict[str, tuple[PropertyFact, ...]]:
         """Local names declared by more than one class, with every fact for each."""
         grouped: dict[str, list[PropertyFact]] = {}
@@ -226,6 +326,42 @@ def is_transport(schema_name: str) -> bool:
         or base.startswith("JsonPatch")
         or base in {"InformationRequiredArray", "Hub"}
     )
+
+
+def is_json_only_union(schema_def: Any) -> bool:
+    """True for a named schema that exists only because JSON Schema lacks a way to say something.
+
+    A ``oneOf`` at the top of a named schema encodes either **serialisation** ("embed the entity or
+    point at it", whose members co-denote) or **taxonomy** ("any subclass of X", enumerated because
+    JSON Schema cannot quantify). Neither is a new kind of thing, and both are already expressed
+    elsewhere — co-denotation by ``ClassFact.referent``, subsumption by ``rdfs:subClassOf``. So no
+    class is declared for it. See the module docstring for the 14-unreachable-classes measurement
+    and for why this is keyed on the **shape** rather than on the name.
+
+    What the union genuinely carries is a constraint on the *property* that accepts it, and that is
+    preserved: :func:`target_classes_for` expands the members, which a projection emits as
+    ``sh:or``/``sh:xone``.
+    """
+    return isinstance(schema_def, dict) and bool(schema_def.get("oneOf"))
+
+
+def referent_name(schema_name: str) -> str | None:
+    """``ServiceRef`` → ``Service``, preserving any ``_FVO``/``_MVO`` suffix; None when not a ref.
+
+    Declines when stripping the trailing ``Ref`` leaves another ``Ref`` behind. That guard is
+    load-bearing rather than defensive: ``RelatedPartyRefOrPartyRoleRef`` is not a reference at all
+    — it is TM Forum's reified related-party class — and it was being flagged a serialisation
+    artifact and pointed at ``RelatedPartyRefOrPartyRole``, which names nothing. A compound
+    union-style name cannot be turned into its referent by removing one suffix.
+    """
+    suffix = _VARIANT_SUFFIX_RE.search(schema_name)
+    stem = _VARIANT_SUFFIX_RE.sub("", schema_name)
+    if not stem.endswith("Ref") or stem == "Ref":
+        return None
+    remainder = stem[: -len("Ref")]
+    if not remainder or "Ref" in remainder:
+        return None
+    return remainder + (suffix.group(0) if suffix else "")
 
 
 def flattened_properties(schema_def: Any) -> dict[str, Any]:
@@ -345,7 +481,7 @@ def datatype_for(spec: Any, schemas: dict[str, Any], depth: int = 0) -> str | No
         return None
     declared = spec.get("type")
     if declared == "string":
-        return str(_STRING_FORMAT_DATATYPES.get(spec.get("format"), XSD.string))
+        return str(xsd_for_string_format(spec.get("format")))
     if declared == "integer":
         return str(XSD.integer)
     if declared == "number":
@@ -364,19 +500,48 @@ def target_classes_for(spec: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
     rather than a single value because ``anyOf``/``oneOf`` genuinely has several targets; the
     rule that ``rdfs:range`` may only be emitted for exactly one of them belongs to the
     projection that emits it, not here.
+
+    Two collapses happen here, and both are the module docstring's determinations rather than
+    conveniences:
+
+    * A ``$ref`` to a **``oneOf`` union** yields the union's *members*, not the union — there is no
+      class for the union, so naming it would be an axiom pointing at an IRI no document declares.
+      Recursive, because a union member may itself be one.
+    * A ``$ref`` to a **``*Ref``** yields its **referent**: the property points at the thing, not at
+      the mention of it. The referent is minted by convention, so a returned name is not guaranteed
+      to be a key of ``schemas`` — a projection resolving it must mint the IRI rather than look it
+      up, exactly as ``snm-api-native``'s ``emit_tbox`` does, and for the reason recorded there.
+
+    Ordering and de-duplication survive both collapses, which is what lets a caller apply the
+    one-target rule for ``rdfs:range``: ``ServiceRefOrValue`` = ``oneOf [Service, ServiceRef]``
+    collapses to the single name ``Service``, so the range is emitted rather than deferred.
     """
     if not isinstance(spec, dict):
         return ()
     found: list[str] = []
 
-    def consider(candidate: Any) -> None:
-        name = _ref_name(candidate)
-        if name is None or name not in schemas:
-            return
-        if is_primitive_def(schemas[name], schemas):
-            return
+    def add(name: str) -> None:
         if name not in found:
             found.append(name)
+
+    def consider(candidate: Any, depth: int = 0) -> None:
+        name = _ref_name(candidate)
+        if name is None or name not in schemas or depth > _MAX_REF_DEPTH:
+            return
+        target = schemas[name]
+        if is_primitive_def(target, schemas):
+            return
+        if is_json_only_union(target):
+            # No class for the union; the constraint is its members. (Determination S2.)
+            for member in target.get("oneOf") or []:
+                consider(member, depth + 1)
+            return
+        referent = referent_name(name)
+        if referent is not None:
+            # A mention resolves to what it mentions. (Determination S8.)
+            add(referent)
+            return
+        add(name)
 
     consider(spec)
     if spec.get("type") == "array" or "items" in spec:
@@ -413,7 +578,9 @@ def _parents_of(schema_def: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
 
     A ``$ref`` to a primitive schema is a datatype constraint, not inheritance, so it yields no
     parent — the same condition ``shacl_converter._handle_allof_as_inheritance`` applies before
-    emitting ``rdfs:subClassOf``.
+    emitting ``rdfs:subClassOf``. A ``$ref`` to a ``oneOf`` union yields no parent either, because
+    no class is declared for a union (:func:`is_json_only_union`) and an ``rdfs:subClassOf`` naming
+    an IRI no document declares is a dangling axiom, not a weaker one.
     """
     if not isinstance(schema_def, dict):
         return ()
@@ -422,7 +589,7 @@ def _parents_of(schema_def: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
         name = _ref_name(member)
         if name is None or name not in schemas:
             continue
-        if is_primitive_def(schemas[name], schemas):
+        if is_primitive_def(schemas[name], schemas) or is_json_only_union(schemas[name]):
             continue
         if name not in parents:
             parents.append(name)
@@ -574,6 +741,7 @@ def build_mapping(
     *,
     namespace: str,
     schema_namespaces: dict[str, str] | None = None,
+    transport_namespace: str = DEFAULT_TRANSPORT_NAMESPACE,
 ) -> Mapping:
     """Derive the fact set every projection reads, from one walk over the document.
 
@@ -585,11 +753,16 @@ def build_mapping(
             through :func:`openapi_to_rdf.property_uri.namespace_for_schema`, the single point of
             decision for every URI this project mints, so class and property IRIs cannot disagree
             about where a class lives.
+        transport_namespace: Namespace for wire envelopes. Defaults to
+            :data:`DEFAULT_TRANSPORT_NAMESPACE`, which is **ours** and asserts no external
+            authority. A distinct namespace rather than omission: see the module docstring for the
+            76-vs-1 triple measurement that decided it.
 
     Returns:
         A :class:`Mapping`. Classes come from ``components/schemas`` and operations from
         ``paths``; a document with neither yields an empty mapping rather than an error, so a
-        caller can tell "nothing to derive" from "could not derive".
+        caller can tell "nothing to derive" from "could not derive". A named ``oneOf`` union is
+        **not** among the classes — see :func:`is_json_only_union`.
     """
     if not isinstance(document, dict):
         raise TypeError("document must be a parsed OpenAPI document (dict)")
@@ -601,17 +774,25 @@ def build_mapping(
     def namespace_of(schema_name: str) -> str:
         return namespace_for_schema(schema_name, namespace, overrides)
 
-    # --- Classes. Every named schema that is not a primitive/datatype alias. -----------------
+    # --- Classes. Every named schema that is not a primitive/datatype alias, and not a
+    # --- JSON-only `oneOf` union (which is not a kind of thing — determination S2). -----------
     classes: dict[str, ClassFact] = {}
     parents: dict[str, tuple[str, ...]] = {}
     for schema_name, schema_def in schemas.items():
         if not isinstance(schema_def, dict) or is_primitive_def(schema_def, schemas):
             continue
+        if is_json_only_union(schema_def):
+            continue
         parents[schema_name] = _parents_of(schema_def, schemas)
+        transport = is_transport(schema_name)
+        # Transport envelopes are minted under their own namespace so plumbing is distinguishable
+        # by IRI alone; domain classes keep the document's (possibly overridden) namespace.
+        class_namespace_uri = transport_namespace if transport else namespace_of(schema_name)
         classes[schema_name] = ClassFact(
-            iri=namespace_of(schema_name) + format_local_name(schema_name),
+            iri=class_namespace_uri + format_local_name(schema_name),
             parents=parents[schema_name],
-            is_transport=is_transport(schema_name),
+            is_transport=transport,
+            referent=referent_name(schema_name),
         )
 
     # --- Properties, attributed to the class that declares them. ----------------------------
@@ -635,10 +816,15 @@ def build_mapping(
                 1 if property_name in required_by[class_name] else 0,
                 spec.get("minItems", 0) if is_list else 0,
             )
+            # A transport envelope's properties live under the transport namespace with their
+            # class: a property IRI must not claim a domain namespace its domain does not have.
+            declaring_ns = (
+                transport_namespace
+                if classes[declaring].is_transport
+                else namespace_of(declaring)
+            )
             fact = PropertyFact(
-                iri=str(
-                    property_uri(namespace_of(declaring), declaring, property_name)
-                ),
+                iri=str(property_uri(declaring_ns, declaring, property_name)),
                 declaring_class=declaring,
                 target_classes=target_classes_for(spec, schemas),
                 datatype=datatype_for(spec, schemas),

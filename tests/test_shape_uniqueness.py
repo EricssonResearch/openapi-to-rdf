@@ -73,8 +73,13 @@ def test_each_target_class_has_exactly_one_node_shape(shapes: Graph) -> None:
     targets = collections.Counter(str(o) for _, o in shapes.subject_objects(SH.targetClass))
     duplicated = {k: v for k, v in targets.items() if v > 1}
     assert not duplicated, f"{len(duplicated)} class(es) with more than one NodeShape: {duplicated}"
-    # Not vacuous: six schemas with top-level constructs.
-    assert len(targets) >= 6, dict(targets)
+    # Not vacuous, and the EXACT set rather than a floor: the fixture declares six schemas with
+    # top-level constructs, and two of them (`Choice`, `Complex`) are `oneOf` unions, which get no
+    # class and therefore no NodeShape. A floor would have been satisfied by silently losing one of
+    # the four that must be here; naming them means a schema going missing fails loudly.
+    assert {str(t).rsplit("#", 1)[-1] for t in targets} == {
+        "Base", "Derived", "Bounded", "Alternative"
+    }, dict(targets)
 
 
 def test_a_required_array_gets_one_min_count_not_two(shapes: Graph) -> None:

@@ -6,7 +6,6 @@ is the spine that makes drift impossible rather than merely absent.
 
 from __future__ import annotations
 
-import pytest
 import yaml
 
 SPEC = {
@@ -295,28 +294,38 @@ def test_both_declaring_class_implementations_agree(tmp_path) -> None:
     assert attributed[("Place", "id")] == ("Addressable", "Addressable"), attributed
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="KNOWN LIMITATION: shacl_converter._find_declaring_class probes a graph that is still "
-    "being built, so its answer depends on the order schemas appear in the document. Where a "
-    "parent is declared after its child, the emitter falls back to the leaf while "
-    "mapping._resolve_declaring_class attributes to the ancestor. Measured: 23 of 57 non-trivial "
-    "attributions differ on TMF641 and 8 of 49 on TMF620 (0 of 2,822 on the 3GPP corpus, which has "
-    "no non-trivial attribution). Task 8 collapses the two implementations onto the "
-    "order-independent one; when it does, this xfail flips and must become a plain assertion.",
-)
 def test_the_two_paths_agree_even_when_the_parent_is_declared_after_the_child(tmp_path) -> None:
-    """Document order must not change which class declares a property."""
+    """Document order must not change which class declares a property.
+
+    This was a **strict xfail** until Task 8, and its flip is what closed the defect. The emitter
+    used to answer this question by probing the ``rdflib.Graph`` it was still building, so where a
+    parent appeared after its child in the document the ancestor's property IRI had not been emitted
+    yet and attribution fell back to the leaf — minting two IRIs for one field. Measured before the
+    collapse: **43 of 138** non-trivial attributions differed across the three TM Forum v5 documents
+    (23 of 57 on TMF641, 12 of 32 on TMF622, 8 of 49 on TMF620), and **0 of 2,822** on the 3GPP
+    corpus, which contains no non-trivial attribution at all — so no 3GPP-only check could see it.
+    ``shacl_converter._find_declaring_class`` now reads ``Mapping.declaring_class``.
+
+    The schemas are written children-first deliberately: that ordering is the failure region, and
+    without it this test passes however order-dependent the implementation is.
+    """
     reordered = {
         name: _INHERITANCE_CHAIN[name]
         for name in ("GeographicLocation", "Place", "Addressable")  # children first
     }
+    assert list(reordered) == ["GeographicLocation", "Place", "Addressable"], (
+        "the ordering IS the test: a parent must be declared after its child"
+    )
     path = _write(tmp_path, reordered)
-    compared, non_trivial, disagreements, _ = _declaring_class_both_ways(
+    compared, non_trivial, disagreements, attributed = _declaring_class_both_ways(
         yaml.safe_load(path.read_text(encoding="utf-8")), path
     )
     assert non_trivial >= 2, f"only {non_trivial} of {compared} were non-trivial"
     assert not disagreements, disagreements
+    # And the answer itself: the grandparent owns a property both descendants restate, whichever
+    # order the document declares them in.
+    assert attributed[("GeographicLocation", "href")] == ("Addressable", "Addressable"), attributed
+    assert attributed[("Place", "id")] == ("Addressable", "Addressable"), attributed
 
 
 def test_an_operation_reuses_the_class_iri_the_vocabulary_declares() -> None:

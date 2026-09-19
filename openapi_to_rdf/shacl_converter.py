@@ -6,7 +6,17 @@ from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 from rdflib.term import URIRef as URIRefTerm
 
-from openapi_to_rdf.mapping import is_primitive_def
+from openapi_to_rdf.mapping import (
+    REFERS_TO_LOCAL,
+    SERIALISATION_ARTIFACT_LOCAL,
+    STRING_FORMAT_DATATYPES,
+    TRANSPORT_MARKER_LOCAL,
+    build_mapping,
+    is_json_only_union,
+    is_primitive_def,
+    target_classes_for,
+    xsd_for_string_format,
+)
 from openapi_to_rdf.property_index import PropertyIndex
 from openapi_to_rdf.property_uri import (
     class_namespace,
@@ -26,9 +36,24 @@ def _package_version() -> str:
 
 
 class OpenAPIToSHACLConverter:
-    """Converts OpenAPI YAML to RDF/RDFS + SHACL, mimicking the Prolog implementation."""
-    
-    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/", schema_namespaces=None):
+    """Projects an OpenAPI document into an RDF/RDFS vocabulary and SHACL shapes.
+
+    **This class owns serialisation; :mod:`openapi_to_rdf.mapping` owns decisions.** Which named
+    schemas are classes, what a class is called, which class declares a property, what a property
+    points at, whether a schema is a wire envelope or a reference — every one of those is read from
+    the :class:`~openapi_to_rdf.mapping.Mapping` built in ``__init__``, so this projection and any
+    other (an Overlay, a JSON-LD context, an operation graph) cannot disagree.
+
+    That is not a tidiness preference. Before the routing, this emitter attributed properties by
+    probing the ``rdflib.Graph`` it was still building, so its answer depended on the order schemas
+    appear in the document: it disagreed with ``Mapping`` on **43 of 138** non-trivial attributions
+    across the three TM Forum v5 documents (23 of 57 on TMF641, 12 of 32 on TMF622, 8 of 49 on
+    TMF620), each disagreement minting two IRIs for one field. On the 3GPP corpus it disagreed on
+    **0 of 2,822** — that corpus has no non-trivial attribution at all, so no 3GPP-only check could
+    have seen the defect.
+    """
+
+    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/", schema_namespaces=None, transport_namespace=None):
         """Initialize the converter with SHACL-based approach.
 
         Args:
@@ -52,10 +77,20 @@ class OpenAPIToSHACLConverter:
                 under ``.../ctc/`` while ``WirelessNetFunction`` lives
                 under ``.../ctw/`` but refers back to ``Resource`` via
                 ``allOf``. Namespaces must end in ``#`` or ``/``.
+            transport_namespace: Namespace for wire envelopes (notification
+                wrappers, event payloads, JSON Patch documents). Defaults to
+                ``<base_namespace_prefix>transport/``, so it follows
+                ``--namespace-prefix``. Envelopes are emitted under this
+                namespace and marked, never omitted: omitting them broke
+                nesting, measured on TMF641's ``ServiceOrderCreateEvent``
+                where the inner ``ServiceOrder`` lifted 76 triples standalone
+                and 1 through the envelope. **This namespace is ours** and
+                asserts no external authority.
         """
         self.yaml_file = yaml_file
         self.base_namespace_prefix = base_namespace_prefix
         self.base_namespace = base_namespace or self._generate_base_namespace()
+        self.transport_namespace = transport_namespace or f"{base_namespace_prefix}transport/"
         self.output_dir = output_dir
         self.external_refs = external_refs if external_refs is not None else []
         # Per-schema namespace overrides for cross-domain merged specs.
@@ -86,6 +121,14 @@ class OpenAPIToSHACLConverter:
         self.unresolved_references = []
 
         self._load_yaml()
+        # The derived fact set this projection reads. Built once, before any triple is emitted, so
+        # no decision is ever answered by probing a half-built graph.
+        self.mapping = build_mapping(
+            self.data if isinstance(self.data, dict) else {},
+            namespace=self.base_namespace,
+            schema_namespaces=self.schema_namespaces,
+            transport_namespace=self.transport_namespace,
+        )
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
 
@@ -145,6 +188,15 @@ class OpenAPIToSHACLConverter:
         filename = os.path.basename(self.yaml_file)
         file_prefix = self.format_name(os.path.splitext(filename)[0])
         
+        # Transport envelopes live in their own namespace and are marked, never omitted; see the
+        # `transport_namespace` parameter docstring for the 76-vs-1 triple measurement.
+        self.TRANSPORT = Namespace(self.transport_namespace)
+        self.TRANSPORT_MARKER = self.TRANSPORT[TRANSPORT_MARKER_LOCAL]
+        self.SERIALISATION_ARTIFACT = self.TRANSPORT[SERIALISATION_ARTIFACT_LOCAL]
+        self.REFERS_TO = self.TRANSPORT[REFERS_TO_LOCAL]
+        self.rdf_graph.bind("transport", self.TRANSPORT)
+        self.shacl_graph.bind("transport", self.TRANSPORT)
+
         main_ns = Namespace(self.base_namespace)
         self.prefixes[file_prefix] = main_ns
         self.rdf_graph.bind(file_prefix, main_ns)
@@ -190,6 +242,37 @@ class OpenAPIToSHACLConverter:
         return namespace_for_schema(
             schema_name, self.base_namespace, self.schema_namespaces
         )
+
+    def _class_namespace_uri(self, schema_name):
+        """The namespace a named schema's class and property IRIs are minted under.
+
+        Transport for a wire envelope, the schema's own (possibly overridden) namespace otherwise.
+        One function, so a class and the properties it declares cannot land in two namespaces.
+        """
+        if self.mapping is not None:
+            fact = self.mapping.classes.get(schema_name)
+            if fact is not None and fact.is_transport:
+                return self.transport_namespace
+        return self._namespace_for_schema(schema_name)
+
+    def _class_iri(self, schema_name):
+        """The IRI for a named schema, as a class. **The single place a class IRI is minted.**
+
+        Every other path — ``_process_schema``, ``$ref`` resolution, inheritance edges, reference
+        edges — goes through here, so a class cannot be named one thing when it is declared and
+        another when it is referred to. A transport envelope resolves to the transport namespace;
+        everything else to the schema's own (possibly overridden) namespace.
+
+        The local name is deliberately NOT read from ``Mapping`` yet: the two disagree, because
+        ``format_name`` folds ``-`` to ``_`` while ``mapping`` uses the injective
+        ``property_uri.format_local_name``. That is a live defect affecting 629 of 1,801 3GPP class
+        names and it moves every one of their IRIs, so it is its own commit rather than a line
+        buried in this one.
+        """
+        ns_uri = self._class_namespace_uri(schema_name)
+        if ns_uri == self.base_namespace:
+            return self.main_prefix[self.format_name(schema_name)]
+        return Namespace(ns_uri)[self.format_name(schema_name)]
 
     def _generate_namespace_for_file(self, filename):
         """Generate namespace URI for external file using configurable prefix."""
@@ -246,18 +329,43 @@ class OpenAPIToSHACLConverter:
             self._process_schema(schema_name, schema_def)
 
     def _process_schema(self, schema_name, schema_def):
-        """Process an individual schema following Prolog SHACL pattern."""
-        safe_name = self.format_name(schema_name)
-        # Consult the per-schema namespace override (falls back to
-        # main_prefix when absent), so a merged multi-domain spec emits
-        # each class under its declared namespace.
-        ns_uri = self._namespace_for_schema(schema_name)
-        if ns_uri == self.base_namespace:
-            subject_uri = self.main_prefix[safe_name]
-        else:
-            subject_uri = Namespace(ns_uri)[safe_name]
+        """Project one named schema.
 
+        Three of the decisions here are read from ``Mapping``, not taken here:
+
+        * **A ``oneOf`` union gets no class.** Its members either co-denote or enumerate the
+          subclasses of a common ancestor, and the vendor's own ``discriminator`` maps ``@type`` to a
+          member and never to the wrapper, so no conforming payload can select it. Emitting one
+          produced 14 unreachable classes and 14 unreachable context terms in the consuming project.
+          The union still constrains whatever *property* accepts it — see ``_type_clause``, which
+          expands the members into ``sh:xone`` rather than pointing ``sh:class`` at a wrapper.
+        * **A transport envelope is emitted under the transport namespace and marked**, never
+          omitted. Omission broke nesting: TMF641's ``ServiceOrderCreateEvent`` lifted 1 triple
+          through the envelope against 76 for the inner ``ServiceOrder`` standalone, because the path
+          to the domain object was gone.
+        * **A reference contributes an edge to its referent, never a type.** ``ServiceRef`` keeps its
+          class — property domains and the inheritance chain depend on it — but is flagged a
+          serialisation artifact and pointed at ``Service``, because typing a node
+          ``a ...ServiceRef`` asserts the referenced entity *is* a reference while the system that
+          owns it says it is a ``Service``.
+        """
+        if is_json_only_union(schema_def):
+            return
+
+        subject_uri = self._class_iri(schema_name)
         self._type_clause(subject_uri, None, schema_def)
+
+        fact = self.mapping.classes.get(schema_name) if self.mapping else None
+        if fact is None:
+            return
+        if fact.is_transport:
+            self.rdf_graph.add((subject_uri, self.TRANSPORT_MARKER, Literal(True)))
+        if fact.referent is not None:
+            # Minted by convention, not looked up: only one of TMF641/TMF622 declares a `Party`
+            # schema, so a presence check resolved `PartyRef` to `Party` in one document and left it
+            # as `PartyRef` in the other — two specs disagreeing about one term.
+            self.rdf_graph.add((subject_uri, self.SERIALISATION_ARTIFACT, Literal(True)))
+            self.rdf_graph.add((subject_uri, self.REFERS_TO, self._class_iri(fact.referent)))
 
     def _type_clause(self, subject, property_shape, spec):
         """Main type processing clause, mirrors Prolog type_clause/4."""
@@ -274,10 +382,28 @@ class OpenAPIToSHACLConverter:
                     ref_schema = self._get_schemas().get(ref.split("/")[-1])
                 elif ".yaml#" in ref:
                     ref_schema = self._load_external_schema(ref)
-                if isinstance(ref_schema, dict) and ref_schema.get("type") == "array":
+                members = self._union_members(ref)
+                if members is not None:
+                    # No class exists for a `oneOf` union, so `sh:class` here would name an IRI no
+                    # document declares. The union's content is a constraint on THIS property, and
+                    # that is what gets emitted: sh:xone over the members.
+                    #
+                    # The note travels with it. It used to sit on the union's own class as an
+                    # `rdfs:comment`, and dropping the class would have dropped the only record that
+                    # this constraint came from a `oneOf` rather than from an `anyOf` — the reader
+                    # needs it where the constraint is, which is here.
+                    for comment in self._generate_semantic_comments({"oneOf": members}):
+                        self.shacl_graph.add((property_shape, RDFS.comment, Literal(comment)))
+                    self._handle_logical_operator(None, property_shape, members, self.SH.xone)
+                elif isinstance(ref_schema, dict) and ref_schema.get("type") == "array":
                     self._handle_array_type(None, property_shape, ref_schema)
                 elif self._is_object_type_from_ref(ref):
-                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_uri))
+                    # A VALUE constraint, so it resolves a reference to its referent (S8).
+                    value_class = self._value_class_iri(ref, class_uri)
+                    if value_class is not None:
+                        self.shacl_graph.add(
+                            (property_shape, getattr(self.SH, 'class'), value_class)
+                        )
                 else:
                     # Handle datatype reference — inline constraints from the referenced schema
                     datatype = self._get_datatype_from_ref(ref)
@@ -436,6 +562,79 @@ class OpenAPIToSHACLConverter:
                     self.shacl_graph.remove((s, p, property_shape))
                 self.properties_without_constraints += 1
 
+    def _value_class_iri(self, ref, resolved_uri):
+        """The class a **value** of this ``$ref`` should be typed as, or None when undecidable.
+
+        Differs from ``_resolve_reference`` in exactly one case, and that case is determination S8: a
+        ``$ref`` to ``ServiceRef`` yields ``Service``. ``sh:class X`` requires the value node to have
+        ``rdf:type X``, so pointing it at a ``*Ref`` asserts that the *referenced entity* is a
+        reference, while the system that owns that entity says it is a ``Service`` — one node, two
+        classes, disagreeing only over which side embedded it. A reference contributes an **edge** to
+        its referent, never a type.
+
+        The ``*Ref`` class itself is still declared and still carries its own shape: property domains
+        (``EntityRef/href``) and the inheritance chain depend on it. What never happens is a node
+        being typed as one.
+
+        ``resolved_uri`` is the IRI the caller already obtained from ``_resolve_reference``, passed
+        in rather than re-derived, so one reference is resolved once per decision:
+        ``_resolve_reference`` appends to ``self.unresolved_references``, and a second call for the
+        same ref would inflate that count.
+
+        Recorded because I got it wrong: the 3GPP unresolved-reference count rose 193 → 327 with this
+        task's changes and I attributed it to double resolution here. Measured, that was not the
+        cause — disabling union expansion alone brings it to **192**, so **135** of the occurrences
+        are unions being opened. The emitter used to point ``sh:class`` at the wrapper and never look
+        inside; it now resolves the members, and some of them name schemas the document does not
+        declare locally. That is a pre-existing gap in those documents becoming visible, not a new
+        one, and the distinct unresolved targets number 50 rather than 327.
+        """
+        if not isinstance(ref, str) or not ref.startswith("#/components/schemas/"):
+            return resolved_uri
+        name = ref.split("/")[-1]
+        fact = self.mapping.classes.get(name) if self.mapping else None
+        if fact is not None and fact.referent is not None:
+            return self._class_iri(fact.referent)
+        return resolved_uri
+
+    def _union_members(self, ref):
+        """The ``oneOf`` members of a ``$ref``'d union, or None when the target is not one.
+
+        No class is declared for a union (``mapping.is_json_only_union``), so every site that would
+        otherwise point at the wrapper — ``sh:class``, ``rdfs:range``, ``rdfs:subClassOf`` — asks
+        here first and constrains against the members instead. Local refs only: an external
+        document's unions are resolved through ``_load_external_schema`` by the same rule.
+        """
+        if not isinstance(ref, str):
+            return None
+        if ref.startswith("#/components/schemas/"):
+            target = self._get_schemas().get(ref.split("/")[-1])
+        elif ".yaml#" in ref:
+            target = self._load_external_schema(ref)
+        else:
+            return None
+        if is_json_only_union(target):
+            return [m for m in target["oneOf"] if isinstance(m, dict)]
+        return None
+
+    def _expand_union_refs(self, specs_list, depth=0):
+        """Replace any ``$ref``-to-a-union in a logical operator's member list by its own members.
+
+        Flattening rather than nesting, because ``sh:xone (A B)`` and ``sh:xone (sh:xone (A B))``
+        differ in SHACL, and because the wrapper has no class to constrain against. Bounded depth so
+        a union that references itself cannot spin.
+        """
+        if depth > 5:
+            return list(specs_list)
+        expanded = []
+        for spec in specs_list:
+            members = self._union_members(spec.get("$ref")) if isinstance(spec, dict) else None
+            if members is None:
+                expanded.append(spec)
+            else:
+                expanded.extend(self._expand_union_refs(members, depth + 1))
+        return expanded
+
     def _inline_primitive_constraints(self, property_shape, ref_schema):
         """Inline constraints from a referenced primitive schema onto a PropertyShape."""
         if not isinstance(ref_schema, dict):
@@ -475,6 +674,20 @@ class OpenAPIToSHACLConverter:
             node_shape = self._create_bnode()
             self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
             self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
+
+            # A named schema may declare BOTH `type: object` and a top-level `allOf`, and `allOf` is
+            # still class composition when it does. `_type_clause` dispatches on `type` first, so
+            # every such schema lost its inheritance edges and its allOf-declared properties: 179 of
+            # the 816 parent edges the three TM Forum v5 documents owe were unreachable (0 of 56 on
+            # the 3GPP corpus, which has 9 such schemas but none with a `$ref` parent — so a
+            # 3GPP-only check could not see this). The subclass loop must iterate EVERY class.
+            # `_handle_allof_as_inheritance` reuses the NodeShape just created rather than adding a
+            # second one.
+            if isinstance(spec.get("allOf"), list):
+                self._handle_allof_as_inheritance(subject, spec["allOf"])
+                self._handle_logical_operator(
+                    subject, node_shape, spec["allOf"], self.SH["and"]
+                )
 
         elif property_shape is not None:
             # Create anonymous NodeShape for property in SHACL graph
@@ -538,15 +751,7 @@ class OpenAPIToSHACLConverter:
             self.shacl_graph.add((node_shape, RDF.type, self.SH.NodeShape))
             self.shacl_graph.add((node_shape, self.SH.targetClass, subject))
 
-            datatype = XSD.string
-            if "format" in spec:
-                format_map = {
-                    "date-time": XSD.dateTime,
-                    "full-time": XSD.time,
-                    "date-month": XSD.gMonth,
-                    "date-mday": XSD.gMonthDay,
-                }
-                datatype = format_map.get(spec["format"], XSD.string)
+            datatype = xsd_for_string_format(spec.get("format"))
             self.shacl_graph.add((node_shape, self.SH.datatype, datatype))
 
             if "pattern" in spec:
@@ -567,16 +772,7 @@ class OpenAPIToSHACLConverter:
             return
 
         # Determine datatype based on format
-        datatype = XSD.string
-        if "format" in spec:
-            format_val = spec["format"]
-            format_map = {
-                "date-time": XSD.dateTime,
-                "full-time": XSD.time,
-                "date-month": XSD.gMonth,
-                "date-mday": XSD.gMonthDay,
-            }
-            datatype = format_map.get(format_val, XSD.string)
+        datatype = xsd_for_string_format(spec.get("format"))
 
         self.shacl_graph.add((property_shape, self.SH.datatype, datatype))
 
@@ -718,6 +914,10 @@ class OpenAPIToSHACLConverter:
 
     def _handle_logical_operator(self, subject, property_shape, specs_list, operator):
         """Handle logical operators (anyOf, oneOf, allOf)."""
+        # A member that is a `$ref` to a `oneOf` union is replaced by that union's own members:
+        # there is no class for the wrapper, so constraining against it would name an IRI no
+        # document declares. See `_union_members`.
+        specs_list = self._expand_union_refs(specs_list)
         # Handle top-level logical schemas as classes.
         # After the uniqueness fix, anyOf/oneOf/allOf in _type_clause create NodeShapes
         # first and pass them in, so this path should only be reached for edge cases or
@@ -772,7 +972,8 @@ class OpenAPIToSHACLConverter:
                 if '$ref' in spec:
                     ref = spec['$ref']
                     if self._is_object_type_from_ref(ref):
-                        class_uri, _ = self._resolve_reference(ref)
+                        # A VALUE constraint, so a reference resolves to its referent (S8).
+                        class_uri = self._value_class_iri(ref, self._resolve_reference(ref)[0])
                         if class_uri is not None:
                             class_constraints.append(class_uri)
                     else:
@@ -960,44 +1161,32 @@ class OpenAPIToSHACLConverter:
                         self.shacl_graph.add((property_shape, operator, constraint_list))
 
     def _find_declaring_class(self, current_class, prop_name):
-        """Walk the ancestry to find the highest ancestor that declares this property.
+        """The class that declares ``prop_name``, read from ``Mapping``. Never re-derived here.
 
-        A subclass restating a parent's field should not mint a duplicate IRI.
-        On the TMF641 corpus, declaring-class attribution scored **93.9%**
-        against leaf attribution's **68.5%**, so this is not a stylistic choice.
+        A subclass restating a parent's field must not mint a duplicate IRI: on the TMF641 corpus,
+        declaring attribution resolved **93.9%** of (class, property) pairs against an
+        independently-authored TBox where leaf attribution resolved **68.5%**.
 
-        Returns the declaring class URI, or ``current_class`` if no ancestor
-        declares this property.
+        **This method used to own a second implementation of that rule and it was wrong.** It walked
+        ``rdfs:subClassOf`` in ``self.rdf_graph`` and asked whether the ancestor's property IRI had
+        already been emitted — a probe of a graph still being built, so the answer depended on the
+        order schemas appear in the document, and where a parent was declared after its child it
+        fell back to the leaf. Measured against ``Mapping``: **43 of 138** non-trivial attributions
+        differed across the three TM Forum v5 documents (23 of 57 on TMF641, 12 of 32 on TMF622,
+        8 of 49 on TMF620) and **0 of 2,822** on the 3GPP corpus, which contains no non-trivial
+        attribution at all. Pinned by
+        ``tests/test_mapping.py::test_the_two_paths_agree_even_when_the_parent_is_declared_after_the_child``,
+        which was a strict xfail until this collapse and is a plain assertion now.
+
+        Takes and returns a class *IRI* rather than a name, because that is what the emitter holds.
         """
-        # Walk up the rdfs:subClassOf chain and collect ancestors from most
-        # general to most specific (reversed BFS order).
-        ancestry = []
-        visited = set()
-        to_visit = [current_class]
-        while to_visit:
-            cls = to_visit.pop(0)
-            if cls in visited:
-                continue
-            visited.add(cls)
-            ancestry.append(cls)
-            # Find all parents via rdfs:subClassOf.
-            parents = list(self.rdf_graph.objects(cls, RDFS.subClassOf))
-            to_visit.extend(parents)
-
-        # Reverse so we search from root to leaf.
-        ancestry.reverse()
-
-        # Find the highest ancestor that already has this property.
-        for ancestor in ancestry:
-            ancestor_local = str(ancestor).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
-            ancestor_base = self._namespace_for_schema(ancestor_local)
-            candidate_uri = property_uri(ancestor_base, ancestor_local, prop_name)
-            # Check if this property URI already exists in the RDF graph.
-            if (candidate_uri, RDFS.domain, ancestor) in self.rdf_graph:
-                return ancestor
-
-        # No ancestor declares it — use the current class.
-        return current_class
+        local_name = str(current_class).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
+        if self.mapping is None or local_name not in self.mapping.classes:
+            return current_class
+        declaring = self.mapping.declaring_class(local_name, prop_name)
+        if declaring == local_name:
+            return current_class
+        return self._class_iri(declaring)
 
     def _process_property(self, domain_class, node_shape, prop_name, prop_def, required_list):
         """Process a property within an object schema.
@@ -1025,9 +1214,11 @@ class OpenAPIToSHACLConverter:
             class_local = str(declaring_class).rsplit('#', 1)[-1].rsplit('/', 1)[-1]
             # Use the class's own namespace (which may differ from the
             # file-level base_namespace when schema_namespaces overrides
-            # are in play) so the property URI stays under its owning
-            # class's namespace.
-            class_base = self._namespace_for_schema(class_local)
+            # are in play, and is the transport namespace for a wire
+            # envelope) so the property URI stays under its owning class's
+            # namespace. A property IRI must not claim a domain namespace
+            # that its own rdfs:domain does not have.
+            class_base = self._class_namespace_uri(class_local)
             predicate_uri = property_uri(class_base, class_local, prop_name)
 
             # Bind a readable prefix for the per-class namespace on first sight.
@@ -1125,30 +1316,37 @@ class OpenAPIToSHACLConverter:
         # Handle $ref references
         if "$ref" in prop_def:
             ref = prop_def["$ref"]
+            if ref.startswith("#/components/schemas/"):
+                # Read the class targets from `Mapping`, which applies the two collapses this
+                # emitter must not re-derive: a `oneOf` union yields its members (no class exists
+                # for the wrapper) and a `*Ref` yields its referent (a property points at the
+                # thing, not at the mention of it). One target is a range; several are a SHACL
+                # constraint only, because rdfs:range propagates under entailment.
+                targets = target_classes_for(prop_def, self._get_schemas())
+                if len(targets) == 1:
+                    return RDF.Property, self._class_iri(targets[0])
+                if targets:
+                    return RDF.Property, None
+                datatype = self._get_datatype_from_ref(ref)
+                return RDF.Property, datatype if datatype is not None else None
+            # An EXTERNAL `$ref` is still resolved by the emitter: `Mapping` reads one document and
+            # never touches the filesystem, so it sees no external schema at all. The 3GPP corpus
+            # depends on this path — its 38 documents cross-reference `TS28623_ComDefs.yaml` and
+            # friends heavily — so routing this branch through `Mapping` would silently delete
+            # ranges rather than consolidate them. A real gap in `Mapping`, recorded here rather
+            # than papered over.
             class_uri, _ = self._resolve_reference(ref)
             if class_uri is not None:
                 if self._is_object_type_from_ref(ref):
                     return RDF.Property, class_uri
-                else:
-                    datatype = self._get_datatype_from_ref(ref)
-                    return RDF.Property, datatype if datatype is not None else None
-            else:
-                # Unresolved reference — no range can be determined.
-                return RDF.Property, None
-        
+                datatype = self._get_datatype_from_ref(ref)
+                return RDF.Property, datatype if datatype is not None else None
+            # Unresolved reference — no range can be determined.
+            return RDF.Property, None
+
         # Handle basic types
         elif prop_def.get("type") == "string":
-            datatype = XSD.string
-            if "format" in prop_def:
-                format_val = prop_def["format"]
-                format_map = {
-                    "date-time": XSD.dateTime,
-                    "full-time": XSD.time,
-                    "date-month": XSD.gMonth,
-                    "date-mday": XSD.gMonthDay,
-                }
-                datatype = format_map.get(format_val, XSD.string)
-            return RDF.Property, datatype
+            return RDF.Property, xsd_for_string_format(prop_def.get("format"))
             
         elif prop_def.get("type") == "integer":
             return RDF.Property, XSD.integer
@@ -1171,8 +1369,15 @@ class OpenAPIToSHACLConverter:
         elif prop_def.get("type") == "array":
             items = prop_def.get("items", {})
             if "$ref" in items:
-                ref_uri = self._resolve_reference(items["$ref"])[0]
-                return RDF.Property, ref_uri
+                if items["$ref"].startswith("#/components/schemas/"):
+                    # Same two collapses as the scalar case, read from `Mapping`.
+                    targets = target_classes_for(prop_def, self._get_schemas())
+                    if len(targets) == 1:
+                        return RDF.Property, self._class_iri(targets[0])
+                    if targets:
+                        return RDF.Property, None
+                    return RDF.Property, self._get_datatype_from_ref(items["$ref"])
+                return RDF.Property, self._resolve_reference(items["$ref"])[0]
             else:
                 # Array of unspecified item type — no determinate range.
                 return RDF.Property, None
@@ -1213,9 +1418,7 @@ class OpenAPIToSHACLConverter:
                 return self._get_datatype_from_spec(ref_def)
         spec_type = spec.get('type', 'string')
         if spec_type == 'string':
-            fmt = spec.get('format')
-            return {'date-time': XSD.dateTime, 'full-time': XSD.time,
-                    'date-month': XSD.gMonth, 'date-mday': XSD.gMonthDay}.get(fmt, XSD.string)
+            return xsd_for_string_format(spec.get('format'))
         if spec_type == 'integer': return XSD.integer
         if spec_type == 'number': return XSD.float if spec.get('format') == 'float' else XSD.double
         if spec_type == 'boolean': return XSD.boolean
@@ -1243,13 +1446,10 @@ class OpenAPIToSHACLConverter:
                 # Schema doesn't exist — track as unresolved
                 self.unresolved_references.append(ref)
                 return None, None
-            # When a per-schema namespace override is configured, point
-            # the reference at that namespace so inheritance edges and
-            # property class-shapes cross domain boundaries correctly.
-            override_ns = self.schema_namespaces.get(ref_name)
-            if override_ns is not None:
-                return Namespace(override_ns)[self.format_name(ref_name)], None
-            return self.main_prefix[self.format_name(ref_name)], None
+            # Through `_class_iri`, the single place a class IRI is minted: a per-schema namespace
+            # override and the transport namespace both apply here, so an inheritance edge or a
+            # property class-shape names a class exactly as its declaration does.
+            return self._class_iri(ref_name), None
 
         # External reference
         elif ".yaml#" in ref:
@@ -1311,6 +1511,11 @@ class OpenAPIToSHACLConverter:
         """
         if ref is None:
             return False  # Conservative default: unresolved ref → unknown type
+        if self._union_members(ref) is not None:
+            # A `oneOf` union is not an object type here because no class is declared for it, so an
+            # `rdfs:subClassOf` or `sh:class` naming it would be a dangling axiom. Callers that need
+            # the union's content ask `_union_members` and constrain against the members.
+            return False
         ref_name = ref.split("/")[-1]
         if ref.startswith("#/components/schemas/"):
             return not self._is_primitive_schema(ref_name)
@@ -1472,7 +1677,7 @@ class OpenAPIToSHACLConverter:
         # Check for format constraints that might not translate
         if 'format' in spec and spec.get('type') == 'string':
             format_val = spec['format']
-            if format_val not in ['date-time', 'full-time', 'date-month', 'date-mday']:
+            if format_val not in STRING_FORMAT_DATATYPES:
                 comments.append(f"Note: OpenAPI format '{format_val}' constraint not directly expressible in RDF/SHACL")
         
         return comments

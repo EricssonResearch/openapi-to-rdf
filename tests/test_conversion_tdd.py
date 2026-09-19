@@ -246,26 +246,43 @@ REF_PRIMITIVE_SPEC = {"components": {"schemas": {
 
 
 class TestInternalRefPrimitive:
-    """$ref to a primitive schema should produce sh:datatype, not sh:class."""
+    """$ref to a primitive schema should produce sh:datatype, not sh:class.
+
+    **``Event`` is classified a wire envelope** by ``mapping.is_transport`` (anything whose base name
+    ends in ``Event``), so from Task 8 its class and properties are minted under the transport
+    namespace rather than the document's. That is the rule working, not a fixture accident, and it is
+    asserted below so the surprise is recorded where a reader meets it — these tests are about
+    datatypes, and they now ask the converter which namespace the class lives in rather than assuming
+    the document's.
+    """
+
     @pytest.fixture(autouse=True)
     def setup(self):
         self.c = _convert(REF_PRIMITIVE_SPEC)
         self.ns = self.c.main_prefix
 
+    def _event_prop(self, name):
+        return property_uri(self.c._class_namespace_uri("Event"), "Event", name)
+
+    def test_event_is_classified_as_a_transport_envelope(self):
+        """Pinned, because it is the reason the IRIs below are not in the document's namespace."""
+        assert self.c.mapping.classes["Event"].is_transport is True
+        assert self.c._class_namespace_uri("Event") == self.c.transport_namespace
+
     def test_datetime_ref_range_is_xsd(self):
-        assert (_prop(self.c, "Event", "when"), RDFS.range, XSD.dateTime) in self.c.rdf_graph
+        assert (self._event_prop("when"), RDFS.range, XSD.dateTime) in self.c.rdf_graph
 
     def test_datetime_ref_shacl_datatype(self):
-        when_uri = _prop(self.c, "Event", "when")
+        when_uri = self._event_prop("when")
         for s in self.c.shacl_graph.subjects(SH.path, when_uri):
             assert (s, SH.datatype, XSD.dateTime) in self.c.shacl_graph
             assert (s, SH["class"], self.ns.DateTime) not in self.c.shacl_graph
 
     def test_string_ref_range_is_xsd(self):
-        assert (_prop(self.c, "Event", "mcc"), RDFS.range, XSD.string) in self.c.rdf_graph
+        assert (self._event_prop("mcc"), RDFS.range, XSD.string) in self.c.rdf_graph
 
     def test_string_ref_shacl_datatype(self):
-        mcc_uri = _prop(self.c, "Event", "mcc")
+        mcc_uri = self._event_prop("mcc")
         for s in self.c.shacl_graph.subjects(SH.path, mcc_uri):
             assert (s, SH.datatype, XSD.string) in self.c.shacl_graph
 
@@ -279,27 +296,63 @@ ONEOF_SPEC = {"components": {"schemas": {
         {"$ref": "#/components/schemas/A"},
         {"$ref": "#/components/schemas/B"},
     ]},
+    # Added when the determination below landed: the union constrains a PROPERTY, so there has to
+    # be one to look at. Without it these tests could only assert an absence.
+    "Holder": {"type": "object", "properties": {"choice": {"$ref": "#/components/schemas/Union"}}},
 }}}
 
 
 class TestOneOf:
+    """A ``oneOf`` union gets **no class**; it constrains the property that accepts it.
+
+    **These three assertions were inverted in Task 8, and the earlier versions were wrong.** They
+    asserted that ``Union`` is emitted as an ``rdfs:Class`` with a ``oneOf`` note and a NodeShape
+    carrying ``sh:xone``. Measured in the consuming project (``snm-api-native``), emitting a class
+    for a union produced **14 unreachable classes and 14 unreachable context terms**: a union's
+    members either co-denote ("embed the entity or point at it") or enumerate the subclasses of a
+    common ancestor, and TM Forum's own ``discriminator`` maps ``@type`` to a member and *never* to
+    the wrapper, so no conforming payload can select it.
+
+    What the union genuinely carries — that a value is one of N alternatives — is a constraint on a
+    predicate, and it is still emitted, on the property shape, with the note that says which OpenAPI
+    operator it came from.
+    """
+
     @pytest.fixture(autouse=True)
     def setup(self):
         self.c = _convert(ONEOF_SPEC)
         self.ns = self.c.main_prefix
 
-    def test_class(self):
-        assert (self.ns.Union, RDF.type, RDFS.Class) in self.c.rdf_graph
+    def _choice_shape(self):
+        choice = _prop(self.c, "Holder", "choice")
+        shapes = list(self.c.shacl_graph.subjects(SH.path, choice))
+        assert len(shapes) == 1, shapes
+        return shapes[0]
 
-    def test_xone(self):
-        for t in self.c.shacl_graph.subjects(SH.targetClass, self.ns.Union):
-            if list(self.c.shacl_graph.objects(t, SH.xone)):
-                return
-        pytest.fail("Missing sh:xone for oneOf")
+    def test_no_class_for_the_union(self):
+        """And nowhere else either: a leftover ``sh:class`` would name an undeclared IRI."""
+        occurrences = [
+            (s, p, o)
+            for g in (self.c.rdf_graph, self.c.shacl_graph)
+            for s, p, o in g
+            if self.ns.Union in (s, p, o)
+        ]
+        assert occurrences == [], occurrences
+        # Not vacuous: the two members ARE classes, so the projection is not simply empty.
+        assert (self.ns.A, RDF.type, RDFS.Class) in self.c.rdf_graph
+        assert (self.ns.B, RDF.type, RDFS.Class) in self.c.rdf_graph
+
+    def test_xone_on_the_property_that_accepts_the_union(self):
+        """The constraint moves to the predicate, with both members, counted."""
+        from rdflib.collection import Collection
+
+        xone = list(self.c.shacl_graph.objects(self._choice_shape(), SH.xone))
+        assert len(xone) == 1, f"expected one sh:xone on Holder/choice, got {xone}"
+        assert len(list(Collection(self.c.shacl_graph, xone[0]))) == 2
 
     def test_comment_says_oneOf_not_xone(self):
-        """The RDF comment should reference the OpenAPI operator name, not the SHACL one."""
-        comments = [str(o) for o in self.c.rdf_graph.objects(self.ns.Union, RDFS.comment)]
+        """The note names the OpenAPI operator, not the SHACL one, and travels with the constraint."""
+        comments = [str(o) for o in self.c.shacl_graph.objects(self._choice_shape(), RDFS.comment)]
         assert any("OpenAPI oneOf" in c for c in comments), f"Comments: {comments}"
         assert not any("OpenAPI xone" in c for c in comments), f"Comments: {comments}"
 
