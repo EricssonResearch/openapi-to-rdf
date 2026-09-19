@@ -18,7 +18,11 @@ from openapi_to_rdf.mapping import (
     PropertyFact,
     build_mapping,
 )
-from openapi_to_rdf.projections import context_from_mapping, overlay_from_mapping
+from openapi_to_rdf.projections import (
+    context_from_mapping,
+    operations_from_mapping,
+    overlay_from_mapping,
+)
 from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
 
@@ -33,5 +37,6 @@ __all__ = [
     "PropertyFact",
     "build_mapping",
     "context_from_mapping",
+    "operations_from_mapping",
     "overlay_from_mapping",
 ]

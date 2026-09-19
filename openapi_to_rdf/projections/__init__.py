@@ -6,6 +6,7 @@ class declares a property. Each projection reads the decisions rather than re-de
 """
 
 from openapi_to_rdf.projections.context import context_from_mapping
+from openapi_to_rdf.projections.operations import operations_from_mapping
 from openapi_to_rdf.projections.overlay import overlay_from_mapping
 
-__all__ = ["context_from_mapping", "overlay_from_mapping"]
+__all__ = ["context_from_mapping", "operations_from_mapping", "overlay_from_mapping"]

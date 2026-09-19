@@ -1,8 +1,8 @@
 # OpenAPI to RDF Converter
 
-Convert OpenAPI YAML **schema definitions** to RDF vocabularies and SHACL validation shapes for telecom intent-based automation and 3GPP standards. Adheres to W3C standards and best practices.
+Convert OpenAPI YAML **schema definitions and operations** to RDF vocabularies, SHACL validation shapes, JSON-LD contexts, OpenAPI Overlays, and Hydra operation graphs for telecom intent-based automation and 3GPP standards. Adheres to W3C standards and best practices.
 
-**Note:** This tool converts only the `components/schemas` section of OpenAPI specifications, not endpoints, paths, or operations.
+The tool converts `components/schemas` to RDF/SHACL vocabularies and `paths` to Hydra Core operation graphs (W3C Community Group draft). All projections derive from a single Mapping, ensuring the operation graph and vocabulary share class IRIs automatically.
 
 ## Features
 
