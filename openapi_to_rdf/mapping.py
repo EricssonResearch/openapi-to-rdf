@@ -1,0 +1,687 @@
+"""One derived fact set that every artifact is a projection of.
+
+An OpenAPI document supports at least four derived artifacts: an RDF/RDFS vocabulary, SHACL
+shapes, an OpenAPI **Overlay** carrying ontology annotations, a JSON-LD ``@context``, and a
+Hydra operation graph. Deriving each one by its own walk over the document means four
+implementations of the same decisions — *which class declares this property*, *what is this
+property's datatype*, *is this value an IRI or a literal* — and those implementations drift.
+
+That is measured, not feared: two independently-derived class mappings over one corpus in the
+consuming project (``snm-api-native``) agreed on the 75 schema names they shared and
+**disagreed on 132**. Nothing detected it, because nothing compared them. This module exists so
+there is one object to compare against: ``build_mapping`` decides once, and every projection
+reads the decision rather than re-deriving it.
+
+Decisions encoded here, each with its provenance
+------------------------------------------------
+
+``allOf`` **flattening.** A schema's properties come from its top-level ``properties`` block
+*and* from its inline ``allOf`` members, because TM Forum and 3GPP both declare properties in an
+``allOf`` alongside a ``$ref`` to the parent. Reading only the top-level block loses most of the
+model. :func:`flattened_properties` is the single implementation; ``analyzer.checks`` consumes
+it for its orphan-required check, which is where the determination was first made (the same
+defect has been found in three separate repositories).
+
+**Declaring-class attribution.** A property belongs to the highest ancestor that declares it,
+not to the leaf class that mentions it — an ontology declares an inherited property once.
+Measured on a TM Forum corpus (TMF641), declaring attribution resolved **93.9%** of
+``(class, property)`` pairs against an independently-authored TBox where leaf attribution
+resolved **68.5%**; the lower number was an artifact of the instrument, not a gap in the TBox.
+``shacl_converter._find_declaring_class`` applies the same rule over an in-progress
+``rdflib.Graph``; :func:`_resolve_declaring_class` applies it over ``ClassFact.parents``. The
+rule is one rule, stated in both docstrings; see this module's report for why the graph-backed
+walk could not simply be called from here.
+
+**Injective local names.** Local names are passed through
+:func:`openapi_to_rdf.property_uri.format_local_name`, which deliberately does *not* fold
+``-`` to ``_``: that folding collapses ``my-prop`` and ``my_prop`` onto one IRI, which is a
+silent collision rather than a normalisation.
+
+**IRI-valued properties.** ``is_iri_valued`` is true when the property declares ``format: uri``
+**or** is named ``href``. The second half is not a spelling heuristic, and it must not be
+"cleaned up" into one: TM Forum declares ``href`` on ``Addressable`` as a bare
+``{"type": "string", "description": "Hyperlink reference"}`` and applies ``format: uri``
+inconsistently and *never* to ``href`` — the most important URL field in the standard. Measured
+across three v5 documents: TMF641 marks only ``referenceError`` and ``serviceOrderHref``, TMF622
+only ``@schemaLocation``, TMF620 ``url`` / ``parentSpecificationHref`` / ``@schemaLocation``,
+while ``href`` appears on 9 TMF641 classes and is marked on none. Recorded as finding **F10** in
+``snm-api-native`` (``docs/vendor-spec-findings.md``); the rule lives there as
+``IRI_VALUED_NAMES`` in ``scripts/emit_tbox.py``. A purely derived rule would catch the scattering
+and miss the obvious one. It is deliberately *not* "ends with Href" — ``serviceOrderHref`` is
+already caught by its ``format``, and guessing from spelling is how a rule starts inventing
+meaning. This half is a convention with a source (TM Forum's own base schema), not a derivation,
+and saying so is the point.
+
+**Transport envelopes are classified, never dropped.** Notification wrappers, event payloads and
+JSON Patch documents are wire plumbing rather than domain concepts, so they are flagged
+(``ClassFact.is_transport``) and left in: excluding them outright broke nesting, measured on
+TMF641's own ``ServiceOrderCreateEvent``, where the inner ``ServiceOrder`` lifted 76 triples
+standalone and **1** through the envelope. The classification mirrors
+``snm_api.openapi_profile.is_plumbing`` in ``snm-api-native``, which is in a different
+distribution and cannot be imported here.
+
+**Ranges are recorded as facts, not as axioms.** ``PropertyFact.target_classes`` is a tuple
+because a property may constrain to several classes. ``rdfs:range`` may be emitted only for a
+*single* target, because a range propagates under RDFS entailment and an invented range is a
+false axiom rather than a loose constraint. That rule belongs to the projection that emits
+``rdfs:range``; this module only records how many targets there are.
+
+**Operations.** ``paths`` are in scope here, which the README's "schemas only" disclaimer
+predates (Task 9c updates it). A list endpoint records the **item** class rather than an
+anonymous array, and an operation with no body records ``None`` rather than guessing — measured,
+12 of TMF641's operations and 32 of TMF620's return no body. Operation IRIs are minted by *this
+project* from the method and path and assert no external authority.
+
+Nothing here writes the input document or touches the filesystem.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+from urllib.parse import quote
+
+from rdflib.namespace import XSD
+
+from openapi_to_rdf.property_uri import (
+    format_local_name,
+    namespace_for_schema,
+    property_uri,
+)
+
+#: HTTP methods an OpenAPI Path Item Object may carry (OpenAPI 3.1 §4.8.10). Every other key of a
+#: path item (``parameters``, ``summary``, ``servers``, …) is not an operation.
+HTTP_METHODS = ("get", "put", "post", "delete", "options", "head", "patch", "trace")
+
+#: Property names that are IRI-valued regardless of their declared ``format``. See the module
+#: docstring: this is TM Forum's own base-schema convention, recorded as finding F10, and NOT a
+#: spelling heuristic. Adding a name here is a decision about a vendor's convention.
+IRI_VALUED_NAMES = frozenset({"href"})
+
+#: ``_FVO``/``_MVO`` are TM Forum's create/update projections of a resource: the same domain
+#: class under another name. Stripped before classifying a name.
+VARIANT_SUFFIXES = ("_FVO", "_MVO")
+
+#: ``format`` → XSD datatype, for ``type: string``. Mirrors the map in
+#: ``shacl_converter._get_datatype_from_spec``; that copy disappears when the emitter is routed
+#: through this module.
+_STRING_FORMAT_DATATYPES = {
+    "date-time": XSD.dateTime,
+    "full-time": XSD.time,
+    "date-month": XSD.gMonth,
+    "date-mday": XSD.gMonthDay,
+}
+
+_MAX_REF_DEPTH = 10
+
+
+@dataclass(frozen=True)
+class ClassFact:
+    """One named schema, as a class.
+
+    Attributes:
+        iri: The class IRI, minted under the schema's own namespace.
+        parents: Names of the classes this schema composes via a top-level ``allOf`` ``$ref``.
+            Recorded for *every* class, transport envelopes included: a projection that emits
+            ``rdfs:subClassOf`` for domain classes only left 0 of 14 owed edges in the consuming
+            project.
+        is_transport: True for a wire envelope (see the module docstring).
+    """
+
+    iri: str
+    parents: tuple[str, ...]
+    is_transport: bool
+
+
+@dataclass(frozen=True)
+class PropertyFact:
+    """One property, attributed to the class that declares it.
+
+    Attributes:
+        iri: Class-scoped property IRI, minted under the *declaring* class.
+        declaring_class: Name of the highest ancestor that declares this property.
+        target_classes: Names of the classes this property may point at. Empty for a literal.
+            A projection emitting ``rdfs:range`` must emit it only when there is exactly one.
+        datatype: XSD datatype IRI as a string, or None where the value is not a literal.
+        is_iri_valued: The value is a URL denoting a resource, not a string about one.
+        min_count: Lower bound; 1 when required, ``minItems`` when stricter.
+        max_count: Upper bound; 1 for a single-valued property, ``maxItems`` or None for a list.
+    """
+
+    iri: str
+    declaring_class: str
+    target_classes: tuple[str, ...]
+    datatype: str | None
+    is_iri_valued: bool
+    min_count: int
+    max_count: int | None
+
+
+@dataclass(frozen=True)
+class OperationFact:
+    """One method on one path.
+
+    ``returns_class`` and ``accepts_class`` are class *names*, so a projection resolves them
+    through ``Mapping.classes`` and emits the IRI the vocabulary declares rather than re-deriving
+    one from a schema name. Either is None when the operation has no body, or when its schema
+    resolves to something that is not a class in this document — None, never a placeholder.
+    """
+
+    iri: str
+    method: str
+    path_template: str
+    returns_class: str | None
+    accepts_class: str | None
+    status_codes: tuple[int, ...]
+
+
+@dataclass(frozen=True)
+class Mapping:
+    """The derived fact set. Every artifact is a projection of this object.
+
+    ``properties`` is keyed by local name because that is the key a JSON-LD context and an
+    overlay need. Two unrelated classes may legitimately declare the same local name with
+    different ranges (``startTime`` on both ``TimeWindow`` and ``PerfMetricJob`` in 3GPP
+    TS 28.623), and those are distinct properties with distinct IRIs. So the by-name index keeps
+    the first declaration in document order and ``properties_by_class`` — keyed
+    ``(declaring_class, local_name)`` — keeps them all. Nothing is merged here: merging is an
+    opinionated modelling step, the same determination ``property_index`` records for its
+    collision report.
+    """
+
+    classes: dict[str, ClassFact]
+    properties: dict[str, PropertyFact]
+    operations: dict[str, OperationFact]
+    properties_by_class: dict[tuple[str, str], PropertyFact]
+
+    def property_collisions(self) -> dict[str, tuple[PropertyFact, ...]]:
+        """Local names declared by more than one class, with every fact for each."""
+        grouped: dict[str, list[PropertyFact]] = {}
+        for (_declaring, local_name), fact in self.properties_by_class.items():
+            grouped.setdefault(local_name, []).append(fact)
+        return {
+            name: tuple(facts) for name, facts in sorted(grouped.items()) if len(facts) > 1
+        }
+
+
+def base_name(schema_name: str) -> str:
+    """``ServiceOrder_FVO`` → ``ServiceOrder``: the domain class both names denote."""
+    for suffix in VARIANT_SUFFIXES:
+        if schema_name.endswith(suffix):
+            return schema_name[: -len(suffix)]
+    return schema_name
+
+
+def is_transport(schema_name: str) -> bool:
+    """True for a wire envelope rather than a domain concept.
+
+    Notification envelopes, event payload wrappers and RFC 6902 patch documents are transport
+    plumbing. They are flagged rather than dropped — see the module docstring for the 76-vs-1
+    triple measurement that decided that. Mirrors ``snm_api.openapi_profile.is_plumbing`` in
+    ``snm-api-native``, which lives in a separate distribution and cannot be imported.
+    """
+    base = base_name(schema_name)
+    return (
+        base.endswith(("Event", "EventPayload"))
+        or base.startswith("JsonPatch")
+        or base in {"InformationRequiredArray", "Hub"}
+    )
+
+
+def flattened_properties(schema_def: Any) -> dict[str, Any]:
+    """Return a schema's own declared properties, ``allOf`` members included.
+
+    Collects the top-level ``properties`` block AND the ``properties`` of every ``allOf`` member.
+    TM Forum and 3GPP both declare properties inside an ``allOf`` alongside a ``$ref`` to the
+    parent; reading only the top-level block loses them. ``$ref`` members are *not* followed —
+    those properties belong to the referenced schema and are collected when it is visited, which
+    is what makes declaring-class attribution possible.
+
+    This is the single implementation of the flattening determination (first made in
+    ``analyzer.checks.orphan_required``, which now calls it: 3 spurious errors on the TMF v5
+    specs → 0 of 888 schemas with real orphans). Two callers, one rule.
+    """
+    if not isinstance(schema_def, dict):
+        return {}
+    properties: dict[str, Any] = {}
+    for member in schema_def.get("allOf") or []:
+        if isinstance(member, dict) and isinstance(member.get("properties"), dict):
+            properties.update(member["properties"])
+    if isinstance(schema_def.get("properties"), dict):
+        properties.update(schema_def["properties"])
+    return properties
+
+
+def flattened_required(schema_def: Any) -> set[str]:
+    """Return the required property names, ``allOf`` members included.
+
+    Symmetric with :func:`flattened_properties`: a schema that declares a property in an
+    ``allOf`` member declares its ``required`` there too, and reading only the top-level
+    ``required`` list reports properties as optional that the contract makes mandatory.
+    """
+    if not isinstance(schema_def, dict):
+        return set()
+    required: set[str] = set(schema_def.get("required") or [])
+    for member in schema_def.get("allOf") or []:
+        if isinstance(member, dict):
+            required |= set(member.get("required") or [])
+    return required
+
+
+def is_primitive_def(schema_def: Any, schemas: dict[str, Any], depth: int = 0) -> bool:
+    """True when a schema definition resolves to a primitive (literal-valued) type.
+
+    Follows ``$ref`` and ``items``, and treats an ``anyOf``/``oneOf`` as primitive only when
+    every option is. Used to decide what is a class: a primitive named schema is a datatype, not
+    a class, and minting a class for one produces a term no payload can instantiate.
+    ``shacl_converter._is_primitive_def`` delegates here so both agree by construction.
+    """
+    if not isinstance(schema_def, dict) or depth > _MAX_REF_DEPTH:
+        return False
+    if "$ref" in schema_def:
+        ref = schema_def["$ref"]
+        if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
+            return is_primitive_def(schemas.get(ref.split("/")[-1]), schemas, depth + 1)
+        return False
+    declared = schema_def.get("type")
+    if declared in ("string", "integer", "number", "boolean"):
+        return True
+    if declared == "array":
+        return is_primitive_def(schema_def.get("items", {}), schemas, depth + 1)
+    # An anyOf/oneOf is primitive only when every option is. Each key is tested independently
+    # (rather than returning on the first present one) to preserve the behaviour of the emitter
+    # predicate this replaced, for a schema that carries both.
+    for key in ("anyOf", "oneOf"):
+        if key in schema_def:
+            if all(
+                is_primitive_def(option, schemas, depth + 1) for option in schema_def[key]
+            ):
+                return True
+    return False
+
+
+def _resolve_ref(spec: Any, schemas: dict[str, Any], depth: int = 0) -> Any:
+    """Follow an internal ``$ref`` to the schema it names; return ``spec`` unchanged otherwise.
+
+    External (``file.yaml#/...``) references are left alone: this module never reads the
+    filesystem, and an unresolvable reference must stay visible as an absent fact rather than
+    become a guess.
+    """
+    if not isinstance(spec, dict) or depth > _MAX_REF_DEPTH:
+        return spec if isinstance(spec, dict) else {}
+    ref = spec.get("$ref")
+    if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
+        target = schemas.get(ref.split("/")[-1])
+        if isinstance(target, dict):
+            return _resolve_ref(target, schemas, depth + 1)
+    return spec
+
+
+def _ref_name(spec: Any) -> str | None:
+    """The schema name an internal ``$ref`` points at, or None."""
+    if not isinstance(spec, dict):
+        return None
+    ref = spec.get("$ref")
+    if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
+        return ref.split("/")[-1]
+    return None
+
+
+def datatype_for(spec: Any, schemas: dict[str, Any], depth: int = 0) -> str | None:
+    """The XSD datatype of a property's value, or None where the value is not a literal.
+
+    None is a fact, not a failure: an object-valued property, a multi-target ``anyOf`` and an
+    array of unspecified items have no single datatype, and inventing ``xsd:string`` for them
+    would be a false statement rather than a loose one.
+    """
+    if not isinstance(spec, dict) or depth > _MAX_REF_DEPTH:
+        return None
+    if "$ref" in spec:
+        resolved = _resolve_ref(spec, schemas)
+        if resolved is spec:
+            return None
+        return datatype_for(resolved, schemas, depth + 1)
+    if any(key in spec for key in ("anyOf", "oneOf", "allOf")):
+        return None
+    declared = spec.get("type")
+    if declared == "string":
+        return str(_STRING_FORMAT_DATATYPES.get(spec.get("format"), XSD.string))
+    if declared == "integer":
+        return str(XSD.integer)
+    if declared == "number":
+        return str(XSD.float if spec.get("format") == "float" else XSD.double)
+    if declared == "boolean":
+        return str(XSD.boolean)
+    if declared == "array":
+        return datatype_for(spec.get("items", {}), schemas, depth + 1)
+    return None
+
+
+def target_classes_for(spec: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
+    """Class *names* a property may point at, in declaration order, deduplicated.
+
+    Names rather than IRIs, so a projection resolves them through ``Mapping.classes``. A tuple
+    rather than a single value because ``anyOf``/``oneOf`` genuinely has several targets; the
+    rule that ``rdfs:range`` may only be emitted for exactly one of them belongs to the
+    projection that emits it, not here.
+    """
+    if not isinstance(spec, dict):
+        return ()
+    found: list[str] = []
+
+    def consider(candidate: Any) -> None:
+        name = _ref_name(candidate)
+        if name is None or name not in schemas:
+            return
+        if is_primitive_def(schemas[name], schemas):
+            return
+        if name not in found:
+            found.append(name)
+
+    consider(spec)
+    if spec.get("type") == "array" or "items" in spec:
+        consider(spec.get("items"))
+    for key in ("anyOf", "oneOf", "allOf"):
+        for member in spec.get(key) or []:
+            consider(member)
+            if isinstance(member, dict) and ("items" in member):
+                consider(member.get("items"))
+    return tuple(found)
+
+
+def is_iri_valued(property_name: str, spec: Any, schemas: dict[str, Any]) -> bool:
+    """True when the value is a URL denoting a resource rather than a string about one.
+
+    ``format: uri`` **or** the name ``href``. The second half is TM Forum's own base-schema
+    convention, recorded as finding F10, and is deliberately not derived — see the module
+    docstring for the measurement. Do not replace it with a name pattern, and do not delete it:
+    ``href`` carries no machine-readable signal in any TMF document we have measured.
+    """
+    if property_name in IRI_VALUED_NAMES:
+        return True
+    resolved = _resolve_ref(spec, schemas)
+    if isinstance(resolved, dict) and resolved.get("format") == "uri":
+        return True
+    if isinstance(resolved, dict) and resolved.get("type") == "array":
+        items = _resolve_ref(resolved.get("items", {}), schemas)
+        return isinstance(items, dict) and items.get("format") == "uri"
+    return False
+
+
+def _parents_of(schema_def: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
+    """Class names composed by a schema's top-level ``allOf`` ``$ref`` members.
+
+    A ``$ref`` to a primitive schema is a datatype constraint, not inheritance, so it yields no
+    parent — the same condition ``shacl_converter._handle_allof_as_inheritance`` applies before
+    emitting ``rdfs:subClassOf``.
+    """
+    if not isinstance(schema_def, dict):
+        return ()
+    parents: list[str] = []
+    for member in schema_def.get("allOf") or []:
+        name = _ref_name(member)
+        if name is None or name not in schemas:
+            continue
+        if is_primitive_def(schemas[name], schemas):
+            continue
+        if name not in parents:
+            parents.append(name)
+    return tuple(parents)
+
+
+def _resolve_declaring_class(
+    class_name: str,
+    parents: dict[str, tuple[str, ...]],
+    declared_by: dict[str, dict[str, Any]],
+    property_name: str,
+) -> str:
+    """The highest ancestor of ``class_name`` that declares ``property_name``.
+
+    A subclass restating a parent's field must not mint a second IRI for it: an ontology declares
+    an inherited property once, on the class that introduces it. Measured on TMF641, this
+    attribution resolved 93.9% of (class, property) pairs against an independently-authored TBox
+    where leaf attribution resolved 68.5%.
+
+    Same rule as ``shacl_converter._find_declaring_class``, which walks ``rdfs:subClassOf`` in an
+    in-progress ``rdflib.Graph`` and probes for an already-emitted ``rdfs:domain``. That walk is
+    bound to graph state that does not exist here, so the rule is stated twice and the numbers
+    are cited in both places; the ancestry order is the same (breadth-first, reversed, so the
+    most general ancestor wins).
+    """
+    ancestry: list[str] = []
+    seen: set[str] = set()
+    queue = [class_name]
+    while queue:
+        current = queue.pop(0)
+        if current in seen:
+            continue
+        seen.add(current)
+        ancestry.append(current)
+        queue.extend(parents.get(current, ()))
+    ancestry.reverse()
+    for ancestor in ancestry:
+        if property_name in declared_by.get(ancestor, {}):
+            return ancestor
+    return class_name
+
+
+def _status_codes(operation: Any) -> tuple[int, ...]:
+    """Numeric response codes, ascending. ``default`` and range codes (``2XX``) are not numbers."""
+    if not isinstance(operation, dict):
+        return ()
+    codes: list[int] = []
+    for code in (operation.get("responses") or {}):
+        text = str(code)
+        if text.isdigit():
+            codes.append(int(text))
+    return tuple(sorted(codes))
+
+
+def _resolve_document_ref(node: Any, document: dict, depth: int = 0) -> Any:
+    """Follow an internal ``#/...`` pointer through the document, repeatedly.
+
+    Needed because a Response Object, a Request Body Object and a Path Item Object may each *be*
+    a ``$ref`` into ``components``, and TM Forum writes every one of them that way: measured on
+    TMF641, all 20 operations reference ``#/components/responses/…`` and
+    ``#/components/requestBodies/…``, so a reader that only looks for an inline ``content`` block
+    resolves **0 of 8** response classes and **0 of 14** request classes. An unresolvable pointer
+    returns the node unchanged, so the fact stays absent rather than becoming a guess.
+    """
+    while (
+        isinstance(node, dict)
+        and isinstance(node.get("$ref"), str)
+        and node["$ref"].startswith("#/")
+        and depth <= _MAX_REF_DEPTH
+    ):
+        target: Any = document
+        for token in node["$ref"][2:].split("/"):
+            token = token.replace("~1", "/").replace("~0", "~")  # RFC 6901 unescaping
+            if isinstance(target, dict) and token in target:
+                target = target[token]
+            else:
+                return node
+        node = target
+        depth += 1
+    return node
+
+
+def _body_schema(container: Any, document: dict) -> Any:
+    """The schema of a request/response body, preferring JSON where several media types exist."""
+    container = _resolve_document_ref(container, document)
+    if not isinstance(container, dict):
+        return None
+    content = container.get("content")
+    if not isinstance(content, dict) or not content:
+        return None
+    for media_type, media in content.items():
+        if isinstance(media, dict) and "json" in str(media_type).lower():
+            return media.get("schema")
+    first = next(iter(content.values()))
+    return first.get("schema") if isinstance(first, dict) else None
+
+
+def _class_of_body(schema: Any, schemas: dict[str, Any], classes: dict[str, Any]) -> str | None:
+    """The class a body carries: the item class for a list, None where there is no class.
+
+    A list endpoint records the **item**, because an anonymous array is not a kind of thing.
+    Resolution goes through ``classes``, so a name this document does not declare as a class
+    yields None rather than a dangling name a projection would then mint an IRI for.
+    """
+    if not isinstance(schema, dict):
+        return None
+    name = _ref_name(schema)
+    if name is None:
+        resolved = _resolve_ref(schema, schemas)
+        if isinstance(resolved, dict) and (
+            resolved.get("type") == "array" or "items" in resolved
+        ):
+            return _class_of_body(resolved.get("items"), schemas, classes)
+        return None
+    target = schemas.get(name)
+    if isinstance(target, dict) and (target.get("type") == "array" or "items" in target):
+        # A named array schema is still a list of its item class.
+        return _class_of_body(target.get("items"), schemas, classes)
+    # Resolved THROUGH `classes`, never re-derived from the document pointer or the schema name:
+    # that identity is why one Mapping replaces four conversions. Inverting this line to return
+    # `schema["$ref"]` fails test_an_operation_reuses_the_class_iri_the_vocabulary_declares with
+    # `assert '#/components/schemas/Order' in {...}` — observed, not assumed.
+    return name if name in classes else None
+
+
+def _operation_iri(namespace: str, method: str, path_template: str) -> str:
+    """Mint an operation IRI from its method and path.
+
+    **This IRI scheme is OURS** and asserts no external authority: no standard names operations
+    in RDF, and Hydra (a W3C Community Group draft, not a Recommendation) gives a *type*, not an
+    identifier scheme. Derived from the method and path rather than from ``operationId`` because
+    ``operationId`` is optional and is duplicated in practice, while a method is unique within a
+    Path Item Object by construction. Percent-encoded so distinct paths cannot collide —
+    ``/order/{id}`` and ``/order/-id-`` must not land on one IRI.
+    """
+    return f"{namespace}operation/{method.lower()}{quote(path_template, safe='/')}"
+
+
+def build_mapping(
+    document: dict,
+    *,
+    namespace: str,
+    schema_namespaces: dict[str, str] | None = None,
+) -> Mapping:
+    """Derive the fact set every projection reads, from one walk over the document.
+
+    Args:
+        document: A parsed OpenAPI document. Never modified.
+        namespace: Default namespace for every class in the document.
+        schema_namespaces: Optional ``{ClassName: namespace_uri}`` override, for a merged
+            cross-domain spec where one document's schemas belong to several namespaces. Honoured
+            through :func:`openapi_to_rdf.property_uri.namespace_for_schema`, the single point of
+            decision for every URI this project mints, so class and property IRIs cannot disagree
+            about where a class lives.
+
+    Returns:
+        A :class:`Mapping`. Classes come from ``components/schemas`` and operations from
+        ``paths``; a document with neither yields an empty mapping rather than an error, so a
+        caller can tell "nothing to derive" from "could not derive".
+    """
+    if not isinstance(document, dict):
+        raise TypeError("document must be a parsed OpenAPI document (dict)")
+
+    components = document.get("components") or {}
+    schemas: dict[str, Any] = components.get("schemas") or {}
+    overrides = dict(schema_namespaces or {})
+
+    def namespace_of(schema_name: str) -> str:
+        return namespace_for_schema(schema_name, namespace, overrides)
+
+    # --- Classes. Every named schema that is not a primitive/datatype alias. -----------------
+    classes: dict[str, ClassFact] = {}
+    parents: dict[str, tuple[str, ...]] = {}
+    for schema_name, schema_def in schemas.items():
+        if not isinstance(schema_def, dict) or is_primitive_def(schema_def, schemas):
+            continue
+        parents[schema_name] = _parents_of(schema_def, schemas)
+        classes[schema_name] = ClassFact(
+            iri=namespace_of(schema_name) + format_local_name(schema_name),
+            parents=parents[schema_name],
+            is_transport=is_transport(schema_name),
+        )
+
+    # --- Properties, attributed to the class that declares them. ----------------------------
+    declared_by = {name: flattened_properties(schemas[name]) for name in classes}
+    required_by = {name: flattened_required(schemas[name]) for name in classes}
+
+    properties: dict[str, PropertyFact] = {}
+    properties_by_class: dict[tuple[str, str], PropertyFact] = {}
+    for class_name in classes:
+        for property_name, property_def in declared_by[class_name].items():
+            declaring = _resolve_declaring_class(
+                class_name, parents, declared_by, property_name
+            )
+            if declaring != class_name:
+                # Attributed to an ancestor; the fact is built when that ancestor is visited,
+                # so a restated property mints exactly one IRI.
+                continue
+            spec = property_def if isinstance(property_def, dict) else {}
+            is_list = spec.get("type") == "array" or "items" in spec
+            lower = max(
+                1 if property_name in required_by[class_name] else 0,
+                spec.get("minItems", 0) if is_list else 0,
+            )
+            fact = PropertyFact(
+                iri=str(
+                    property_uri(namespace_of(declaring), declaring, property_name)
+                ),
+                declaring_class=declaring,
+                target_classes=target_classes_for(spec, schemas),
+                datatype=datatype_for(spec, schemas),
+                is_iri_valued=is_iri_valued(property_name, spec, schemas),
+                min_count=lower,
+                max_count=spec.get("maxItems") if is_list else 1,
+            )
+            properties_by_class[(declaring, property_name)] = fact
+            # First declaration in document order owns the by-name index; every fact is kept in
+            # properties_by_class. See Mapping's docstring.
+            properties.setdefault(property_name, fact)
+
+    # --- Operations. `paths` is in scope; the README disclaimer predates this. ---------------
+    operations: dict[str, OperationFact] = {}
+    for path_template, path_item in (document.get("paths") or {}).items():
+        path_item = _resolve_document_ref(path_item, document)
+        if not isinstance(path_item, dict):
+            continue
+        for method in HTTP_METHODS:
+            operation = path_item.get(method)
+            if not isinstance(operation, dict):
+                continue
+            responses = operation.get("responses") or {}
+            # YAML leaves an unquoted `200:` as an int, so compare on the text form but keep the
+            # original key for the lookup.
+            successes = sorted(
+                (int(str(c)), c) for c in responses if str(c).isdigit() and 200 <= int(str(c)) < 300
+            )
+            returned = None
+            for _code, key in successes:
+                returned = _class_of_body(
+                    _body_schema(responses[key], document), schemas, classes
+                )
+                if returned is not None:
+                    break
+            accepted = _class_of_body(
+                _body_schema(operation.get("requestBody"), document), schemas, classes
+            )
+            key = f"{method.upper()} {path_template}"
+            operations[key] = OperationFact(
+                iri=_operation_iri(namespace, method, path_template),
+                method=method.upper(),
+                path_template=path_template,
+                returns_class=returned,
+                accepts_class=accepted,
+                status_codes=_status_codes(operation),
+            )
+
+    return Mapping(
+        classes=classes,
+        properties=properties,
+        operations=operations,
+        properties_by_class=properties_by_class,
+    )

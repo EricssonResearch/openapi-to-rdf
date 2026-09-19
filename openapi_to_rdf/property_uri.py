@@ -43,6 +43,31 @@ def format_local_name(name: str) -> str:
     return name
 
 
+def namespace_for_schema(
+    schema_name: str,
+    base_namespace: str,
+    schema_namespaces: dict[str, str] | None = None,
+) -> str:
+    """Return the namespace URI a named schema's terms are minted under.
+
+    When ``schema_namespaces`` has an entry for ``schema_name`` it wins; otherwise the
+    file-level ``base_namespace`` is used. This is the **single point of decision** for every
+    class, ``$ref`` and property URI this project mints, which is what lets one document holding
+    several domains (e.g. a merged CTS topology spec, where ``Resource`` lives under ``.../ctc/``
+    and ``WirelessNetFunction`` under ``.../ctw/`` but refers back to ``Resource`` via ``allOf``)
+    convert in one pass without any two artifacts disagreeing about where a class lives.
+
+    A module-level function rather than a converter method so every derivation path — the SHACL
+    emitter, ``build_mapping``, and anything projected from it — consults the same decision
+    instead of copying the ``dict.get``.
+    """
+    if schema_namespaces:
+        override = schema_namespaces.get(schema_name)
+        if override is not None:
+            return override
+    return base_namespace
+
+
 def class_namespace(base_namespace: str, class_name: str) -> str:
     """Return the per-class namespace URI for a schema.
 

@@ -10,6 +10,8 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from openapi_to_rdf.mapping import flattened_properties
+
 logger = logging.getLogger(__name__)
 
 
@@ -90,29 +92,19 @@ def _collect_flattened_properties(
     Returns:
         Set of property names declared in this schema or its inline allOf members
     """
-    properties = set()
+    # The flattening itself lives in openapi_to_rdf.mapping, because the same determination
+    # drives every derived artifact and a second copy of it is exactly the drift this project
+    # defends against. This function keeps only the $ref *validation* the checker needs.
+    properties = set(flattened_properties(schema_def))
 
-    # Collect from top-level properties
-    if "properties" in schema_def:
-        properties.update(schema_def["properties"].keys())
-
-    # Collect from inline allOf members
-    if "allOf" in schema_def:
-        for member in schema_def["allOf"]:
-            if not isinstance(member, dict):
-                continue
-
-            # If this member has a $ref, check it's resolvable but don't follow it
-            # (the parent's properties are checked separately)
-            if "$ref" in member:
-                ref = member["$ref"]
-                if ref.startswith("#/components/schemas/"):
-                    ref_name = ref.split("/")[-1]
-                    if ref_name not in all_schemas:
-                        dangling_refs.append((ref, schema_name))
-
-            # Collect properties from inline schema definitions
-            if "properties" in member:
-                properties.update(member["properties"].keys())
+    for member in schema_def.get("allOf") or []:
+        if not isinstance(member, dict):
+            continue
+        # A $ref member is checked for resolvability but not followed: the parent's own
+        # properties are checked when the parent schema is visited.
+        ref = member.get("$ref")
+        if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
+            if ref.split("/")[-1] not in all_schemas:
+                dangling_refs.append((ref, schema_name))
 
     return properties

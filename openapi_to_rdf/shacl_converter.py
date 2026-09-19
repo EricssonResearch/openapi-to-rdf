@@ -6,8 +6,13 @@ from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 from rdflib.term import URIRef as URIRefTerm
 
+from openapi_to_rdf.mapping import is_primitive_def
 from openapi_to_rdf.property_index import PropertyIndex
-from openapi_to_rdf.property_uri import class_namespace, property_uri
+from openapi_to_rdf.property_uri import (
+    class_namespace,
+    namespace_for_schema,
+    property_uri,
+)
 
 
 def _package_version() -> str:
@@ -177,13 +182,14 @@ class OpenAPIToSHACLConverter:
     def _namespace_for_schema(self, schema_name):
         """Return the namespace URI to use for a named schema.
 
-        When ``schema_namespaces`` has an entry for ``schema_name`` it
-        wins; otherwise the file-level ``base_namespace`` is used. This
-        is the single point of decision for every class/ref/property URI
-        the converter mints.
+        Delegates to :func:`openapi_to_rdf.property_uri.namespace_for_schema`,
+        which is the single point of decision for every class/ref/property
+        URI this project mints — the emitter and ``build_mapping`` must not
+        each own a copy of it.
         """
-        ns = self.schema_namespaces.get(schema_name)
-        return ns if ns is not None else self.base_namespace
+        return namespace_for_schema(
+            schema_name, self.base_namespace, self.schema_namespaces
+        )
 
     def _generate_namespace_for_file(self, filename):
         """Generate namespace URI for external file using configurable prefix."""
@@ -208,27 +214,14 @@ class OpenAPIToSHACLConverter:
         return self._is_primitive_def(schemas.get(schema_name), schemas, depth=0)
 
     def _is_primitive_def(self, schema_def, schemas, depth=0):
-        """Recursively check if a schema definition resolves to a primitive type."""
-        if schema_def is None or not isinstance(schema_def, dict) or depth > 10:
-            return False
-        # Direct $ref — follow it
-        if "$ref" in schema_def:
-            ref = schema_def["$ref"]
-            if ref.startswith("#/components/schemas/"):
-                return self._is_primitive_def(schemas.get(ref.split("/")[-1]), schemas, depth + 1)
-            return False
-        t = schema_def.get("type")
-        if t in ("string", "integer", "number", "boolean"):
-            return True
-        if t == "array":
-            items = schema_def.get("items", {})
-            return self._is_primitive_def(items, schemas, depth + 1)
-        # anyOf/oneOf where all options are primitive
-        for key in ("anyOf", "oneOf"):
-            if key in schema_def:
-                if all(self._is_primitive_def(o, schemas, depth + 1) for o in schema_def[key]):
-                    return True
-        return False
+        """Recursively check if a schema definition resolves to a primitive type.
+
+        Delegates to :func:`openapi_to_rdf.mapping.is_primitive_def`. "Is this a
+        class or a datatype" is a decision, and ``Mapping`` owns decisions while
+        the emitter owns serialisation; two copies of this predicate is how a
+        vocabulary and a projection come to disagree about what a class is.
+        """
+        return is_primitive_def(schema_def, schemas, depth)
 
     def _get_xsd_for_schema(self, schema_name):
         """Get the XSD datatype for a primitive schema by looking up its definition."""
