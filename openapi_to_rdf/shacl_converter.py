@@ -20,6 +20,7 @@ from openapi_to_rdf.mapping import (
 from openapi_to_rdf.property_index import PropertyIndex
 from openapi_to_rdf.property_uri import (
     class_namespace,
+    format_local_name,
     namespace_for_schema,
     property_uri,
 )
@@ -263,16 +264,26 @@ class OpenAPIToSHACLConverter:
         another when it is referred to. A transport envelope resolves to the transport namespace;
         everything else to the schema's own (possibly overridden) namespace.
 
-        The local name is deliberately NOT read from ``Mapping`` yet: the two disagree, because
-        ``format_name`` folds ``-`` to ``_`` while ``mapping`` uses the injective
-        ``property_uri.format_local_name``. That is a live defect affecting 629 of 1,801 3GPP class
-        names and it moves every one of their IRIs, so it is its own commit rather than a line
-        buried in this one.
+        **The local name is injective.** It goes through
+        :func:`openapi_to_rdf.property_uri.format_local_name`, which keeps ``-`` rather than folding
+        it to ``_``. ``format_name`` used to do that folding here, which collapses ``Files-Single``
+        and ``Files_Single`` onto one class IRI: a silent collision, not a normalisation, and in the
+        identifier that matters most, because a class IRI is what data gets typed with. Task 4 made
+        property local names injective and left class names folded. Measured on the 3GPP corpus,
+        **629 of 1,801** schema names contain a ``-`` and **0** collide under the folding, so the
+        change costs nothing today; the point is that it stops being free the first time a document
+        declares both spellings, and by then it is a data migration. 0 of 888 TM Forum v5 names are
+        affected.
+
+        Read from ``Mapping`` where it has the class, so the vocabulary and any other projection
+        cannot name a class two different things.
         """
+        if self.mapping is not None and schema_name in self.mapping.classes:
+            return URIRef(self.mapping.classes[schema_name].iri)
         ns_uri = self._class_namespace_uri(schema_name)
         if ns_uri == self.base_namespace:
-            return self.main_prefix[self.format_name(schema_name)]
-        return Namespace(ns_uri)[self.format_name(schema_name)]
+            return self.main_prefix[format_local_name(schema_name)]
+        return Namespace(ns_uri)[format_local_name(schema_name)]
 
     def _generate_namespace_for_file(self, filename):
         """Generate namespace URI for external file using configurable prefix."""
@@ -1481,7 +1492,9 @@ class OpenAPIToSHACLConverter:
                 self.rdf_graph.bind(ext_prefix, ext_ns)
                 self.shacl_graph.bind(ext_prefix, ext_ns)
 
-            return self.prefixes[ext_prefix][self.format_name(ref_name)], None
+            # Injective local name, for the same reason as `_class_iri`: an external class IRI is
+            # still a class IRI, and folding `-` to `_` collapses two schema names onto one.
+            return self.prefixes[ext_prefix][format_local_name(ref_name)], None
 
         # Fragment-less $ref like "Money.yaml" — legal OAS 3.1 but not yet
         # supported. Raise naming the spec section rather than silently
@@ -1700,7 +1713,13 @@ class OpenAPIToSHACLConverter:
         return comments
 
     def format_name(self, name):
-        """Format names to use underscores instead of dashes."""
+        """Fold a FILE name into a Turtle prefix: strip the extension, ``-`` to ``_``.
+
+        **Only for prefixes derived from filenames.** Class and property local names go through
+        :func:`openapi_to_rdf.property_uri.format_local_name`, which is injective; this folding is
+        lossy and would collapse two schema names onto one IRI. A prefix is a serialisation
+        convenience with no identity, so folding it is safe; an IRI is an identity, so it is not.
+        """
         name = os.path.splitext(name)[0]
         return name.replace("-", "_")
 
