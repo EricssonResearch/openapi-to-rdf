@@ -444,9 +444,17 @@ def _resolve_declaring_class(
 
     Same rule as ``shacl_converter._find_declaring_class``, which walks ``rdfs:subClassOf`` in an
     in-progress ``rdflib.Graph`` and probes for an already-emitted ``rdfs:domain``. That walk is
-    bound to graph state that does not exist here, so the rule is stated twice and the numbers
-    are cited in both places; the ancestry order is the same (breadth-first, reversed, so the
-    most general ancestor wins).
+    bound to graph state that does not exist here, so the rule is stated twice and the numbers are
+    cited in both places; the ancestry order is the same (breadth-first, reversed, so the most
+    general ancestor wins).
+
+    **The two do not agree everywhere, and this one is the order-independent one.** Because the
+    emitter probes a graph it is still building, its answer depends on the order schemas appear in
+    the document: where a parent is declared after its child, it falls back to the leaf. Measured,
+    23 of 57 non-trivial attributions differ on TMF641 and 8 of 49 on TMF620 — and 0 of 2,822 on
+    the 3GPP corpus, which contains no non-trivial attribution at all, so no 3GPP-only check can
+    see this. Guarded by ``tests/test_mapping.py::test_both_declaring_class_implementations_agree``
+    and pinned by the strict xfail beside it; Task 8 collapses the two onto this one.
     """
     ancestry: list[str] = []
     seen: set[str] = set()

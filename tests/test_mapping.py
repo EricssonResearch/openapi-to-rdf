@@ -6,6 +6,9 @@ is the spine that makes drift impossible rather than merely absent.
 
 from __future__ import annotations
 
+import pytest
+import yaml
+
 SPEC = {
     "openapi": "3.0.0",
     "info": {"title": "MappingProbe", "version": "1.0"},
@@ -138,6 +141,182 @@ def test_an_operation_with_no_body_records_none_rather_than_guessing() -> None:
     delete = mapping.operations["DELETE /order/{id}"]
     assert delete.returns_class is None and delete.accepts_class is None
     assert delete.status_codes == (204,)
+
+
+# --------------------------------------------------------------------------------------------
+# One rule, two implementations: the guard that they answer the same.
+#
+# `mapping._resolve_declaring_class` walks `ClassFact.parents`; `shacl_converter._find_declaring_class`
+# probes an in-progress `rdflib.Graph` for an already-emitted `rdfs:domain`. Task 8 collapses them
+# into one. Until it does, nothing asserted they agree — and a property attributed to two different
+# classes mints two IRIs for one field, which is precisely the drift `Mapping` exists to prevent.
+# --------------------------------------------------------------------------------------------
+
+#: An ancestor-first inheritance chain that exercises the parts a single class cannot: a
+#: grandparent's property reached transitively (`GeographicLocation` → `Place` → `Addressable`) and a
+#: child restating a property its ancestor declares. The in-repo 3GPP corpus has **0 non-trivial
+#: attributions in 2,822**, so a guard run only on 3GPP data could not fail however wrong either
+#: implementation was; this fixture is what reaches the failure region.
+_INHERITANCE_CHAIN = {
+    "Addressable": {
+        "type": "object",
+        "properties": {"href": {"type": "string"}, "id": {"type": "string"}},
+    },
+    "Place": {
+        "allOf": [
+            {"$ref": "#/components/schemas/Addressable"},
+            {
+                "type": "object",
+                # Restates `id`, which `Addressable` declares: attribution must not mint a second IRI.
+                "properties": {"id": {"type": "string"}, "city": {"type": "string"}},
+            },
+        ]
+    },
+    "GeographicLocation": {
+        "allOf": [
+            {"$ref": "#/components/schemas/Place"},
+            {
+                "type": "object",
+                # Restates a GRANDparent's property: only a transitive walk attributes this right.
+                "properties": {"href": {"type": "string"}, "name": {"type": "string"}},
+            },
+        ]
+    },
+}
+
+
+def _declaring_class_both_ways(
+    document: dict, spec_path
+) -> tuple[int, int, list[str], dict[tuple[str, str], tuple[str, str]]]:
+    """Attribute every property twice, by each implementation.
+
+    Returns ``(compared, non_trivial, disagreements, attributions)`` where ``non_trivial`` counts
+    the attributions that landed on an ancestor rather than the mentioning class — the only ones
+    that can distinguish the two implementations at all — and ``attributions`` maps
+    ``(class, property)`` to ``(emitter_answer, mapping_answer)`` so a test can assert the answer
+    itself and not merely that two paths agreed on a wrong one.
+    """
+    from openapi_to_rdf import build_mapping
+    from openapi_to_rdf.mapping import _resolve_declaring_class, flattened_properties
+    from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
+
+    converter = OpenAPIToSHACLConverter(
+        str(spec_path), base_namespace=NS, output_dir=str(spec_path.parent / "out")
+    )
+    seen: list[tuple[str, str, str]] = []
+    emitter_rule = converter._find_declaring_class
+
+    def local(uri) -> str:
+        return str(uri).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+
+    def spy(current_class, prop_name):
+        answer = emitter_rule(current_class, prop_name)
+        seen.append((local(current_class), prop_name, local(answer)))
+        return answer
+
+    converter._find_declaring_class = spy
+    converter.convert()
+
+    mapping = build_mapping(document, namespace=NS)
+    schemas = (document.get("components") or {}).get("schemas") or {}
+    parents = {name: fact.parents for name, fact in mapping.classes.items()}
+    declared = {name: flattened_properties(schemas[name]) for name in mapping.classes}
+
+    compared = non_trivial = 0
+    disagreements: list[str] = []
+    attributions: dict[tuple[str, str], tuple[str, str]] = {}
+    for class_name, prop_name, emitter_says in seen:
+        if class_name not in mapping.classes:
+            continue  # an inline anonymous sub-object has no named class on either side
+        compared += 1
+        mapping_says = _resolve_declaring_class(class_name, parents, declared, prop_name)
+        attributions[(class_name, prop_name)] = (emitter_says, mapping_says)
+        if emitter_says != class_name or mapping_says != class_name:
+            non_trivial += 1
+        if emitter_says != mapping_says:
+            disagreements.append(
+                f"{class_name}.{prop_name}: emitter={emitter_says} mapping={mapping_says}"
+            )
+    return compared, non_trivial, disagreements, attributions
+
+
+def _write(tmp_path, schemas: dict):
+    path = tmp_path / "TS99999_Probe.yaml"
+    path.write_text(
+        yaml.safe_dump(
+            {"openapi": "3.0.0", "info": {"title": "P", "version": "1"},
+             "components": {"schemas": schemas}},
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+    return path
+
+
+def test_both_declaring_class_implementations_agree(tmp_path) -> None:
+    """The guard. Two implementations of the Task 4 rule must answer identically.
+
+    Run over a real 3GPP spec from ``assets/`` for breadth and over an inheritance chain for depth,
+    because the real corpus contains no non-trivial attribution at all. The comparison count is
+    asserted so a scan that silently compared nothing cannot pass as agreement.
+    """
+    from pathlib import Path
+
+    real_spec = Path("assets/MnS-Rel-19-OpenAPI/OpenAPI/TS28623_GenericNrm.yaml")
+    assert real_spec.is_file(), f"corpus spec missing: {real_spec}"
+    real_document = yaml.safe_load(real_spec.read_text(encoding="utf-8"))
+
+    real_compared, _real_non_trivial, real_disagreements, _ = _declaring_class_both_ways(
+        real_document, real_spec
+    )
+    # 31 named-class attributions measured on this spec (92 calls, the rest on inline anonymous
+    # sub-objects, which have no named class on either side). A floor, so a scan that goes stale
+    # after a rename fails loudly instead of quietly comparing nothing.
+    assert real_compared >= 30, f"compared only {real_compared} attributions on {real_spec.name}"
+    assert not real_disagreements, real_disagreements
+
+    chain_path = _write(tmp_path, _INHERITANCE_CHAIN)
+    chain_compared, chain_non_trivial, chain_disagreements, attributed = (
+        _declaring_class_both_ways(
+            yaml.safe_load(chain_path.read_text(encoding="utf-8")), chain_path
+        )
+    )
+    assert chain_compared >= 6, f"compared only {chain_compared} attributions on the chain"
+    # Measured: 2 of the 6 land on an ancestor. Without this floor the whole guard would pass on a
+    # sample that cannot exhibit the defect it exists to catch.
+    assert chain_non_trivial >= 2, (
+        f"only {chain_non_trivial} of {chain_compared} attributions were non-trivial: the sample "
+        "cannot distinguish the two implementations"
+    )
+    assert not chain_disagreements, chain_disagreements
+    # And the answer itself, not merely that two paths agreed on one: a restated grandparent
+    # property is attributed to the grandparent, by both.
+    assert attributed[("GeographicLocation", "href")] == ("Addressable", "Addressable"), attributed
+    assert attributed[("Place", "id")] == ("Addressable", "Addressable"), attributed
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason="KNOWN LIMITATION: shacl_converter._find_declaring_class probes a graph that is still "
+    "being built, so its answer depends on the order schemas appear in the document. Where a "
+    "parent is declared after its child, the emitter falls back to the leaf while "
+    "mapping._resolve_declaring_class attributes to the ancestor. Measured: 23 of 57 non-trivial "
+    "attributions differ on TMF641 and 8 of 49 on TMF620 (0 of 2,822 on the 3GPP corpus, which has "
+    "no non-trivial attribution). Task 8 collapses the two implementations onto the "
+    "order-independent one; when it does, this xfail flips and must become a plain assertion.",
+)
+def test_the_two_paths_agree_even_when_the_parent_is_declared_after_the_child(tmp_path) -> None:
+    """Document order must not change which class declares a property."""
+    reordered = {
+        name: _INHERITANCE_CHAIN[name]
+        for name in ("GeographicLocation", "Place", "Addressable")  # children first
+    }
+    path = _write(tmp_path, reordered)
+    compared, non_trivial, disagreements, _ = _declaring_class_both_ways(
+        yaml.safe_load(path.read_text(encoding="utf-8")), path
+    )
+    assert non_trivial >= 2, f"only {non_trivial} of {compared} were non-trivial"
+    assert not disagreements, disagreements
 
 
 def test_an_operation_reuses_the_class_iri_the_vocabulary_declares() -> None:
