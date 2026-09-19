@@ -463,6 +463,27 @@ def _ref_name(spec: Any) -> str | None:
     return None
 
 
+def _parse_external_ref(ref: str) -> tuple[str, str] | None:
+    """Parse an external ``$ref`` into (document, schema_name), or None.
+
+    OAS 3.x: *"each document in an OAD MUST be fully parsed in order to locate possible
+    reference targets"* — the document qualifier is load-bearing, not a convenience.
+    """
+    if not isinstance(ref, str):
+        return None
+    # External ref: "file.yaml#/components/schemas/SchemaName"
+    if ".yaml#/components/schemas/" in ref or ".yml#/components/schemas/" in ref:
+        delimiter = ".yaml#" if ".yaml#" in ref else ".yml#"
+        parts = ref.split(delimiter)
+        if len(parts) == 2:
+            doc = parts[0] + delimiter.rstrip("#")
+            schema_part = parts[1]
+            if schema_part.startswith("/components/schemas/"):
+                schema_name = schema_part.split("/")[-1]
+                return (doc, schema_name)
+    return None
+
+
 def datatype_for(spec: Any, schemas: dict[str, Any], depth: int = 0) -> str | None:
     """The XSD datatype of a property's value, or None where the value is not a literal.
 
@@ -573,7 +594,11 @@ def is_iri_valued(property_name: str, spec: Any, schemas: dict[str, Any]) -> boo
     return False
 
 
-def _parents_of(schema_def: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
+def _parents_of(
+    schema_def: Any,
+    schemas: dict[str, Any],
+    external_schemas: dict[str, dict[str, Any]] | None = None,
+) -> tuple[str, ...]:
     """Class names composed by a schema's top-level ``allOf`` ``$ref`` members.
 
     A ``$ref`` to a primitive schema is a datatype constraint, not inheritance, so it yields no
@@ -581,18 +606,39 @@ def _parents_of(schema_def: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
     emitting ``rdfs:subClassOf``. A ``$ref`` to a ``oneOf`` union yields no parent either, because
     no class is declared for a union (:func:`is_json_only_union`) and an ``rdfs:subClassOf`` naming
     an IRI no document declares is a dangling axiom, not a weaker one.
+
+    External refs are resolved against ``external_schemas`` as written: OAS 3.x requires that
+    *"each document in an OAD MUST be fully parsed in order to locate possible reference targets"*.
+    An unresolvable external ref yields no parent and is not tracked here — the caller records
+    unresolved refs at the point an IRI is needed.
     """
     if not isinstance(schema_def, dict):
         return ()
+    ext_schemas = external_schemas or {}
     parents: list[str] = []
     for member in schema_def.get("allOf") or []:
+        # Try internal ref first
         name = _ref_name(member)
-        if name is None or name not in schemas:
+        if name is not None and name in schemas:
+            if is_primitive_def(schemas[name], schemas) or is_json_only_union(schemas[name]):
+                continue
+            if name not in parents:
+                parents.append(name)
             continue
-        if is_primitive_def(schemas[name], schemas) or is_json_only_union(schemas[name]):
-            continue
-        if name not in parents:
-            parents.append(name)
+
+        # Try external ref
+        ref = member.get("$ref") if isinstance(member, dict) else None
+        if ref:
+            parsed = _parse_external_ref(ref)
+            if parsed:
+                doc, schema_name = parsed
+                if doc in ext_schemas and schema_name in ext_schemas[doc]:
+                    ext_schema = ext_schemas[doc][schema_name]
+                    # Check if it's a class-like schema (not primitive, not union)
+                    if not is_primitive_def(ext_schema, ext_schemas.get(doc, {})):
+                        if not is_json_only_union(ext_schema):
+                            if schema_name not in parents:
+                                parents.append(schema_name)
     return tuple(parents)
 
 
@@ -742,6 +788,7 @@ def build_mapping(
     namespace: str,
     schema_namespaces: dict[str, str] | None = None,
     transport_namespace: str = DEFAULT_TRANSPORT_NAMESPACE,
+    external_schemas: dict[str, dict[str, Any]] | None = None,
 ) -> Mapping:
     """Derive the fact set every projection reads, from one walk over the document.
 
@@ -757,6 +804,12 @@ def build_mapping(
             :data:`DEFAULT_TRANSPORT_NAMESPACE`, which is **ours** and asserts no external
             authority. A distinct namespace rather than omission: see the module docstring for the
             76-vs-1 triple measurement that decided it.
+        external_schemas: Optional ``{document_name: {schema_name: schema_def}}`` map of external
+            documents' schemas. Used to resolve cross-document ``$ref`` like
+            ``other.yaml#/components/schemas/Thing`` as written, per OAS 3.x: *"each document in
+            an OAD MUST be fully parsed in order to locate possible reference targets"*. An
+            unresolvable external ref is not an error here — it yields no parent and is reported
+            where an IRI would be minted.
 
     Returns:
         A :class:`Mapping`. Classes come from ``components/schemas`` and operations from
@@ -783,7 +836,7 @@ def build_mapping(
             continue
         if is_json_only_union(schema_def):
             continue
-        parents[schema_name] = _parents_of(schema_def, schemas)
+        parents[schema_name] = _parents_of(schema_def, schemas, external_schemas)
         transport = is_transport(schema_name)
         # Transport envelopes are minted under their own namespace so plumbing is distinguishable
         # by IRI alone; domain classes keep the document's (possibly overridden) namespace.

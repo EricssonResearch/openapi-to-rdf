@@ -1,5 +1,6 @@
 import os
 import re
+from typing import Any
 import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
@@ -129,6 +130,7 @@ class OpenAPIToSHACLConverter:
             namespace=self.base_namespace,
             schema_namespaces=self.schema_namespaces,
             transport_namespace=self.transport_namespace,
+            external_schemas=getattr(self, "_external_schemas_map", None),
         )
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -158,9 +160,27 @@ class OpenAPIToSHACLConverter:
             raise ValueError(f"Invalid YAML file: {self.yaml_file}. Error: {e}")
         except Exception as e:
             raise ValueError(f"Error loading YAML file: {self.yaml_file}. Error: {e}")
-        
+
         if self.data is None:
             raise ValueError(f"YAML file is empty: {self.yaml_file}")
+
+        # Load external schemas for cross-document resolution per OAS 3.x: "each document in an
+        # OAD MUST be fully parsed in order to locate possible reference targets".
+        self._external_schemas_map: dict[str, dict[str, Any]] = {}
+        yaml_dir = os.path.dirname(self.yaml_file)
+        for ext_path in self.external_refs:
+            if not os.path.isabs(ext_path):
+                ext_path = os.path.join(yaml_dir, ext_path)
+            if os.path.exists(ext_path):
+                try:
+                    with open(ext_path, "r", encoding="utf-8") as f:
+                        ext_doc = yaml.safe_load(f)
+                        ext_schemas = ext_doc.get("components", {}).get("schemas", {})
+                        # Key by basename so refs like "base.yaml#/..." resolve
+                        doc_name = os.path.basename(ext_path)
+                        self._external_schemas_map[doc_name] = ext_schemas
+                except Exception:
+                    pass  # Failed loads don't block conversion
 
     def _bind_standard_prefixes(self):
         """Bind standard RDF/RDFS/SHACL prefixes to both graphs."""
@@ -1526,22 +1546,57 @@ class OpenAPIToSHACLConverter:
             # property class-shape names a class exactly as its declaration does.
             return self._class_iri(ref_name), None
 
-        # External reference
-        elif ".yaml#" in ref:
-            filename, remainder = ref.split("#/components/schemas/")
-            ref_name = remainder
-            ext_prefix = self.format_name(os.path.splitext(os.path.basename(filename))[0])
+        # External reference: resolve as written per OAS 3.x
+        elif ".yaml#" in ref or ".yml#" in ref:
+            # Parse the external ref to get document and schema name
+            delimiter = ".yaml#" if ".yaml#" in ref else ".yml#"
+            if delimiter in ref:
+                parts = ref.split(delimiter)
+                if len(parts) == 2 and parts[1].startswith("/components/schemas/"):
+                    doc_part = parts[0] + delimiter.rstrip("#")
+                    ref_name = parts[1].split("/")[-1]
+                    doc_name = os.path.basename(doc_part)
 
-            if ext_prefix not in self.prefixes:
-                ext_ns_uri = self._generate_namespace_for_file(filename)
-                ext_ns = Namespace(ext_ns_uri)
-                self.prefixes[ext_prefix] = ext_ns
-                self.rdf_graph.bind(ext_prefix, ext_ns)
-                self.shacl_graph.bind(ext_prefix, ext_ns)
+                    # Check if the external schema is loaded
+                    ext_schemas = getattr(self, "_external_schemas_map", {})
+                    if doc_name not in ext_schemas or ref_name not in ext_schemas[doc_name]:
+                        # Unresolvable: distinguish "document not loaded" from "schema not in doc"
+                        if doc_name not in ext_schemas:
+                            self.unresolved_references.append(
+                                f"{ref} (document {doc_name} not loaded)"
+                            )
+                        else:
+                            self.unresolved_references.append(
+                                f"{ref} (schema {ref_name} not found in {doc_name})"
+                            )
+                        return None, None
 
-            # Injective local name, for the same reason as `_class_iri`: an external class IRI is
-            # still a class IRI, and folding `-` to `_` collapses two schema names onto one.
-            return self.prefixes[ext_prefix][format_local_name(ref_name)], None
+                    # Resolved: mint IRI for the external class
+                    # Check if this external class has a namespace override via schema_namespaces
+                    if ref_name in self.schema_namespaces:
+                        # Use the overridden namespace
+                        override_ns = self.schema_namespaces[ref_name]
+                        ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
+                        if ext_prefix not in self.prefixes:
+                            ext_ns = Namespace(override_ns)
+                            self.prefixes[ext_prefix] = ext_ns
+                            self.rdf_graph.bind(ext_prefix, ext_ns)
+                            self.shacl_graph.bind(ext_prefix, ext_ns)
+                        return self.prefixes[ext_prefix][format_local_name(ref_name)], None
+                    else:
+                        # No override: generate namespace from filename
+                        ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
+                        if ext_prefix not in self.prefixes:
+                            ext_ns_uri = self._generate_namespace_for_file(doc_part)
+                            ext_ns = Namespace(ext_ns_uri)
+                            self.prefixes[ext_prefix] = ext_ns
+                            self.rdf_graph.bind(ext_prefix, ext_ns)
+                            self.shacl_graph.bind(ext_prefix, ext_ns)
+
+                        # Injective local name, for the same reason as `_class_iri`: an external
+                        # class IRI is still a class IRI, and folding `-` to `_` collapses two
+                        # schema names.
+                        return self.prefixes[ext_prefix][format_local_name(ref_name)], None
 
         # Fragment-less $ref like "Money.yaml" — legal OAS 3.1 but not yet
         # supported. Raise naming the spec section rather than silently
