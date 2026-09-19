@@ -1,0 +1,219 @@
+#!/usr/bin/env python3
+"""What does this converter produce over a whole corpus, and does it reconcile with itself?
+
+Answers, per corpus and per document: does every document convert, how many triples, how many
+classes and datatypes, how many ``sh:targetClass``, how many distinct property IRIs, how
+``rdfs:range`` splits between datatype-valued and class-valued, and how many ``$ref`` targets went
+unresolved.
+
+It also checks three invariants that only real data can falsify, and that are the reason this script
+exists rather than a paragraph in a commit message:
+
+1. **declared terms == ``sh:targetClass``** — every class and datatype gets exactly one NodeShape.
+   A regression that stripped 10 of 1,698 3GPP terms of their shape was found by this equality and
+   by nothing else; the suite was green throughout.
+2. **``sh:targetClass`` pointing at an ``rdfs:Datatype``** is counted separately. Such a shape can
+   never match a node, because a datatype has no instances carrying ``rdf:type``. 352 of 1,698 on
+   3GPP, 17 of 839 on TM Forum. Reported, not fixed.
+3. **class IRI collisions under ``-`` → ``_`` folding** — 0 today on both corpora, which is exactly
+   why the folding looked harmless for four tasks.
+
+Runs over BOTH corpora by default; see ``scripts/_corpora.py`` for why one is not enough. Nothing is
+written to the repository: graphs are counted in memory.
+
+    uv run python scripts/measure_corpora.py
+    uv run python scripts/measure_corpora.py --json /tmp/census.json
+    uv run python scripts/measure_corpora.py --corpus probe=path/to/spec.yaml
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+import traceback
+from pathlib import Path
+
+from rdflib import RDF, RDFS, Graph, URIRef
+from rdflib.namespace import XSD
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import _corpora  # noqa: E402
+
+from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter  # noqa: E402
+
+SH_TARGET_CLASS = URIRef("http://www.w3.org/ns/shacl#targetClass")
+
+#: Every scalar the summary prints, so adding a measurement without summarising it fails loudly.
+SUMMARY_KEYS = (
+    "triples",
+    "rdf_triples",
+    "shacl_triples",
+    "classes",
+    "datatypes",
+    "declared_terms",
+    "properties",
+    "target_class_triples",
+    "target_class_on_datatype",
+    "range_datatype",
+    "range_class",
+    "unresolved_refs",
+    "unresolved_refs_distinct",
+)
+
+
+def local_name(iri: str) -> str:
+    return iri.rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+
+
+def census_one(path: Path) -> dict:
+    """Convert one document in memory and count everything the summary reports."""
+    converter = OpenAPIToSHACLConverter(str(path), external_refs=[])
+    converter.convert()
+    rdf: Graph = converter.rdf_graph
+    shacl: Graph = converter.shacl_graph
+
+    classes = set(rdf.subjects(RDF.type, RDFS.Class))
+    datatypes = set(rdf.subjects(RDF.type, RDFS.Datatype))
+    properties = set(rdf.subjects(RDF.type, RDF.Property))
+
+    target_triples = list(shacl.triples((None, SH_TARGET_CLASS, None)))
+    on_datatype = sum(1 for _s, _p, o in target_triples if o in datatypes)
+
+    range_datatype = range_class = 0
+    for _s, _p, o in rdf.triples((None, RDFS.range, None)):
+        if str(o).startswith(str(XSD)) or o == RDFS.Literal:
+            range_datatype += 1
+        else:
+            range_class += 1
+
+    terms = classes | datatypes
+    folded: dict[str, set[str]] = {}
+    for term in terms:
+        folded.setdefault(str(term).replace("-", "_"), set()).add(str(term))
+
+    return {
+        "spec": path.name,
+        "rdf_triples": len(rdf),
+        "shacl_triples": len(shacl),
+        "triples": len(rdf) + len(shacl),
+        "classes": len(classes),
+        "datatypes": len(datatypes),
+        "declared_terms": len(terms),
+        "properties": len(properties),
+        "target_class_triples": len(target_triples),
+        "distinct_target_classes": len({o for _s, _p, o in target_triples}),
+        "target_class_on_datatype": on_datatype,
+        "range_datatype": range_datatype,
+        "range_class": range_class,
+        "fold_collisions": sum(1 for v in folded.values() if len(v) > 1),
+        "terms_with_dash": sum(1 for t in terms if "-" in local_name(str(t))),
+        "unresolved_refs": len(converter.unresolved_references),
+        "unresolved_refs_distinct": len(set(converter.unresolved_references)),
+        "_term_iris": sorted(str(t) for t in terms),
+        "_property_iris": sorted(str(p) for p in properties),
+        "_unresolved": sorted(set(converter.unresolved_references)),
+    }
+
+
+def census(corpus: _corpora.Corpus) -> dict:
+    rows: list[dict] = []
+    failures: list[dict] = []
+    for path in corpus.paths:
+        try:
+            rows.append(census_one(path))
+        except Exception as exc:  # a conversion failure is a finding, not a crash
+            failures.append({"spec": path.name, "error": f"{type(exc).__name__}: {exc}"})
+            traceback.print_exc(limit=3)
+
+    all_terms: set[str] = set()
+    all_properties: set[str] = set()
+    all_unresolved: set[str] = set()
+    for row in rows:
+        all_terms |= set(row["_term_iris"])
+        all_properties |= set(row["_property_iris"])
+        all_unresolved |= set(row["_unresolved"])
+
+    folded: dict[str, set[str]] = {}
+    for term in all_terms:
+        folded.setdefault(term.replace("-", "_"), set()).add(term)
+
+    result = {
+        "corpus": corpus.label,
+        "documents": len(corpus.paths),
+        "converted": len(rows),
+        "failed": len(failures),
+        "failures": failures,
+        "distinct_term_iris": len(all_terms),
+        "distinct_property_iris": len(all_properties),
+        "distinct_unresolved_targets": len(all_unresolved),
+        "terms_with_dash_corpuswide": sum(1 for t in all_terms if "-" in local_name(t)),
+        "fold_collisions_corpuswide": sum(1 for v in folded.values() if len(v) > 1),
+        "per_spec": [{k: v for k, v in r.items() if not k.startswith("_")} for r in rows],
+    }
+    for key in SUMMARY_KEYS:
+        result[key] = sum(r[key] for r in rows)
+    return result
+
+
+def print_corpus(result: dict) -> None:
+    print(
+        f"\n=== {result['corpus']}: {result['converted']}/{result['documents']} converted, "
+        f"{result['failed']} failed ==="
+    )
+    for key in SUMMARY_KEYS:
+        print(f"  {key:34s} {result[key]:>8}")
+    for key in (
+        "distinct_term_iris",
+        "distinct_property_iris",
+        "distinct_unresolved_targets",
+        "terms_with_dash_corpuswide",
+        "fold_collisions_corpuswide",
+    ):
+        print(f"  {key:34s} {result[key]:>8}")
+    for failure in result["failures"]:
+        print(f"  FAILED {failure['spec']}: {failure['error']}")
+
+    # Invariant 1: one NodeShape per declared term. Stated as an expectation, with the count it
+    # checked, so a zero cannot be mistaken for a vacuous pass.
+    terms, targets = result["declared_terms"], result["target_class_triples"]
+    verdict = "OK" if terms == targets else f"MISMATCH ({terms - targets:+d})"
+    print(f"  -> declared terms {terms} vs sh:targetClass {targets}: {verdict}")
+    if result["target_class_on_datatype"]:
+        print(
+            f"  -> {result['target_class_on_datatype']} of {targets} sh:targetClass point at an "
+            "rdfs:Datatype and can never match a node (reported, not fixed)"
+        )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    _corpora.add_arguments(parser)
+    args = parser.parse_args()
+
+    corpora = _corpora.resolve(args)
+    results = {c.label: census(c) for c in corpora if c}
+    for result in results.values():
+        print_corpus(result)
+    skipped = _corpora.report_skips(corpora)
+
+    if args.json:
+        args.json.write_text(json.dumps(results, indent=2), encoding="utf-8")
+        print(f"\nwrote {args.json}")
+
+    failed = sum(r["failed"] for r in results.values())
+    mismatched = sum(
+        1 for r in results.values() if r["declared_terms"] != r["target_class_triples"]
+    )
+    if not results:
+        print("no corpus was measured")
+        return 2
+    return 1 if (failed or mismatched or skipped) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

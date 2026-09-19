@@ -630,20 +630,67 @@ class OpenAPIToSHACLConverter:
 
         No class is declared for a union (``mapping.is_json_only_union``), so every site that would
         otherwise point at the wrapper — ``sh:class``, ``rdfs:range``, ``rdfs:subClassOf`` — asks
-        here first and constrains against the members instead. Local refs only: an external
-        document's unions are resolved through ``_load_external_schema`` by the same rule.
+        here first and constrains against the members instead.
+
+        **A member of an EXTERNAL union is rebased onto the document that declares it.** A bare
+        ``#/components/schemas/X`` inside ``TS28104_MdaNrm.yaml`` means *that file's* ``X``, and
+        returning it verbatim made the caller resolve it against the local document, where it does
+        not exist. OAS 3.x is explicit that a multi-document description is one description and each
+        document must be parsed to locate reference targets, so resolving a pointer relative to the
+        document that wrote it is reading the contract as written.
+
+        Measured: this produced **256** unresolvable member references on the 3GPP corpus, of which
+        **0** were genuinely undeclared — every one was declared in the union's own document. 0 on
+        the TM Forum corpus, whose three documents are self-contained. This is the same origin-blind
+        ``$ref`` shape recorded as a recurring defect in ``snm-api-native``'s
+        ``docs/specs/2026-09-10-kiota-absorption.md`` §4.7, and it is the reason a rise in the
+        unresolved-reference count must be read as a possible defect rather than as a larger gap.
         """
         if not isinstance(ref, str):
             return None
+        document = None
         if ref.startswith("#/components/schemas/"):
             target = self._get_schemas().get(ref.split("/")[-1])
         elif ".yaml#" in ref:
             target = self._load_external_schema(ref)
+            document = ref.split("#/components/schemas/")[0]
         else:
             return None
-        if is_json_only_union(target):
-            return [m for m in target["oneOf"] if isinstance(m, dict)]
-        return None
+        if not is_json_only_union(target):
+            return None
+        members = [m for m in target["oneOf"] if isinstance(m, dict)]
+        if document is None:
+            return members
+        return [self._rebase_ref(m, document) for m in members]
+
+    def _rebase_ref(self, member, document):
+        """Rewrite **every** document-local ``$ref`` in a member so it names the document that wrote it.
+
+        Recursive, and that is the whole point. Rewriting only the member's own top-level ``$ref``
+        left ``{type: array, items: {$ref: '#/components/schemas/Dn'}}`` pointing at the local
+        document, which took the 3GPP unresolved-reference count from 327 to 288 rather than to the
+        192 it should be: ``Dn`` is declared in ``TS28623_ComDefs.yaml`` and appears nowhere in
+        ``TS28104_MdaNrm.yaml``, so the reference was being *manufactured* by the expansion. A partial
+        fix to an origin-blind ``$ref`` is still origin-blind, one level down.
+
+        Returns copies throughout: the schema dicts come from ``_ext_schema_cache`` and are shared, so
+        mutating one would corrupt every later read of that document.
+        """
+        if isinstance(member, dict):
+            rebased = {}
+            for key, value in member.items():
+                if (
+                    key == "$ref"
+                    and isinstance(value, str)
+                    and value.startswith("#/components/schemas/")
+                ):
+                    rebased[key] = f"{document}{value}"
+                else:
+                    rebased[key] = self._rebase_ref(value, document)
+            return rebased
+        if isinstance(member, list):
+            return [self._rebase_ref(item, document) for item in member]
+        return member
 
     def _expand_union_refs(self, specs_list, depth=0):
         """Replace any ``$ref``-to-a-union in a logical operator's member list by its own members.

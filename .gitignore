@@ -285,6 +285,14 @@ Temporary Items
 pyvenv.cfg
 pip-selfcheck.json
 
+# The `[Ss]cripts` rule above comes from a virtualenv template, where `Scripts/` is where Windows
+# venvs put their entry points. Unanchored, it also swallowed THIS repository's own `scripts/`
+# directory, so no measurement script could ever be committed — which is why every corpus figure this
+# project has quoted was produced by a throwaway file and is not reproducible by anyone else.
+# Un-ignore the root one only; a venv's nested `Scripts/` (e.g. `test-env/Scripts`) stays ignored by
+# the rule above, and `.venv` is ignored in its own right further up.
+!/scripts/
+
 !yaml_importer/lib
 yaml_importer/assets/*.yaml
 output_*/

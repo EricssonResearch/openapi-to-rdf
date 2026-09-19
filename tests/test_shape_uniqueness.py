@@ -154,15 +154,30 @@ def test_the_required_array_still_has_its_declared_lower_bound(shapes: Graph) ->
 
 @pytest.mark.xfail(
     strict=True,
-    reason="oneOf with inline object + nested anyOf creates empty duplicate NodeShape. "
-    "Observed in Resource (TS28532_ProvMnS.yaml). Nested logical operators inside "
-    "oneOf may require different handling from top-level cases."
+    reason="KNOWN LIMITATION: a top-level logical operator whose members are an inline object AND a "
+    "nested anyOf produces two NodeShapes for one class, one of them empty. Re-pointed in Task 8 "
+    "from oneOf to anyOf: the original reproducer was Resource (TS28532_ProvMnS.yaml), a top-level "
+    "oneOf, and a oneOf union now gets no class at all, so that shape produces ZERO NodeShapes "
+    "rather than two and no longer exhibits the defect. anyOf still gets a class and still "
+    "duplicates, so the limitation is unchanged -- only its reachable form is."
 )
-def test_nested_logical_operators_oneOf_with_anyOf() -> None:
-    """Reproduce the Resource duplicate: oneOf containing inline object + nested anyOf.
+def test_nested_logical_operators_with_inline_object_and_nested_anyOf() -> None:
+    """Reproduce the duplicate NodeShape: a top-level operator with an inline object + nested anyOf.
 
-    This is the minimal structure from TS28532_ProvMnS.yaml Resource schema that
-    produces two NodeShapes (one populated, one empty).
+    **Re-pointed, not relaxed.** This was written against the minimal structure of
+    TS28532_ProvMnS.yaml's `Resource` schema, a top-level `oneOf`. As of Task 8 a `oneOf` union gets
+    no class (determination S2), so that structure emits no NodeShape at all and the assertion below
+    failed for the wrong reason -- a strict xfail that tracks nothing looks like a tracked limitation
+    and is worse than no test. Measured on the three operators that can still carry a class:
+
+        oneOf  -> 0 NodeShapes for the union (no class; S2)
+        anyOf  -> 2 NodeShapes for one class  <-- the defect, still live
+        allOf  -> 1 NodeShape                 (correct)
+
+    So the defect is real and reachable; only the operator that reaches it changed. Corpus effect:
+    both corpora now show zero duplicate NodeShapes (3GPP 1,698 sh:targetClass for 1,698 declared
+    terms, TM Forum 839 for 839), because neither writes this shape under anyOf -- 3GPP wrote it
+    under oneOf, which no longer produces a class.
     """
     spec = {
         "openapi": "3.0.0",
@@ -172,7 +187,9 @@ def test_nested_logical_operators_oneOf_with_anyOf() -> None:
                 "RefTarget1": {"type": "object", "properties": {"x": {"type": "string"}}},
                 "RefTarget2": {"type": "object", "properties": {"y": {"type": "string"}}},
                 "ResourceLike": {
-                    "oneOf": [
+                    # `anyOf`, not `oneOf`: see the docstring. A `oneOf` union gets no class, so it
+                    # cannot exhibit a duplicate-NodeShape defect at all.
+                    "anyOf": [
                         {
                             "type": "object",
                             "properties": {

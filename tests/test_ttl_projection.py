@@ -315,3 +315,79 @@ def test_every_class_the_mapping_declares_is_emitted_and_no_others(graphs) -> No
 
     emitted = {str(c) for c in rdf.subjects(RDF.type, RDFS.Class)}
     assert emitted == expected, {"only emitted": emitted - expected, "only mapped": expected - emitted}
+
+
+# --- A pointer is resolved relative to the document that wrote it ------------------------------
+
+
+def test_an_external_unions_members_resolve_against_their_own_document(tmp_path) -> None:
+    """Expanding a union from another document must not resolve its members against ours.
+
+    A bare ``#/components/schemas/X`` inside ``Sibling.yaml`` means *that file's* ``X``. Returning a
+    union's members verbatim made the caller look for ``X`` locally, where it does not exist, so the
+    expansion **manufactured** references that no document contains.
+
+    Measured on the 3GPP corpus, which is where this lives: the unresolved-reference count read
+    **327** occurrences over 50 distinct targets, of which **0** were genuinely undeclared — every one
+    was declared in the union's own document. With the pointer rebased, and rebased *recursively*
+    (a partial fix left ``items: {$ref: …}`` one level down still origin-blind, reading 288), the
+    count is **196 over the same 12 distinct targets** the corpus produces with union expansion
+    switched off entirely. Those 12 are a real pre-existing gap in the 3GPP documents. 0 on TM Forum,
+    whose three documents are self-contained.
+
+    This is the fourth recorded instance of origin-blind ``$ref`` handling across these repositories
+    (``snm-api-native``, ``docs/specs/2026-09-10-kiota-absorption.md`` §4.7), which is why it gets a
+    test of its own rather than a comment.
+    """
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    # The sibling owns both the union AND what its members point at, nested under `items` so the
+    # recursive half of the rebase is exercised — a top-level-only rebase passes without it.
+    sibling = {
+        "openapi": "3.0.0",
+        "info": {"title": "Sibling", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Away": {"type": "object", "properties": {"k": {"type": "string"}}},
+                "AwayUnion": {
+                    "oneOf": [
+                        {"$ref": "#/components/schemas/Away"},
+                        {"type": "array", "items": {"$ref": "#/components/schemas/Away"}},
+                    ]
+                },
+            }
+        },
+    }
+    local = {
+        "openapi": "3.0.0",
+        "info": {"title": "Local", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Holder": {
+                    "type": "object",
+                    # `Away` is declared ONLY in the sibling. If the members are resolved locally,
+                    # this becomes an unresolved reference to a schema no document is missing.
+                    "properties": {
+                        "far": {"$ref": "Sibling.yaml#/components/schemas/AwayUnion"}
+                    },
+                }
+            }
+        },
+    }
+    (tmp_path / "Sibling.yaml").write_text(yaml.safe_dump(sibling), encoding="utf-8")
+    spec = tmp_path / "Local.yaml"
+    spec.write_text(yaml.safe_dump(local), encoding="utf-8")
+
+    converter = OpenAPIToSHACLConverter(
+        str(spec), output_dir=str(tmp_path / "out"), base_namespace_prefix=BASE_PREFIX
+    )
+    converter.convert()
+
+    assert converter.unresolved_references == [], (
+        "union expansion manufactured references to a schema the sibling declares: "
+        f"{converter.unresolved_references}"
+    )
+    # Not vacuous: the constraint must actually be there, and it must name the SIBLING's namespace.
+    sh_class = URIRef(str(SH) + "class")
+    named = {str(o) for _s, _p, o in converter.shacl_graph.triples((None, sh_class, None))}
+    assert named == {f"{BASE_PREFIX}rdf/Sibling#Away"}, named
