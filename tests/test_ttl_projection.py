@@ -374,12 +374,16 @@ def test_an_external_unions_members_resolve_against_their_own_document(tmp_path)
             }
         },
     }
-    (tmp_path / "Sibling.yaml").write_text(yaml.safe_dump(sibling), encoding="utf-8")
+    sibling_path = tmp_path / "Sibling.yaml"
+    sibling_path.write_text(yaml.safe_dump(sibling), encoding="utf-8")
     spec = tmp_path / "Local.yaml"
     spec.write_text(yaml.safe_dump(local), encoding="utf-8")
 
     converter = OpenAPIToSHACLConverter(
-        str(spec), output_dir=str(tmp_path / "out"), base_namespace_prefix=BASE_PREFIX
+        str(spec),
+        output_dir=str(tmp_path / "out"),
+        base_namespace_prefix=BASE_PREFIX,
+        external_refs=[str(sibling_path)],  # Load sibling so external union can resolve
     )
     converter.convert()
 
