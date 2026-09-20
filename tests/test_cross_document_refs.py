@@ -114,14 +114,18 @@ def test_external_ref_as_property_target_resolves(multidoc_workspace):
 
     # The payload property should point to CommonType from base.yaml
     graph = converter.rdf_graph
-    # Check that CommonType IRI appears in the graph
-    common_type_iri = "https://example.org/CommonType"
-    assert (
-        None,
-        None,
-        graph.namespace_manager.store.namespace(common_type_iri)
-    ) or any(common_type_iri in str(s) for s in graph.subjects()), (
-        f"CommonType from external ref must appear in the graph"
+    # Check that the payload property has an rdfs:range that references CommonType
+    from rdflib import RDFS, Namespace
+
+    # Find payload property's range
+    payload_ranges = list(graph.objects(None, RDFS.range))
+
+    # At least one range should contain "CommonType" in its IRI
+    # (The exact IRI depends on the namespace assigned to external schemas)
+    has_common_type_range = any("CommonType" in str(r) for r in payload_ranges)
+
+    assert has_common_type_range, (
+        f"Property must have rdfs:range pointing to CommonType, got ranges: {[str(r) for r in payload_ranges]}"
     )
 
 

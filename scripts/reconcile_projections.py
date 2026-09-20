@@ -25,27 +25,72 @@ from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
 HYDRA = Namespace("http://www.w3.org/ns/hydra/core#")
 
 
-def reconcile(mapping) -> dict[str, Any]:
+def reconcile(mapping, doc: dict | None = None, spec_path: Path | None = None) -> dict[str, Any]:
     """Reconcile class IRIs across all projections.
 
     Args:
         mapping: The derived Mapping.
+        doc: Optional OpenAPI document for TTL projection.
+        spec_path: Optional path to spec file for TTL projection.
 
     Returns:
         A dict with:
         - shared: class names where all projections agree
         - disagreements: class names where projections disagree
         - only_in: which projections have which exclusive classes
+        - exclusions: stated exclusions with reasons
         - names_checked: total count of names checked
         - operations_classes_count: distinct classes in operation graph
     """
-    from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
+    from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
+    import tempfile
 
-    # For the TTL projection, we need the original document
-    # Since we don't have it here, we'll skip the TTL comparison for now
-    # and just compare Overlay, Context, and Operations
+    # 1. TTL projection - extract actual class IRIs from the RDF graph
+    ttl_classes = {}
+    exclusions = {}
+    if doc is not None and spec_path is not None:
+        try:
+            # Extract namespace from the first class IRI
+            if mapping.classes:
+                first_iri = next(iter(mapping.classes.values())).iri
+                # Handle both # and / separators
+                if '#' in first_iri:
+                    namespace = first_iri.rsplit('#', 1)[0] + '#'
+                elif '/' in first_iri:
+                    namespace = first_iri.rsplit('/', 1)[0] + '/'
+                else:
+                    namespace = first_iri + '#'  # Fallback
+            else:
+                namespace = "https://example.org/ontology/"
 
-    # Actually, let's extract IRIs from the mapping itself, which is the source of truth
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as tf:
+                yaml.dump(doc, tf)
+                tf.flush()
+                converter = OpenAPIToSHACLConverter(tf.name, base_namespace=namespace)
+                converter.convert()
+                rdf_graph = converter.rdf_graph
+
+                # Extract class IRIs: subjects that are typed as rdfs:Class
+                for class_subj in rdf_graph.subjects(RDF.type, RDFS.Class):
+                    class_iri = str(class_subj)
+                    # Match back to class name by IRI
+                    for name, fact in mapping.classes.items():
+                        if fact.iri == class_iri:
+                            ttl_classes[name] = class_iri
+                            break
+
+                Path(tf.name).unlink()  # Clean up temp file
+        except Exception as e:
+            print(f"Warning: Could not build TTL projection: {e}", file=sys.stderr)
+            import traceback
+            traceback.print_exc()
+
+        # Stated exclusions: transport envelopes excluded from TTL by design
+        for name, fact in mapping.classes.items():
+            if fact.is_transport and name not in ttl_classes:
+                exclusions[name] = "transport envelope (excluded from TTL by design)"
+
+    # The mapping itself is the reference
     expected = {name: fact.iri for name, fact in mapping.classes.items()}
 
     # 2. Overlay
@@ -121,9 +166,14 @@ def reconcile(mapping) -> dict[str, Any]:
     shared = []
 
     for name in expected:
+        # Skip if this is a stated exclusion
+        if name in exclusions:
+            continue
+
         expected_iri = expected[name]
         iris = {
             "expected": expected_iri,
+            "ttl": ttl_classes.get(name),
             "overlay": overlay_classes.get(name),
             "context": context_classes.get(name),
             "operations": ops_classes.get(name),
@@ -142,13 +192,16 @@ def reconcile(mapping) -> dict[str, Any]:
     return {
         "shared": shared,
         "disagreements": disagreements,
+        "exclusions": exclusions,
         "only_in": {
+            "ttl_only": set(ttl_classes.keys()) - set(expected.keys()),
             "overlay_only": set(overlay_classes.keys()) - set(expected.keys()),
             "context_only": set(context_classes.keys()) - set(expected.keys()),
             "operations_only": set(ops_classes.keys()) - set(expected.keys()),
         },
         "names_checked": len(expected),
         "operations_classes_count": len(ops_classes),
+        "ttl_classes_count": len(ttl_classes),
     }
 
 
@@ -164,11 +217,18 @@ def main():
 
     doc = yaml.safe_load(args.spec.read_text())
     mapping = build_mapping(doc, namespace=args.namespace)
-    result = reconcile(mapping)
+    result = reconcile(mapping, doc=doc, spec_path=args.spec)
 
     print(f"Names checked: {result['names_checked']}")
+    print(f"TTL classes: {result.get('ttl_classes_count', 0)}")
+    print(f"Exclusions: {len(result['exclusions'])}")
     print(f"Shared (all agree): {len(result['shared'])}")
     print(f"Disagreements: {len(result['disagreements'])}")
+
+    if result['exclusions']:
+        print("\nStated exclusions:")
+        for name, reason in result['exclusions'].items():
+            print(f"  {name}: {reason}")
 
     if result['disagreements']:
         print("\nDisagreements:")
