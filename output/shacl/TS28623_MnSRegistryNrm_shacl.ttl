@@ -1,17 +1,10 @@
-@prefix TS28623_MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#> .
-@prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/MnsInfo-Single#> .
-@prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/MnsRegistry-Single#> .
-@prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm#> .
+@prefix TS28623_MnSRegistryNrm: <https://example.org/TS28623_MnSRegistryNrm/> .
+@prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <https://example.org/TS28623_MnSRegistryNrm/MnsInfo-Single#> .
+@prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <https://example.org/TS28623_MnSRegistryNrm/MnsRegistry-Single#> .
+@prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <https://example.org/TS28623_MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_MnSRegistryNrm:MnsRegistry-Single ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry ] ;
-    sh:targetClass TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm .
 
 [] a sh:NodeShape ;
     sh:node [ a sh:NodeShape ;
@@ -24,12 +17,12 @@
     sh:targetClass TS28623_MnSRegistryNrm:MnsRegistry-Single .
 
 [] a sh:NodeShape ;
+    sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Multiple .
+
+[] a sh:NodeShape ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsLabel ],
-                [ a sh:PropertyShape ;
                     sh:maxCount 1 ;
                     sh:path TS28623_MnSRegistryNrm:mnsAddress ],
                 [ a sh:PropertyShape ;
@@ -40,26 +33,33 @@
                     sh:datatype xsd:string ;
                     sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
                     sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsType ] ] ;
+                    sh:path TS28623_MnSRegistryNrm:mnsType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsLabel ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion ],
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel ],
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsAddress ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsType ] ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel ] ;
     sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
-    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Multiple .
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MnsRegistry-Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm .
 

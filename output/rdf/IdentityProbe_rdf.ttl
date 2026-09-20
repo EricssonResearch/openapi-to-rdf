@@ -1,0 +1,44 @@
+@prefix IdentityProbe: <http://ericsson.com/models/3gpp/rdf/IdentityProbe#> .
+@prefix IdentityProbe_Base: <http://ericsson.com/models/3gpp/rdf/IdentityProbe/Base#> .
+@prefix IdentityProbe_Dashes: <http://ericsson.com/models/3gpp/rdf/IdentityProbe/Dashes#> .
+@prefix IdentityProbe_Files-Single: <http://ericsson.com/models/3gpp/rdf/IdentityProbe/Files-Single#> .
+@prefix IdentityProbe_Files_Single: <http://ericsson.com/models/3gpp/rdf/IdentityProbe/Files_Single#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+IdentityProbe:Base a rdfs:Class .
+
+IdentityProbe:Child a rdfs:Class ;
+    rdfs:subClassOf IdentityProbe:Base .
+
+IdentityProbe:Dashes a rdfs:Class .
+
+IdentityProbe:Files-Single a rdfs:Class .
+
+IdentityProbe:Files_Single a rdfs:Class .
+
+IdentityProbe:href a rdf:Property ;
+    rdfs:range xsd:string .
+
+IdentityProbe_Base:href a rdf:Property ;
+    rdfs:domain IdentityProbe:Base,
+        IdentityProbe:Child ;
+    rdfs:range xsd:string .
+
+IdentityProbe_Dashes:my-prop a rdf:Property ;
+    rdfs:domain IdentityProbe:Dashes ;
+    rdfs:range xsd:string .
+
+IdentityProbe_Dashes:my_prop a rdf:Property ;
+    rdfs:domain IdentityProbe:Dashes ;
+    rdfs:range xsd:integer .
+
+IdentityProbe_Files-Single:a a rdf:Property ;
+    rdfs:domain IdentityProbe:Files-Single ;
+    rdfs:range xsd:string .
+
+IdentityProbe_Files_Single:b a rdf:Property ;
+    rdfs:domain IdentityProbe:Files_Single ;
+    rdfs:range xsd:string .
+

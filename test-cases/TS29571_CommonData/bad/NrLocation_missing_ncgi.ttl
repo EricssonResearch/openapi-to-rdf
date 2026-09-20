@@ -1,19 +1,19 @@
-@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
-@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/Tai#> .
-@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/NrLocation#> .
-@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/GNbId#> .
-@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
+@prefix TS29571_CommonData: <https://example.org/TS29571_CommonData/> .
+@prefix ns1: <https://example.org/TS29571_CommonData/Tai#> .
+@prefix ns2: <https://example.org/TS29571_CommonData/GNbId#> .
+@prefix ns3: <https://example.org/TS29571_CommonData/NrLocation#> .
+@prefix ns4: <https://example.org/TS29571_CommonData/PlmnId#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
-    ns2:ageOfLocationInformation 16383 ;
-    ns2:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
-    ns2:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
-    ns2:globalGnbId [ a TS29571_CommonData:GlobalRanNodeId ;
+    ns3:ageOfLocationInformation 16383 ;
+    ns3:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
+    ns3:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
+    ns3:globalGnbId [ a TS29571_CommonData:GlobalRanNodeId ;
             TS29571_CommonData:eNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:gNbId [ a TS29571_CommonData:GNbId ;
-                    ns3:bitLength 27 ;
-                    ns3:gNBValue "AFaf09"^^xsd:string ] ;
+                    ns2:bitLength 27 ;
+                    ns2:gNBValue "AFaf09"^^xsd:string ] ;
             TS29571_CommonData:n3IwfId "aaaa"^^xsd:string ;
             TS29571_CommonData:ngeNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:nid "AFaf09AFaf0"^^xsd:string ;
@@ -22,11 +22,11 @@ TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
                     ns4:mnc "aaaa"^^xsd:string ] ;
             TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
             TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
-    ns2:tai [ a TS29571_CommonData:Tai ;
+    ns3:tai [ a TS29571_CommonData:Tai ;
             ns1:nid "AFaf09AFaf0"^^xsd:string ;
             ns1:plmnId [ a TS29571_CommonData:PlmnId ;
                     ns4:mcc "aaaa"^^xsd:string ;
                     ns4:mnc "aaaa"^^xsd:string ] ;
             ns1:tac "aaaa"^^xsd:string ] ;
-    ns2:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
+    ns3:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
 

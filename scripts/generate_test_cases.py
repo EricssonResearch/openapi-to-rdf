@@ -239,8 +239,13 @@ def process_file(yaml_path, output_dir):
     stem = yaml_path.stem
 
     # Run converter — single source for both RDF vocabulary and SHACL output
+    # Use same base namespace as regenerate_output.py to ensure test corpus matches SHACL
     from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
-    converter = OpenAPIToSHACLConverter(str(yaml_path), output_dir=str(Path(__file__).resolve().parent.parent / "output"))
+    converter = OpenAPIToSHACLConverter(
+        str(yaml_path),
+        base_namespace=f"https://example.org/{stem}/",
+        output_dir=str(Path(__file__).resolve().parent.parent / "output")
+    )
     converter.convert()
     converter.save_rdf()
 

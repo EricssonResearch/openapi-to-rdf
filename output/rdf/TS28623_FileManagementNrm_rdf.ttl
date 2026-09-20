@@ -1,28 +1,32 @@
-@prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
-@prefix TS28623_FileManagementNrm_File-Single: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/File-Single#> .
-@prefix TS28623_FileManagementNrm_FileDownloadJob-Single: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/FileDownloadJob-Single#> .
-@prefix TS28623_FileManagementNrm_FileDownloadJobProcessMonitor: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/FileDownloadJobProcessMonitor#> .
-@prefix TS28623_FileManagementNrm_Files-Single: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/Files-Single#> .
-@prefix TS28623_FileManagementNrm_ManagedElement-ncO-FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/ManagedElement-ncO-FileManagementNrm#> .
-@prefix TS28623_FileManagementNrm_SubNetwork-ncO-FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm/SubNetwork-ncO-FileManagementNrm#> .
+@prefix TS28623_FileManagementNrm: <https://example.org/TS28623_FileManagementNrm/> .
+@prefix TS28623_FileManagementNrm_File-Single: <https://example.org/TS28623_FileManagementNrm/File-Single#> .
+@prefix TS28623_FileManagementNrm_FileDownloadJob-Single: <https://example.org/TS28623_FileManagementNrm/FileDownloadJob-Single#> .
+@prefix TS28623_FileManagementNrm_FileDownloadJobProcessMonitor: <https://example.org/TS28623_FileManagementNrm/FileDownloadJobProcessMonitor#> .
+@prefix TS28623_FileManagementNrm_Files-Single: <https://example.org/TS28623_FileManagementNrm/Files-Single#> .
+@prefix TS28623_FileManagementNrm_ManagedElement-ncO-FileManagementNrm: <https://example.org/TS28623_FileManagementNrm/ManagedElement-ncO-FileManagementNrm#> .
+@prefix TS28623_FileManagementNrm_SubNetwork-ncO-FileManagementNrm: <https://example.org/TS28623_FileManagementNrm/SubNetwork-ncO-FileManagementNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28623_FileManagementNrm:File-Multiple a rdfs:Class .
 
-TS28623_FileManagementNrm:File-Single a rdfs:Class .
+TS28623_FileManagementNrm:File-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_FileManagementNrm:FileDownloadJob-Multiple a rdfs:Class .
 
-TS28623_FileManagementNrm:FileDownloadJob-Single a rdfs:Class .
+TS28623_FileManagementNrm:FileDownloadJob-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_FileManagementNrm:FileDownloadJobProcessMonitor a rdfs:Class ;
     rdfs:comment "This data type is the \"ProcessMonitor\" data type with specialisations for usage in the \"FileDownloadJob\"." .
 
 TS28623_FileManagementNrm:Files-Multiple a rdfs:Class .
 
-TS28623_FileManagementNrm:Files-Single a rdfs:Class .
+TS28623_FileManagementNrm:Files-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_FileManagementNrm:ManagedElement-ncO-FileManagementNrm a rdfs:Class .
 
@@ -30,47 +34,6 @@ TS28623_FileManagementNrm:SubNetwork-ncO-FileManagementNrm a rdfs:Class .
 
 TS28623_FileManagementNrm:File a rdf:Property ;
     rdfs:range TS28623_FileManagementNrm:File-Multiple .
-
-TS28623_FileManagementNrm:attributes a rdf:Property ;
-    rdfs:range rdfs:Resource .
-
-TS28623_FileManagementNrm:cancelJob a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:fileCompression a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:fileContent a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:fileDataType a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:fileExpirationTime a rdf:Property .
-
-TS28623_FileManagementNrm:fileFormat a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:fileLocation a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:fileReadyTime a rdf:Property .
-
-TS28623_FileManagementNrm:fileSize a rdf:Property ;
-    rdfs:range xsd:integer .
-
-TS28623_FileManagementNrm:jobId a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_FileManagementNrm:jobMonitor a rdf:Property ;
-    rdfs:range TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
-
-TS28623_FileManagementNrm:jobRef a rdf:Property .
-
-TS28623_FileManagementNrm:notificationRecipientAddress a rdf:Property .
-
-TS28623_FileManagementNrm:numberOfFiles a rdf:Property ;
-    rdfs:range xsd:integer .
 
 TS28623_FileManagementNrm_File-Single:attributes a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:File-Single ;
@@ -81,7 +44,8 @@ TS28623_FileManagementNrm_FileDownloadJob-Single:attributes a rdf:Property ;
     rdfs:range rdfs:Resource .
 
 TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:endTime a rdf:Property ;
-    rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
+    rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
+    rdfs:range xsd:dateTime .
 
 TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:jobId a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
@@ -99,7 +63,8 @@ TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:resultStateInfo a rdf:Pr
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
 
 TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:startTime a rdf:Property ;
-    rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
+    rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
+    rdfs:range xsd:dateTime .
 
 TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:status a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
@@ -128,4 +93,49 @@ TS28623_FileManagementNrm_SubNetwork-ncO-FileManagementNrm:FileDownloadJob a rdf
 TS28623_FileManagementNrm_SubNetwork-ncO-FileManagementNrm:Files a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:SubNetwork-ncO-FileManagementNrm ;
     rdfs:range TS28623_FileManagementNrm:Files-Multiple .
+
+TS28623_FileManagementNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
+
+TS28623_FileManagementNrm:cancelJob a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:fileCompression a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:fileContent a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:fileDataType a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:fileExpirationTime a rdf:Property ;
+    rdfs:range xsd:dateTime .
+
+TS28623_FileManagementNrm:fileFormat a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:fileLocation a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:fileReadyTime a rdf:Property ;
+    rdfs:range xsd:dateTime .
+
+TS28623_FileManagementNrm:fileSize a rdf:Property ;
+    rdfs:range xsd:integer .
+
+TS28623_FileManagementNrm:jobId a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:jobMonitor a rdf:Property ;
+    rdfs:range TS28623_FileManagementNrm:FileDownloadJobProcessMonitor .
+
+TS28623_FileManagementNrm:jobRef a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:notificationRecipientAddress a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_FileManagementNrm:numberOfFiles a rdf:Property ;
+    rdfs:range xsd:integer .
 

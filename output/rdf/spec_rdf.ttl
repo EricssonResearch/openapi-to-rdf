@@ -1,0 +1,15 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix spec: <https://example.com/test/rdf/spec#> .
+@prefix spec_Parent: <https://example.com/test/rdf/spec/Parent#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+spec:Child a rdfs:Class ;
+    rdfs:subClassOf spec:Parent .
+
+spec:Parent a rdfs:Class .
+
+spec_Parent:id a rdf:Property ;
+    rdfs:domain spec:Parent ;
+    rdfs:range xsd:string .
+

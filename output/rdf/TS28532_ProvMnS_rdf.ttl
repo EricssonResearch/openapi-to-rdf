@@ -1,74 +1,66 @@
-@prefix TS28532_ProvMnS: <http://ericsson.com/models/3gpp/TS28532/ProvMnS#> .
-@prefix TS28532_ProvMnS_CorrelatedNotification: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/CorrelatedNotification#> .
-@prefix TS28532_ProvMnS_MoiChange: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/MoiChange#> .
+@prefix TS28532_ProvMnS: <https://example.org/TS28532_ProvMnS/> .
+@prefix TS28532_ProvMnS_CorrelatedNotification: <https://example.org/TS28532_ProvMnS/CorrelatedNotification#> .
+@prefix TS28532_ProvMnS_MoiChange: <https://example.org/TS28532_ProvMnS/MoiChange#> .
 @prefix TS28532_ProvMnS_NotifyEvent: <http://ericsson.com/models/3gpp/transport/NotifyEvent#> .
-@prefix TS28532_ProvMnS_NotifyMoiAttributeValueChanges: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/NotifyMoiAttributeValueChanges#> .
-@prefix TS28532_ProvMnS_NotifyMoiChanges: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/NotifyMoiChanges#> .
-@prefix TS28532_ProvMnS_NotifyMoiCreation: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/NotifyMoiCreation#> .
-@prefix TS28532_ProvMnS_NotifyMoiDeletion: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/NotifyMoiDeletion#> .
-@prefix TS28532_ProvMnS_PatchItem: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/PatchItem#> .
-@prefix TS28532_ProvMnS_Scope: <http://ericsson.com/models/3gpp/TS28532/ProvMnS/Scope#> .
+@prefix TS28532_ProvMnS_NotifyMoiAttributeValueChanges: <https://example.org/TS28532_ProvMnS/NotifyMoiAttributeValueChanges#> .
+@prefix TS28532_ProvMnS_NotifyMoiChanges: <https://example.org/TS28532_ProvMnS/NotifyMoiChanges#> .
+@prefix TS28532_ProvMnS_NotifyMoiCreation: <https://example.org/TS28532_ProvMnS/NotifyMoiCreation#> .
+@prefix TS28532_ProvMnS_NotifyMoiDeletion: <https://example.org/TS28532_ProvMnS/NotifyMoiDeletion#> .
+@prefix TS28532_ProvMnS_PatchItem: <https://example.org/TS28532_ProvMnS/PatchItem#> .
+@prefix TS28532_ProvMnS_Scope: <https://example.org/TS28532_ProvMnS/Scope#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix transport: <http://ericsson.com/models/3gpp/transport/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+transport:NotifyEvent a rdfs:Class ;
+    transport:isTransportEnvelope true ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
+
 TS28532_ProvMnS:CorrelatedNotification a rdfs:Class .
 
 TS28532_ProvMnS:MoiChange a rdfs:Class .
 
-TS28532_ProvMnS:NotifyMoiAttributeValueChanges a rdfs:Class .
+TS28532_ProvMnS:NotifyMoiAttributeValueChanges a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
-TS28532_ProvMnS:NotifyMoiChanges a rdfs:Class .
+TS28532_ProvMnS:NotifyMoiChanges a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
-TS28532_ProvMnS:NotifyMoiCreation a rdfs:Class .
+TS28532_ProvMnS:NotifyMoiCreation a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
-TS28532_ProvMnS:NotifyMoiDeletion a rdfs:Class .
+TS28532_ProvMnS:NotifyMoiDeletion a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_ProvMnS:PatchItem a rdfs:Class .
 
 TS28532_ProvMnS:Scope a rdfs:Class .
 
-transport:NotifyEvent a rdfs:Class ;
-    transport:isTransportEnvelope true .
+TS28532_ProvMnS_NotifyEvent:additionalInformation a rdf:Property ;
+    rdfs:domain transport:NotifyEvent ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28532_ProvMnS_NotifyEvent:additionalText a rdf:Property ;
+    rdfs:domain transport:NotifyEvent ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS_NotifyEvent:specificProblem a rdf:Property ;
+    rdfs:domain transport:NotifyEvent ;
+    rdfs:range xsd:string .
 
 TS28532_ProvMnS:CmNotificationTypes a rdfs:Datatype .
 
-TS28532_ProvMnS:Insert a rdfs:Datatype .
-
-TS28532_ProvMnS:Operation a rdfs:Datatype .
-
-TS28532_ProvMnS:PatchOperation a rdfs:Datatype .
-
-TS28532_ProvMnS:ScopeType a rdfs:Datatype .
-
-TS28532_ProvMnS:SourceIndicator a rdfs:Datatype .
-
-TS28532_ProvMnS:additionalInformation a rdf:Property .
-
-TS28532_ProvMnS:additionalText a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28532_ProvMnS:attributeList a rdf:Property .
-
-TS28532_ProvMnS:attributeListValueChanges a rdf:Property .
-
-TS28532_ProvMnS:correlatedNotifications a rdf:Property ;
-    rdfs:range TS28532_ProvMnS:CorrelatedNotification .
-
-TS28532_ProvMnS:moiChanges a rdf:Property ;
-    rdfs:range TS28532_ProvMnS:MoiChange .
-
-TS28532_ProvMnS:sourceIndicator a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28532_ProvMnS:specificProblem a rdf:Property .
-
 TS28532_ProvMnS_CorrelatedNotification:notificationIds a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:CorrelatedNotification .
+    rdfs:domain TS28532_ProvMnS:CorrelatedNotification ;
+    rdfs:range TS28623_ComDefs:NotificationId .
 
 TS28532_ProvMnS_CorrelatedNotification:source a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:CorrelatedNotification .
+    rdfs:domain TS28532_ProvMnS:CorrelatedNotification ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:Insert a rdfs:Datatype .
 
 TS28532_ProvMnS_MoiChange:additionalText a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:MoiChange ;
@@ -83,7 +75,8 @@ TS28532_ProvMnS_MoiChange:insert a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_ProvMnS_MoiChange:notificationId a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:MoiChange .
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range xsd:integer .
 
 TS28532_ProvMnS_MoiChange:oldValue a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:MoiChange .
@@ -93,7 +86,8 @@ TS28532_ProvMnS_MoiChange:op a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_ProvMnS_MoiChange:path a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:MoiChange .
+    rdfs:domain TS28532_ProvMnS:MoiChange ;
+    rdfs:range xsd:string .
 
 TS28532_ProvMnS_MoiChange:sourceIndicator a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:MoiChange ;
@@ -107,7 +101,8 @@ TS28532_ProvMnS_NotifyMoiAttributeValueChanges:additionalText a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_ProvMnS_NotifyMoiAttributeValueChanges:attributeListValueChanges a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:NotifyMoiAttributeValueChanges .
+    rdfs:domain TS28532_ProvMnS:NotifyMoiAttributeValueChanges ;
+    rdfs:range TS28623_ComDefs:AttributeValueChangeSet .
 
 TS28532_ProvMnS_NotifyMoiAttributeValueChanges:correlatedNotifications a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:NotifyMoiAttributeValueChanges ;
@@ -126,7 +121,8 @@ TS28532_ProvMnS_NotifyMoiCreation:additionalText a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_ProvMnS_NotifyMoiCreation:attributeList a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:NotifyMoiCreation .
+    rdfs:domain TS28532_ProvMnS:NotifyMoiCreation ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
 
 TS28532_ProvMnS_NotifyMoiCreation:correlatedNotifications a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:NotifyMoiCreation ;
@@ -141,7 +137,8 @@ TS28532_ProvMnS_NotifyMoiDeletion:additionalText a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_ProvMnS_NotifyMoiDeletion:attributeList a rdf:Property ;
-    rdfs:domain TS28532_ProvMnS:NotifyMoiDeletion .
+    rdfs:domain TS28532_ProvMnS:NotifyMoiDeletion ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
 
 TS28532_ProvMnS_NotifyMoiDeletion:correlatedNotifications a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:NotifyMoiDeletion ;
@@ -150,6 +147,8 @@ TS28532_ProvMnS_NotifyMoiDeletion:correlatedNotifications a rdf:Property ;
 TS28532_ProvMnS_NotifyMoiDeletion:sourceIndicator a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:NotifyMoiDeletion ;
     rdfs:range xsd:string .
+
+TS28532_ProvMnS:Operation a rdfs:Datatype .
 
 TS28532_ProvMnS_PatchItem:from a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:PatchItem ;
@@ -166,6 +165,8 @@ TS28532_ProvMnS_PatchItem:path a rdf:Property ;
 TS28532_ProvMnS_PatchItem:value a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:PatchItem .
 
+TS28532_ProvMnS:PatchOperation a rdfs:Datatype .
+
 TS28532_ProvMnS_Scope:scopeLevel a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:Scope ;
     rdfs:range xsd:integer .
@@ -174,13 +175,31 @@ TS28532_ProvMnS_Scope:scopeType a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:Scope ;
     rdfs:range xsd:string .
 
-TS28532_ProvMnS_NotifyEvent:additionalInformation a rdf:Property ;
-    rdfs:domain transport:NotifyEvent .
+TS28532_ProvMnS:ScopeType a rdfs:Datatype .
 
-TS28532_ProvMnS_NotifyEvent:additionalText a rdf:Property ;
-    rdfs:domain transport:NotifyEvent ;
+TS28532_ProvMnS:SourceIndicator a rdfs:Datatype .
+
+TS28532_ProvMnS:additionalInformation a rdf:Property ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28532_ProvMnS:additionalText a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28532_ProvMnS_NotifyEvent:specificProblem a rdf:Property ;
-    rdfs:domain transport:NotifyEvent .
+TS28532_ProvMnS:attributeList a rdf:Property ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28532_ProvMnS:attributeListValueChanges a rdf:Property ;
+    rdfs:range TS28623_ComDefs:AttributeValueChangeSet .
+
+TS28532_ProvMnS:correlatedNotifications a rdf:Property ;
+    rdfs:range TS28532_ProvMnS:CorrelatedNotification .
+
+TS28532_ProvMnS:moiChanges a rdf:Property ;
+    rdfs:range TS28532_ProvMnS:MoiChange .
+
+TS28532_ProvMnS:sourceIndicator a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS:specificProblem a rdf:Property ;
+    rdfs:range xsd:string .
 

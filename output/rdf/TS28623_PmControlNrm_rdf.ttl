@@ -1,7 +1,7 @@
-@prefix TS28623_PmControlNrm: <http://ericsson.com/models/3gpp/TS28623/PmControlNrm#> .
-@prefix TS28623_PmControlNrm_ManagedElement-PmControlNrm: <http://ericsson.com/models/3gpp/TS28623/PmControlNrm/ManagedElement-PmControlNrm#> .
-@prefix TS28623_PmControlNrm_PerfMetricJob-Single: <http://ericsson.com/models/3gpp/TS28623/PmControlNrm/PerfMetricJob-Single#> .
-@prefix TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm: <http://ericsson.com/models/3gpp/TS28623/PmControlNrm/SubNetwork-ncO-PmControlNrm#> .
+@prefix TS28623_PmControlNrm: <https://example.org/TS28623_PmControlNrm/> .
+@prefix TS28623_PmControlNrm_ManagedElement-PmControlNrm: <https://example.org/TS28623_PmControlNrm/ManagedElement-PmControlNrm#> .
+@prefix TS28623_PmControlNrm_PerfMetricJob-Single: <https://example.org/TS28623_PmControlNrm/PerfMetricJob-Single#> .
+@prefix TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm: <https://example.org/TS28623_PmControlNrm/SubNetwork-ncO-PmControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -15,6 +15,21 @@ TS28623_PmControlNrm:PerfMetricJob-Single a rdfs:Class .
 TS28623_PmControlNrm:SubNetwork-ncO-PmControlNrm a rdfs:Class .
 
 TS28623_PmControlNrm:Files a rdf:Property .
+
+TS28623_PmControlNrm_ManagedElement-PmControlNrm:PerfMetricJob a rdf:Property ;
+    rdfs:domain TS28623_PmControlNrm:ManagedElement-PmControlNrm ;
+    rdfs:range TS28623_PmControlNrm:PerfMetricJob-Multiple .
+
+TS28623_PmControlNrm_PerfMetricJob-Single:Files a rdf:Property ;
+    rdfs:domain TS28623_PmControlNrm:PerfMetricJob-Single .
+
+TS28623_PmControlNrm_PerfMetricJob-Single:attributes a rdf:Property ;
+    rdfs:domain TS28623_PmControlNrm:PerfMetricJob-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm:PerfMetricJob a rdf:Property ;
+    rdfs:domain TS28623_PmControlNrm:SubNetwork-ncO-PmControlNrm ;
+    rdfs:range TS28623_PmControlNrm:PerfMetricJob-Multiple .
 
 TS28623_PmControlNrm:administrativeState a rdf:Property .
 
@@ -40,19 +55,4 @@ TS28623_PmControlNrm:reportingCtrl a rdf:Property .
 TS28623_PmControlNrm:rootObjectInstances a rdf:Property .
 
 TS28623_PmControlNrm:schedulerRef a rdf:Property .
-
-TS28623_PmControlNrm_ManagedElement-PmControlNrm:PerfMetricJob a rdf:Property ;
-    rdfs:domain TS28623_PmControlNrm:ManagedElement-PmControlNrm ;
-    rdfs:range TS28623_PmControlNrm:PerfMetricJob-Multiple .
-
-TS28623_PmControlNrm_PerfMetricJob-Single:Files a rdf:Property ;
-    rdfs:domain TS28623_PmControlNrm:PerfMetricJob-Single .
-
-TS28623_PmControlNrm_PerfMetricJob-Single:attributes a rdf:Property ;
-    rdfs:domain TS28623_PmControlNrm:PerfMetricJob-Single ;
-    rdfs:range rdfs:Resource .
-
-TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm:PerfMetricJob a rdf:Property ;
-    rdfs:domain TS28623_PmControlNrm:SubNetwork-ncO-PmControlNrm ;
-    rdfs:range TS28623_PmControlNrm:PerfMetricJob-Multiple .
 

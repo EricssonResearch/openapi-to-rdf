@@ -1,0 +1,16 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spec: <https://example.com/test/rdf/spec#> .
+@prefix spec_Parent: <https://example.com/test/rdf/spec/Parent#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path spec_Parent:id ] ;
+    sh:targetClass spec:Parent .
+
+[] a sh:NodeShape ;
+    sh:class spec:Parent ;
+    sh:targetClass spec:Child .
+

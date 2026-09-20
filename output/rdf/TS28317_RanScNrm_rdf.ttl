@@ -1,8 +1,9 @@
-@prefix TS28317_RanScNrm: <http://ericsson.com/models/3gpp/TS28317/RanScNrm#> .
-@prefix TS28317_RanScNrm_ScMgmtProfile-Single: <http://ericsson.com/models/3gpp/TS28317/RanScNrm/ScMgmtProfile-Single#> .
-@prefix TS28317_RanScNrm_ScProcessMonitor: <http://ericsson.com/models/3gpp/TS28317/RanScNrm/ScProcessMonitor#> .
-@prefix TS28317_RanScNrm_Sc_Process-Single: <http://ericsson.com/models/3gpp/TS28317/RanScNrm/Sc_Process-Single#> .
-@prefix TS28317_RanScNrm_SubNetwork-ncO-RanScNrm: <http://ericsson.com/models/3gpp/TS28317/RanScNrm/SubNetwork-ncO-RanScNrm#> .
+@prefix TS28317_RanScNrm: <https://example.org/TS28317_RanScNrm/> .
+@prefix TS28317_RanScNrm_ScMgmtProfile-Single: <https://example.org/TS28317_RanScNrm/ScMgmtProfile-Single#> .
+@prefix TS28317_RanScNrm_ScProcessMonitor: <https://example.org/TS28317_RanScNrm/ScProcessMonitor#> .
+@prefix TS28317_RanScNrm_Sc_Process-Single: <https://example.org/TS28317_RanScNrm/Sc_Process-Single#> .
+@prefix TS28317_RanScNrm_SubNetwork-ncO-RanScNrm: <https://example.org/TS28317_RanScNrm/SubNetwork-ncO-RanScNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -12,14 +13,16 @@ TS28317_RanScNrm:NEInfomration a rdfs:Class ;
 
 TS28317_RanScNrm:ScMgmtProfile-Multiple a rdfs:Class .
 
-TS28317_RanScNrm:ScMgmtProfile-Single a rdfs:Class .
+TS28317_RanScNrm:ScMgmtProfile-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28317_RanScNrm:ScProcessMonitor a rdfs:Class ;
     rdfs:comment "This data type is the \"ProcessMonitor\" data type with specialisations for usage in the RANSC management for monitoring for the self configuration process." .
 
 TS28317_RanScNrm:Sc_Process-Multiple a rdfs:Class .
 
-TS28317_RanScNrm:Sc_Process-Single a rdfs:Class .
+TS28317_RanScNrm:Sc_Process-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28317_RanScNrm:SubNetwork-ncO-RanScNrm a rdfs:Class .
 
@@ -32,26 +35,9 @@ TS28317_RanScNrm:GnbId a rdfs:Datatype ;
 TS28317_RanScNrm:NEType a rdfs:Datatype ;
     rdfs:comment "It defines the type of RAN NE" .
 
-TS28317_RanScNrm:cancelScProcess a rdf:Property ;
-    rdfs:comment "Setting this attribute to \"TRUE\" cancels the self configuration process. " ;
-    rdfs:range xsd:string .
-
-TS28317_RanScNrm:configDataFileLocation a rdf:Property .
-
-TS28317_RanScNrm:nEIdentification a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28317_RanScNrm:nEInformation a rdf:Property ;
-    rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
-    rdfs:range TS28317_RanScNrm:NEInfomration .
-
-TS28317_RanScNrm:scMgmtProfileRef a rdf:Property .
-
-TS28317_RanScNrm:scProcessMonitor a rdf:Property ;
-    rdfs:range TS28317_RanScNrm:ScProcessMonitor .
-
 TS28317_RanScNrm_ScMgmtProfile-Single:configDataFileLocation a rdf:Property ;
-    rdfs:domain TS28317_RanScNrm:ScMgmtProfile-Single .
+    rdfs:domain TS28317_RanScNrm:ScMgmtProfile-Single ;
+    rdfs:range xsd:string .
 
 TS28317_RanScNrm_ScMgmtProfile-Single:nEInformation a rdf:Property ;
     rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
@@ -59,7 +45,8 @@ TS28317_RanScNrm_ScMgmtProfile-Single:nEInformation a rdf:Property ;
     rdfs:range TS28317_RanScNrm:NEInfomration .
 
 TS28317_RanScNrm_ScProcessMonitor:endTime a rdf:Property ;
-    rdfs:domain TS28317_RanScNrm:ScProcessMonitor .
+    rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
+    rdfs:range xsd:dateTime .
 
 TS28317_RanScNrm_ScProcessMonitor:jobId a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
@@ -77,7 +64,8 @@ TS28317_RanScNrm_ScProcessMonitor:resultStateInfo a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor .
 
 TS28317_RanScNrm_ScProcessMonitor:startTime a rdf:Property ;
-    rdfs:domain TS28317_RanScNrm:ScProcessMonitor .
+    rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
+    rdfs:range xsd:dateTime .
 
 TS28317_RanScNrm_ScProcessMonitor:status a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:ScProcessMonitor ;
@@ -93,7 +81,8 @@ TS28317_RanScNrm_Sc_Process-Single:nEIdentification a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28317_RanScNrm_Sc_Process-Single:scMgmtProfileRef a rdf:Property ;
-    rdfs:domain TS28317_RanScNrm:Sc_Process-Single .
+    rdfs:domain TS28317_RanScNrm:Sc_Process-Single ;
+    rdfs:range xsd:string .
 
 TS28317_RanScNrm_Sc_Process-Single:scProcessMonitor a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:Sc_Process-Single ;
@@ -106,4 +95,24 @@ TS28317_RanScNrm_SubNetwork-ncO-RanScNrm:ScMgmtProfile a rdf:Property ;
 TS28317_RanScNrm_SubNetwork-ncO-RanScNrm:Sc_Process a rdf:Property ;
     rdfs:domain TS28317_RanScNrm:SubNetwork-ncO-RanScNrm ;
     rdfs:range TS28317_RanScNrm:Sc_Process-Multiple .
+
+TS28317_RanScNrm:cancelScProcess a rdf:Property ;
+    rdfs:comment "Setting this attribute to \"TRUE\" cancels the self configuration process. " ;
+    rdfs:range xsd:string .
+
+TS28317_RanScNrm:configDataFileLocation a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28317_RanScNrm:nEIdentification a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28317_RanScNrm:nEInformation a rdf:Property ;
+    rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
+    rdfs:range TS28317_RanScNrm:NEInfomration .
+
+TS28317_RanScNrm:scMgmtProfileRef a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28317_RanScNrm:scProcessMonitor a rdf:Property ;
+    rdfs:range TS28317_RanScNrm:ScProcessMonitor .
 

@@ -1,39 +1,29 @@
-@prefix TS28550_PerfMeasJobCtrlMnS: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_error-ResponseType: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/error-ResponseType#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/measJobCreation-RequestType#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_measJobCreation-ResponseType: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/measJobCreation-ResponseType#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/measJobInfo-ResourceType#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_measJobsRetrieval-ResponseType: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/measJobsRetrieval-ResponseType#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_schedule-Type: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/schedule-Type#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_scheduleOfDay-Type: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/scheduleOfDay-Type#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_timeInterval-Type: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/timeInterval-Type#> .
-@prefix TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type: <http://ericsson.com/models/3gpp/TS28550/PerfMeasJobCtrlMnS/unsupportedMeas-Type#> .
+@prefix TS28550_PerfMeasJobCtrlMnS: <https://example.org/TS28550_PerfMeasJobCtrlMnS/> .
+@prefix TS28550_PerfMeasJobCtrlMnS_error-ResponseType: <https://example.org/TS28550_PerfMeasJobCtrlMnS/error-ResponseType#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType: <https://example.org/TS28550_PerfMeasJobCtrlMnS/measJobCreation-RequestType#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_measJobCreation-ResponseType: <https://example.org/TS28550_PerfMeasJobCtrlMnS/measJobCreation-ResponseType#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType: <https://example.org/TS28550_PerfMeasJobCtrlMnS/measJobInfo-ResourceType#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_measJobsRetrieval-ResponseType: <https://example.org/TS28550_PerfMeasJobCtrlMnS/measJobsRetrieval-ResponseType#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_schedule-Type: <https://example.org/TS28550_PerfMeasJobCtrlMnS/schedule-Type#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_scheduleOfDay-Type: <https://example.org/TS28550_PerfMeasJobCtrlMnS/scheduleOfDay-Type#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_timeInterval-Type: <https://example.org/TS28550_PerfMeasJobCtrlMnS/timeInterval-Type#> .
+@prefix TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type: <https://example.org/TS28550_PerfMeasJobCtrlMnS/unsupportedMeas-Type#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28550_PerfMeasJobCtrlMnS:errorInfo ] ] ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_error-ResponseType:error ] ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:error-ResponseType .
-
-[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:dateTime-Type .
+    sh:in ( "low"^^xsd:string "medium"^^xsd:string "high"^^xsd:string ) ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:priority-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28550_PerfMeasJobCtrlMnS:timeInterval-Type ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_schedule-Type:dailySchedule ],
-        [ a sh:PropertyShape ;
             sh:class TS28550_PerfMeasJobCtrlMnS:scheduleOfDay-Type ;
             sh:path TS28550_PerfMeasJobCtrlMnS_schedule-Type:weeklySchedule ],
+        [ a sh:PropertyShape ;
+            sh:class TS28550_PerfMeasJobCtrlMnS:timeInterval-Type ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_schedule-Type:dailySchedule ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "daily"^^xsd:string "weekly"^^xsd:string ) ;
@@ -43,69 +33,20 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28550_PerfMeasJobCtrlMnS:unsupportedMeas-Type ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-ResponseType:unsupportedList ] ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:measJobCreation-ResponseType .
+            sh:class TS28550_PerfMeasJobCtrlMnS:timeInterval-Type ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_scheduleOfDay-Type:intervalsOfDay ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "Monday"^^xsd:string "Tuesday"^^xsd:string "Wednesday"^^xsd:string "Thursday"^^xsd:string "Friday"^^xsd:string "Saturday"^^xsd:string "Sunday"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_scheduleOfDay-Type:dayOfWeek ] ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:scheduleOfDay-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:streamTarget ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:iOCName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "low"^^xsd:string "medium"^^xsd:string "high"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:priority ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:startTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "file"^^xsd:string "streaming"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:reportingMethod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:measurementCategoryList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:granularityPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:href ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:reportingPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:iOCInstanceList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28550_PerfMeasJobCtrlMnS:schedule-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:schedule ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:reliability ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:stopTime ] ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:measJobInfo-ResourceType .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "low"^^xsd:string "medium"^^xsd:string "high"^^xsd:string ) ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:priority-Type .
+            sh:class TS28550_PerfMeasJobCtrlMnS:unsupportedMeas-Type ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-ResponseType:unsupportedList ] ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:measJobCreation-ResponseType .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -120,12 +61,7 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:uri-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "Monday"^^xsd:string "Tuesday"^^xsd:string "Wednesday"^^xsd:string "Thursday"^^xsd:string "Friday"^^xsd:string "Saturday"^^xsd:string "Sunday"^^xsd:string ) ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:dayOfWeek-Type .
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:dateTime-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -135,46 +71,86 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "daily"^^xsd:string "weekly"^^xsd:string ) ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:scheduleOption-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
     sh:in ( "file"^^xsd:string "streaming"^^xsd:string ) ;
     sh:targetClass TS28550_PerfMeasJobCtrlMnS:reportingMethod-Type .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "Monday"^^xsd:string "Tuesday"^^xsd:string "Wednesday"^^xsd:string "Thursday"^^xsd:string "Friday"^^xsd:string "Saturday"^^xsd:string "Sunday"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_scheduleOfDay-Type:dayOfWeek ],
-        [ a sh:PropertyShape ;
-            sh:class TS28550_PerfMeasJobCtrlMnS:timeInterval-Type ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_scheduleOfDay-Type:intervalsOfDay ] ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:scheduleOfDay-Type .
+    sh:datatype xsd:string ;
+    sh:in ( "daily"^^xsd:string "weekly"^^xsd:string ) ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:scheduleOption-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type:measurementTypeName ],
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:streamTarget ],
+        [ a sh:PropertyShape ;
+            sh:class TS28550_PerfMeasJobCtrlMnS:schedule-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:schedule ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "low"^^xsd:string "medium"^^xsd:string "high"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:priority ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type:iOCInstance ],
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:stopTime ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type:reason ] ;
-    sh:targetClass TS28550_PerfMeasJobCtrlMnS:unsupportedMeas-Type .
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:startTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:iOCName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:reliability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:reportingPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:iOCInstanceList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:href ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "file"^^xsd:string "streaming"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:reportingMethod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:granularityPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobInfo-ResourceType:measurementCategoryList ] ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:measJobInfo-ResourceType .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:startTime ],
-        [ a sh:PropertyShape ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28550_PerfMeasJobCtrlMnS:errorInfo ] ] ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_error-ResponseType:error ] ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:error-ResponseType .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:uri-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "file"^^xsd:string "streaming"^^xsd:string ) ;
             sh:maxCount 1 ;
@@ -182,7 +158,30 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:granularityPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:measurementCategoryList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:iOCName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
             sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:reportingPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:reliability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:stopTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:streamTarget ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "low"^^xsd:string "medium"^^xsd:string "high"^^xsd:string ) ;
@@ -191,32 +190,33 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:reliability ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:iOCName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:granularityPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:iOCInstanceList ],
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:startTime ],
         [ a sh:PropertyShape ;
             sh:class TS28550_PerfMeasJobCtrlMnS:schedule-Type ;
             sh:maxCount 1 ;
             sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:schedule ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:measurementCategoryList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:stopTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:streamTarget ] ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_measJobCreation-RequestType:iOCInstanceList ] ;
     sh:targetClass TS28550_PerfMeasJobCtrlMnS:measJobCreation-RequestType .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "Monday"^^xsd:string "Tuesday"^^xsd:string "Wednesday"^^xsd:string "Thursday"^^xsd:string "Friday"^^xsd:string "Saturday"^^xsd:string "Sunday"^^xsd:string ) ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:dayOfWeek-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type:measurementTypeName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28550_PerfMeasJobCtrlMnS_unsupportedMeas-Type:iOCInstance ] ;
+    sh:targetClass TS28550_PerfMeasJobCtrlMnS:unsupportedMeas-Type .
 

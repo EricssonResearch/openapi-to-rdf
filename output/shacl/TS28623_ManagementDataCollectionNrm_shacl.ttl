@@ -1,41 +1,11 @@
-@prefix TS28623_ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#> .
-@prefix TS28623_ManagementDataCollectionNrm_ManagementDataCollection-Single: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm/ManagementDataCollection-Single#> .
-@prefix TS28623_ManagementDataCollectionNrm_NodeFilter: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm/NodeFilter#> .
-@prefix TS28623_ManagementDataCollectionNrm_SubNetwork-ncO-ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm/SubNetwork-ncO-ManagementDataCollectionNrm#> .
+@prefix TS28623_ManagementDataCollectionNrm: <https://example.org/TS28623_ManagementDataCollectionNrm/> .
+@prefix TS28623_ManagementDataCollectionNrm_ManagementDataCollection-Single: <https://example.org/TS28623_ManagementDataCollectionNrm/ManagementDataCollection-Single#> .
+@prefix TS28623_ManagementDataCollectionNrm_NodeFilter: <https://example.org/TS28623_ManagementDataCollectionNrm/NodeFilter#> .
+@prefix TS28623_ManagementDataCollectionNrm_SubNetwork-ncO-ManagementDataCollectionNrm: <https://example.org/TS28623_ManagementDataCollectionNrm/SubNetwork-ncO-ManagementDataCollectionNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
-            sh:path TS28623_ManagementDataCollectionNrm_SubNetwork-ncO-ManagementDataCollectionNrm:ManagementDataCollection ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork-ncO-ManagementDataCollectionNrm .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CN"^^xsd:string "RAN"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:networkDomain ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:areaOfInterest ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:sst ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CP"^^xsd:string "UP"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:cpUpType ] ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
 
 [] a sh:NodeShape ;
     sh:node [ a sh:NodeShape ;
@@ -43,18 +13,6 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
-                                [ a sh:PropertyShape ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
-                                [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
                                     sh:path TS28623_ManagementDataCollectionNrm:managementData ;
@@ -64,7 +22,19 @@
                                                 sh:datatype xsd:string ] ) ],
                                 [ a sh:PropertyShape ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ] ] ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
+                                [ a sh:PropertyShape ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ] ] ;
                     sh:path TS28623_ManagementDataCollectionNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -72,6 +42,14 @@
                     sh:property [ a sh:PropertyShape ;
                             sh:maxCount 1 ;
                             sh:path TS28623_ManagementDataCollectionNrm:reportingCtrl ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
+                        [ a sh:PropertyShape ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
@@ -81,17 +59,39 @@
                                         sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
                                         sh:datatype xsd:string ] ) ],
                         [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
-                        [ a sh:PropertyShape ;
                             sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:dataScope ] ] ;
+                            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ] ] ;
             sh:path TS28623_ManagementDataCollectionNrm_ManagementDataCollection-Single:attributes ] ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
+            sh:path TS28623_ManagementDataCollectionNrm_SubNetwork-ncO-ManagementDataCollectionNrm:ManagementDataCollection ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork-ncO-ManagementDataCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:sst ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CP"^^xsd:string "UP"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:cpUpType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CN"^^xsd:string "RAN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:networkDomain ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:areaOfInterest ] ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
 

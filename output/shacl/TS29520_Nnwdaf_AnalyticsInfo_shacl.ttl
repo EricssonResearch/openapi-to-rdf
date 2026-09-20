@@ -1,16 +1,16 @@
-@prefix TS29520_Nnwdaf_AnalyticsInfo: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_AdditionInfoAnalyticsInfoRequest: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/AdditionInfoAnalyticsInfoRequest#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/AnalyticsData#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_ContextData: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/ContextData#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_ContextElement: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/ContextElement#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_ContextIdList: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/ContextIdList#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_EventFilter: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/EventFilter#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_HistoricalData: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/HistoricalData#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_RequestedContext: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/RequestedContext#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_SmcceInfo: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/SmcceInfo#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_SmcceUeList: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/SmcceUeList#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/SpecificAnalyticsSubscription#> .
-@prefix TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription: <http://ericsson.com/models/3gpp/TS29520/Nnwdaf_AnalyticsInfo/SpecificDataSubscription#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_AdditionInfoAnalyticsInfoRequest: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/AdditionInfoAnalyticsInfoRequest#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/AnalyticsData#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_ContextData: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/ContextData#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_ContextElement: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/ContextElement#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_ContextIdList: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/ContextIdList#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_EventFilter: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/EventFilter#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_HistoricalData: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/HistoricalData#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_RequestedContext: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/RequestedContext#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_SmcceInfo: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/SmcceInfo#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_SmcceUeList: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/SmcceUeList#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/SpecificAnalyticsSubscription#> .
+@prefix TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription: <https://example.org/TS29520_Nnwdaf_AnalyticsInfo/SpecificDataSubscription#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -18,6 +18,10 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription:dataSub ],
+        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription:producerSetId ],
         [ a sh:PropertyShape ;
@@ -25,89 +29,9 @@
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription:subscriptionId ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription:dataSub ],
-        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificDataSubscription:producerId ] ;
     sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Historical data related to the analytics." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:data ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Information about subscriptions with the data sources." ;
-            sh:class TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:subsWithSources ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:endTime ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:startTime ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:HistoricalData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment """List of items that contain context information corresponding with a context identifier.
-""" ;
-            sh:class TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextData:contextElems ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Historical data related to the analytics subscription." ;
-            sh:class TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:histData ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:contextId ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:lastOutputTime ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """Output analytics for the analytics subscription which have not yet been sent to the  analytics consumer.
-""" ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:pendAnalytics ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:adrfId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """Contains information identifying the ML model(s) that the consumer NWDAF is currently subscribing for the analytics.
-""" ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:modelInfo ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """Information about analytics subscriptions that the NWDAF has with other NWDAFs to perform  aggregation.
-""" ;
-            sh:class TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:aggrSubs ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """NWDAF identifiers of NWDAF instances used by the NWDAF service consumer when aggregating  multiple analytics subscriptions.
-""" ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:aggrNwdafIds ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Type(s) of data stored in the ADRF by the NWDAF." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:adrfDataTypes ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Historical output analytics." ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:histAnalytics ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextElement .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
@@ -117,109 +41,6 @@
 """ ;
                 sh:datatype xsd:string ] ) ;
     sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextType .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "HISTORICAL_ANALYTICS"^^xsd:string "HISTORICAL_DATA"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:AdrfDataType .
-
-[] a sh:NodeShape ;
-    sh:class TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ProblemDetailsAnalyticsInfoRequest .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:redTransInfos ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:timeStampGen ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:disperInfos ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:suppFeat ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:start ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:qosSustainInfos ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:abnorBehavrs ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:svcExps ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:ueComms ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:ueMobs ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:dnPerfInfos ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:wlanInfos ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:anaMetaInfo ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:nwPerfs ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:userDataCongInfos ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:nfLoadLevelInfos ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The slices and their load level information." ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:sliceLoadLevelInfos ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:nsiLoadLevelInfos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:smccExps ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:expiry ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "LOAD_LEVEL_INFORMATION"^^xsd:string "NETWORK_PERFORMANCE"^^xsd:string "NF_LOAD"^^xsd:string "SERVICE_EXPERIENCE"^^xsd:string "UE_MOBILITY"^^xsd:string "UE_COMMUNICATION"^^xsd:string "QOS_SUSTAINABILITY"^^xsd:string "ABNORMAL_BEHAVIOUR"^^xsd:string "USER_DATA_CONGESTION"^^xsd:string "NSI_LOAD_LEVEL"^^xsd:string "SM_CONGESTION"^^xsd:string "DISPERSION"^^xsd:string "RED_TRANS_EXP"^^xsd:string "WLAN_PERFORMANCE"^^xsd:string "DN_PERFORMANCE"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:EventId .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:nwdafEvSub ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:subscriptionId ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:producerId ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:producerSetId ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -237,74 +58,79 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AdditionInfoAnalyticsInfoRequest:rvWaitTime ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "HISTORICAL_ANALYTICS"^^xsd:string "HISTORICAL_DATA"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:AdrfDataType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment """Information about analytics subscriptions that the NWDAF has with other NWDAFs to perform  aggregation.
+""" ;
+            sh:class TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:wlanReqs ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:aggrSubs ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """Contains information identifying the ML model(s) that the consumer NWDAF is currently subscribing for the analytics.
+""" ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:modelInfo ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:maxTopAppDlNbr ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:lastOutputTime ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:qosRequ ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:adrfId ],
         [ a sh:PropertyShape ;
-            rdfs:comment "Identification(s) of LADN DNN to indicate the LADN service area as the AOI." ;
+            rdfs:comment "Historical output analytics." ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:ladnDnns ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:histAnalytics ],
         [ a sh:PropertyShape ;
+            rdfs:comment "Type(s) of data stored in the ADRF by the NWDAF." ;
+            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:dnPerfReqs ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:adrfDataTypes ],
         [ a sh:PropertyShape ;
+            rdfs:comment """NWDAF identifiers of NWDAF instances used by the NWDAF service consumer when aggregating  multiple analytics subscriptions.
+""" ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nfInstanceIds ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:aggrNwdafIds ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Historical data related to the analytics subscription." ;
+            sh:class TS29520_Nnwdaf_AnalyticsInfo:HistoricalData ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:histData ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:exptAnaType ],
-        [ a sh:PropertyShape ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:dnais ],
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:contextId ],
         [ a sh:PropertyShape ;
+            rdfs:comment """Output analytics for the analytics subscription which have not yet been sent to the  analytics consumer.
+""" ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nsiIdInfos ],
-        [ a sh:PropertyShape ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextElement:pendAnalytics ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextElement .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment """List of items that contain context information corresponding with a context identifier.
+""" ;
+            sh:class TS29520_Nnwdaf_AnalyticsInfo:ContextElement ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:excepIds ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:listOfAnaSubsets ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nwPerfTypes ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:anySlice ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Identification(s) of network slice." ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:snssais ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:dnns ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:bwRequs ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:redTransReqs ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:maxTopAppUlNbr ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:disperReqs ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:ratFreqs ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:appIds ],
-        [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nfSetIds ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:EventFilter .
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextData:contextElems ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextData .
+
+[] a sh:NodeShape ;
+    sh:class TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ProblemDetailsAnalyticsInfoRequest .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -317,18 +143,6 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextIdList:contextIds ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextIdList .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_AnalyticsInfo_AdditionInfoAnalyticsInfoRequest:rvWaitTime ] ;
-    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:AdditionInfoAnalyticsInfoRequest .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
             sh:path TS29520_Nnwdaf_AnalyticsInfo_SmcceUeList:highLevel ],
         [ a sh:PropertyShape ;
             sh:minCount 1 ;
@@ -337,4 +151,190 @@
             sh:minCount 1 ;
             sh:path TS29520_Nnwdaf_AnalyticsInfo_SmcceUeList:mediumLevel ] ;
     sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:SmcceUeList .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "LOAD_LEVEL_INFORMATION"^^xsd:string "NETWORK_PERFORMANCE"^^xsd:string "NF_LOAD"^^xsd:string "SERVICE_EXPERIENCE"^^xsd:string "UE_MOBILITY"^^xsd:string "UE_COMMUNICATION"^^xsd:string "QOS_SUSTAINABILITY"^^xsd:string "ABNORMAL_BEHAVIOUR"^^xsd:string "USER_DATA_CONGESTION"^^xsd:string "NSI_LOAD_LEVEL"^^xsd:string "SM_CONGESTION"^^xsd:string "DISPERSION"^^xsd:string "RED_TRANS_EXP"^^xsd:string "WLAN_PERFORMANCE"^^xsd:string "DN_PERFORMANCE"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:EventId .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:nwdafEvSub ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:producerSetId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:producerId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_SpecificAnalyticsSubscription:subscriptionId ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:SpecificAnalyticsSubscription .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:nfLoadLevelInfos ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The slices and their load level information." ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:sliceLoadLevelInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:disperInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:svcExps ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:wlanInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:qosSustainInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:dnPerfInfos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_AnalyticsInfo:SmcceInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:smccExps ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:start ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:nsiLoadLevelInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:ueMobs ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:userDataCongInfos ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:timeStampGen ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:ueComms ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:suppFeat ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:abnorBehavrs ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:redTransInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:nwPerfs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:expiry ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_AnalyticsData:anaMetaInfo ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:AnalyticsData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:bwRequs ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nwPerfTypes ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nfSetIds ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:maxTopAppUlNbr ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:disperReqs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:exptAnaType ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Identification(s) of network slice." ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:snssais ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:ratFreqs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:anySlice ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:redTransReqs ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nfInstanceIds ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:qosRequ ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:dnPerfReqs ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:dnns ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:nsiIdInfos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:appIds ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Identification(s) of LADN DNN to indicate the LADN service area as the AOI." ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:ladnDnns ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:wlanReqs ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:dnais ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:listOfAnaSubsets ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:maxTopAppDlNbr ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_EventFilter:excepIds ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:EventFilter .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_ContextIdList:contextIds ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:ContextIdList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Information about subscriptions with the data sources." ;
+            sh:class TS29520_Nnwdaf_AnalyticsInfo:SpecificDataSubscription ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:subsWithSources ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Historical data related to the analytics." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:data ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:startTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_AnalyticsInfo_HistoricalData:endTime ] ;
+    sh:targetClass TS29520_Nnwdaf_AnalyticsInfo:HistoricalData .
 

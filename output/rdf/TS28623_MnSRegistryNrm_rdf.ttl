@@ -1,7 +1,7 @@
-@prefix TS28623_MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#> .
-@prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/MnsInfo-Single#> .
-@prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/MnsRegistry-Single#> .
-@prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm#> .
+@prefix TS28623_MnSRegistryNrm: <https://example.org/TS28623_MnSRegistryNrm/> .
+@prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <https://example.org/TS28623_MnSRegistryNrm/MnsInfo-Single#> .
+@prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <https://example.org/TS28623_MnSRegistryNrm/MnsRegistry-Single#> .
+@prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <https://example.org/TS28623_MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -16,21 +16,6 @@ TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm a rdfs:Class .
 
 TS28623_MnSRegistryNrm:MnsInfo a rdf:Property ;
     rdfs:range TS28623_MnSRegistryNrm:MnsInfo-Multiple .
-
-TS28623_MnSRegistryNrm:mnsAddress a rdf:Property ;
-    rdfs:comment "Resource URI as defined in the relevant Technical Specification" .
-
-TS28623_MnSRegistryNrm:mnsLabel a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsScope a rdf:Property ;
-    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." .
-
-TS28623_MnSRegistryNrm:mnsType a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsVersion a rdf:Property ;
-    rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm_MnsInfo-Single:mnsAddress a rdf:Property ;
     rdfs:comment "Resource URI as defined in the relevant Technical Specification" ;
@@ -59,4 +44,19 @@ TS28623_MnSRegistryNrm_MnsRegistry-Single:MnsInfo a rdf:Property ;
 TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry a rdf:Property ;
     rdfs:domain TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm ;
     rdfs:range TS28623_MnSRegistryNrm:MnsRegistry-Single .
+
+TS28623_MnSRegistryNrm:mnsAddress a rdf:Property ;
+    rdfs:comment "Resource URI as defined in the relevant Technical Specification" .
+
+TS28623_MnSRegistryNrm:mnsLabel a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:mnsScope a rdf:Property ;
+    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." .
+
+TS28623_MnSRegistryNrm:mnsType a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:mnsVersion a rdf:Property ;
+    rdfs:range xsd:string .
 

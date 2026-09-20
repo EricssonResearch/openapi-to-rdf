@@ -1,18 +1,35 @@
-@prefix TS28319_MsacNrm: <http://ericsson.com/models/3gpp/TS28319/MsacNrm#> .
-@prefix TS28319_MsacNrm_AccessRule-Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/AccessRule-Single#> .
-@prefix TS28319_MsacNrm_Identity-Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/Identity-Single#> .
-@prefix TS28319_MsacNrm_Role-Single: <http://ericsson.com/models/3gpp/TS28319/MsacNrm/Role-Single#> .
+@prefix TS28319_MsacNrm: <https://example.org/TS28319_MsacNrm/> .
+@prefix TS28319_MsacNrm_AccessRule-Single: <https://example.org/TS28319_MsacNrm/AccessRule-Single#> .
+@prefix TS28319_MsacNrm_Identity-Single: <https://example.org/TS28319_MsacNrm/Identity-Single#> .
+@prefix TS28319_MsacNrm_Role-Single: <https://example.org/TS28319_MsacNrm/Role-Single#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-TS28319_MsacNrm:AccessRule-Single a rdfs:Class .
+TS28319_MsacNrm:AccessRule-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
-TS28319_MsacNrm:Identity-Single a rdfs:Class .
+TS28319_MsacNrm:Identity-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
-TS28319_MsacNrm:Role-Single a rdfs:Class .
+TS28319_MsacNrm:Role-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
-TS28319_MsacNrm:accessRulesList a rdf:Property .
+TS28319_MsacNrm_AccessRule-Single:attributes a rdf:Property ;
+    rdfs:domain TS28319_MsacNrm:AccessRule-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28319_MsacNrm_Identity-Single:attributes a rdf:Property ;
+    rdfs:domain TS28319_MsacNrm:Identity-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28319_MsacNrm_Role-Single:attributes a rdf:Property ;
+    rdfs:domain TS28319_MsacNrm:Role-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28319_MsacNrm:accessRulesList a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28319_MsacNrm:actions a rdf:Property ;
     rdfs:range xsd:string .
@@ -39,20 +56,9 @@ TS28319_MsacNrm:resources a rdf:Property ;
 TS28319_MsacNrm:roleName a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28319_MsacNrm:roleRefList a rdf:Property .
+TS28319_MsacNrm:roleRefList a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28319_MsacNrm:ruleName a rdf:Property ;
     rdfs:range xsd:string .
-
-TS28319_MsacNrm_AccessRule-Single:attributes a rdf:Property ;
-    rdfs:domain TS28319_MsacNrm:AccessRule-Single ;
-    rdfs:range rdfs:Resource .
-
-TS28319_MsacNrm_Identity-Single:attributes a rdf:Property ;
-    rdfs:domain TS28319_MsacNrm:Identity-Single ;
-    rdfs:range rdfs:Resource .
-
-TS28319_MsacNrm_Role-Single:attributes a rdf:Property ;
-    rdfs:domain TS28319_MsacNrm:Role-Single ;
-    rdfs:range rdfs:Resource .
 

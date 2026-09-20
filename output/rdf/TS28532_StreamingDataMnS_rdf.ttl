@@ -1,13 +1,14 @@
-@prefix TS28532_StreamingDataMnS: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS#> .
-@prefix TS28532_StreamingDataMnS_analyticsInfo-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/analyticsInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_connectionInfo-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/connectionInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_connectionRequest-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/connectionRequest-Type#> .
-@prefix TS28532_StreamingDataMnS_errorResponse-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/errorResponse-Type#> .
-@prefix TS28532_StreamingDataMnS_failedConnectionResponse-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/failedConnectionResponse-Type#> .
-@prefix TS28532_StreamingDataMnS_performanceInfo-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/performanceInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_streamInfo-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_streamInfoWithReporters-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/streamInfoWithReporters-Type#> .
-@prefix TS28532_StreamingDataMnS_vsDataContainer-Type: <http://ericsson.com/models/3gpp/TS28532/StreamingDataMnS/vsDataContainer-Type#> .
+@prefix TS28532_StreamingDataMnS: <https://example.org/TS28532_StreamingDataMnS/> .
+@prefix TS28532_StreamingDataMnS_analyticsInfo-Type: <https://example.org/TS28532_StreamingDataMnS/analyticsInfo-Type#> .
+@prefix TS28532_StreamingDataMnS_connectionInfo-Type: <https://example.org/TS28532_StreamingDataMnS/connectionInfo-Type#> .
+@prefix TS28532_StreamingDataMnS_connectionRequest-Type: <https://example.org/TS28532_StreamingDataMnS/connectionRequest-Type#> .
+@prefix TS28532_StreamingDataMnS_errorResponse-Type: <https://example.org/TS28532_StreamingDataMnS/errorResponse-Type#> .
+@prefix TS28532_StreamingDataMnS_failedConnectionResponse-Type: <https://example.org/TS28532_StreamingDataMnS/failedConnectionResponse-Type#> .
+@prefix TS28532_StreamingDataMnS_performanceInfo-Type: <https://example.org/TS28532_StreamingDataMnS/performanceInfo-Type#> .
+@prefix TS28532_StreamingDataMnS_streamInfo-Type: <https://example.org/TS28532_StreamingDataMnS/streamInfo-Type#> .
+@prefix TS28532_StreamingDataMnS_streamInfoWithReporters-Type: <https://example.org/TS28532_StreamingDataMnS/streamInfoWithReporters-Type#> .
+@prefix TS28532_StreamingDataMnS_vsDataContainer-Type: <https://example.org/TS28532_StreamingDataMnS/vsDataContainer-Type#> .
+@prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -39,56 +40,11 @@ TS28532_StreamingDataMnS:streamInfo-Type a rdfs:Class ;
 TS28532_StreamingDataMnS:streamInfoWithReporters-Type a rdfs:Class ;
     rdfs:comment "Reporting stream meta-data with added information about reporters." .
 
-TS28532_StreamingDataMnS:traceInfo-Type a rdfs:Class .
+TS28532_StreamingDataMnS:traceInfo-Type a rdfs:Class ;
+    rdfs:subClassOf TS28623_TraceControlNrm:TraceJob-Attr .
 
 TS28532_StreamingDataMnS:vsDataContainer-Type a rdfs:Class ;
     rdfs:comment "container for vendor specific data (see 3GPP TS 28.622)" .
-
-TS28532_StreamingDataMnS:errorInfo a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:errorReason a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:serializationFormat-Type a rdfs:Datatype .
-
-TS28532_StreamingDataMnS:streamId a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28532_StreamingDataMnS:streamId-Type a rdfs:Datatype ;
-    rdfs:comment "globally unique stream identifier" .
-
-TS28532_StreamingDataMnS:streamType-Type a rdfs:Datatype .
-
-TS28532_StreamingDataMnS:systemDN-Type a rdfs:Datatype ;
-    rdfs:comment "See 3GPP TS 32.300 for details" .
-
-TS28532_StreamingDataMnS:traceReference-Type a rdfs:Datatype ;
-    rdfs:comment "Trace Reference (see clause 5.6 of 3GPP TS 32.422) as stream identifier for streaming trace data reporting" .
-
-TS28532_StreamingDataMnS:uri-Type a rdfs:Datatype ;
-    rdfs:comment "Resource URI" .
-
-TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Accept-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for secure WebSocket response. Carries hash." .
-
-TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Extensions-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for secure WebSocket request. Carries protocol extensions." .
-
-TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Key-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for secure WebSocket request. Provides information to the server which is needed in order to confirm that the client is entitled to request an upgrade to WebSocket." .
-
-TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Protocol-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for secure WebSocket request. Carries a comma-separated list of subprotocol names, in the order of preference." .
-
-TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Version-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for secure WebSocket request and response. Carries the WebSocket protocol version to be used." .
-
-TS28532_StreamingDataMnS:websocketHeaderConnection-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for the upgrade request and response." .
-
-TS28532_StreamingDataMnS:websocketHeaderUpgrade-Type a rdfs:Datatype ;
-    rdfs:comment "Header value for the upgrade to WebSocket request and response." .
 
 TS28532_StreamingDataMnS_analyticsInfo-Type:activityDetails a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:analyticsInfo-Type ;
@@ -114,6 +70,12 @@ TS28532_StreamingDataMnS_connectionRequest-Type:streams a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:connectionRequest-Type ;
     rdfs:range TS28532_StreamingDataMnS:streamInfo-Type .
 
+TS28532_StreamingDataMnS:errorInfo a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:errorReason a rdf:Property ;
+    rdfs:range xsd:string .
+
 TS28532_StreamingDataMnS_errorResponse-Type:error a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:errorResponse-Type ;
     rdfs:range rdfs:Resource .
@@ -132,6 +94,14 @@ TS28532_StreamingDataMnS_performanceInfo-Type:measObjDn a rdf:Property ;
 TS28532_StreamingDataMnS_performanceInfo-Type:performanceMetrics a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:performanceInfo-Type ;
     rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:serializationFormat-Type a rdfs:Datatype .
+
+TS28532_StreamingDataMnS:streamId a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:streamId-Type a rdfs:Datatype ;
+    rdfs:comment "globally unique stream identifier" .
 
 TS28532_StreamingDataMnS_streamInfo-Type:additionalInfo a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:streamInfo-Type .
@@ -155,6 +125,17 @@ TS28532_StreamingDataMnS_streamInfoWithReporters-Type:streamInfo a rdf:Property 
     rdfs:domain TS28532_StreamingDataMnS:streamInfoWithReporters-Type ;
     rdfs:range TS28532_StreamingDataMnS:streamInfo-Type .
 
+TS28532_StreamingDataMnS:streamType-Type a rdfs:Datatype .
+
+TS28532_StreamingDataMnS:systemDN-Type a rdfs:Datatype ;
+    rdfs:comment "See 3GPP TS 32.300 for details" .
+
+TS28532_StreamingDataMnS:traceReference-Type a rdfs:Datatype ;
+    rdfs:comment "Trace Reference (see clause 5.6 of 3GPP TS 32.422) as stream identifier for streaming trace data reporting" .
+
+TS28532_StreamingDataMnS:uri-Type a rdfs:Datatype ;
+    rdfs:comment "Resource URI" .
+
 TS28532_StreamingDataMnS_vsDataContainer-Type:vsData a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:vsDataContainer-Type ;
     rdfs:range xsd:string .
@@ -166,4 +147,25 @@ TS28532_StreamingDataMnS_vsDataContainer-Type:vsDataFormatVersion a rdf:Property
 TS28532_StreamingDataMnS_vsDataContainer-Type:vsDataType a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:vsDataContainer-Type ;
     rdfs:range xsd:string .
+
+TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Accept-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for secure WebSocket response. Carries hash." .
+
+TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Extensions-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for secure WebSocket request. Carries protocol extensions." .
+
+TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Key-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for secure WebSocket request. Provides information to the server which is needed in order to confirm that the client is entitled to request an upgrade to WebSocket." .
+
+TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Protocol-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for secure WebSocket request. Carries a comma-separated list of subprotocol names, in the order of preference." .
+
+TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Version-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for secure WebSocket request and response. Carries the WebSocket protocol version to be used." .
+
+TS28532_StreamingDataMnS:websocketHeaderConnection-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for the upgrade request and response." .
+
+TS28532_StreamingDataMnS:websocketHeaderUpgrade-Type a rdfs:Datatype ;
+    rdfs:comment "Header value for the upgrade to WebSocket request and response." .
 
