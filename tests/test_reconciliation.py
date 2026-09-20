@@ -6,8 +6,7 @@ projections must be identical, or the name appears in a stated exclusion set wit
 
 from __future__ import annotations
 
-import pytest
-from rdflib import RDF, RDFS, Namespace
+from rdflib import Namespace
 
 from openapi_to_rdf import build_mapping
 
@@ -179,7 +178,6 @@ def test_assert_count_of_names_checked() -> None:
 def test_injected_disagreement_is_detected() -> None:
     """An injected disagreement must be detected and reported."""
     from scripts.reconcile_projections import reconcile
-    from openapi_to_rdf.projections.overlay import overlay_from_mapping
     from pathlib import Path
     import tempfile
     import yaml

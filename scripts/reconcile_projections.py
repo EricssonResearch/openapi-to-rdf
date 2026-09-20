@@ -20,7 +20,6 @@ from openapi_to_rdf import build_mapping
 from openapi_to_rdf.projections.context import context_from_mapping
 from openapi_to_rdf.projections.operations import operations_from_mapping
 from openapi_to_rdf.projections.overlay import overlay_from_mapping
-from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
 
 HYDRA = Namespace("http://www.w3.org/ns/hydra/core#")
 

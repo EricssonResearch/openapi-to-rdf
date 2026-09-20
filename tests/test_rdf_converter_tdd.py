@@ -8,7 +8,6 @@ import tempfile
 
 import pytest
 import yaml
-from rdflib import Literal, Namespace
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 
 from openapi_to_rdf.property_uri import property_uri

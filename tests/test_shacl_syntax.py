@@ -6,7 +6,6 @@ This test suite verifies that generated SHACL files are syntactically sound
 and don't contain invalid anonymous IDs or other syntax issues.
 """
 
-import os
 import re
 from pathlib import Path
 from rdflib import Graph

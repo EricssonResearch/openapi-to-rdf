@@ -10,10 +10,9 @@ For new work, use ``build_mapping`` and project from it. This converter remains 
 through the CLI for backward compatibility with existing users.
 """
 import os
-import sys
 
 import yaml
-from rdflib import BNode, Graph, Literal, Namespace, URIRef
+from rdflib import BNode, Graph, Literal, Namespace
 from rdflib.collection import Collection
 from rdflib.namespace import OWL, RDF, RDFS, XSD
 

@@ -4,8 +4,8 @@ Semantic correctness tests for OpenAPI to RDF/SHACL conversion.
 """
 
 import yaml
-from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import RDF, RDFS, XSD
+from rdflib import Graph, Namespace
+from rdflib.namespace import XSD
 
 class SemanticValidator:
     """Validates semantic correctness of RDF/SHACL output."""

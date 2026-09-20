@@ -5,7 +5,6 @@ import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
-from rdflib.term import URIRef as URIRefTerm
 
 from openapi_to_rdf.mapping import (
     REFERS_TO_LOCAL,
@@ -30,7 +29,7 @@ from openapi_to_rdf.property_uri import (
 def _package_version() -> str:
     """Best-effort lookup of the installed package version."""
     try:
-        from importlib.metadata import PackageNotFoundError, version
+        from importlib.metadata import version
 
         return version("openapi-to-rdf")
     except Exception:

@@ -4,9 +4,7 @@ Completeness tests to ensure all OpenAPI schemas are converted to RDF/SHACL.
 """
 
 import yaml
-import re
 from rdflib import Graph
-from pathlib import Path
 
 class CompletenessValidator:
     """Validates that all OpenAPI schemas are represented in RDF output."""

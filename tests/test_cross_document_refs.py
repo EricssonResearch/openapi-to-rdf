@@ -8,7 +8,6 @@ reference targets"* — the document qualifier is load-bearing.
 
 from __future__ import annotations
 
-import tempfile
 from pathlib import Path
 
 import pytest
@@ -115,7 +114,7 @@ def test_external_ref_as_property_target_resolves(multidoc_workspace):
     # The payload property should point to CommonType from base.yaml
     graph = converter.rdf_graph
     # Check that the payload property has an rdfs:range that references CommonType
-    from rdflib import RDFS, Namespace
+    from rdflib import RDFS
 
     # Find payload property's range
     payload_ranges = list(graph.objects(None, RDFS.range))
@@ -220,7 +219,6 @@ def test_split_model_common_class_iri_is_stable(tmp_path: Path):
     )
 
     # And the inheritance edge is emitted in RDF
-    from rdflib import RDFS
     subclass_triples = list(converter.rdf_graph.triples((None, RDFS.subClassOf, None)))
     order_parents = [str(o) for s, p, o in subclass_triples if "Order" in str(s)]
     assert any("TimePeriod" in parent for parent in order_parents), (

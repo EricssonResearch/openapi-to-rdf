@@ -15,12 +15,11 @@ Usage:
     python scripts/generate_coverage_report.py
 """
 import sys
-from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
 from rdflib import Graph, Namespace
-from rdflib.namespace import RDF, RDFS, XSD
+from rdflib.namespace import RDF, RDFS
 
 SH = Namespace("http://www.w3.org/ns/shacl#")
 
@@ -176,7 +175,7 @@ def main():
         sys.exit(1)
 
     if not test_dir.exists():
-        print(f"No test-cases/ directory found. Creating empty report.", file=sys.stderr)
+        print("No test-cases/ directory found. Creating empty report.", file=sys.stderr)
         test_dir.mkdir(parents=True, exist_ok=True)
 
     rdf_classes, rdf_properties = extract_rdf_elements(rdf_dir)

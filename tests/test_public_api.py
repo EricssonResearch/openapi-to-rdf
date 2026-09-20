@@ -7,7 +7,6 @@ second has no promise attached.
 
 from __future__ import annotations
 
-import importlib
 
 import openapi_to_rdf
 

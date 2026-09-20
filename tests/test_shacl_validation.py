@@ -17,7 +17,7 @@ import yaml
 from jsonschema import validate as js_validate, ValidationError as JSError
 from pyshacl import validate as shacl_validate
 from rdflib import Graph, Literal, Namespace, BNode
-from rdflib.namespace import RDF, RDFS, XSD
+from rdflib.namespace import RDF, XSD
 
 from openapi_to_rdf.property_uri import property_uri as _class_scoped_uri
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
@@ -46,7 +46,6 @@ def _jsonschema_valid(schema_def, instance, full_schemas=None):
     if full_schemas:
         schema = {**schema_def, "components": {"schemas": full_schemas}}
         # jsonschema needs a resolver for $ref
-        import jsonschema
         # Inline-resolve refs for simplicity
         resolved = _resolve_refs(schema_def, full_schemas)
     else:

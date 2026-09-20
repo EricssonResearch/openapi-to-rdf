@@ -12,12 +12,11 @@ The converter is used only to learn the RDF vocabulary (property URIs).
 The jsonschema oracle determines valid/invalid — never the SHACL output.
 """
 import re
-import sys
 from pathlib import Path
 
 import yaml
 from jsonschema import validate as js_validate, ValidationError
-from rdflib import Graph, Literal, Namespace
+from rdflib import Graph, Literal
 from rdflib.namespace import RDF, RDFS, XSD
 
 

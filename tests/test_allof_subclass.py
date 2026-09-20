@@ -11,7 +11,6 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
-import pytest
 import yaml
 from rdflib import Graph, Namespace
 from rdflib.namespace import RDF, RDFS

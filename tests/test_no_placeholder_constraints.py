@@ -9,7 +9,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
 import yaml
 from rdflib import Graph
 from rdflib.namespace import OWL, SH

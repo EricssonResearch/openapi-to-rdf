@@ -1,8 +1,5 @@
 """Tests for the property index sidecar writer."""
 
-import os
-import tempfile
-from pathlib import Path
 
 import pytest
 import yaml

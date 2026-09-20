@@ -3,9 +3,7 @@
 Comprehensive test runner for OpenAPI to RDF/SHACL conversion.
 """
 
-import os
 import sys
-import subprocess
 from pathlib import Path
 
 # Add parent directory to path to import modules

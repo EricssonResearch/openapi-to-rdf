@@ -77,7 +77,7 @@ def convert_files(args):
             logging.error(f"Conversion failed for {yaml_file}: {str(e)}")
     
     # Summary
-    print(f"\nConversion Summary:")
+    print("\nConversion Summary:")
     print(f"  Total files processed: {len(yaml_files)}")
     print(f"  Successful conversions: {successful_conversions}")
     print(f"  Failed conversions: {failed_conversions}")
