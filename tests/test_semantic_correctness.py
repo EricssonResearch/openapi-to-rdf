@@ -105,7 +105,6 @@ class SemanticValidator:
     
     def validate_type_mappings(self):
         """Validate OpenAPI type to XSD type mappings."""
-        issues = []
         type_mapping_errors = []
         
         schemas = self.yaml_data.get('components', {}).get('schemas', {})
@@ -114,7 +113,6 @@ class SemanticValidator:
             if isinstance(schema_def, dict):
                 # Check string types
                 if schema_def.get('type') == 'string':
-                    expected_datatype = XSD.string
                     if 'format' in schema_def:
                         format_map = {
                             'date-time': XSD.dateTime,
@@ -122,7 +120,7 @@ class SemanticValidator:
                             'date-month': XSD.gMonth,
                             'date-mday': XSD.gMonthDay,
                         }
-                        expected_datatype = format_map.get(schema_def['format'], XSD.string)
+                        format_map.get(schema_def['format'], XSD.string)
                     
                     # Check if properties using this schema have correct datatype in SHACL
                     # This is a simplified check - full validation would require more complex querying
@@ -130,10 +128,9 @@ class SemanticValidator:
                 # Check integer/number types
                 elif schema_def.get('type') in ['integer', 'number']:
                     if schema_def.get('type') == 'integer':
-                        expected_datatype = XSD.integer
+                        pass
                     else:
-                        format_val = schema_def.get('format', 'double')
-                        expected_datatype = XSD.float if format_val == 'float' else XSD.double
+                        schema_def.get('format', 'double')
         
         return type_mapping_errors
     

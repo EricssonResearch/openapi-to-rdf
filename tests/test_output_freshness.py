@@ -8,7 +8,6 @@ differs from a fresh regeneration, making drift visible before push.
 from __future__ import annotations
 
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
@@ -42,18 +41,17 @@ def test_output_matches_fresh_regeneration():
         capture_output=True,
         text=True,
     )
-    initial_status = result.stdout
 
-    # Regenerate
+    # Regenerate using uv run
     result = subprocess.run(
-        [sys.executable, str(regenerate_script)],
+        ["uv", "run", "python", str(regenerate_script)],
         cwd=repo_root,
         capture_output=True,
         text=True,
     )
 
     if result.returncode != 0:
-        pytest.fail(f"Regeneration failed:\n{result.stderr}")
+        pytest.fail(f"Regeneration failed:\n{result.stdout}\n{result.stderr}")
 
     # Check if anything changed
     result = subprocess.run(

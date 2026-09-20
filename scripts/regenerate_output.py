@@ -46,8 +46,7 @@ def main():
             output_dir=str(output_dir),
             external_refs=external_refs,
         )
-        converter.convert()
-        converter.save()
+        converter.run()
 
     print(f"\n✓ Regenerated {len(specs)} specs into {output_dir}")
 

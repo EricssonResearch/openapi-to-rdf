@@ -44,7 +44,6 @@ def _jsonschema_valid(schema_def, instance, full_schemas=None):
     """Check if instance is valid per jsonschema. Returns True/False."""
     # Build a JSON Schema with local $ref resolution
     if full_schemas:
-        schema = {**schema_def, "components": {"schemas": full_schemas}}
         # jsonschema needs a resolver for $ref
         # Inline-resolve refs for simplicity
         resolved = _resolve_refs(schema_def, full_schemas)

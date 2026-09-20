@@ -50,3 +50,16 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["openapi_to_rdf"]
+
+[tool.ruff]
+# Minimal ruff configuration - errors only, no style
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+# F: pyflakes errors (undefined names, unused imports/variables)
+select = ["F"]
+
+[tool.ruff.lint.per-file-ignores]
+# OpenAPIToRDFConverter imported for legacy CLI compatibility but not in __all__
+"openapi_to_rdf/__init__.py" = ["F401"]
