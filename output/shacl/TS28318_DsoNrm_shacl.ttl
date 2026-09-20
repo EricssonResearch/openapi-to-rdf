@@ -1,61 +1,98 @@
-@prefix TS28318_DsoNrm: <https://example.org/TS28318_DsoNrm/> .
-@prefix TS28318_DsoNrm_DsoThresholdMonitor-Single: <https://example.org/TS28318_DsoNrm/DsoThresholdMonitor-Single#> .
-@prefix TS28318_DsoNrm_EnergyServiceLocation: <https://example.org/TS28318_DsoNrm/EnergyServiceLocation#> .
-@prefix TS28318_DsoNrm_OutageAndRecoveryInfo-Single: <https://example.org/TS28318_DsoNrm/OutageAndRecoveryInfo-Single#> .
-@prefix TS28318_DsoNrm_SubNetwork-ncO-DsoNrm: <https://example.org/TS28318_DsoNrm/SubNetwork-ncO-DsoNrm#> .
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
-@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
-@prefix TS28623_ThresholdMonitorNrm: <http://ericsson.com/models/3gpp/TS28623/ThresholdMonitorNrm#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix TS28318_DsoNrm: <http://ericsson.com/models/3gpp/TS28318/DsoNrm#> .
+@prefix TS28318_DsoNrm_DsoThresholdMonitor-Single: <http://ericsson.com/models/3gpp/TS28318/DsoNrm/DsoThresholdMonitor-Single#> .
+@prefix TS28318_DsoNrm_EnergyServiceLocation: <http://ericsson.com/models/3gpp/TS28318/DsoNrm/EnergyServiceLocation#> .
+@prefix TS28318_DsoNrm_OutageAndRecoveryInfo-Single: <http://ericsson.com/models/3gpp/TS28318/DsoNrm/OutageAndRecoveryInfo-Single#> .
+@prefix TS28318_DsoNrm_SubNetwork-ncO-DsoNrm: <http://ericsson.com/models/3gpp/TS28318/DsoNrm/SubNetwork-ncO-DsoNrm#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28318_DsoNrm:DsoThresholdMonitor-Single ;
-            sh:path TS28318_DsoNrm_SubNetwork-ncO-DsoNrm:DsoThresholdMonitor ],
-        [ a sh:PropertyShape ;
-            sh:class TS28318_DsoNrm:OutageAndRecoveryInfo-Single ;
-            sh:path TS28318_DsoNrm_SubNetwork-ncO-DsoNrm:OutageAndRecoveryInfo ] ;
-    sh:targetClass TS28318_DsoNrm:SubNetwork-ncO-DsoNrm .
-
-[] a sh:NodeShape ;
-    sh:class TS28318_DsoNrm:OutageAndRecoveryInfo-Single ;
-    sh:targetClass TS28318_DsoNrm:OutageAndRecoveryInfo-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:datatype xsd:integer ;
                     sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:targetThresholdLocation ;
-                    sh:xone ( [ a sh:NodeShape ;
-                                sh:class TS28623_ComDefs:GeoAreaToCellMapping ] [ a sh:NodeShape ;
-                                sh:class TS28623_GenericNrm:Tai ] [ a sh:NodeShape ;
-                                sh:datatype xsd:string ;
-                                sh:pattern "^[A-Fa-f0-9]{9}$" ] [ a sh:NodeShape ;
-                                sh:datatype xsd:string ;
-                                sh:pattern "^[A-Fa-f0-9]{7}$" ] [ a sh:NodeShape ;
-                                sh:datatype xsd:integer ] ) ] ] ;
+                    sh:path TS28318_DsoNrm:mnoInterventionDuration ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28318_DsoNrm:EnergyServiceLocation ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:affectedArea ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:isAffectedAreaPriority ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:outageStartTime ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:mnoInterventionTime ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:dsoRapidInterventionDuration ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:actualOutageEndTime ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:mnoMaxServiceDuration ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:dsoRapidInterventionTime ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:expectedOutageEndTime ] ] ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_DsoThresholdMonitor-Single:targetThresholdLocation ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:GeoAreaToCellMapping ] [ a sh:NodeShape ;
-                        sh:class TS28623_GenericNrm:Tai ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:pattern "^[A-Fa-f0-9]{9}$" ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:pattern "^[A-Fa-f0-9]{7}$" ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] ) ] ;
-    sh:targetClass TS28318_DsoNrm:DsoThresholdMonitor-Single .
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:dsoRapidInterventionTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:mnoMaxServiceDuration ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:outageStartTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:dsoRapidInterventionDuration ],
+        [ a sh:PropertyShape ;
+            sh:class TS28318_DsoNrm:EnergyServiceLocation ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:affectedArea ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:mnoInterventionDuration ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:actualOutageEndTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:expectedOutageEndTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:mnoInterventionTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:isAffectedAreaPriority ] ;
+    sh:targetClass TS28318_DsoNrm:OutageAndRecoveryInfo-Single .
 
 [] a sh:NodeShape ;
     sh:class TS28318_DsoNrm:DsoThresholdMonitor-Single ;
     sh:targetClass TS28318_DsoNrm:DsoThresholdMonitor-Multiple .
+
+[] a sh:NodeShape ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28318_DsoNrm:targetThresholdLocation ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28318_DsoNrm_DsoThresholdMonitor-Single:targetThresholdLocation ] ;
+    sh:targetClass TS28318_DsoNrm:DsoThresholdMonitor-Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -69,87 +106,15 @@
     sh:targetClass TS28318_DsoNrm:EnergyServiceLocation .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28318_DsoNrm:EnergyServiceLocation ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:affectedArea ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:mnoInterventionDuration ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:dsoRapidInterventionDuration ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:mnoMaxServiceDuration ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:mnoInterventionTime ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:outageStartTime ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:expectedOutageEndTime ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:actualOutageEndTime ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:dsoRapidInterventionTime ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28318_DsoNrm:isAffectedAreaPriority ] ] ;
+    sh:class TS28318_DsoNrm:OutageAndRecoveryInfo-Single ;
+    sh:targetClass TS28318_DsoNrm:OutageAndRecoveryInfo-Multiple .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:mnoInterventionDuration ],
+            sh:class TS28318_DsoNrm:OutageAndRecoveryInfo-Single ;
+            sh:path TS28318_DsoNrm_SubNetwork-ncO-DsoNrm:OutageAndRecoveryInfo ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:dsoRapidInterventionTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:outageStartTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:isAffectedAreaPriority ],
-        [ a sh:PropertyShape ;
-            sh:class TS28318_DsoNrm:EnergyServiceLocation ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:affectedArea ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:expectedOutageEndTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:mnoInterventionTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:mnoMaxServiceDuration ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:dsoRapidInterventionDuration ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28318_DsoNrm_OutageAndRecoveryInfo-Single:actualOutageEndTime ] ;
-    sh:targetClass TS28318_DsoNrm:OutageAndRecoveryInfo-Single .
+            sh:class TS28318_DsoNrm:DsoThresholdMonitor-Single ;
+            sh:path TS28318_DsoNrm_SubNetwork-ncO-DsoNrm:DsoThresholdMonitor ] ;
+    sh:targetClass TS28318_DsoNrm:SubNetwork-ncO-DsoNrm .
 

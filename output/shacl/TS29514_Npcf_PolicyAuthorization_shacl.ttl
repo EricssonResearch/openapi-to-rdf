@@ -1,4 +1,3 @@
-@prefix TS29512_Npcf_SMPolicyControl: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl#> .
 @prefix TS29514_Npcf_PolicyAuthorization: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AcceptableServiceInfo#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AccessNetChargingIdentifier#> .
@@ -8,7 +7,6 @@
 @prefix TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AfRoutingRequirementRm#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AnGwAddress: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AnGwAddress#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AppSessionContext: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AppSessionContext#> .
-@prefix TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AppSessionContextReqData#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AppSessionContextRespData#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AppSessionContextUpdateData#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateDataPatch: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/AppSessionContextUpdateDataPatch#> .
@@ -23,7 +21,6 @@
 @prefix TS29514_Npcf_PolicyAuthorization_MediaSubComponent: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/MediaSubComponent#> .
 @prefix TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/MediaSubComponentRm#> .
 @prefix TS29514_Npcf_PolicyAuthorization_OutOfCreditInformation: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/OutOfCreditInformation#> .
-@prefix TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/PcscfRestorationRequestData#> .
 @prefix TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/PduSessionTsnBridge#> .
 @prefix TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/QosMonitoringInformation#> .
 @prefix TS29514_Npcf_PolicyAuthorization_QosMonitoringInformationRm: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/QosMonitoringInformationRm#> .
@@ -38,11 +35,206 @@
 @prefix TS29514_Npcf_PolicyAuthorization_TsnQosContainer: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/TsnQosContainer#> .
 @prefix TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/TsnQosContainerRm#> .
 @prefix TS29514_Npcf_PolicyAuthorization_UeIdentityInfo: <http://ericsson.com/models/3gpp/TS29514/Npcf_PolicyAuthorization/UeIdentityInfo#> .
-@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "USER_LOCATION"^^xsd:string "UE_TIME_ZONE"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:RequiredAccessInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:qosMon ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:notifUri ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:reqQosMonParams ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:reqAnis ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:events ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:notifCorreId ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:EventsSubscReqData .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "AUDIO"^^xsd:string "VIDEO"^^xsd:string "DATA"^^xsd:string "APPLICATION"^^xsd:string "CONTROL"^^xsd:string "TEXT"^^xsd:string "MESSAGE"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:gpsi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:pei ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:supi ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:UeIdentityInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_OutOfCreditInformation:flows ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:FlowDescription .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:afSigProtocol ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:fNum ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:ethfDescs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:fDescs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:flowUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:tosTrCl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:marBwUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:fStatus ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:marBwDl ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:PrioritySharingIndicator .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier:flows ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier:accNetChaIdValue ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ACTIVE"^^xsd:string "INACTIVE"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaComponentResourcesStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:tempVals ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:routeToLocs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:SpatialValidityRm ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:spVal ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:addrPreserInd ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:appReloc ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:upPathChgSub ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "FINAL"^^xsd:string "PRELIMINARY"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ServiceInfoStatus .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "NO_INFO"^^xsd:string "RTCP"^^xsd:string "AF_SIGNALLING"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:FlowUsage .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UE_IDENTITY"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfRequestedData .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "SINGLE_DIALOGUE"^^xsd:string "SEVERAL_DIALOGUES"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:SipForkingIndication .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfAppId .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:maxInclusive 8 ;
+    sh:minInclusive 1 ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TscPriorityLevelRm .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "PRIO_1"^^xsd:string "PRIO_2"^^xsd:string "PRIO_3"^^xsd:string "PRIO_4"^^xsd:string "PRIO_5"^^xsd:string "PRIO_6"^^xsd:string "PRIO_7"^^xsd:string "PRIO_8"^^xsd:string "PRIO_9"^^xsd:string "PRIO_10"^^xsd:string "PRIO_11"^^xsd:string "PRIO_12"^^xsd:string "PRIO_13"^^xsd:string "PRIO_14"^^xsd:string "PRIO_15"^^xsd:string "PRIO_16"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ReservPriority .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
@@ -52,12 +244,173 @@
     sh:targetClass TS29514_Npcf_PolicyAuthorization:AfNotifMethod .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:SponId .
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:afRoutReq ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:contVer ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:minDesBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:mirBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:preemptCap ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:rrBw ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:prioSharingInd ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:sharingKeyDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:preemptVuln ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:marBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:minDesBwUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:disUeNotif ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:marBwUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxSuppBwUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:mirBwUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxSuppBwDl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tsnQos ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:fStatus ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxPacketLossRateUl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tscaiInputUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:desMaxLatency ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:sharingKeyUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:rsBw ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:altSerReqs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medSubComps ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:afAppId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:desMaxLoss ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:flusId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:qosReference ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:resPrio ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:codecs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxPacketLossRateDl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tscaiInputDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medCompN ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfAppId .
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:CodecData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TemporalValidity:startTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TemporalValidity:stopTime ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TemporalValidity .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:reqQosMonParams ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:qosMon ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:notifCorreId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:events ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:reqAnis ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:notifUri ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ServiceUrn .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -65,322 +418,122 @@
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:appReloc ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RouteToLocation ;
             sh:minCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:routeToLocs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:SpatialValidity ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:spVal ],
         [ a sh:PropertyShape ;
             sh:class TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
             sh:minCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:tempVals ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:upPathChgSub ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:addrPreserInd ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:SpatialValidity ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:spVal ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:addrPreserInd ] ;
     sh:targetClass TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement .
 
 [] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "MOST_RECENT"^^xsd:string "LEAST_RECENT"^^xsd:string "HIGHEST_BW"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:PreemptionControlInformation .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "GUARANTEED"^^xsd:string "NOT_GUARANTEED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:QosNotifType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateDataPatch:ascReqData ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateDataPatch .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:ProblemDetails ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
-                    sh:maxCount 1 ;
-                    sh:path TS29514_Npcf_PolicyAuthorization:acceptableServInfo ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_ExtendedProblemDetails:acceptableServInfo ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ExtendedProblemDetails .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TerminationInfo:resUri ],
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:tosTrCl ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TerminationInfo:termCause ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TerminationInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshRp ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfEventNotification:event ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfEventNotification:flows ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfEventNotification .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "SPONSOR_DISABLED"^^xsd:string "SPONSOR_ENABLED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:SponsoringStatus .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TscaiInputContainer:burstArrivalTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TscaiInputContainer:periodicity ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TscaiInputContainer .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:events ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:reqQosMonParams ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:notifCorreId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:notifUri ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:qosMon ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:reqAnis ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:EventsSubscReqData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxSuppBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:medCompN ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:afRoutReq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4294967295 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:sharingKeyUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:medType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:rrBw ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:preemptCap ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:minDesBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:contVer ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:preemptVuln ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:marBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:desMaxLatency ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:medSubComps ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:afAppId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:disUeNotif ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:mirBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxPacketLossRateDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:rsBw ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:mirBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:altSerReqs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:desMaxLoss ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:minDesBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:qosReference ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:resPrio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxPacketLossRateUl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:tscaiInputDl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TsnQosContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:tsnQos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:tscaiInputUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:fStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4294967295 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:sharingKeyDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxSuppBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:marBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:prioSharingInd ],
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:fStatus ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 2 ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:codecs ],
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:fDescs ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:flusId ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaComponent .
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:flowUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:fNum ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:afSigProtocol ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:ethfDescs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:marBwUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:marBwDl ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaSubComponent .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "TP_NOT_KNOWN"^^xsd:string "TP_EXPIRED"^^xsd:string "TP_NOT_YET_OCURRED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ServAuthInfo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TosTrafficClass .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TosTrafficClassRm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:flows ],
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnPortManContDstt ],
         [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnPortManContNwtts ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnBridgeManCont ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnBridgeInfo ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:notifMethod ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:waitTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:repPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:event ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfEventSubscription .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:minCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:dlDelays ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringReport:flows ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:minCount 1 ;
@@ -392,359 +545,20 @@
     sh:targetClass TS29514_Npcf_PolicyAuthorization:QosMonitoringReport .
 
 [] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ACTIVE"^^xsd:string "INACTIVE"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaComponentResourcesStatus .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TosTrafficClass .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_SpatialValidityRm:presenceInfoList ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:SpatialValidityRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:minDesBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnPortManContNwtts ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:resPrio ],
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:sponStatus ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:marBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:desMaxLoss ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:mirBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medSubComps ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tscaiInputDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxPacketLossRateDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:mirBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxSuppBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4294967295 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:sharingKeyUl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:afRoutReq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:rrBw ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxSuppBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:contVer ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:codecs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:marBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PreemptionVulnerabilityRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:preemptVuln ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:afAppId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:altSerReqs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:flusId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:prioSharingInd ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:disUeNotif ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:minDesBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tsnQos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:rsBw ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:fStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:desMaxLatency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:qosReference ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxPacketLossRateUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medCompN ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PreemptionCapabilityRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:preemptCap ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4294967295 ;
-            sh:minInclusive 0 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:sharingKeyDl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tscaiInputUl ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnPortManContDstt ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnBridgeManCont ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnBridgeInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnPortManContNwtts ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "NO_INFO"^^xsd:string "RTCP"^^xsd:string "AF_SIGNALLING"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:FlowUsage .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:waitTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:notifMethod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:repPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfEventSubscription:event ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfEventSubscription .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:maxInclusive 8 ;
-    sh:minInclusive 1 ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TscPriorityLevel .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ENABLED-UPLINK"^^xsd:string "ENABLED-DOWNLINK"^^xsd:string "ENABLED"^^xsd:string "DISABLED"^^xsd:string "REMOVED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:FlowStatus .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TemporalValidity:startTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TemporalValidity:stopTime ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TemporalValidity .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "PRIO_1"^^xsd:string "PRIO_2"^^xsd:string "PRIO_3"^^xsd:string "PRIO_4"^^xsd:string "PRIO_5"^^xsd:string "PRIO_6"^^xsd:string "PRIO_7"^^xsd:string "PRIO_8"^^xsd:string "PRIO_9"^^xsd:string "PRIO_10"^^xsd:string "PRIO_11"^^xsd:string "PRIO_12"^^xsd:string "PRIO_13"^^xsd:string "PRIO_14"^^xsd:string "PRIO_15"^^xsd:string "PRIO_16"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ReservPriority .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_OutOfCreditInformation:flows ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier:accNetChaIdValue ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier:flows ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ContentVersion .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 2000000 ;
-            sh:minInclusive 4096 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:maxTscBurstSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:tscPackDelay ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 8 ;
-            sh:minInclusive 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:tscPrioLevel ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "indication of MPS service request" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:mpsId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indication of modification of MCVideo service" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:mcVideoId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnPortManContDstt ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:aspId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:servInfStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:resPrio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:sipForkInd ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:afRoutReq ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnPortManContNwtts ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:evSubsc ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:sponId ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:medComponents ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
@@ -754,6 +568,18 @@
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:preemptControlInfo ],
         [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:medComponents ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnBridgeManCont ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "indication of modification of MCVideo service" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:mcVideoId ],
+        [ a sh:PropertyShape ;
             rdfs:comment "indication of MCPTT service request" ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
@@ -761,515 +587,72 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:sponStatus ],
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:sponId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:servInfStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:afRoutReq ],
         [ a sh:PropertyShape ;
             rdfs:comment "indication of MCS service request" ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:mcsId ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnBridgeManCont ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:resPrio ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:evSubsc ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "indication of MPS service request" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:mpsId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:aspId ] ;
     sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
                 sh:datatype xsd:string ;
-                sh:in ( "FINAL"^^xsd:string "PRELIMINARY"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:in ( "MOST_RECENT"^^xsd:string "LEAST_RECENT"^^xsd:string "HIGHEST_BW"^^xsd:string ) ] [ a sh:NodeShape ;
                 sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ServiceInfoStatus .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:CodecData .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "AUDIO"^^xsd:string "VIDEO"^^xsd:string "DATA"^^xsd:string "APPLICATION"^^xsd:string "CONTROL"^^xsd:string "TEXT"^^xsd:string "MESSAGE"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_Flows:medCompN ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_Flows:fNums ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_Flows:contVers ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:Flows .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:fDescs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:flowUsage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:fStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:marBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AfSigProtocol ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:afSigProtocol ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:tosTrCl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:ethfDescs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:fNum ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponent:marBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaSubComponent .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData:supi ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData:ueIpv6 ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData:ueIpv4 ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData:dnn ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData:sliceInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_PcscfRestorationRequestData:ipDomain ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:PcscfRestorationRequestData .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "UE_IDENTITY"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfRequestedData .
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:PreemptionControlInformation .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:integer ;
-    sh:maxInclusive 8 ;
-    sh:minInclusive 1 ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TscPriorityLevelRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:altSerReq ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:flows ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:notifType ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_ResourcesAllocationInfo:mcResourcStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_ResourcesAllocationInfo:flows ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_ResourcesAllocationInfo:altSerReq ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TosTrafficClassRm .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:PreemptionControlInformationRm .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "USER_LOCATION"^^xsd:string "UE_TIME_ZONE"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:RequiredAccessInfo .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "TP_NOT_KNOWN"^^xsd:string "TP_EXPIRED"^^xsd:string "TP_NOT_YET_OCURRED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ServAuthInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:vlanTags ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:srcMacAddrEnd ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:fDesc ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:destMacAddrEnd ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:fDir ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:sourceMacAddr ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:destMacAddr ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:ethType ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "SINGLE_DIALOGUE"^^xsd:string "SEVERAL_DIALOGUES"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:SipForkingIndication .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:pei ;
-            sh:pattern "^(imei-[0-9]{15}|imeisv-[0-9]{16}|mac((-[0-9a-fA-F]{2}){6})(-untrusted)?|eui((-[0-9a-fA-F]{2}){8})|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:supi ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:gpsi ;
-            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:UeIdentityInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:servUrn ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indication of MCS service request" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:mcsId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indication of MCPTT service request" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:mcpttId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:tsnPortManContNwtts ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:ueIpv6 ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:medComponents ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:afAppId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:afRoutReq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:afChargId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:gpsi ;
-            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:preemptControlInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:sponId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:sliceInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:sponStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:notifUri ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:aspId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:ueMac ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:resPrio ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:tsnBridgeManCont ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:tsnPortManContDstt ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:suppFeat ;
-            sh:pattern "^[A-Fa-f0-9]*$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:ipDomain ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:EventsSubscReqData ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:evSubsc ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:ueIpv4 ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:supi ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:servInfStatus ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indication of MCVideo service request" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:mcVideoId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:afReqData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indication of MPS service request" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:mpsId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextReqData:dnn ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AspId .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AnGwAddress:anGwIpv4Addr ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AnGwAddress:anGwIpv6Addr ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AnGwAddress .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:EventsNotification ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContext:evsNotif ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AppSessionContextReqData ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContext:ascReqData ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContext:ascRespData ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContext .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ACCESS_TYPE_CHANGE"^^xsd:string "ANI_REPORT"^^xsd:string "CHARGING_CORRELATION"^^xsd:string "EPS_FALLBACK"^^xsd:string "FAILED_RESOURCES_ALLOCATION"^^xsd:string "OUT_OF_CREDIT"^^xsd:string "PLMN_CHG"^^xsd:string "QOS_MONITORING"^^xsd:string "QOS_NOTIF"^^xsd:string "RAN_NAS_CAUSE"^^xsd:string "REALLOCATION_OF_CREDIT"^^xsd:string "SUCCESSFUL_RESOURCES_ALLOCATION"^^xsd:string "TSN_BRIDGE_INFO"^^xsd:string "USAGE_REPORT"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfEvent .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ALL_SDF_DEACTIVATION"^^xsd:string "PDU_SESSION_TERMINATION"^^xsd:string "PS_TO_CS_HO"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TerminationCause .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:addrPreserInd ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:RouteToLocation ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:routeToLocs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:upPathChgSub ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:SpatialValidityRm ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:spVal ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:tempVals ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:appReloc ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm .
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ContentVersion .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_SpatialValidity:presenceInfoList ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:SpatialValidity .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:fStatus ],
+            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainer:tscPackDelay ],
         [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:ethfDescs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:marBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:flowUsage ],
+            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainer:maxTscBurstSize ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
+            sh:maxInclusive 8 ;
+            sh:minInclusive 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainer:tscPrioLevel ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TsnQosContainer .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:fNum ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:marBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:fDescs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AfSigProtocol ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:afSigProtocol ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:tosTrCl ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm .
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_SpatialValidityRm:presenceInfoList ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:SpatialValidityRm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -1287,19 +670,62 @@
     sh:targetClass TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm .
 
 [] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:PrioritySharingIndicator .
+    sh:datatype xsd:integer ;
+    sh:maxInclusive 8 ;
+    sh:minInclusive 1 ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TscPriorityLevel .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:FlowDescription .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfEventNotification:event ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AfEventNotification:flows ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfEventNotification .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:ServiceUrn .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:notifType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:altSerReq ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_QosNotificationControlInfo:flows ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AnGwAddress:anGwIpv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AnGwAddress:anGwIpv6Addr ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AnGwAddress .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:maxTscBurstSize ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 8 ;
+            sh:minInclusive 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:tscPrioLevel ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:tscPackDelay ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
@@ -1308,180 +734,426 @@
     sh:targetClass TS29514_Npcf_PolicyAuthorization:EventsSubscPutData .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 2000000 ;
-            sh:minInclusive 4096 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainer:maxTscBurstSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainer:tscPackDelay ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 8 ;
-            sh:minInclusive 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_TsnQosContainer:tscPrioLevel ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:TsnQosContainer .
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:SponId .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:events ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:notifCorreId ],
+            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshUl ],
         [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:QosMonitoringInformationRm ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:qosMon ],
+            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshRp ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:reqQosMonParams ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:reqAnis ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:notifUri ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm .
+            sh:path TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshDl ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation .
+
+[] a sh:NodeShape ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
+                    sh:maxCount 1 ;
+                    sh:path TS29514_Npcf_PolicyAuthorization:acceptableServInfo ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_ExtendedProblemDetails:acceptableServInfo ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ExtendedProblemDetails .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AspId .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:PreemptionControlInformationRm .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ACCESS_TYPE_CHANGE"^^xsd:string "ANI_REPORT"^^xsd:string "CHARGING_CORRELATION"^^xsd:string "EPS_FALLBACK"^^xsd:string "FAILED_RESOURCES_ALLOCATION"^^xsd:string "OUT_OF_CREDIT"^^xsd:string "PLMN_CHG"^^xsd:string "QOS_MONITORING"^^xsd:string "QOS_NOTIF"^^xsd:string "RAN_NAS_CAUSE"^^xsd:string "REALLOCATION_OF_CREDIT"^^xsd:string "SUCCESSFUL_RESOURCES_ALLOCATION"^^xsd:string "TSN_BRIDGE_INFO"^^xsd:string "USAGE_REPORT"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AfEvent .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ALL_SDF_DEACTIVATION"^^xsd:string "PDU_SESSION_TERMINATION"^^xsd:string "PS_TO_CS_HO"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TerminationCause .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+            sh:datatype xsd:integer ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:ueIds ],
+            sh:path TS29514_Npcf_PolicyAuthorization_Flows:contVers ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_Flows:fNums ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_Flows:medCompN ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:Flows .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateDataPatch:ascReqData ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateDataPatch .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:Flows ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_ResourcesAllocationInfo:flows ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_ResourcesAllocationInfo:altSerReq ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_ResourcesAllocationInfo:mcResourcStatus ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:accBwMedComps ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:marBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:marBwUl ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:servAuthInfo ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:suppFeat ;
-            sh:pattern "^[A-Fa-f0-9]*$" ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:suppFeat ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:ueIds ] ;
     sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:marBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TerminationInfo:termCause ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:accBwMedComps ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:marBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
-    sh:targetClass TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo .
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TerminationInfo:resUri ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TerminationInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:fDir ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:srcMacAddrEnd ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:destMacAddrEnd ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:destMacAddr ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:accessType ],
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:ethType ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AccNetChargingAddress ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:anChargAddr ],
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:fDesc ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:sourceMacAddr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EthFlowDescription:vlanTags ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ENABLED-UPLINK"^^xsd:string "ENABLED-DOWNLINK"^^xsd:string "ENABLED"^^xsd:string "DISABLED"^^xsd:string "REMOVED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:FlowStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_SpatialValidity:presenceInfoList ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:SpatialValidity .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TscaiInputContainer:periodicity ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_TscaiInputContainer:burstArrivalTime ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:TscaiInputContainer .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:relAccessInfo ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
             sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnBridgeManCont ],
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:noNetLocSupp ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ratType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AnGwAddress ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:anGwAddr ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
+            sh:class TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnPortManContNwtts ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:qosMonReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:outOfCredReports ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ueLocTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnPortManContDstt ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ueLoc ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:addAccessInfo ],
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:succResourcAllocReports ],
         [ a sh:PropertyShape ;
             sh:class TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier ;
             sh:minCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:anChargIds ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
+            sh:class TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:evSubsUri ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ueTimeZone ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:noNetLocSupp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:AfEventNotification ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:evNotifs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo ;
-            sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:failedResourcAllocReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnIdNid ;
-            sh:maxCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:plmnId ],
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:outOfCredReports ],
         [ a sh:PropertyShape ;
             sh:class TS29514_Npcf_PolicyAuthorization:QosNotificationControlInfo ;
             sh:minCount 1 ;
             sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:qncReports ],
         [ a sh:PropertyShape ;
-            rdfs:comment "Contains the RAN and/or NAS release cause." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AnGwAddress ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:anGwAddr ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:addAccessInfo ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ueTimeZone ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ratType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:accessType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnPortManContDstt ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:QosMonitoringReport ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ranNasRelCauses ],
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:qosMonReports ],
         [ a sh:PropertyShape ;
             sh:class TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo ;
             sh:minCount 1 ;
-            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:succResourcAllocReports ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:failedResourcAllocReports ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnPortManContNwtts ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:evSubsUri ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:plmnId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AfEventNotification ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:evNotifs ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the RAN and/or NAS release cause." ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ranNasRelCauses ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnBridgeManCont ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ueLocTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:anChargAddr ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_EventsNotification:ueLoc ] ;
     sh:targetClass TS29514_Npcf_PolicyAuthorization:EventsNotification .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "SPONSOR_DISABLED"^^xsd:string "SPONSOR_ENABLED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:SponsoringStatus .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "GUARANTEED"^^xsd:string "NOT_GUARANTEED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:QosNotifType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:preemptVuln ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:afRoutReq ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:tscaiInputUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:rrBw ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxSuppBwUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:marBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:marBwUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:resPrio ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:qosReference ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:preemptCap ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxPacketLossRateUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:fStatus ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:minDesBwUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:disUeNotif ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:mirBwUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:medSubComps ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:codecs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxSuppBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:sharingKeyDl ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TsnQosContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:tsnQos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:tscaiInputDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:sharingKeyUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:contVer ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:desMaxLatency ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:prioSharingInd ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:medType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:flusId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:minDesBwDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:desMaxLoss ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:mirBwDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:altSerReqs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:medCompN ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:rsBw ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:afAppId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_MediaComponent:maxPacketLossRateDl ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:MediaComponent .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContext:ascReqData ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContext:ascRespData ],
+        [ a sh:PropertyShape ;
+            sh:class TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+            sh:maxCount 1 ;
+            sh:path TS29514_Npcf_PolicyAuthorization_AppSessionContext:evsNotif ] ;
+    sh:targetClass TS29514_Npcf_PolicyAuthorization:AppSessionContext .
 

@@ -44,48 +44,1065 @@
 @prefix TS29512_Npcf_SMPolicyControl_TsnBridgeInfo: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/TsnBridgeInfo#> .
 @prefix TS29512_Npcf_SMPolicyControl_UeCampingRep: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UeCampingRep#> .
 @prefix TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UeInitiatedResourceRequest#> .
-@prefix TS29512_Npcf_SMPolicyControl_UpPathChgEvent: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UpPathChgEvent#> .
+@prefix TS29512_Npcf_SMPolicyControl_UpPathChgEvent: <http://ericsson.com/models/3gpp/transport/UpPathChgEvent#> .
 @prefix TS29512_Npcf_SMPolicyControl_UsageMonitoringData: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UsageMonitoringData#> .
-@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix transport: <http://ericsson.com/models/3gpp/transport/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "the Ipv6 flow label header field." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TerminationNotification:resourceUri ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:flowLabel ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "An identifier of packet filter." ;
-            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TerminationNotification:cause ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:TerminationNotification .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "MPTCP_ATSSS_LL_WITH_ASMODE_UL"^^xsd:string "MPTCP_ATSSS_LL_WITH_EXSDMODE_DL_ASMODE_UL"^^xsd:string "MPTCP_ATSSS_LL_WITH_ASMODE_DLUL"^^xsd:string "ATSSS_LL"^^xsd:string "MPTCP_ATSSS_LL"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AtsssCapability .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:packFiltId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the Ipv4 Type-of-Service and mask field or the Ipv6 Traffic-Class field and mask field." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:tosTrafficClass ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "the security parameter index of the IPSec packet." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:spi ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:FlowDirectionRm ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:flowDirection ],
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:dnaiChgType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:packetFilterUsage ],
+            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:afAckInd ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It is used to set the value of Notification Correlation ID in the notification sent by the SMF." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notifCorreId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notificationUri ] ;
+    sh:targetClass transport:UpPathChgEvent .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:EpsRanNasRelCause .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:relCause ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:traffContDecs ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosChars ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:conds ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:revalidationTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:praInfos ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosMonDecs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:tsnBridgeManCont ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:tsnPortManContNwtts ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:suppFeat ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Defines the policy control request triggers subscribed by the PCF." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:policyCtrlReqTriggers ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:offline ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Defines the last list of rule control data requested by the PCF." ;
+            sh:class TS29512_Npcf_SMPolicyControl:RequestedRuleData ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:lastReqRuleData ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:flowDescription ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowInformation .
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosFlowUsage ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:chgDecs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:RequestedUsageData ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:lastReqUsageData ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:redSessIndication ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:reflectiveQoSTimer ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:tsnPortManContDstt ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:online ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:sessRules ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:pccRules ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:ChargingInformation ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:chargingInfo ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosDecs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:pcscfRestIndication ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:umDecs ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyDecision .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "EVENT_TRIGGERED"^^xsd:string "PERIODIC"^^xsd:string "SESSION_RELEASE"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ReportingFrequency .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "DDN_FAILURE"^^xsd:string "DDD_STATUS"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:NotificationControlIndication .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AdditionalAccessInfo:ratType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AdditionalAccessInfo:accessType ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "PS_TO_CS_HO"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PduSessionRelCause .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "DOWNLINK"^^xsd:string "UPLINK"^^xsd:string "ROUND_TRIP"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedQosMonitoringParameter .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ACTIVE_STANDBY"^^xsd:string "LOAD_BALANCING"^^xsd:string "SMALLEST_DELAY"^^xsd:string "PRIORITY_BASED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SteerModeValue .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ANR_NOT_SUPPORTED"^^xsd:string "TZR_NOT_SUPPORTED"^^xsd:string "LOC_NOT_SUPPORTED"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:NetLocAccessSupport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the IPv4 address domain" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipDomain ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:refQosIndication ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:recoveryTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:supi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:subsSessAmbr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:maPduInd ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ratType ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:interGrpIds ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:addAccessInfo ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv6FrameRouteList ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the DN-AAA authorization profile index" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:authProfIndex ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:smfId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:accessType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:servingNetwork ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:3gppPsDataOffStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AccNetChargingAddress ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:chargEntityAddr ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:gpsi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pduSessionId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:atsssCapab ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:chargingcharacteristics ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the number of supported packet filter for signalled QoS rules." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:numOfPackFilter ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:servNfId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:subsDefQos ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:traceReq ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AccNetChId ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:accNetChId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pei ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:invalidSupi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ueTimeZone ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv6AddressPrefix ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:suppFeat ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:sliceInfo ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:dnn ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:offline ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:notificationUri ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:online ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pduSessionType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:qosFlowUsage ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv4FrameRouteList ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv4Address ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:userLocationInfo ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Contains the PCC rule identifier(s) which corresponding service data flow(s) shall be excluded from PDU Session usage monitoring. It is only included in the UsageMonitoringData instance for session level usage monitoring." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:exUsagePccRuleIds ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:nextTimeThreshold ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:inactivityTime ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the usage monitoring policy data within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:umId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:UsageMonitoringData .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "CREATE_PCC_RULE"^^xsd:string "DELETE_PCC_RULE"^^xsd:string "MODIFY_PCC_RULE_AND_ADD_PACKET_FILTERS"^^xsd:string "MODIFY_ PCC_RULE_AND_REPLACE_PACKET_FILTERS"^^xsd:string "MODIFY_ PCC_RULE_AND_DELETE_PACKET_FILTERS"^^xsd:string "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RuleOperation .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "CH_ID"^^xsd:string "MS_TIME_ZONE"^^xsd:string "USER_LOC_INFO"^^xsd:string "RES_RELEASE"^^xsd:string "SUCC_RES_ALLO"^^xsd:string "EPS_FALLBACK"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedRuleDataType .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "GENERAL"^^xsd:string "IMS_SIG"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:QosFlowUsage .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowDescription .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "PCC_RULE_EVENT"^^xsd:string "PCC_QOS_FLOW_EVENT"^^xsd:string "RULE_PERMANENT_ERROR"^^xsd:string "RULE_TEMPORARY_ERROR"^^xsd:string "POL_DEC_ERROR"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:FailureCause .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "IPV4_ADDR"^^xsd:string "IPV6_ADDR"^^xsd:string "URL"^^xsd:string "SIP_URI"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RedirectAddressType .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UNK_RULE_ID"^^xsd:string "RA_GR_ERR"^^xsd:string "SER_ID_ERR"^^xsd:string "NF_MAL"^^xsd:string "RES_LIM"^^xsd:string "MAX_NR_QoS_FLOW"^^xsd:string "MISS_FLOW_INFO"^^xsd:string "RES_ALLO_FAIL"^^xsd:string "UNSUCC_QOS_VAL"^^xsd:string "INCOR_FLOW_INFO"^^xsd:string "PS_TO_CS_HAN"^^xsd:string "APP_ID_ERR"^^xsd:string "NO_QOS_FLOW_BOUND"^^xsd:string "FILTER_RES"^^xsd:string "MISS_REDI_SER_ADDR"^^xsd:string "CM_END_USER_SER_DENIED"^^xsd:string "CM_CREDIT_CON_NOT_APP"^^xsd:string "CM_AUTH_REJ"^^xsd:string "CM_USER_UNK"^^xsd:string "CM_RAT_FAILED"^^xsd:string "UE_STA_SUSP"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:FailureCode .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:mulAddrInfos ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the DN-AAA authorization profile index" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:authProfIndex ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:vplmnQosNotApp ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:interGrpIds ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accessType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueTimeZone ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:subsDefQos ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:trafficDescriptors ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnBridgeManCont ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:QosMonitoringReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qosMonReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to report the session rule failure." ;
+            sh:class TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:sessRuleReports ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addRelIpv6AddrPrefixes ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:creditManageStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:servNfId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnPortManContDstt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the IPv4 address domain" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipDomain ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:servingNetwork ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relIpv4Address ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "QoS Notification Control information." ;
+            sh:class TS29512_Npcf_SMPolicyControl:QosNotificationControlInfo ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qncReports ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:userLocationInfo ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueMac ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:atsssCapab ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:policyDecFailureReports ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relUeMac ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnBridgeInfo ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the number of supported packet filter for signalled QoS rules." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:numOfPackFilter ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qosFlowUsage ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the identifier of the PCC rule which is used for traffic detection of event." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:pccRuleId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relAccessInfo ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ratType ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Report the start/stop of the application traffic and detected SDF descriptions if applicable." ;
+            sh:class TS29512_Npcf_SMPolicyControl:AppDetectionInfo ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:appDetectionInfos ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to report the PCC rule failure." ;
+            sh:class TS29512_Npcf_SMPolicyControl:RuleReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ruleReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The policy control reqeust trigges which are met." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:repPolicyCtrlReqTriggers ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addAccessInfo ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:userLocationInfoTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addIpv6AddrPrefixes ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnPortManContNwtts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:refQosIndication ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueInitResReq ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:maPduInd ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relIpv6AddressPrefix ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipv4Address ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the usage report" ;
+            sh:class TS29512_Npcf_SMPolicyControl:AccuUsageReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accuUsageReports ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:subsSessAmbr ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the access network charging identifier for the PCC rule(s) or whole PDU session." ;
+            sh:class TS29512_Npcf_SMPolicyControl:AccNetChId ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accNetChIds ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:repPraInfos ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:traceReq ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:3gppPsDataOffStatus ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:typesOfNotif ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipv6AddressPrefix ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:bridgeId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:TsnPortNumber ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttPortNum ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttResidTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttAddr ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:TsnBridgeInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:accessType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:netLocAccSupp ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:ratType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:servingNetwork ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:ueTimeZone ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:userLocationInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:servNfId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:UeCampingRep .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxPacketLossRateDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:arp ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the QoS control policy data within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:qosId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:reflectiveQos ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates, by containing the same value, what PCC rules may share resource in downlink direction." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:sharingKeyDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:defQosFlowIndication ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:qnc ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:packetErrorRate ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxbrUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:averWindow ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:gbrDl ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates, by containing the same value, what PCC rules may share resource in uplink direction." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:sharingKeyUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxbrDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:5qi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:packetDelayBudget ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxPacketLossRateUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:priorityLevel ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:extMaxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosData:gbrUl ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:QosData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_BridgeManagementContainer:bridgeManCont ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccNetChargingAddress:anChargIpv4Addr ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccNetChargingAddress:anChargIpv6Addr ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AccNetChargingAddress .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "DOWNLINK"^^xsd:string "UPLINK"^^xsd:string "BIDIRECTIONAL"^^xsd:string "UNSPECIFIED"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowDirection .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "MPTCP"^^xsd:string "ATSSS_LL"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SteeringFunctionality .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:maxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:resourceType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:packetErrorRate ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:extMaxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:priorityLevel ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:5qi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:packetDelayBudget ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:averagingWindow ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:QosCharacteristics .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ServingNfIdentity:servNfInstId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ServingNfIdentity:guami ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:RedirectInformation ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:addRedirectInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:RedirectInformation ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:redirectInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:mulAccCtrl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:traffCorreInd ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the traffic control policy data within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:tcId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Reference to a pre-configured traffic steering policy for downlink traffic at the SMF." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:trafficSteeringPolIdDl ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A list of location which the traffic shall be routed to for the AF request" ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:routeToLocs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:SteeringMode ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:steerModeDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:steerFun ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:SteeringMode ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:steerModeUl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:muteNotif ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Reference to a pre-configured traffic steering policy for uplink traffic at the SMF." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:trafficSteeringPolIdUl ],
+        [ a sh:PropertyShape ;
+            sh:class transport:UpPathChgEvent ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:upPathChgEvent ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:TrafficControlData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Used to report the PCC rule failure." ;
+            sh:class TS29512_Npcf_SMPolicyControl:RuleReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:ruleReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to report failure of the policy decision and/or condition data." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:polDecFailureReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to report the session rule failure." ;
+            sh:class TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:sessRuleReports ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:error ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:altQosParamId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ErrorReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:ngApCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:5GSmCause ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:5gSmCause ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:5gMmCause ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:epsCause ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RanNasRelCause .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccuUsageReport:nextTimeUsage ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An id referencing UsageMonitoringData objects associated with this usage report." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccuUsageReport:refUmIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AccuUsageReport .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UNSPECIFIED"^^xsd:string "UE_SUBSCRIPTION"^^xsd:string "INSUFFICIENT_RES"^^xsd:string "VALIDATION_CONDITION_NOT_MET"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyAssociationReleaseCause .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyControl:policy ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyControl:context ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyControl .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ALLOWED"^^xsd:string "NOT_ALLOWED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:MulticastAccessControl .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:serviceId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the sponsor identity." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:sponsorId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:ratingGroup ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the charging control policy data within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:chgId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the application service provider identity." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:appSvcProvId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:ReportingLevel ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:reportingLevel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:offline ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:afChargId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:sdfHandl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:afChargingIdentifier ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:MeteringMethod ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:meteringMethod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:online ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ChargingData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "indicates the RAN or NAS release cause code information." ;
+            sh:class TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:ranNasRelCauses ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:failureCode ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:ruleStatus ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the identifier of the affected PCC rule(s)." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:pccRuleIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RuleReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:sessRuleFailureCode ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:ruleStatus ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:policyDecFailureReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the identifier of the affected session rule(s)." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:ruleIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SessionRuleReport .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowDirectionRm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -100,1231 +1117,6 @@
     sh:targetClass TS29512_Npcf_SMPolicyControl:QosNotificationControlInfo .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfInstanceId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfAddress ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfSetId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfInstanceId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfSetId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfAddress ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ChargingInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:notifyCorreId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the period of time in units of miliiseconds for UL packet delay." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshUl ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the QoS monitoring policy data within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:qmId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repFreqs ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the period of time in units of miliiseconds for DL packet delay." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:waitTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:notifyUri ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indicates the UL packet delay, DL packet delay and/or round trip packet delay between the UE and the UPF is to be monitored when the QoS Monitoring for URLLC is enabled for the service data flow." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:reqQosMonParams ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the period of time in units of miliiseconds for round trip packet delay." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshRp ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:QosMonitoringData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyNotification:resourceUri ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyNotification:smPolicyDecision ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyNotification .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:MeteringMethod .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "TRA_CTRL_DECS_ERR"^^xsd:string "QOS_DECS_ERR"^^xsd:string "CHG_DECS_ERR"^^xsd:string "USA_MON_DECS_ERR"^^xsd:string "QOS_MON_DECS_ERR"^^xsd:string "CON_DATA_ERR"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PolicyDecisionFailureCode .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ALLOWED"^^xsd:string "NOT_ALLOWED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:MulticastAccessControl .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:RedirectInformation ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:addRedirectInfo ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Reference to a pre-configured traffic steering policy for uplink traffic at the SMF." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:trafficSteeringPolIdUl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:upPathChgEvent ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:RedirectInformation ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:redirectInfo ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the traffic control policy data within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:tcId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A list of location which the traffic shall be routed to for the AF request" ;
-            sh:class TS29571_CommonData:RouteToLocation ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:routeToLocs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:traffCorreInd ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:muteNotif ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:SteeringMode ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:steerModeUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:steerFun ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:SteeringMode ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:steerModeDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:mulAccCtrl ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Reference to a pre-configured traffic steering policy for downlink traffic at the SMF." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TrafficControlData:trafficSteeringPolIdDl ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:TrafficControlData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AdditionalAccessInfo:accessType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AdditionalAccessInfo:ratType ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:userLocationInfoTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnIdNid ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:servingNetwork ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:userLocationInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:pduSessRelCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:QosMonitoringReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:qosMonReports ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:ueTimeZone ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the RAN and/or NAS release cause." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:ranNasRelCauses ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the usage report" ;
-            sh:class TS29512_Npcf_SMPolicyControl:AccuUsageReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:accuUsageReports ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "UNSPECIFIED"^^xsd:string "UE_SUBSCRIPTION"^^xsd:string "INSUFFICIENT_RES"^^xsd:string "VALIDATION_CONDITION_NOT_MET"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyAssociationReleaseCause .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "DOWNLINK"^^xsd:string "UPLINK"^^xsd:string "BIDIRECTIONAL"^^xsd:string "UNSPECIFIED"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowDirection .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ACTIVE_STANDBY"^^xsd:string "LOAD_BALANCING"^^xsd:string "SMALLEST_DELAY"^^xsd:string "PRIORITY_BASED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SteerModeValue .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "PLMN_CH"^^xsd:string "RES_MO_RE"^^xsd:string "AC_TY_CH"^^xsd:string "UE_IP_CH"^^xsd:string "UE_MAC_CH"^^xsd:string "AN_CH_COR"^^xsd:string "US_RE"^^xsd:string "APP_STA"^^xsd:string "APP_STO"^^xsd:string "AN_INFO"^^xsd:string "CM_SES_FAIL"^^xsd:string "PS_DA_OFF"^^xsd:string "DEF_QOS_CH"^^xsd:string "SE_AMBR_CH"^^xsd:string "QOS_NOTIF"^^xsd:string "NO_CREDIT"^^xsd:string "REALLO_OF_CREDIT"^^xsd:string "PRA_CH"^^xsd:string "SAREA_CH"^^xsd:string "SCNN_CH"^^xsd:string "RE_TIMEOUT"^^xsd:string "RES_RELEASE"^^xsd:string "SUCC_RES_ALLO"^^xsd:string "RAT_TY_CH"^^xsd:string "REF_QOS_IND_CH"^^xsd:string "NUM_OF_PACKET_FILTER"^^xsd:string "UE_STATUS_RESUME"^^xsd:string "UE_TZ_CH"^^xsd:string "AUTH_PROF_CH"^^xsd:string "QOS_MONITORING"^^xsd:string "SCELL_CH"^^xsd:string "EPS_FALLBACK"^^xsd:string "MA_PDU"^^xsd:string "TSN_BRIDGE_INFO"^^xsd:string "5G_RG_JOIN"^^xsd:string "5G_RG_LEAVE"^^xsd:string "DDN_FAILURE"^^xsd:string "DDN_DELIVERY_STATUS"^^xsd:string "GROUP_ID_LIST_CHG"^^xsd:string "DDN_FAILURE_CANCELLATION"^^xsd:string "DDN_DELIVERY_STATUS_CANCELLATION"^^xsd:string "VPLMN_QOS_CH"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PolicyControlRequestTrigger .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "A reference to UsageMonitoringData policy decision type. It is the umId described in subclause 5.6.2.12." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:refUmData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the condition data. It is the condId described in subclause 5.6.2.9." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:refCondData ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ambr ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:authSessAmbr ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the session rule within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:sessRuleId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:authDefQos ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to UsageMonitoringData policy decision type to apply for Non-3GPP access. It is the umId described in subclause 5.6.2.12." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:refUmN3gData ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SessionRule .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PacketFilterContent .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Contains the Ipv4 Type-of-Service and mask field or the Ipv6 Traffic-Class field and mask field." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:tosTrafficClass ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:flowDirection ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:packFiltCont ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "An identifier of packet filter." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:packFiltId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The Ipv6 flow label header field." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:flowLabel ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The security parameter index of the IPSec packet." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:spi ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PacketFilterInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:srcIpv6Addr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:ipv6MulAddr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:ipv4MulAddr ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:srcIpv4Addr ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notificationUri ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:afAckInd ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:dnaiChgType ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It is used to set the value of Notification Correlation ID in the notification sent by the SMF." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notifCorreId ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:UpPathChgEvent .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ReportingLevel .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowDirectionRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:MeteringMethod ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:meteringMethod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:sdfHandl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:afChargId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:ReportingLevel ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:reportingLevel ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the application service provider identity." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:appSvcProvId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:offline ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:afChargingIdentifier ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:ratingGroup ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the sponsor identity." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:sponsorId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:serviceId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the charging control policy data within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:chgId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ChargingData:online ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ChargingData .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ANR_NOT_SUPPORTED"^^xsd:string "TZR_NOT_SUPPORTED"^^xsd:string "LOC_NOT_SUPPORTED"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:NetLocAccessSupport .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:ratType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:servNfId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:accessType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnIdNid ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:servingNetwork ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:ueTimeZone ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:userLocationInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeCampingRep:netLocAccSupp ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:UeCampingRep .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccNetChargingAddress:anChargIpv4Addr ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccNetChargingAddress:anChargIpv6Addr ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AccNetChargingAddress .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ServingNfIdentity:servNfInstId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Guami ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ServingNfIdentity:guami ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "IPV4_ADDR"^^xsd:string "IPV6_ADDR"^^xsd:string "URL"^^xsd:string "SIP_URI"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RedirectAddressType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:sessRuleFailureCode ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:ruleStatus ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the identifier of the affected session rule(s)." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:ruleIds ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SessionRuleReport:policyDecFailureReports ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SessionRuleReport .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "PS_TO_CS_HO"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PduSessionRelCause .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ratType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnIdNid ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:servingNetwork ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:notificationUri ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pduSessionType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:offline ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:invalidSupi ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:suppFeat ;
-            sh:pattern "^[A-Fa-f0-9]*$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TraceData ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:traceReq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:refQosIndication ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the DN-AAA authorization profile index" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:authProfIndex ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ambr ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:subsSessAmbr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:maPduInd ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AccNetChId ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:accNetChId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:atsssCapab ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:3gppPsDataOffStatus ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:servNfId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ueTimeZone ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:userLocationInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pei ;
-            sh:pattern "^(imei-[0-9]{15}|imeisv-[0-9]{16}|mac((-[0-9a-fA-F]{2}){6})(-untrusted)?|eui((-[0-9a-fA-F]{2}){8})|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:supi ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:accessType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv6FrameRouteList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:recoveryTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:online ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the IPv4 address domain" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipDomain ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv4FrameRouteList ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:smfId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:addAccessInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv4Address ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:interGrpIds ;
-            sh:pattern "^[A-Fa-f0-9]{8}-[0-9]{3}-[0-9]{2,3}-([A-Fa-f0-9][A-Fa-f0-9]){1,10}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:chargingcharacteristics ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pduSessionId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:sliceInfo ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the number of supported packet filter for signalled QoS rules." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:numOfPackFilter ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AccNetChargingAddress ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:chargEntityAddr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:gpsi ;
-            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:SubscribedDefaultQos ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:subsDefQos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv6AddressPrefix ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:dnn ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyContextData:qosFlowUsage ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:failureCause ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:policyDecFailureReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:UeCampingRep ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:ueCampingRep ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Information about the session rules provisioned by the PCF not successfully installed." ;
-            sh:class TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:sessRuleReports ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Information about the PCC rules provisioned by the PCF not successfully installed/activated." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RuleReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:ruleReports ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PartialSuccessReport .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:prioAcc ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:AccessTypeRm ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:standby ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:active ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:3gLoad ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:steerModeValue ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SteeringMode .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:TsnPortNumber ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PortManagementContainer:portNum ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PortManagementContainer:portManCont ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PortManagementContainer .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccNetChId:sessionChScope ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccNetChId:accNetChaIdValue ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the identifier of the PCC rule(s) associated to the provided Access Network Charging Identifier." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccNetChId:refPccRuleIds ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AccNetChId .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControl:typesOfNotif ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControl:notifCtrlInds ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "MPTCP"^^xsd:string "ATSSS_LL"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SteeringFunctionality .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "DOWNLINK"^^xsd:string "UPLINK"^^xsd:string "ROUND_TRIP"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedQosMonitoringParameter .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControlRm:typesOfNotif ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControlRm:notifCtrlInds ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:tsnBridgeManCont ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:umDecs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:online ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:chargingInfo ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:chgDecs ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:traffContDecs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:relCause ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:pccRules ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:revalidationTime ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:sessRules ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:suppFeat ;
-            sh:pattern "^[A-Fa-f0-9]*$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:tsnPortManContNwtts ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:praInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosFlowUsage ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosChars ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:redSessIndication ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:RequestedUsageData ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:lastReqUsageData ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:tsnPortManContDstt ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:pcscfRestIndication ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Defines the policy control request triggers subscribed by the PCF." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:policyCtrlReqTriggers ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:conds ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosMonDecs ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:qosDecs ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Defines the last list of rule control data requested by the PCF." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RequestedRuleData ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:lastReqRuleData ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:offline ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDecision:reflectiveQoSTimer ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyDecision .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "GENERAL"^^xsd:string "IMS_SIG"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:QosFlowUsage .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:packetErrorRate ;
-            sh:pattern "^([0-9]E-[0-9])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4095 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:averagingWindow ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4095 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:maxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:resourceType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 127 ;
-            sh:minCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:priorityLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:packetDelayBudget ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:5qi ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 2000000 ;
-            sh:minInclusive 4096 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosCharacteristics:extMaxDataBurstVol ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:QosCharacteristics .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:ruleStatus ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the identifier of the affected PCC rule(s)." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:pccRuleIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:failureCode ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "indicates the RAN or NAS release cause code information." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RuleReport:ranNasRelCauses ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RuleReport .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AfSigProtocol .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedQos:gbrUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedQos:gbrDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedQos:5qi ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedQos .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectAddressType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectEnabled ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the address of the redirect server. If \"redirectAddressType\" attribute indicates the IPV4_ADDR, the encoding is the same as the Ipv4Addr data type defined in 3GPP TS 29.571.If \"redirectAddressType\" attribute indicates the IPV6_ADDR, the encoding is the same as the Ipv6Addr data type defined in 3GPP TS 29.571.If \"redirectAddressType\" attribute indicates the URL or SIP_URI, the encoding is the same as the Uri data type defined in 3GPP TS 29.571." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectServerAddress ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RedirectInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:ddNotifCtrl ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to UsageMonitoringData policy decision type. It is the umId described in subclause 5.6.2.12." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refUmData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the application detection filter configured at the UPF." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:appId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AfSigProtocol ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:afSigProtocol ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the QosData policy decision type. It is the qosId described in subclause 5.6.2.8." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refQosData ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:disUeNotif ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:ddNotifCtrl2 ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "An array of IP flow packet filter information." ;
-            sh:class TS29512_Npcf_SMPolicyControl:FlowInformation ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:flowInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:addrPreserInd ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the condition data. It is the condId described in subclause 5.6.2.9." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refCondData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the TrafficControlData policy decision type. It is the tcId described in subclause 5.6.2.10." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refTcData ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:ApplicationDescriptor ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:appDescriptor ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the PCC rule within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:pccRuleId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:appReloc ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:precedence ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A Reference to the QosData policy decision type for the Alternative QoS parameter sets of the service data flow." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refAltQosParams ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the ChargingData policy decision type. It is the chgId described in subclause 5.6.2.11." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refChgData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the ChargingData policy decision type only applicable to Non-3GPP access if \"ATSSS\" feature is supported. It is the chgId described in subclause 5.6.2.11." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refChgN3gData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the QosMonitoringData policy decision type. It is the qmId described in subclause 5.6.2.40." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refQosMon ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to UsageMonitoringData policy decision type only applicable to Non-3GPP access if \"ATSSS\" feature is supported. It is the umId described in subclause 5.6.2.12." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refUmN3gData ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:PccRule .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:TsnPortNumber ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttPortNum ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttAddr ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttResidTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 18446744073709551615 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:bridgeId ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:TsnBridgeInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Used to report failure of the policy decision and/or condition data." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:polDecFailureReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:ProblemDetails ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:error ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:altQosParamId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to report the session rule failure." ;
-            sh:class TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:sessRuleReports ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to report the PCC rule failure." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RuleReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ErrorReport:ruleReports ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ErrorReport .
-
-[] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
                 sh:datatype xsd:string ;
                 sh:in ( "NF_MAL"^^xsd:string "RES_LIM"^^xsd:string "UNSUCC_QOS_VAL"^^xsd:string "UE_STA_SUSP"^^xsd:string ) ] [ a sh:NodeShape ;
@@ -1336,665 +1128,111 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_BridgeManagementContainer:bridgeManCont ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:5gMmCause ],
+            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControlRm:notifCtrlInds ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:5GSmCause ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:5gSmCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:NgApCause ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:ngApCause ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RanNasRelCause:epsCause ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RanNasRelCause .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:nextTimeThreshold ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the PCC rule identifier(s) which corresponding service data flow(s) shall be excluded from PDU Session usage monitoring. It is only included in the UsageMonitoringData instance for session level usage monitoring." ;
-            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:exUsagePccRuleIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:inactivityTime ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the usage monitoring policy data within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UsageMonitoringData:umId ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:UsageMonitoringData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:accessType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:activationTime ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Uniquely identifies the condition data within a PDU session." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:condId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:ratType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:deactivationTime ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ConditionData .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "PCC_RULE_EVENT"^^xsd:string "PCC_QOS_FLOW_EVENT"^^xsd:string "RULE_PERMANENT_ERROR"^^xsd:string "RULE_TEMPORARY_ERROR"^^xsd:string "POL_DEC_ERROR"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:FailureCause .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "MPTCP_ATSSS_LL_WITH_ASMODE_UL"^^xsd:string "MPTCP_ATSSS_LL_WITH_EXSDMODE_DL_ASMODE_UL"^^xsd:string "MPTCP_ATSSS_LL_WITH_ASMODE_DLUL"^^xsd:string "ATSSS_LL"^^xsd:string "MPTCP_ATSSS_LL"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AtsssCapability .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedUsageData:allUmIds ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "An array of usage monitoring data id references to the usage monitoring data instances for which the PCF is requesting a usage report. This attribute shall only be provided when allUmIds is not set to true." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedUsageData:refUmIds ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedUsageData .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "MA_PDU_REQUEST"^^xsd:string "MA_PDU_NETWORK_UPGRADE_ALLOWED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:MaPduIndication .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:dlDelays ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:rtDelays ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "An array of PCC rule id references to the PCC rules associated with the QoS monitoring report." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:refPccRuleIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:ulDelays ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:QosMonitoringReport .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "An array of PCC rule id references to the PCC rules associated with the control data." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedRuleData:refPccRuleIds ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Array of requested rule data type elements indicating what type of rule data is requested for the corresponding referenced PCC rules." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_RequestedRuleData:reqData ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedRuleData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4095 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:averWindow ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 2000000 ;
-            sh:minInclusive 4096 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:extMaxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:gbrDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:gbrUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4095 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxbrUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 127 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:priorityLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Arp ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:arp ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxbrDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:5qi ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
-
-[] a sh:NodeShape ;
-    sh:class TS29571_CommonData:NullValue .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "CREATE_PCC_RULE"^^xsd:string "DELETE_PCC_RULE"^^xsd:string "MODIFY_PCC_RULE_AND_ADD_PACKET_FILTERS"^^xsd:string "MODIFY_ PCC_RULE_AND_REPLACE_PACKET_FILTERS"^^xsd:string "MODIFY_ PCC_RULE_AND_DELETE_PACKET_FILTERS"^^xsd:string "MODIFY_PCC_RULE_WITHOUT_MODIFY_PACKET_FILTERS"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RuleOperation .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "END_USER_SER_DENIED"^^xsd:string "CREDIT_CTRL_NOT_APP"^^xsd:string "AUTH_REJECTED"^^xsd:string "USER_UNKNOWN"^^xsd:string "RATING_FAILED"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:CreditManagementStatus .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TerminationNotification:resourceUri ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_TerminationNotification:cause ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:TerminationNotification .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "CH_ID"^^xsd:string "MS_TIME_ZONE"^^xsd:string "USER_LOC_INFO"^^xsd:string "RES_RELEASE"^^xsd:string "SUCC_RES_ALLO"^^xsd:string "EPS_FALLBACK"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedRuleDataType .
+            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControlRm:typesOfNotif ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowDescription .
+    sh:targetClass TS29512_Npcf_SMPolicyControl:MeteringMethod .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyControl:context ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyControl:policy ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyControl .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:pccRuleId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:ruleOp ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:RequestedQos ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:reqQos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PacketFilterInfo ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:packFiltInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:precedence ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:EpsRanNasRelCause .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Contains the detected service data flow descriptions if they are deducible." ;
-            sh:class TS29512_Npcf_SMPolicyControl:FlowInformation ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AppDetectionInfo:sdfDescriptions ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A reference to the application detection filter configured at the UPF" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AppDetectionInfo:appId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Identifier sent by the SMF in order to allow correlation of application Start and Stop events to the specific service data flow description, if service data flow descriptions are deducible." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AppDetectionInfo:instanceId ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AppDetectionInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:packetDelayBudget ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxPacketLossRateUl ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Arp ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:arp ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:defQosFlowIndication ],
+            sh:path TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectEnabled ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 2000000 ;
-            sh:minInclusive 4096 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:extMaxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Univocally identifies the QoS control policy data within a PDU session." ;
+            rdfs:comment "Indicates the address of the redirect server. If \"redirectAddressType\" attribute indicates the IPV4_ADDR, the encoding is the same as the Ipv4Addr data type defined in 3GPP TS 29.571.If \"redirectAddressType\" attribute indicates the IPV6_ADDR, the encoding is the same as the Ipv6Addr data type defined in 3GPP TS 29.571.If \"redirectAddressType\" attribute indicates the URL or SIP_URI, the encoding is the same as the Uri data type defined in 3GPP TS 29.571." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:qosId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates, by containing the same value, what PCC rules may share resource in uplink direction." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:sharingKeyUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxPacketLossRateDl ],
+            sh:path TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectServerAddress ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxbrDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 127 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:priorityLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:gbrUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:gbrDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minInclusive 0 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:5qi ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:reflectiveQos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:packetErrorRate ;
-            sh:pattern "^([0-9]E-[0-9])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4095 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:averWindow ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4095 ;
-            sh:minInclusive 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxDataBurstVol ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates, by containing the same value, what PCC rules may share resource in downlink direction." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:sharingKeyDl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:qnc ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_QosData:maxbrUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:QosData .
+            sh:path TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectAddressType ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RedirectInformation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:userLocationInfoTime ],
+            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:srcIpv6Addr ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:interGrpIds ;
-            sh:pattern "^[A-Fa-f0-9]{8}-[0-9]{3}-[0-9]{2,3}-([A-Fa-f0-9][A-Fa-f0-9]){1,10}$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relAccessInfo ],
+            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:srcIpv4Addr ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:refQosIndication ],
+            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:ipv4MulAddr ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:SubscribedDefaultQos ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:subsDefQos ],
-        [ a sh:PropertyShape ;
+            sh:path TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:ipv6MulAddr ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "A reference to UsageMonitoringData policy decision type to apply for Non-3GPP access. It is the umId described in subclause 5.6.2.12." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qosFlowUsage ],
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:refUmN3gData ],
         [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnPortManContNwtts ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:repPraInfos ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Report the start/stop of the application traffic and detected SDF descriptions if applicable." ;
-            sh:class TS29512_Npcf_SMPolicyControl:AppDetectionInfo ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:appDetectionInfos ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to report the PCC rule failure." ;
-            sh:class TS29512_Npcf_SMPolicyControl:RuleReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ruleReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnBridgeInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnBridgeManCont ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the identifier of the PCC rule which is used for traffic detection of event." ;
+            rdfs:comment "A reference to UsageMonitoringData policy decision type. It is the umId described in subclause 5.6.2.12." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:pccRuleId ],
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:refUmData ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:authSessAmbr ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:authDefQos ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the condition data. It is the condId described in subclause 5.6.2.9." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:refCondData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the session rule within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SessionRule:sessRuleId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SessionRule .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:ueTimeZone ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:userLocationInfoTime ],
         [ a sh:PropertyShape ;
             sh:class TS29512_Npcf_SMPolicyControl:QosMonitoringReport ;
             sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qosMonReports ],
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:qosMonReports ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:creditManageStatus ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to report the session rule failure." ;
-            sh:class TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:sessRuleReports ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the DN-AAA authorization profile index" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:authProfIndex ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "QoS Notification Control information." ;
-            sh:class TS29512_Npcf_SMPolicyControl:QosNotificationControlInfo ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qncReports ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:typesOfNotif ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:atsssCapab ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the IPv4 address domain" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipDomain ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:DddTrafficDescriptor ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:trafficDescriptors ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addAccessInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:userLocationInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:mulAddrInfos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:PlmnIdNid ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:servingNetwork ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:servNfId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Indicates the access network charging identifier for the PCC rule(s) or whole PDU session." ;
-            sh:class TS29512_Npcf_SMPolicyControl:AccNetChId ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accNetChIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueTimeZone ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:TraceData ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:traceReq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:maPduInd ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueInitResReq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relIpv6AddressPrefix ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The policy control reqeust trigges which are met." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:repPolicyCtrlReqTriggers ],
-        [ a sh:PropertyShape ;
-            sh:class TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnPortManContDstt ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipv6AddressPrefix ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relUeMac ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:3gppPsDataOffStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addRelIpv6AddrPrefixes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "3GPP_ACCESS"^^xsd:string "NON_3GPP_ACCESS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accessType ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the number of supported packet filter for signalled QoS rules." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:numOfPackFilter ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addIpv6AddrPrefixes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ratType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipv4Address ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:vplmnQosNotApp ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relIpv4Address ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:policyDecFailureReports ],
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:servingNetwork ],
         [ a sh:PropertyShape ;
             rdfs:comment "Contains the usage report" ;
             sh:class TS29512_Npcf_SMPolicyControl:AccuUsageReport ;
             sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accuUsageReports ],
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:accuUsageReports ],
         [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Ambr ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:subsSessAmbr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueMac ;
-            sh:pattern "^([0-9a-fA-F]{2})((-[0-9a-fA-F]{2}){5})$" ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "An id referencing UsageMonitoringData objects associated with this usage report." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
+            rdfs:comment "Contains the RAN and/or NAS release cause." ;
+            sh:class TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
             sh:minCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccuUsageReport:refUmIds ],
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:ranNasRelCauses ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29512_Npcf_SMPolicyControl_AccuUsageReport:nextTimeUsage ] ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:AccuUsageReport .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "UNK_RULE_ID"^^xsd:string "RA_GR_ERR"^^xsd:string "SER_ID_ERR"^^xsd:string "NF_MAL"^^xsd:string "RES_LIM"^^xsd:string "MAX_NR_QoS_FLOW"^^xsd:string "MISS_FLOW_INFO"^^xsd:string "RES_ALLO_FAIL"^^xsd:string "UNSUCC_QOS_VAL"^^xsd:string "INCOR_FLOW_INFO"^^xsd:string "PS_TO_CS_HAN"^^xsd:string "APP_ID_ERR"^^xsd:string "NO_QOS_FLOW_BOUND"^^xsd:string "FILTER_RES"^^xsd:string "MISS_REDI_SER_ADDR"^^xsd:string "CM_END_USER_SER_DENIED"^^xsd:string "CM_CREDIT_CON_NOT_APP"^^xsd:string "CM_AUTH_REJ"^^xsd:string "CM_USER_UNK"^^xsd:string "CM_RAT_FAILED"^^xsd:string "UE_STA_SUSP"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:FailureCode .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "EVENT_TRIGGERED"^^xsd:string "PERIODIC"^^xsd:string "SESSION_RELEASE"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:ReportingFrequency .
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:pduSessRelCause ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:userLocationInfo ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
@@ -2006,9 +1244,531 @@
     sh:targetClass TS29512_Npcf_SMPolicyControl:RuleStatus .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:dlDelays ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:rtDelays ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:ulDelays ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An array of PCC rule id references to the PCC rules associated with the QoS monitoring report." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringReport:refPccRuleIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:QosMonitoringReport .
+
+[] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
                 sh:datatype xsd:string ;
-                sh:in ( "DDN_FAILURE"^^xsd:string "DDD_STATUS"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:in ( "PLMN_CH"^^xsd:string "RES_MO_RE"^^xsd:string "AC_TY_CH"^^xsd:string "UE_IP_CH"^^xsd:string "UE_MAC_CH"^^xsd:string "AN_CH_COR"^^xsd:string "US_RE"^^xsd:string "APP_STA"^^xsd:string "APP_STO"^^xsd:string "AN_INFO"^^xsd:string "CM_SES_FAIL"^^xsd:string "PS_DA_OFF"^^xsd:string "DEF_QOS_CH"^^xsd:string "SE_AMBR_CH"^^xsd:string "QOS_NOTIF"^^xsd:string "NO_CREDIT"^^xsd:string "REALLO_OF_CREDIT"^^xsd:string "PRA_CH"^^xsd:string "SAREA_CH"^^xsd:string "SCNN_CH"^^xsd:string "RE_TIMEOUT"^^xsd:string "RES_RELEASE"^^xsd:string "SUCC_RES_ALLO"^^xsd:string "RAT_TY_CH"^^xsd:string "REF_QOS_IND_CH"^^xsd:string "NUM_OF_PACKET_FILTER"^^xsd:string "UE_STATUS_RESUME"^^xsd:string "UE_TZ_CH"^^xsd:string "AUTH_PROF_CH"^^xsd:string "QOS_MONITORING"^^xsd:string "SCELL_CH"^^xsd:string "EPS_FALLBACK"^^xsd:string "MA_PDU"^^xsd:string "TSN_BRIDGE_INFO"^^xsd:string "5G_RG_JOIN"^^xsd:string "5G_RG_LEAVE"^^xsd:string "DDN_FAILURE"^^xsd:string "DDN_DELIVERY_STATUS"^^xsd:string "GROUP_ID_LIST_CHG"^^xsd:string "DDN_FAILURE_CANCELLATION"^^xsd:string "DDN_DELIVERY_STATUS_CANCELLATION"^^xsd:string "VPLMN_QOS_CH"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
                 sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29512_Npcf_SMPolicyControl:NotificationControlIndication .
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PolicyControlRequestTrigger .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ReportingLevel .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccNetChId:accNetChaIdValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccNetChId:sessionChScope ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the identifier of the PCC rule(s) associated to the provided Access Network Charging Identifier." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AccNetChId:refPccRuleIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AccNetChId .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PacketFilterContent .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControl:notifCtrlInds ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControl:typesOfNotif ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "An array of usage monitoring data id references to the usage monitoring data instances for which the PCF is requesting a usage report. This attribute shall only be provided when allUmIds is not set to true." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedUsageData:refUmIds ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedUsageData:allUmIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedUsageData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:standby ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:prioAcc ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:active ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:steerModeValue ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SteeringMode:3gLoad ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SteeringMode .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:disUeNotif ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the QosData policy decision type. It is the qosId described in subclause 5.6.2.8." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refQosData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the ChargingData policy decision type. It is the chgId described in subclause 5.6.2.11." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refChgData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A Reference to the QosData policy decision type for the Alternative QoS parameter sets of the service data flow." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refAltQosParams ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the ChargingData policy decision type only applicable to Non-3GPP access if \"ATSSS\" feature is supported. It is the chgId described in subclause 5.6.2.11." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refChgN3gData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to UsageMonitoringData policy decision type only applicable to Non-3GPP access if \"ATSSS\" feature is supported. It is the umId described in subclause 5.6.2.12." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refUmN3gData ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:ApplicationDescriptor ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:appDescriptor ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the QosMonitoringData policy decision type. It is the qmId described in subclause 5.6.2.40." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refQosMon ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:addrPreserInd ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:AfSigProtocol ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:afSigProtocol ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the application detection filter configured at the UPF." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:appId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:ddNotifCtrl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:precedence ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to UsageMonitoringData policy decision type. It is the umId described in subclause 5.6.2.12." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refUmData ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:ddNotifCtrl2 ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:appReloc ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the TrafficControlData policy decision type. It is the tcId described in subclause 5.6.2.10." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refTcData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the condition data. It is the condId described in subclause 5.6.2.9." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:refCondData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the PCC rule within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:pccRuleId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An array of IP flow packet filter information." ;
+            sh:class TS29512_Npcf_SMPolicyControl:FlowInformation ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PccRule:flowInfos ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PccRule .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:failureCause ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Information about the session rules provisioned by the PCF not successfully installed." ;
+            sh:class TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:sessRuleReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:policyDecFailureReports ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Information about the PCC rules provisioned by the PCF not successfully installed/activated." ;
+            sh:class TS29512_Npcf_SMPolicyControl:RuleReport ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:ruleReports ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:UeCampingRep ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PartialSuccessReport:ueCampingRep ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PartialSuccessReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Contains the Ipv4 Type-of-Service and mask field or the Ipv6 Traffic-Class field and mask field." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:tosTrafficClass ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:packFiltCont ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:flowDirection ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The security parameter index of the IPSec packet." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:spi ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The Ipv6 flow label header field." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:flowLabel ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An identifier of packet filter." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PacketFilterInfo:packFiltId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PacketFilterInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "the Ipv6 flow label header field." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:flowLabel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:packetFilterUsage ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:FlowDirectionRm ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:flowDirection ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the Ipv4 Type-of-Service and mask field or the Ipv6 Traffic-Class field and mask field." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:tosTrafficClass ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An identifier of packet filter." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:packFiltId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "the security parameter index of the IPSec packet." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:spi ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_FlowInformation:flowDescription ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:FlowInformation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "A reference to the application detection filter configured at the UPF" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AppDetectionInfo:appId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Contains the detected service data flow descriptions if they are deducible." ;
+            sh:class TS29512_Npcf_SMPolicyControl:FlowInformation ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AppDetectionInfo:sdfDescriptions ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Identifier sent by the SMF in order to allow correlation of application Start and Stop events to the specific service data flow description, if service data flow descriptions are deducible." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AppDetectionInfo:instanceId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AppDetectionInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:notifyUri ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repPeriod ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:waitTime ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the period of time in units of miliiseconds for UL packet delay." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshUl ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the period of time in units of miliiseconds for round trip packet delay." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshRp ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repFreqs ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "indicates the UL packet delay, DL packet delay and/or round trip packet delay between the UE and the UPF is to be monitored when the QoS Monitoring for URLLC is enabled for the service data flow." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:reqQosMonParams ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:notifyCorreId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Univocally identifies the QoS monitoring policy data within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:qmId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Indicates the period of time in units of miliiseconds for DL packet delay." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshDl ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:QosMonitoringData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxbrUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:5qi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:extMaxDataBurstVol ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxbrDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:averWindow ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:gbrUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:arp ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:gbrDl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:priorityLevel ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxDataBurstVol ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyNotification:smPolicyDecision ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_SmPolicyNotification:resourceUri ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:SmPolicyNotification .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedQos:5qi ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedQos:gbrUl ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedQos:gbrDl ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedQos .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:ruleOp ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:precedence ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:pccRuleId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:PacketFilterInfo ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:packFiltInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:RequestedQos ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:reqQos ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:AfSigProtocol .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:deactivationTime ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:ratType ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Uniquely identifies the condition data within a PDU session." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:condId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:accessType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ConditionData:activationTime ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ConditionData .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PortManagementContainer:portManCont ],
+        [ a sh:PropertyShape ;
+            sh:class TS29512_Npcf_SMPolicyControl:TsnPortNumber ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_PortManagementContainer:portNum ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PortManagementContainer .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Array of requested rule data type elements indicating what type of rule data is requested for the corresponding referenced PCC rules." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedRuleData:reqData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An array of PCC rule id references to the PCC rules associated with the control data." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_RequestedRuleData:refPccRuleIds ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:RequestedRuleData .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "END_USER_SER_DENIED"^^xsd:string "CREDIT_CTRL_NOT_APP"^^xsd:string "AUTH_REJECTED"^^xsd:string "USER_UNKNOWN"^^xsd:string "RATING_FAILED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:CreditManagementStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfSetId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfAddress ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfInstanceId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfAddress ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfSetId ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfInstanceId ] ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:ChargingInformation .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "TRA_CTRL_DECS_ERR"^^xsd:string "QOS_DECS_ERR"^^xsd:string "CHG_DECS_ERR"^^xsd:string "USA_MON_DECS_ERR"^^xsd:string "QOS_MON_DECS_ERR"^^xsd:string "CON_DATA_ERR"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:PolicyDecisionFailureCode .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "MA_PDU_REQUEST"^^xsd:string "MA_PDU_NETWORK_UPGRADE_ALLOWED"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29512_Npcf_SMPolicyControl:MaPduIndication .
 

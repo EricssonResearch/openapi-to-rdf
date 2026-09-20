@@ -603,15 +603,21 @@ class OpenAPIToSHACLConverter:
                 self.SH.xone,
                 self.SH["and"]
             ]
+            # Cardinality constraints (minCount/maxCount) are not value constraints but still
+            # make a PropertyShape meaningful: they enforce presence/absence without constraining the value.
+            cardinality_constraint_predicates = [self.SH.minCount, self.SH.maxCount]
 
-            # Check if any predicate is a value constraint
+            # Check if any predicate is a value or cardinality constraint
+            has_cardinality_constraint = False
             for pred in predicates_for_shape:
                 if pred in value_constraint_predicates:
                     has_value_constraint = True
                     break
+                if pred in cardinality_constraint_predicates:
+                    has_cardinality_constraint = True
 
-            # If no value constraint was added, remove the PropertyShape
-            if not has_value_constraint:
+            # Remove PropertyShape only if it has neither value nor cardinality constraints
+            if not has_value_constraint and not has_cardinality_constraint:
                 # Remove all triples where this property_shape is the subject
                 for p, o in list(self.shacl_graph.predicate_objects(property_shape)):
                     self.shacl_graph.remove((property_shape, p, o))

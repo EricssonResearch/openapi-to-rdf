@@ -16,9 +16,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-TS28623_ComDefs:AreaOfInterest a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
 TS28623_ComDefs:AttributeNameValuePairSet a rdfs:Class ;
     rdfs:comment "The key of this map is the attribute name, and the value the attribute value." .
 
@@ -52,22 +49,7 @@ TS28623_ComDefs:GeoAreaToCellMapping a rdfs:Class .
 
 TS28623_ComDefs:GeoCoordinate a rdfs:Class .
 
-TS28623_ComDefs:Host a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
-TS28623_ComDefs:HostAddr a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
-TS28623_ComDefs:IpAddr a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
-TS28623_ComDefs:IpAddrRo a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
 TS28623_ComDefs:NotificationHeader a rdfs:Class .
-
-TS28623_ComDefs:NotificationType a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28623_ComDefs:PlmnId a rdfs:Class ;
     rdfs:comment "This datatype is used for writable attribute" .
@@ -78,12 +60,6 @@ TS28623_ComDefs:PlmnIdRo a rdfs:Class ;
 TS28623_ComDefs:Subscription a rdfs:Class .
 
 TS28623_ComDefs:TimeInterval a rdfs:Class .
-
-TS28623_ComDefs:TimeWindow a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
-TS28623_ComDefs:TimeWindowRo a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28623_ComDefs:AdministrativeState a rdfs:Datatype .
 
@@ -327,7 +303,7 @@ TS28623_ComDefs_NotificationHeader:notificationId a rdf:Property ;
 
 TS28623_ComDefs_NotificationHeader:notificationType a rdf:Property ;
     rdfs:domain TS28623_ComDefs:NotificationHeader ;
-    rdfs:range TS28623_ComDefs:NotificationType .
+    rdfs:range xsd:string .
 
 TS28623_ComDefs_NotificationHeader:systemDN a rdf:Property ;
     rdfs:domain TS28623_ComDefs:NotificationHeader ;

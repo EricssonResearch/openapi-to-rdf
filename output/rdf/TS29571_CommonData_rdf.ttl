@@ -2,7 +2,6 @@
 @prefix TS29571_CommonData_AcsInfo: <http://ericsson.com/models/3gpp/TS29571/CommonData/AcsInfo#> .
 @prefix TS29571_CommonData_Ambr: <http://ericsson.com/models/3gpp/TS29571/CommonData/Ambr#> .
 @prefix TS29571_CommonData_ApnRateStatus: <http://ericsson.com/models/3gpp/TS29571/CommonData/ApnRateStatus#> .
-@prefix TS29571_CommonData_Area: <http://ericsson.com/models/3gpp/TS29571/CommonData/Area#> .
 @prefix TS29571_CommonData_AreaScope: <http://ericsson.com/models/3gpp/TS29571/CommonData/AreaScope#> .
 @prefix TS29571_CommonData_Arp: <http://ericsson.com/models/3gpp/TS29571/CommonData/Arp#> .
 @prefix TS29571_CommonData_Atom: <http://ericsson.com/models/3gpp/TS29571/CommonData/Atom#> .
@@ -20,8 +19,6 @@
 @prefix TS29571_CommonData_Ecgi: <http://ericsson.com/models/3gpp/TS29571/CommonData/Ecgi#> .
 @prefix TS29571_CommonData_EutraLocation: <http://ericsson.com/models/3gpp/TS29571/CommonData/EutraLocation#> .
 @prefix TS29571_CommonData_GNbId: <http://ericsson.com/models/3gpp/TS29571/CommonData/GNbId#> .
-@prefix TS29571_CommonData_GeraLocation: <http://ericsson.com/models/3gpp/TS29571/CommonData/GeraLocation#> .
-@prefix TS29571_CommonData_GlobalRanNodeId: <http://ericsson.com/models/3gpp/TS29571/CommonData/GlobalRanNodeId#> .
 @prefix TS29571_CommonData_Guami: <http://ericsson.com/models/3gpp/TS29571/CommonData/Guami#> .
 @prefix TS29571_CommonData_HalTemplate: <http://ericsson.com/models/3gpp/TS29571/CommonData/HalTemplate#> .
 @prefix TS29571_CommonData_HfcNodeId: <http://ericsson.com/models/3gpp/TS29571/CommonData/HfcNodeId#> .
@@ -80,7 +77,6 @@
 @prefix TS29571_CommonData_TwapId: <http://ericsson.com/models/3gpp/TS29571/CommonData/TwapId#> .
 @prefix TS29571_CommonData_UpSecurity: <http://ericsson.com/models/3gpp/TS29571/CommonData/UpSecurity#> .
 @prefix TS29571_CommonData_UserLocation: <http://ericsson.com/models/3gpp/TS29571/CommonData/UserLocation#> .
-@prefix TS29571_CommonData_UtraLocation: <http://ericsson.com/models/3gpp/TS29571/CommonData/UtraLocation#> .
 @prefix TS29571_CommonData_VolumeTimedReport: <http://ericsson.com/models/3gpp/TS29571/CommonData/VolumeTimedReport#> .
 @prefix TS29571_CommonData_WirelineArea: <http://ericsson.com/models/3gpp/TS29571/CommonData/WirelineArea#> .
 @prefix TS29571_CommonData_WirelineServiceAreaRestriction: <http://ericsson.com/models/3gpp/TS29571/CommonData/WirelineServiceAreaRestriction#> .
@@ -105,9 +101,6 @@ TS29571_CommonData:AmbrRm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:ApnRateStatus a rdfs:Class .
-
-TS29571_CommonData:Area a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:AreaScope a rdfs:Class .
 
@@ -146,9 +139,6 @@ TS29571_CommonData:CollectionPeriodRmmLteMdt a rdfs:Class ;
 
 TS29571_CommonData:CollectionPeriodRmmNrMdt a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
-
-TS29571_CommonData:ComplexQuery a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:CoreNetworkType a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -201,12 +191,6 @@ TS29571_CommonData:FqdnRm a rdfs:Class ;
 
 TS29571_CommonData:GNbId a rdfs:Class .
 
-TS29571_CommonData:GeraLocation a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
-TS29571_CommonData:GlobalRanNodeId a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
 TS29571_CommonData:Guami a rdfs:Class .
 
 TS29571_CommonData:GuamiRm a rdfs:Class ;
@@ -242,9 +226,6 @@ TS29571_CommonData:Link a rdfs:Class .
 
 TS29571_CommonData:LinkRm a rdfs:Class ;
     rdfs:comment "Note: This property is nullable in OpenAPI - null vs absent semantics not preserved in RDF" .
-
-TS29571_CommonData:LinksValueSchema a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:LocationAreaId a rdfs:Class .
 
@@ -542,9 +523,6 @@ TS29571_CommonData:UriScheme a rdfs:Class ;
 
 TS29571_CommonData:UserLocation a rdfs:Class .
 
-TS29571_CommonData:UtraLocation a rdfs:Class ;
-    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
-
 TS29571_CommonData:VolumeTimedReport a rdfs:Class .
 
 TS29571_CommonData:WirelineArea a rdfs:Class .
@@ -616,6 +594,9 @@ TS29571_CommonData:DateTime a rdfs:Datatype .
 
 TS29571_CommonData:DateTimeRm a rdfs:Datatype .
 
+TS29571_CommonData:DayOfWeek a rdfs:Datatype ;
+    rdfs:comment "integer between and including 1 and 7 denoting a weekday. 1 shall indicate Monday, and the subsequent weekdays shall be indicated with the next higher numbers. 7 shall indicate Sunday." .
+
 TS29571_CommonData:DiameterIdentity a rdfs:Datatype .
 
 TS29571_CommonData:DiameterIdentityRm a rdfs:Datatype .
@@ -637,6 +618,8 @@ TS29571_CommonData:DurationSec a rdfs:Datatype .
 TS29571_CommonData:DurationSecRm a rdfs:Datatype .
 
 TS29571_CommonData:ENbId a rdfs:Datatype .
+
+TS29571_CommonData:EutraCellId a rdfs:Datatype .
 
 TS29571_CommonData:EutraCellIdRm a rdfs:Datatype .
 
@@ -668,6 +651,8 @@ TS29571_CommonData:GpsiRm a rdfs:Datatype .
 TS29571_CommonData:GroupId a rdfs:Datatype .
 
 TS29571_CommonData:GroupIdRm a rdfs:Datatype .
+
+TS29571_CommonData:HfcNId a rdfs:Datatype .
 
 TS29571_CommonData:HfcNIdRm a rdfs:Datatype .
 
@@ -729,6 +714,8 @@ TS29571_CommonData:Nid a rdfs:Datatype .
 
 TS29571_CommonData:NidRm a rdfs:Datatype .
 
+TS29571_CommonData:NrCellId a rdfs:Datatype .
+
 TS29571_CommonData:NrCellIdRm a rdfs:Datatype .
 
 TS29571_CommonData:PacketDelBudget a rdfs:Datatype .
@@ -748,6 +735,8 @@ TS29571_CommonData:PduSessionId a rdfs:Datatype .
 TS29571_CommonData:Pei a rdfs:Datatype .
 
 TS29571_CommonData:PeiRm a rdfs:Datatype .
+
+TS29571_CommonData:PhysCellId a rdfs:Datatype .
 
 TS29571_CommonData:Qfi a rdfs:Datatype .
 
@@ -772,6 +761,8 @@ TS29571_CommonData:SupiOrSuci a rdfs:Datatype .
 TS29571_CommonData:SupiRm a rdfs:Datatype .
 
 TS29571_CommonData:SupportedFeatures a rdfs:Datatype .
+
+TS29571_CommonData:Tac a rdfs:Datatype .
 
 TS29571_CommonData:TacRm a rdfs:Datatype .
 
@@ -856,21 +847,13 @@ TS29571_CommonData_ApnRateStatus:validityTime a rdf:Property ;
     rdfs:domain TS29571_CommonData:ApnRateStatus ;
     rdfs:range xsd:dateTime .
 
-TS29571_CommonData_Area:areaCode a rdf:Property ;
-    rdfs:domain TS29571_CommonData:Area ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_Area:tacs a rdf:Property ;
-    rdfs:domain TS29571_CommonData:Area ;
-    rdfs:range TS29571_CommonData:Tac .
-
 TS29571_CommonData_AreaScope:eutraCellIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:AreaScope ;
-    rdfs:range TS29571_CommonData:EutraCellId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_AreaScope:nrCellIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:AreaScope ;
-    rdfs:range TS29571_CommonData:NrCellId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_AreaScope:tacInfoPerPlmn a rdf:Property ;
     rdfs:domain TS29571_CommonData:AreaScope ;
@@ -878,7 +861,7 @@ TS29571_CommonData_AreaScope:tacInfoPerPlmn a rdf:Property ;
 
 TS29571_CommonData_AreaScope:tacList a rdf:Property ;
     rdfs:domain TS29571_CommonData:AreaScope ;
-    rdfs:range TS29571_CommonData:Tac .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_Arp:preemptCap a rdf:Property ;
     rdfs:domain TS29571_CommonData:Arp ;
@@ -974,20 +957,16 @@ TS29571_CommonData_CnfUnit:cnfUnit a rdf:Property ;
     rdfs:range TS29571_CommonData:Atom .
 
 TS29571_CommonData_DddTrafficDescriptor:ipv4Addr a rdf:Property ;
-    rdfs:domain TS29571_CommonData:DddTrafficDescriptor ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:DddTrafficDescriptor .
 
 TS29571_CommonData_DddTrafficDescriptor:ipv6Addr a rdf:Property ;
-    rdfs:domain TS29571_CommonData:DddTrafficDescriptor ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:DddTrafficDescriptor .
 
 TS29571_CommonData_DddTrafficDescriptor:macAddr a rdf:Property ;
-    rdfs:domain TS29571_CommonData:DddTrafficDescriptor ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29571_CommonData:DddTrafficDescriptor .
 
 TS29571_CommonData_DddTrafficDescriptor:portNumber a rdf:Property ;
-    rdfs:domain TS29571_CommonData:DddTrafficDescriptor ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29571_CommonData:DddTrafficDescriptor .
 
 TS29571_CommonData_Dnf:dnfUnits a rdf:Property ;
     rdfs:domain TS29571_CommonData:Dnf ;
@@ -1067,11 +1046,11 @@ TS29571_CommonData_EutraLocation:geographicalInformation a rdf:Property ;
 
 TS29571_CommonData_EutraLocation:globalENbId a rdf:Property ;
     rdfs:domain TS29571_CommonData:EutraLocation ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_EutraLocation:globalNgenbId a rdf:Property ;
     rdfs:domain TS29571_CommonData:EutraLocation ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_EutraLocation:ignoreEcgi a rdf:Property ;
     rdfs:domain TS29571_CommonData:EutraLocation ;
@@ -1095,82 +1074,6 @@ TS29571_CommonData_GNbId:bitLength a rdf:Property ;
 
 TS29571_CommonData_GNbId:gNBValue a rdf:Property ;
     rdfs:domain TS29571_CommonData:GNbId ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GeraLocation:ageOfLocationInformation a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:integer .
-
-TS29571_CommonData_GeraLocation:cgi a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range TS29571_CommonData:CellGlobalId .
-
-TS29571_CommonData_GeraLocation:geodeticInformation a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GeraLocation:geographicalInformation a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GeraLocation:lai a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range TS29571_CommonData:LocationAreaId .
-
-TS29571_CommonData_GeraLocation:locationNumber a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GeraLocation:mscNumber a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GeraLocation:rai a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range TS29571_CommonData:RoutingAreaId .
-
-TS29571_CommonData_GeraLocation:sai a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range TS29571_CommonData:ServiceAreaId .
-
-TS29571_CommonData_GeraLocation:ueLocationTimestamp a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:dateTime .
-
-TS29571_CommonData_GeraLocation:vlrNumber a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GeraLocation ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GlobalRanNodeId:eNbId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GlobalRanNodeId:gNbId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range TS29571_CommonData:GNbId .
-
-TS29571_CommonData_GlobalRanNodeId:n3IwfId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GlobalRanNodeId:ngeNbId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GlobalRanNodeId:nid a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GlobalRanNodeId:plmnId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range TS29571_CommonData:PlmnId .
-
-TS29571_CommonData_GlobalRanNodeId:tngfId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_GlobalRanNodeId:wagfId a rdf:Property ;
-    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
     rdfs:range xsd:string .
 
 TS29571_CommonData_Guami:amfId a rdf:Property ;
@@ -1203,7 +1106,7 @@ TS29571_CommonData_HfcNodeId:hfcNId a rdf:Property ;
 
 TS29571_CommonData_InterFreqTargetInfo:cellIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:InterFreqTargetInfo ;
-    rdfs:range TS29571_CommonData:PhysCellId .
+    rdfs:range xsd:integer .
 
 TS29571_CommonData_InterFreqTargetInfo:dlCarrierFreq a rdf:Property ;
     rdfs:domain TS29571_CommonData:InterFreqTargetInfo ;
@@ -1251,7 +1154,7 @@ TS29571_CommonData_MbsfnArea:mbsfnAreaId a rdf:Property ;
 
 TS29571_CommonData_MdtConfiguration:addPositioningMethodList a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
-    rdfs:range TS29571_CommonData:PositioningMethodMdt .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_MdtConfiguration:areaScope a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
@@ -1267,7 +1170,7 @@ TS29571_CommonData_MdtConfiguration:collectionPeriodRmmNr a rdf:Property ;
 
 TS29571_CommonData_MdtConfiguration:eventList a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
-    rdfs:range TS29571_CommonData:EventForMdt .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_MdtConfiguration:eventThresholdRsrp a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
@@ -1319,11 +1222,11 @@ TS29571_CommonData_MdtConfiguration:mdtAllowedPlmnIdList a rdf:Property ;
 
 TS29571_CommonData_MdtConfiguration:measurementLteList a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
-    rdfs:range TS29571_CommonData:MeasurementLteForMdt .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_MdtConfiguration:measurementNrList a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
-    rdfs:range TS29571_CommonData:MeasurementNrForMdt .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_MdtConfiguration:measurementPeriodLte a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
@@ -1351,11 +1254,11 @@ TS29571_CommonData_MdtConfiguration:reportType a rdf:Property ;
 
 TS29571_CommonData_MdtConfiguration:reportingTriggerList a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
-    rdfs:range TS29571_CommonData:ReportingTrigger .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_MdtConfiguration:sensorMeasurementList a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdtConfiguration ;
-    rdfs:range TS29571_CommonData:SensorMeasurement .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_MoExpDataCounter:counter a rdf:Property ;
     rdfs:domain TS29571_CommonData:MoExpDataCounter ;
@@ -1487,7 +1390,7 @@ TS29571_CommonData_NrLocation:geographicalInformation a rdf:Property ;
 
 TS29571_CommonData_NrLocation:globalGnbId a rdf:Property ;
     rdfs:domain TS29571_CommonData:NrLocation ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_NrLocation:ncgi a rdf:Property ;
     rdfs:domain TS29571_CommonData:NrLocation ;
@@ -1598,11 +1501,11 @@ TS29571_CommonData_PresenceInfo:ecgiList a rdf:Property ;
 
 TS29571_CommonData_PresenceInfo:globalRanNodeIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:PresenceInfo ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_PresenceInfo:globaleNbIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:PresenceInfo ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_PresenceInfo:ncgiList a rdf:Property ;
     rdfs:domain TS29571_CommonData:PresenceInfo ;
@@ -1630,11 +1533,11 @@ TS29571_CommonData_PresenceInfoRm:ecgiList a rdf:Property ;
 
 TS29571_CommonData_PresenceInfoRm:globalRanNodeIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:PresenceInfoRm ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_PresenceInfoRm:globaleNbIdList a rdf:Property ;
     rdfs:domain TS29571_CommonData:PresenceInfoRm ;
-    rdfs:range TS29571_CommonData:GlobalRanNodeId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_PresenceInfoRm:ncgiList a rdf:Property ;
     rdfs:domain TS29571_CommonData:PresenceInfoRm ;
@@ -1783,7 +1686,7 @@ TS29571_CommonData_RoutingAreaId:rac a rdf:Property ;
 TS29571_CommonData_ScheduledCommunicationTime:daysOfWeek a rdf:Property ;
     rdfs:comment "Identifies the day(s) of the week. If absent, it indicates every day of the week." ;
     rdfs:domain TS29571_CommonData:ScheduledCommunicationTime ;
-    rdfs:range TS29571_CommonData:DayOfWeek .
+    rdfs:range xsd:integer .
 
 TS29571_CommonData_ScheduledCommunicationTime:timeOfDayEnd a rdf:Property ;
     rdfs:domain TS29571_CommonData:ScheduledCommunicationTime ;
@@ -1839,7 +1742,7 @@ TS29571_CommonData_ServiceAreaId:sac a rdf:Property ;
 
 TS29571_CommonData_ServiceAreaRestriction:areas a rdf:Property ;
     rdfs:domain TS29571_CommonData:ServiceAreaRestriction ;
-    rdfs:range TS29571_CommonData:Area .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_ServiceAreaRestriction:maxNumOfTAs a rdf:Property ;
     rdfs:domain TS29571_CommonData:ServiceAreaRestriction ;
@@ -1905,7 +1808,7 @@ TS29571_CommonData_SubscribedDefaultQos:priorityLevel a rdf:Property ;
 
 TS29571_CommonData_TacInfo:tacList a rdf:Property ;
     rdfs:domain TS29571_CommonData:TacInfo ;
-    rdfs:range TS29571_CommonData:Tac .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_Tai:nid a rdf:Property ;
     rdfs:domain TS29571_CommonData:Tai ;
@@ -1985,7 +1888,7 @@ TS29571_CommonData_UserLocation:eutraLocation a rdf:Property ;
 
 TS29571_CommonData_UserLocation:geraLocation a rdf:Property ;
     rdfs:domain TS29571_CommonData:UserLocation ;
-    rdfs:range TS29571_CommonData:GeraLocation .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_UserLocation:n3gaLocation a rdf:Property ;
     rdfs:domain TS29571_CommonData:UserLocation ;
@@ -1997,39 +1900,7 @@ TS29571_CommonData_UserLocation:nrLocation a rdf:Property ;
 
 TS29571_CommonData_UserLocation:utraLocation a rdf:Property ;
     rdfs:domain TS29571_CommonData:UserLocation ;
-    rdfs:range TS29571_CommonData:UtraLocation .
-
-TS29571_CommonData_UtraLocation:ageOfLocationInformation a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range xsd:integer .
-
-TS29571_CommonData_UtraLocation:cgi a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range TS29571_CommonData:CellGlobalId .
-
-TS29571_CommonData_UtraLocation:geodeticInformation a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
     rdfs:range xsd:string .
-
-TS29571_CommonData_UtraLocation:geographicalInformation a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range xsd:string .
-
-TS29571_CommonData_UtraLocation:lai a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range TS29571_CommonData:LocationAreaId .
-
-TS29571_CommonData_UtraLocation:rai a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range TS29571_CommonData:RoutingAreaId .
-
-TS29571_CommonData_UtraLocation:sai a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range TS29571_CommonData:ServiceAreaId .
-
-TS29571_CommonData_UtraLocation:ueLocationTimestamp a rdf:Property ;
-    rdfs:domain TS29571_CommonData:UtraLocation ;
-    rdfs:range xsd:dateTime .
 
 TS29571_CommonData_VolumeTimedReport:downlinkVolume a rdf:Property ;
     rdfs:domain TS29571_CommonData:VolumeTimedReport ;
@@ -2057,11 +1928,11 @@ TS29571_CommonData_WirelineArea:areaCodeC a rdf:Property ;
 
 TS29571_CommonData_WirelineArea:globalLineIds a rdf:Property ;
     rdfs:domain TS29571_CommonData:WirelineArea ;
-    rdfs:range TS29571_CommonData:Gli .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_WirelineArea:hfcNIds a rdf:Property ;
     rdfs:domain TS29571_CommonData:WirelineArea ;
-    rdfs:range TS29571_CommonData:HfcNId .
+    rdfs:range xsd:string .
 
 TS29571_CommonData_WirelineServiceAreaRestriction:areas a rdf:Property ;
     rdfs:domain TS29571_CommonData:WirelineServiceAreaRestriction ;
@@ -2070,17 +1941,4 @@ TS29571_CommonData_WirelineServiceAreaRestriction:areas a rdf:Property ;
 TS29571_CommonData_WirelineServiceAreaRestriction:restrictionType a rdf:Property ;
     rdfs:domain TS29571_CommonData:WirelineServiceAreaRestriction ;
     rdfs:range xsd:string .
-
-TS29571_CommonData:DayOfWeek a rdfs:Datatype ;
-    rdfs:comment "integer between and including 1 and 7 denoting a weekday. 1 shall indicate Monday, and the subsequent weekdays shall be indicated with the next higher numbers. 7 shall indicate Sunday." .
-
-TS29571_CommonData:EutraCellId a rdfs:Datatype .
-
-TS29571_CommonData:HfcNId a rdfs:Datatype .
-
-TS29571_CommonData:NrCellId a rdfs:Datatype .
-
-TS29571_CommonData:PhysCellId a rdfs:Datatype .
-
-TS29571_CommonData:Tac a rdfs:Datatype .
 

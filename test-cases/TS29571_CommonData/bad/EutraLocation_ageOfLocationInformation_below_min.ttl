@@ -1,55 +1,54 @@
 @prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
-@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/GlobalRanNodeId#> .
-@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/EutraLocation#> .
-@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/Tai#> .
-@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
-@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/GNbId#> .
-@prefix ns6: <http://ericsson.com/models/3gpp/TS29571/CommonData/Ecgi#> .
+@prefix ns1: <http://ericsson.com/models/3gpp/TS29571/CommonData/GNbId#> .
+@prefix ns2: <http://ericsson.com/models/3gpp/TS29571/CommonData/Tai#> .
+@prefix ns3: <http://ericsson.com/models/3gpp/TS29571/CommonData/Ecgi#> .
+@prefix ns4: <http://ericsson.com/models/3gpp/TS29571/CommonData/EutraLocation#> .
+@prefix ns5: <http://ericsson.com/models/3gpp/TS29571/CommonData/PlmnId#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:EutraLocation ;
-    ns2:ageOfLocationInformation -1 ;
-    ns2:ecgi [ a TS29571_CommonData:Ecgi ;
-            ns6:eutraCellId "AFaf09A"^^xsd:string ;
-            ns6:nid "AFaf09AFaf0"^^xsd:string ;
-            ns6:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns4:mcc "aaaa"^^xsd:string ;
-                    ns4:mnc "aaaa"^^xsd:string ] ] ;
-    ns2:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
-    ns2:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
-    ns2:globalENbId [ a TS29571_CommonData:GlobalRanNodeId ;
-            ns1:eNbId "aaaa"^^xsd:string ;
-            ns1:gNbId [ a TS29571_CommonData:GNbId ;
-                    ns5:bitLength 27 ;
-                    ns5:gNBValue "AFaf09"^^xsd:string ] ;
-            ns1:n3IwfId "aaaa"^^xsd:string ;
-            ns1:ngeNbId "aaaa"^^xsd:string ;
-            ns1:nid "AFaf09AFaf0"^^xsd:string ;
-            ns1:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns4:mcc "aaaa"^^xsd:string ;
-                    ns4:mnc "aaaa"^^xsd:string ] ;
-            ns1:tngfId "aaaa"^^xsd:string ;
-            ns1:wagfId "aaaa"^^xsd:string ] ;
-    ns2:globalNgenbId [ a TS29571_CommonData:GlobalRanNodeId ;
-            ns1:eNbId "aaaa"^^xsd:string ;
-            ns1:gNbId [ a TS29571_CommonData:GNbId ;
-                    ns5:bitLength 27 ;
-                    ns5:gNBValue "AFaf09"^^xsd:string ] ;
-            ns1:n3IwfId "aaaa"^^xsd:string ;
-            ns1:ngeNbId "aaaa"^^xsd:string ;
-            ns1:nid "AFaf09AFaf0"^^xsd:string ;
-            ns1:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns4:mcc "aaaa"^^xsd:string ;
-                    ns4:mnc "aaaa"^^xsd:string ] ;
-            ns1:tngfId "aaaa"^^xsd:string ;
-            ns1:wagfId "aaaa"^^xsd:string ] ;
-    ns2:ignoreEcgi true ;
-    ns2:ignoreTai true ;
-    ns2:tai [ a TS29571_CommonData:Tai ;
+    ns4:ageOfLocationInformation -1 ;
+    ns4:ecgi [ a TS29571_CommonData:Ecgi ;
+            ns3:eutraCellId "AFaf09A"^^xsd:string ;
             ns3:nid "AFaf09AFaf0"^^xsd:string ;
             ns3:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns4:mcc "aaaa"^^xsd:string ;
-                    ns4:mnc "aaaa"^^xsd:string ] ;
-            ns3:tac "aaaa"^^xsd:string ] ;
-    ns2:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
+                    ns5:mcc "aaaa"^^xsd:string ;
+                    ns5:mnc "aaaa"^^xsd:string ] ] ;
+    ns4:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
+    ns4:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
+    ns4:globalENbId [ a TS29571_CommonData:GlobalRanNodeId ;
+            TS29571_CommonData:eNbId "aaaa"^^xsd:string ;
+            TS29571_CommonData:gNbId [ a TS29571_CommonData:GNbId ;
+                    ns1:bitLength 27 ;
+                    ns1:gNBValue "AFaf09"^^xsd:string ] ;
+            TS29571_CommonData:n3IwfId "aaaa"^^xsd:string ;
+            TS29571_CommonData:ngeNbId "aaaa"^^xsd:string ;
+            TS29571_CommonData:nid "AFaf09AFaf0"^^xsd:string ;
+            TS29571_CommonData:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns5:mcc "aaaa"^^xsd:string ;
+                    ns5:mnc "aaaa"^^xsd:string ] ;
+            TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
+            TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
+    ns4:globalNgenbId [ a TS29571_CommonData:GlobalRanNodeId ;
+            TS29571_CommonData:eNbId "aaaa"^^xsd:string ;
+            TS29571_CommonData:gNbId [ a TS29571_CommonData:GNbId ;
+                    ns1:bitLength 27 ;
+                    ns1:gNBValue "AFaf09"^^xsd:string ] ;
+            TS29571_CommonData:n3IwfId "aaaa"^^xsd:string ;
+            TS29571_CommonData:ngeNbId "aaaa"^^xsd:string ;
+            TS29571_CommonData:nid "AFaf09AFaf0"^^xsd:string ;
+            TS29571_CommonData:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns5:mcc "aaaa"^^xsd:string ;
+                    ns5:mnc "aaaa"^^xsd:string ] ;
+            TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
+            TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
+    ns4:ignoreEcgi true ;
+    ns4:ignoreTai true ;
+    ns4:tai [ a TS29571_CommonData:Tai ;
+            ns2:nid "AFaf09AFaf0"^^xsd:string ;
+            ns2:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns5:mcc "aaaa"^^xsd:string ;
+                    ns5:mnc "aaaa"^^xsd:string ] ;
+            ns2:tac "aaaa"^^xsd:string ] ;
+    ns4:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
 

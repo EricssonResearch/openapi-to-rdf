@@ -44,11 +44,11 @@
 @prefix TS29512_Npcf_SMPolicyControl_TsnBridgeInfo: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/TsnBridgeInfo#> .
 @prefix TS29512_Npcf_SMPolicyControl_UeCampingRep: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UeCampingRep#> .
 @prefix TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UeInitiatedResourceRequest#> .
-@prefix TS29512_Npcf_SMPolicyControl_UpPathChgEvent: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UpPathChgEvent#> .
+@prefix TS29512_Npcf_SMPolicyControl_UpPathChgEvent: <http://ericsson.com/models/3gpp/transport/UpPathChgEvent#> .
 @prefix TS29512_Npcf_SMPolicyControl_UsageMonitoringData: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl/UsageMonitoringData#> .
-@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix transport: <http://ericsson.com/models/3gpp/transport/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29512_Npcf_SMPolicyControl:AccNetChId a rdfs:Class .
@@ -234,10 +234,11 @@ TS29512_Npcf_SMPolicyControl:UeCampingRep a rdfs:Class .
 
 TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest a rdfs:Class .
 
-TS29512_Npcf_SMPolicyControl:UpPathChgEvent a rdfs:Class ;
+TS29512_Npcf_SMPolicyControl:UsageMonitoringData a rdfs:Class ;
     rdfs:comment "Note: This property is nullable in OpenAPI - null vs absent semantics not preserved in RDF" .
 
-TS29512_Npcf_SMPolicyControl:UsageMonitoringData a rdfs:Class ;
+transport:UpPathChgEvent a rdfs:Class ;
+    transport:isTransportEnvelope true ;
     rdfs:comment "Note: This property is nullable in OpenAPI - null vs absent semantics not preserved in RDF" .
 
 TS29512_Npcf_SMPolicyControl:EpsRanNasRelCause a rdfs:Datatype ;
@@ -250,8 +251,7 @@ TS29512_Npcf_SMPolicyControl:PacketFilterContent a rdfs:Datatype ;
     rdfs:comment "Defines a packet filter for an IP flow." .
 
 TS29512_Npcf_SMPolicyControl_AccNetChId:accNetChaIdValue a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChId ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChId .
 
 TS29512_Npcf_SMPolicyControl_AccNetChId:refPccRuleIds a rdf:Property ;
     rdfs:comment "Contains the identifier of the PCC rule(s) associated to the provided Access Network Charging Identifier." ;
@@ -263,16 +263,13 @@ TS29512_Npcf_SMPolicyControl_AccNetChId:sessionChScope a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_AccNetChargingAddress:anChargIpv4Addr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChargingAddress ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChargingAddress .
 
 TS29512_Npcf_SMPolicyControl_AccNetChargingAddress:anChargIpv6Addr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChargingAddress ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChargingAddress .
 
 TS29512_Npcf_SMPolicyControl_AccuUsageReport:nextTimeUsage a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AccuUsageReport ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AccuUsageReport .
 
 TS29512_Npcf_SMPolicyControl_AccuUsageReport:refUmIds a rdf:Property ;
     rdfs:comment "An id referencing UsageMonitoringData objects associated with this usage report." ;
@@ -280,12 +277,10 @@ TS29512_Npcf_SMPolicyControl_AccuUsageReport:refUmIds a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_AdditionalAccessInfo:accessType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
 
 TS29512_Npcf_SMPolicyControl_AdditionalAccessInfo:ratType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
 
 TS29512_Npcf_SMPolicyControl_AppDetectionInfo:appId a rdf:Property ;
     rdfs:comment "A reference to the application detection filter configured at the UPF" ;
@@ -303,56 +298,43 @@ TS29512_Npcf_SMPolicyControl_AppDetectionInfo:sdfDescriptions a rdf:Property ;
     rdfs:range TS29512_Npcf_SMPolicyControl:FlowInformation .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:5qi a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:arp a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range TS29571_CommonData:Arp .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:averWindow a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:extMaxDataBurstVol a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:gbrDl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:gbrUl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxDataBurstVol a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxbrDl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:maxbrUl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_AuthorizedDefaultQos:priorityLevel a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_BridgeManagementContainer:bridgeManCont a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:BridgeManagementContainer ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:afChargId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:afChargingIdentifier a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:appSvcProvId a rdf:Property ;
     rdfs:comment "Indicates the application service provider identity." ;
@@ -379,8 +361,7 @@ TS29512_Npcf_SMPolicyControl_ChargingData:online a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:ratingGroup a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:reportingLevel a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData ;
@@ -392,8 +373,7 @@ TS29512_Npcf_SMPolicyControl_ChargingData:sdfHandl a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:serviceId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingData .
 
 TS29512_Npcf_SMPolicyControl_ChargingData:sponsorId a rdf:Property ;
     rdfs:comment "Indicates the sponsor identity." ;
@@ -401,36 +381,28 @@ TS29512_Npcf_SMPolicyControl_ChargingData:sponsorId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfAddress a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation .
 
 TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfInstanceId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation .
 
 TS29512_Npcf_SMPolicyControl_ChargingInformation:primaryChfSetId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation .
 
 TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfAddress a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation .
 
 TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfInstanceId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation .
 
 TS29512_Npcf_SMPolicyControl_ChargingInformation:secondaryChfSetId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ChargingInformation .
 
 TS29512_Npcf_SMPolicyControl_ConditionData:accessType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData .
 
 TS29512_Npcf_SMPolicyControl_ConditionData:activationTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData ;
-    rdfs:range xsd:dateTime .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData .
 
 TS29512_Npcf_SMPolicyControl_ConditionData:condId a rdf:Property ;
     rdfs:comment "Uniquely identifies the condition data within a PDU session." ;
@@ -438,41 +410,36 @@ TS29512_Npcf_SMPolicyControl_ConditionData:condId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_ConditionData:deactivationTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData ;
-    rdfs:range xsd:dateTime .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData .
 
 TS29512_Npcf_SMPolicyControl_ConditionData:ratType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ConditionData .
 
 TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControl:notifCtrlInds a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:NotificationControlIndication .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControl:typesOfNotif a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl ;
-    rdfs:range TS29571_CommonData:DlDataDeliveryStatus .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControl .
 
 TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControlRm:notifCtrlInds a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:NotificationControlIndication .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_DownlinkDataNotificationControlRm:typesOfNotif a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm ;
-    rdfs:range TS29571_CommonData:DlDataDeliveryStatus .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:DownlinkDataNotificationControlRm .
 
 TS29512_Npcf_SMPolicyControl_ErrorReport:altQosParamId a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:ErrorReport ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_ErrorReport:error a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ErrorReport ;
-    rdfs:range TS29571_CommonData:ProblemDetails .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ErrorReport .
 
 TS29512_Npcf_SMPolicyControl_ErrorReport:polDecFailureReports a rdf:Property ;
     rdfs:comment "Used to report failure of the policy decision and/or condition data." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:ErrorReport ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:PolicyDecisionFailureCode .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_ErrorReport:ruleReports a rdf:Property ;
     rdfs:comment "Used to report the PCC rule failure." ;
@@ -518,20 +485,16 @@ TS29512_Npcf_SMPolicyControl_FlowInformation:tosTrafficClass a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:ipv4MulAddr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo .
 
 TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:ipv6MulAddr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo .
 
 TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:srcIpv4Addr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo .
 
 TS29512_Npcf_SMPolicyControl_IpMulticastAddressInfo:srcIpv6Addr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:IpMulticastAddressInfo .
 
 TS29512_Npcf_SMPolicyControl_PacketFilterInfo:flowDirection a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:PacketFilterInfo ;
@@ -568,7 +531,7 @@ TS29512_Npcf_SMPolicyControl_PartialSuccessReport:failureCause a rdf:Property ;
 TS29512_Npcf_SMPolicyControl_PartialSuccessReport:policyDecFailureReports a rdf:Property ;
     rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:PartialSuccessReport ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:PolicyDecisionFailureCode .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_PartialSuccessReport:ruleReports a rdf:Property ;
     rdfs:comment "Information about the PCC rules provisioned by the PCF not successfully installed/activated." ;
@@ -629,8 +592,7 @@ TS29512_Npcf_SMPolicyControl_PccRule:pccRuleId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_PccRule:precedence a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:PccRule ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:PccRule .
 
 TS29512_Npcf_SMPolicyControl_PccRule:refAltQosParams a rdf:Property ;
     rdfs:comment "A Reference to the QosData policy decision type for the Alternative QoS parameter sets of the service data flow." ;
@@ -670,56 +632,44 @@ TS29512_Npcf_SMPolicyControl_PccRule:refUmN3gData a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:PccRule .
 
 TS29512_Npcf_SMPolicyControl_PortManagementContainer:portManCont a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29512_Npcf_SMPolicyControl_PortManagementContainer:portNum a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:PortManagementContainer ;
     rdfs:range TS29512_Npcf_SMPolicyControl:TsnPortNumber .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:5qi a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:averagingWindow a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:extMaxDataBurstVol a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:maxDataBurstVol a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:packetDelayBudget a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:packetErrorRate a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:priorityLevel a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosCharacteristics:resourceType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosCharacteristics .
 
 TS29512_Npcf_SMPolicyControl_QosData:5qi a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:arp a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range TS29571_CommonData:Arp .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:averWindow a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:defQosFlowIndication a rdf:Property ;
     rdfs:comment "Indicates that the dynamic PCC rule shall always have its binding with the QoS Flow associated with the default QoS rule" ;
@@ -727,48 +677,37 @@ TS29512_Npcf_SMPolicyControl_QosData:defQosFlowIndication a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_QosData:extMaxDataBurstVol a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:gbrDl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:gbrUl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:maxDataBurstVol a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:maxPacketLossRateDl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:maxPacketLossRateUl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:maxbrDl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:maxbrUl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:packetDelayBudget a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:packetErrorRate a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:priorityLevel a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosData .
 
 TS29512_Npcf_SMPolicyControl_QosData:qnc a rdf:Property ;
     rdfs:comment "Indicates whether notifications are requested from 3GPP NG-RAN when the GFBR can no longer (or again) be guaranteed for a QoS Flow during the lifetime of the QoS Flow." ;
@@ -800,8 +739,7 @@ TS29512_Npcf_SMPolicyControl_QosMonitoringData:notifyCorreId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:notifyUri a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData .
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:qmId a rdf:Property ;
     rdfs:comment "Univocally identifies the QoS monitoring policy data within a PDU session." ;
@@ -810,11 +748,10 @@ TS29512_Npcf_SMPolicyControl_QosMonitoringData:qmId a rdf:Property ;
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:repFreqs a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:ReportingFrequency .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:repPeriod a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData .
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshDl a rdf:Property ;
     rdfs:comment "Indicates the period of time in units of miliiseconds for DL packet delay." ;
@@ -834,11 +771,10 @@ TS29512_Npcf_SMPolicyControl_QosMonitoringData:repThreshUl a rdf:Property ;
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:reqQosMonParams a rdf:Property ;
     rdfs:comment "indicates the UL packet delay, DL packet delay and/or round trip packet delay between the UE and the UPF is to be monitored when the QoS Monitoring for URLLC is enabled for the service data flow." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:RequestedQosMonitoringParameter .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringData:waitTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringData .
 
 TS29512_Npcf_SMPolicyControl_QosMonitoringReport:dlDelays a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:QosMonitoringReport .
@@ -862,8 +798,7 @@ TS29512_Npcf_SMPolicyControl_QosNotificationControlInfo:refPccRuleIds a rdf:Prop
     rdfs:domain TS29512_Npcf_SMPolicyControl:QosNotificationControlInfo .
 
 TS29512_Npcf_SMPolicyControl_RanNasRelCause:5gMmCause a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:RanNasRelCause .
 
 TS29512_Npcf_SMPolicyControl_RanNasRelCause:5gSmCause a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
@@ -874,8 +809,7 @@ TS29512_Npcf_SMPolicyControl_RanNasRelCause:epsCause a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_RanNasRelCause:ngApCause a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:RanNasRelCause ;
-    rdfs:range TS29571_CommonData:NgApCause .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:RanNasRelCause .
 
 TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectAddressType a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:RedirectInformation ;
@@ -892,16 +826,13 @@ TS29512_Npcf_SMPolicyControl_RedirectInformation:redirectServerAddress a rdf:Pro
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_RequestedQos:5qi a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedQos ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedQos .
 
 TS29512_Npcf_SMPolicyControl_RequestedQos:gbrDl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedQos ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedQos .
 
 TS29512_Npcf_SMPolicyControl_RequestedQos:gbrUl a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedQos ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedQos .
 
 TS29512_Npcf_SMPolicyControl_RequestedRuleData:refPccRuleIds a rdf:Property ;
     rdfs:comment "An array of PCC rule id references to the PCC rules associated with the control data." ;
@@ -910,7 +841,7 @@ TS29512_Npcf_SMPolicyControl_RequestedRuleData:refPccRuleIds a rdf:Property ;
 TS29512_Npcf_SMPolicyControl_RequestedRuleData:reqData a rdf:Property ;
     rdfs:comment "Array of requested rule data type elements indicating what type of rule data is requested for the corresponding referenced PCC rules." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:RequestedRuleData ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:RequestedRuleDataType .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_RequestedUsageData:allUmIds a rdf:Property ;
     rdfs:comment "This boolean indicates whether requested usage data applies to all usage monitoring data instances. When it's not included, it means requested usage data shall only apply to the usage monitoring data instances referenced by the refUmIds attribute." ;
@@ -939,20 +870,17 @@ TS29512_Npcf_SMPolicyControl_RuleReport:ruleStatus a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_ServingNfIdentity:guami a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
-    rdfs:range TS29571_CommonData:Guami .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
 
 TS29512_Npcf_SMPolicyControl_ServingNfIdentity:servNfInstId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:ServingNfIdentity ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
 
 TS29512_Npcf_SMPolicyControl_SessionRule:authDefQos a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SessionRule ;
     rdfs:range TS29512_Npcf_SMPolicyControl:AuthorizedDefaultQos .
 
 TS29512_Npcf_SMPolicyControl_SessionRule:authSessAmbr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SessionRule ;
-    rdfs:range TS29571_CommonData:Ambr .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SessionRule .
 
 TS29512_Npcf_SMPolicyControl_SessionRule:refCondData a rdf:Property ;
     rdfs:comment "A reference to the condition data. It is the condId described in subclause 5.6.2.9." ;
@@ -977,7 +905,7 @@ TS29512_Npcf_SMPolicyControl_SessionRule:sessRuleId a rdf:Property ;
 TS29512_Npcf_SMPolicyControl_SessionRuleReport:policyDecFailureReports a rdf:Property ;
     rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SessionRuleReport ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:PolicyDecisionFailureCode .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SessionRuleReport:ruleIds a rdf:Property ;
     rdfs:comment "Contains the identifier of the affected session rule(s)." ;
@@ -1001,8 +929,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyContextData:accNetChId a rdf:Property ;
     rdfs:range TS29512_Npcf_SMPolicyControl:AccNetChId .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:accessType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:addAccessInfo a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
@@ -1026,16 +953,13 @@ TS29512_Npcf_SMPolicyControl_SmPolicyContextData:chargingcharacteristics a rdf:P
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:dnn a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:gpsi a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:interGrpIds a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:GroupId .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:invalidSupi a rdf:Property ;
     rdfs:comment "When this attribute is included and set to true, it indicates that the supi attribute contains an invalid value.This attribute shall be present if the SUPI is not available in the SMF or the SUPI is unauthenticated. When present it shall be set to true for an invalid SUPI and false (default) for a valid SUPI." ;
@@ -1048,28 +972,23 @@ TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipDomain a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv4Address a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv4FrameRouteList a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:Ipv4AddrMask .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv6AddressPrefix a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ipv6FrameRouteList a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:Ipv6Prefix .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:maPduInd a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:notificationUri a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:numOfPackFilter a rdf:Property ;
     rdfs:comment "Contains the number of supported packet filter for signalled QoS rules." ;
@@ -1087,28 +1006,23 @@ TS29512_Npcf_SMPolicyControl_SmPolicyContextData:online a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pduSessionId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pduSessionType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:pei a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:qosFlowUsage a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ratType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:recoveryTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:dateTime .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:refQosIndication a rdf:Property ;
     rdfs:comment "If it is included and set to true, the reflective QoS is supported by the UE." ;
@@ -1120,44 +1034,34 @@ TS29512_Npcf_SMPolicyControl_SmPolicyContextData:servNfId a rdf:Property ;
     rdfs:range TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:servingNetwork a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:PlmnIdNid .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:sliceInfo a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:Snssai .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:smfId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:subsDefQos a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:SubscribedDefaultQos .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:subsSessAmbr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:Ambr .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:supi a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:suppFeat a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:traceReq a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:TraceData .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:ueTimeZone a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyContextData:userLocationInfo a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData ;
-    rdfs:range TS29571_CommonData:UserLocation .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyControl:context a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyControl ;
@@ -1213,7 +1117,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyDecision:pcscfRestIndication a rdf:Property
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:policyCtrlReqTriggers a rdf:Property ;
     rdfs:comment "Defines the policy control request triggers subscribed by the PCF." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:PolicyControlRequestTrigger .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:praInfos a rdf:Property ;
     rdfs:comment "Map of PRA information." ;
@@ -1245,16 +1149,14 @@ TS29512_Npcf_SMPolicyControl_SmPolicyDecision:redSessIndication a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:reflectiveQoSTimer a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:relCause a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:revalidationTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
-    rdfs:range xsd:dateTime .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:sessRules a rdf:Property ;
     rdfs:comment "A map of Sessionrules with the content being the SessionRule as described in subclause 5.6.2.7." ;
@@ -1262,8 +1164,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyDecision:sessRules a rdf:Property ;
     rdfs:range rdfs:Resource .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:suppFeat a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDecision .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDecision:traffContDecs a rdf:Property ;
     rdfs:comment "Map of Traffic Control data policy decisions." ;
@@ -1306,24 +1207,19 @@ TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:ranNasRelCauses a rdf:Property ;
     rdfs:range TS29512_Npcf_SMPolicyControl:RanNasRelCause .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:servingNetwork a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData ;
-    rdfs:range TS29571_CommonData:PlmnIdNid .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:ueTimeZone a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:userLocationInfo a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData ;
-    rdfs:range TS29571_CommonData:UserLocation .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyDeleteData:userLocationInfoTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData ;
-    rdfs:range xsd:dateTime .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyDeleteData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyNotification:resourceUri a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyNotification ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyNotification .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyNotification:smPolicyDecision a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyNotification ;
@@ -1340,8 +1236,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accNetChIds a rdf:Propert
     rdfs:range TS29512_Npcf_SMPolicyControl:AccNetChId .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accessType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:accuUsageReports a rdf:Property ;
     rdfs:comment "Contains the usage report" ;
@@ -1353,12 +1248,10 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addAccessInfo a rdf:Prope
     rdfs:range TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addIpv6AddrPrefixes a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:addRelIpv6AddrPrefixes a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:appDetectionInfos a rdf:Property ;
     rdfs:comment "Report the start/stop of the application traffic and detected SDF descriptions if applicable." ;
@@ -1379,8 +1272,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:creditManageStatus a rdf:
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:interGrpIds a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:GroupId .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipDomain a rdf:Property ;
     rdfs:comment "Indicates the IPv4 address domain" ;
@@ -1388,12 +1280,10 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipDomain a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipv4Address a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ipv6AddressPrefix a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:maPduInd a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
@@ -1416,7 +1306,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:pccRuleId a rdf:Property 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:policyDecFailureReports a rdf:Property ;
     rdfs:comment "Contains the type(s) of failed policy decision and/or condition data." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:PolicyDecisionFailureCode .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qncReports a rdf:Property ;
     rdfs:comment "QoS Notification Control information." ;
@@ -1432,8 +1322,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:qosMonReports a rdf:Prope
     rdfs:range TS29512_Npcf_SMPolicyControl:QosMonitoringReport .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ratType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:refQosIndication a rdf:Property ;
     rdfs:comment "If it is included and set to true, the reflective QoS is supported by the UE. If it is included and set to false, the reflective QoS is revoked by the UE." ;
@@ -1445,21 +1334,18 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relAccessInfo a rdf:Prope
     rdfs:range TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relIpv4Address a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relIpv6AddressPrefix a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:relUeMac a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:repPolicyCtrlReqTriggers a rdf:Property ;
     rdfs:comment "The policy control reqeust trigges which are met." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:PolicyControlRequestTrigger .
+    rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:repPraInfos a rdf:Property ;
     rdfs:comment "Reports the changes of presence reporting area." ;
@@ -1476,8 +1362,7 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:servNfId a rdf:Property ;
     rdfs:range TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:servingNetwork a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:PlmnIdNid .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:sessRuleReports a rdf:Property ;
     rdfs:comment "Used to report the session rule failure." ;
@@ -1485,20 +1370,16 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:sessRuleReports a rdf:Pro
     rdfs:range TS29512_Npcf_SMPolicyControl:SessionRuleReport .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:subsDefQos a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:SubscribedDefaultQos .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:subsSessAmbr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:Ambr .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:traceReq a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:TraceData .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:trafficDescriptors a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:DddTrafficDescriptor .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnBridgeInfo a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
@@ -1517,28 +1398,23 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:tsnPortManContNwtts a rdf
     rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:typesOfNotif a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:DlDataDeliveryStatus .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueInitResReq a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
     rdfs:range TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueMac a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:ueTimeZone a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:userLocationInfo a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range TS29571_CommonData:UserLocation .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:userLocationInfoTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData ;
-    rdfs:range xsd:dateTime .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SmPolicyUpdateContextData .
 
 TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:vplmnQosNotApp a rdf:Property ;
     rdfs:comment "If it is included and set to true, indicates that the QoS constraints in the VPLMN are not applicable." ;
@@ -1546,20 +1422,16 @@ TS29512_Npcf_SMPolicyControl_SmPolicyUpdateContextData:vplmnQosNotApp a rdf:Prop
     rdfs:range xsd:boolean .
 
 TS29512_Npcf_SMPolicyControl_SteeringMode:3gLoad a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode .
 
 TS29512_Npcf_SMPolicyControl_SteeringMode:active a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode .
 
 TS29512_Npcf_SMPolicyControl_SteeringMode:prioAcc a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode .
 
 TS29512_Npcf_SMPolicyControl_SteeringMode:standby a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode ;
-    rdfs:range TS29571_CommonData:AccessTypeRm .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode .
 
 TS29512_Npcf_SMPolicyControl_SteeringMode:steerModeValue a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:SteeringMode ;
@@ -1570,8 +1442,7 @@ TS29512_Npcf_SMPolicyControl_TerminationNotification:cause a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_TerminationNotification:resourceUri a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:TerminationNotification ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:TerminationNotification .
 
 TS29512_Npcf_SMPolicyControl_TrafficControlData:addRedirectInfo a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:TrafficControlData ;
@@ -1592,8 +1463,7 @@ TS29512_Npcf_SMPolicyControl_TrafficControlData:redirectInfo a rdf:Property ;
 
 TS29512_Npcf_SMPolicyControl_TrafficControlData:routeToLocs a rdf:Property ;
     rdfs:comment "A list of location which the traffic shall be routed to for the AF request" ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:TrafficControlData ;
-    rdfs:range TS29571_CommonData:RouteToLocation .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:TrafficControlData .
 
 TS29512_Npcf_SMPolicyControl_TrafficControlData:steerFun a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:TrafficControlData ;
@@ -1628,51 +1498,43 @@ TS29512_Npcf_SMPolicyControl_TrafficControlData:trafficSteeringPolIdUl a rdf:Pro
 
 TS29512_Npcf_SMPolicyControl_TrafficControlData:upPathChgEvent a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:TrafficControlData ;
-    rdfs:range TS29512_Npcf_SMPolicyControl:UpPathChgEvent .
+    rdfs:range transport:UpPathChgEvent .
 
 TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:bridgeId a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo .
 
 TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttAddr a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo .
 
 TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttPortNum a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
     rdfs:range TS29512_Npcf_SMPolicyControl:TsnPortNumber .
 
 TS29512_Npcf_SMPolicyControl_TsnBridgeInfo:dsttResidTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:TsnBridgeInfo .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:accessType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:netLocAccSupp a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
     rdfs:range xsd:string .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:ratType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:servNfId a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
     rdfs:range TS29512_Npcf_SMPolicyControl:ServingNfIdentity .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:servingNetwork a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
-    rdfs:range TS29571_CommonData:PlmnIdNid .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:ueTimeZone a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
-    rdfs:range xsd:string .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep .
 
 TS29512_Npcf_SMPolicyControl_UeCampingRep:userLocationInfo a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep ;
-    rdfs:range TS29571_CommonData:UserLocation .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UeCampingRep .
 
 TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:packFiltInfo a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest ;
@@ -1694,37 +1556,33 @@ TS29512_Npcf_SMPolicyControl_UeInitiatedResourceRequest:ruleOp a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:UeInitiatedResourceRequest ;
     rdfs:range xsd:string .
 
-TS29512_Npcf_SMPolicyControl_UpPathChgEvent:afAckInd a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
-    rdfs:range xsd:boolean .
-
-TS29512_Npcf_SMPolicyControl_UpPathChgEvent:dnaiChgType a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
-    rdfs:range xsd:string .
-
-TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notifCorreId a rdf:Property ;
-    rdfs:comment "It is used to set the value of Notification Correlation ID in the notification sent by the SMF." ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
-    rdfs:range xsd:string .
-
-TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notificationUri a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UpPathChgEvent ;
-    rdfs:range xsd:string .
-
 TS29512_Npcf_SMPolicyControl_UsageMonitoringData:exUsagePccRuleIds a rdf:Property ;
     rdfs:comment "Contains the PCC rule identifier(s) which corresponding service data flow(s) shall be excluded from PDU Session usage monitoring. It is only included in the UsageMonitoringData instance for session level usage monitoring." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:UsageMonitoringData .
 
 TS29512_Npcf_SMPolicyControl_UsageMonitoringData:inactivityTime a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UsageMonitoringData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UsageMonitoringData .
 
 TS29512_Npcf_SMPolicyControl_UsageMonitoringData:nextTimeThreshold a rdf:Property ;
-    rdfs:domain TS29512_Npcf_SMPolicyControl:UsageMonitoringData ;
-    rdfs:range xsd:integer .
+    rdfs:domain TS29512_Npcf_SMPolicyControl:UsageMonitoringData .
 
 TS29512_Npcf_SMPolicyControl_UsageMonitoringData:umId a rdf:Property ;
     rdfs:comment "Univocally identifies the usage monitoring policy data within a PDU session." ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:UsageMonitoringData ;
     rdfs:range xsd:string .
+
+TS29512_Npcf_SMPolicyControl_UpPathChgEvent:afAckInd a rdf:Property ;
+    rdfs:domain transport:UpPathChgEvent ;
+    rdfs:range xsd:boolean .
+
+TS29512_Npcf_SMPolicyControl_UpPathChgEvent:dnaiChgType a rdf:Property ;
+    rdfs:domain transport:UpPathChgEvent .
+
+TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notifCorreId a rdf:Property ;
+    rdfs:comment "It is used to set the value of Notification Correlation ID in the notification sent by the SMF." ;
+    rdfs:domain transport:UpPathChgEvent ;
+    rdfs:range xsd:string .
+
+TS29512_Npcf_SMPolicyControl_UpPathChgEvent:notificationUri a rdf:Property ;
+    rdfs:domain transport:UpPathChgEvent .
 
