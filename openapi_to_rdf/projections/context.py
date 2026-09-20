@@ -33,12 +33,8 @@ def context_from_mapping(mapping: Mapping, *, base: str) -> dict:
         # Build the class-level context
         class_context: dict = {}
 
-        # Add properties for this class
+        # Add properties for this class (declared or inherited)
         for (declaring_class, prop_name), prop_fact in mapping.properties_by_class.items():
-            # We need to check if this property is relevant to class_name
-            # It's relevant if class_name == declaring_class or class_name is a descendant
-
-            # For now, let's check if the declaring_class is in the ancestry of class_name
             if declaring_class == class_name or _is_ancestor(
                 declaring_class, class_name, mapping
             ):
