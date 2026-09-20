@@ -168,19 +168,30 @@ class OpenAPIToSHACLConverter:
         # OAD MUST be fully parsed in order to locate possible reference targets".
         self._external_schemas_map: dict[str, dict[str, Any]] = {}
         yaml_dir = os.path.dirname(self.yaml_file)
-        for ext_path in self.external_refs:
-            if not os.path.isabs(ext_path):
-                ext_path = os.path.join(yaml_dir, ext_path)
-            if os.path.exists(ext_path):
-                try:
-                    with open(ext_path, "r", encoding="utf-8") as f:
-                        ext_doc = yaml.safe_load(f)
-                        ext_schemas = ext_doc.get("components", {}).get("schemas", {})
-                        # Key by basename so refs like "base.yaml#/..." resolve
-                        doc_name = os.path.basename(ext_path)
-                        self._external_schemas_map[doc_name] = ext_schemas
-                except Exception:
-                    pass  # Failed loads don't block conversion
+        for ext_path_input in self.external_refs:
+            # Resolve relative paths against the directory of the main YAML file
+            if os.path.isabs(ext_path_input):
+                ext_path = ext_path_input
+            else:
+                ext_path = os.path.join(yaml_dir, ext_path_input)
+
+            if not os.path.exists(ext_path):
+                self.unresolved_references.append(
+                    f"Document not loaded: {ext_path_input} (resolved to {ext_path})"
+                )
+                continue
+
+            try:
+                with open(ext_path, "r", encoding="utf-8") as f:
+                    ext_doc = yaml.safe_load(f)
+                    ext_schemas = ext_doc.get("components", {}).get("schemas", {})
+                    # Key by basename so refs like "base.yaml#/..." resolve
+                    doc_name = os.path.basename(ext_path)
+                    self._external_schemas_map[doc_name] = ext_schemas
+            except Exception as e:
+                self.unresolved_references.append(
+                    f"Failed to load document {ext_path_input}: {e}"
+                )
 
     def _bind_standard_prefixes(self):
         """Bind standard RDF/RDFS/SHACL prefixes to both graphs."""

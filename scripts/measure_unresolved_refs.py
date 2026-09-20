@@ -27,9 +27,10 @@ def count_unresolved_refs(corpus_name: str, specs: list[Path]) -> dict:
     for spec_path in specs:
         try:
             # Get external refs for this spec (all siblings in same directory)
+            # Pass just basenames since they're all in the same directory
             spec_dir = spec_path.parent
             external_refs = [
-                str(p) for p in spec_dir.glob("*.yaml")
+                p.name for p in spec_dir.glob("*.yaml")
                 if p != spec_path
             ]
 

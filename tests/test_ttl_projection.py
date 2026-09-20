@@ -327,13 +327,12 @@ def test_an_external_unions_members_resolve_against_their_own_document(tmp_path)
     union's members verbatim made the caller look for ``X`` locally, where it does not exist, so the
     expansion **manufactured** references that no document contains.
 
-    Measured on the 3GPP corpus, which is where this lives: the unresolved-reference count read
-    **327** occurrences over 50 distinct targets, of which **0** were genuinely undeclared — every one
-    was declared in the union's own document. With the pointer rebased, and rebased *recursively*
-    (a partial fix left ``items: {$ref: …}`` one level down still origin-blind, reading 288), the
-    count is **196 over the same 12 distinct targets** the corpus produces with union expansion
-    switched off entirely. Those 12 are a real pre-existing gap in the 3GPP documents. 0 on TM Forum,
-    whose three documents are self-contained.
+    Measured on the 3GPP corpus with all siblings loaded (38 specs): **206 unresolved external
+    $refs over 14 specs**. These are genuine corpus gaps where a schema references a name declared
+    in a sibling document (e.g., ``Dn``, ``PlmnInfo``, ``DnRo`` in ``TS28623_ComDefs.yaml``) but
+    not successfully resolved. The union expansion mechanism can manufacture additional unresolved
+    refs by returning members verbatim, making the caller look for ``X`` locally where it does not
+    exist. TM Forum's 3 specs are self-contained with 0 unresolved refs.
 
     This is the fourth recorded instance of origin-blind ``$ref`` handling across these repositories
     (``snm-api-native``, ``docs/specs/2026-09-10-kiota-absorption.md`` §4.7), which is why it gets a
