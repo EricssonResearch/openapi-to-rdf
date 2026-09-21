@@ -54,9 +54,14 @@ def vocabulary(tmp_path: Path) -> Graph:
     spec_file.write_text(yaml.safe_dump(SPEC))
     from openapi_to_rdf import OpenAPIToSHACLConverter
 
-    OpenAPIToSHACLConverter(str(spec_file), base_namespace=None, external_refs=[]).run()
-    # Converter writes to cwd-relative "output/rdf/<stem>_rdf.ttl"
-    target = Path("output/rdf/IdentityProbe_rdf.ttl")
+    # `output_dir` is REQUIRED here, not optional tidiness: it defaults to a cwd-relative
+    # "output/", which is the published deliverable tree. Omitting it wrote this probe's three
+    # artifacts into output/ and they were then committed, taking the tree to 120 files against
+    # the README's 114. tests/conftest.py now fails any test that does this.
+    OpenAPIToSHACLConverter(
+        str(spec_file), base_namespace=None, output_dir=str(tmp_path / "out"), external_refs=[]
+    ).run()
+    target = tmp_path / "out" / "rdf" / "IdentityProbe_rdf.ttl"
     return Graph().parse(target, format="turtle")
 
 

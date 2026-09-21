@@ -85,20 +85,37 @@ reverting the regeneration.
   determinism of `output/index/*.yaml` and `output/rdf/*` is therefore **not yet measured** — they
   may well be deterministic, which is why the repair below must not blanket-exempt them.
 
-## Open decision (do not resolve by weakening the gate)
+### H5 resolved: Option A, decided by the user 2026-09-21
 
-H5 needs a judgment call, and the wrong instinct is to relax the test so the suite goes green:
+`.ttl` files are compared by **graph isomorphism**, everything else by **bytes**
+(`tests/test_output_freshness.py`). Byte equality is the wrong equivalence relation for an RDF
+graph, so the test now asserts what it means. **What was given up:** detection of gratuitous byte
+churn in files consumers diff — Option B (byte-deterministic serialization) would have kept that
+and was rejected as the more expensive repair.
 
-- **Option A — compare graph isomorphism for `.ttl`, bytes for everything else.** Byte equality is
-  arguably the wrong equivalence relation for an RDF graph in the first place, so this makes the test
-  assert what it actually means. Small change, one file.
-- **Option B — make serialization byte-deterministic** (canonical/sorted emission before writing).
-  Harder with rdflib blank nodes, but it preserves the stronger property, and `output/` is a
-  *published deliverable* — consumers diff those files, so gratuitous byte churn has a real cost
-  even when the graph is unchanged.
+**Not measured:** whether `output/index/*.yaml` is byte-deterministic. It is compared by bytes and
+has never drifted, but that is absence of evidence. If one day it does drift, measure it and decide
+— do not widen the isomorphism exemption to cover it.
 
-These differ in what they protect, not just in effort, which is why it is a decision rather than a
-task. Option A stops detecting byte churn that Option B would prevent.
+**Option A immediately earned its place**, which is the argument for fixing the equivalence rather
+than deleting the gate. With the 27 serialization diffs no longer drowning the signal, the first run
+reported 6 real findings the byte comparison had never been able to isolate: `IdentityProbe_*` and
+`spec_*` under `rdf/`, `shacl/` and `index/` were **committed but not produced by a fresh run**. See
+H6.
+
+- **H6: a test was writing into the published deliverable tree** — STATUS: **supported, fixed**
+  (confidence: high)
+  evidence: the committed tree held **120** files against the README's **114**, and regeneration
+  produced **114**. Three independent sources now agree at 114. The 6 extras were probe artifacts
+  from `tests/test_property_identity.py`, whose fixture put its input spec in `tmp_path` but left
+  the converter's `output_dir` at its default — a **cwd-relative `output/`**. They were then
+  committed by `2aee21e`, a regeneration commit that could not distinguish them from deliverables.
+  fix: the fixture passes `output_dir`, the 6 files are removed, and `tests/conftest.py` fails any
+  test that creates or modifies a file under `output/`. The guard was inverted and observed to fail
+  with the offending test's name and the created path.
+  why a guard and not two edits: 18 of ~21 converter constructions in the suite already passed
+  `output_dir`, so patching the stragglers would have left the invariant itself unguarded — the
+  recurring failure mode where the guard is narrower than what it protects.
 
 ## Settled (established this project — don't relitigate)
 

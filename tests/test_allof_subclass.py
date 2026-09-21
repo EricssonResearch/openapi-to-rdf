@@ -28,10 +28,12 @@ def _run(spec: dict, prefix: str = "https://example.com/test/"):
             base_namespace=None,
             external_refs=[],
             base_namespace_prefix=prefix,
+            # Required: the default output_dir is cwd-relative "output/", which is the published
+            # deliverable tree. tests/conftest.py fails any test that writes there.
+            output_dir=tmp,
         )
         converter.run()
-        # The converter writes to cwd-relative "output/rdf/<stem>_rdf.ttl".
-        target = Path("output/rdf/spec_rdf.ttl")
+        target = Path(tmp) / "rdf" / "spec_rdf.ttl"
         graph = Graph()
         graph.parse(target, format="turtle")
         # The main class namespace ends with `/<stem>#` — `spec:Parent`
@@ -198,8 +200,9 @@ def test_allof_still_emits_shacl_constraints():
             base_namespace=None,
             external_refs=[],
             base_namespace_prefix="https://example.com/test/",
+            output_dir=tmp,
         ).run()
-        shacl_ttl = Path("output/shacl/spec_shacl.ttl").read_text()
+        shacl_ttl = (Path(tmp) / "shacl" / "spec_shacl.ttl").read_text()
         # Some form of class-relation constraint should still be present.
         assert ("sh:class" in shacl_ttl or "sh:and" in shacl_ttl), \
             "SHACL should still emit class-relation constraints from allOf"

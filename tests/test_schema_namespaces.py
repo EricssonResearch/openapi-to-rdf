@@ -37,10 +37,13 @@ def _run_with_overrides(spec: dict, schema_namespaces: dict[str, str]):
             external_refs=[],
             base_namespace_prefix=f"{BASE}/shared/",
             schema_namespaces=schema_namespaces,
+            # Without this the converter writes into the repo's published output/ tree, because
+            # its default output_dir is cwd-relative. tests/conftest.py now fails that.
+            output_dir=tmp,
         )
         converter.run()
         g = Graph()
-        g.parse(Path("output/rdf/spec_rdf.ttl"), format="turtle")
+        g.parse(Path(tmp) / "rdf" / "spec_rdf.ttl", format="turtle")
         return g
 
 
@@ -203,9 +206,10 @@ def test_empty_or_missing_overrides_preserve_default_behaviour():
             base_namespace=None,
             external_refs=[],
             base_namespace_prefix=f"{BASE}/x/",
+            output_dir=tmp,
         ).run()
         g = Graph()
-        g.parse(Path("output/rdf/spec_rdf.ttl"), format="turtle")
+        g.parse(Path(tmp) / "rdf" / "spec_rdf.ttl", format="turtle")
         # Class emitted under the file-derived namespace (no override).
         classes = {str(s) for s, _, _ in g.triples((None, RDF.type, RDFS.Class))}
         assert any(c.endswith("/spec#A") for c in classes), f"got {classes}"

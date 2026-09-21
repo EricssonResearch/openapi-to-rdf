@@ -51,6 +51,15 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["openapi_to_rdf"]
 
+[tool.pytest.ini_options]
+# `--strict-markers` so a typo'd mark fails instead of silently selecting nothing: a
+# `-m "not slwo"` that matches everything would quietly run the slow tests it meant to skip.
+addopts = "--strict-markers"
+markers = [
+    "slow: regenerates the whole output/ tree or converts the full corpus (minutes, not seconds). Skip with -m 'not slow' during development; CI runs everything.",
+    "writes_output: escape hatch from the tests/conftest.py guard that forbids writing into output/. Nothing uses it; if something needs it, say why in a comment at the mark.",
+]
+
 [tool.ruff]
 # Minimal ruff configuration - errors only, no style
 line-length = 120
