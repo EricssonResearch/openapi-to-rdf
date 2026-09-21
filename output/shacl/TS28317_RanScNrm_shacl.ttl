@@ -11,55 +11,24 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:startTime ],
+            sh:class TS28317_RanScNrm:Sc_Process-Single ;
+            sh:path TS28317_RanScNrm_SubNetwork-ncO-RanScNrm:Sc_Process ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_STARTED"^^xsd:string "RUNNING"^^xsd:string "FINSHED"^^xsd:string "FAILED"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:progressPercentage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:jobId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:endTime ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:resultStateInfo ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:in ( "UNKNOWN"^^xsd:string "INCORRECT_CONFIGURATION"^^xsd:string "NE_HARDWARE_ERROR_DELECTED"^^xsd:string "DISCONNECTION_BETWEEN_NE_AND_OAM"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NE_HEALTH_CHECK"^^xsd:string "SW_DOWNLOAD"^^xsd:string "SW_INSTALLATION"^^xsd:string "SW_ACTIVATION"^^xsd:string "PREPARE_BASIC_CONFIGURATION_AND_OAMLINK"^^xsd:string "RETRIEVE_CONFIGURATION_DATA"^^xsd:string "SETUP_PRECONFIGURED_SIGNALLING_LINKS"^^xsd:string "SET_FINAL_STATE_OF_NE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScProcessMonitor:progressStateInfo ] ;
-    sh:targetClass TS28317_RanScNrm:ScProcessMonitor .
+            sh:class TS28317_RanScNrm:ScMgmtProfile-Single ;
+            sh:path TS28317_RanScNrm_SubNetwork-ncO-RanScNrm:ScMgmtProfile ] ;
+    sh:targetClass TS28317_RanScNrm:SubNetwork-ncO-RanScNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28317_RanScNrm:Sc_Process-Single ;
+    sh:targetClass TS28317_RanScNrm:Sc_Process-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "Setting this attribute to \"TRUE\" cancels the self configuration process. " ;
                     sh:datatype xsd:string ;
-                    sh:in ( true false ) ;
                     sh:maxCount 1 ;
-                    sh:path TS28317_RanScNrm:cancelScProcess ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28317_RanScNrm:ScProcessMonitor ;
-                    sh:maxCount 1 ;
-                    sh:path TS28317_RanScNrm:scProcessMonitor ],
+                    sh:path TS28317_RanScNrm:scMgmtProfileRef ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                     sh:maxCount 1 ;
@@ -71,20 +40,16 @@
                                 sh:minInclusive 0 ] [ a sh:NodeShape ;
                                 sh:datatype xsd:string ] ) ],
                 [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
+                    sh:class TS28317_RanScNrm:ScProcessMonitor ;
                     sh:maxCount 1 ;
-                    sh:path TS28317_RanScNrm:scMgmtProfileRef ] ] ;
+                    sh:path TS28317_RanScNrm:scProcessMonitor ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Setting this attribute to \"TRUE\" cancels the self configuration process. " ;
+                    sh:datatype xsd:string ;
+                    sh:in ( true false ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28317_RanScNrm:cancelScProcess ] ] ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_Sc_Process-Single:nEIdentification ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ;
-                        sh:maxInclusive 4294967295 ;
-                        sh:minInclusive 0 ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] ) ],
-        [ a sh:PropertyShape ;
             sh:class TS28317_RanScNrm:ScProcessMonitor ;
             sh:maxCount 1 ;
             sh:path TS28317_RanScNrm_Sc_Process-Single:scProcessMonitor ],
@@ -97,8 +62,43 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_Sc_Process-Single:scMgmtProfileRef ] ;
+            sh:path TS28317_RanScNrm_Sc_Process-Single:scMgmtProfileRef ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_Sc_Process-Single:nEIdentification ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ;
+                        sh:maxInclusive 4294967295 ;
+                        sh:minInclusive 0 ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] ) ] ;
     sh:targetClass TS28317_RanScNrm:Sc_Process-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
+                    sh:class TS28317_RanScNrm:NEInfomration ;
+                    sh:path TS28317_RanScNrm:nEInformation ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28317_RanScNrm:configDataFileLocation ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScMgmtProfile-Single:configDataFileLocation ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
+            sh:class TS28317_RanScNrm:NEInfomration ;
+            sh:path TS28317_RanScNrm_ScMgmtProfile-Single:nEInformation ] ;
+    sh:targetClass TS28317_RanScNrm:ScMgmtProfile-Single .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28317_RanScNrm:EnbId .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:integer ;
@@ -107,42 +107,46 @@
     sh:targetClass TS28317_RanScNrm:GnbId .
 
 [] a sh:NodeShape ;
-    sh:class TS28317_RanScNrm:Sc_Process-Single ;
-    sh:targetClass TS28317_RanScNrm:Sc_Process-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28317_RanScNrm:ScMgmtProfile-Single ;
-            sh:path TS28317_RanScNrm_SubNetwork-ncO-RanScNrm:ScMgmtProfile ],
-        [ a sh:PropertyShape ;
-            sh:class TS28317_RanScNrm:Sc_Process-Single ;
-            sh:path TS28317_RanScNrm_SubNetwork-ncO-RanScNrm:Sc_Process ] ;
-    sh:targetClass TS28317_RanScNrm:SubNetwork-ncO-RanScNrm .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28317_RanScNrm:configDataFileLocation ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
-                    sh:class TS28317_RanScNrm:NEInfomration ;
-                    sh:path TS28317_RanScNrm:nEInformation ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "This attribute defines the NE Type(s) or the NE instance(s) for which this  ScMgmtProfile instance is valid." ;
-            sh:class TS28317_RanScNrm:NEInfomration ;
-            sh:path TS28317_RanScNrm_ScMgmtProfile-Single:nEInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28317_RanScNrm_ScMgmtProfile-Single:configDataFileLocation ] ;
-    sh:targetClass TS28317_RanScNrm:ScMgmtProfile-Single .
-
-[] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:targetClass TS28317_RanScNrm:NEType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:jobId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:endTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:progressPercentage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NE_HEALTH_CHECK"^^xsd:string "SW_DOWNLOAD"^^xsd:string "SW_INSTALLATION"^^xsd:string "SW_ACTIVATION"^^xsd:string "PREPARE_BASIC_CONFIGURATION_AND_OAMLINK"^^xsd:string "RETRIEVE_CONFIGURATION_DATA"^^xsd:string "SETUP_PRECONFIGURED_SIGNALLING_LINKS"^^xsd:string "SET_FINAL_STATE_OF_NE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:progressStateInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_STARTED"^^xsd:string "RUNNING"^^xsd:string "FINSHED"^^xsd:string "FAILED"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:status ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:resultStateInfo ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "UNKNOWN"^^xsd:string "INCORRECT_CONFIGURATION"^^xsd:string "NE_HARDWARE_ERROR_DELECTED"^^xsd:string "DISCONNECTION_BETWEEN_NE_AND_OAM"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28317_RanScNrm_ScProcessMonitor:startTime ] ;
+    sh:targetClass TS28317_RanScNrm:ScProcessMonitor .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
@@ -153,10 +157,6 @@
                 sh:minInclusive 0 ] [ a sh:NodeShape ;
                 sh:datatype xsd:string ] ) ;
     sh:targetClass TS28317_RanScNrm:NEInfomration .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28317_RanScNrm:EnbId .
 
 [] a sh:NodeShape ;
     sh:class TS28317_RanScNrm:ScMgmtProfile-Single ;

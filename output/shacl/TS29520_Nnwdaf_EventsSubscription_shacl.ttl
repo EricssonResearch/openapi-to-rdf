@@ -64,69 +64,35 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsSubscriptionsTransfer:subsTransInfos ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsSubscriptionsTransfer .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:class TS29571_CommonData:Snssai ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:disperType ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:in ( "DVDA"^^xsd:string "TDA"^^xsd:string "DVDA_AND_TDA"^^xsd:string ) ] [ a sh:NodeShape ;
-                        rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                        sh:datatype xsd:string ] ) ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:snssai ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:disperCollects ],
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:dnn ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:tsDuration ],
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:confidence ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:DnPerf ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:tsStart ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionInfo .
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:dnPerf ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:appId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:supis ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:intGroupIds ;
-            sh:pattern "^[A-Fa-f0-9]{8}-[0-9]{3}-[0-9]{2,3}-([A-Fa-f0-9][A-Fa-f0-9]){1,10}$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:anyUe ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:gpsis ;
-            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TargetUeInformation .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "UNIFORM_DIST_DATA"^^xsd:string "NO_OUTLIERS"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DatasetStatisticalProperty .
+            sh:path TS29520_Nnwdaf_EventsSubscription_ApplicationVolume:appId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ApplicationVolume .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -147,54 +113,343 @@
     sh:targetClass TS29520_Nnwdaf_EventsSubscription:ResourceUsage .
 
 [] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "MOBILITY"^^xsd:string "COMMUN"^^xsd:string "MOBILITY_AND_COMMUN"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ExpectedAnalyticsType .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "USER_PLANE"^^xsd:string "CONTROL_PLANE"^^xsd:string "USER_AND_CONTROL_PLANE"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:CongestionType .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "UNAVAILABLE_DATA"^^xsd:string "BOTH_STAT_PRED_NOT_ALLOWED"^^xsd:string "UNSATISFIED_REQUESTED_ANALYTICS_TIME"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NwdafFailureCode .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "TIME_SLOT_START"^^xsd:string "NUMBER_OF_UES"^^xsd:string "RSSI"^^xsd:string "RTT"^^xsd:string "TRAFFIC_INFO"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanOrderingCriterion .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_LocationInfo:ratio ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:UserLocation ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_LocationInfo:loc ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_LocationInfo:confidence ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:LocationInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
+            sh:class TS29571_CommonData:Snssai ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:svcExpLevel ],
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiIdInfo:snssai ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NsiIdInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:intGroupIds ;
+            sh:pattern "^[A-Fa-f0-9]{8}-[0-9]{3}-[0-9]{2,3}-([A-Fa-f0-9][A-Fa-f0-9]){1,10}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:anyUe ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:gpsis ;
+            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:supis ;
+            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TargetUeInformation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:nwPerfType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfCpuUsage ],
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:confidence ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfStorageUsage ],
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:relativeRatio ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:absoluteNum ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UNIFORM_DIST_DATA"^^xsd:string "NO_OUTLIERS"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DatasetStatisticalProperty .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpInfo:redTransExps ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpInfo:dnn ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ClassCriterion:classThreshold ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ClassCriterion:disperClass ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "FIXED"^^xsd:string "CAMPER"^^xsd:string "TRAVELLER"^^xsd:string "TOP_HEAVY"^^xsd:string ) ] [ a sh:NodeShape ;
+                        rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                        sh:datatype xsd:string ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ClassCriterion:thresMatch ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ClassCriterion .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "BINARY"^^xsd:string "GRADIENT"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:OutputStrategy .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:CongestionInfo ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UserDataCongestionInfo:congestionInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Snssai ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UserDataCongestionInfo:snssai ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_Exception:excepTrend ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_Exception:excepId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_Exception:excepLevel ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:Exception .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "ASCENDING"^^xsd:string "DESCENDING"^^xsd:string "CROSSED"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:MatchingDirection .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "NUM_OF_SAMPLES"^^xsd:string "DATA_WINDOW"^^xsd:string "DATA_STAT_PROPS"^^xsd:string "STRATEGY"^^xsd:string "ACCURACY"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadata .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SessInactTimerForUeComm:sessInactiveTimer ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 255 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SessInactTimerForUeComm:n4SessId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:occurRatio ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:startTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:appId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:appDur ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment """List of objects that indicate for which SUPI and analytics types combinations analytics  context can be retrieved.
+""" ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:UeAnalyticsContextDescriptor ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:ueAnaCtxts ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """List of analytics types for which NF related analytics contexts can be retrieved.
+""" ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:nfAnaCtxts ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The identifier of a subscription." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:subscriptionId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsContextIdentifier .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:mirBwUl ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:marBwDl ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:mirBwDl ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:marBwUl ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:appId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ModelInfo:analyticsId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ModelInfo:mlModelInfos ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ModelInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ClassCriterion ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:classCriters ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:disperType ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "DVDA"^^xsd:string "TDA"^^xsd:string "DVDA_AND_TDA"^^xsd:string ) ] [ a sh:NodeShape ;
+                        rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                        sh:datatype xsd:string ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:RankingCriterion ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:rankCriters ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:order ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:dispOrderCriter ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionRequirement .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:maxPacketDelay ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:avePacketDelay ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 1000 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:avgPacketLossRate ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:maxTrafficRate ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:avgTrafficRate ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:PerfData .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:LoadLevelInformation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:avgPacketDelay ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
@@ -204,21 +459,16 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:avgPacketDelay ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfLoadLevel ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfMemoryUsage ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:maxTrafficRate ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:congLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:maxPacketDelay ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:svcExpLevel ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
@@ -227,49 +477,118 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfLoadLevel ],
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:maxPacketDelay ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:maxTrafficRate ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:congLevel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfStorageUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfMemoryUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfCpuUsage ] ;
     sh:targetClass TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
 
 [] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "GNB_ACTIVE_RATIO"^^xsd:string "GNB_COMPUTING_USAGE"^^xsd:string "GNB_MEMORY_USAGE"^^xsd:string "GNB_DISK_USAGE"^^xsd:string "NUM_OF_UE"^^xsd:string "SESS_SUCC_RATIO"^^xsd:string "HO_SUCC_RATIO"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NetworkPerfType .
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:prevSub ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:consNfInfo ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Subscribed events" ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:eventSubscriptions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:notificationURI ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:supportedFeatures ;
+            sh:pattern "^[A-Fa-f0-9]*$" ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Notification correlation identifier." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:notifCorrId ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:FailureEventInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:failEventReports ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:EventNotification ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:eventNotifications ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription .
 
 [] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "PERIODIC"^^xsd:string "THRESHOLD"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:accuracy ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:anaMeta ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:timeAnaNeeded ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """Each element indicates the preferred accuracy level per analytics subset. It may be present if the "listOfAnaSubsets" attribute is present in the subscription request when the subscription event is NF_LOAD, UE_COMM, DISPERSION, NETWORK_PERFORMANCE, WLAN_PERFORMANCE, DN_PERFORMANCE or SERVICE_EXPERIENCE.
 """ ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NotificationMethod .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "LOW"^^xsd:string "HIGH"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:accPerSubset ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:startTs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:anaMetaInd ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:maxSupiNbr ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """Offset period in units of seconds to the reporting time, if the value is negative means  statistics in the past offset period, otherwise a positive value means prediction in the  future offset period. May be present if the "repPeriod" attribute is included within the  "evtReq" attribute.
 """ ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:Accuracy .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "VOICE"^^xsd:string "VIDEO"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ServiceExperienceType .
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:offsetPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:sampRatio ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:maxObjectNbr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:endTs ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -294,145 +613,214 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
+            rdfs:comment "Identification(s) of network slice to which the subscription applies." ;
+            sh:class TS29571_CommonData:Snssai ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:locInfos ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:snssais ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:durationVariance ],
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:loadLevelInformation ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "GNB_ACTIVE_RATIO"^^xsd:string "GNB_COMPUTING_USAGE"^^xsd:string "GNB_MEMORY_USAGE"^^xsd:string "GNB_DISK_USAGE"^^xsd:string "NUM_OF_UE"^^xsd:string "SESS_SUCC_RATIO"^^xsd:string "HO_SUCC_RATIO"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NetworkPerfType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:svcExps ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:DispersionInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:disperInfos ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:qosSustainInfos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:nwPerfs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:userDataCongInfos ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:rvWaitTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:ueComms ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:ts ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:timeStampGen ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:expiry ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:start ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:redTransInfos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:nfLoadLevelInfos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:UeMobility ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:ueMobs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:sliceLoadLevelInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:anaMetaInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerformanceInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:wlanInfos ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:failNotifyCode ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:dnPerfInfos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:nsiLoadLevelInfos ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:abnorBehavrs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:event ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:EventNotification .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RankingCriterion:lowBase ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:duration ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:UeMobility .
+            sh:maxInclusive 100 ;
+            sh:minCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RankingCriterion:highBase ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RankingCriterion .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:dlVolVariance ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_CircumstanceDescription:freq ],
         [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 2 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:fDescs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
+            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:ulVolVariance ],
-        [ a sh:PropertyShape ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_CircumstanceDescription:tm ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "VOICE"^^xsd:string "VIDEO"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ServiceExperienceType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:appId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:dnn ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:dnn ],
         [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:Snssai ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:snssai ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:snssai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:supis ;
+            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:addtMeasInfo ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:absoluteNum ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:confidence ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:maxInclusive 100 ;
             sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:relativeRatio ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:ratio ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:Exception ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:nwPerfType ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement .
+            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:excep ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:order ],
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:ueRatio ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:dnPerfOrderCriter ],
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:disperAmount ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:reportThresholds ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "ASCENDING"^^xsd:string "DESCENDING"^^xsd:string "CROSSED"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:disperClass ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "FIXED"^^xsd:string "CAMPER"^^xsd:string "TRAVELLER"^^xsd:string "TOP_HEAVY"^^xsd:string ) ] [ a sh:NodeShape ;
+                        rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
 """ ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:MatchingDirection .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:allRat ],
+                        sh:datatype xsd:string ] ) ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
+            sh:class TS29571_CommonData:UserLocation ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:allFreq ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:ueLoc ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:ratType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:matchingDir ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 3279165 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:freq ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:svcExpThreshold ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RatFreqInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:dataStatProps ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:strategy ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:accuracy ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:numSamples ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:class TS29571_CommonData:Snssai ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:snssai ],
@@ -440,28 +828,7 @@
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:disperAmount ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:confidence ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:gpsis ;
-            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:ueLoc ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Integer where the allowed values correspond to 1, 2, 3 only." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 3 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:usageRank ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
@@ -474,59 +841,378 @@
             sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:supis ;
             sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
         [ a sh:PropertyShape ;
+            rdfs:comment "Integer where the allowed values correspond to 1, 2, 3 only." ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
+            sh:maxInclusive 3 ;
             sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:ueRatio ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:usageRank ],
         [ a sh:PropertyShape ;
             sh:class TS29520_Nnwdaf_EventsSubscription:ApplicationVolume ;
             sh:minCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:appVolumes ],
         [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:disperClass ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:in ( "FIXED"^^xsd:string "CAMPER"^^xsd:string "TRAVELLER"^^xsd:string "TOP_HEAVY"^^xsd:string ) ] [ a sh:NodeShape ;
-                        rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                        sh:datatype xsd:string ] ) ] ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionCollection:gpsis ;
+            sh:pattern "^(msisdn-[0-9]{5,15}|extid-[^@]+@[^@]+|.+)$" ] ;
     sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
                 sh:datatype xsd:string ;
-                sh:in ( "BINARY"^^xsd:string "GRADIENT"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:in ( "PERIODIC"^^xsd:string "THRESHOLD"^^xsd:string ) ] [ a sh:NodeShape ;
                 rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
 """ ;
                 sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:OutputStrategy .
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NotificationMethod .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Identification(s) of LADN DNN to indicate the LADN service area as the AOI." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_FailureEventInfo:failureCode ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_FailureEventInfo:event ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:FailureEventInfo .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UNAVAILABLE_DATA"^^xsd:string "BOTH_STAT_PRED_NOT_ALLOWED"^^xsd:string "UNSATISFIED_REQUESTED_ANALYTICS_TIME"^^xsd:string "OTHER"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NwdafFailureCode .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "TIME_SLOT_START"^^xsd:string "RED_TRANS_EXP"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedTransExpOrderingCriterion .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "TIME_SLOT_START"^^xsd:string "DISPERSION"^^xsd:string "CLASSIFICATION"^^xsd:string "RANKING"^^xsd:string "PERCENTILE_RANKING"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionOrderingCriterion .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerSsIdPerformanceInfo:wlanPerTsInfos ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerSsIdPerformanceInfo:ssId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerSsIdPerformanceInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NumberAverage ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfUes ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NumberAverage ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfPduSess ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:exceedLoadLevelThrInd ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ResourceUsage ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:resUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:confidence ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Snssai ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:snssai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfExceedLoadLevelThr ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:loadLevelInformation ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:dnn ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ratFreq ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Snssai ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:snssai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ratio ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ueLocs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:appId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:srvExpcType ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:ladnDnns ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:supis ;
+            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NsiIdInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nsiIdInfos ],
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:confidence ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:svcExprcVariance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:dnai ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "LOW"^^xsd:string "HIGH"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:Accuracy .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nwPerfRequs ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AddressList:ipv4Addrs ;
+            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AddressList:ipv6Addrs ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AddressList .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "AVERAGE_TRAFFIC_RATE"^^xsd:string "MAXIMUM_TRAFFIC_RATE"^^xsd:string "AVERAGE_PACKET_DELAY"^^xsd:string "MAXIMUM_PACKET_DELAY"^^xsd:string "AVERAGE_PACKET_LOSS_RATE"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerfOrderingCriterion .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "SLICE_LOAD_LEVEL"^^xsd:string "NETWORK_PERFORMANCE"^^xsd:string "NF_LOAD"^^xsd:string "SERVICE_EXPERIENCE"^^xsd:string "UE_MOBILITY"^^xsd:string "UE_COMMUNICATION"^^xsd:string "QOS_SUSTAINABILITY"^^xsd:string "ABNORMAL_BEHAVIOUR"^^xsd:string "USER_DATA_CONGESTION"^^xsd:string "NSI_LOAD_LEVEL"^^xsd:string "DN_PERFORMANCE"^^xsd:string "DISPERSION"^^xsd:string "RED_TRANS_EXP"^^xsd:string "WLAN_PERFORMANCE"^^xsd:string "SM_CONGESTION"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NwdafEvent .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "USER_PLANE"^^xsd:string "CONTROL_PLANE"^^xsd:string "USER_AND_CONTROL_PLANE"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:CongestionType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NfStatus ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfStatus ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfMemoryUsage ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Snssai ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:snssai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadAvgInAoi ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfSetId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfInstanceId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:confidence ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadLevelAverage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfStorageUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfCpuUsage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadLevelpeak ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:ratType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:matchingDir ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:allRat ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:svcExpThreshold ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 3279165 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:freq ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:allFreq ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RatFreqInformation .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "PREPARE"^^xsd:string "TRANSFER"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TransferRequestType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:bssIds ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:order ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:wlanOrderCriter ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:ssIds ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerformanceReq .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:notificationMethod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nsiLevelThrds ],
+        [ a sh:PropertyShape ;
+            rdfs:comment """Identification(s) of network slice to which the subscription applies. It corresponds to  snssais in the data model definition of 3GPP TS 29.520. 
+""" ;
+            sh:class TS29571_CommonData:Snssai ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:snssaia ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Identification(s) of DNN to which the subscription applies." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnns ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:repetitionPeriod ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Identification(s) of application to which the subscription applies." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:appIds ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:maxTopAppUlNbr ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:TargetUeInformation ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:tgtUe ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:exptAnaType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:DispersionRequirement ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:disperReqs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NsiIdInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nsiIdInfos ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfSetIds ],
         [ a sh:PropertyShape ;
             sh:class TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpReq ;
             sh:minCount 1 ;
@@ -536,92 +1222,66 @@
             sh:minCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:qosFlowRetThds ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:matchingDir ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnPerfReqs ],
-        [ a sh:PropertyShape ;
             rdfs:comment """Indicates that the NWDAF shall report the corresponding network slice load level to the NF  service consumer where the load level of the network slice identified by snssais is  reached.
 """ ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:loadLevelThreshold ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:event ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:repetitionPeriod ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:notificationMethod ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerformanceReq ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:wlanReqs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:congThresholds ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """Identification(s) of network slice to which the subscription applies. It corresponds to  snssais in the data model definition of 3GPP TS 29.520. 
-""" ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:snssaia ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:listOfAnaSubsets ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnPerfReqs ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfInstanceIds ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:DispersionRequirement ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:disperReqs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:bwRequs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:ratFreqs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfSetIds ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:exptAnaType ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:matchingDir ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:extraReportReq ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nwPerfRequs ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Identification(s) of LADN DNN to indicate the LADN service area as the AOI." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:ladnDnns ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:listOfAnaSubsets ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:Exception ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:excepRequs ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:TargetUeInformation ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:tgtUe ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:maxTopAppDlNbr ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:anySlice ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:Exception ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:excepRequs ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:congThresholds ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:nsiLevelThrds ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:ranUeThrouThds ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:bwRequs ],
         [ a sh:PropertyShape ;
             rdfs:comment """Shall be supplied in order to start reporting when an average load level is reached.
 """ ;
@@ -633,103 +1293,138 @@
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:qosRequ ],
         [ a sh:PropertyShape ;
-            rdfs:comment "Identification(s) of DNN to which the subscription applies." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnns ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:extraReportReq ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Identification(s) of application to which the subscription applies." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:appIds ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:anySlice ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:ranUeThrouThds ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnais ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerformanceReq ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:wlanReqs ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnais ] ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:event ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_EventSubscription:ratFreqs ] ;
     sh:targetClass TS29520_Nnwdaf_EventsSubscription:EventSubscription .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:mirBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpReq:order ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:appId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:marBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:marBwDl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_BwRequirement:mirBwUl ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpReq:redTOrderCriter ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpReq .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "MINUTE"^^xsd:string "HOUR"^^xsd:string "DAY"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TimeUnit .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UNEXPECTED_UE_LOCATION"^^xsd:string "UNEXPECTED_LONG_LIVE_FLOW"^^xsd:string "UNEXPECTED_LARGE_RATE_FLOW"^^xsd:string "UNEXPECTED_WAKEUP"^^xsd:string "SUSPICION_OF_DDOS_ATTACK"^^xsd:string "WRONG_DESTINATION_ADDRESS"^^xsd:string "TOO_FREQUENT_SERVICE_ACCESS"^^xsd:string "UNEXPECTED_RADIO_LINK_FAILURES"^^xsd:string "PING_PONG_ACROSS_CELLS"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ExceptionId .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:order ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ApplicationVolume:appId ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ApplicationVolume .
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:reportThresholds ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:dnPerfOrderCriter ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:strategy ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:dataStatProps ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:aggrNwdafIds ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsSubscriptionsTransfer:subsTransInfos ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsSubscriptionsTransfer .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "TIME_SLOT_START"^^xsd:string "NUMBER_OF_UES"^^xsd:string "RSSI"^^xsd:string "RTT"^^xsd:string "TRAFFIC_INFO"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanOrderingCriterion .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:confidence ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:numberOfUes ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:nsi ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:tsStart ],
         [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:topAppListDl ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:topAppListUl ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:congType ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:CongestionInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerf:dnai ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:tsDuration ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:PerfData ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:TrafficInformation ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerf:perfData ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerf .
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:trafficInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:rtt ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:confidence ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:rssi ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -743,88 +1438,212 @@
             sh:minInclusive 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:ratio ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AppListForUeComm ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:trafChar ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:commDurVariance ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:anaOfAppList ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:float ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:tsVariance ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:sessInactTimer ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:confidence ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:ts ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:commDur ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:perioCommInd ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:float ;
             sh:maxCount 1 ;
             sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:perioTimeVariance ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
+            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:ts ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:perioCommInd ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AppListForUeComm ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:anaOfAppList ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:UeCommunication .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:sessInactTimer ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CircumstanceDescription:tm ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:trafChar ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_CircumstanceDescription:freq ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription .
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeCommunication:commDurVariance ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "NUM_OF_UE_REG"^^xsd:string "NUM_OF_PDU_SESS_ESTBL"^^xsd:string "RES_USAGE"^^xsd:string "NUM_OF_EXCEED_RES_USAGE_LOAD_LEVEL_THR"^^xsd:string "PERIOD_OF_EXCEED_RES_USAGE_LOAD_LEVEL_THR"^^xsd:string "EXCEED_LOAD_LEVEL_THR_IND"^^xsd:string "LIST_OF_TOP_APP_UL"^^xsd:string "LIST_OF_TOP_APP_DL"^^xsd:string "NF_STATUS"^^xsd:string "NF_RESOURCE_USAGE"^^xsd:string "NF_LOAD"^^xsd:string "NF_PEAK_LOAD"^^xsd:string "NF_LOAD_AVG_IN_AOI"^^xsd:string "DISPER_AMOUNT"^^xsd:string "DISPER_CLASS"^^xsd:string "RANKING"^^xsd:string "PERCENTILE_RANKING"^^xsd:string "RSSI"^^xsd:string "RTT"^^xsd:string "TRAFFIC_INFO"^^xsd:string "NUMBER_OF_UES"^^xsd:string "APP_LIST_FOR_UE_COMM"^^xsd:string "N4_SESS_INACT_TIMER_FOR_UE_COMM"^^xsd:string "AVG_TRAFFIC_RATE"^^xsd:string "MAX_TRAFFIC_RATE"^^xsd:string "AVG_PACKET_DELAY"^^xsd:string "MAX_PACKET_DELAY"^^xsd:string "AVG_PACKET_LOSS_RATE"^^xsd:string "UE_LOCATION"^^xsd:string "LIST_OF_HIGH_EXP_UE"^^xsd:string "LIST_OF_MEDIUM_EXP_UE"^^xsd:string "LIST_OF_LOW_EXP_UE"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsSubset .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AddressList ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:topAppListDl ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:wrgDest ],
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:congType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:confidence ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:nsi ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:unexpFlowTeps ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_CongestionInfo:topAppListUl ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:CongestionInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:strategy ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:accuracy ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:circums ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:dataStatProps ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:numSamples ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficInformation:uplinkRate ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficInformation:downlinkRate ;
+            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TrafficInformation .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string "UNKNOW"^^xsd:string "STABLE"^^xsd:string ) ] [ a sh:NodeShape ;
+                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
+""" ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ExceptionTrend .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 2 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:fDescs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:dnn ],
+        [ a sh:PropertyShape ;
+            sh:class TS29571_CommonData:Snssai ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:snssai ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:ulVolVariance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:appId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:dlVolVariance ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:ModelInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:modelInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AnalyticsContextIdentifier ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:contextId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:sourceSetIds ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:transReqType ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:nwdafEvSub ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:sourceNfIds ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:consumerId ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:locInfos ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:unexpWakes ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AddressList ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:ddosAttack ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement .
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:ts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:durationVariance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_UeMobility:duration ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:UeMobility .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:disperType ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:disperType ;
             sh:xone ( [ a sh:NodeShape ;
                         sh:datatype xsd:string ;
                         sh:in ( "DVDA"^^xsd:string "TDA"^^xsd:string "DVDA_AND_TDA"^^xsd:string ) ] [ a sh:NodeShape ;
@@ -832,95 +1651,33 @@
 """ ;
                         sh:datatype xsd:string ] ) ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:dispOrderCriter ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ClassCriterion ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:classCriters ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:tsDuration ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:RankingCriterion ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:rankCriters ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:disperCollects ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:order ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionRequirement .
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DispersionInfo:tsStart ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadLevelAverage ],
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_NumberAverage:number ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfMemoryUsage ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:snssai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:confidence ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfSetId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadLevelpeak ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfStorageUsage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfCpuUsage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfInstanceId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadAvgInAoi ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NfStatus ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfStatus ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "TIME_SLOT_START"^^xsd:string "DISPERSION"^^xsd:string "CLASSIFICATION"^^xsd:string "RANKING"^^xsd:string "PERCENTILE_RANKING"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DispersionOrderingCriterion .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:float ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_Exception:excepId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_Exception:excepTrend ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_Exception:excepLevel ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:Exception .
+            sh:path TS29520_Nnwdaf_EventsSubscription_NumberAverage:variance ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NumberAverage .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -939,100 +1696,54 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Identification(s) of network slice to which the subscription applies." ;
-            sh:class TS29571_CommonData:Snssai ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerSsIdPerformanceInfo ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:snssais ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceInfo:wlanPerSsidInfos ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerformanceInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerf:dnai ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:PerfData ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:loadLevelInformation ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation .
+            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerf:perfData ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerf .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:maxInclusive 100 ;
-            sh:minCount 1 ;
             sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RankingCriterion:highBase ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RankingCriterion:lowBase ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RankingCriterion .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:endTs ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:relativeRatio ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:maxObjectNbr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:timeAnaNeeded ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:anaMetaInd ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:absoluteNum ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:anaMeta ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:sampRatio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:maxSupiNbr ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """Each element indicates the preferred accuracy level per analytics subset. It may be present if the "listOfAnaSubsets" attribute is present in the subscription request when the subscription event is NF_LOAD, UE_COMM, DISPERSION, NETWORK_PERFORMANCE, WLAN_PERFORMANCE, DN_PERFORMANCE or SERVICE_EXPERIENCE.
-""" ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:accPerSubset ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:accuracy ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:startTs ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """Offset period in units of seconds to the reporting time, if the value is negative means  statistics in the past offset period, otherwise a positive value means prediction in the  future offset period. May be present if the "repPeriod" attribute is included within the  "evtReq" attribute.
-""" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:offsetPeriod ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "NUM_OF_SAMPLES"^^xsd:string "DATA_WINDOW"^^xsd:string "DATA_STAT_PROPS"^^xsd:string "STRATEGY"^^xsd:string "ACCURACY"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadata .
+            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:nwPerfType ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:tsDuration ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:redTransExp ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -1047,749 +1758,38 @@
             sh:maxCount 1 ;
             sh:maxInclusive 100 ;
             sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:ueRatio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:tsDuration ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:redTransExp ] ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:ueRatio ] ;
     sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AddressList ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiIdInfo:snssai ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NsiIdInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficInformation:uplinkRate ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_TrafficInformation:downlinkRate ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TrafficInformation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:UeMobility ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:ueMobs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:dnPerfInfos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:redTransInfos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:DispersionInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:disperInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:timeStampGen ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:failNotifyCode ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:sliceLoadLevelInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:expiry ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:nsiLoadLevelInfos ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:nwPerfs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerformanceInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:wlanInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:event ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:wrgDest ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:qosSustainInfos ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:unexpFlowTeps ],
         [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:abnorBehavrs ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:ueComms ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:userDataCongInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:AddressList ;
             sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:rvWaitTime ],
+            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:ddosAttack ],
+        [ a sh:PropertyShape ;
+            sh:class TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription ;
+            sh:minCount 1 ;
+            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:circums ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:start ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:anaMetaInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
             sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:svcExps ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_EventNotification:nfLoadLevelInfos ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:EventNotification .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerSsIdPerformanceInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceInfo:wlanPerSsidInfos ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerformanceInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ModelInfo:mlModelInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ModelInfo:analyticsId ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ModelInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:nwdafEvSub ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:consumerId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:transReqType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AnalyticsContextIdentifier ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:contextId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:sourceSetIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:sourceNfIds ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ModelInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:modelInfo ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:rssi ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:tsStart ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:numberOfUes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:rtt ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:TrafficInformation ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:trafficInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:tsDuration ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:confidence ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:snssai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:appId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:DnPerf ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:dnPerf ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:confidence ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:dnn ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpInfo:redTransExps ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpInfo:dnn ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo .
+            sh:path TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:unexpWakes ] ;
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement .
 
 [] a sh:NodeShape ;
     sh:or ( [ a sh:NodeShape ;
                 sh:datatype xsd:string ;
-                sh:in ( "UNEXPECTED_UE_LOCATION"^^xsd:string "UNEXPECTED_LONG_LIVE_FLOW"^^xsd:string "UNEXPECTED_LARGE_RATE_FLOW"^^xsd:string "UNEXPECTED_WAKEUP"^^xsd:string "SUSPICION_OF_DDOS_ATTACK"^^xsd:string "WRONG_DESTINATION_ADDRESS"^^xsd:string "TOO_FREQUENT_SERVICE_ACCESS"^^xsd:string "UNEXPECTED_RADIO_LINK_FAILURES"^^xsd:string "PING_PONG_ACROSS_CELLS"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:in ( "MOBILITY"^^xsd:string "COMMUN"^^xsd:string "MOBILITY_AND_COMMUN"^^xsd:string ) ] [ a sh:NodeShape ;
                 rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
 """ ;
                 sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ExceptionId .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "MINUTE"^^xsd:string "HOUR"^^xsd:string "DAY"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TimeUnit .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "PREPARE"^^xsd:string "TRANSFER"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:TransferRequestType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:supportedFeatures ;
-            sh:pattern "^[A-Fa-f0-9]*$" ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Notification correlation identifier." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:notifCorrId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Subscribed events" ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:eventSubscriptions ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:prevSub ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:consNfInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:FailureEventInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:failEventReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:EventNotification ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:eventNotifications ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:notificationURI ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SessInactTimerForUeComm:n4SessId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_SessInactTimerForUeComm:sessInactiveTimer ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:dataStatProps ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:strategy ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:aggrNwdafIds ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:appDur ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:startTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:occurRatio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:appId ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerSsIdPerformanceInfo:wlanPerTsInfos ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerSsIdPerformanceInfo:ssId ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerSsIdPerformanceInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:dnai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:confidence ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ratio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:appId ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ueLocs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:dnn ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:srvExpcType ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ratFreq ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:supis ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:snssai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:svcExprcVariance ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpReq:order ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpReq:redTOrderCriter ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpReq .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AddressList:ipv6Addrs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AddressList:ipv4Addrs ;
-            sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AddressList .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "AVERAGE_TRAFFIC_RATE"^^xsd:string "MAXIMUM_TRAFFIC_RATE"^^xsd:string "AVERAGE_PACKET_DELAY"^^xsd:string "MAXIMUM_PACKET_DELAY"^^xsd:string "AVERAGE_PACKET_LOSS_RATE"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:DnPerfOrderingCriterion .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NumberAverage:number ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NumberAverage:variance ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NumberAverage .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "SLICE_LOAD_LEVEL"^^xsd:string "NETWORK_PERFORMANCE"^^xsd:string "NF_LOAD"^^xsd:string "SERVICE_EXPERIENCE"^^xsd:string "UE_MOBILITY"^^xsd:string "UE_COMMUNICATION"^^xsd:string "QOS_SUSTAINABILITY"^^xsd:string "ABNORMAL_BEHAVIOUR"^^xsd:string "USER_DATA_CONGESTION"^^xsd:string "NSI_LOAD_LEVEL"^^xsd:string "DN_PERFORMANCE"^^xsd:string "DISPERSION"^^xsd:string "RED_TRANS_EXP"^^xsd:string "WLAN_PERFORMANCE"^^xsd:string "SM_CONGESTION"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NwdafEvent .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:ResourceUsage ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:resUsage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:confidence ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:loadLevelInformation ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:snssai ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NumberAverage ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfPduSess ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:NumberAverage ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfUes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfExceedLoadLevelThr ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:exceedLoadLevelThrInd ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:LoadLevelInformation .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "NUM_OF_UE_REG"^^xsd:string "NUM_OF_PDU_SESS_ESTBL"^^xsd:string "RES_USAGE"^^xsd:string "NUM_OF_EXCEED_RES_USAGE_LOAD_LEVEL_THR"^^xsd:string "PERIOD_OF_EXCEED_RES_USAGE_LOAD_LEVEL_THR"^^xsd:string "EXCEED_LOAD_LEVEL_THR_IND"^^xsd:string "LIST_OF_TOP_APP_UL"^^xsd:string "LIST_OF_TOP_APP_DL"^^xsd:string "NF_STATUS"^^xsd:string "NF_RESOURCE_USAGE"^^xsd:string "NF_LOAD"^^xsd:string "NF_PEAK_LOAD"^^xsd:string "NF_LOAD_AVG_IN_AOI"^^xsd:string "DISPER_AMOUNT"^^xsd:string "DISPER_CLASS"^^xsd:string "RANKING"^^xsd:string "PERCENTILE_RANKING"^^xsd:string "RSSI"^^xsd:string "RTT"^^xsd:string "TRAFFIC_INFO"^^xsd:string "NUMBER_OF_UES"^^xsd:string "APP_LIST_FOR_UE_COMM"^^xsd:string "N4_SESS_INACT_TIMER_FOR_UE_COMM"^^xsd:string "AVG_TRAFFIC_RATE"^^xsd:string "MAX_TRAFFIC_RATE"^^xsd:string "AVG_PACKET_DELAY"^^xsd:string "MAX_PACKET_DELAY"^^xsd:string "AVG_PACKET_LOSS_RATE"^^xsd:string "UE_LOCATION"^^xsd:string "LIST_OF_HIGH_EXP_UE"^^xsd:string "LIST_OF_MEDIUM_EXP_UE"^^xsd:string "LIST_OF_LOW_EXP_UE"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsSubset .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string "UNKNOW"^^xsd:string "STABLE"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ExceptionTrend .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_FailureEventInfo:failureCode ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_FailureEventInfo:event ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:FailureEventInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ClassCriterion:disperClass ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:in ( "FIXED"^^xsd:string "CAMPER"^^xsd:string "TRAVELLER"^^xsd:string "TOP_HEAVY"^^xsd:string ) ] [ a sh:NodeShape ;
-                        rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                        sh:datatype xsd:string ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ClassCriterion:classThreshold ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_ClassCriterion:thresMatch ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ClassCriterion .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "TIME_SLOT_START"^^xsd:string "RED_TRANS_EXP"^^xsd:string ) ] [ a sh:NodeShape ;
-                rdfs:comment """This string provides forward-compatibility with future extensions to the enumeration but is not used to encode content defined in the present version of this API.
-""" ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:RedTransExpOrderingCriterion .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UserDataCongestionInfo:snssai ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:CongestionInfo ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_UserDataCongestionInfo:congestionInfo ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:dnn ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:supis ;
-            sh:pattern "^(imsi-[0-9]{5,15}|nai-.+|gci-.+|gli-.+|.+)$" ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:addtMeasInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:Exception ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:excep ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:confidence ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:snssai ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:ratio ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_LocationInfo:confidence ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_LocationInfo:ratio ],
-        [ a sh:PropertyShape ;
-            sh:class TS29571_CommonData:UserLocation ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_LocationInfo:loc ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:LocationInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:avePacketDelay ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 1000 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:avgPacketLossRate ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:maxTrafficRate ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:maxPacketDelay ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_PerfData:avgTrafficRate ;
-            sh:pattern "^\\d+(\\.\\d+)? (bps|Kbps|Mbps|Gbps|Tbps)$" ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:PerfData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment """List of analytics types for which NF related analytics contexts can be retrieved.
-""" ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:nfAnaCtxts ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """List of objects that indicate for which SUPI and analytics types combinations analytics  context can be retrieved.
-""" ;
-            sh:class TS29520_Nnwdaf_EventsSubscription:UeAnalyticsContextDescriptor ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:ueAnaCtxts ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The identifier of a subscription." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:subscriptionId ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:AnalyticsContextIdentifier .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:relativeRatio ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:absoluteNum ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:nwPerfType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 0 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:confidence ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:wlanOrderCriter ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:bssIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:ssIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq:order ] ;
-    sh:targetClass TS29520_Nnwdaf_EventsSubscription:WlanPerformanceReq .
+    sh:targetClass TS29520_Nnwdaf_EventsSubscription:ExpectedAnalyticsType .
 

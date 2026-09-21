@@ -102,6 +102,14 @@ class OpenAPIToSHACLConverter:
         # Separate graphs for RDF vocabulary and SHACL shapes
         self.rdf_graph = Graph()
         self.shacl_graph = Graph()
+        #: Properties observed with two or more DIFFERENT `rdfs:range` targets. Determination S1
+        #: allows a range only where it is provably true, and two ranges on one property assert —
+        #: under RDFS entailment — that the value instantiates BOTH classes. Once a property lands
+        #: here it never receives a range again, and its disjunction is carried by SHACL instead.
+        #: Measured on TM Forum v5: 167 properties across three documents took two ranges before
+        #: this existed (5.8%), against 6 of 3,622 on the 3GPP corpus (0.17%) — the guard was
+        #: written and validated against 3GPP, where polymorphic `oneOf` references are rare.
+        self._multi_target_properties: set = set()
         self.prefixes = {}  # Mapping from prefix string to Namespace object
 
         # Sidecar property index — populated during _process_property and
@@ -1359,7 +1367,18 @@ class OpenAPIToSHACLConverter:
         # single-target properties. Multi-target and un-analyzable properties
         # defer their constraint to SHACL, where it binds without entailing.
         if range_uri is not None:
-            self.rdf_graph.add((predicate_uri, RDFS.range, range_uri))
+            # The rule above has to be ENFORCED here, not just described: one class-scoped
+            # property URI can be reached more than once (a polymorphic `oneOf`, or the same
+            # property resolved through two branches), and `Graph.add` is a set insert, so two
+            # visits with different targets silently leave two ranges behind.
+            if predicate_uri not in self._multi_target_properties:
+                existing = set(self.rdf_graph.objects(predicate_uri, RDFS.range))
+                if existing and range_uri not in existing:
+                    for stale in existing:
+                        self.rdf_graph.remove((predicate_uri, RDFS.range, stale))
+                    self._multi_target_properties.add(predicate_uri)
+                else:
+                    self.rdf_graph.add((predicate_uri, RDFS.range, range_uri))
 
         # Add description
         if "description" in prop_def:

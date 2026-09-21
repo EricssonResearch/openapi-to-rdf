@@ -76,6 +76,27 @@ def add_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--json", type=Path, default=None, help="also write results as JSON")
 
 
+def tmforum(directory: Path | None = None) -> Corpus:
+    """The TM Forum corpus, resolved without an argparse namespace.
+
+    Exists so `tests/test_tmforum_corpus.py` can reach the same document list the scripts use,
+    instead of hardcoding three filenames a fourth time. The skip reason travels with the empty
+    corpus: these documents are not redistributed with the repository, and a test that passed
+    quietly on a machine without them would be exactly the false assurance AC-8 exists to prevent.
+    """
+    base = directory or TMF_DEFAULT_DIR
+    paths = [base / name for name in TMF_FILENAMES]
+    missing = [p for p in paths if not p.is_file()]
+    if missing:
+        return Corpus(
+            "TMForum",
+            [],
+            f"{len(missing)} of {len(paths)} documents absent under {base} "
+            "(not redistributed with this repository)",
+        )
+    return Corpus("TMForum", paths)
+
+
 def resolve(args: argparse.Namespace) -> list[Corpus]:
     """Every corpus to measure, in report order, each either populated or carrying a skip reason.
 
@@ -111,17 +132,8 @@ def resolve(args: argparse.Namespace) -> list[Corpus]:
             )
         gpp_corpus = Corpus("3GPP", gpp)
 
-    tmf_paths = [args.tmforum_dir / name for name in TMF_FILENAMES]
-    missing = [p for p in tmf_paths if not p.is_file()]
-    if missing:
-        tmf_corpus = Corpus(
-            "TMForum",
-            [],
-            f"{len(missing)} of {len(tmf_paths)} documents absent under {args.tmforum_dir} "
-            "(not redistributed with this repository; pass --tmforum-dir)",
-        )
-    else:
-        tmf_corpus = Corpus("TMForum", tmf_paths)
+    # One definition of the TM Forum document list, used by scripts and tests alike.
+    tmf_corpus = tmforum(args.tmforum_dir)
 
     return [gpp_corpus, tmf_corpus]
 

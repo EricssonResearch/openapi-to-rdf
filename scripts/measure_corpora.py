@@ -59,6 +59,7 @@ SUMMARY_KEYS = (
     "target_class_on_datatype",
     "range_datatype",
     "range_class",
+    "properties_multi_range",
     "unresolved_refs",
     "unresolved_refs_distinct",
 )
@@ -83,11 +84,21 @@ def census_one(path: Path) -> dict:
     on_datatype = sum(1 for _s, _p, o in target_triples if o in datatypes)
 
     range_datatype = range_class = 0
-    for _s, _p, o in rdf.triples((None, RDFS.range, None)):
+    ranges_per_property: dict = {}
+    for s, _p, o in rdf.triples((None, RDFS.range, None)):
+        ranges_per_property.setdefault(s, set()).add(o)
         if str(o).startswith(str(XSD)) or o == RDFS.Literal:
             range_datatype += 1
         else:
             range_class += 1
+
+    # Determination S1: a range is emitted only where provably true. Two ranges on one property
+    # assert, under RDFS entailment, that the value instantiates BOTH classes — an intersection the
+    # document almost never means. This counter exists because the S1 guard was written and
+    # validated against 3GPP, where it left 6 of 3,622 properties multi-ranged (0.17%), and TM
+    # Forum — which uses polymorphic `oneOf` references heavily — had 167 of 2,895 (5.8%). A metric
+    # that only ever ran on the corpus a fix was written for cannot report that fix's blind spot.
+    properties_multi_range = sum(1 for targets in ranges_per_property.values() if len(targets) > 1)
 
     terms = classes | datatypes
     folded: dict[str, set[str]] = {}
@@ -108,6 +119,7 @@ def census_one(path: Path) -> dict:
         "target_class_on_datatype": on_datatype,
         "range_datatype": range_datatype,
         "range_class": range_class,
+        "properties_multi_range": properties_multi_range,
         "fold_collisions": sum(1 for v in folded.values() if len(v) > 1),
         "terms_with_dash": sum(1 for t in terms if "-" in local_name(str(t))),
         "unresolved_refs": len(converter.unresolved_references),
