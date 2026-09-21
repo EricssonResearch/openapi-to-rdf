@@ -9,8 +9,16 @@ the task plan is `snm-api-native/docs/superpowers/plans/2026-09-18-openapi-to-rd
 
 ## Where the suite stands
 
-**785 passed, 50 failed, 1 xfailed** (measured 2026-09-21, full run, 274s). Both failure groups now
-have a measured cause: 49 are H1–H3 below, and the 1 freshness failure is H5.
+**791 passed, 49 failed, 1 xfailed** (measured 2026-09-21, full run, 491s, `PYTEST_EXIT=1`).
+
+**All 49 failures are one test — `test_3gpp_shacl_coverage.py::test_bad_instance_rejected` — and all
+49 are a defect in the TEST DATA, not in the converter.** The converter is correct in all 260 cases.
+See H1–H3, now resolved, and the repair plan below them.
+
+**Read this before touching the 49:** they are not a blocker for anything. They do not affect
+conversion, the TM Forum path, or any deliverable. A previous session spent two days on them on the
+strength of their being red, while the TM Forum work they were mistaken for a blocker on took ten
+minutes. Red is not the same as blocking.
 
 **Correction to commit `b1ae672`:** its message claims committing 63 regenerated files "closes 1 of
 the 50". That is **refuted** — see H5. The test failed again afterwards, and it will keep failing
@@ -46,21 +54,48 @@ reverting the regeneration.
   49 to move, and expect **previously-vacuous good-instance tests to start really validating** —
   some may then legitimately fail, which is a finding, not a regression.
 
-- **H3: the remaining 70 occurrences (10 distinct classes) have no shape because the converter never
-  emits one — and this may be CORRECT** — STATUS: **open** (confidence: low, and deliberately so)
-  evidence: `TS29571_CommonData:GlobalRanNodeId`, `Area`, `GeraLocation`, `UtraLocation`;
-  `TS28541_5GcNrm:ImsiRange`, `PlmnRange`; `TS28623_TraceControlNrm:EventThreshold1F`;
-  `TS28623_ComDefs:otherProblems`; `TS28623_GenericNrm:EP_RP_Attr`, `attributes`.
-  `GlobalRanNodeId` is named in an observed failure (`GlobalRanNodeId_missing_plmnId.ttl`).
-  **The open question, and it must be answered before any code changes:** several of these are
-  top-level `oneOf` unions. Determination **S2 says never mint a class for a `oneOf` union**
-  (it produced 14 unreachable classes and 14 unreachable context terms in snm-api-native, and TMF's
-  own discriminator never selects the wrapper). If S2 applies, the converter is right to emit no
-  shape and the **fixture generator is wrong to emit instances of a union wrapper** — making H3 a
-  second fixture bug rather than a converter gap. Check `components/schemas` for each of the 10
-  before assuming either.
-  cheapest experiment: for each of the 10, print whether its schema has a top-level `oneOf`, a
-  top-level `required`, or both. That table decides converter-gap vs fixture-bug per class.
+- **H3 RESOLVED: all 70 remaining occurrences are also fixture defects. The converter is correct.**
+  — STATUS: **supported** (confidence: high), measured 2026-09-21
+  The decision table that settled it, over `components/schemas` of all 38 corpus documents:
+
+  | class | verdict |
+  |---|---|
+  | `TS29571_CommonData:GlobalRanNodeId`, `Area`, `GeraLocation`, `UtraLocation` | top-level `oneOf` |
+  | `TS28541_5GcNrm:ImsiRange`, `PlmnRange` | top-level `oneOf` |
+  | `TS28623_ComDefs:otherProblems`, `TS28623_GenericNrm:attributes`, `TS28623_TraceControlNrm:EventThreshold1F` | **not a schema — a property name** |
+  | `TS28623_GenericNrm:EP_RP_Attr` | **not a schema and not a property — appears nowhere in the corpus** |
+
+  6 of 10 are top-level `oneOf` unions, so determination **S2 (never mint a class for a `oneOf`
+  union)** makes the converter right to emit no shape, and the generator wrong to emit instances of
+  a union wrapper. The other 4 are not schemas at all: searched as a schema name across all 38
+  documents, **declared nowhere**; three occur only as property names, and `EP_RP_Attr` does not
+  occur at all.
+  Note on method: the first lookup checked only top-level `components/schemas` of one document, which
+  cannot distinguish "absent" from "nested elsewhere". The corpus-wide search is what licensed the
+  verdict.
+
+## The repair, and the part of it nobody can estimate
+
+Three defects in `scripts/generate_test_cases.py`, which manufactures the RDF instance files under
+`test-cases/<spec>/{good,bad}/`. It is test scaffolding: it does not ship and no conversion path uses
+it.
+
+1. **Dash mangling** — `.replace("-", "_")` at lines 178, 188, 207, 278. Not a blind delete: those
+   names are also used as RDF prefixes, so each site needs checking.
+2. **`oneOf` wrappers** — the schema loop already skips `type != object` and property-less schemas;
+   it needs to skip top-level `oneOf` too, per S2.
+3. **Classes minted from property names** — in `to_rdf`, a nested object with no `$ref` is typed
+   `child_class or ns[safe_key]`, i.e. it invents a class from the PROPERTY name when the real class
+   is unknown. It should leave the node untyped instead. This is the source of the 4 non-schema names.
+
+Estimated mechanical cost: about an hour including regeneration and a commit.
+
+**The unestimable part: once shapes match, 260 types get validated for the first time.** Each can go
+three ways — the bad instance is now correctly rejected; it is still not rejected, exposing a genuine
+converter gap that has been invisible until now; or a good instance starts being rejected. Nobody has
+ever run real validation against those 260, so any predicted mix would be invention. Timebox it: do
+the mechanical fix, run `tests/test_3gpp_shacl_coverage.py`, and report the triage table before
+fixing anything in it.
 
 - **H4: `test_good_instance_accepted` has been passing for the wrong reason across ~24% of the
   corpus** — STATUS: **supported** (confidence: high)
@@ -118,6 +153,19 @@ H6.
   recurring failure mode where the guard is narrower than what it protects.
 
 ## Settled (established this project — don't relitigate)
+
+- **One `rdfs:range` per property, enforced not just documented** — TM Forum had **167 of 2,895
+  properties (5.8%)** carrying two ranges against **6 of 3,622 (0.17%)** on 3GPP, because the guard
+  was `if range_uri is not None` while its comment claimed "single-target properties only". A
+  class-scoped property URI can be reached twice (polymorphic `oneOf`) and `Graph.add` is a set
+  insert. Now 0 on both corpora (`scripts/measure_corpora.py`, metric `properties_multi_range`).
+  **The transferable lesson:** the guard was sound and its scope was right; its SAMPLE could not
+  reach the failure region, because 3GPP barely uses polymorphic references. This is why AC-8 wants
+  two standards bodies and not one.
+- **TM Forum is covered by tests, at last** — `tests/test_tmforum_corpus.py`, 4 tests, where the
+  suite previously had **0 of 27 modules** referencing TM Forum. Note that
+  `scripts/measure_corpora.py` had been measuring TMF all along: it was the TESTS that were
+  3GPP-only, which is a different gap and was briefly misreported as "TMF is unmeasured".
 
 - **`rdfs:range` only where true** (S1) — datatype ranges 2,676 → 2,281, removing 395 invented
   triples; class ranges unchanged at 1,614. Range propagates under RDFS entailment, so a
