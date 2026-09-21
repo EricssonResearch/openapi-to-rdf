@@ -10,7 +10,11 @@ the task plan is `snm-api-native/docs/superpowers/plans/2026-09-18-openapi-to-rd
 ## Where the suite stands
 
 **785 passed, 50 failed, 1 xfailed** (measured 2026-09-21, full run, 274s). Both failure groups now
-have a cause. `output/` drift closed by committing 63 regenerated files; the other 49 are below.
+have a measured cause: 49 are H1–H3 below, and the 1 freshness failure is H5.
+
+**Correction to commit `b1ae672`:** its message claims committing 63 regenerated files "closes 1 of
+the 50". That is **refuted** — see H5. The test failed again afterwards, and it will keep failing
+no matter how many times the tree is committed.
 
 **834 passed is NOT the target to return to.** An earlier run read 834/1, and that was a *less
 honest* instrument, not a better state: the same validation holes existed and the corpus was too
@@ -66,6 +70,36 @@ reverting the regeneration.
   rather than kept as a debugging aid: a green suite can mean correct or inert, and only this
   measurement tells them apart.
 
+- **H5: `test_output_freshness` is UNSATISFIABLE as written, because regeneration is not
+  byte-deterministic while the test compares bytes** — STATUS: **supported** (confidence: high)
+  evidence: after committing the 63 regenerated files, the test failed again with 27 files dirty.
+  All 27 are `.ttl`, and **27 of 27 are graph-isomorphic** to their committed versions — identical
+  triples, different serialization. The visible diff is where `],` versus `] ] ;` falls, i.e. which
+  member of a blank-node list is emitted last; line counts are unchanged (155 = 155 on the file
+  inspected). Cause: `openapi_to_rdf/shacl_converter.py:1864,1873` and
+  `openapi_to_rdf/rdf_converter.py:487` call rdflib's `Graph.serialize(format="turtle")`, whose
+  blank-node ordering is not stable across runs.
+  Consequence: **committing output/ can never make this test pass.** Anyone who responds to this
+  failure by regenerating and committing is in a loop that cannot terminate. I did exactly that once.
+  caveats: measured on the 27 files that happened to be dirty, all of which were SHACL output. Byte
+  determinism of `output/index/*.yaml` and `output/rdf/*` is therefore **not yet measured** — they
+  may well be deterministic, which is why the repair below must not blanket-exempt them.
+
+## Open decision (do not resolve by weakening the gate)
+
+H5 needs a judgment call, and the wrong instinct is to relax the test so the suite goes green:
+
+- **Option A — compare graph isomorphism for `.ttl`, bytes for everything else.** Byte equality is
+  arguably the wrong equivalence relation for an RDF graph in the first place, so this makes the test
+  assert what it actually means. Small change, one file.
+- **Option B — make serialization byte-deterministic** (canonical/sorted emission before writing).
+  Harder with rdflib blank nodes, but it preserves the stronger property, and `output/` is a
+  *published deliverable* — consumers diff those files, so gratuitous byte churn has a real cost
+  even when the graph is unchanged.
+
+These differ in what they protect, not just in effort, which is why it is a decision rather than a
+task. Option A stops detecting byte churn that Option B would prevent.
+
 ## Settled (established this project — don't relitigate)
 
 - **`rdfs:range` only where true** (S1) — datatype ranges 2,676 → 2,281, removing 395 invented
@@ -111,6 +145,12 @@ reverting the regeneration.
   produced no movement. The namespaces now agree; the *local names* were the problem.
 - **"The `sh:in` emitter is dropping enum constraints."** Refuted by the failure breakdown: min, max
   and pattern fail too, and they share no emitter with enum.
+- **"Commit the regenerated `output/` and the freshness test will pass."** Done in `b1ae672`; the
+  test failed again immediately. Regeneration is not byte-deterministic (H5), so this loop cannot
+  terminate. Do not regenerate-and-commit in response to that failure.
+- **Reading a piped command's exit status.** I ran `pytest … | tail -15` and took the reported exit
+  code 0 as a pass; it was `tail`'s status, and pytest had failed. Any `| grep`, `| tail`, `| head`
+  hides the result of the thing being tested. Read the real status unpiped.
 - **Estimating a suite result instead of measuring it.** A subagent reported "~830+ passed" from an
   incomplete run that had timed out; the real figure was 785. Run it or say you didn't.
 - **Dropping per-task reviews to save cost.** The final whole-branch review then found 4 Criticals
