@@ -1,3 +1,4 @@
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_ThresholdMonitorNrm: <https://example.org/TS28623_ThresholdMonitorNrm/> .
 @prefix TS28623_ThresholdMonitorNrm_ManagedElement-ncO-ThresholdMonitorNrm: <https://example.org/TS28623_ThresholdMonitorNrm/ManagedElement-ncO-ThresholdMonitorNrm#> .
 @prefix TS28623_ThresholdMonitorNrm_SubNetwork-ncO-ThresholdMonitorNrm: <https://example.org/TS28623_ThresholdMonitorNrm/SubNetwork-ncO-ThresholdMonitorNrm#> .
@@ -15,7 +16,8 @@ TS28623_ThresholdMonitorNrm:ThresholdInfo a rdfs:Class .
 
 TS28623_ThresholdMonitorNrm:ThresholdMonitor-Multiple a rdfs:Class .
 
-TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single a rdfs:Class .
+TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_ThresholdMonitorNrm_ManagedElement-ncO-ThresholdMonitorNrm:ThresholdMonitor a rdf:Property ;
     rdfs:domain TS28623_ThresholdMonitorNrm:ManagedElement-ncO-ThresholdMonitorNrm ;
@@ -42,7 +44,8 @@ TS28623_ThresholdMonitorNrm_ThresholdMonitor-Single:attributes a rdf:Property ;
     rdfs:domain TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
     rdfs:range rdfs:Resource .
 
-TS28623_ThresholdMonitorNrm:administrativeState a rdf:Property .
+TS28623_ThresholdMonitorNrm:administrativeState a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28623_ThresholdMonitorNrm:attributes a rdf:Property ;
     rdfs:range rdfs:Resource .
@@ -50,11 +53,14 @@ TS28623_ThresholdMonitorNrm:attributes a rdf:Property ;
 TS28623_ThresholdMonitorNrm:monitorGranularityPeriod a rdf:Property ;
     rdfs:range xsd:integer .
 
-TS28623_ThresholdMonitorNrm:objectInstances a rdf:Property .
+TS28623_ThresholdMonitorNrm:objectInstances a rdf:Property ;
+    rdfs:range xsd:string .
 
-TS28623_ThresholdMonitorNrm:operationalState a rdf:Property .
+TS28623_ThresholdMonitorNrm:operationalState a rdf:Property ;
+    rdfs:range xsd:string .
 
-TS28623_ThresholdMonitorNrm:rootObjectInstances a rdf:Property .
+TS28623_ThresholdMonitorNrm:rootObjectInstances a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28623_ThresholdMonitorNrm:thresholdInfoList a rdf:Property ;
     rdfs:range TS28623_ThresholdMonitorNrm:ThresholdInfo .

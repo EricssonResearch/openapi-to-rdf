@@ -1,3 +1,4 @@
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_TraceControlNrm: <https://example.org/TS28623_TraceControlNrm/> .
 @prefix TS28623_TraceControlNrm_AreaConfig: <https://example.org/TS28623_TraceControlNrm/AreaConfig#> .
 @prefix TS28623_TraceControlNrm_FreqInfo: <https://example.org/TS28623_TraceControlNrm/FreqInfo#> .
@@ -29,39 +30,87 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM1LTE-Type .
-
-[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_TraceControlNrm:Files ],
-                [ a sh:PropertyShape ;
                     sh:class TS28623_TraceControlNrm:TraceJob-Attr ;
                     sh:maxCount 1 ;
-                    sh:path TS28623_TraceControlNrm:attributes ] ] ;
+                    sh:path TS28623_TraceControlNrm:attributes ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_TraceControlNrm:Files ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Single:Files ],
-        [ a sh:PropertyShape ;
             sh:class TS28623_TraceControlNrm:TraceJob-Attr ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Single:attributes ] ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Single:attributes ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Single:Files ] ;
     sh:targetClass TS28623_TraceControlNrm:TraceJob-Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "OUT_OF_COVERAGE"^^xsd:string "A2_EVENT"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceTarget-Type:TargetIdValue ],
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:eventListForEventTriggeredMeasurement ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:loggingInterval-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:loggingInterval ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "IMSI"^^xsd:string "IMEI"^^xsd:string "IMEISV"^^xsd:string "PUBLIC_ID"^^xsd:string "UTRAN_CELL"^^xsd:string "E-UTRAN_CELL"^^xsd:string "NG-RAN_CELL"^^xsd:string "ENB"^^xsd:string "RNC"^^xsd:string "GNB"^^xsd:string "SUPI"^^xsd:string ) ;
+            sh:in ( "600s"^^xsd:string "1200s"^^xsd:string "2400s"^^xsd:string "3600s"^^xsd:string "5400s"^^xsd:string "7200s"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceTarget-Type:TargetIdType ] ;
-    sh:targetClass TS28623_TraceControlNrm:traceTarget-Type .
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:loggingDuration ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:traceCollectionEntityId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:eventThresholdL1-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:eventThresholdL1 ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 30 ;
+            sh:minInclusive 0 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:hysteresisL1 ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "0ms"^^xsd:string "40ms"^^xsd:string "64ms"^^xsd:string "80ms"^^xsd:string "100ms"^^xsd:string "128ms"^^xsd:string "160ms"^^xsd:string "256ms"^^xsd:string "320ms"^^xsd:string "480ms"^^xsd:string "512ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:timeToTriggerL1 ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:MbsfnArea ;
+            sh:maxCount 8 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:mbsfnAreaList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:AreaConfig ;
+            sh:maxCount 32 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:areaConfigurationForNeighCell ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.24." ;
+            sh:maxCount 16 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_TraceControlNrm:mcc ;
+                            sh:pattern "^[0-9]{3}$" ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_TraceControlNrm:mnc ;
+                            sh:pattern "^[0-9]{2,3}$" ] ] ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:plmnList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERIODICAL"^^xsd:string "EVENT_TRIGGERED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:reportType ] ;
+    sh:targetClass TS28623_TraceControlNrm:loggedMDTConfig-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:integer ;
@@ -70,65 +119,78 @@
     sh:targetClass TS28623_TraceControlNrm:collectionPeriodM7NR-Type .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:TraceJob-Single ;
-            sh:path TS28623_TraceControlNrm_ManagedElement-ncO-TraceControlNrm:TraceJob ] ;
-    sh:targetClass TS28623_TraceControlNrm:ManagedElement-ncO-TraceControlNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_Tai:tac ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_Tai:mnc ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_Tai:mcc ] ;
-    sh:targetClass TS28623_TraceControlNrm:Tai .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "600s"^^xsd:string "1200s"^^xsd:string "2400s"^^xsd:string "3600s"^^xsd:string "5400s"^^xsd:string "7200s"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:loggingDuration-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MINIMUM"^^xsd:string "MEDIUM"^^xsd:string "MAXIMUM"^^xsd:string "VENDORMINIMUM"^^xsd:string "VENDORMEDIUM"^^xsd:string "VENDORMAXIMUM"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceConfig-Type:traceDepth ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The Network Element types where Trace Session activation is needed. See 3GPP TS 32.422 clause 5.4 for additional details." ;
-            sh:datatype xsd:string ;
-            sh:in ( "MSC_SERVER"^^xsd:string "SGSN"^^xsd:string "MGW"^^xsd:string "GGSN"^^xsd:string "RNC"^^xsd:string "BM_SC"^^xsd:string "MME"^^xsd:string "SGW"^^xsd:string "PGW"^^xsd:string "ENB"^^xsd:string "EN_GNB"^^xsd:string "GNB_CU_CP"^^xsd:string "GNB_CU_UP"^^xsd:string "GNB_DU"^^xsd:string "AMF"^^xsd:string "PCF"^^xsd:string "SMF"^^xsd:string "UPF"^^xsd:string "AUSF"^^xsd:string "SMSF"^^xsd:string "HSS"^^xsd:string "UDM"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_traceConfig-Type:listOfNeTypes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:listOfInterfaces-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceConfig-Type:listOfInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:triggeringEvents-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceConfig-Type:triggeringEvents ] ;
-    sh:targetClass TS28623_TraceControlNrm:traceConfig-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "OUT_OF_COVERAGE"^^xsd:string "A2_EVENT"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement-Type .
-
-[] a sh:NodeShape ;
     sh:datatype xsd:integer ;
     sh:maxInclusive 31 ;
     sh:minInclusive 0 ;
     sh:targetClass TS28623_TraceControlNrm:eventThresholdUphUMTS-Type .
 
 [] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "FILE-BASED"^^xsd:string "STREAMING"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:traceReportingFormat-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IMSI"^^xsd:string "IMEI"^^xsd:string "IMEISV"^^xsd:string "PUBLIC_ID"^^xsd:string "UTRAN_CELL"^^xsd:string "E-UTRAN_CELL"^^xsd:string "NG-RAN_CELL"^^xsd:string "ENB"^^xsd:string "RNC"^^xsd:string "GNB"^^xsd:string "SUPI"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_traceTarget-Type:TargetIdType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_traceTarget-Type:TargetIdValue ] ;
+    sh:targetClass TS28623_TraceControlNrm:traceTarget-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:collectionPeriodRRMNR-Type .
+
+[] a sh:NodeShape ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_TraceControlNrm:mcc ;
+                    sh:pattern "^[0-9]{3}$" ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_TraceControlNrm:mnc ;
+                    sh:pattern "^[0-9]{2,3}$" ] ] ;
+    sh:targetClass TS28623_TraceControlNrm:plmnList-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "MINIMUM"^^xsd:string "MEDIUM"^^xsd:string "MAXIMUM"^^xsd:string "VENDORMINIMUM"^^xsd:string "VENDORMEDIUM"^^xsd:string "VENDORMAXIMUM"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:traceDepth-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_TraceControlNrm:listOfTraceMetrics .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_excessPacketDelayThreshold-Type:fiveQIValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "0.25MS"^^xsd:string "0.5MS"^^xsd:string "1MS"^^xsd:string "2MS"^^xsd:string "4MS"^^xsd:string "5MS"^^xsd:string "10MS"^^xsd:string "20MS"^^xsd:string "30MS"^^xsd:string "40MS"^^xsd:string "50MS"^^xsd:string "60MS"^^xsd:string "70MS"^^xsd:string "80MS"^^xsd:string "90MS"^^xsd:string "100MS"^^xsd:string "150MS"^^xsd:string "300MS"^^xsd:string "500MS"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_excessPacketDelayThreshold-Type:excessPacketDelayThresholdValue ] ;
+    sh:targetClass TS28623_TraceControlNrm:excessPacketDelayThreshold-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "100ms"^^xsd:string "1000ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2048ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string "10000ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:collectionPeriodRRMLTE-Type .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "1.28s"^^xsd:string "2.56s"^^xsd:string "5.12s"^^xsd:string "10.24s"^^xsd:string "20.48s"^^xsd:string "30.72s"^^xsd:string "40.96s"^^xsd:string "61.44s"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_loggingInterval-Type:UMTS ],
+            sh:path TS28623_TraceControlNrm_loggingInterval-Type:LTE ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "0.32s"^^xsd:string "0.64s"^^xsd:string "1.28s"^^xsd:string "2.56s"^^xsd:string "5.12s"^^xsd:string "10.24s"^^xsd:string "20.48s"^^xsd:string "30.72s"^^xsd:string "40.96s"^^xsd:string "61.44s"^^xsd:string "INFINITY"^^xsd:string ) ;
@@ -136,242 +198,109 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "1.28s"^^xsd:string "2.56s"^^xsd:string "5.12s"^^xsd:string "10.24s"^^xsd:string "20.48s"^^xsd:string "30.72s"^^xsd:string "40.96s"^^xsd:string "61.44s"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_loggingInterval-Type:LTE ] ;
+            sh:path TS28623_TraceControlNrm_loggingInterval-Type:UMTS ] ;
     sh:targetClass TS28623_TraceControlNrm:loggingInterval-Type .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "PERIODICAL"^^xsd:string "A2_FOR_LTE_NR"^^xsd:string "1F_FOR_UMTS"^^xsd:string "1I_FOR_UMTS_MCPS_TDD"^^xsd:string "A2_TRIGGERED_PERIODIC_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_UMTS"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportingTrigger-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:maxInclusive 60 ;
-    sh:minInclusive 1 ;
-    sh:targetClass TS28623_TraceControlNrm:collectionPeriodM7LTE-Type .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_TraceControlNrm:excessPacketDelayThreshold-Type ;
-    sh:targetClass TS28623_TraceControlNrm:excessPacketDelayThresholds-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NO_IDENTITY"^^xsd:string "TAC_OF_IMEI"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:anonymizationOfMdtData-Type .
+    sh:class TS28623_TraceControlNrm:TraceJob-Single ;
+    sh:targetClass TS28623_TraceControlNrm:TraceJob-Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:FreqInfo ;
+            sh:datatype xsd:string ;
+            sh:in ( "IMMEDIATE_MDT_ONLY"^^xsd:string "LOGGED_MDT_ONLY"^^xsd:string "TRACE_ONLY"^^xsd:string "IMMEDIATE_MDT_AND_TRACE"^^xsd:string "RLF_REPORT_ONLY"^^xsd:string "RCEF_REPORT_ONLY"^^xsd:string "LOGGED_MBSFN_MDT"^^xsd:string "5GC_UE_LEVEL_MEASUREMENTS_ONLY"^^xsd:string "TRACE_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "TRACE_AND_IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_AreaConfig:freqInfo ],
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:jobType ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28623_TraceControlNrm_AreaConfig:pciList ] ;
-    sh:targetClass TS28623_TraceControlNrm:AreaConfig .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:TraceJob-Single ;
-            sh:path TS28623_TraceControlNrm_SubNetwork-ncO-TraceControlNrm:TraceJob ] ;
-    sh:targetClass TS28623_TraceControlNrm:SubNetwork-ncO-TraceControlNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N8"^^xsd:string "N10"^^xsd:string "N13"^^xsd:string "N21"^^xsd:string "NU1"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:UDMInterfaces ],
+            sh:class TS28623_TraceControlNrm:traceConfig-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceConfig ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "S2A"^^xsd:string "S2B"^^xsd:string "S2C"^^xsd:string "S5"^^xsd:string "S6B"^^xsd:string "GX"^^xsd:string "S8"^^xsd:string "SGI"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:PDN_GWInterfaces ],
+            sh:class TS28623_TraceControlNrm:traceReference-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceReference ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "S1-MME"^^xsd:string "X2"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:eNBInterfaces ],
+            sh:class TS28623_TraceControlNrm:traceTarget-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceTarget ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:mdtConfig-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:mdtConfig ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:UECoreMeasConfig-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:ueCoreMeasConfig ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "MI"^^xsd:string "MJ"^^xsd:string "MK"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:BGCFInterfaces ],
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:jobId ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "N27"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:NRFInterfaces ],
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceReportingConsumerUri ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceCollectionEntityIpAddress ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:plmnTarget-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:plmnTarget ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:nPNTarget ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "IX"^^xsd:string "MX"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:IBCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MW"^^xsd:string "MG"^^xsd:string "MR"^^xsd:string "MI"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:S-CSCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "Mp"^^xsd:string "Mr"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MRFCInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MG"^^xsd:string "MJ"^^xsd:string "MN"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MGCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "GB"^^xsd:string "IU-PS"^^xsd:string "GN"^^xsd:string "MAP-GR"^^xsd:string "MAP-GD"^^xsd:string "MAP-GF"^^xsd:string "GE"^^xsd:string "GS"^^xsd:string "S6D"^^xsd:string "S4"^^xsd:string "S3"^^xsd:string "S13"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SGSNInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CX"^^xsd:string "DX"^^xsd:string "MG"^^xsd:string "MW"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:I-CSCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MC"^^xsd:string "NB-UP"^^xsd:string "IU-UP"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MGWInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N5"^^xsd:string "N7"^^xsd:string "N15"^^xsd:string "N28"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:PCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N12"^^xsd:string "N13"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:AUSFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "IU-CS"^^xsd:string "IU-PS"^^xsd:string "IUR"^^xsd:string "IUB"^^xsd:string "UU"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:RNCInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N22"^^xsd:string "N31"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:NSSFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "S4"^^xsd:string "S5"^^xsd:string "S8"^^xsd:string "S11"^^xsd:string "GXC"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SGWInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MAP-F"^^xsd:string "S13"^^xsd:string "MAP-GF"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:EIRInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N4"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:UPFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "F1-C"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:gNB-DUInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N29"^^xsd:string "N30"^^xsd:string "N33"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:NEFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N4"^^xsd:string "N7"^^xsd:string "N10"^^xsd:string "N11"^^xsd:string "S5-C"^^xsd:string "N16"^^xsd:string "N16a"^^xsd:string "N38"^^xsd:string "N40"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SMFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "A"^^xsd:string "IU-CS"^^xsd:string "MC"^^xsd:string "MAP-G"^^xsd:string "MAP-B"^^xsd:string "MAP-E"^^xsd:string "MAP-F"^^xsd:string "MAP-D"^^xsd:string "MAP-C"^^xsd:string "CAP"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MSCServerInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MAP-C"^^xsd:string "MAP-D"^^xsd:string "GC"^^xsd:string "GR"^^xsd:string "CX"^^xsd:string "S6D"^^xsd:string "S6A"^^xsd:string "SH"^^xsd:string "N70"^^xsd:string "N71"^^xsd:string "NU1"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:HSSInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "GM"^^xsd:string "MW"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:P-CSCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MW"^^xsd:string "ML"^^xsd:string "MM"^^xsd:string "MI/MG"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:E-CSCFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "GMB"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:BM-SCInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "E1"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:gNB-CU-UPInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N20"^^xsd:string "N21"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SMSFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N1"^^xsd:string "N2"^^xsd:string "N8"^^xsd:string "N11"^^xsd:string "N12"^^xsd:string "N14"^^xsd:string "N15"^^xsd:string "N20"^^xsd:string "N22"^^xsd:string "N26"^^xsd:string "N41"^^xsd:string "N42"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:AMFInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "S1-MME"^^xsd:string "X2"^^xsd:string "UU"^^xsd:string "F1-C"^^xsd:string "E1"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:en-gNBInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "DH"^^xsd:string "SH"^^xsd:string "ISC"^^xsd:string "UT"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:ASInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "GN"^^xsd:string "GI"^^xsd:string "GMB"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:GGSNInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "S1-MME"^^xsd:string "S3"^^xsd:string "S6A"^^xsd:string "S10"^^xsd:string "S11"^^xsd:string "S13"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MMEInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NG-C"^^xsd:string "XN-C"^^xsd:string "UU"^^xsd:string "F1-C"^^xsd:string "E1"^^xsd:string "X2-C"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:gNB-CU-CPInterfaces ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NG-C"^^xsd:string "XN-C"^^xsd:string "UU"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:ng-eNBInterfaces ] ;
-    sh:targetClass TS28623_TraceControlNrm:listOfInterfaces-Type .
+            sh:in ( "FILE-BASED"^^xsd:string "STREAMING"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceReportingFormat ] ;
+    sh:targetClass TS28623_TraceControlNrm:TraceJob-Attr .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceReference-Type:traceId ],
+            sh:path TS28623_TraceControlNrm_traceReference-Type:mnc ;
+            sh:pattern "^[0-9]{2,3}$" ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceReference-Type:mcc ],
+            sh:path TS28623_TraceControlNrm_traceReference-Type:mcc ;
+            sh:pattern "^[0-9]{3}$" ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_traceReference-Type:mnc ] ;
+            sh:path TS28623_TraceControlNrm_traceReference-Type:traceId ] ;
     sh:targetClass TS28623_TraceControlNrm:traceReference-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "CPICH_ECNO"^^xsd:string "CPICH_RSCP"^^xsd:string "PATHLOSS"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:measurementQuantity-Type .
+    sh:in ( "MSC_SERVER"^^xsd:string "SGSN"^^xsd:string "MGW"^^xsd:string "GGSN"^^xsd:string "RNC"^^xsd:string "BM_SC"^^xsd:string "MME"^^xsd:string "SGW"^^xsd:string "PGW"^^xsd:string "ENB"^^xsd:string "EN_GNB"^^xsd:string "GNB_CU_CP"^^xsd:string "GNB_CU_UP"^^xsd:string "GNB_DU"^^xsd:string "AMF"^^xsd:string "PCF"^^xsd:string "SMF"^^xsd:string "UPF"^^xsd:string "AUSF"^^xsd:string "SMSF"^^xsd:string "HSS"^^xsd:string "UDM"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:listOfNeTypes-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "PERIODICAL"^^xsd:string "EVENT_TRIGGERED"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportType-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS28623_TraceControlNrm:traceCollectionEntityId-Type .
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM7LTE-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "BAROMETRIC_PRESSURE"^^xsd:string "UE_SPEED"^^xsd:string "UE_ORIENTATION"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:sensorInformation-Type .
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM5NR-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM1NR-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 25 ;
-            sh:minInclusive -120 ;
-            sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThreshold1I ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThresholdRSRP ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ;
-                        sh:maxInclusive 97 ;
-                        sh:minInclusive 0 ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ;
-                        sh:maxInclusive 127 ;
-                        sh:minInclusive 0 ] ) ],
-        [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThresholdRSRQ ;
             sh:xone ( [ a sh:NodeShape ;
@@ -408,88 +337,24 @@
             sh:maxCount 1 ;
             sh:maxInclusive 127 ;
             sh:minInclusive 0 ;
-            sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThresholdSINR ] ;
+            sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThresholdSINR ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 25 ;
+            sh:minInclusive -120 ;
+            sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThreshold1I ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_eventThreshold-Type:EventThresholdRSRP ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ;
+                        sh:maxInclusive 97 ;
+                        sh:minInclusive 0 ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ;
+                        sh:maxInclusive 127 ;
+                        sh:minInclusive 0 ] ) ] ;
     sh:targetClass TS28623_TraceControlNrm:eventThreshold-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM5NR-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "0ms"^^xsd:string "40ms"^^xsd:string "64ms"^^xsd:string "80ms"^^xsd:string "100ms"^^xsd:string "128ms"^^xsd:string "160ms"^^xsd:string "256ms"^^xsd:string "320ms"^^xsd:string "480ms"^^xsd:string "512ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:timeToTriggerL1-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PERIODICAL"^^xsd:string "EVENT_TRIGGERED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:reportType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "600s"^^xsd:string "1200s"^^xsd:string "2400s"^^xsd:string "3600s"^^xsd:string "5400s"^^xsd:string "7200s"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:loggingDuration ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.24." ;
-            sh:maxCount 16 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_TraceControlNrm:mcc ],
-                        [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_TraceControlNrm:mnc ] ] ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:plmnList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:traceCollectionEntityId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 30 ;
-            sh:minInclusive 0 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:hysteresisL1 ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:eventThresholdL1-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:eventThresholdL1 ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "OUT_OF_COVERAGE"^^xsd:string "A2_EVENT"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:eventListForEventTriggeredMeasurement ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:AreaConfig ;
-            sh:maxCount 32 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:areaConfigurationForNeighCell ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:loggingInterval-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:loggingInterval ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "0ms"^^xsd:string "40ms"^^xsd:string "64ms"^^xsd:string "80ms"^^xsd:string "100ms"^^xsd:string "128ms"^^xsd:string "160ms"^^xsd:string "256ms"^^xsd:string "320ms"^^xsd:string "480ms"^^xsd:string "512ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:timeToTriggerL1 ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:MbsfnArea ;
-            sh:maxCount 8 ;
-            sh:path TS28623_TraceControlNrm_loggedMDTConfig-Type:mbsfnAreaList ] ;
-    sh:targetClass TS28623_TraceControlNrm:loggedMDTConfig-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28623_TraceControlNrm_FreqInfo:freqBands ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_FreqInfo:arfcn ] ;
-    sh:targetClass TS28623_TraceControlNrm:FreqInfo .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -497,114 +362,9 @@
     sh:targetClass TS28623_TraceControlNrm:positioningMethod-Type .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:loggedMDTConfig-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_mdtConfig-Type:loggedMDTConfig ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:class TS28623_TraceControlNrm:Tai ;
-            sh:path TS28623_TraceControlNrm_mdtConfig-Type:areaScope ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:immediateMDTConfig-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_mdtConfig-Type:immediateMDTConfig ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NO_IDENTITY"^^xsd:string "TAC_OF_IMEI"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_mdtConfig-Type:anonymizationOfMdtData ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.29." ;
-            sh:datatype xsd:string ;
-            sh:in ( "BAROMETRIC_PRESSURE"^^xsd:string "UE_SPEED"^^xsd:string "UE_ORIENTATION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_mdtConfig-Type:sensorInformation ] ;
-    sh:targetClass TS28623_TraceControlNrm:mdtConfig-Type .
-
-[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM6LTE-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM7LTE-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "20480ms"^^xsd:string "40960ms"^^xsd:string "1min"^^xsd:string "6min"^^xsd:string "12min"^^xsd:string "30min"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:collectionPeriodM6NR-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM6NR-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:collectionPeriodRRMNR-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_plmnTarget-Type:mnc ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_plmnTarget-Type:mcc ] ;
-    sh:targetClass TS28623_TraceControlNrm:plmnTarget-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM5LTE-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmount-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM1NR-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS28623_TraceControlNrm_MbsfnArea:earfcn ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minInclusive 1 ;
-            sh:path TS28623_TraceControlNrm_MbsfnArea:mbsfnAreaId ] ;
-    sh:targetClass TS28623_TraceControlNrm:MbsfnArea .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_TraceControlNrm:listOfTraceMetrics .
-
-[] a sh:NodeShape ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_TraceControlNrm:mcc ],
-                [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_TraceControlNrm:mnc ] ] ;
-    sh:targetClass TS28623_TraceControlNrm:plmnList-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM7NR-Type .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_TraceControlNrm:TraceJob-Single ;
-    sh:targetClass TS28623_TraceControlNrm:TraceJob-Multiple .
+    sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "1min"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:measurementPeriodLTE-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -613,66 +373,28 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "MINIMUM"^^xsd:string "MEDIUM"^^xsd:string "MAXIMUM"^^xsd:string "VENDORMINIMUM"^^xsd:string "VENDORMEDIUM"^^xsd:string "VENDORMAXIMUM"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:traceDepth-Type .
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM7NR-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "MSC_SERVER"^^xsd:string "SGSN"^^xsd:string "MGW"^^xsd:string "GGSN"^^xsd:string "RNC"^^xsd:string "BM_SC"^^xsd:string "MME"^^xsd:string "SGW"^^xsd:string "PGW"^^xsd:string "ENB"^^xsd:string "EN_GNB"^^xsd:string "GNB_CU_CP"^^xsd:string "GNB_CU_UP"^^xsd:string "GNB_DU"^^xsd:string "AMF"^^xsd:string "PCF"^^xsd:string "SMF"^^xsd:string "UPF"^^xsd:string "AUSF"^^xsd:string "SMSF"^^xsd:string "HSS"^^xsd:string "UDM"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:listOfNeTypes-Type .
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM1LTE-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "IMMEDIATE_MDT_ONLY"^^xsd:string "LOGGED_MDT_ONLY"^^xsd:string "TRACE_ONLY"^^xsd:string "IMMEDIATE_MDT_AND_TRACE"^^xsd:string "RLF_REPORT_ONLY"^^xsd:string "RCEF_REPORT_ONLY"^^xsd:string "LOGGED_MBSFN_MDT"^^xsd:string "5GC_UE_LEVEL_MEASUREMENTS_ONLY"^^xsd:string "TRACE_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "TRACE_AND_IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:jobType-Type .
+    sh:in ( "OUT_OF_COVERAGE"^^xsd:string "A2_EVENT"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:eventListForEventTriggeredMeasurement-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "0.25MS"^^xsd:string "0.5MS"^^xsd:string "1MS"^^xsd:string "2MS"^^xsd:string "4MS"^^xsd:string "5MS"^^xsd:string "10MS"^^xsd:string "20MS"^^xsd:string "30MS"^^xsd:string "40MS"^^xsd:string "50MS"^^xsd:string "60MS"^^xsd:string "70MS"^^xsd:string "80MS"^^xsd:string "90MS"^^xsd:string "100MS"^^xsd:string "150MS"^^xsd:string "300MS"^^xsd:string "500MS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_excessPacketDelayThreshold-Type:excessPacketDelayThresholdValue ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_excessPacketDelayThreshold-Type:fiveQIValue ] ;
-    sh:targetClass TS28623_TraceControlNrm:excessPacketDelayThreshold-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "FILE-BASED"^^xsd:string "STREAMING"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:traceReportingFormat-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:objectInstances ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:nfTypeToMeasure ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:rootObjectInstances ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:ueCoreMeasurements ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:ueCoreMeasGranularityPeriod ] ;
-    sh:targetClass TS28623_TraceControlNrm:UECoreMeasConfig-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "M1"^^xsd:string "M2"^^xsd:string "M3"^^xsd:string "M4"^^xsd:string "M5"^^xsd:string "M6"^^xsd:string "M7"^^xsd:string "M1_EVENT_TRIGGERED"^^xsd:string "M8"^^xsd:string "M9"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_listOfMeasurements-Type:NR ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "M1"^^xsd:string "M2"^^xsd:string "M3"^^xsd:string "M4"^^xsd:string "M5"^^xsd:string "M1_EVENT_TRIGGERED"^^xsd:string "M6"^^xsd:string "M7"^^xsd:string "M8"^^xsd:string "M9"^^xsd:string ) ;
             sh:path TS28623_TraceControlNrm_listOfMeasurements-Type:LTE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "M1"^^xsd:string "M2"^^xsd:string "M3"^^xsd:string "M4"^^xsd:string "M5"^^xsd:string "M6"^^xsd:string "M7"^^xsd:string "M1_EVENT_TRIGGERED"^^xsd:string "M8"^^xsd:string "M9"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfMeasurements-Type:NR ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "M1"^^xsd:string "M2"^^xsd:string "M3"^^xsd:string "M4"^^xsd:string "M5"^^xsd:string "M6_DL"^^xsd:string "M6_UL"^^xsd:string "M7_DL"^^xsd:string "M7_UL"^^xsd:string ) ;
@@ -682,84 +404,150 @@
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM4LTE-Type .
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM5LTE-Type .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "IMMEDIATE_MDT_ONLY"^^xsd:string "LOGGED_MDT_ONLY"^^xsd:string "TRACE_ONLY"^^xsd:string "IMMEDIATE_MDT_AND_TRACE"^^xsd:string "RLF_REPORT_ONLY"^^xsd:string "RCEF_REPORT_ONLY"^^xsd:string "LOGGED_MBSFN_MDT"^^xsd:string "5GC_UE_LEVEL_MEASUREMENTS_ONLY"^^xsd:string "TRACE_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "TRACE_AND_IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:jobType ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:nPNTarget ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:traceTarget-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceTarget ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FILE-BASED"^^xsd:string "STREAMING"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceReportingFormat ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:plmnTarget-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:plmnTarget ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:UECoreMeasConfig-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:ueCoreMeasConfig ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:mdtConfig-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:mdtConfig ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceCollectionEntityIpAddress ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:traceConfig-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceConfig ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:traceReference-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceReference ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:jobId ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_TraceJob-Attr:traceReportingConsumerUri ] ;
-    sh:targetClass TS28623_TraceControlNrm:TraceJob-Attr .
+    sh:datatype xsd:string ;
+    sh:in ( "NO_IDENTITY"^^xsd:string "TAC_OF_IMEI"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:anonymizationOfMdtData-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "600s"^^xsd:string "1200s"^^xsd:string "2400s"^^xsd:string "3600s"^^xsd:string "5400s"^^xsd:string "7200s"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:loggingDuration-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:reportAmountM4NR-Type .
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM6NR-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "1min"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:measurementPeriodLTE-Type .
+    sh:in ( "IMMEDIATE_MDT_ONLY"^^xsd:string "LOGGED_MDT_ONLY"^^xsd:string "TRACE_ONLY"^^xsd:string "IMMEDIATE_MDT_AND_TRACE"^^xsd:string "RLF_REPORT_ONLY"^^xsd:string "RCEF_REPORT_ONLY"^^xsd:string "LOGGED_MBSFN_MDT"^^xsd:string "5GC_UE_LEVEL_MEASUREMENTS_ONLY"^^xsd:string "TRACE_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string "TRACE_AND_IMMEDIATE_MDT_AND_5GC_UE_LEVEL_MEASUREMENTS"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:jobType-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string "8000ms"^^xsd:string "12000ms"^^xsd:string "16000ms"^^xsd:string "20000ms"^^xsd:string "24000ms"^^xsd:string "28000ms"^^xsd:string "32000ms"^^xsd:string "64000ms"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:measurementPeriodUMTS-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:maxInclusive 30 ;
-    sh:minInclusive 0 ;
-    sh:targetClass TS28623_TraceControlNrm:hysteresisL1-Type .
+    sh:in ( "PERIODICAL"^^xsd:string "EVENT_TRIGGERED"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportType-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:TraceJob-Single ;
+            sh:path TS28623_TraceControlNrm_SubNetwork-ncO-TraceControlNrm:TraceJob ] ;
+    sh:targetClass TS28623_TraceControlNrm:SubNetwork-ncO-TraceControlNrm .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "20480ms"^^xsd:string "40960ms"^^xsd:string "1min"^^xsd:string "6min"^^xsd:string "12min"^^xsd:string "30min"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:collectionPeriodM6NR-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "20480ms"^^xsd:string "40960ms"^^xsd:string "60000ms"^^xsd:string "360000ms"^^xsd:string "720000ms"^^xsd:string "1800000ms"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_reportInterval-Type:NR ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "250ms"^^xsd:string "500ms"^^xsd:string "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string "8000ms"^^xsd:string "12000ms"^^xsd:string "16000ms"^^xsd:string "20000ms"^^xsd:string "24000ms"^^xsd:string "28000ms"^^xsd:string "32000ms"^^xsd:string "64000ms"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_reportInterval-Type:UMTS ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string "360000ms"^^xsd:string "720000ms"^^xsd:string "1800000ms"^^xsd:string "3600000ms"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_reportInterval-Type:LTE ] ;
+    sh:targetClass TS28623_TraceControlNrm:reportInterval-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_TraceControlNrm_AreaConfig:pciList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:FreqInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_AreaConfig:freqInfo ] ;
+    sh:targetClass TS28623_TraceControlNrm:AreaConfig .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NO_IDENTITY"^^xsd:string "TAC_OF_IMEI"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_mdtConfig-Type:anonymizationOfMdtData ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28623_TraceControlNrm_mdtConfig-Type:areaScope ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:pattern "^[A-Fa-f0-9]{7}$" ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:pattern "^[A-Fa-f0-9]{9}$" ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:pattern "(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)" ] [ a sh:NodeShape ;
+                        sh:class TS28623_TraceControlNrm:Tai ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:loggedMDTConfig-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_mdtConfig-Type:loggedMDTConfig ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.29." ;
+            sh:datatype xsd:string ;
+            sh:in ( "BAROMETRIC_PRESSURE"^^xsd:string "UE_SPEED"^^xsd:string "UE_ORIENTATION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_mdtConfig-Type:sensorInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:immediateMDTConfig-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_mdtConfig-Type:immediateMDTConfig ] ;
+    sh:targetClass TS28623_TraceControlNrm:mdtConfig-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM7LTE ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:eventThreshold-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:eventThreshold ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM7NR ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:listOfMeasurements-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:listOfMeasurements ],
+        [ a sh:PropertyShape ;
             sh:class TS28623_TraceControlNrm:reportInterval-Type ;
             sh:maxCount 1 ;
             sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportInterval ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM1LTE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM1NR ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 60 ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM7NR ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "20480ms"^^xsd:string "40960ms"^^xsd:string "1min"^^xsd:string "6min"^^xsd:string "12min"^^xsd:string "30min"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM6NR ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Array of type excessPacketDelayThreshold-Type." ;
+            sh:class TS28623_TraceControlNrm:excessPacketDelayThreshold-Type ;
+            sh:maxCount 255 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:excessPacketDelayThresholds ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string "8000ms"^^xsd:string "12000ms"^^xsd:string "16000ms"^^xsd:string "20000ms"^^xsd:string "24000ms"^^xsd:string "28000ms"^^xsd:string "32000ms"^^xsd:string "64000ms"^^xsd:string ) ;
@@ -769,12 +557,22 @@
             sh:datatype xsd:string ;
             sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM1NR ],
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM6LTE ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "100ms"^^xsd:string "1000ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2048ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string "10000ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
+            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodRRMLTE ],
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM5LTE ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.4." ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERIODICAL"^^xsd:string "A2_FOR_LTE_NR"^^xsd:string "1F_FOR_UMTS"^^xsd:string "1I_FOR_UMTS_MCPS_TDD"^^xsd:string "A2_TRIGGERED_PERIODIC_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_UMTS"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportingTrigger ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM4LTE ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
@@ -783,28 +581,14 @@
             sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM7LTE ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+            sh:in ( "GNSS"^^xsd:string "E-CELL_ID"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM6LTE ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:eventThreshold-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:eventThreshold ],
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:positioningMethod ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "100ms"^^xsd:string "250ms"^^xsd:string "500ms"^^xsd:string "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string ) ;
+            sh:in ( "100ms"^^xsd:string "1000ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2048ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string "10000ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodRRMUMTS ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM4LTE ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.4." ;
-            sh:datatype xsd:string ;
-            sh:in ( "PERIODICAL"^^xsd:string "A2_FOR_LTE_NR"^^xsd:string "1F_FOR_UMTS"^^xsd:string "1I_FOR_UMTS_MCPS_TDD"^^xsd:string "A2_TRIGGERED_PERIODIC_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_UMTS"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportingTrigger ],
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodRRMLTE ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "CPICH_ECNO"^^xsd:string "CPICH_RSCP"^^xsd:string "PATHLOSS"^^xsd:string ) ;
@@ -812,9 +596,39 @@
             sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:measurementQuantity ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "100ms"^^xsd:string "250ms"^^xsd:string "500ms"^^xsd:string "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodRRMUMTS ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM6LTE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM7NR ],
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM4NR ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "1min"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:measurementPeriodLTE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:beamLevelMeasurement ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 31 ;
+            sh:minInclusive 0 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:eventThresholdUphUMTS ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodRRMNR ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
@@ -824,182 +638,23 @@
             sh:datatype xsd:string ;
             sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM5LTE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "1min"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:measurementPeriodLTE ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_TraceControlNrm:listOfMeasurements-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:listOfMeasurements ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:beamLevelMeasurement ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Array of type excessPacketDelayThreshold-Type." ;
-            sh:class TS28623_TraceControlNrm:excessPacketDelayThreshold-Type ;
-            sh:maxCount 255 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:excessPacketDelayThresholds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodRRMNR ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "GNSS"^^xsd:string "E-CELL_ID"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:positioningMethod ],
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM6NR ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM1LTE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "20480ms"^^xsd:string "40960ms"^^xsd:string "1min"^^xsd:string "6min"^^xsd:string "12min"^^xsd:string "30min"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM6NR ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM5NR ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM7LTE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM4NR ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 31 ;
-            sh:minInclusive 0 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:eventThresholdUphUMTS ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM6LTE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 60 ;
-            sh:minInclusive 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:collectionPeriodM7NR ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM6NR ] ;
+            sh:path TS28623_TraceControlNrm_immediateMDTConfig-Type:reportAmountM5NR ] ;
     sh:targetClass TS28623_TraceControlNrm:immediateMDTConfig-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "100ms"^^xsd:string "250ms"^^xsd:string "500ms"^^xsd:string "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:collectionPeriodRRMUMTS-Type .
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM6LTE-Type .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "250ms"^^xsd:string "500ms"^^xsd:string "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string "8000ms"^^xsd:string "12000ms"^^xsd:string "16000ms"^^xsd:string "20000ms"^^xsd:string "24000ms"^^xsd:string "28000ms"^^xsd:string "32000ms"^^xsd:string "64000ms"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_reportInterval-Type:UMTS ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "20480ms"^^xsd:string "40960ms"^^xsd:string "60000ms"^^xsd:string "360000ms"^^xsd:string "720000ms"^^xsd:string "1800000ms"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_reportInterval-Type:NR ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "120ms"^^xsd:string "240ms"^^xsd:string "480ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "2048ms"^^xsd:string "5120ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string "360000ms"^^xsd:string "720000ms"^^xsd:string "1800000ms"^^xsd:string "3600000ms"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_reportInterval-Type:LTE ] ;
-    sh:targetClass TS28623_TraceControlNrm:reportInterval-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NF_MANAGEMEENT"^^xsd:string "NF_DISCOVERY"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:NRF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "N4SESSION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:UPF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SMSERVICE"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SMSF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PDN_CONNECTION_CREATION"^^xsd:string "PDN_CONNECTION_TERMINATION"^^xsd:string "BEAR_ACTIVATION_MODIFICATION_DELETION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:PGW ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CONTEXT"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:MGW ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PDU_SESSION_ESTABLISHMENT"^^xsd:string "PDU_SESSION_MODIFICATION"^^xsd:string "PDU_SESSIOON_RELEASE"^^xsd:string "PDU_SESSION_UP_ACTIVATION_DEACTIVATION"^^xsd:string "MOBILITY_BTW_3GPP_AND_N3GPP_TO_5GC"^^xsd:string "MOBILITY_FROM_EPC"^^xsd:string "MOBILITY_BTW_ISMF_OR_VSMF"^^xsd:string "CONVERGED_CHARGING_SERVICE"^^xsd:string "OFFLINE_ONLY_CHARGING"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SMF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "UE_AUTHENTICATION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:AUSF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "REGISTRATION"^^xsd:string "SERVICE_REQUEST"^^xsd:string "HANDOVER"^^xsd:string "UE_DEREGISTRATION"^^xsd:string "NETWORK_DEREGISTRATION"^^xsd:string "UE_MOBILITY_FROM_EPC"^^xsd:string "UE_MOBILITY_TO_EPC"^^xsd:string "CONVERGED_CHARGING_SERVICE"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:AMF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "UE_INITIATEDPDN_CONNECTIVITY_REQUEST"^^xsd:string "SERVICE_REQUEST"^^xsd:string "INITIALATTACH_TAU_DETACH"^^xsd:string "UE_INITIATEDPDN_DISCONNECTION"^^xsd:string "BEAR_ACTIVIATION_MODIFICATION_DELETION"^^xsd:string "HANDOVER"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:MME ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NS_SELECTION"^^xsd:string "NSSAI"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:NSSF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PDPCONTEXT"^^xsd:string "MO_MT_SMS"^^xsd:string "RAU_GPRSATTACH_GPRSDETACH"^^xsd:string "MBMSCONTEXT"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SGSN ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MO_MT_CALLS"^^xsd:string "MO_MT_SMS"^^xsd:string "LU_IMSIATTACH_IMSIDETACH"^^xsd:string "HANDOVER"^^xsd:string "SS"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:MSC_SERVER ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "UE_CONTEXT"^^xsd:string "SUBSCRIBER_DATA"^^xsd:string "UE_AUTHENTICATION"^^xsd:string "EVENT_EXPOSURE"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:UDM ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PDN_CONNECTION_CREATION"^^xsd:string "PDN_CONNECTION_TERMINATION"^^xsd:string "BEAR_ACTIVATION_MODIFICATION_DELETION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SGW ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MBMSACTIVATION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:BM_SC ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "AM_POLICY"^^xsd:string "SM_POLICY"^^xsd:string "AUTHORIZATION"^^xsd:string "BDT_POLICY"^^xsd:string "SPENDING_LIMIT_CONTROL"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:PCF ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SIPSESSION_STANDALONETRANSACTION"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:IMS ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PDPCONTEXT"^^xsd:string "MBMSCONTEXT"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:GGSN ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "EVENT_EXPOSURE"^^xsd:string "PFD_MANAGEMENT"^^xsd:string "PARAMETER_PROVISION"^^xsd:string "TRIGGER"^^xsd:string ) ;
-            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:NEF ] ;
-    sh:targetClass TS28623_TraceControlNrm:triggeringEvents-Type .
+    sh:datatype xsd:string ;
+    sh:in ( "CPICH_ECNO"^^xsd:string "CPICH_RSCP"^^xsd:string "PATHLOSS"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:measurementQuantity-Type .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -1017,7 +672,392 @@
     sh:targetClass TS28623_TraceControlNrm:eventThresholdL1-Type .
 
 [] a sh:NodeShape ;
+    sh:class TS28623_TraceControlNrm:excessPacketDelayThreshold-Type ;
+    sh:targetClass TS28623_TraceControlNrm:excessPacketDelayThresholds-Type .
+
+[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "100ms"^^xsd:string "1000ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2048ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string "10000ms"^^xsd:string "10240ms"^^xsd:string "60000ms"^^xsd:string ) ;
-    sh:targetClass TS28623_TraceControlNrm:collectionPeriodRRMLTE-Type .
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmount-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "S1-MME"^^xsd:string "S3"^^xsd:string "S6A"^^xsd:string "S10"^^xsd:string "S11"^^xsd:string "S13"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MMEInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GB"^^xsd:string "IU-PS"^^xsd:string "GN"^^xsd:string "MAP-GR"^^xsd:string "MAP-GD"^^xsd:string "MAP-GF"^^xsd:string "GE"^^xsd:string "GS"^^xsd:string "S6D"^^xsd:string "S4"^^xsd:string "S3"^^xsd:string "S13"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SGSNInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N5"^^xsd:string "N7"^^xsd:string "N15"^^xsd:string "N28"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:PCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IX"^^xsd:string "MX"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:IBCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MW"^^xsd:string "MG"^^xsd:string "MR"^^xsd:string "MI"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:S-CSCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N1"^^xsd:string "N2"^^xsd:string "N8"^^xsd:string "N11"^^xsd:string "N12"^^xsd:string "N14"^^xsd:string "N15"^^xsd:string "N20"^^xsd:string "N22"^^xsd:string "N26"^^xsd:string "N41"^^xsd:string "N42"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:AMFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CX"^^xsd:string "DX"^^xsd:string "MG"^^xsd:string "MW"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:I-CSCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N29"^^xsd:string "N30"^^xsd:string "N33"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:NEFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DH"^^xsd:string "SH"^^xsd:string "ISC"^^xsd:string "UT"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:ASInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N22"^^xsd:string "N31"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:NSSFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MG"^^xsd:string "MJ"^^xsd:string "MN"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MGCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N27"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:NRFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "E1"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:gNB-CU-UPInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "F1-C"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:gNB-DUInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NG-C"^^xsd:string "XN-C"^^xsd:string "UU"^^xsd:string "F1-C"^^xsd:string "E1"^^xsd:string "X2-C"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:gNB-CU-CPInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MW"^^xsd:string "ML"^^xsd:string "MM"^^xsd:string "MI/MG"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:E-CSCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MI"^^xsd:string "MJ"^^xsd:string "MK"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:BGCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "A"^^xsd:string "IU-CS"^^xsd:string "MC"^^xsd:string "MAP-G"^^xsd:string "MAP-B"^^xsd:string "MAP-E"^^xsd:string "MAP-F"^^xsd:string "MAP-D"^^xsd:string "MAP-C"^^xsd:string "CAP"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MSCServerInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GMB"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:BM-SCInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N8"^^xsd:string "N10"^^xsd:string "N13"^^xsd:string "N21"^^xsd:string "NU1"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:UDMInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MAP-C"^^xsd:string "MAP-D"^^xsd:string "GC"^^xsd:string "GR"^^xsd:string "CX"^^xsd:string "S6D"^^xsd:string "S6A"^^xsd:string "SH"^^xsd:string "N70"^^xsd:string "N71"^^xsd:string "NU1"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:HSSInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NG-C"^^xsd:string "XN-C"^^xsd:string "UU"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:ng-eNBInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MC"^^xsd:string "NB-UP"^^xsd:string "IU-UP"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MGWInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "S1-MME"^^xsd:string "X2"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:eNBInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "Mp"^^xsd:string "Mr"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:MRFCInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IU-CS"^^xsd:string "IU-PS"^^xsd:string "IUR"^^xsd:string "IUB"^^xsd:string "UU"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:RNCInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "S2A"^^xsd:string "S2B"^^xsd:string "S2C"^^xsd:string "S5"^^xsd:string "S6B"^^xsd:string "GX"^^xsd:string "S8"^^xsd:string "SGI"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:PDN_GWInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N4"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:UPFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N20"^^xsd:string "N21"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SMSFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GM"^^xsd:string "MW"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:P-CSCFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "S4"^^xsd:string "S5"^^xsd:string "S8"^^xsd:string "S11"^^xsd:string "GXC"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SGWInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "S1-MME"^^xsd:string "X2"^^xsd:string "UU"^^xsd:string "F1-C"^^xsd:string "E1"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:en-gNBInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N4"^^xsd:string "N7"^^xsd:string "N10"^^xsd:string "N11"^^xsd:string "S5-C"^^xsd:string "N16"^^xsd:string "N16a"^^xsd:string "N38"^^xsd:string "N40"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:SMFInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MAP-F"^^xsd:string "S13"^^xsd:string "MAP-GF"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:EIRInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GN"^^xsd:string "GI"^^xsd:string "GMB"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:GGSNInterfaces ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N12"^^xsd:string "N13"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_listOfInterfaces-Type:AUSFInterfaces ] ;
+    sh:targetClass TS28623_TraceControlNrm:listOfInterfaces-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "BAROMETRIC_PRESSURE"^^xsd:string "UE_SPEED"^^xsd:string "UE_ORIENTATION"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:sensorInformation-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:TraceJob-Single ;
+            sh:path TS28623_TraceControlNrm_ManagedElement-ncO-TraceControlNrm:TraceJob ] ;
+    sh:targetClass TS28623_TraceControlNrm:ManagedElement-ncO-TraceControlNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_TraceControlNrm_MbsfnArea:mbsfnAreaId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_TraceControlNrm_MbsfnArea:earfcn ] ;
+    sh:targetClass TS28623_TraceControlNrm:MbsfnArea .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_TraceControlNrm_FreqInfo:freqBands ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_FreqInfo:arfcn ] ;
+    sh:targetClass TS28623_TraceControlNrm:FreqInfo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM4LTE-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:listOfInterfaces-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_traceConfig-Type:listOfInterfaces ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The Network Element types where Trace Session activation is needed. See 3GPP TS 32.422 clause 5.4 for additional details." ;
+            sh:datatype xsd:string ;
+            sh:in ( "MSC_SERVER"^^xsd:string "SGSN"^^xsd:string "MGW"^^xsd:string "GGSN"^^xsd:string "RNC"^^xsd:string "BM_SC"^^xsd:string "MME"^^xsd:string "SGW"^^xsd:string "PGW"^^xsd:string "ENB"^^xsd:string "EN_GNB"^^xsd:string "GNB_CU_CP"^^xsd:string "GNB_CU_UP"^^xsd:string "GNB_DU"^^xsd:string "AMF"^^xsd:string "PCF"^^xsd:string "SMF"^^xsd:string "UPF"^^xsd:string "AUSF"^^xsd:string "SMSF"^^xsd:string "HSS"^^xsd:string "UDM"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_traceConfig-Type:listOfNeTypes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_TraceControlNrm:triggeringEvents-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_traceConfig-Type:triggeringEvents ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MINIMUM"^^xsd:string "MEDIUM"^^xsd:string "MAXIMUM"^^xsd:string "VENDORMINIMUM"^^xsd:string "VENDORMEDIUM"^^xsd:string "VENDORMAXIMUM"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_traceConfig-Type:traceDepth ] ;
+    sh:targetClass TS28623_TraceControlNrm:traceConfig-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SIPSESSION_STANDALONETRANSACTION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:IMS ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PDPCONTEXT"^^xsd:string "MBMSCONTEXT"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:GGSN ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UE_AUTHENTICATION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:AUSF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SMSERVICE"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SMSF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "N4SESSION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:UPF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NF_MANAGEMEENT"^^xsd:string "NF_DISCOVERY"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:NRF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PDPCONTEXT"^^xsd:string "MO_MT_SMS"^^xsd:string "RAU_GPRSATTACH_GPRSDETACH"^^xsd:string "MBMSCONTEXT"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SGSN ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MO_MT_CALLS"^^xsd:string "MO_MT_SMS"^^xsd:string "LU_IMSIATTACH_IMSIDETACH"^^xsd:string "HANDOVER"^^xsd:string "SS"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:MSC_SERVER ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "AM_POLICY"^^xsd:string "SM_POLICY"^^xsd:string "AUTHORIZATION"^^xsd:string "BDT_POLICY"^^xsd:string "SPENDING_LIMIT_CONTROL"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:PCF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PDU_SESSION_ESTABLISHMENT"^^xsd:string "PDU_SESSION_MODIFICATION"^^xsd:string "PDU_SESSIOON_RELEASE"^^xsd:string "PDU_SESSION_UP_ACTIVATION_DEACTIVATION"^^xsd:string "MOBILITY_BTW_3GPP_AND_N3GPP_TO_5GC"^^xsd:string "MOBILITY_FROM_EPC"^^xsd:string "MOBILITY_BTW_ISMF_OR_VSMF"^^xsd:string "CONVERGED_CHARGING_SERVICE"^^xsd:string "OFFLINE_ONLY_CHARGING"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SMF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PDN_CONNECTION_CREATION"^^xsd:string "PDN_CONNECTION_TERMINATION"^^xsd:string "BEAR_ACTIVATION_MODIFICATION_DELETION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:PGW ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "EVENT_EXPOSURE"^^xsd:string "PFD_MANAGEMENT"^^xsd:string "PARAMETER_PROVISION"^^xsd:string "TRIGGER"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:NEF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UE_CONTEXT"^^xsd:string "SUBSCRIBER_DATA"^^xsd:string "UE_AUTHENTICATION"^^xsd:string "EVENT_EXPOSURE"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:UDM ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MBMSACTIVATION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:BM_SC ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NS_SELECTION"^^xsd:string "NSSAI"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:NSSF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "REGISTRATION"^^xsd:string "SERVICE_REQUEST"^^xsd:string "HANDOVER"^^xsd:string "UE_DEREGISTRATION"^^xsd:string "NETWORK_DEREGISTRATION"^^xsd:string "UE_MOBILITY_FROM_EPC"^^xsd:string "UE_MOBILITY_TO_EPC"^^xsd:string "CONVERGED_CHARGING_SERVICE"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:AMF ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CONTEXT"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:MGW ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PDN_CONNECTION_CREATION"^^xsd:string "PDN_CONNECTION_TERMINATION"^^xsd:string "BEAR_ACTIVATION_MODIFICATION_DELETION"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:SGW ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UE_INITIATEDPDN_CONNECTIVITY_REQUEST"^^xsd:string "SERVICE_REQUEST"^^xsd:string "INITIALATTACH_TAU_DETACH"^^xsd:string "UE_INITIATEDPDN_DISCONNECTION"^^xsd:string "BEAR_ACTIVIATION_MODIFICATION_DELETION"^^xsd:string "HANDOVER"^^xsd:string ) ;
+            sh:path TS28623_TraceControlNrm_triggeringEvents-Type:MME ] ;
+    sh:targetClass TS28623_TraceControlNrm:triggeringEvents-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:maxInclusive 60 ;
+    sh:minInclusive 1 ;
+    sh:targetClass TS28623_TraceControlNrm:collectionPeriodM7LTE-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "0ms"^^xsd:string "40ms"^^xsd:string "64ms"^^xsd:string "80ms"^^xsd:string "100ms"^^xsd:string "128ms"^^xsd:string "160ms"^^xsd:string "256ms"^^xsd:string "320ms"^^xsd:string "480ms"^^xsd:string "512ms"^^xsd:string "640ms"^^xsd:string "1024ms"^^xsd:string "1280ms"^^xsd:string "2560ms"^^xsd:string "5120ms"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:timeToTriggerL1-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:rootObjectInstances ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:objectInstances ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:ueCoreMeasGranularityPeriod ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:nfTypeToMeasure ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_UECoreMeasConfig-Type:ueCoreMeasurements ] ;
+    sh:targetClass TS28623_TraceControlNrm:UECoreMeasConfig-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_plmnTarget-Type:mnc ;
+            sh:pattern "^[0-9]{2,3}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_plmnTarget-Type:mcc ;
+            sh:pattern "^[0-9]{3}$" ] ;
+    sh:targetClass TS28623_TraceControlNrm:plmnTarget-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( 1 2 4 8 16 32 64 "INFINITY"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportAmountM4NR-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_Tai:mcc ;
+            sh:pattern "^[0-9]{3}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_Tai:tac ;
+            sh:pattern "(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_TraceControlNrm_Tai:mnc ;
+            sh:pattern "^[0-9]{2,3}$" ] ;
+    sh:targetClass TS28623_TraceControlNrm:Tai .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "100ms"^^xsd:string "250ms"^^xsd:string "500ms"^^xsd:string "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:collectionPeriodRRMUMTS-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "PERIODICAL"^^xsd:string "A2_FOR_LTE_NR"^^xsd:string "1F_FOR_UMTS"^^xsd:string "1I_FOR_UMTS_MCPS_TDD"^^xsd:string "A2_TRIGGERED_PERIODIC_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_LTE_NR"^^xsd:string "ALL_CONFIGURED_RRM_FOR_UMTS"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:reportingTrigger-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:targetClass TS28623_TraceControlNrm:traceCollectionEntityId-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:maxInclusive 30 ;
+    sh:minInclusive 0 ;
+    sh:targetClass TS28623_TraceControlNrm:hysteresisL1-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "1000ms"^^xsd:string "2000ms"^^xsd:string "3000ms"^^xsd:string "4000ms"^^xsd:string "6000ms"^^xsd:string "8000ms"^^xsd:string "12000ms"^^xsd:string "16000ms"^^xsd:string "20000ms"^^xsd:string "24000ms"^^xsd:string "28000ms"^^xsd:string "32000ms"^^xsd:string "64000ms"^^xsd:string ) ;
+    sh:targetClass TS28623_TraceControlNrm:measurementPeriodUMTS-Type .
 

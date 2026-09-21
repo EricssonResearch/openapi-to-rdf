@@ -1,3 +1,16 @@
+@prefix TS28104_MdaNrm: <http://ericsson.com/models/3gpp/TS28104/MdaNrm#> .
+@prefix TS28105_AiMlNrm: <http://ericsson.com/models/3gpp/TS28105/AiMlNrm#> .
+@prefix TS28111_FaultNrm: <http://ericsson.com/models/3gpp/TS28111/FaultNrm#> .
+@prefix TS28312_IntentNrm: <http://ericsson.com/models/3gpp/TS28312/IntentNrm#> .
+@prefix TS28317_RanScNrm: <http://ericsson.com/models/3gpp/TS28317/RanScNrm#> .
+@prefix TS28318_DsoNrm: <http://ericsson.com/models/3gpp/TS28318/DsoNrm#> .
+@prefix TS28536_CoslaNrm: <http://ericsson.com/models/3gpp/TS28536/CoslaNrm#> .
+@prefix TS28538_EdgeNrm: <http://ericsson.com/models/3gpp/TS28538/EdgeNrm#> .
+@prefix TS28541_5GcNrm: <http://ericsson.com/models/3gpp/TS28541/5GcNrm#> .
+@prefix TS28541_NrNrm: <http://ericsson.com/models/3gpp/TS28541/NrNrm#> .
+@prefix TS28541_SliceNrm: <http://ericsson.com/models/3gpp/TS28541/SliceNrm#> .
+@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
+@prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
 @prefix TS28623_GenericNrm: <https://example.org/TS28623_GenericNrm/> .
 @prefix TS28623_GenericNrm_ConditionMonitor-Single: <https://example.org/TS28623_GenericNrm/ConditionMonitor-Single#> .
 @prefix TS28623_GenericNrm_EP_RP-Attr: <https://example.org/TS28623_GenericNrm/EP_RP-Attr#> .
@@ -20,10 +33,438 @@
 @prefix TS28623_GenericNrm_Top-Attr: <https://example.org/TS28623_GenericNrm/Top-Attr#> .
 @prefix TS28623_GenericNrm_VnfParameter: <https://example.org/TS28623_GenericNrm/VnfParameter#> .
 @prefix TS28623_GenericNrm_VsDataContainer-Single: <https://example.org/TS28623_GenericNrm/VsDataContainer-Single#> .
+@prefix TS28623_ManagementDataCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/ManagementDataCollectionNrm#> .
+@prefix TS28623_MnSRegistryNrm: <http://ericsson.com/models/3gpp/TS28623/MnSRegistryNrm#> .
+@prefix TS28623_PmControlNrm: <http://ericsson.com/models/3gpp/TS28623/PmControlNrm#> .
+@prefix TS28623_QoEMeasurementCollectionNrm: <http://ericsson.com/models/3gpp/TS28623/QoEMeasurementCollectionNrm#> .
+@prefix TS28623_SubscriptionControlNrm: <http://ericsson.com/models/3gpp/TS28623/SubscriptionControlNrm#> .
+@prefix TS28623_ThresholdMonitorNrm: <http://ericsson.com/models/3gpp/TS28623/ThresholdMonitorNrm#> .
+@prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:conditionStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:condition ] ] ;
+                    sh:path TS28623_GenericNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:condition ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:conditionStatus ] ] ;
+            sh:path TS28623_GenericNrm_ConditionMonitor-Single:attributes ] ;
+    sh:targetClass TS28623_GenericNrm:ConditionMonitor-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                    sh:minCount 1 ;
+                                    sh:path TS28623_GenericNrm:schedulingTimes ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28623_GenericNrm:startTime ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28623_GenericNrm:startTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                                        sh:path TS28623_GenericNrm:timeIntervals ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:string ;
+                                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                                        sh:path TS28623_GenericNrm:daysOfWeek ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                                        sh:path TS28623_GenericNrm:timeIntervals ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                                        sh:path TS28623_GenericNrm:timeIntervals ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:integer ;
+                                                        sh:maxInclusive 31 ;
+                                                        sh:minInclusive 0 ;
+                                                        sh:path TS28623_GenericNrm:daysOfMonth ] ] ) ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:schedulerStatus ] ] ;
+                    sh:path TS28623_GenericNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:minCount 1 ;
+                            sh:path TS28623_GenericNrm:schedulingTimes ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28623_GenericNrm:startTime ],
+                                            [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28623_GenericNrm:startTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:class TS28623_ComDefs:TimeInterval ;
+                                                sh:path TS28623_GenericNrm:timeIntervals ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                                sh:path TS28623_GenericNrm:daysOfWeek ],
+                                            [ a sh:PropertyShape ;
+                                                sh:class TS28623_ComDefs:TimeInterval ;
+                                                sh:path TS28623_GenericNrm:timeIntervals ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:integer ;
+                                                sh:maxInclusive 31 ;
+                                                sh:minInclusive 0 ;
+                                                sh:path TS28623_GenericNrm:daysOfMonth ],
+                                            [ a sh:PropertyShape ;
+                                                sh:class TS28623_ComDefs:TimeInterval ;
+                                                sh:path TS28623_GenericNrm:timeIntervals ] ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:schedulerStatus ] ] ;
+            sh:path TS28623_GenericNrm_Scheduler-Single:attributes ] ;
+    sh:targetClass TS28623_GenericNrm:Scheduler-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:VsDataContainer-Single ;
+            sh:path TS28623_GenericNrm_Top:VsDataContainer ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_Top:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28623_GenericNrm_Top:id ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_Top:objectClass ] ;
+    sh:targetClass TS28623_GenericNrm:Top .
+
+[] a sh:NodeShape ;
+    sh:class TS28104_MdaNrm:SubNetwork-ncO-MdaNrm,
+        TS28105_AiMlNrm:SubNetwork-ncO-AiMlNrm,
+        TS28312_IntentNrm:SubNetwork-ncO-IntentNrm,
+        TS28317_RanScNrm:SubNetwork-ncO-RanScNrm,
+        TS28318_DsoNrm:SubNetwork-ncO-DsoNrm,
+        TS28536_CoslaNrm:SubNetwork-ncO-CoslaNrm,
+        TS28538_EdgeNrm:SubNetwork-ncO-EdgeNrm,
+        TS28541_5GcNrm:SubNetwork-ncO-5GcNrm,
+        TS28541_NrNrm:SubNetwork-ncO-NrNrm,
+        TS28541_SliceNrm:SubNetwork-ncO-SliceNrm,
+        TS28623_FileManagementNrm:SubNetwork-ncO-FileManagementNrm,
+        TS28623_ManagementDataCollectionNrm:SubNetwork-ncO-ManagementDataCollectionNrm,
+        TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm,
+        TS28623_PmControlNrm:SubNetwork-ncO-PmControlNrm,
+        TS28623_QoEMeasurementCollectionNrm:SubNetwork-ncO-QoEMeasurementCollectionNrm,
+        TS28623_SubscriptionControlNrm:SubNetwork-ncO-SubscriptionControlNrm,
+        TS28623_ThresholdMonitorNrm:SubNetwork-ncO-ThresholdMonitorNrm,
+        TS28623_TraceControlNrm:SubNetwork-ncO-TraceControlNrm,
+        TS28623_GenericNrm:ManagedElement-Multiple,
+        TS28623_GenericNrm:SubNetwork-Attr,
+        TS28623_GenericNrm:SubNetwork-Multiple,
+        TS28623_GenericNrm:SubNetwork-ncO,
+        TS28623_GenericNrm:Top ;
+    sh:targetClass TS28623_GenericNrm:SubNetwork-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:MeContext-Single ;
+    sh:targetClass TS28623_GenericNrm:MeContext-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:timer ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:progressPercentage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:jobId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:startTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:progressStateInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_STARTED"^^xsd:string "RUNNING"^^xsd:string "FINSHED"^^xsd:string "FAILED"^^xsd:string "PARTIALLY_FAILED"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:endTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ProcessMonitor:resultStateInfo ] ;
+    sh:targetClass TS28623_GenericNrm:ProcessMonitor .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 90 ;
+            sh:minInclusive -90 ;
+            sh:path TS28623_GenericNrm_PeeParameter:siteLatitude ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 180 ;
+            sh:minInclusive -180 ;
+            sh:path TS28623_GenericNrm_PeeParameter:siteLongitude ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_PeeParameter:equipmentType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_PeeParameter:powerInterface ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_PeeParameter:siteDescription ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_PeeParameter:environmentType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_PeeParameter:siteAltitude ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_PeeParameter:siteIdentification ] ;
+    sh:targetClass TS28623_GenericNrm:PeeParameter .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:SubNetwork-Single ;
+    sh:targetClass TS28623_GenericNrm:SubNetwork-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedFunction-ncO:ThresholdMonitor ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedFunction-ncO:PerfMetricJob ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedFunction-ncO:TraceJob ] ;
+    sh:targetClass TS28623_GenericNrm:ManagedFunction-ncO .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "HTTP"^^xsd:string "HTTP_VES_ENCAPS"^^xsd:string ) ;
+                                    sh:path TS28623_GenericNrm:notificationProtocols ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                    sh:path TS28623_GenericNrm:notificationTypes ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:in ( "notifyNewAlarm"^^xsd:string "notifyChangedAlarm"^^xsd:string "notifyChangedAlarmGeneral"^^xsd:string "notifyAckStateChanged"^^xsd:string "notifyCorrelatedNotificationChanged"^^xsd:string "notifyComments"^^xsd:string "notifyClearedAlarm"^^xsd:string "notifyAlarmListRebuilt"^^xsd:string "notifyPotentialFaultyAlarmList"^^xsd:string ) ] [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:in ( "notifyMOICreation"^^xsd:string "notifyMOIDeletion"^^xsd:string "notifyMOIAttributeValueChanges"^^xsd:string "notifyEvent"^^xsd:string "notifyMOIChanges"^^xsd:string ) ] [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:in ( "notifyThresholdCrossing"^^xsd:string ) ] [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:in ( "notifyHeartbeat"^^xsd:string ) ] [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:in ( "notifyFileReady"^^xsd:string "notifyFilePreparationError"^^xsd:string ) ] ) ] ] ;
+                    sh:path TS28623_GenericNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:path TS28623_GenericNrm:notificationTypes ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "notifyNewAlarm"^^xsd:string "notifyChangedAlarm"^^xsd:string "notifyChangedAlarmGeneral"^^xsd:string "notifyAckStateChanged"^^xsd:string "notifyCorrelatedNotificationChanged"^^xsd:string "notifyComments"^^xsd:string "notifyClearedAlarm"^^xsd:string "notifyAlarmListRebuilt"^^xsd:string "notifyPotentialFaultyAlarmList"^^xsd:string ) ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "notifyMOICreation"^^xsd:string "notifyMOIDeletion"^^xsd:string "notifyMOIAttributeValueChanges"^^xsd:string "notifyEvent"^^xsd:string "notifyMOIChanges"^^xsd:string ) ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "notifyThresholdCrossing"^^xsd:string ) ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "notifyHeartbeat"^^xsd:string ) ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "notifyFileReady"^^xsd:string "notifyFilePreparationError"^^xsd:string ) ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "HTTP"^^xsd:string "HTTP_VES_ENCAPS"^^xsd:string ) ;
+                            sh:path TS28623_GenericNrm:notificationProtocols ] ] ;
+            sh:path TS28623_GenericNrm_SupportedNotifications-Single:attributes ] ;
+    sh:targetClass TS28623_GenericNrm:SupportedNotifications-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:MnsAgent-Single ;
+            sh:path TS28623_GenericNrm_ManagedElement-ncO:MnsAgent ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:Scheduler-Single ;
+            sh:path TS28623_GenericNrm_ManagedElement-ncO:Scheduler ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ConditionMonitor-Single ;
+            sh:path TS28623_GenericNrm_ManagedElement-ncO:ConditionMonitor ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmList-Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedElement-ncO:AlarmList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:SupportedNotifications-Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedElement-ncO:SupportedNotifications ] ;
+    sh:targetClass TS28623_GenericNrm:ManagedElement-ncO .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_Top-Attr:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_Top-Attr:objectClass ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28623_GenericNrm_Top-Attr:id ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:VsDataContainer-Single ;
+            sh:path TS28623_GenericNrm_Top-Attr:VsDataContainer ] ;
+    sh:targetClass TS28623_GenericNrm:Top-Attr .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ConditionMonitor-Single ;
+    sh:targetClass TS28623_GenericNrm:ConditionMonitor-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:userDefinedState ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:managedElements ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:swVersion ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:vendorName ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:userLabel ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:locationName ] ] ;
+                    sh:path TS28623_GenericNrm:attributes ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_GenericNrm:MnsAgent-Single ;
+                    sh:path TS28623_GenericNrm:MnsAgent ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:MnsAgent-Single ;
+            sh:path TS28623_GenericNrm_ManagementNode-Single:MnsAgent ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:locationName ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:userLabel ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:managedElements ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:vendorName ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:userDefinedState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:swVersion ] ] ;
+            sh:path TS28623_GenericNrm_ManagementNode-Single:attributes ] ;
+    sh:targetClass TS28623_GenericNrm:ManagementNode-Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -32,28 +473,79 @@
             sh:path TS28623_GenericNrm_SubNetwork-Attr:priorityLabel ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_SubNetwork-Attr:dnPrefix ],
+            sh:path TS28623_GenericNrm_SubNetwork-Attr:supportedTraceMetrics ],
         [ a sh:PropertyShape ;
             sh:class TS28623_GenericNrm:SupportedPerfMetricGroup ;
             sh:path TS28623_GenericNrm_SubNetwork-Attr:supportedPerfMetricGroups ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28623_GenericNrm_SubNetwork-Attr:supportedTraceMetrics ],
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_SubNetwork-Attr:dnPrefix ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_SubNetwork-Attr:userDefinedNetworkType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28623_GenericNrm_SubNetwork-Attr:userLabel ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_SubNetwork-Attr:userDefinedNetworkType ] ;
+            sh:path TS28623_GenericNrm_SubNetwork-Attr:setOfMcc ;
+            sh:pattern "^[0-9]{3}$" ] ;
     sh:targetClass TS28623_GenericNrm:SubNetwork-Attr .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:pattern "^[A-Fa-f0-9]{7}$" ;
-    sh:targetClass TS28623_GenericNrm:EutraCellId .
+    sh:pattern "^[A-Fa-f0-9]{9}$" ;
+    sh:targetClass TS28623_GenericNrm:NrCellId .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:MnsAgent-Single ;
+    sh:targetClass TS28623_GenericNrm:MnsAgent-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:VsDataContainer-Single ;
+    sh:targetClass TS28623_GenericNrm:VsDataContainer-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_GenericNrm:systemDN ] ] ;
+                    sh:path TS28623_GenericNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:systemDN ] ] ;
+            sh:path TS28623_GenericNrm_MnsAgent-Single:attributes ] ;
+    sh:targetClass TS28623_GenericNrm:MnsAgent-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:performanceMetrics ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:granularityPeriods ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FILE_BASED_LOC_SET_BY_PRODUCER"^^xsd:string "FILE_BASED_LOC_SET_BY_CONSUMER"^^xsd:string "STREAM_BASED"^^xsd:string ) ;
+            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:reportingMethods ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minInclusive 1 ;
+            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:reportingPeriods ] ;
+    sh:targetClass TS28623_GenericNrm:SupportedPerfMetricGroup .
 
 [] a sh:NodeShape ;
     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
@@ -69,22 +561,113 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_Tai:mnc ],
+            sh:path TS28623_GenericNrm_VnfParameter:flavourId ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_Tai:mcc ],
+            sh:path TS28623_GenericNrm_VnfParameter:autoScalable ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_VnfParameter:vnfInstanceId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_VnfParameter:vnfdId ] ;
+    sh:targetClass TS28623_GenericNrm:VnfParameter .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedElement-Single ;
+    sh:targetClass TS28623_GenericNrm:ManagedElement-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_Tai:mnc ;
+            sh:pattern "^[0-9]{2,3}$" ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28623_GenericNrm_Tai:tac ;
-            sh:pattern "(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)" ] ;
+            sh:pattern "(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_Tai:mcc ;
+            sh:pattern "^[0-9]{3}$" ] ;
     sh:targetClass TS28623_GenericNrm:Tai .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:pattern "(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)" ;
-    sh:targetClass TS28623_GenericNrm:Tac .
+    sh:pattern "^[A-Fa-f0-9]{7}$" ;
+    sh:targetClass TS28623_GenericNrm:EutraCellId .
+
+[] a sh:NodeShape ;
+    sh:or ( [ a sh:NodeShape ;
+                sh:datatype xsd:string ;
+                sh:in ( "TCP"^^xsd:string ) ] [ a sh:NodeShape ;
+                sh:datatype xsd:string ] ) ;
+    sh:targetClass TS28623_GenericNrm:TransportProtocol .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:SupportedNotifications-Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:SupportedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagementNode-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:ManagementNode ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:Scheduler-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:Scheduler ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedElement-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:ManagedElement ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:SubNetwork-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:SubNetwork ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ConditionMonitor-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:ConditionMonitor ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:AlarmList-Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:AlarmList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:MnsAgent-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:MnsAgent ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:MeContext-Single ;
+            sh:path TS28623_GenericNrm_SubNetwork-ncO:MeContext ] ;
+    sh:targetClass TS28623_GenericNrm:SubNetwork-ncO .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_VsDataContainer-Single:id ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:vsDataFormatVersion ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:vsDataType ],
+                        [ a sh:PropertyShape ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_GenericNrm:vsData ] ] ;
+            sh:path TS28623_GenericNrm_VsDataContainer-Single:attributes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:VsDataContainer-Single ;
+            sh:path TS28623_GenericNrm_VsDataContainer-Single:VsDataContainer ] ;
+    sh:targetClass TS28623_GenericNrm:VsDataContainer-Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -111,303 +694,81 @@
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_EP_RP-Attr:userLabel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
             sh:path TS28623_GenericNrm_EP_RP-Attr:farEndEntity ],
         [ a sh:PropertyShape ;
             sh:class TS28623_GenericNrm:SupportedPerfMetricGroup ;
-            sh:path TS28623_GenericNrm_EP_RP-Attr:supportedPerfMetricGroups ] ;
+            sh:path TS28623_GenericNrm_EP_RP-Attr:supportedPerfMetricGroups ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_EP_RP-Attr:userLabel ] ;
     sh:targetClass TS28623_GenericNrm:EP_RP-Attr .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_VsDataContainer-Single:id ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:VsDataContainer-Single ;
-            sh:path TS28623_GenericNrm_VsDataContainer-Single:VsDataContainer ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:vsDataType ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:vsDataFormatVersion ],
-                        [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:vsData ] ] ;
-            sh:path TS28623_GenericNrm_VsDataContainer-Single:attributes ] ;
-    sh:targetClass TS28623_GenericNrm:VsDataContainer-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:condition ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:conditionStatus ] ] ;
-                    sh:path TS28623_GenericNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:condition ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:conditionStatus ] ] ;
-            sh:path TS28623_GenericNrm_ConditionMonitor-Single:attributes ] ;
-    sh:targetClass TS28623_GenericNrm:ConditionMonitor-Single .
+    sh:class TS28623_GenericNrm:Scheduler-Single ;
+    sh:targetClass TS28623_GenericNrm:Scheduler-Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedFunction-ncO:TraceJob ],
+            sh:class TS28623_GenericNrm:PeeParameter ;
+            sh:path TS28623_GenericNrm_ManagedFunction-Attr:peeParametersList ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedFunction-ncO:ThresholdMonitor ],
+            sh:path TS28623_GenericNrm_ManagedFunction-Attr:priorityLabel ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_GenericNrm_ManagedFunction-Attr:supportedTraceMetrics ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedFunction-ncO:PerfMetricJob ] ;
-    sh:targetClass TS28623_GenericNrm:ManagedFunction-ncO .
+            sh:path TS28623_GenericNrm_ManagedFunction-Attr:userLabel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:VnfParameter ;
+            sh:path TS28623_GenericNrm_ManagedFunction-Attr:vnfParametersList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:SupportedPerfMetricGroup ;
+            sh:path TS28623_GenericNrm_ManagedFunction-Attr:supportedPerfMetricGroups ] ;
+    sh:targetClass TS28623_GenericNrm:ManagedFunction-Attr .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_VnfParameter:vnfdId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_VnfParameter:autoScalable ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_VnfParameter:flavourId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_VnfParameter:vnfInstanceId ] ;
-    sh:targetClass TS28623_GenericNrm:VnfParameter .
+    sh:datatype xsd:string ;
+    sh:pattern "(^[A-Fa-f0-9]{4}$)|(^[A-Fa-f0-9]{6}$)" ;
+    sh:targetClass TS28623_GenericNrm:Tac .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedElement-Attr,
+    sh:class TS28623_GenericNrm:ManagementNode-Single ;
+    sh:targetClass TS28623_GenericNrm:ManagementNode-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28104_MdaNrm:ManagedElement-ncO-MdaNrm,
+        TS28105_AiMlNrm:ManagedElement-ncO-AiMlNrm,
+        TS28536_CoslaNrm:ManagedElement-ncO-CoslaNrm,
+        TS28541_5GcNrm:ManagedElement-ncO-5GcNrm,
+        TS28541_NrNrm:ManagedElement-ncO-NrNrm,
+        TS28623_FileManagementNrm:ManagedElement-ncO-FileManagementNrm,
+        TS28623_PmControlNrm:ManagedElement-PmControlNrm,
+        TS28623_QoEMeasurementCollectionNrm:ManagedElement-ncO-QoEMeasurementCollectionNrm,
+        TS28623_SubscriptionControlNrm:ManagedElement-ncO-SubscriptionControlNrm,
+        TS28623_ThresholdMonitorNrm:ManagedElement-ncO-ThresholdMonitorNrm,
+        TS28623_TraceControlNrm:SubNetwork-ncO-TraceControlNrm,
+        TS28623_GenericNrm:ManagedElement-Attr,
         TS28623_GenericNrm:ManagedElement-ncO,
         TS28623_GenericNrm:Top ;
     sh:targetClass TS28623_GenericNrm:ManagedElement-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:VsDataContainer-Single ;
-    sh:targetClass TS28623_GenericNrm:VsDataContainer-Multiple .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:environmentType ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:siteLatitude ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:siteIdentification ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:powerInterface ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:siteDescription ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:siteLongitude ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:equipmentType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_PeeParameter:siteAltitude ] ;
-    sh:targetClass TS28623_GenericNrm:PeeParameter .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:MnsAgent-Single ;
-    sh:targetClass TS28623_GenericNrm:MnsAgent-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 1 ;
-            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:granularityPeriods ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minInclusive 1 ;
-            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:reportingPeriods ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FILE_BASED_LOC_SET_BY_PRODUCER"^^xsd:string "FILE_BASED_LOC_SET_BY_CONSUMER"^^xsd:string "STREAM_BASED"^^xsd:string ) ;
-            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:reportingMethods ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_GenericNrm_SupportedPerfMetricGroup:performanceMetrics ] ;
-    sh:targetClass TS28623_GenericNrm:SupportedPerfMetricGroup .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:resultStateInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:jobId ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:endTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:timer ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:progressPercentage ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:progressStateInfo ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:startTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_STARTED"^^xsd:string "RUNNING"^^xsd:string "FINSHED"^^xsd:string "FAILED"^^xsd:string "PARTIALLY_FAILED"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ProcessMonitor:status ] ;
-    sh:targetClass TS28623_GenericNrm:ProcessMonitor .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedElement-Multiple,
-        TS28623_GenericNrm:SubNetwork-Attr,
-        TS28623_GenericNrm:SubNetwork-Multiple,
-        TS28623_GenericNrm:SubNetwork-ncO,
-        TS28623_GenericNrm:Top ;
-    sh:targetClass TS28623_GenericNrm:SubNetwork-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:SubNetwork-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:SubNetwork ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:MnsAgent-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:MnsAgent ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Scheduler-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:Scheduler ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedElement-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:ManagedElement ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagementNode-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:ManagementNode ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:AlarmList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ConditionMonitor-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:ConditionMonitor ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:SupportedNotifications-Single ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:SupportedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:MeContext-Single ;
-            sh:path TS28623_GenericNrm_SubNetwork-ncO:MeContext ] ;
-    sh:targetClass TS28623_GenericNrm:SubNetwork-ncO .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:SupportedNotifications-Single ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-ncO:SupportedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-ncO:AlarmList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:MnsAgent-Single ;
-            sh:path TS28623_GenericNrm_ManagedElement-ncO:MnsAgent ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ConditionMonitor-Single ;
-            sh:path TS28623_GenericNrm_ManagedElement-ncO:ConditionMonitor ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Scheduler-Single ;
-            sh:path TS28623_GenericNrm_ManagedElement-ncO:Scheduler ] ;
-    sh:targetClass TS28623_GenericNrm:ManagedElement-ncO .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "HTTP"^^xsd:string "HTTP_VES_ENCAPS"^^xsd:string ) ;
-                                    sh:path TS28623_GenericNrm:notificationProtocols ] ] ;
-                    sh:path TS28623_GenericNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "HTTP"^^xsd:string "HTTP_VES_ENCAPS"^^xsd:string ) ;
-                            sh:path TS28623_GenericNrm:notificationProtocols ] ] ;
-            sh:path TS28623_GenericNrm_SupportedNotifications-Single:attributes ] ;
-    sh:targetClass TS28623_GenericNrm:SupportedNotifications-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-Attr:userLabel ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-Attr:managedBy ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-Attr:priorityLabel ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28623_GenericNrm_ManagedElement-Attr:supportedTraceMetrics ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:SupportedPerfMetricGroup ;
-            sh:path TS28623_GenericNrm_ManagedElement-Attr:supportedPerfMetricGroups ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28623_GenericNrm_ManagedElement-Attr:swVersion ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedElement-Attr:vendorName ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
@@ -419,257 +780,24 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-Attr:vendorName ],
+            sh:path TS28623_GenericNrm_ManagedElement-Attr:locationName ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:SupportedPerfMetricGroup ;
+            sh:path TS28623_GenericNrm_ManagedElement-Attr:supportedPerfMetricGroups ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedElement-Attr:priorityLabel ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:path TS28623_GenericNrm_ManagedElement-Attr:managedElementTypeList ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedElement-Attr:locationName ] ;
+            sh:path TS28623_GenericNrm_ManagedElement-Attr:userLabel ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_GenericNrm_ManagedElement-Attr:managedBy ] ;
     sh:targetClass TS28623_GenericNrm:ManagedElement-Attr .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:pattern "^[A-Fa-f0-9]{9}$" ;
-    sh:targetClass TS28623_GenericNrm:NrCellId .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ConditionMonitor-Single ;
-    sh:targetClass TS28623_GenericNrm:ConditionMonitor-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:systemDN ] ] ;
-                    sh:path TS28623_GenericNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:systemDN ] ] ;
-            sh:path TS28623_GenericNrm_MnsAgent-Single:attributes ] ;
-    sh:targetClass TS28623_GenericNrm:MnsAgent-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                    sh:minCount 1 ;
-                                    sh:path TS28623_GenericNrm:schedulingTimes ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:path TS28623_GenericNrm:startTime ],
-                                                    [ a sh:PropertyShape ;
-                                                        sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:path TS28623_GenericNrm:startTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:string ;
-                                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                                        sh:path TS28623_GenericNrm:daysOfWeek ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:integer ;
-                                                        sh:maxInclusive 31 ;
-                                                        sh:minInclusive 0 ;
-                                                        sh:path TS28623_GenericNrm:daysOfMonth ] ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:schedulerStatus ] ] ;
-                    sh:path TS28623_GenericNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:schedulerStatus ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                            sh:minCount 1 ;
-                            sh:path TS28623_GenericNrm:schedulingTimes ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:path TS28623_GenericNrm:startTime ],
-                                            [ a sh:PropertyShape ;
-                                                sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:path TS28623_GenericNrm:startTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:path TS28623_GenericNrm:endTime ] ] [ a sh:NodeShape ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:string ;
-                                                sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                                sh:path TS28623_GenericNrm:daysOfWeek ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:integer ;
-                                                sh:maxInclusive 31 ;
-                                                sh:minInclusive 0 ;
-                                                sh:path TS28623_GenericNrm:daysOfMonth ] ] ) ] ] ;
-            sh:path TS28623_GenericNrm_Scheduler-Single:attributes ] ;
-    sh:targetClass TS28623_GenericNrm:Scheduler-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedElement-Single ;
-    sh:targetClass TS28623_GenericNrm:ManagedElement-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedFunction-Attr:priorityLabel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:PeeParameter ;
-            sh:path TS28623_GenericNrm_ManagedFunction-Attr:peeParametersList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_ManagedFunction-Attr:userLabel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_GenericNrm_ManagedFunction-Attr:supportedTraceMetrics ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:SupportedPerfMetricGroup ;
-            sh:path TS28623_GenericNrm_ManagedFunction-Attr:supportedPerfMetricGroups ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:VnfParameter ;
-            sh:path TS28623_GenericNrm_ManagedFunction-Attr:vnfParametersList ] ;
-    sh:targetClass TS28623_GenericNrm:ManagedFunction-Attr .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:VsDataContainer-Single ;
-            sh:path TS28623_GenericNrm_Top:VsDataContainer ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28623_GenericNrm_Top:id ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_Top:objectClass ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_Top:objectInstance ] ;
-    sh:targetClass TS28623_GenericNrm:Top .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:MeContext-Single ;
-    sh:targetClass TS28623_GenericNrm:MeContext-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:locationName ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:userLabel ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:userDefinedState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:vendorName ],
-                                [ a sh:PropertyShape ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:managedElements ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_GenericNrm:swVersion ] ] ;
-                    sh:path TS28623_GenericNrm:attributes ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28623_GenericNrm:MnsAgent-Single ;
-                    sh:path TS28623_GenericNrm:MnsAgent ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:MnsAgent-Single ;
-            sh:path TS28623_GenericNrm_ManagementNode-Single:MnsAgent ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:vendorName ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:swVersion ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:locationName ],
-                        [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:managedElements ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:userDefinedState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_GenericNrm:userLabel ] ] ;
-            sh:path TS28623_GenericNrm_ManagementNode-Single:attributes ] ;
-    sh:targetClass TS28623_GenericNrm:ManagementNode-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagementNode-Single ;
-    sh:targetClass TS28623_GenericNrm:ManagementNode-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_Top-Attr:objectInstance ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:VsDataContainer-Single ;
-            sh:path TS28623_GenericNrm_Top-Attr:VsDataContainer ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_GenericNrm_Top-Attr:objectClass ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28623_GenericNrm_Top-Attr:id ] ;
-    sh:targetClass TS28623_GenericNrm:Top-Attr .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:SubNetwork-Single ;
-    sh:targetClass TS28623_GenericNrm:SubNetwork-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Scheduler-Single ;
-    sh:targetClass TS28623_GenericNrm:Scheduler-Multiple .
-
-[] a sh:NodeShape ;
-    sh:or ( [ a sh:NodeShape ;
-                sh:datatype xsd:string ;
-                sh:in ( "TCP"^^xsd:string ) ] [ a sh:NodeShape ;
-                sh:datatype xsd:string ] ) ;
-    sh:targetClass TS28623_GenericNrm:TransportProtocol .
 

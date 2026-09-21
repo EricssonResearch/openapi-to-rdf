@@ -1,3 +1,5 @@
+@prefix TS28623_FileManagementNrm: <http://ericsson.com/models/3gpp/TS28623/FileManagementNrm#> .
+@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix TS28623_TraceControlNrm: <https://example.org/TS28623_TraceControlNrm/> .
 @prefix TS28623_TraceControlNrm_AreaConfig: <https://example.org/TS28623_TraceControlNrm/AreaConfig#> .
 @prefix TS28623_TraceControlNrm_FreqInfo: <https://example.org/TS28623_TraceControlNrm/FreqInfo#> .
@@ -45,7 +47,8 @@ TS28623_TraceControlNrm:TraceJob-Attr a rdfs:Class ;
 
 TS28623_TraceControlNrm:TraceJob-Multiple a rdfs:Class .
 
-TS28623_TraceControlNrm:TraceJob-Single a rdfs:Class .
+TS28623_TraceControlNrm:TraceJob-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_TraceControlNrm:UECoreMeasConfig-Type a rdfs:Class ;
     rdfs:comment "UE level measurements configuration parameters for 5G system. See details in 3GPP TS 28.622 clause 4.3.x." .
@@ -126,7 +129,8 @@ TS28623_TraceControlNrm:CPICH_EcNo a rdf:Property ;
 TS28623_TraceControlNrm:CPICH_RSCP a rdf:Property ;
     rdfs:range xsd:integer .
 
-TS28623_TraceControlNrm:Files a rdf:Property .
+TS28623_TraceControlNrm:Files a rdf:Property ;
+    rdfs:range TS28623_FileManagementNrm:Files-Multiple .
 
 TS28623_TraceControlNrm_FreqInfo:arfcn a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:FreqInfo ;
@@ -155,13 +159,16 @@ TS28623_TraceControlNrm_SubNetwork-ncO-TraceControlNrm:TraceJob a rdf:Property ;
     rdfs:range TS28623_TraceControlNrm:TraceJob-Multiple .
 
 TS28623_TraceControlNrm_Tai:mcc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai .
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_Tai:mnc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai .
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_Tai:tac a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:Tai .
+    rdfs:domain TS28623_TraceControlNrm:Tai ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_TraceJob-Attr:jobId a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
@@ -179,14 +186,16 @@ TS28623_TraceControlNrm_TraceJob-Attr:mdtConfig a rdf:Property ;
     rdfs:range TS28623_TraceControlNrm:mdtConfig-Type .
 
 TS28623_TraceControlNrm_TraceJob-Attr:nPNTarget a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr .
+    rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_TraceJob-Attr:plmnTarget a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
     rdfs:range TS28623_TraceControlNrm:plmnTarget-Type .
 
 TS28623_TraceControlNrm_TraceJob-Attr:traceCollectionEntityIpAddress a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr .
+    rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_TraceJob-Attr:traceConfig a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
@@ -197,7 +206,8 @@ TS28623_TraceControlNrm_TraceJob-Attr:traceReference a rdf:Property ;
     rdfs:range TS28623_TraceControlNrm:traceReference-Type .
 
 TS28623_TraceControlNrm_TraceJob-Attr:traceReportingConsumerUri a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr .
+    rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_TraceJob-Attr:traceReportingFormat a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob-Attr ;
@@ -212,7 +222,8 @@ TS28623_TraceControlNrm_TraceJob-Attr:ueCoreMeasConfig a rdf:Property ;
     rdfs:range TS28623_TraceControlNrm:UECoreMeasConfig-Type .
 
 TS28623_TraceControlNrm_TraceJob-Single:Files a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:TraceJob-Single .
+    rdfs:domain TS28623_TraceControlNrm:TraceJob-Single ;
+    rdfs:range TS28623_FileManagementNrm:Files-Multiple .
 
 TS28623_TraceControlNrm_TraceJob-Single:attributes a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:TraceJob-Single ;
@@ -223,10 +234,12 @@ TS28623_TraceControlNrm_UECoreMeasConfig-Type:nfTypeToMeasure a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_UECoreMeasConfig-Type:objectInstances a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig-Type .
+    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig-Type ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_UECoreMeasConfig-Type:rootObjectInstances a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig-Type .
+    rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig-Type ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_UECoreMeasConfig-Type:ueCoreMeasGranularityPeriod a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:UECoreMeasConfig-Type ;
@@ -571,7 +584,8 @@ TS28623_TraceControlNrm_loggedMDTConfig-Type:mbsfnAreaList a rdf:Property ;
     rdfs:range TS28623_TraceControlNrm:MbsfnArea .
 
 TS28623_TraceControlNrm_loggedMDTConfig-Type:nPNIdentityList a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig-Type .
+    rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig-Type ;
+    rdfs:range TS28623_GenericNrm:NpnId-Type .
 
 TS28623_TraceControlNrm_loggedMDTConfig-Type:plmnList a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggedMDTConfig-Type ;
@@ -601,7 +615,8 @@ TS28623_TraceControlNrm_loggingInterval-Type:NR a rdf:Property ;
 TS28623_TraceControlNrm_loggingInterval-Type:UMTS a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:loggingInterval-Type .
 
-TS28623_TraceControlNrm:mcc a rdf:Property .
+TS28623_TraceControlNrm:mcc a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_mdtConfig-Type:anonymizationOfMdtData a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:mdtConfig-Type ;
@@ -632,13 +647,16 @@ TS28623_TraceControlNrm:measurementPeriodUMTS-Type a rdfs:Datatype ;
 TS28623_TraceControlNrm:measurementQuantity-Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.15." .
 
-TS28623_TraceControlNrm:mnc a rdf:Property .
+TS28623_TraceControlNrm:mnc a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_plmnTarget-Type:mcc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:plmnTarget-Type .
+    rdfs:domain TS28623_TraceControlNrm:plmnTarget-Type ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_plmnTarget-Type:mnc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:plmnTarget-Type .
+    rdfs:domain TS28623_TraceControlNrm:plmnTarget-Type ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm:positioningMethod-Type a rdfs:Datatype ;
     rdfs:comment "See details in 3GPP TS 32.422 clause 5.10.19." .
@@ -714,10 +732,12 @@ TS28623_TraceControlNrm:traceDepth-Type a rdfs:Datatype ;
     rdfs:comment "Specifies how detailed information should be recorded in the Network Element. The Trace Depth is a paremeter for Trace Session level, i.e., the Trace Depth is the same for all of the NEs to be traced in the same Trace Session. See 3GPP TS 32.422 clause 5.3 for additional details." .
 
 TS28623_TraceControlNrm_traceReference-Type:mcc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceReference-Type .
+    rdfs:domain TS28623_TraceControlNrm:traceReference-Type ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_traceReference-Type:mnc a rdf:Property ;
-    rdfs:domain TS28623_TraceControlNrm:traceReference-Type .
+    rdfs:domain TS28623_TraceControlNrm:traceReference-Type ;
+    rdfs:range xsd:string .
 
 TS28623_TraceControlNrm_traceReference-Type:traceId a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:traceReference-Type ;

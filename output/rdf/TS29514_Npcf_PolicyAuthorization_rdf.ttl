@@ -1,3 +1,4 @@
+@prefix TS29512_Npcf_SMPolicyControl: <http://ericsson.com/models/3gpp/TS29512/Npcf_SMPolicyControl#> .
 @prefix TS29514_Npcf_PolicyAuthorization: <https://example.org/TS29514_Npcf_PolicyAuthorization/> .
 @prefix TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo: <https://example.org/TS29514_Npcf_PolicyAuthorization/AcceptableServiceInfo#> .
 @prefix TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier: <https://example.org/TS29514_Npcf_PolicyAuthorization/AccessNetChargingIdentifier#> .
@@ -35,6 +36,7 @@
 @prefix TS29514_Npcf_PolicyAuthorization_TsnQosContainer: <https://example.org/TS29514_Npcf_PolicyAuthorization/TsnQosContainer#> .
 @prefix TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm: <https://example.org/TS29514_Npcf_PolicyAuthorization/TsnQosContainerRm#> .
 @prefix TS29514_Npcf_PolicyAuthorization_UeIdentityInfo: <https://example.org/TS29514_Npcf_PolicyAuthorization/UeIdentityInfo#> .
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -99,7 +101,8 @@ TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm a rdfs:Class ;
     rdfs:comment "Note: This property is nullable in OpenAPI - null vs absent semantics not preserved in RDF",
         "this data type is defined in the same way as the EventsSubscReqData data type, but with the OpenAPI nullable property set to true." .
 
-TS29514_Npcf_PolicyAuthorization:ExtendedProblemDetails a rdfs:Class .
+TS29514_Npcf_PolicyAuthorization:ExtendedProblemDetails a rdfs:Class ;
+    rdfs:subClassOf TS29571_CommonData:ProblemDetails .
 
 TS29514_Npcf_PolicyAuthorization:FlowStatus a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
@@ -218,13 +221,16 @@ TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:accBwMedComps a rdf:Prope
     rdfs:range rdfs:Resource .
 
 TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:marBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AcceptableServiceInfo:marBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier:accNetChaIdValue a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AccessNetChargingIdentifier:flows a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AccessNetChargingIdentifier ;
@@ -250,10 +256,12 @@ TS29514_Npcf_PolicyAuthorization_AfEventSubscription:notifMethod a rdf:Property 
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AfEventSubscription:repPeriod a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_AfEventSubscription:waitTime a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfEventSubscription ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:addrPreserInd a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
@@ -264,7 +272,8 @@ TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:appReloc a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:routeToLocs a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
+    rdfs:range TS29571_CommonData:RouteToLocation .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:spVal a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
@@ -275,7 +284,8 @@ TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:tempVals a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:TemporalValidity .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirement:upPathChgSub a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirement ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:UpPathChgEvent .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:addrPreserInd a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
@@ -286,7 +296,8 @@ TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:appReloc a rdf:Property 
     rdfs:range xsd:boolean .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:routeToLocs a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range TS29571_CommonData:RouteToLocation .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:spVal a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
@@ -297,13 +308,16 @@ TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:tempVals a rdf:Property 
     rdfs:range TS29514_Npcf_PolicyAuthorization:TemporalValidity .
 
 TS29514_Npcf_PolicyAuthorization_AfRoutingRequirementRm:upPathChgSub a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AfRoutingRequirementRm ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:UpPathChgEvent .
 
 TS29514_Npcf_PolicyAuthorization_AnGwAddress:anGwIpv4Addr a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AnGwAddress .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AnGwAddress ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AnGwAddress:anGwIpv6Addr a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AnGwAddress .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AnGwAddress ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContext:ascReqData a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContext ;
@@ -322,7 +336,8 @@ TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:servAuthInfo a rdf:Pr
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:suppFeat a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContextRespData:ueIds a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextRespData ;
@@ -393,13 +408,16 @@ TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:sponStatus a rdf:Pr
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnBridgeManCont a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnPortManContDstt a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateData:tsnPortManContNwtts a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateData ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_AppSessionContextUpdateDataPatch:ascReqData a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:AppSessionContextUpdateDataPatch ;
@@ -415,10 +433,12 @@ TS29514_Npcf_PolicyAuthorization:ContentVersion a rdfs:Datatype ;
     rdfs:comment "Represents the content version of some content." .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:destMacAddr a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:destMacAddrEnd a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:ethType a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
@@ -429,25 +449,31 @@ TS29514_Npcf_PolicyAuthorization_EthFlowDescription:fDesc a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:fDir a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:sourceMacAddr a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:srcMacAddrEnd a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EthFlowDescription:vlanTags a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EthFlowDescription .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:accessType a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:addAccessInfo a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:anChargAddr a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AccNetChargingAddress .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:anChargIds a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
@@ -462,21 +488,24 @@ TS29514_Npcf_PolicyAuthorization_EventsNotification:evNotifs a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:AfEventNotification .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:evSubsUri a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:failedResourcAllocReports a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:noNetLocSupp a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:outOfCredReports a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:OutOfCreditInformation .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:plmnId a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:PlmnIdNid .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:qncReports a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
@@ -488,35 +517,44 @@ TS29514_Npcf_PolicyAuthorization_EventsNotification:qosMonReports a rdf:Property
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:ranNasRelCauses a rdf:Property ;
     rdfs:comment "Contains the RAN and/or NAS release cause." ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:RanNasRelCause .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:ratType a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:relAccessInfo a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AdditionalAccessInfo .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:succResourcAllocReports a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:ResourcesAllocationInfo .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnBridgeManCont a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnPortManContDstt a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:tsnPortManContNwtts a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:ueLoc a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range TS29571_CommonData:UserLocation .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:ueLocTime a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range xsd:dateTime .
 
 TS29514_Npcf_PolicyAuthorization_EventsNotification:ueTimeZone a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsNotification ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:events a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData ;
@@ -527,7 +565,8 @@ TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:notifCorreId a rdf:Property 
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:notifUri a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:qosMon a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData ;
@@ -538,7 +577,8 @@ TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:reqAnis a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqData:reqQosMonParams a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqData ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:RequestedQosMonitoringParameter .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:events a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
@@ -549,7 +589,8 @@ TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:notifCorreId a rdf:Propert
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:notifUri a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:qosMon a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
@@ -560,7 +601,8 @@ TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:reqAnis a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_EventsSubscReqDataRm:reqQosMonParams a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:EventsSubscReqDataRm ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:RequestedQosMonitoringParameter .
 
 TS29514_Npcf_PolicyAuthorization_ExtendedProblemDetails:acceptableServInfo a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:ExtendedProblemDetails ;
@@ -600,10 +642,12 @@ TS29514_Npcf_PolicyAuthorization_MediaComponent:contVer a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:desMaxLatency a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:float .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:desMaxLoss a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:float .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:disUeNotif a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
@@ -618,22 +662,28 @@ TS29514_Npcf_PolicyAuthorization_MediaComponent:flusId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:marBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:marBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:maxPacketLossRateDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:maxPacketLossRateUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:maxSuppBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:maxSuppBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:medCompN a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
@@ -648,22 +698,28 @@ TS29514_Npcf_PolicyAuthorization_MediaComponent:medType a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:minDesBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:minDesBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:mirBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:mirBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:preemptCap a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:preemptVuln a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:prioSharingInd a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
@@ -678,16 +734,20 @@ TS29514_Npcf_PolicyAuthorization_MediaComponent:resPrio a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:rrBw a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:rsBw a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:sharingKeyDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:sharingKeyUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponent:tscaiInputDl a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponent ;
@@ -721,10 +781,12 @@ TS29514_Npcf_PolicyAuthorization_MediaComponentRm:contVer a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:desMaxLatency a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:float .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:desMaxLoss a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:float .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:disUeNotif a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
@@ -739,22 +801,28 @@ TS29514_Npcf_PolicyAuthorization_MediaComponentRm:flusId a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:marBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:marBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxPacketLossRateDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxPacketLossRateUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxSuppBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:maxSuppBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medCompN a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
@@ -769,22 +837,28 @@ TS29514_Npcf_PolicyAuthorization_MediaComponentRm:medType a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:minDesBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:minDesBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:mirBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:mirBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:preemptCap a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:PreemptionCapabilityRm .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:preemptVuln a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range TS29571_CommonData:PreemptionVulnerabilityRm .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:prioSharingInd a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
@@ -799,16 +873,20 @@ TS29514_Npcf_PolicyAuthorization_MediaComponentRm:resPrio a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:rrBw a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:rsBw a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:sharingKeyDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:sharingKeyUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tscaiInputDl a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaComponentRm ;
@@ -823,7 +901,8 @@ TS29514_Npcf_PolicyAuthorization_MediaComponentRm:tsnQos a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponent:afSigProtocol a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AfSigProtocol .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponent:ethfDescs a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent ;
@@ -846,17 +925,20 @@ TS29514_Npcf_PolicyAuthorization_MediaSubComponent:flowUsage a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponent:marBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponent:marBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponent:tosTrCl a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponent ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:afSigProtocol a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:AfSigProtocol .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:ethfDescs a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
@@ -879,10 +961,12 @@ TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:flowUsage a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:marBwDl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:marBwUl a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_MediaSubComponentRm:tosTrCl a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:MediaSubComponentRm ;
@@ -893,16 +977,20 @@ TS29514_Npcf_PolicyAuthorization_OutOfCreditInformation:flows a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:Flows .
 
 TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnBridgeInfo a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:TsnBridgeInfo .
 
 TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnBridgeManCont a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:BridgeManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnPortManContDstt a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_PduSessionTsnBridge:tsnPortManContNwtts a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:PduSessionTsnBridge ;
+    rdfs:range TS29512_Npcf_SMPolicyControl:PortManagementContainer .
 
 TS29514_Npcf_PolicyAuthorization_QosMonitoringInformation:repThreshDl a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:QosMonitoringInformation ;
@@ -980,13 +1068,16 @@ TS29514_Npcf_PolicyAuthorization:SponId a rdfs:Datatype ;
     rdfs:comment "Contains an identity of a sponsor." .
 
 TS29514_Npcf_PolicyAuthorization_TemporalValidity:startTime a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TemporalValidity .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
+    rdfs:range xsd:dateTime .
 
 TS29514_Npcf_PolicyAuthorization_TemporalValidity:stopTime a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TemporalValidity .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TemporalValidity ;
+    rdfs:range xsd:dateTime .
 
 TS29514_Npcf_PolicyAuthorization_TerminationInfo:resUri a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TerminationInfo .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TerminationInfo ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_TerminationInfo:termCause a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:TerminationInfo ;
@@ -1003,39 +1094,48 @@ TS29514_Npcf_PolicyAuthorization:TscPriorityLevel a rdfs:Datatype .
 TS29514_Npcf_PolicyAuthorization:TscPriorityLevelRm a rdfs:Datatype .
 
 TS29514_Npcf_PolicyAuthorization_TscaiInputContainer:burstArrivalTime a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TscaiInputContainer .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+    rdfs:range xsd:dateTime .
 
 TS29514_Npcf_PolicyAuthorization_TscaiInputContainer:periodicity a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TscaiInputContainer .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TscaiInputContainer ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_TsnQosContainer:maxTscBurstSize a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_TsnQosContainer:tscPackDelay a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_TsnQosContainer:tscPrioLevel a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainer ;
     rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:maxTscBurstSize a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:tscPackDelay a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
+    rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_TsnQosContainerRm:tscPrioLevel a rdf:Property ;
     rdfs:domain TS29514_Npcf_PolicyAuthorization:TsnQosContainerRm ;
     rdfs:range xsd:integer .
 
 TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:gpsi a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:pei a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization_UeIdentityInfo:supi a rdf:Property ;
-    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo .
+    rdfs:domain TS29514_Npcf_PolicyAuthorization:UeIdentityInfo ;
+    rdfs:range xsd:string .
 
 TS29514_Npcf_PolicyAuthorization:acceptableServInfo a rdf:Property ;
     rdfs:range TS29514_Npcf_PolicyAuthorization:AcceptableServiceInfo .

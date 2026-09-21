@@ -56,6 +56,7 @@
 @prefix TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo: <https://example.org/TS29520_Nnwdaf_EventsSubscription/WlanPerTsPerformanceInfo#> .
 @prefix TS29520_Nnwdaf_EventsSubscription_WlanPerformanceInfo: <https://example.org/TS29520_Nnwdaf_EventsSubscription/WlanPerformanceInfo#> .
 @prefix TS29520_Nnwdaf_EventsSubscription_WlanPerformanceReq: <https://example.org/TS29520_Nnwdaf_EventsSubscription/WlanPerformanceReq#> .
+@prefix TS29571_CommonData: <http://ericsson.com/models/3gpp/TS29571/CommonData#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -314,23 +315,28 @@ TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:addtMeasInfo a rdf:Property 
     rdfs:range TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement .
 
 TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:dnn a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:excep a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:Exception .
 
 TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:ratio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_AbnormalBehaviour:supis a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AbnormalBehaviour ;
+    rdfs:range TS29571_CommonData:Supi .
 
 TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:circums a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement ;
@@ -345,17 +351,20 @@ TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:unexpFlowTeps a rdf:Prop
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:unexpWakes a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement ;
+    rdfs:range TS29571_CommonData:DateTime .
 
 TS29520_Nnwdaf_EventsSubscription_AdditionalMeasurement:wrgDest a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:AdditionalMeasurement ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:AddressList .
 
 TS29520_Nnwdaf_EventsSubscription_AddressList:ipv4Addrs a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AddressList .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AddressList ;
+    rdfs:range TS29571_CommonData:Ipv4Addr .
 
 TS29520_Nnwdaf_EventsSubscription_AddressList:ipv6Addrs a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AddressList .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AddressList ;
+    rdfs:range TS29571_CommonData:Ipv6Addr .
 
 TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:nfAnaCtxts a rdf:Property ;
     rdfs:comment """List of analytics types for which NF related analytics contexts can be retrieved.
@@ -375,7 +384,8 @@ TS29520_Nnwdaf_EventsSubscription_AnalyticsContextIdentifier:ueAnaCtxts a rdf:Pr
     rdfs:range TS29520_Nnwdaf_EventsSubscription:UeAnalyticsContextDescriptor .
 
 TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:aggrNwdafIds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
 
 TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataIndication:dataStatProps a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication ;
@@ -394,7 +404,8 @@ TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:dataStatProps a rdf:Prop
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:numSamples a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_AnalyticsMetadataInfo:strategy a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataInfo ;
@@ -405,43 +416,56 @@ TS29520_Nnwdaf_EventsSubscription_AnalyticsSubscriptionsTransfer:subsTransInfos 
     rdfs:range TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo .
 
 TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:appDur a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:appId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:occurRatio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_AppListForUeComm:startTime a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:AppListForUeComm ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_ApplicationVolume:appId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ApplicationVolume .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ApplicationVolume ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_BwRequirement:appId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_BwRequirement:marBwDl a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_BwRequirement:marBwUl a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_BwRequirement:mirBwDl a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_BwRequirement:mirBwUl a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:BwRequirement ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_CircumstanceDescription:freq a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_CircumstanceDescription:tm a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:CircumstanceDescription ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_ClassCriterion:classThreshold a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ClassCriterion .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ClassCriterion ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ClassCriterion:disperClass a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ClassCriterion ;
@@ -452,7 +476,8 @@ TS29520_Nnwdaf_EventsSubscription_ClassCriterion:thresMatch a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_CongestionInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:CongestionInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:CongestionInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_CongestionInfo:congType a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:CongestionInfo ;
@@ -475,32 +500,40 @@ TS29520_Nnwdaf_EventsSubscription_DispersionCollection:appVolumes a rdf:Property
     rdfs:range TS29520_Nnwdaf_EventsSubscription:ApplicationVolume .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:disperAmount a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:disperClass a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:gpsis a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range TS29571_CommonData:Gpsi .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:percentileRank a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:supis a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range TS29571_CommonData:Supi .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:ueLoc a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range TS29571_CommonData:UserLocation .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:ueRatio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionCollection ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionCollection:usageRank a rdf:Property ;
     rdfs:comment "Integer where the allowed values correspond to 1, 2, 3 only." ;
@@ -516,10 +549,12 @@ TS29520_Nnwdaf_EventsSubscription_DispersionInfo:disperType a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionInfo:tsDuration a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionInfo:tsStart a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionInfo ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:classCriters a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:DispersionRequirement ;
@@ -542,27 +577,32 @@ TS29520_Nnwdaf_EventsSubscription_DispersionRequirement:rankCriters a rdf:Proper
     rdfs:range TS29520_Nnwdaf_EventsSubscription:RankingCriterion .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerf:dnai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerf .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerf ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerf:perfData a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerf ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:PerfData .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:appId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:dnPerf a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:DnPerf .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:dnn a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerfInfo:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerfInfo ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_DnPerformanceReq:dnPerfOrderCriter a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq ;
@@ -597,7 +637,8 @@ TS29520_Nnwdaf_EventsSubscription_EventNotification:event a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:expiry a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:failNotifyCode a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
@@ -624,21 +665,24 @@ TS29520_Nnwdaf_EventsSubscription_EventNotification:redTransInfos a rdf:Property
     rdfs:range TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:rvWaitTime a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:sliceLoadLevelInfo a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:start a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:svcExps a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:timeStampGen a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_EventNotification:ueComms a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventNotification ;
@@ -675,13 +719,16 @@ TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:anaMetaInd a rdf:Pro
     rdfs:range TS29520_Nnwdaf_EventsSubscription:AnalyticsMetadataIndication .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:endTs a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:maxObjectNbr a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:maxSupiNbr a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:offsetPeriod a rdf:Property ;
     rdfs:comment """Offset period in units of seconds to the reporting time, if the value is negative means  statistics in the past offset period, otherwise a positive value means prediction in the  future offset period. May be present if the "repPeriod" attribute is included within the  "evtReq" attribute.
@@ -690,13 +737,16 @@ TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:offsetPeriod a rdf:P
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:sampRatio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:startTs a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_EventReportingRequirement:timeAnaNeeded a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventReportingRequirement ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:anySlice a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -704,7 +754,8 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:anySlice a rdf:Property ;
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:appIds a rdf:Property ;
     rdfs:comment "Identification(s) of application to which the subscription applies." ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:ApplicationId .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:bwRequs a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -723,11 +774,13 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnPerfReqs a rdf:Property ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:DnPerformanceReq .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnais a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:Dnai .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:dnns a rdf:Property ;
     rdfs:comment "Identification(s) of DNN to which the subscription applies." ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:Dnn .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:event a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -747,7 +800,8 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:extraReportReq a rdf:Propert
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:ladnDnns a rdf:Property ;
     rdfs:comment "Identification(s) of LADN DNN to indicate the LADN service area as the AOI." ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:Dnn .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:listOfAnaSubsets a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -764,13 +818,16 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:matchingDir a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:maxTopAppDlNbr a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:maxTopAppUlNbr a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfInstanceIds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfLoadLvlThds a rdf:Property ;
     rdfs:comment """Shall be supplied in order to start reporting when an average load level is reached.
@@ -779,7 +836,8 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfLoadLvlThds a rdf:Property
     rdfs:range TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:nfSetIds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:NfSetId .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:notificationMethod a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -790,7 +848,8 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:nsiIdInfos a rdf:Property ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:NsiIdInfo .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:nsiLevelThrds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:Uinteger .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:nwPerfRequs a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -805,7 +864,8 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:qosRequ a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:ranUeThrouThds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:BitRate .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:ratFreqs a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -816,12 +876,14 @@ TS29520_Nnwdaf_EventsSubscription_EventSubscription:redTransReqs a rdf:Property 
     rdfs:range TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpReq .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:repetitionPeriod a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:snssaia a rdf:Property ;
     rdfs:comment """Identification(s) of network slice to which the subscription applies. It corresponds to  snssais in the data model definition of 3GPP TS 29.520. 
 """ ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_EventSubscription:tgtUe a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:EventSubscription ;
@@ -856,13 +918,16 @@ TS29520_Nnwdaf_EventsSubscription:LoadLevelInformation a rdfs:Datatype ;
 """ .
 
 TS29520_Nnwdaf_EventsSubscription_LocationInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:LocationInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_LocationInfo:loc a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:LocationInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
+    rdfs:range TS29571_CommonData:UserLocation .
 
 TS29520_Nnwdaf_EventsSubscription_LocationInfo:ratio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:LocationInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:LocationInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ModelInfo:analyticsId a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ModelInfo ;
@@ -873,37 +938,44 @@ TS29520_Nnwdaf_EventsSubscription_ModelInfo:mlModelInfos a rdf:Property ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:absoluteNum a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:nwPerfType a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfInfo:relativeRatio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:absoluteNum a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:nwPerfType a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NetworkPerfRequirement:relativeRatio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NetworkPerfRequirement ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfCpuUsage a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfInstanceId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfLoadAvgInAoi a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
@@ -922,7 +994,8 @@ TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfMemoryUsage a rdf:Pro
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfSetId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfStatus a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
@@ -933,16 +1006,20 @@ TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:nfStorageUsage a rdf:Pr
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfLoadLevelInformation:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfLoadLevelInformation ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_NfStatus:statusRegistered a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfStatus .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfStatus ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfStatus:statusUndiscoverable a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfStatus .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfStatus ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NfStatus:statusUnregistered a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfStatus .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NfStatus ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:consNfInfo a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription ;
@@ -967,20 +1044,24 @@ TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:notifCorrId a rdf:Pro
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:notificationURI a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:prevSub a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NnwdafEventsSubscription:supportedFeatures a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_NsiIdInfo:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiIdInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiIdInfo ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:exceedLoadLevelThrInd a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
@@ -991,7 +1072,8 @@ TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:loadLevelInformation a rdf:Pr
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfExceedLoadLevelThr a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:numOfPduSess a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
@@ -1006,35 +1088,44 @@ TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:resUsage a rdf:Property ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:ResourceUsage .
 
 TS29520_Nnwdaf_EventsSubscription_NsiLoadLevelInfo:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NsiLoadLevelInfo ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_NumberAverage:number a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:NumberAverage ;
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_NumberAverage:variance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NumberAverage .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:NumberAverage ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_PerfData:avePacketDelay a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_PerfData:avgPacketLossRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_PerfData:avgTrafficRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_PerfData:maxPacketDelay a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_PerfData:maxTrafficRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:PerfData ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_RankingCriterion:highBase a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RankingCriterion .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RankingCriterion ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_RankingCriterion:lowBase a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RankingCriterion .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RankingCriterion ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:allFreq a rdf:Property ;
     rdfs:comment """Set to "true" to indicate to handle all the frequencies the NWDAF received, otherwise  set to "false" or omit. The "allFreq" attribute and the "freq" attribute are mutually  exclusive.
@@ -1049,41 +1140,48 @@ TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:allRat a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:freq a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RatFreqInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:matchingDir a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:ratType a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RatFreqInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_RatFreqInformation:svcExpThreshold a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:RatFreqInformation ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpInfo:dnn a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpInfo:redTransExps a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpInfo ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:redTransExp a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:tsDuration a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:tsStart a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpPerTS:ueRatio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpPerTS ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpReq:order a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:RedundantTransmissionExpReq ;
@@ -1094,55 +1192,68 @@ TS29520_Nnwdaf_EventsSubscription_RedundantTransmissionExpReq:redTOrderCriter a 
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ResourceUsage:cpuUsage a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ResourceUsage .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ResourceUsage ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ResourceUsage:memoryUsage a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ResourceUsage .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ResourceUsage ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ResourceUsage:storageUsage a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ResourceUsage .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ResourceUsage ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:appId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:dnai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:dnn a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ratFreq a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:RatFreqInformation .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ratio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:srvExpcType a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:supis a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range TS29571_CommonData:Supi .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:svcExprcVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_ServiceExperienceInfo:ueLocs a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ServiceExperienceInfo ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:LocationInfo .
 
 TS29520_Nnwdaf_EventsSubscription_SessInactTimerForUeComm:n4SessId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_SessInactTimerForUeComm:sessInactiveTimer a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SessInactTimerForUeComm ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:loadLevelInformation a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation ;
@@ -1150,10 +1261,12 @@ TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:loadLevelInformation
 
 TS29520_Nnwdaf_EventsSubscription_SliceLoadLevelInformation:snssais a rdf:Property ;
     rdfs:comment "Identification(s) of network slice to which the subscription applies." ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SliceLoadLevelInformation ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:consumerId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:contextId a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
@@ -1168,10 +1281,12 @@ TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:nwdafEvSub a rdf:Prop
     rdfs:range TS29520_Nnwdaf_EventsSubscription:NnwdafEventsSubscription .
 
 TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:sourceNfIds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
+    rdfs:range TS29571_CommonData:NfInstanceId .
 
 TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:sourceSetIds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
+    rdfs:range TS29571_CommonData:NfSetId .
 
 TS29520_Nnwdaf_EventsSubscription_SubscriptionTransferInfo:transReqType a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:SubscriptionTransferInfo ;
@@ -1182,32 +1297,40 @@ TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:anyUe a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:gpsis a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TargetUeInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TargetUeInformation ;
+    rdfs:range TS29571_CommonData:Gpsi .
 
 TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:intGroupIds a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TargetUeInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TargetUeInformation ;
+    rdfs:range TS29571_CommonData:GroupId .
 
 TS29520_Nnwdaf_EventsSubscription_TargetUeInformation:supis a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TargetUeInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TargetUeInformation ;
+    rdfs:range TS29571_CommonData:Supi .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:avgPacketDelay a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:avgPacketLossRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:avgTrafficRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:congLevel a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:maxPacketDelay a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:maxTrafficRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfCpuUsage a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
@@ -1226,32 +1349,40 @@ TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:nfStorageUsage a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_ThresholdLevel:svcExpLevel a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:ThresholdLevel ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:appId a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:dlVolVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:dnn a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:fDescs a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficCharacterization:ulVolVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficInformation:downlinkRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficInformation ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_TrafficInformation:uplinkRate a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficInformation .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:TrafficInformation ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_UeAnalyticsContextDescriptor:anaTypes a rdf:Property ;
     rdfs:comment """List of analytics types for which UE related analytics contexts can be retrieved.
@@ -1260,33 +1391,40 @@ TS29520_Nnwdaf_EventsSubscription_UeAnalyticsContextDescriptor:anaTypes a rdf:Pr
     rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_UeAnalyticsContextDescriptor:supi a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeAnalyticsContextDescriptor .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeAnalyticsContextDescriptor ;
+    rdfs:range xsd:string .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:anaOfAppList a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:AppListForUeComm .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:commDur a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:commDurVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:perioCommInd a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
     rdfs:range xsd:boolean .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:perioTime a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:perioTimeVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:ratio a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:sessInactTimer a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
@@ -1297,30 +1435,36 @@ TS29520_Nnwdaf_EventsSubscription_UeCommunication:trafChar a rdf:Property ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:TrafficCharacterization .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:ts a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_UeCommunication:tsVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeCommunication ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_UeMobility:duration a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_UeMobility:durationVariance a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility ;
+    rdfs:range xsd:float .
 
 TS29520_Nnwdaf_EventsSubscription_UeMobility:locInfos a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:LocationInfo .
 
 TS29520_Nnwdaf_EventsSubscription_UeMobility:ts a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UeMobility ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_UserDataCongestionInfo:congestionInfo a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:CongestionInfo .
 
 TS29520_Nnwdaf_EventsSubscription_UserDataCongestionInfo:snssai a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:UserDataCongestionInfo ;
+    rdfs:range TS29571_CommonData:Snssai .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerSsIdPerformanceInfo:ssId a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerSsIdPerformanceInfo ;
@@ -1331,27 +1475,32 @@ TS29520_Nnwdaf_EventsSubscription_WlanPerSsIdPerformanceInfo:wlanPerTsInfos a rd
     rdfs:range TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:confidence a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:numberOfUes a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:rssi a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
     rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:rtt a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:trafficInfo a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
     rdfs:range TS29520_Nnwdaf_EventsSubscription:TrafficInformation .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:tsDuration a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
+    rdfs:range xsd:integer .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerTsPerformanceInfo:tsStart a rdf:Property ;
-    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo .
+    rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerTsPerformanceInfo ;
+    rdfs:range xsd:dateTime .
 
 TS29520_Nnwdaf_EventsSubscription_WlanPerformanceInfo:wlanPerSsidInfos a rdf:Property ;
     rdfs:domain TS29520_Nnwdaf_EventsSubscription:WlanPerformanceInfo ;

@@ -38,117 +38,135 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
+    sh:class TS28623_GenericNrm:ManagedFunction-ncO,
+        TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:cancelRequest ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:suspendRequest ],
-                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                                    sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:requestStatus ],
+                                    sh:path TS28105_AiMlNrm:activationStatus ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelToLoadRef ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
+                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:managedActivationScope ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:usedByFunctionRefList ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLModelLoadingRequest-Single ;
+                    sh:path TS28105_AiMlNrm:MLModelLoadingRequest ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLModelLoadingPolicy-Single ;
+                    sh:path TS28105_AiMlNrm:MLModelLoadingPolicy ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLModelLoadingProcess-Single ;
+                    sh:path TS28105_AiMlNrm:MLModelLoadingProcess ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:AIMLInferenceReport-Single ;
+                    sh:path TS28105_AiMlNrm:AIMLInferenceReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLModel-Single ;
+                    sh:path TS28105_AiMlNrm:MLModel ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceReport-Single ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:AIMLInferenceReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingRequest-Single ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModelLoadingRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingProcess-Single ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModelLoadingProcess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelLoadingPolicy-Single ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModelLoadingPolicy ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModel-Single ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                            sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:requestStatus ],
+                            sh:path TS28105_AiMlNrm:activationStatus ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:suspendRequest ],
+                            sh:path TS28105_AiMlNrm:mLModelRefList ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
+                            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:cancelRequest ],
+                            sh:path TS28105_AiMlNrm:managedActivationScope ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelToLoadRef ] ] ;
-            sh:path TS28105_AiMlNrm_MLModelLoadingRequest-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest-Single .
+                            sh:path TS28105_AiMlNrm:usedByFunctionRefList ] ] ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLUpdateProcess-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateFunction-Single ;
+            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLUpdateFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelRepository-Single ;
+            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLModelRepository ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingFunction-Single ;
+            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLTestingFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceFunction-Single ;
+            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:AIMLInferenceFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Single ;
+            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:AIMLInferenceEmulationFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingFunction-Single ;
+            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLTrainingFunction ] ;
+    sh:targetClass TS28105_AiMlNrm:SubNetwork-ncO-AiMlNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingReport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLModelLoadingPolicy-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Single ;
     sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Multiple .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_ModelPerformance:performanceScore ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_ModelPerformance:performanceMetric ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_ModelPerformance:inferenceOutputName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_ModelPerformance:decisionConfidenceScore ] ;
-    sh:targetClass TS28105_AiMlNrm:ModelPerformance .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:InferenceOutput ;
-                                    sh:minCount 1 ;
-                                    sh:path TS28105_AiMlNrm:inferenceOutputs ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:InferenceOutput ;
-                            sh:minCount 1 ;
-                            sh:path TS28105_AiMlNrm:inferenceOutputs ] ] ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceReport-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:AIMLInferenceFunction-Single ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTrainingProcess-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess-Multiple .
+    sh:class TS28105_AiMlNrm:MLTrainingRequest-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:ManagedFunction-ncO,
         TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLTrainingRequest-Single ;
+                    sh:path TS28105_AiMlNrm:MLTrainingRequest ],
+                [ a sh:PropertyShape ;
                     sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
                     sh:path TS28105_AiMlNrm:MLTestingReport ],
                 [ a sh:PropertyShape ;
@@ -157,9 +175,6 @@
                 [ a sh:PropertyShape ;
                     sh:maxCount 1 ;
                     sh:path TS28105_AiMlNrm:ThresholdMonitors ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLTrainingRequest-Single ;
-                    sh:path TS28105_AiMlNrm:MLTrainingRequest ],
                 [ a sh:PropertyShape ;
                     sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
                     sh:path TS28105_AiMlNrm:MLTestingRequest ],
@@ -177,14 +192,17 @@
                                     sh:path TS28105_AiMlNrm:mLModelRepositoryRef ] ] ;
                     sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingRequest-Single ;
-            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTrainingRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
-            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTestingRequest ],
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:ThresholdMonitors ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
             sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTestingReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingReport-Single ;
+            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTrainingReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
+            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTestingRequest ],
         [ a sh:PropertyShape ;
             sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
             sh:maxCount 1 ;
@@ -195,71 +213,46 @@
                             sh:path TS28105_AiMlNrm:mLModelRepositoryRef ] ] ;
             sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:attributes ],
         [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingReport-Single ;
-            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTrainingReport ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:ThresholdMonitors ],
+            sh:class TS28105_AiMlNrm:MLTrainingRequest-Single ;
+            sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTrainingRequest ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLTrainingProcess-Single ;
             sh:path TS28105_AiMlNrm_MLTrainingFunction-Single:MLTrainingProcess ] ;
     sh:targetClass TS28105_AiMlNrm:MLTrainingFunction-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLModelRepository-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLModelRepository-Multiple .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:mLModelRef ],
+            sh:path TS28105_AiMlNrm_InferenceOutput:outputResult ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:path TS28105_AiMlNrm_InferenceOutput:inferenceOutputTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm_InferenceOutput:inferenceOutputId ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:availMLCapabilityReportID ],
+            sh:path TS28105_AiMlNrm_InferenceOutput:aIMLInferenceName ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:ModelPerformance ;
-            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:expectedPerformanceGains ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:mLCapabilityVersionId ] ;
-    sh:targetClass TS28105_AiMlNrm:AvailMLCapabilityReport .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTrainingReport-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingReport-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTestingFunction-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingFunction-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingFunction-Single ;
-            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLTrainingFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Single ;
-            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:AIMLInferenceEmulationFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceFunction-Single ;
-            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:AIMLInferenceFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateFunction-Single ;
-            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLUpdateFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelRepository-Single ;
-            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLModelRepository ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingFunction-Single ;
-            sh:path TS28105_AiMlNrm_SubNetwork-ncO-AiMlNrm:MLTestingFunction ] ;
-    sh:targetClass TS28105_AiMlNrm:SubNetwork-ncO-AiMlNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_ProcessMonitor:status ],
+            sh:path TS28105_AiMlNrm_InferenceOutput:inferencePerformance ] ;
+    sh:targetClass TS28105_AiMlNrm:InferenceOutput .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+    sh:targetClass TS28105_AiMlNrm:RequestStatus .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28105_AiMlNrm_ProcessMonitor:progressPercentage ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
@@ -269,114 +262,39 @@
             sh:maxCount 1 ;
             sh:path TS28105_AiMlNrm_ProcessMonitor:progressStateInfo ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28105_AiMlNrm_ProcessMonitor:progressPercentage ] ;
+            sh:path TS28105_AiMlNrm_ProcessMonitor:status ] ;
     sh:targetClass TS28105_AiMlNrm:ProcessMonitor .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceFunction-Single ;
-            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:AIMLInferenceFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Single ;
-            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:AIMLInferenceEmulationFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingFunction-Single ;
-            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLTestingFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTrainingFunction-Single ;
-            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLTrainingFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateFunction-Single ;
-            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLUpdateFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelRepository-Single ;
-            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLModelRepository ] ;
-    sh:targetClass TS28105_AiMlNrm:ManagedElement-ncO-AiMlNrm .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction-ncO,
-        TS28623_GenericNrm:Top ;
+    sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:managedActivationScope ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:activationStatus ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:AIMLInferenceReport-Single ;
-                    sh:path TS28105_AiMlNrm:AIMLInferenceReport ],
-                [ a sh:PropertyShape ;
                     sh:class TS28105_AiMlNrm:MLModel-Single ;
                     sh:path TS28105_AiMlNrm:MLModel ],
                 [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLModelLoadingProcess-Single ;
-                    sh:path TS28105_AiMlNrm:MLModelLoadingProcess ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLModelLoadingPolicy-Single ;
-                    sh:path TS28105_AiMlNrm:MLModelLoadingPolicy ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLModelLoadingRequest-Single ;
-                    sh:path TS28105_AiMlNrm:MLModelLoadingRequest ] ] ;
+                    sh:class TS28105_AiMlNrm:MLModelCoordinationGroup-Single ;
+                    sh:path TS28105_AiMlNrm:MLModelCoordinationGroup ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelLoadingRequest-Single ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModelLoadingRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelLoadingProcess-Single ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModelLoadingProcess ],
+            sh:class TS28105_AiMlNrm:MLModelCoordinationGroup-Single ;
+            sh:path TS28105_AiMlNrm_MLModelRepository-Single:MLModelCoordinationGroup ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLModel-Single ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:activationStatus ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:managedActivationScope ] ] ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:attributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelLoadingPolicy-Single ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:MLModelLoadingPolicy ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:AIMLInferenceReport-Single ;
-            sh:path TS28105_AiMlNrm_AIMLInferenceFunction-Single:AIMLInferenceReport ] ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction-Single .
+            sh:path TS28105_AiMlNrm_MLModelRepository-Single:MLModel ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelRepository-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLModelLoadingProcess-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingRequest-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:AIMLInferenceFunction-Single ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceFunction-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -385,133 +303,243 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
+                                    sh:class TS28105_AiMlNrm:MLContext ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:suspendRequest ],
+                                    sh:path TS28105_AiMlNrm:trainingContext ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:SupportedPerfIndicator ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:supportedPerformanceIndicators ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:requestStatus ],
+                                    sh:path TS28105_AiMlNrm:aIMLInferenceName ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
+                                    sh:class TS28105_AiMlNrm:MLContext ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:cancelRequest ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:updateTimeDeadline ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:endTime ],
-                                                    [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:endTime ] ] ) ],
+                                    sh:path TS28105_AiMlNrm:expectedRunTimeContext ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:path TS28105_AiMlNrm:newCapabilityVersionId ],
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelId ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:MLCapabilityInfo ;
+                                    sh:path TS28105_AiMlNrm:mLCapabilitiesInfoList ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:MLContext ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:runTimeContext ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelVersion ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLUpdateReportingPeriod ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:startTime ],
-                                                    [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:endTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28105_AiMlNrm:endTime ] ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
-                                    sh:path TS28105_AiMlNrm:performanceGainThreshold ],
+                                    sh:path TS28105_AiMlNrm:aIMLInferenceReportRefList ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLUpdateProcessRef ] ] ;
+                                    sh:path TS28105_AiMlNrm:retrainingEventsMonitorRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:sourceTrainedMLModelRef ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:usedByFunctionRefList ] ] ;
                     sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLUpdateReportingPeriod ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:endTime ],
-                                            [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:endTime ] ] ) ],
+                            sh:path TS28105_AiMlNrm:aIMLInferenceReportRefList ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:requestStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:suspendRequest ],
+                            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRefList ],
+                            sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:sourceTrainedMLModelRef ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:MLCapabilityInfo ;
+                            sh:path TS28105_AiMlNrm:mLCapabilitiesInfoList ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:MLContext ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:runTimeContext ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelVersion ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:MLContext ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:expectedRunTimeContext ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelId ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:retrainingEventsMonitorRef ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:SupportedPerfIndicator ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:supportedPerformanceIndicators ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:MLContext ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:trainingContext ] ] ;
+            sh:path TS28105_AiMlNrm_MLModel-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModel-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLUpdateReport-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateReport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:trainingRequestRef ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
+                                    sh:path TS28105_AiMlNrm:modelPerformanceValidation ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:trainingProcessRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
+                                    sh:path TS28105_AiMlNrm:modelPerformanceTraining ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:dataRatioTrainingAndValidation ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:path TS28105_AiMlNrm:usedConsumerTrainingData ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:lastTrainingRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelCoordinationGroupGeneratedRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:modelConfidenceIndication ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:areNewTrainingDataUsed ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:trainingProcessRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28105_AiMlNrm:usedConsumerTrainingData ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:cancelRequest ],
+                            sh:path TS28105_AiMlNrm:areNewTrainingDataUsed ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRef ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:trainingRequestRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:dataRatioTrainingAndValidation ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:lastTrainingRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupGeneratedRef ],
                         [ a sh:PropertyShape ;
                             sh:class TS28105_AiMlNrm:ModelPerformance ;
-                            sh:path TS28105_AiMlNrm:performanceGainThreshold ],
+                            sh:path TS28105_AiMlNrm:modelPerformanceValidation ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28105_AiMlNrm:newCapabilityVersionId ],
+                            sh:class TS28105_AiMlNrm:ModelPerformance ;
+                            sh:path TS28105_AiMlNrm:modelPerformanceTraining ],
                         [ a sh:PropertyShape ;
-                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:datatype xsd:integer ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:updateTimeDeadline ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:startTime ],
-                                            [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:endTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28105_AiMlNrm:endTime ] ] ) ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLUpdateProcessRef ] ] ;
-            sh:path TS28105_AiMlNrm_MLUpdateRequest-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest-Single .
+                            sh:path TS28105_AiMlNrm:modelConfidenceIndication ] ] ;
+            sh:path TS28105_AiMlNrm_MLTrainingReport-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingReport-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLTestingFunction-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingFunction-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:AIMLInferenceReport-Single ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_ModelPerformance:performanceScore ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_ModelPerformance:decisionConfidenceScore ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_ModelPerformance:performanceMetric ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_ModelPerformance:inferenceOutputName ] ;
+    sh:targetClass TS28105_AiMlNrm:ModelPerformance .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLModelCoordinationGroup-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:ManagedFunction-ncO,
@@ -536,107 +564,25 @@
     sh:targetClass TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:lastTrainingRef ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelCoordinationGroupGeneratedRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:modelConfidenceIndication ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
-                                    sh:path TS28105_AiMlNrm:modelPerformanceValidation ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:trainingProcessRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:dataRatioTrainingAndValidation ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:trainingRequestRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:areNewTrainingDataUsed ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:path TS28105_AiMlNrm:usedConsumerTrainingData ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
-                                    sh:path TS28105_AiMlNrm:modelPerformanceTraining ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:lastTrainingRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:dataRatioTrainingAndValidation ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupGeneratedRef ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:ModelPerformance ;
-                            sh:path TS28105_AiMlNrm:modelPerformanceValidation ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:trainingProcessRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:modelConfidenceIndication ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:trainingRequestRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28105_AiMlNrm:usedConsumerTrainingData ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:areNewTrainingDataUsed ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:ModelPerformance ;
-                            sh:path TS28105_AiMlNrm:modelPerformanceTraining ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ] ] ;
-            sh:path TS28105_AiMlNrm_MLTrainingReport-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingReport-Single .
+            sh:class TS28105_AiMlNrm:MLTestingFunction-Single ;
+            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLTestingFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTrainingFunction-Single ;
+            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLTrainingFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceEmulationFunction-Single ;
+            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:AIMLInferenceEmulationFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLModelRepository-Single ;
+            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLModelRepository ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:AIMLInferenceFunction-Single ;
+            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:AIMLInferenceFunction ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateFunction-Single ;
+            sh:path TS28105_AiMlNrm_ManagedElement-ncO-AiMlNrm:MLUpdateFunction ] ;
+    sh:targetClass TS28105_AiMlNrm:ManagedElement-ncO-AiMlNrm .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -646,24 +592,39 @@
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
                                     sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:requestStatus ],
                                 [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:MLContext ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:expectedRuntimeContext ],
+                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:path TS28105_AiMlNrm:candidateTrainingDataSource ],
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:trainingRequestSource ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:suspendRequest ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:boolean ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:cancelRequest ],
                                 [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:MLContext ;
+                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
+                                    sh:path TS28105_AiMlNrm:performanceRequirements ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:expectedRuntimeContext ],
+                                    sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:path TS28105_AiMlNrm:candidateTrainingDataSource ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:float ;
                                     sh:maxCount 1 ;
@@ -671,22 +632,7 @@
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
-                                    sh:path TS28105_AiMlNrm:performanceRequirements ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:suspendRequest ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:trainingRequestSource ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:aIMLInferenceName ] ] ;
+                                    sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ] ] ;
                     sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -694,46 +640,46 @@
                     sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:MLContext ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:expectedRuntimeContext ],
+                            sh:path TS28105_AiMlNrm:trainingRequestSource ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:cancelRequest ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:trainingRequestSource ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:requestStatus ],
-                        [ a sh:PropertyShape ;
                             sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:suspendRequest ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:ModelPerformance ;
+                            sh:path TS28105_AiMlNrm:performanceRequirements ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:aIMLInferenceName ],
                         [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:ModelPerformance ;
-                            sh:path TS28105_AiMlNrm:performanceRequirements ],
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRef ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:float ;
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:trainingDataQualityScore ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
+                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:requestStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
                             sh:path TS28105_AiMlNrm:candidateTrainingDataSource ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ] ] ;
+                            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:MLContext ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:expectedRuntimeContext ] ] ;
             sh:path TS28105_AiMlNrm_MLTrainingRequest-Single:attributes ] ;
     sh:targetClass TS28105_AiMlNrm:MLTrainingRequest-Single .
 
@@ -744,17 +690,9 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:policyForLoading ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-                                [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRef ] ] ;
+                                    sh:path TS28105_AiMlNrm:memberMLModelRefList ] ] ;
                     sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -762,17 +700,9 @@
                     sh:property [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:policyForLoading ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:aIMLInferenceName ] ] ;
-            sh:path TS28105_AiMlNrm_MLModelLoadingPolicy-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy-Single .
+                            sh:path TS28105_AiMlNrm:memberMLModelRefList ] ] ;
+            sh:path TS28105_AiMlNrm_MLModelCoordinationGroup-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup-Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -781,18 +711,6 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:trainingReportRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:priority ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
-                                [ a sh:PropertyShape ;
                                     sh:class TS28105_AiMlNrm:ProcessMonitor ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:progressStatus ],
@@ -801,17 +719,29 @@
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:terminationConditions ],
                                 [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:datatype xsd:integer ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:trainingRequestRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:suspendProcess ],
+                                    sh:path TS28105_AiMlNrm:priority ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:boolean ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:cancelProcess ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:trainingRequestRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:trainingReportRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:suspendProcess ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
@@ -821,90 +751,9 @@
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:terminationConditions ],
-                        [ a sh:PropertyShape ;
                             sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:cancelProcess ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRef ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:trainingRequestRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:priority ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:ProcessMonitor ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:progressStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:trainingReportRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:suspendProcess ] ] ;
-            sh:path TS28105_AiMlNrm_MLTrainingProcess-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLUpdateReportRef ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:ProcessMonitor ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:progressStatus ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:suspendProcess ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:cancelProcess ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLUpdateRequestRefList ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:cancelProcess ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLUpdateReportRef ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLUpdateRequestRefList ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;
@@ -914,40 +763,97 @@
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:progressStatus ],
                         [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelGeneratedRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:terminationConditions ],
+                        [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRefList ] ] ;
-            sh:path TS28105_AiMlNrm_MLUpdateProcess-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess-Single .
+                            sh:path TS28105_AiMlNrm:trainingRequestRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:priority ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:trainingReportRef ] ] ;
+            sh:path TS28105_AiMlNrm_MLTrainingProcess-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLModelLoadingPolicy-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy-Multiple .
+    sh:class TS28105_AiMlNrm:MLModel-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLModel-Multiple .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_MLContext:inferenceModelRef ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_MLContext:dataProviderRef ] ;
+    sh:targetClass TS28105_AiMlNrm:MLContext .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:ManagedFunction-ncO,
+        TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLModel-Single ;
-                    sh:path TS28105_AiMlNrm:MLModel ],
+                    sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:availMLCapabilityReport ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLUpdateReport-Single ;
+                    sh:path TS28105_AiMlNrm:MLUpdateReport ],
                 [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLModelCoordinationGroup-Single ;
-                    sh:path TS28105_AiMlNrm:MLModelCoordinationGroup ] ] ;
+                    sh:class TS28105_AiMlNrm:MLUpdateRequest-Single ;
+                    sh:path TS28105_AiMlNrm:MLUpdateRequest ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28105_AiMlNrm:MLUpdateProcess-Single ;
+                    sh:path TS28105_AiMlNrm:MLUpdateProcess ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModel-Single ;
-            sh:path TS28105_AiMlNrm_MLModelRepository-Single:MLModel ],
+            sh:class TS28105_AiMlNrm:MLUpdateProcess-Single ;
+            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:MLUpdateProcess ],
         [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLModelCoordinationGroup-Single ;
-            sh:path TS28105_AiMlNrm_MLModelRepository-Single:MLModelCoordinationGroup ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelRepository-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLModelCoordinationGroup-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLModelLoadingProcess-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess-Multiple .
+            sh:class TS28105_AiMlNrm:MLUpdateRequest-Single ;
+            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:MLUpdateRequest ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLUpdateReport-Single ;
+            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:MLUpdateReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:availMLCapabilityReport ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRef ] ] ;
+            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction-Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -983,15 +889,106 @@
     sh:targetClass TS28105_AiMlNrm:AIMLManagementPolicy .
 
 [] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:cancelProcess ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLUpdateReportRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:ProcessMonitor ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:progressStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:suspendProcess ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLUpdateRequestRefList ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_MLContext:dataProviderRef ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:ProcessMonitor ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:progressStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:cancelProcess ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLUpdateRequestRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:suspendProcess ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLUpdateReportRef ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRefList ] ] ;
+            sh:path TS28105_AiMlNrm_MLUpdateProcess-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLTrainingProcess-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingProcess-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:policyForLoading ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRef ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_MLContext:inferenceModelRef ] ;
-    sh:targetClass TS28105_AiMlNrm:MLContext .
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRef ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:AIMLManagementPolicy ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:policyForLoading ] ] ;
+            sh:path TS28105_AiMlNrm_MLModelLoadingPolicy-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingPolicy-Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:ManagedFunction-ncO,
@@ -1014,6 +1011,9 @@
                     sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
                     sh:path TS28105_AiMlNrm:MLTestingReport ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
+            sh:path TS28105_AiMlNrm_MLTestingFunction-Single:MLTestingRequest ],
+        [ a sh:PropertyShape ;
             sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
@@ -1024,247 +1024,72 @@
             sh:path TS28105_AiMlNrm_MLTestingFunction-Single:attributes ],
         [ a sh:PropertyShape ;
             sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
-            sh:path TS28105_AiMlNrm_MLTestingFunction-Single:MLTestingReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
-            sh:path TS28105_AiMlNrm_MLTestingFunction-Single:MLTestingRequest ] ;
+            sh:path TS28105_AiMlNrm_MLTestingFunction-Single:MLTestingReport ] ;
     sh:targetClass TS28105_AiMlNrm:MLTestingFunction-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingRequest-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLModel-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLModel-Multiple .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
-    sh:targetClass TS28105_AiMlNrm:RequestStatus .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTrainingFunction-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction-ncO,
-        TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:availMLCapabilityReport ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRef ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLUpdateReport-Single ;
-                    sh:path TS28105_AiMlNrm:MLUpdateReport ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLUpdateRequest-Single ;
-                    sh:path TS28105_AiMlNrm:MLUpdateRequest ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28105_AiMlNrm:MLUpdateProcess-Single ;
-                    sh:path TS28105_AiMlNrm:MLUpdateProcess ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateReport-Single ;
-            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:MLUpdateReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateRequest-Single ;
-            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:MLUpdateRequest ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:availMLCapabilityReport ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRef ] ] ;
-            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:attributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:MLUpdateProcess-Single ;
-            sh:path TS28105_AiMlNrm_MLUpdateFunction-Single:MLUpdateProcess ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTrainingRequest-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTrainingRequest-Multiple .
-
-[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:loadedMLModelRef ],
+                                    sh:class TS28105_AiMlNrm:ModelPerformance ;
+                                    sh:path TS28105_AiMlNrm:performanceGainThreshold ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:cancelProcess ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:suspendProcess ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:ProcessMonitor ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:progressStatus ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelLoadingRequestRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelLoadingPolicyRef ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelLoadingPolicyRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelLoadingRequestRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:cancelProcess ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:ProcessMonitor ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:progressStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:loadedMLModelRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:suspendProcess ] ] ;
-            sh:path TS28105_AiMlNrm_MLModelLoadingProcess-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLTestingRequest-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingReport-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:AIMLInferenceReport-Single ;
-    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:requestStatus ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
-                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:boolean ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:suspendRequest ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:cancelRequest ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:requestStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:cancelRequest ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:suspendRequest ] ] ;
-            sh:path TS28105_AiMlNrm_MLTestingRequest-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLTestingRequest-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLUpdateReport-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateReport-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:memberMLModelRefList ] ] ;
-                    sh:path TS28105_AiMlNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:memberMLModelRefList ] ] ;
-            sh:path TS28105_AiMlNrm_MLModelCoordinationGroup-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModelCoordinationGroup-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
                                     sh:path TS28105_AiMlNrm:mLModelRefList ],
                                 [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
+                                    sh:datatype xsd:boolean ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:updatedMLCapability ],
+                                    sh:path TS28105_AiMlNrm:cancelRequest ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:path TS28105_AiMlNrm:newCapabilityVersionId ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLUpdateReportingPeriod ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:startTime ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:endTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:endTime ] ] ) ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:updateTimeDeadline ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:endTime ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:dateTime ;
+                                                        sh:path TS28105_AiMlNrm:endTime ] ] ) ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
@@ -1282,30 +1107,151 @@
                             sh:maxCount 1 ;
                             sh:path TS28105_AiMlNrm:mLModelRefList ],
                         [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
+                            sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:updatedMLCapability ] ] ;
-            sh:path TS28105_AiMlNrm_MLUpdateReport-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateReport-Single .
+                            sh:path TS28105_AiMlNrm:suspendRequest ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLUpdateReportingPeriod ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:startTime ],
+                                            [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:endTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:endTime ] ] ) ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:updateTimeDeadline ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:endTime ],
+                                            [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:startTime ] ] [ a sh:NodeShape ;
+                                        sh:property [ a sh:PropertyShape ;
+                                                sh:datatype xsd:dateTime ;
+                                                sh:path TS28105_AiMlNrm:endTime ] ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:requestStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28105_AiMlNrm:newCapabilityVersionId ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:ModelPerformance ;
+                            sh:path TS28105_AiMlNrm:performanceGainThreshold ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:cancelRequest ] ] ;
+            sh:path TS28105_AiMlNrm_MLUpdateRequest-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest-Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_SupportedPerfIndicator:isSupportedForTraining ],
+            sh:path TS28105_AiMlNrm_MLCapabilityInfo:capabilityName ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_SupportedPerfIndicator:isSupportedForTesting ],
+            sh:path TS28105_AiMlNrm_MLCapabilityInfo:mLCapabilityParameters ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_SupportedPerfIndicator:performanceIndicatorName ] ;
-    sh:targetClass TS28105_AiMlNrm:SupportedPerfIndicator .
+            sh:path TS28105_AiMlNrm_MLCapabilityInfo:aIMLInferenceName ] ;
+    sh:targetClass TS28105_AiMlNrm:MLCapabilityInfo .
 
 [] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLUpdateFunction-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction-Multiple .
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:mLCapabilityVersionId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28105_AiMlNrm:ModelPerformance ;
+            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:expectedPerformanceGains ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:availMLCapabilityReportID ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_AvailMLCapabilityReport:mLModelRef ] ;
+    sh:targetClass TS28105_AiMlNrm:AvailMLCapabilityReport .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:cancelRequest ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:suspendRequest ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:requestStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelToLoadRef ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelToLoadRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:suspendRequest ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:cancelRequest ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:requestStatus ] ] ;
+            sh:path TS28105_AiMlNrm_MLModelLoadingRequest-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingRequest-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLTrainingReport-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingReport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLModelRepository-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLModelRepository-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLUpdateRequest-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -1316,11 +1262,11 @@
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLTestingResult ],
+                                    sh:path TS28105_AiMlNrm:testingRequestRef ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:testingRequestRef ],
+                                    sh:path TS28105_AiMlNrm:mLTestingResult ],
                                 [ a sh:PropertyShape ;
                                     sh:class TS28105_AiMlNrm:ModelPerformance ;
                                     sh:path TS28105_AiMlNrm:modelPerformanceTesting ] ] ;
@@ -1343,25 +1289,172 @@
     sh:targetClass TS28105_AiMlNrm:MLTestingReport-Single .
 
 [] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:ProcessMonitor ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:progressStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelLoadingPolicyRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:cancelProcess ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:loadedMLModelRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelLoadingRequestRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:suspendProcess ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelLoadingPolicyRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:suspendProcess ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelLoadingRequestRef ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:ProcessMonitor ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:progressStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:loadedMLModelRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:cancelProcess ] ] ;
+            sh:path TS28105_AiMlNrm_MLModelLoadingProcess-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLModelLoadingProcess-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:suspendRequest ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:cancelRequest ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:requestStatus ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:cancelRequest ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:suspendRequest ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "NOT_STARTED"^^xsd:string "IN_PROGRESS"^^xsd:string "SUSPENDED"^^xsd:string "FINISHED"^^xsd:string "CANCELLED"^^xsd:string "CANCELLING"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:requestStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelCoordinationGroupRef ] ] ;
+            sh:path TS28105_AiMlNrm_MLTestingRequest-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLTestingRequest-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLTrainingFunction-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLTrainingFunction-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28105_AiMlNrm:mLModelRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28105_AiMlNrm:InferenceOutput ;
+                                    sh:minCount 1 ;
+                                    sh:path TS28105_AiMlNrm:inferenceOutputs ] ] ;
+                    sh:path TS28105_AiMlNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:class TS28105_AiMlNrm:InferenceOutput ;
+                            sh:minCount 1 ;
+                            sh:path TS28105_AiMlNrm:inferenceOutputs ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28105_AiMlNrm:mLModelRefList ] ] ;
+            sh:path TS28105_AiMlNrm_AIMLInferenceReport-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:AIMLInferenceReport-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_SupportedPerfIndicator:isSupportedForTraining ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28105_AiMlNrm_SupportedPerfIndicator:isSupportedForTesting ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_InferenceOutput:aIMLInferenceName ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_InferenceOutput:outputResult ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:path TS28105_AiMlNrm_InferenceOutput:inferenceOutputTime ],
-        [ a sh:PropertyShape ;
-            sh:class TS28105_AiMlNrm:ModelPerformance ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_InferenceOutput:inferencePerformance ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28105_AiMlNrm_InferenceOutput:inferenceOutputId ] ;
-    sh:targetClass TS28105_AiMlNrm:InferenceOutput .
+            sh:path TS28105_AiMlNrm_SupportedPerfIndicator:performanceIndicatorName ] ;
+    sh:targetClass TS28105_AiMlNrm:SupportedPerfIndicator .
+
+[] a sh:NodeShape ;
+    sh:class TS28105_AiMlNrm:MLUpdateFunction-Single ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateFunction-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28105_AiMlNrm:MLModelLoadingRequest-Single ;
@@ -1374,52 +1467,17 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:MLContext ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:trainingContext ],
-                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:sourceTrainedMLModelRef ],
+                                    sh:path TS28105_AiMlNrm:mLUpdateProcessRef ],
                                 [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:MLCapabilityInfo ;
-                                    sh:path TS28105_AiMlNrm:mLCapabilitiesInfoList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:MLContext ;
+                                    sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:expectedRunTimeContext ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:MLContext ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:runTimeContext ],
+                                    sh:path TS28105_AiMlNrm:updatedMLCapability ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:aIMLInferenceReportRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelId ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28105_AiMlNrm:SupportedPerfIndicator ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:supportedPerformanceIndicators ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:mLModelVersion ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28105_AiMlNrm:retrainingEventsMonitorRef ] ] ;
+                                    sh:path TS28105_AiMlNrm:mLModelRefList ] ] ;
                     sh:path TS28105_AiMlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -1427,73 +1485,15 @@
                     sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelId ],
+                            sh:path TS28105_AiMlNrm:mLUpdateProcessRef ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
+                            sh:class TS28105_AiMlNrm:AvailMLCapabilityReport ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:sourceTrainedMLModelRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:MLContext ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:expectedRunTimeContext ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:MLContext ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:trainingContext ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:aIMLInferenceName ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:mLModelVersion ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:MLContext ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:runTimeContext ],
+                            sh:path TS28105_AiMlNrm:updatedMLCapability ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:aIMLInferenceReportRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:SupportedPerfIndicator ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:supportedPerformanceIndicators ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:usedByFunctionRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28105_AiMlNrm:retrainingEventsMonitorRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28105_AiMlNrm:MLCapabilityInfo ;
-                            sh:path TS28105_AiMlNrm:mLCapabilitiesInfoList ] ] ;
-            sh:path TS28105_AiMlNrm_MLModel-Single:attributes ] ;
-    sh:targetClass TS28105_AiMlNrm:MLModel-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLUpdateProcess-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateProcess-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_MLCapabilityInfo:mLCapabilityParameters ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_MLCapabilityInfo:capabilityName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28105_AiMlNrm_MLCapabilityInfo:aIMLInferenceName ] ;
-    sh:targetClass TS28105_AiMlNrm:MLCapabilityInfo .
-
-[] a sh:NodeShape ;
-    sh:class TS28105_AiMlNrm:MLUpdateRequest-Single ;
-    sh:targetClass TS28105_AiMlNrm:MLUpdateRequest-Multiple .
+                            sh:path TS28105_AiMlNrm:mLModelRefList ] ] ;
+            sh:path TS28105_AiMlNrm_MLUpdateReport-Single:attributes ] ;
+    sh:targetClass TS28105_AiMlNrm:MLUpdateReport-Single .
 
