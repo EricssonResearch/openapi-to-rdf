@@ -107,6 +107,41 @@ def test_no_property_carries_two_ranges(converted: dict[str, tuple[Graph, Graph]
     )
 
 
+def test_no_property_carries_two_domains(converted: dict[str, tuple[Graph, Graph]]) -> None:
+    """A property's `rdfs:domain` is its DECLARING class, exactly once.
+
+    `rdfs:domain` is conjunctive under RDFS entailment (W3C Recommendation): two domains assert the
+    subject instantiates BOTH classes. So a property restated by several subclasses must not collect
+    a domain per subclass — subclasses inherit the domain through `rdfs:subClassOf`, which this
+    converter emits.
+
+    The regression this pins, measured 2026-09-21: `Addressable#href` carried **12** domains and
+    `Event#event` carried **25**, so every node with an `href` was entailed to be simultaneously an
+    Addressable, an EntityRef, a GeographicLocation, a PolicyRef and a ServiceOrder. **28 of 2,895
+    TM Forum properties (1.0%) against 0 of 3,622 on 3GPP**, because 3GPP does not restate inherited
+    fields — so no 3GPP test could ever have caught it.
+    """
+    offenders: dict[str, dict[str, int]] = {}
+    ranged = 0
+    for stem, (vocabulary, _shapes) in converted.items():
+        per: dict[URIRef, set] = collections.defaultdict(set)
+        for subject, target in vocabulary.subject_objects(RDFS.domain):
+            per[subject].add(target)
+        ranged += len(per)
+        multi = {str(p): len(d) for p, d in per.items() if len(d) > 1}
+        if multi:
+            offenders[stem] = multi
+
+    assert ranged > 500, (
+        f"only {ranged} properties had any rdfs:domain — the graphs probably did not load, so a "
+        "clean result here means nothing"
+    )
+    assert offenders == {}, (
+        f"{sum(len(v) for v in offenders.values())} properties carry multiple rdfs:domain across "
+        f"{ranged} ranged properties: {offenders}"
+    )
+
+
 def test_one_nodeshape_per_class(converted: dict[str, tuple[Graph, Graph]]) -> None:
     """Defect O2: `allOf` was processed twice, giving 630 excess NodeShapes on 3GPP (+36%).
 

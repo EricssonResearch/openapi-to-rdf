@@ -1355,10 +1355,31 @@ class OpenAPIToSHACLConverter:
         # Create property with proper type in RDF graph
         self.rdf_graph.add((predicate_uri, RDF.type, prop_type))
 
-        # Single rdfs:domain per property — guaranteed because the URI is
-        # class-scoped and therefore unique to this (class, property) pair.
+        # Single `rdfs:domain` per property, and the domain is the DECLARING class — not the class
+        # currently being walked.
+        #
+        # The previous comment here claimed one domain was "guaranteed because the URI is
+        # class-scoped and therefore unique to this (class, property) pair". That was false in the
+        # same way the `rdfs:range` comment below was false. Class-scoping makes the IRI unique per
+        # *declaring* class, so when TM Forum restates an inherited field, this line is reached once
+        # per restating subclass with the SAME `predicate_uri` and a DIFFERENT `domain_class` —
+        # and `Graph.add` is a set insert, so every one of them stuck.
+        #
+        # Measured 2026-09-21: `Addressable#href` carried 12 `rdfs:domain` values and `Event#event`
+        # carried 25. Under RDFS entailment (W3C Recommendation) multiple domains are conjunctive,
+        # so that asserted every node with an `href` was simultaneously an Addressable, an
+        # EntityRef, a GeographicLocation, a PolicyRef and a ServiceOrder. A false axiom about the
+        # SUBJECT, which is worse than a false range about the value.
+        #
+        # 28 of 2,895 TM Forum properties (1.0%) against **0 of 3,622 on 3GPP**, because 3GPP does
+        # not restate inherited fields. Third defect this session whose sample could not reach it
+        # from the 3GPP corpus alone; see AC-8 in the consolidation spec for why that matters.
+        #
+        # `declaring_class` is what the IRI was minted under, so it is the only correct domain.
+        # Subclasses inherit it through the `rdfs:subClassOf` edges this converter already emits —
+        # asserting it again per subclass adds nothing and entails something false.
         if domain_class is not None:
-            self.rdf_graph.add((predicate_uri, RDFS.domain, domain_class))
+            self.rdf_graph.add((predicate_uri, RDFS.domain, declaring_class))
 
         # Per RDF Schema (W3C Recommendation), rdfs:range propagates under
         # entailment rather than validating. An invented range is not a loose
