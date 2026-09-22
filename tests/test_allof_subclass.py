@@ -206,3 +206,50 @@ def test_allof_still_emits_shacl_constraints():
         # Some form of class-relation constraint should still be present.
         assert ("sh:class" in shacl_ttl or "sh:and" in shacl_ttl), \
             "SHACL should still emit class-relation constraints from allOf"
+
+def test_inline_allof_member_without_type_still_contributes_its_properties():
+    """`properties` alone is enough — `type: object` is not required to merge a member.
+
+    JSON Schema does not require `type: object` for a `properties` block to constrain an object, and
+    OAS 3.x inherits that. The emitter used to gate on `item.get("type") == "object"`, so a member
+    omitting the keyword had every one of its properties silently dropped — the class was still
+    emitted, just empty.
+
+    Measured on TMF641: of 156 inline `allOf` members carrying properties, **154 declared `type` and
+    exactly 2 did not** (`Hub`, `Hub_FVO`), and those 2 were the only schemas emitting a class with no
+    properties. They cost `Hub/callback` and `Hub/query`, the last two fatal findings of
+    `snm-api-native`'s migration gate. On the 3GPP corpus **0 of 309** such members omit `type`, so no
+    3GPP test could have caught this.
+
+    Synthetic rather than corpus-driven so it runs without the TM Forum documents, and asserts the
+    parent's property too — a fix that merged the typeless member but broke `$ref` inheritance would
+    otherwise pass.
+    """
+    spec = {
+        "openapi": "3.0.0",
+        "info": {"title": "Typeless", "version": "1.0"},
+        "paths": {},
+        "components": {
+            "schemas": {
+                "Base": {"type": "object", "properties": {"id": {"type": "string"}}},
+                "Listener": {
+                    "type": "object",
+                    "allOf": [
+                        {"$ref": "#/components/schemas/Base"},
+                        # No `type` here. This is the shape that was dropped.
+                        {"properties": {"callback": {"type": "string"}}, "required": ["callback"]},
+                    ],
+                },
+            }
+        },
+    }
+    graph, class_ns = _run(spec)
+    listener = class_ns["Listener"] if class_ns else None
+    assert listener is not None, "Listener class namespace not found"
+    names = {str(p).rstrip("/").rsplit("/", 1)[-1] for p in graph.subjects(RDFS.domain, listener)}
+    assert "callback" in names, (
+        f"the typeless inline allOf member's property was dropped; Listener has {sorted(names)}"
+    )
+    assert (listener, RDFS.subClassOf, class_ns["Base"]) in graph, (
+        "merging the typeless member must not break $ref inheritance"
+    )

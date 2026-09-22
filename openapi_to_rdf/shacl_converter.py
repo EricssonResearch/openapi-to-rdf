@@ -1020,7 +1020,26 @@ class OpenAPIToSHACLConverter:
                     self.rdf_graph.add((subject, RDFS.subClassOf, parent_uri))
                 continue
             # Case 2: inline object — merge properties onto the subject.
-            if item.get("type") == "object":
+            #
+            # `properties` alone is enough: JSON Schema does not require `type: object` for a
+            # `properties` block to constrain an object, and OAS 3.x inherits that. Requiring the
+            # keyword silently dropped every property of any member that omitted it.
+            #
+            # Measured on TMF641: of the 156 inline `allOf` members carrying properties, **154
+            # declare `type` and exactly 2 do not — `Hub` and `Hub_FVO`** — and those 2 were
+            # precisely the schemas that emitted a class with no properties at all, losing
+            # `Hub/callback` and `Hub/query`. They were the last two fatal findings of
+            # `snm-api-native`'s migration gate.
+            #
+            # `mapping.py::_declared_properties` already collects from every member with no such
+            # gate, so this emitter was the only side disagreeing — the Mapping spine had the
+            # properties all along and the TTL projection dropped them. The two are supposed to
+            # agree; the declaring-class guard between them compares attribution, not presence,
+            # which is why nothing caught it.
+            #
+            # `or "properties" in item` mirrors the idiom this codebase already uses for arrays
+            # (`spec.get("type") == "array" or "items" in spec`, mapping.py).
+            if item.get("type") == "object" or isinstance(item.get("properties"), dict):
                 properties = item.get("properties")
                 if isinstance(properties, dict):
                     required_props = item.get("required", []) or []
