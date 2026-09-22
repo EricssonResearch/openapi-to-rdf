@@ -1,22 +1,22 @@
 @prefix TS29571_CommonData: <https://example.org/TS29571_CommonData/> .
-@prefix ns1: <https://example.org/TS29571_CommonData/PlmnId#> .
-@prefix ns2: <https://example.org/TS29571_CommonData/Tai#> .
-@prefix ns3: <https://example.org/TS29571_CommonData/EutraLocation#> .
-@prefix ns4: <https://example.org/TS29571_CommonData/GNbId#> .
-@prefix ns5: <https://example.org/TS29571_CommonData/Ecgi#> .
+@prefix ns1: <https://example.org/TS29571_CommonData/Tai/> .
+@prefix ns2: <https://example.org/TS29571_CommonData/EutraLocation/> .
+@prefix ns3: <https://example.org/TS29571_CommonData/PlmnId/> .
+@prefix ns4: <https://example.org/TS29571_CommonData/GNbId/> .
+@prefix ns5: <https://example.org/TS29571_CommonData/Ecgi/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:EutraLocation ;
-    ns3:ageOfLocationInformation -1 ;
-    ns3:ecgi [ a TS29571_CommonData:Ecgi ;
+    ns2:ageOfLocationInformation -1 ;
+    ns2:ecgi [ a TS29571_CommonData:Ecgi ;
             ns5:eutraCellId "AFaf09A"^^xsd:string ;
             ns5:nid "AFaf09AFaf0"^^xsd:string ;
             ns5:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ] ;
-    ns3:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
-    ns3:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
-    ns3:globalENbId [ a TS29571_CommonData:GlobalRanNodeId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ] ;
+    ns2:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
+    ns2:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
+    ns2:globalENbId [ a TS29571_CommonData:GlobalRanNodeId ;
             TS29571_CommonData:eNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:gNbId [ a TS29571_CommonData:GNbId ;
                     ns4:bitLength 27 ;
@@ -25,11 +25,11 @@ TS29571_CommonData:test_instance a TS29571_CommonData:EutraLocation ;
             TS29571_CommonData:ngeNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:nid "AFaf09AFaf0"^^xsd:string ;
             TS29571_CommonData:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ;
             TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
             TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
-    ns3:globalNgenbId [ a TS29571_CommonData:GlobalRanNodeId ;
+    ns2:globalNgenbId [ a TS29571_CommonData:GlobalRanNodeId ;
             TS29571_CommonData:eNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:gNbId [ a TS29571_CommonData:GNbId ;
                     ns4:bitLength 27 ;
@@ -38,17 +38,17 @@ TS29571_CommonData:test_instance a TS29571_CommonData:EutraLocation ;
             TS29571_CommonData:ngeNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:nid "AFaf09AFaf0"^^xsd:string ;
             TS29571_CommonData:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ;
             TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
             TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
-    ns3:ignoreEcgi true ;
-    ns3:ignoreTai true ;
-    ns3:tai [ a TS29571_CommonData:Tai ;
-            ns2:nid "AFaf09AFaf0"^^xsd:string ;
-            ns2:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ;
-            ns2:tac "aaaa"^^xsd:string ] ;
-    ns3:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
+    ns2:ignoreEcgi true ;
+    ns2:ignoreTai true ;
+    ns2:tai [ a TS29571_CommonData:Tai ;
+            ns1:nid "AFaf09AFaf0"^^xsd:string ;
+            ns1:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ;
+            ns1:tac "aaaa"^^xsd:string ] ;
+    ns2:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
 

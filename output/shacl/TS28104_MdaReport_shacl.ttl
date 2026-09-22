@@ -1,8 +1,8 @@
 @prefix TS28104_MdaReport: <https://example.org/TS28104_MdaReport/> .
-@prefix TS28104_MdaReport_MDAOutputEntry: <https://example.org/TS28104_MdaReport/MDAOutputEntry#> .
-@prefix TS28104_MdaReport_MDAOutputs: <https://example.org/TS28104_MdaReport/MDAOutputs#> .
-@prefix TS28104_MdaReport_MDAReport: <https://example.org/TS28104_MdaReport/MDAReport#> .
-@prefix TS28104_MdaReport_TimeWindow: <https://example.org/TS28104_MdaReport/TimeWindow#> .
+@prefix TS28104_MdaReport_MDAOutputEntry: <https://example.org/TS28104_MdaReport/MDAOutputEntry/> .
+@prefix TS28104_MdaReport_MDAOutputs: <https://example.org/TS28104_MdaReport/MDAOutputs/> .
+@prefix TS28104_MdaReport_MDAReport: <https://example.org/TS28104_MdaReport/MDAReport/> .
+@prefix TS28104_MdaReport_TimeWindow: <https://example.org/TS28104_MdaReport/TimeWindow/> .
 @prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -27,16 +27,6 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName ] ;
-    sh:targetClass TS28104_MdaReport:MDAOutputEntry .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaReport_TimeWindow:mDAOutputEndTime ],
@@ -53,13 +43,13 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28104_MdaReport:MDAOutputs ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaReport:mDAOutputs ],
-                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
                                     sh:path TS28104_MdaReport:mDAReportID ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28104_MdaReport:MDAOutputs ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaReport:mDAOutputs ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
@@ -69,17 +59,27 @@
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaReport:mDARequestRef ],
+                        [ a sh:PropertyShape ;
                             sh:class TS28104_MdaReport:MDAOutputs ;
                             sh:maxCount 1 ;
                             sh:path TS28104_MdaReport:mDAOutputs ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28104_MdaReport:mDARequestRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
                             sh:path TS28104_MdaReport:mDAReportID ] ] ;
             sh:path TS28104_MdaReport_MDAReport:attributes ] ;
     sh:targetClass TS28104_MdaReport:MDAReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue ] ;
+    sh:targetClass TS28104_MdaReport:MDAOutputEntry .
 

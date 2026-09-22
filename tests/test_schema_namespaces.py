@@ -143,11 +143,11 @@ def test_property_uris_follow_owning_class_namespace():
     g = _run_with_overrides(spec, {"Resource": f"{BASE}/ctc/"})
 
     resource_uri = URIRef(f"{BASE}/ctc/Resource")
-    # Every property of Resource must sit under ctc/Resource#, not shared/Resource#.
+    # Every property of Resource must sit under ctc/Resource/, not shared/Resource/.
     props = list(g.subjects(RDFS.domain, resource_uri))
     assert props, "Resource should have at least one property"
     for p in props:
-        assert str(p).startswith(f"{BASE}/ctc/Resource#"), (
+        assert str(p).startswith(f"{BASE}/ctc/Resource/"), (
             f"Property {p} should be under the overridden class namespace"
         )
 

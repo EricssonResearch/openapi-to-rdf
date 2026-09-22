@@ -1,13 +1,13 @@
 @prefix TS28532_StreamingDataMnS: <https://example.org/TS28532_StreamingDataMnS/> .
-@prefix TS28532_StreamingDataMnS_analyticsInfo-Type: <https://example.org/TS28532_StreamingDataMnS/analyticsInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_connectionInfo-Type: <https://example.org/TS28532_StreamingDataMnS/connectionInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_connectionRequest-Type: <https://example.org/TS28532_StreamingDataMnS/connectionRequest-Type#> .
-@prefix TS28532_StreamingDataMnS_errorResponse-Type: <https://example.org/TS28532_StreamingDataMnS/errorResponse-Type#> .
-@prefix TS28532_StreamingDataMnS_failedConnectionResponse-Type: <https://example.org/TS28532_StreamingDataMnS/failedConnectionResponse-Type#> .
-@prefix TS28532_StreamingDataMnS_performanceInfo-Type: <https://example.org/TS28532_StreamingDataMnS/performanceInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_streamInfo-Type: <https://example.org/TS28532_StreamingDataMnS/streamInfo-Type#> .
-@prefix TS28532_StreamingDataMnS_streamInfoWithReporters-Type: <https://example.org/TS28532_StreamingDataMnS/streamInfoWithReporters-Type#> .
-@prefix TS28532_StreamingDataMnS_vsDataContainer-Type: <https://example.org/TS28532_StreamingDataMnS/vsDataContainer-Type#> .
+@prefix TS28532_StreamingDataMnS_analyticsInfo-Type: <https://example.org/TS28532_StreamingDataMnS/analyticsInfo-Type/> .
+@prefix TS28532_StreamingDataMnS_connectionInfo-Type: <https://example.org/TS28532_StreamingDataMnS/connectionInfo-Type/> .
+@prefix TS28532_StreamingDataMnS_connectionRequest-Type: <https://example.org/TS28532_StreamingDataMnS/connectionRequest-Type/> .
+@prefix TS28532_StreamingDataMnS_errorResponse-Type: <https://example.org/TS28532_StreamingDataMnS/errorResponse-Type/> .
+@prefix TS28532_StreamingDataMnS_failedConnectionResponse-Type: <https://example.org/TS28532_StreamingDataMnS/failedConnectionResponse-Type/> .
+@prefix TS28532_StreamingDataMnS_performanceInfo-Type: <https://example.org/TS28532_StreamingDataMnS/performanceInfo-Type/> .
+@prefix TS28532_StreamingDataMnS_streamInfo-Type: <https://example.org/TS28532_StreamingDataMnS/streamInfo-Type/> .
+@prefix TS28532_StreamingDataMnS_streamInfoWithReporters-Type: <https://example.org/TS28532_StreamingDataMnS/streamInfoWithReporters-Type/> .
+@prefix TS28532_StreamingDataMnS_vsDataContainer-Type: <https://example.org/TS28532_StreamingDataMnS/vsDataContainer-Type/> .
 @prefix TS28623_TraceControlNrm: <http://ericsson.com/models/3gpp/TS28623/TraceControlNrm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -16,65 +16,7 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Extensions-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28532_StreamingDataMnS:errorReason ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28532_StreamingDataMnS:streamId ] ] ;
-            sh:path TS28532_StreamingDataMnS_failedConnectionResponse-Type:error ] ;
-    sh:targetClass TS28532_StreamingDataMnS:failedConnectionResponse-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28532_StreamingDataMnS:streamInfo-Type ;
-            sh:path TS28532_StreamingDataMnS_connectionRequest-Type:streams ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_StreamingDataMnS:producerId-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_connectionRequest-Type:producer ] ;
-    sh:targetClass TS28532_StreamingDataMnS:connectionRequest-Type .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_TraceControlNrm:TraceJob-Attr ;
-    sh:targetClass TS28532_StreamingDataMnS:traceInfo-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "Upgrade"^^xsd:string ) ;
-    sh:targetClass TS28532_StreamingDataMnS:websocketHeaderConnection-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28532_StreamingDataMnS:errorInfo ] ] ;
-            sh:path TS28532_StreamingDataMnS_errorResponse-Type:error ] ;
-    sh:targetClass TS28532_StreamingDataMnS:errorResponse-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Accept-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "TRACE"^^xsd:string "PERFORMANCE"^^xsd:string "ANALYTICS"^^xsd:string "PROPRIETARY"^^xsd:string ) ;
-    sh:targetClass TS28532_StreamingDataMnS:streamType-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "GPB"^^xsd:string "ASN1"^^xsd:string ) ;
-    sh:targetClass TS28532_StreamingDataMnS:serializationFormat-Type .
+    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Protocol-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -91,14 +33,154 @@
     sh:targetClass TS28532_StreamingDataMnS:streamInfoWithReporters-Type .
 
 [] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "Upgrade"^^xsd:string ) ;
+    sh:targetClass TS28532_StreamingDataMnS:websocketHeaderConnection-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Accept-Type .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_streamInfo-Type:additionalInfo ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:class TS28532_StreamingDataMnS:traceInfo-Type ] [ a sh:NodeShape ;
-                        sh:class TS28532_StreamingDataMnS:performanceInfo-Type ] [ a sh:NodeShape ;
-                        sh:class TS28532_StreamingDataMnS:analyticsInfo-Type ] [ a sh:NodeShape ;
-                        sh:class TS28532_StreamingDataMnS:vsDataContainer-Type ] ) ],
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28532_StreamingDataMnS:errorInfo ] ] ;
+            sh:path TS28532_StreamingDataMnS_errorResponse-Type:error ] ;
+    sh:targetClass TS28532_StreamingDataMnS:errorResponse-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "websocket"^^xsd:string ) ;
+    sh:targetClass TS28532_StreamingDataMnS:websocketHeaderUpgrade-Type .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28532_StreamingDataMnS:measObjDn-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28532_StreamingDataMnS:performanceMetrics-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_analyticsInfo-Type:activityDetails ] ;
+    sh:targetClass TS28532_StreamingDataMnS:analyticsInfo-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28532_StreamingDataMnS:errorReason ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28532_StreamingDataMnS:streamId ] ] ;
+            sh:path TS28532_StreamingDataMnS_failedConnectionResponse-Type:error ] ;
+    sh:targetClass TS28532_StreamingDataMnS:failedConnectionResponse-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "TRACE"^^xsd:string "PERFORMANCE"^^xsd:string "ANALYTICS"^^xsd:string "PROPRIETARY"^^xsd:string ) ;
+    sh:targetClass TS28532_StreamingDataMnS:streamType-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_vsDataContainer-Type:vsData ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_vsDataContainer-Type:vsDataFormatVersion ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_vsDataContainer-Type:vsDataType ] ;
+    sh:targetClass TS28532_StreamingDataMnS:vsDataContainer-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_performanceInfo-Type:jobId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "an ordered list of performance metric names (see clause 4.4.1 of 3GPP TS 28.622[11]) whose values are to be reported by the Performance Data Stream Units (see Annex C of TS 28.550 [42]) via this stream. Performance metrics include measurement and KPI" ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS_performanceInfo-Type:performanceMetrics ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:measObjDn-Type ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS_performanceInfo-Type:measObjDn ] ;
+    sh:targetClass TS28532_StreamingDataMnS:performanceInfo-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Extensions-Type .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_TraceControlNrm:TraceJob-Attr ;
+    sh:targetClass TS28532_StreamingDataMnS:traceInfo-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Version-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28532_StreamingDataMnS_connectionInfo-Type:streams ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_connectionInfo-Type:connection ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:producerId-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_connectionInfo-Type:producer ] ;
+    sh:targetClass TS28532_StreamingDataMnS:connectionInfo-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28532_StreamingDataMnS:systemDN-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:producerId-Type ;
+            sh:maxCount 1 ;
+            sh:path TS28532_StreamingDataMnS_connectionRequest-Type:producer ],
+        [ a sh:PropertyShape ;
+            sh:class TS28532_StreamingDataMnS:streamInfo-Type ;
+            sh:path TS28532_StreamingDataMnS_connectionRequest-Type:streams ] ;
+    sh:targetClass TS28532_StreamingDataMnS:connectionRequest-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "GPB"^^xsd:string "ASN1"^^xsd:string ) ;
+    sh:targetClass TS28532_StreamingDataMnS:serializationFormat-Type .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28532_StreamingDataMnS:traceReference-Type .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28532_StreamingDataMnS:producerId-Type .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "GPB"^^xsd:string "ASN1"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28532_StreamingDataMnS_streamInfo-Type:serializationFormat ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -113,57 +195,14 @@
             sh:minCount 1 ;
             sh:path TS28532_StreamingDataMnS_streamInfo-Type:streamType ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "GPB"^^xsd:string "ASN1"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_StreamingDataMnS_streamInfo-Type:serializationFormat ] ;
+            sh:path TS28532_StreamingDataMnS_streamInfo-Type:additionalInfo ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:traceInfo-Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:performanceInfo-Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:analyticsInfo-Type ] [ a sh:NodeShape ;
+                        sh:class TS28532_StreamingDataMnS:vsDataContainer-Type ] ) ] ;
     sh:targetClass TS28532_StreamingDataMnS:streamInfo-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_analyticsInfo-Type:activityDetails ] ;
-    sh:targetClass TS28532_StreamingDataMnS:analyticsInfo-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:traceReference-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:systemDN-Type .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28532_StreamingDataMnS:measObjDn-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:streamId-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28532_StreamingDataMnS:producerId-Type ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_connectionInfo-Type:producer ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_connectionInfo-Type:connection ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28532_StreamingDataMnS_connectionInfo-Type:streams ] ;
-    sh:targetClass TS28532_StreamingDataMnS:connectionInfo-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Protocol-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "websocket"^^xsd:string ) ;
-    sh:targetClass TS28532_StreamingDataMnS:websocketHeaderUpgrade-Type .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -171,44 +210,5 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:websocketHeader-Sec-WebSocket-Version-Type .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28532_StreamingDataMnS:performanceMetrics-Type .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28532_StreamingDataMnS:producerId-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "an ordered list of performance metric names (see clause 4.4.1 of 3GPP TS 28.622[11]) whose values are to be reported by the Performance Data Stream Units (see Annex C of TS 28.550 [42]) via this stream. Performance metrics include measurement and KPI" ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28532_StreamingDataMnS_performanceInfo-Type:performanceMetrics ],
-        [ a sh:PropertyShape ;
-            sh:class TS28532_StreamingDataMnS:measObjDn-Type ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28532_StreamingDataMnS_performanceInfo-Type:measObjDn ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_performanceInfo-Type:jobId ] ;
-    sh:targetClass TS28532_StreamingDataMnS:performanceInfo-Type .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_vsDataContainer-Type:vsDataFormatVersion ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_vsDataContainer-Type:vsDataType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_StreamingDataMnS_vsDataContainer-Type:vsData ] ;
-    sh:targetClass TS28532_StreamingDataMnS:vsDataContainer-Type .
+    sh:targetClass TS28532_StreamingDataMnS:streamId-Type .
 

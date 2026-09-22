@@ -1,15 +1,15 @@
 @prefix TS28541_NrNrm: <https://example.org/TS28541_NrNrm/> .
-@prefix ns1: <https://example.org/TS28541_NrNrm/RimRSReportInfo#> .
-@prefix ns2: <https://example.org/TS28541_NrNrm/RimRSReportConf#> .
+@prefix ns1: <https://example.org/TS28541_NrNrm/RimRSReportConf/> .
+@prefix ns2: <https://example.org/TS28541_NrNrm/RimRSReportInfo/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28541_NrNrm:test_instance a TS28541_NrNrm:RimRSReportConf ;
-    ns2:maxPropagationDelay 50 ;
-    ns2:nrofRIMRSReportInfo 50 ;
-    ns2:reportIndicator "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
-    ns2:reportInterval 50 ;
-    ns2:rimRSReportInfoList [ a TS28541_NrNrm:RimRSReportInfo ;
-            ns1:detectedSetID 50 ;
-            ns1:functionalityOfRIMRS "RS1"^^xsd:string ;
-            ns1:propagationDelay 50 ] .
+    ns1:maxPropagationDelay 50 ;
+    ns1:nrofRIMRSReportInfo 50 ;
+    ns1:reportIndicator "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns1:reportInterval 50 ;
+    ns1:rimRSReportInfoList [ a TS28541_NrNrm:RimRSReportInfo ;
+            ns2:detectedSetID 50 ;
+            ns2:functionalityOfRIMRS "RS1"^^xsd:string ;
+            ns2:propagationDelay 50 ] .
 

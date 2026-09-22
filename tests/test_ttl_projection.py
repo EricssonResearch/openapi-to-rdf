@@ -122,11 +122,18 @@ def graphs(tmp_path_factory) -> tuple[Graph, Graph]:
 
 
 def _prop_shapes_for(shacl: Graph, local_name: str) -> list:
-    """Every PropertyShape whose ``sh:path`` local name is ``local_name``."""
+    """Every PropertyShape whose ``sh:path`` local name is ``local_name``.
+
+    Splits on ``#`` **and** ``/``: the property separator changed from ``#`` to ``/`` on 2026-09-22
+    (see ``property_uri.class_namespace``), and a helper that split on ``#`` alone returned the whole
+    IRI, matched nothing, and failed two tests with an empty list — which reads as "the shape is
+    missing" rather than "the lookup is wrong". Separator-agnostic so it cannot mislead that way
+    again.
+    """
     return [
         shape
         for shape, path in shacl.subject_objects(SH.path)
-        if str(path).rsplit("#", 1)[-1] == local_name
+        if str(path).replace("#", "/").rsplit("/", 1)[-1] == local_name
     ]
 
 
@@ -201,7 +208,7 @@ def test_the_union_property_gets_no_rdfs_range(graphs) -> None:
     target after collapse means one range.
     """
     rdf, _shacl = graphs
-    service_prop = URIRef(f"{BASE_PREFIX}rdf/TtlProbe/ServiceOrder#service")
+    service_prop = URIRef(f"{BASE_PREFIX}rdf/TtlProbe/ServiceOrder/service")
     ranges = list(rdf.objects(service_prop, RDFS.range))
     assert ranges == [NS["Service"]], ranges
 
@@ -244,7 +251,7 @@ def test_the_envelope_properties_live_with_their_class(graphs) -> None:
     envelope = TRANSPORT["ServiceOrderCreateEvent"]
     owned = [str(p) for p in rdf.subjects(RDFS.domain, envelope)]
     assert len(owned) == 1, owned
-    assert owned[0] == f"{BASE_PREFIX}transport/ServiceOrderCreateEvent#event", owned
+    assert owned[0] == f"{BASE_PREFIX}transport/ServiceOrderCreateEvent/event", owned
 
 
 # --- S8: a reference contributes an edge to its referent, never a type --------------------------
@@ -281,7 +288,7 @@ def test_nothing_is_ever_typed_as_a_reference(graphs) -> None:
     typed_as_ref += [(s, p) for s, p, o in rdf if o == ref and p == RDFS.range]
     assert typed_as_ref == [], typed_as_ref
 
-    place = URIRef(f"{BASE_PREFIX}rdf/TtlProbe/ServiceOrder#place")
+    place = URIRef(f"{BASE_PREFIX}rdf/TtlProbe/ServiceOrder/place")
     assert list(rdf.objects(place, RDFS.range)) == [NS["Service"]], list(
         rdf.objects(place, RDFS.range)
     )

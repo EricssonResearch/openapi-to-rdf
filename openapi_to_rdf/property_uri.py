@@ -72,9 +72,35 @@ def class_namespace(base_namespace: str, class_name: str) -> str:
     """Return the per-class namespace URI for a schema.
 
     ``class_namespace("http://x/TS28623/ComDefs#", "TimeWindow")`` yields
-    ``"http://x/TS28623/ComDefs/TimeWindow#"``. The trailing ``#`` is
-    stripped from the file-level base before appending ``/<Class>#`` so
-    the resulting URI uses the conventional hash-namespace shape.
+    ``"http://x/TS28623/ComDefs/TimeWindow/"``.
+
+    **The separator is ``/``, changed from ``#`` on 2026-09-22.** The previous docstring called ``#``
+    "the conventional hash-namespace shape", and that justification does not survive inspection:
+
+    * **This tool did not apply it to classes.** Measured on TMF641: **0 of 205 class IRIs contained
+      ``#`` while 714 of 714 property IRIs did.** The class ``BaseEvent`` was
+      ``…/transport/BaseEvent`` and its own property was ``…/transport/BaseEvent#event`` — two
+      conventions inside one vocabulary, which is not a scheme.
+    * **The hash convention's purpose was defeated anyway.** A fragment is stripped before
+      dereference (RFC 3986 §3.5), so a hash namespace's point is that **one document serves the
+      whole vocabulary** — which is why W3C's own vocabularies have exactly one namespace each
+      (``rdf-schema#label``, ``owl#Class``, ``shacl#targetClass``). This module minted **167 distinct
+      hash namespaces for a single TMF641 document**, so nothing could serve them as documents: it
+      paid the per-term dereferencing cost of slash URIs while keeping hash syntax.
+    * The module docstring's actual argument was always about *scoping* — ``<base>/TimeWindow#start``
+      rather than a shared ``<base>#start`` — and inserting ``/<Class>`` is what achieves that. The
+      ``#`` was left over from the pre-scoping shape.
+
+    Status of the references, because it is part of the claim: RFC 3986 is an **IETF Standard**;
+    "Cool URIs for the Semantic Web", which is where hash-vs-slash is usually argued, is a **W3C
+    Interest Group Note, not a Recommendation** — so neither form is mandated. This is a consistency
+    decision, not a compliance one.
+
+    Consequence: every property IRI this tool emits moves. That is deliberate; see the migration
+    gate in ``snm-api-native`` (``scripts/gate_migration_delta.py``), which reported **508 of 508
+    TMF641 property IRIs as `moved` and 0 as `unchanged`** against an independently-authored TBox
+    that uses ``/``, while **101 of its class IRIs matched exactly**. The class agreement is the
+    evidence that ``/`` is the shape the rest of this tool already assumes.
 
     Raises:
         ValueError: if ``base_namespace`` or ``class_name`` is empty/None.
@@ -83,7 +109,7 @@ def class_namespace(base_namespace: str, class_name: str) -> str:
         raise ValueError("base_namespace must be a non-empty string")
     safe_class = format_local_name(class_name)
     trimmed = base_namespace.rstrip("#").rstrip("/")
-    return f"{trimmed}/{safe_class}#"
+    return f"{trimmed}/{safe_class}/"
 
 
 def property_uri(base_namespace: str, class_name: str, property_name: str) -> URIRef:

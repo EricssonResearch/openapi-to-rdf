@@ -113,7 +113,7 @@ class TestOwlBasicShape:
 
     def test_property_under_class_namespace(self):
         uri = _prop(self.c, "Person", "name")
-        assert str(uri).endswith("/Person#name")
+        assert str(uri).endswith("/Person/name")
         assert (uri, RDF.type, OWL.FunctionalProperty) in self.c.graph
         assert (uri, RDFS.domain, self.ns.Person) in self.c.graph
         assert (uri, RDFS.range, XSD.string) in self.c.graph

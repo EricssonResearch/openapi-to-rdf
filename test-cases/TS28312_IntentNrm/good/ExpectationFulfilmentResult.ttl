@@ -1,20 +1,20 @@
 @prefix TS28312_IntentNrm: <https://example.org/TS28312_IntentNrm/> .
-@prefix ns1: <https://example.org/TS28312_IntentNrm/FulfilmentInfo#> .
-@prefix ns2: <https://example.org/TS28312_IntentNrm/ExpectationFulfilmentResult#> .
-@prefix ns3: <https://example.org/TS28312_IntentNrm/TargetFulfilmentResult#> .
+@prefix ns1: <https://example.org/TS28312_IntentNrm/ExpectationFulfilmentResult/> .
+@prefix ns2: <https://example.org/TS28312_IntentNrm/TargetFulfilmentResult/> .
+@prefix ns3: <https://example.org/TS28312_IntentNrm/FulfilmentInfo/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28312_IntentNrm:test_instance a TS28312_IntentNrm:ExpectationFulfilmentResult ;
-    ns2:expectaitonId "test-value"^^xsd:string ;
-    ns2:expectationFulfilmentInfo [ a TS28312_IntentNrm:FulfilmentInfo ;
-            ns1:fulfilmentStatus "FULFILLED"^^xsd:string ;
-            ns1:notFulfilledReasons "test-value"^^xsd:string ;
-            ns1:notFullfilledState "ACKNOWLEDGED"^^xsd:string ] ;
-    ns2:targetFulfilmentResult [ a TS28312_IntentNrm:TargetFulfilmentResult ;
-            ns3:targetAchievedValue 5e+01 ;
-            ns3:targetFulfilmentInfo [ a TS28312_IntentNrm:FulfilmentInfo ;
-                    ns1:fulfilmentStatus "FULFILLED"^^xsd:string ;
-                    ns1:notFulfilledReasons "test-value"^^xsd:string ;
-                    ns1:notFullfilledState "ACKNOWLEDGED"^^xsd:string ] ;
-            ns3:targetName "test-value"^^xsd:string ] .
+    ns1:expectaitonId "test-value"^^xsd:string ;
+    ns1:expectationFulfilmentInfo [ a TS28312_IntentNrm:FulfilmentInfo ;
+            ns3:fulfilmentStatus "FULFILLED"^^xsd:string ;
+            ns3:notFulfilledReasons "test-value"^^xsd:string ;
+            ns3:notFullfilledState "ACKNOWLEDGED"^^xsd:string ] ;
+    ns1:targetFulfilmentResult [ a TS28312_IntentNrm:TargetFulfilmentResult ;
+            ns2:targetAchievedValue 5e+01 ;
+            ns2:targetFulfilmentInfo [ a TS28312_IntentNrm:FulfilmentInfo ;
+                    ns3:fulfilmentStatus "FULFILLED"^^xsd:string ;
+                    ns3:notFulfilledReasons "test-value"^^xsd:string ;
+                    ns3:notFullfilledState "ACKNOWLEDGED"^^xsd:string ] ;
+            ns2:targetName "test-value"^^xsd:string ] .
 

@@ -12,6 +12,7 @@ The converter is used only to learn the RDF vocabulary (property URIs).
 The jsonschema oracle determines valid/invalid — never the SHACL output.
 """
 import re
+import tempfile
 from pathlib import Path
 
 import yaml
@@ -154,12 +155,26 @@ def build_prop_uri_map(rdf_graph, class_uri, ns):
     uri_map = {}
     if rdf_graph is None or class_uri is None:
         return uri_map
+
+    def local_name(iri) -> str:
+        """Last segment, splitting on `#` AND `/`.
+
+        The property separator changed from `#` to `/` on 2026-09-22 (see
+        `property_uri.class_namespace`). `str(iri).split("#")[-1]` then returns the WHOLE IRI, so
+        this map ends up keyed by full IRIs, `prop_uri_map.get(name)` never hits, and every instance
+        property silently falls back to the file-level namespace — `.../TS28623_ComDefs/month`
+        instead of `.../TS28623_ComDefs/DayInYear/month`. No shape matches those, so bad instances
+        stop being rejected and good ones stop conforming: 289 test failures, none of which named a
+        separator.
+        """
+        return str(iri).replace("#", "/").rstrip("/").rsplit("/", 1)[-1]
+
     # Find all properties with this class as domain
     for prop_uri in rdf_graph.subjects(RDFS.domain, class_uri):
-        local = str(prop_uri).split("#")[-1]
+        local = local_name(prop_uri)
         uri_map[local] = prop_uri
         # If scoped (ClassName_propName), also map the unscoped name
-        class_local = str(class_uri).split("#")[-1]
+        class_local = local_name(class_uri)
         if local.startswith(class_local + "_"):
             unscoped = local[len(class_local) + 1:]
             uri_map[unscoped] = prop_uri
@@ -241,10 +256,13 @@ def process_file(yaml_path, output_dir):
     # Run converter — single source for both RDF vocabulary and SHACL output
     # Use same base namespace as regenerate_output.py to ensure test corpus matches SHACL
     from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
+    # NOT the repo's output/ tree. This script converts WITHOUT `external_refs`, so writing here
+    # overwrote the published deliverable with a cross-document-unresolved conversion and broke
+    # tests/test_output_freshness.py. The vocabulary is only needed in memory to mint instance IRIs.
     converter = OpenAPIToSHACLConverter(
         str(yaml_path),
         base_namespace=f"https://example.org/{stem}/",
-        output_dir=str(Path(__file__).resolve().parent.parent / "output")
+        output_dir=tempfile.mkdtemp(prefix="gen-test-cases-"),
     )
     converter.convert()
     converter.save_rdf()

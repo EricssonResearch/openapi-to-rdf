@@ -1,12 +1,12 @@
 @prefix TS29571_CommonData: <https://example.org/TS29571_CommonData/> .
-@prefix ns1: <https://example.org/TS29571_CommonData/RouteInformation#> .
-@prefix ns2: <https://example.org/TS29571_CommonData/RouteToLocation#> .
+@prefix ns1: <https://example.org/TS29571_CommonData/RouteToLocation/> .
+@prefix ns2: <https://example.org/TS29571_CommonData/RouteInformation/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:RouteToLocation ;
-    ns2:routeInfo [ a TS29571_CommonData:RouteInformation ;
-            ns1:ipv4Addr "aaaa"^^xsd:string ;
-            ns1:ipv6Addr "test-value"^^xsd:string ;
-            ns1:portNumber 50 ] ;
-    ns2:routeProfId "test-value"^^xsd:string .
+    ns1:routeInfo [ a TS29571_CommonData:RouteInformation ;
+            ns2:ipv4Addr "aaaa"^^xsd:string ;
+            ns2:ipv6Addr "test-value"^^xsd:string ;
+            ns2:portNumber 50 ] ;
+    ns1:routeProfId "test-value"^^xsd:string .
 

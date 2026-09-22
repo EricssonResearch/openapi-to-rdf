@@ -39,27 +39,27 @@ class TestFormatLocalName:
 
 
 class TestClassNamespace:
-    """class_namespace turns <base>#  or <base>/ into <base>/<Class>#."""
+    """class_namespace turns <base># or <base>/ into <base>/<Class>/ — slash, see the function."""
 
     def test_base_ends_with_hash(self):
         got = class_namespace("http://x/TS28623/ComDefs#", "TimeWindow")
-        assert got == "http://x/TS28623/ComDefs/TimeWindow#"
+        assert got == "http://x/TS28623/ComDefs/TimeWindow/"
 
     def test_base_ends_with_slash(self):
         got = class_namespace("http://x/TS28623/ComDefs/", "TimeWindow")
-        assert got == "http://x/TS28623/ComDefs/TimeWindow#"
+        assert got == "http://x/TS28623/ComDefs/TimeWindow/"
 
     def test_base_has_neither(self):
         got = class_namespace("http://x/TS28623/ComDefs", "TimeWindow")
-        assert got == "http://x/TS28623/ComDefs/TimeWindow#"
+        assert got == "http://x/TS28623/ComDefs/TimeWindow/"
 
     def test_class_name_with_dash_is_preserved(self):
         got = class_namespace("http://x#", "Meta-Data")
-        assert got == "http://x/Meta-Data#"
+        assert got == "http://x/Meta-Data/"
 
     def test_underscored_class_name_preserved(self):
         got = class_namespace("http://x#", "Snake_Case")
-        assert got == "http://x/Snake_Case#"
+        assert got == "http://x/Snake_Case/"
 
     def test_empty_class_raises(self):
         with pytest.raises(ValueError):
@@ -80,11 +80,11 @@ class TestPropertyUri:
     def test_basic(self):
         got = property_uri("http://x/TS28623/ComDefs#", "TimeWindow", "startTime")
         assert isinstance(got, URIRef)
-        assert str(got) == "http://x/TS28623/ComDefs/TimeWindow#startTime"
+        assert str(got) == "http://x/TS28623/ComDefs/TimeWindow/startTime"
 
     def test_property_name_with_dash(self):
         got = property_uri("http://x#", "A", "has-value")
-        assert str(got) == "http://x/A#has-value"
+        assert str(got) == "http://x/A/has-value"
 
     def test_interops_with_rdflib_namespace(self):
         cls_ns = Namespace(class_namespace("http://x#", "A"))
@@ -95,8 +95,8 @@ class TestPropertyUri:
         a = property_uri("http://x#", "A", "status")
         b = property_uri("http://x#", "B", "status")
         assert a != b
-        assert str(a) == "http://x/A#status"
-        assert str(b) == "http://x/B#status"
+        assert str(a) == "http://x/A/status"
+        assert str(b) == "http://x/B/status"
 
     def test_empty_property_raises(self):
         with pytest.raises(ValueError):

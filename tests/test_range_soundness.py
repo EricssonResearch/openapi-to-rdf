@@ -82,7 +82,7 @@ def test_a_multi_target_property_has_no_range_but_is_constrained_in_shacl(graphs
     assert not multi, "multi-target property must carry no rdfs:range"
 
     # Find the property shape for 'multi' specifically
-    multi_prop_uri = [s for s in vocabulary.subjects() if str(s).endswith("Service#multi")][0]
+    multi_prop_uri = [s for s in vocabulary.subjects() if str(s).endswith("Service/multi")][0]
     multi_shape = None
     for shape in shapes.subjects(SH.path, multi_prop_uri):
         multi_shape = shape

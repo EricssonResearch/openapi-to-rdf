@@ -1,34 +1,34 @@
 @prefix TS29571_CommonData: <https://example.org/TS29571_CommonData/> .
-@prefix ns1: <https://example.org/TS29571_CommonData/N3gaLocation#> .
-@prefix ns2: <https://example.org/TS29571_CommonData/PlmnId#> .
-@prefix ns3: <https://example.org/TS29571_CommonData/Tai#> .
-@prefix ns4: <https://example.org/TS29571_CommonData/TnapId#> .
-@prefix ns5: <https://example.org/TS29571_CommonData/TwapId#> .
-@prefix ns6: <https://example.org/TS29571_CommonData/HfcNodeId#> .
+@prefix ns1: <https://example.org/TS29571_CommonData/N3gaLocation/> .
+@prefix ns2: <https://example.org/TS29571_CommonData/TwapId/> .
+@prefix ns3: <https://example.org/TS29571_CommonData/Tai/> .
+@prefix ns4: <https://example.org/TS29571_CommonData/HfcNodeId/> .
+@prefix ns5: <https://example.org/TS29571_CommonData/TnapId/> .
+@prefix ns6: <https://example.org/TS29571_CommonData/PlmnId/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:N3gaLocation ;
     ns1:gci "test-value"^^xsd:string ;
     ns1:gli "test-value"^^xsd:string ;
     ns1:hfcNodeId [ a TS29571_CommonData:HfcNodeId ;
-            ns6:hfcNId "test-value"^^xsd:string ] ;
+            ns4:hfcNId "test-value"^^xsd:string ] ;
     ns1:n3IwfId "!!!INVALID!!!"^^xsd:string ;
     ns1:n3gppTai [ a TS29571_CommonData:Tai ;
             ns3:nid "AFaf09AFaf0"^^xsd:string ;
             ns3:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns2:mcc "aaaa"^^xsd:string ;
-                    ns2:mnc "aaaa"^^xsd:string ] ;
+                    ns6:mcc "aaaa"^^xsd:string ;
+                    ns6:mnc "aaaa"^^xsd:string ] ;
             ns3:tac "aaaa"^^xsd:string ] ;
     ns1:portNumber 50 ;
     ns1:protocol "UDP"^^xsd:string ;
     ns1:tnapId [ a TS29571_CommonData:TnapId ;
-            ns4:bssId "test-value"^^xsd:string ;
-            ns4:civicAddress "test-value"^^xsd:string ;
-            ns4:ssId "test-value"^^xsd:string ] ;
-    ns1:twapId [ a TS29571_CommonData:TwapId ;
             ns5:bssId "test-value"^^xsd:string ;
             ns5:civicAddress "test-value"^^xsd:string ;
             ns5:ssId "test-value"^^xsd:string ] ;
+    ns1:twapId [ a TS29571_CommonData:TwapId ;
+            ns2:bssId "test-value"^^xsd:string ;
+            ns2:civicAddress "test-value"^^xsd:string ;
+            ns2:ssId "test-value"^^xsd:string ] ;
     ns1:ueIpv4Addr "aaaa"^^xsd:string ;
     ns1:ueIpv6Addr "test-value"^^xsd:string ;
     ns1:w5gbanLineType "DSL"^^xsd:string .
