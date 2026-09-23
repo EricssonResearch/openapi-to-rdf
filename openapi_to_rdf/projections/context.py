@@ -14,11 +14,25 @@ def context_from_mapping(mapping: Mapping, *, base: str) -> dict:
 
     Args:
         mapping: The derived fact set.
-        base: Base namespace for the context.
+        base: Emitted as ``@base``, so a relative ``"id": "order-42"`` in a payload resolves to
+            ``<base>order-42``. **This argument was accepted and ignored until 2026-09-22** — two
+            calls differing only in ``base`` produced byte-identical output, verified — which is the
+            second parameter in this package found to do nothing, after
+            ``operations_from_mapping(base=...)``. A caller has no way to notice.
 
     Returns:
-        A JSON-LD 1.1 @context document with type-scoped terms for each class, id → @id mapping,
-        @type: @id for IRI-valued properties, and datatype coercion for typed properties.
+        A JSON-LD 1.1 ``@context`` document: ``{"@context": {...}}``. Note the wrapper — a consumer
+        wanting the term mapping reads ``result["@context"]``.
+
+        Contains ``@version: 1.1``, ``@base``, and one type-scoped term per class carrying
+        ``id → @id``, ``@type: @id`` for IRI-valued properties and datatype coercion for typed ones.
+
+    **Why ``@version: 1.1`` is not decoration.** A term definition containing its own ``@context``
+    is a **JSON-LD 1.1** feature. A processor in ``json-ld-1.0`` processing mode is required to
+    signal an error for it, and the practical outcome is that every scoped term is dropped — 95 of
+    them on TMF641, including every ``href`` coercion, which is what turns a string into a
+    followable edge. Omitting the declaration made the whole context's most important content
+    conditional on a processor's default mode.
 
     Raises:
         ValueError: When the Mapping has zero classes (refuse rather than return empty).
@@ -26,7 +40,8 @@ def context_from_mapping(mapping: Mapping, *, base: str) -> dict:
     if not mapping.classes:
         raise ValueError("no classes to emit in context")
 
-    context: dict = {}
+    # Declared first and deliberately: these two keys decide whether a processor reads the rest.
+    context: dict = {"@version": 1.1, "@base": base}
 
     # For each class, create a type-scoped term
     for class_name, class_fact in mapping.classes.items():
