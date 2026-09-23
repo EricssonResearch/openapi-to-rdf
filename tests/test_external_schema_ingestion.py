@@ -850,3 +850,67 @@ def test_restated_property_path_matches_declaring_document(tmp_path):
         f"  api.yaml:    {api_href_path}\n"
         f"  common.yaml: {common_href_path}"
     )
+
+
+def test_splitting_a_document_rewrites_its_refs():
+    """The request's repro did not, which is why it proved nothing.
+
+    Popping schemas out of components/schemas leaves `#/components/schemas/X` behind — an
+    internal ref to an absent schema. external_schemas is never consulted, so the result is
+    indistinguishable from an absent ancestor. The splitter must rewrite.
+    """
+    from scripts.measure_split_isomorphism import split_document
+
+    document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Addressable": {"type": "object", "properties": {"id": {"type": "string"}}},
+                "PolicyRef": {"allOf": [{"$ref": "#/components/schemas/Addressable"}]},
+            }
+        },
+    }
+    api, common = split_document(document, moved={"Addressable"})
+    assert "Addressable" not in api["components"]["schemas"]
+    assert api["components"]["schemas"]["PolicyRef"]["allOf"][0]["$ref"] == (
+        "common.yaml#/components/schemas/Addressable"
+    )
+    assert "Addressable" in common["components"]["schemas"]
+
+
+def test_a_split_document_attributes_exactly_as_the_whole_one_does(split_with_restatement):
+    """AC-1, on the fixture that restates. Pre-fix this reports two extra pairs."""
+    from scripts.measure_split_isomorphism import attribution_pairs
+
+    whole = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                **split_with_restatement["external"][COMMON],
+                "PolicyRef": {
+                    "allOf": [
+                        {"$ref": "#/components/schemas/Addressable"},
+                        split_with_restatement["api"]["components"]["schemas"]["PolicyRef"][
+                            "allOf"
+                        ][1],
+                    ]
+                },
+            }
+        },
+    }
+    namespace = "https://tmforum.org/ontology/"
+    whole_pairs = attribution_pairs(
+        build_mapping(whole, namespace=namespace)
+    )
+    split_pairs = attribution_pairs(
+        build_mapping(
+            split_with_restatement["api"],
+            namespace=namespace,
+            external_schemas=split_with_restatement["external"],
+        )
+    )
+    assert not (split_pairs - whole_pairs), (
+        f"split invented attributions absent from the whole document: {sorted(split_pairs - whole_pairs)}"
+    )
