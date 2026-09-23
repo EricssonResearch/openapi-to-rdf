@@ -987,6 +987,11 @@ def build_mapping(
     #: Each registered class's defining schema, so `declared_by` does not have to assume the
     #: definition came from the local document.
     definitions: dict[str, Any] = {}
+    #: Each registered class's declaring document's schemas dict, so property resolution resolves
+    #: internal `#/...` refs against the correct document. `target_classes_for`, `datatype_for` and
+    #: `is_iri_valued` each require `schemas` for resolution; handing them the local document's
+    #: dict for an external class loses or fabricates facts (Critical 1).
+    declaring_schemas: dict[str, dict[str, Any]] = {}
     collisions: list[tuple[str, str]] = []
 
     def namespace_of_document(document: str | None) -> str:
@@ -1005,19 +1010,28 @@ def build_mapping(
         if not isinstance(schema_def, dict):
             return False
         document_schemas = schemas if document is None else ext_schemas.get(document, {})
+        # For external registrations, local always wins even when the local schema is not
+        # class-shaped (a primitive alias or a JSON-only union). Without this, an external object
+        # class silently takes a name held by a local `Money: {type: string}` and the local
+        # document uses Money as both a datatype and a class (Important 3).
+        if document is not None and schema_name in schemas:
+            collisions.append((schema_name, document))
+            return False
         if is_primitive_def(schema_def, document_schemas) or is_json_only_union(schema_def):
             return False
         if schema_name in classes:
             # Local always wins, and so does the first external registration. A name declared in
-            # two documents with two different bodies is two classes, and this index holds one:
-            # 49 of 1,741 3GPP schema names are declared in more than one of the 38 documents and
-            # 44 of those differ. Report the skip; never merge silently.
-            if document is not None and definitions.get(schema_name) != schema_def:
+            # two documents is two classes, and this index holds one: 49 of 1,741 3GPP schema names
+            # are declared in more than one of the 38 documents. Report every skip, not only those
+            # whose body differs — 5 of the 49 are identical, and silent merging is still a
+            # decision this project refuses to take (Important 4).
+            if document is not None:
                 collisions.append((schema_name, document))
             return False
         transport = is_transport(schema_name)
         parents[schema_name] = _parents_of(schema_def, document_schemas, ext_schemas)
         definitions[schema_name] = schema_def
+        declaring_schemas[schema_name] = document_schemas
         classes[schema_name] = ClassFact(
             iri=class_namespace_of(schema_name, document, transport)
             + format_local_name(schema_name),
@@ -1054,9 +1068,14 @@ def build_mapping(
         # Its own ancestors are external from THIS document's point of view too, whether they sit
         # in the same external document or a third one. A parent in neither is a dangling ref: the
         # walk stops and the emitter reports it, which is the existing no-guessing behaviour.
-        for parent in parents[schema_name]:
-            if parent in document_schemas:
-                queue.append((external_doc, parent))
+        # Enqueue only genuinely internal refs (`#/...` within this external document), not names
+        # that happen to match: a parent shadowed by a same-named schema in the external document
+        # would otherwise win over the correct external ref (Important 2).
+        if isinstance(external_def, dict):
+            for member in external_def.get("allOf") or []:
+                internal_parent = _ref_name(member)
+                if internal_parent is not None and internal_parent in document_schemas:
+                    queue.append((external_doc, internal_parent))
         queue.extend(_external_parents_of(external_def, document_schemas, ext_schemas))
 
     # --- Properties, attributed to the class that declares them. ----------------------------
@@ -1087,9 +1106,9 @@ def build_mapping(
             fact = PropertyFact(
                 iri=str(property_uri(declaring_ns, declaring, property_name)),
                 declaring_class=declaring,
-                target_classes=target_classes_for(spec, schemas),
-                datatype=datatype_for(spec, schemas),
-                is_iri_valued=is_iri_valued(property_name, spec, schemas),
+                target_classes=target_classes_for(spec, declaring_schemas[declaring]),
+                datatype=datatype_for(spec, declaring_schemas[declaring]),
+                is_iri_valued=is_iri_valued(property_name, spec, declaring_schemas[declaring]),
                 min_count=lower,
                 max_count=spec.get("maxItems") if is_list else 1,
             )

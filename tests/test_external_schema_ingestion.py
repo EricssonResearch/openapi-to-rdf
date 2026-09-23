@@ -224,3 +224,235 @@ def test_an_external_ref_with_a_directory_component_resolves_for_inheritance():
     )
     assert mapping.classes["Child"].parents == ("Parent",)
     assert mapping.classes["Parent"].is_external is True
+
+
+def test_an_external_property_resolves_its_target_against_its_own_document():
+    """Critical 1a: internal `#/...` refs in external schemas resolve against the correct document.
+
+    `common.yaml` declares `Addressable.validFor: {$ref: "#/components/schemas/TimePeriod"}` with
+    `TimePeriod` also in `common.yaml`. The local document has neither. Without the fix, the ref
+    resolves against the local schemas and `target_classes == ()` where the whole-document
+    conversion gives `("TimePeriod",)`. The range is silently lost.
+    """
+    api_document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Child": {"allOf": [{"$ref": f"{COMMON}#/components/schemas/Addressable"}]}
+            }
+        },
+    }
+    external = {
+        COMMON: {
+            "TimePeriod": {
+                "type": "object",
+                "properties": {"start": {"type": "string"}},
+            },
+            "Addressable": {
+                "type": "object",
+                "properties": {
+                    "href": {"type": "string"},
+                    "validFor": {"$ref": "#/components/schemas/TimePeriod"},
+                },
+            },
+        }
+    }
+    mapping = build_mapping(
+        api_document, namespace="https://example.org/", external_schemas=external
+    )
+    # The external property's target resolves against common.yaml, not the local schemas.
+    validFor_fact = mapping.properties_by_class[("Addressable", "validFor")]
+    assert validFor_fact.target_classes == ("TimePeriod",)
+
+
+def test_an_external_property_does_not_read_datatypes_from_a_local_alias():
+    """Critical 1b: property resolution does not fabricate facts from a same-named local schema.
+
+    Same fixture as 1a, but the local document also declares `TimePeriod: {type: string, format:
+    date-time}`. Without the fix, `target_classes == ()` (because the local TimePeriod is a
+    primitive, not a class) AND `datatype == xsd:dateTime` (read from the local schema). A wrong
+    fact, not a missing one — the property is actually object-valued, not a dateTime literal.
+    """
+    api_document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                # Local TimePeriod is a primitive alias, not the external object class.
+                "TimePeriod": {"type": "string", "format": "date-time"},
+                "Child": {"allOf": [{"$ref": f"{COMMON}#/components/schemas/Addressable"}]},
+            }
+        },
+    }
+    external = {
+        COMMON: {
+            "TimePeriod": {
+                "type": "object",
+                "properties": {"start": {"type": "string"}},
+            },
+            "Addressable": {
+                "type": "object",
+                "properties": {
+                    "href": {"type": "string"},
+                    "validFor": {"$ref": "#/components/schemas/TimePeriod"},
+                },
+            },
+        }
+    }
+    mapping = build_mapping(
+        api_document, namespace="https://example.org/", external_schemas=external
+    )
+    # The external property resolves against common.yaml, not the local TimePeriod alias.
+    validFor_fact = mapping.properties_by_class[("Addressable", "validFor")]
+    assert validFor_fact.target_classes == ("TimePeriod",)
+    assert validFor_fact.datatype is None  # Object-valued, not a dateTime literal.
+
+
+def test_a_shadowed_parent_name_in_an_external_document_does_not_win():
+    """Important 2: external ref parent wins over same-named schema in that external document.
+
+    `b.yaml#Middle` has `allOf: [{$ref: "c.yaml#/components/schemas/Base"}]` and `b.yaml` also
+    declares a different `Base`. Without the fix, the walk enqueues `(b.yaml, Base)` before
+    `(c.yaml, Base)` and FIFO makes it win — the wrong properties registered, and the correct
+    target reported as a skipped collision.
+    """
+    api_document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {"Leaf": {"allOf": [{"$ref": "b.yaml#/components/schemas/Middle"}]}}
+        },
+    }
+    external = {
+        "b.yaml": {
+            # Middle's parent is c.yaml#Base, not b.yaml#Base.
+            "Middle": {"allOf": [{"$ref": "c.yaml#/components/schemas/Base"}]},
+            # But b.yaml also declares a different Base.
+            "Base": {"type": "object", "properties": {"wrong": {"type": "string"}}},
+        },
+        "c.yaml": {
+            "Base": {"type": "object", "properties": {"correct": {"type": "string"}}},
+        },
+    }
+    mapping = build_mapping(
+        api_document, namespace="https://example.org/", external_schemas=external
+    )
+    # Base is registered from c.yaml (the correct ref), not b.yaml.
+    assert mapping.classes["Base"].declaring_document == "c.yaml"
+    assert ("Base", "correct") in mapping.properties_by_class
+    assert ("Base", "wrong") not in mapping.properties_by_class
+
+
+def test_a_local_primitive_blocks_an_external_class_of_the_same_name():
+    """Important 3: local always wins even when the local schema is not class-shaped.
+
+    Local `Money: {type: string}` plus external `common.yaml#Money` as an object. Without the fix,
+    `classes["Money"]` exists as an external object class under the local namespace,
+    `external_name_collisions` is empty, and the local document uses Money as both a datatype and
+    a class. The skip must be reported.
+    """
+    api_document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                # Local Money is a primitive alias, not a class.
+                "Money": {"type": "string"},
+                "Product": {
+                    "type": "object",
+                    "properties": {"price": {"$ref": "#/components/schemas/Money"}},
+                },
+                "Child": {"allOf": [{"$ref": f"{COMMON}#/components/schemas/Wealthy"}]},
+            }
+        },
+    }
+    external = {
+        COMMON: {
+            # External Money is an object class.
+            "Money": {"type": "object", "properties": {"amount": {"type": "number"}}},
+            # Wealthy inherits from Money, so Money will be registered transitively.
+            "Wealthy": {
+                "allOf": [
+                    {"$ref": "#/components/schemas/Money"},
+                    {"type": "object", "properties": {"bonus": {"type": "number"}}},
+                ]
+            },
+        }
+    }
+    mapping = build_mapping(
+        api_document, namespace="https://example.org/", external_schemas=external
+    )
+    # Money is NOT registered as a class — the local primitive wins.
+    assert "Money" not in mapping.classes
+    # And the skip is reported.
+    assert ("Money", COMMON) in mapping.external_name_collisions
+
+
+def test_identical_bodies_across_external_documents_are_also_reported():
+    """Important 4: report EVERY skipped external registration, not only differing bodies.
+
+    5 of 49 multi-document 3GPP names are declared identically. Without the fix, a name declared
+    identically in `a.yaml` and `b.yaml` is minted only under `a.yaml`'s namespace and every
+    reference from `b.yaml` silently resolves to `nsA:Foo`. The skip must be reported.
+    """
+    api_document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Leaf": {
+                    "allOf": [
+                        {"$ref": "a.yaml#/components/schemas/SharedName"},
+                        {"$ref": "b.yaml#/components/schemas/SharedName"},
+                    ]
+                }
+            }
+        },
+    }
+    external = {
+        "a.yaml": {
+            # IDENTICAL body to b.yaml's SharedName.
+            "SharedName": {"type": "object", "properties": {"x": {"type": "string"}}}
+        },
+        "b.yaml": {
+            "SharedName": {"type": "object", "properties": {"x": {"type": "string"}}}
+        },
+    }
+    mapping = build_mapping(
+        api_document, namespace="https://example.org/", external_schemas=external
+    )
+    # Only one registration wins (a.yaml, FIFO).
+    assert mapping.classes["SharedName"].declaring_document == "a.yaml"
+    # And the skip is reported, even though the bodies are identical.
+    assert ("SharedName", "b.yaml") in mapping.external_name_collisions
+
+
+def test_a_third_document_is_reached_through_an_external_ref():
+    """Important 5: the third-document enqueue walks external refs transitively.
+
+    `Leaf -> b.yaml#Middle -> c.yaml#Base`. Middle's parent is an external ref to c.yaml, which
+    is neither the local document nor the document Middle came from. Without the third-document
+    enqueue, Base is not registered.
+    """
+    api_document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {"Leaf": {"allOf": [{"$ref": "b.yaml#/components/schemas/Middle"}]}}
+        },
+    }
+    external = {
+        "b.yaml": {
+            # Middle's parent is in c.yaml, a THIRD document.
+            "Middle": {"allOf": [{"$ref": "c.yaml#/components/schemas/Base"}]}
+        },
+        "c.yaml": {"Base": {"type": "object", "properties": {"id": {"type": "string"}}}},
+    }
+    mapping = build_mapping(
+        api_document, namespace="https://example.org/", external_schemas=external
+    )
+    # Base from c.yaml is registered transitively.
+    assert "Base" in mapping.classes
+    assert mapping.classes["Base"].declaring_document == "c.yaml"
+    assert mapping.classes["Middle"].parents == ("Base",)
