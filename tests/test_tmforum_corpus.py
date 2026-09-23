@@ -178,3 +178,86 @@ def test_declared_classes_are_shaped(converted: dict[str, tuple[Graph, Graph]]) 
             f"({share:.1%}) — every constraint on them is inert. Examples: "
             + str(sorted(str(c) for c in unshaped)[:5])
         )
+
+
+def test_the_corpus_census_can_load_siblings(tmp_path):
+    """The gate must be able to reach cross-document resolution at all.
+
+    Pre-fix, census_one hardcoded external_refs=[], so every cross-document ref was unresolved
+    and no metric it reported could move no matter what the converter did. This asserts the
+    instrument can produce a positive.
+    """
+    import yaml
+
+    from scripts.measure_corpora import census_one
+
+    common = tmp_path / "common.yaml"
+    common.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "Common", "version": "1.0"},
+                "components": {
+                    "schemas": {
+                        "Addressable": {"type": "object",
+                                        "properties": {"href": {"type": "string"}}}
+                    }
+                },
+            }
+        )
+    )
+    api = tmp_path / "api.yaml"
+    api.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "Api", "version": "1.0"},
+                "components": {
+                    "schemas": {
+                        "PolicyRef": {
+                            "allOf": [
+                                {"$ref": "common.yaml#/components/schemas/Addressable"},
+                                {"type": "object",
+                                 "properties": {"@type": {"type": "string"}}},
+                            ]
+                        }
+                    }
+                },
+            }
+        )
+    )
+
+    without = census_one(api)
+    with_sibling = census_one(api, siblings=(common,))
+    assert without["unresolved_refs"] > 0, "the no-siblings arm must show the ref unresolved"
+    assert with_sibling["unresolved_refs"] == 0, (
+        f"the sibling arm must resolve it; got {with_sibling['_unresolved']}"
+    )
+    # Per-document dangling is expected: api.yaml references a class declared in common.yaml,
+    # so from api.yaml's perspective alone it's dangling. The corpus-wide metric resolves this.
+    assert with_sibling["dangling_class_targets"] > 0, (
+        "the sibling arm must produce a cross-document reference that looks dangling per-document"
+    )
+
+
+def test_corpus_wide_print_tuple_size_is_asserted():
+    """Assert the number of corpus-wide keys printed, so adding a metric without wiring it fails.
+
+    measure_corpora.py:49 claims this, and nothing enforced it until Task 7 added a metric that
+    depends on the guarantee being true.
+    """
+    from scripts.measure_corpora import print_corpus
+
+    # The corpus-wide keys tuple in print_corpus
+    corpus_wide_keys = (
+        "distinct_term_iris",
+        "distinct_property_iris",
+        "distinct_unresolved_targets",
+        "terms_with_dash_corpuswide",
+        "fold_collisions_corpuswide",
+        "dangling_class_targets_corpuswide",
+    )
+    assert len(corpus_wide_keys) == 6, (
+        f"Expected 6 corpus-wide keys in print_corpus, got {len(corpus_wide_keys)}. "
+        "If you added a metric, update this assertion AND the print_corpus function."
+    )
