@@ -1,6 +1,22 @@
 # Request: ingest external schemas as first-class classes
 
 _Raised 2026-09-23 from `snm-api-native`, which is blocked on this. Diagnosed, not yet fixed._
+> **SUPERSEDED 2026-09-23 — implemented, and two claims below were wrong.** Read
+> `docs/superpowers/specs/2026-09-23-external-schema-ingestion-design.md` instead; it corrects this
+> document and records a larger defect (D1) that this request missed entirely.
+>
+> 1. **The reproduction snippet does not reproduce the defect.** It pops schemas into
+>    `external_schemas` without rewriting the `$ref` strings, so the `allOf` still reads
+>    `#/components/schemas/Addressable` — an *internal* ref to an absent schema. It is the same
+>    absent-ancestor confound this document's own "Caution" section warns about, one level subtler.
+> 2. **`_parents_of` already resolved external parents.** On a correctly split TMF620,
+>    `parents == ('EntityRef',)`, not `()`. The mechanism section guessed this correctly; the
+>    evidence block stated the stronger, false claim, and led with it.
+>
+> The **count was right** and reproduced from an independent path: 34 misattributed pairs, now 0.
+> What this request named as "the real gate" — `scripts/measure_corpora.py` — converted with
+> `external_refs=[]`, so no metric it reported could move in either direction.
+
 
 ## The problem in one sentence
 

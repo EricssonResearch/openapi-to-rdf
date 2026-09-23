@@ -259,8 +259,14 @@ classes from `expected`**, and the exclusion needs its own assertion so the gate
   whole-document conversion**. Pre-fix: 34 such pairs.
 * `AC-2` Whole and split conversions of one document yield **isomorphic** RDF vocabularies, compared
   as graphs by `scripts/measure_split_isomorphism.py`.
-* `AC-3` Dangling class targets over the 3GPP corpus, converted with siblings loaded: **0**.
-  Pre-fix: 175 distinct.
+* `AC-3` Dangling class targets over the 3GPP corpus, converted with siblings loaded: **9**.
+  Pre-fix: 175 distinct. **Corrected from 0 on review**: this spec's own D1 table says 9 of the 141
+  `rdfs:range` danglers are outside the filename-derived family and expected by design, so 0 was
+  unreachable as written and would have sent an implementer chasing nine phantoms or quietly
+  weakening the criterion. Measured after the fix: **175 → 9**, residual characterised as `$ref`-alias
+  mis-classification. TM Forum reports 98, all convention-minted referents — verified, not assumed:
+  `Agreement` is declared in none of the three documents while `AgreementRef` is, so
+  `ClassFact.referent` mints a class no document declares.
 * `AC-4` Transitivity holds: a class in document 1 whose parent is in document 2 whose parent is
   back in document 1 resolves all three, with each class's IRI taken from its own declaring
   document.
@@ -272,6 +278,12 @@ classes from `expected`**, and the exclusion needs its own assertion so the gate
   `rdfs:domain` or `sh:NodeShape` triples whose subject is an external class IRI.
 * `AC-8` Both corpora. `scripts/measure_corpora.py` clean on 3GPP **and** TM Forum — five of six
   defects found in this library on 2026-09-22 were invisible on 3GPP.
+* `AC-11` **The consumer's gate passes.** `snm-api-native`'s
+  `tests/test_common_document::test_gate_2_*` is green on the real three-document family. Added on
+  review: AC-1 through AC-10 all measure this library, so every one of them can be satisfied while
+  the consumer stays red — which is what happened. Measured after the library fix: the consumer was
+  still **15 failed / 14 passed, byte-identical**, because it had not adopted `document_namespaces`.
+  That is consumer-side work, but without this criterion nothing says so.
 * `AC-9` Every new gate has been **observed failing** against the pre-fix code. An assertion whose
   inversion cannot fail is a finding about the fixture, not a pass.
 * `AC-10` D3: an external `$ref` carrying a directory component — `sub/common.yaml#/components/…` —
