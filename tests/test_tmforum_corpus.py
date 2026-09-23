@@ -27,6 +27,8 @@ from pathlib import Path
 import pytest
 from rdflib import RDF, RDFS, Graph, URIRef
 
+from openapi_to_rdf.mapping import MINTED_BY_CONVENTION_LOCAL
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 import _corpora  # noqa: E402
@@ -167,10 +169,26 @@ def test_declared_classes_are_shaped(converted: dict[str, tuple[Graph, Graph]]) 
     Reported as a ratio rather than asserted at zero: `rdfs:Datatype` targets and `oneOf` wrappers
     are known, deliberate exceptions (see HYPOTHESES.md H3), so a hard zero would be a false claim.
     """
+    minted_marker = URIRef(
+        "http://ericsson.com/models/3gpp/transport/" + MINTED_BY_CONVENTION_LOCAL
+    )
     for stem, (vocabulary, shapes) in converted.items():
         classes = set(vocabulary.subjects(RDF.type, RDFS.Class))
         targeted = {o for _s, _p, o in shapes.triples((None, SH_TARGET_CLASS, None))}
-        unshaped = classes - targeted
+
+        # A convention-minted referent (`AgreementRef` implies an `Agreement`) is declared because
+        # the ontology needs the term, but NO schema describes it — so there is nothing to constrain,
+        # and a NodeShape over it would be exactly the decoration this gate exists to catch.
+        # Excluded explicitly rather than by lowering the threshold, and the exclusion is itself
+        # asserted so it cannot quietly widen to cover real unshaped classes.
+        minted = set(vocabulary.subjects(minted_marker, None))
+        assert minted, (
+            f"{stem}: no convention-minted classes found — either the marker moved or referents "
+            "stopped being declared, and this exemption would now be hiding real unshaped classes"
+        )
+        assert minted <= classes, f"{stem}: a convention-minted term is not declared as a class"
+
+        unshaped = classes - targeted - minted
         assert classes, f"{stem}: no classes declared"
         share = len(unshaped) / len(classes)
         assert share < 0.10, (

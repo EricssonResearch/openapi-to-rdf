@@ -8,6 +8,7 @@ from rdflib.namespace import RDF, RDFS, XSD
 
 from openapi_to_rdf.mapping import (
     REFERS_TO_LOCAL,
+    MINTED_BY_CONVENTION_LOCAL,
     SERIALISATION_ARTIFACT_LOCAL,
     STRING_FORMAT_DATATYPES,
     IRI_VALUED_LOCAL,
@@ -250,6 +251,7 @@ class OpenAPIToSHACLConverter:
         self.IRI_VALUED = self.TRANSPORT[IRI_VALUED_LOCAL]
         self.SERIALISATION_ARTIFACT = self.TRANSPORT[SERIALISATION_ARTIFACT_LOCAL]
         self.REFERS_TO = self.TRANSPORT[REFERS_TO_LOCAL]
+        self.MINTED_BY_CONVENTION = self.TRANSPORT[MINTED_BY_CONVENTION_LOCAL]
         self.rdf_graph.bind("transport", self.TRANSPORT)
         self.shacl_graph.bind("transport", self.TRANSPORT)
 
@@ -450,7 +452,28 @@ class OpenAPIToSHACLConverter:
             # schema, so a presence check resolved `PartyRef` to `Party` in one document and left it
             # as `PartyRef` in the other — two specs disagreeing about one term.
             self.rdf_graph.add((subject_uri, self.SERIALISATION_ARTIFACT, Literal(True)))
-            self.rdf_graph.add((subject_uri, self.REFERS_TO, self._class_iri(fact.referent)))
+            referent_iri = self._class_iri(fact.referent)
+            self.rdf_graph.add((subject_uri, self.REFERS_TO, referent_iri))
+
+            # **Declare the referent.** In RDF an IRI already *is* a reference, so `AgreementRef`
+            # names no kind of thing — the value of a reference-valued property denotes the
+            # Agreement itself, and `rdfs:range` therefore names `Agreement`. That range was being
+            # emitted against an IRI nothing declared: measured on TMF620, **56 `*Ref` classes whose
+            # referents include 39 declared nowhere**, which is the whole of the 45-of-275 dangling
+            # `rdfs:range` axioms in a single document.
+            #
+            # TM Forum never writes an `Agreement` schema because JSON only ever carries the
+            # reference form. The ontology still needs the term, so this mints it — **ours**, by the
+            # same convention `referent_name` uses and never by lookup, so the same `*Ref` yields the
+            # same referent in every document rather than depending on which files are loaded.
+            #
+            # The `*Ref` class is NOT dropped: all 56 carry `rdfs:subClassOf` and 35 are the domain
+            # of a property (`EntityRef/href`), so deleting them would lose the inheritance chain and
+            # those domains. They stay declared and marked a serialisation artifact; they simply stop
+            # being range targets.
+            if fact.referent not in (self.mapping.classes if self.mapping else {}):
+                self.rdf_graph.add((referent_iri, RDF.type, RDFS.Class))
+                self.rdf_graph.add((referent_iri, self.MINTED_BY_CONVENTION, Literal(True)))
 
     def _type_clause(self, subject, property_shape, spec):
         """Main type processing clause, mirrors Prolog type_clause/4."""
@@ -1480,8 +1503,32 @@ class OpenAPIToSHACLConverter:
                 else:
                     self.rdf_graph.add((predicate_uri, RDFS.range, range_uri))
 
-        # Add description
-        if "description" in prop_def and not declaring_class_is_external:
+        # `rdfs:comment` comes from the schema that DECLARES the property, never from a subclass
+        # restating it — the same rule, and the same reason, as the single `rdfs:domain` above.
+        #
+        # `predicate_uri` is scoped to the *declaring* class, so this line is reached once per
+        # restating subclass with the SAME subject and a DIFFERENT description, and `Graph.add` is a
+        # set insert. Measured on TMF620: `Addressable/id` carried **5** comments — 'unique
+        # identifier' (Addressable's own), plus 'Id of the listener', 'The identifier of the referred
+        # entity.', 'unique identifier for export job' and 'unique identifier for import job' from
+        # four descendants. 59 of 842 property IRIs carried more than one, 137 triples surplus in a
+        # single document; `version` had 16, `name` 15, `description` 12.
+        #
+        # A description authored on `ExportJob` describes *ExportJob's use* of `id`; it was never a
+        # statement about `Addressable/id`. So this is a correctness fix, not a tie-break, and the
+        # right value is always available: the declaring schema's own `description`.
+        #
+        # **0 of 3,622 on 3GPP against 59 on TM Forum**, because 3GPP does not restate inherited
+        # fields — the same sample asymmetry that hid the multi-domain and multi-range defects, and
+        # the reason AC-8 wants two standards bodies rather than one.
+        restates_an_inherited_property = (
+            domain_class is not None and declaring_class != domain_class
+        )
+        if (
+            "description" in prop_def
+            and not declaring_class_is_external
+            and not restates_an_inherited_property
+        ):
             self.rdf_graph.add((predicate_uri, RDFS.comment, Literal(prop_def["description"])))
 
         # Record this property in the sidecar index.

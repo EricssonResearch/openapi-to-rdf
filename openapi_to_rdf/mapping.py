@@ -168,6 +168,13 @@ IRI_VALUED_LOCAL = "isIriValued"
 SERIALISATION_ARTIFACT_LOCAL = "isSerialisationArtifact"
 REFERS_TO_LOCAL = "refersTo"
 
+#: Marker asserting that a class was minted by THIS project from a naming convention rather than
+#: declared by any source document. **Ours.** Applies to a `*Ref`'s referent: `AgreementRef` implies
+#: an `Agreement`, and the ontology needs that term even though TM Forum never writes a schema for
+#: it (JSON only ever carries the reference form). Marked so a consumer can tell a term we inferred
+#: from a term a standards body published — the distinction a reader cannot recover from the IRI.
+MINTED_BY_CONVENTION_LOCAL = "isMintedByConvention"
+
 _MAX_REF_DEPTH = 10
 
 _VARIANT_SUFFIX_RE = re.compile(r"_(FVO|MVO)$")
@@ -567,7 +574,11 @@ def datatype_for(spec: Any, schemas: dict[str, Any], depth: int = 0) -> str | No
     return None
 
 
-def target_classes_for(spec: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
+def target_classes_for(
+    spec: Any,
+    schemas: dict[str, Any],
+    external_schemas: dict[str, dict[str, Any]] | None = None,
+) -> tuple[str, ...]:
     """Class *names* a property may point at, in declaration order, deduplicated.
 
     Names rather than IRIs, so a projection resolves them through ``Mapping.classes``. A tuple
@@ -598,17 +609,47 @@ def target_classes_for(spec: Any, schemas: dict[str, Any]) -> tuple[str, ...]:
         if name not in found:
             found.append(name)
 
-    def consider(candidate: Any, depth: int = 0) -> None:
+    def consider(candidate: Any, depth: int = 0, pool: dict[str, Any] | None = None) -> None:
+        """Resolve one ``$ref`` to the class names it constrains to.
+
+        ``pool`` is the schema map the ref resolves against — the local document's by default, and
+        an EXTERNAL document's when we are following a ref that crossed a boundary, because a bare
+        ``#/components/schemas/X`` written inside ``common.yaml`` means ``common.yaml``'s ``X``.
+
+        **Both collapses below used to be unreachable across a document boundary**, because
+        ``_ref_name`` matches ``#/components/schemas/`` only, so an external ref returned None and
+        this function exited before either rule applied. Measured consequence: a property whose
+        target moved to another document got ``target_classes == ()``, and the emitter fell back to
+        naming the ``*Ref`` itself — so the same property's ``rdfs:range`` was ``Agreement`` when
+        ``AgreementRef`` was local and ``AgreementRef`` when it was external. One determination, two
+        answers, decided by file layout.
+        """
+        if pool is None:
+            pool = schemas
         name = _ref_name(candidate)
-        if name is None or name not in schemas or depth > _MAX_REF_DEPTH:
+        if name is not None and name not in pool:
             return
-        target = schemas[name]
-        if is_primitive_def(target, schemas):
+        if name is None:
+            # An external ref. Resolve it against the document it names, keyed the way
+            # `_external_schemas_map` and `_parents_of` key it (`_ref_document_key`).
+            ref = candidate.get("$ref") if isinstance(candidate, dict) else None
+            parsed = _parse_external_ref(ref) if isinstance(ref, str) else None
+            if parsed is None:
+                return
+            document, name = parsed
+            pool = (external_schemas or {}).get(_ref_document_key(document))
+            if not pool or name not in pool:
+                return
+        if depth > _MAX_REF_DEPTH:
+            return
+        target = pool[name]
+        if is_primitive_def(target, pool):
             return
         if is_json_only_union(target):
-            # No class for the union; the constraint is its members. (Determination S2.)
+            # No class for the union; the constraint is its members. (Determination S2.) Members
+            # resolve against the union's OWN document, not the referring one.
             for member in target.get("oneOf") or []:
-                consider(member, depth + 1)
+                consider(member, depth + 1, pool)
             return
         referent = referent_name(name)
         if referent is not None:
@@ -1106,7 +1147,9 @@ def build_mapping(
             fact = PropertyFact(
                 iri=str(property_uri(declaring_ns, declaring, property_name)),
                 declaring_class=declaring,
-                target_classes=target_classes_for(spec, declaring_schemas[declaring]),
+                target_classes=target_classes_for(
+                    spec, declaring_schemas[declaring], ext_schemas
+                ),
                 datatype=datatype_for(spec, declaring_schemas[declaring]),
                 is_iri_valued=is_iri_valued(property_name, spec, declaring_schemas[declaring]),
                 min_count=lower,
