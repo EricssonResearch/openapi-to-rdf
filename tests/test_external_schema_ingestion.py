@@ -456,3 +456,92 @@ def test_a_third_document_is_reached_through_an_external_ref():
     assert "Base" in mapping.classes
     assert mapping.classes["Base"].declaring_document == "c.yaml"
     assert mapping.classes["Middle"].parents == ("Base",)
+
+
+def _write(directory, name, document):
+    import yaml
+
+    path = directory / name
+    path.write_text(yaml.safe_dump(document))
+    return path
+
+
+@pytest.fixture
+def split_files(tmp_path, split_with_restatement):
+    """`split_with_restatement`, on disk, as common.yaml + api.yaml."""
+    common = {
+        "openapi": "3.0.0",
+        "info": {"title": "Common", "version": "1.0"},
+        "components": {"schemas": split_with_restatement["external"][COMMON]},
+    }
+    return {
+        "common": _write(tmp_path, COMMON, common),
+        "api": _write(tmp_path, "api.yaml", split_with_restatement["api"]),
+        "dir": tmp_path,
+    }
+
+
+def test_a_referenced_external_class_gets_its_declaring_documents_iri(split_files, tmp_path):
+    """D1: the referring document used to mint this from the FILENAME and a hardcoded prefix.
+
+    Pre-fix this emits <http://ericsson.com/models/3gpp/rdf/common#Addressable> — a 3GPP IRI
+    inside a TM Forum vocabulary, and an IRI no document declares.
+    """
+    from rdflib import RDFS, URIRef
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    shared = "https://tmforum.org/ontology/"
+    converter = OpenAPIToSHACLConverter(
+        str(split_files["api"]),
+        base_namespace=shared,
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(split_files["common"])],
+    )
+    converter.convert()
+    assert (
+        URIRef(f"{shared}PolicyRef"),
+        RDFS.subClassOf,
+        URIRef(f"{shared}Addressable"),
+    ) in converter.rdf_graph
+
+
+def test_document_namespaces_overrides_per_document(split_files, tmp_path):
+    """3GPP's convention: one vocabulary per document, stated by the caller."""
+    from rdflib import RDFS, URIRef
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    converter = OpenAPIToSHACLConverter(
+        str(split_files["api"]),
+        base_namespace="https://api.example/",
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(split_files["common"])],
+        document_namespaces={COMMON: "https://common.example/v5/"},
+    )
+    converter.convert()
+    assert (
+        URIRef("https://api.example/PolicyRef"),
+        RDFS.subClassOf,
+        URIRef("https://common.example/v5/Addressable"),
+    ) in converter.rdf_graph
+
+
+def test_an_external_class_is_referenced_but_never_declared(split_files, tmp_path):
+    """AC-7. The declaring document emits the declaration; re-declaring would duplicate it."""
+    from rdflib import RDF, RDFS, URIRef
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    shared = "https://tmforum.org/ontology/"
+    converter = OpenAPIToSHACLConverter(
+        str(split_files["api"]),
+        base_namespace=shared,
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(split_files["common"])],
+    )
+    converter.convert()
+    external = URIRef(f"{shared}Addressable")
+    assert (external, RDF.type, RDFS.Class) not in converter.rdf_graph
+    assert not list(converter.rdf_graph.triples((None, RDFS.domain, external)))
+    assert not list(converter.shacl_graph.triples((None, None, external)))

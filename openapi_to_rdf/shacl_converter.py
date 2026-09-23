@@ -56,7 +56,7 @@ class OpenAPIToSHACLConverter:
     have seen the defect.
     """
 
-    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/", schema_namespaces=None, transport_namespace=None):
+    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/", schema_namespaces=None, document_namespaces=None, transport_namespace=None):
         """Initialize the converter with SHACL-based approach.
 
         Args:
@@ -80,6 +80,13 @@ class OpenAPIToSHACLConverter:
                 under ``.../ctc/`` while ``WirelessNetFunction`` lives
                 under ``.../ctw/`` but refers back to ``Resource`` via
                 ``allOf``. Namespaces must end in ``#`` or ``/``.
+            document_namespaces: Optional ``{document_filename: namespace_uri}`` map, keyed by
+                basename. A class's namespace is a property of the document that DECLARES it, so
+                this is how a referring document learns the namespace a sibling was converted
+                under. Without it, a sibling's namespace could only be re-derived from its
+                filename, which silently disagreed with any explicitly-supplied
+                ``base_namespace``: 175 distinct dangling class targets in the committed 3GPP
+                ``output/`` tree. See the spec's D1.
             transport_namespace: Namespace for wire envelopes (notification
                 wrappers, event payloads, JSON Patch documents). Defaults to
                 ``<base_namespace_prefix>transport/``, so it follows
@@ -99,6 +106,10 @@ class OpenAPIToSHACLConverter:
         # Per-schema namespace overrides for cross-domain merged specs.
         # See the ``schema_namespaces`` parameter docstring above.
         self.schema_namespaces = dict(schema_namespaces or {})
+        # Keyed by basename, matching `_external_schemas_map`.
+        self.document_namespaces = {
+            os.path.basename(name): uri for name, uri in (document_namespaces or {}).items()
+        }
         self.data = None
         
         # Separate graphs for RDF vocabulary and SHACL shapes
@@ -140,6 +151,13 @@ class OpenAPIToSHACLConverter:
             schema_namespaces=self.schema_namespaces,
             transport_namespace=self.transport_namespace,
             external_schemas=getattr(self, "_external_schemas_map", None),
+            # The converter is the component that knows filenames, so it resolves every external
+            # document's namespace here rather than leaving `build_mapping` to re-derive one.
+            external_namespaces={
+                document: self._namespace_for_document(document)
+                for document in getattr(self, "_external_schemas_map", {})
+                if os.path.basename(document) in self.document_namespaces
+            } or None,
         )
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -246,7 +264,7 @@ class OpenAPIToSHACLConverter:
         for ext in self.external_refs:
             ext_filename = os.path.basename(ext)
             ext_prefix = self.format_name(os.path.splitext(ext_filename)[0])
-            ext_ns_uri = namespace_for_document(ext_filename, self.base_namespace_prefix)
+            ext_ns_uri = self._namespace_for_document(ext_filename)
             ext_ns = Namespace(ext_ns_uri)
             self.prefixes[ext_prefix] = ext_ns
             self.rdf_graph.bind(ext_prefix, ext_ns)
@@ -281,6 +299,25 @@ class OpenAPIToSHACLConverter:
         return namespace_for_schema(
             schema_name, self.base_namespace, self.schema_namespaces
         )
+
+    def _namespace_for_document(self, filename):
+        """The namespace the classes of one document in this OAD are minted under.
+
+        The four-step resolution, in order: an explicit ``document_namespaces`` entry; this
+        document's own ``base_namespace`` when ``filename`` IS this document; otherwise the
+        filename derivation. Step two is what closes D1 — ``base_namespace`` used to be a value
+        only the self path could see, so supplying it desynchronised this document from every
+        document referring to it.
+
+        Per-class ``schema_namespaces`` overrides are applied on top of this, by
+        :func:`openapi_to_rdf.property_uri.namespace_for_schema`, and still win.
+        """
+        base = os.path.basename(filename)
+        if base in self.document_namespaces:
+            return self.document_namespaces[base]
+        if base == os.path.basename(self.yaml_file):
+            return self.base_namespace
+        return namespace_for_document(base, self.base_namespace_prefix)
 
     def _class_namespace_uri(self, schema_name):
         """The namespace a named schema's class and property IRIs are minted under.
@@ -1649,32 +1686,24 @@ class OpenAPIToSHACLConverter:
                             )
                         return None, None
 
-                    # Resolved: mint IRI for the external class
-                    # Check if this external class has a namespace override via schema_namespaces
-                    if ref_name in self.schema_namespaces:
-                        # Use the overridden namespace
-                        override_ns = self.schema_namespaces[ref_name]
-                        ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
-                        if ext_prefix not in self.prefixes:
-                            ext_ns = Namespace(override_ns)
-                            self.prefixes[ext_prefix] = ext_ns
-                            self.rdf_graph.bind(ext_prefix, ext_ns)
-                            self.shacl_graph.bind(ext_prefix, ext_ns)
-                        return self.prefixes[ext_prefix][format_local_name(ref_name)], None
-                    else:
-                        # No override: generate namespace from filename
-                        ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
-                        if ext_prefix not in self.prefixes:
-                            ext_ns_uri = namespace_for_document(doc_part, self.base_namespace_prefix)
-                            ext_ns = Namespace(ext_ns_uri)
-                            self.prefixes[ext_prefix] = ext_ns
-                            self.rdf_graph.bind(ext_prefix, ext_ns)
-                            self.shacl_graph.bind(ext_prefix, ext_ns)
-
-                        # Injective local name, for the same reason as `_class_iri`: an external
-                        # class IRI is still a class IRI, and folding `-` to `_` collapses two
-                        # schema names.
-                        return self.prefixes[ext_prefix][format_local_name(ref_name)], None
+                    # Resolved. Through `_class_iri` where the Mapping holds the class, which is
+                    # the single place a class IRI is minted and now carries the external class
+                    # under its own declaring document's namespace. A resolved external schema
+                    # that is NOT a class — a primitive alias or a `oneOf` union — has no Mapping
+                    # entry, so its namespace is resolved directly rather than falling through to
+                    # this document's.
+                    if self.mapping is not None and ref_name in self.mapping.classes:
+                        return self._class_iri(ref_name), None
+                    ext_ns_uri = self._namespace_for_document(doc_name)
+                    ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
+                    if ext_prefix not in self.prefixes:
+                        ext_ns = Namespace(ext_ns_uri)
+                        self.prefixes[ext_prefix] = ext_ns
+                        self.rdf_graph.bind(ext_prefix, ext_ns)
+                        self.shacl_graph.bind(ext_prefix, ext_ns)
+                    # Injective local name, for the same reason as `_class_iri`: folding `-` to
+                    # `_` collapses two schema names onto one IRI.
+                    return Namespace(ext_ns_uri)[format_local_name(ref_name)], None
 
         # Fragment-less $ref like "Money.yaml" — legal OAS 3.1 but not yet
         # supported. Raise naming the spec section rather than silently
