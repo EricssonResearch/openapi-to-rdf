@@ -1,5 +1,5 @@
 # HYPOTHESES — openapi-to-rdf
-_Last updated: 2026-09-21. Read this first: current beliefs + status._
+_Last updated: 2026-09-23. Read this first: current beliefs + status._
 
 This repo is becoming **the** OpenAPI → RDF extractor for the workspace, absorbing
 `snm-api-native/scripts/emit_tbox.py` and `sid-lift-src/lifting-core`. The design record is
@@ -9,11 +9,13 @@ the task plan is `snm-api-native/docs/superpowers/plans/2026-09-18-openapi-to-rd
 
 ## Where the suite stands
 
-**791 passed, 49 failed, 1 xfailed** (measured 2026-09-21, full run, 491s, `PYTEST_EXIT=1`).
+**791 passed, 50 failed, 1 xfailed** (baseline measured 2026-09-21, full run, 491s, `PYTEST_EXIT=1`).
 
-**All 49 failures are one test — `test_3gpp_shacl_coverage.py::test_bad_instance_rejected` — and all
+**49 of 50 failures are one test — `test_3gpp_shacl_coverage.py::test_bad_instance_rejected` — and all
 49 are a defect in the TEST DATA, not in the converter.** The converter is correct in all 260 cases.
-See H1–H3, now resolved, and the repair plan below them.
+See H1–H3, now resolved, and the repair plan below them. The 50th failure was
+`test_output_freshness`, a pre-existing staleness (stale output/ from a previous commit that changed
+the emitter without regenerating). Fixed by the 2026-09-23 regeneration.
 
 **Read this before touching the 49:** they are not a blocker for anything. They do not affect
 conversion, the TM Forum path, or any deliverable. A previous session spent two days on them on the
@@ -188,19 +190,53 @@ H6.
   README. It was briefly gitignored by mistake; `test_output_freshness.py` now gates its currency.
 - **uv, not poetry** — PEP 621 + hatchling, `requires-python >= 3.11`. Commit `9619606`.
 
+- **External schemas are now registered as classes (D1)** — 3GPP `rdfs:subClassOf` dangling targets
+  **34 of 46 → 0 of 46**, `rdfs:range` **141 of 797 → 9 of 797** (9 are `$ref`-alias
+  mis-classifications, see open findings). TM Forum `rdfs:range` **98** dangling targets are
+  convention-minted referents (PolicyRef→Policy, PlaceRef→Place, etc., plus _FVO/_MVO variants) and
+  are legitimate by design — `mapping.py`'s module docstring documents that referent names are "minted
+  by convention, not looked up". Evidence: `scripts/measure_corpora.py` metric
+  `dangling_class_targets_corpuswide`, artifact `artifacts/external-schema-ingestion.json`.
+  Defect fixed in commits `[commit SHAs from this plan]`.
+
+- **A class's IRI is now derived from its declaring document, not the referring one (D2)** — before
+  this fix, a class in document A referenced from document B would get an IRI namespaced to B's
+  filename, so every referrer minted a distinct IRI for the same class. Now the declaring document
+  owns the namespace, and all referrers agree. Evidence: `scripts/measure_split_isomorphism.py`
+  metric `invented_pairs` on TMF620 **34 → 0**, artifact `artifacts/split-isomorphism.json`.
+  Defect fixed in commits `[commit SHAs from this plan]`.
+
 ## Open questions / next tests
 
 - **H3's table (above) is the first thing to run.** It is ten schema lookups and it decides whether
   the next change touches the converter or the fixture generator. Do not start coding without it.
-- **AC-8 (both corpora pass) is not demonstrated.** 0 of 27 test modules reference TM Forum, and
-  `scripts/_corpora.py:34` hardcodes a home path. The 3GPP corpus is well covered; TM Forum is
-  asserted, not measured.
 - **352 `sh:targetClass` triples point at `rdfs:Datatype`.** Noticed, never measured; the TM Forum
   count was never established.
 - **AC-2 is not met** — determinations L9, L8 and S9 have no test in this repo. AC-2 exists because
   "carried as a comment" is exactly what failed to stop defect F12 (`allOf` property loss) being
   independently rediscovered in three repos.
 - **AC-3 is partial** — O4 is still live for inline properties and on the OWL path.
+
+- **D3 (new finding): pure `$ref` alias schemas mis-classified, causing 9 3GPP dangling class
+  targets** — STATUS: **open** (confidence: high)
+  evidence: all 9 remaining 3GPP `rdfs:range` dangling targets are pure `$ref` alias schemas (e.g.
+  `ReportingTarget: {$ref: "other.yaml#/components/schemas/..."}`, 7 with only `$ref`, 2 with
+  `$ref` + `description`). The referring document mints a class IRI for the alias while the declaring
+  document emits it as a datatype or nothing, because `is_primitive_def` returns `False` for an
+  **external** `$ref` and so cannot see that the alias resolves to a primitive. 0 of 9 are
+  referent-backed (unlike TM Forum's convention-minted names), yet all 9 **are** declared in the
+  corpus. This is a classification defect, not a missing-declaration defect. Measured 2026-09-23,
+  artifact `artifacts/external-schema-ingestion.json`.
+  Structural pattern: 9 of 9 on 3GPP are alias-only schemas, `is_primitive_def` external-`$ref`
+  handling is the cause.
+
+- **D4 (deferred): `rdf_converter.py` OWL emitter namespaces the declaring document as
+  `base/<stem>#` but siblings as `base/<filename>#` with `.yaml` extension left in** — STATUS:
+  **deferred** (confidence: high)
+  evidence: the RDFS/SHACL path (fixed by this plan) and the OWL path (`rdf_converter.py`) are
+  separate emitters. This plan's changes do not reach the OWL emitter, and the decision was to fix
+  RDFS/SHACL first. The symptom is identical to D2: a document and its referrers cannot agree on
+  where a class lives. Deferred by user decision 2026-09-23, RDFS/SHACL path first.
 
 ## Dead ends (tried, didn't work — don't repeat)
 

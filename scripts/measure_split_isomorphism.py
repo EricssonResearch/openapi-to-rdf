@@ -108,6 +108,8 @@ def split_document(
     common_schemas = {n: copy.deepcopy(d) for n, d in schemas.items() if n in moved}
 
     # Schemas that stayed in api might reference moved ones → rewrite to common.yaml
+    if "components" not in api:
+        api["components"] = {}
     api["components"]["schemas"] = _rewrite_refs(api_schemas, moved, COMMON_NAME)
 
     # Schemas moved to common might reference ones that stayed → rewrite to api.yaml
