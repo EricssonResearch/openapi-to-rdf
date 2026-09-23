@@ -66,12 +66,19 @@ def term(concept: str) -> URIRef:
     return AFFORDANCE_TERMS[concept]
 
 
-def operations_from_mapping(mapping: Mapping, *, base: str) -> Graph:
+def operations_from_mapping(mapping: Mapping) -> Graph:
     """Project the operation graph from the Mapping.
 
     Args:
-        mapping: The derived fact set.
-        base: Base namespace for operation IRIs.
+        mapping: The derived fact set. Operation IRIs come from it, already minted.
+
+    **The `base` parameter was removed on 2026-09-22 because it did nothing.** It was documented as
+    "base namespace for operation IRIs" while the body read ``op_fact.iri`` straight from the
+    Mapping, so two calls differing only in `base` produced byte-identical graphs — verified. A
+    parameter that silently ignores its argument is worse than an absent one, because a caller
+    believes it took effect. To place operations under a different namespace, pass
+    ``operation_namespace`` to :func:`openapi_to_rdf.mapping.build_mapping`, which is where the IRI
+    is actually minted.
 
     Returns:
         An rdflib.Graph with one hydra:Operation per operation, carrying method, returns class,

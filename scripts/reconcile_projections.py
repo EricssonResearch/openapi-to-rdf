@@ -140,7 +140,7 @@ def reconcile(mapping, doc: dict | None = None, spec_path: Path | None = None) -
             else:
                 namespace = first_iri.rsplit("/", 1)[0] + "/"
 
-            ops_graph = operations_from_mapping(mapping, base=namespace)
+            ops_graph = operations_from_mapping(mapping)
 
             # Extract classes mentioned in operations
             for obj in ops_graph.objects(None, HYDRA.returns):

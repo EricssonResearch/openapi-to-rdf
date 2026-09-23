@@ -103,7 +103,7 @@ def test_all_projections_agree_on_class_iris() -> None:
     }
 
     # 4. Operations graph
-    ops_graph = operations_from_mapping(mapping, base=NS)
+    ops_graph = operations_from_mapping(mapping)
     ops_classes_by_name = {}
     for obj in ops_graph.objects(None, HYDRA.returns):
         class_iri = str(obj)

@@ -81,7 +81,7 @@ def mapping():
 def graph(mapping):
     from openapi_to_rdf.projections.operations import operations_from_mapping
 
-    return operations_from_mapping(mapping, base=NS)
+    return operations_from_mapping(mapping)
 
 
 def test_each_operation_becomes_a_hydra_operation(graph) -> None:

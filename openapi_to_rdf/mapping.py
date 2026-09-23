@@ -226,6 +226,17 @@ class OperationFact:
     through ``Mapping.classes`` and emits the IRI the vocabulary declares rather than re-deriving
     one from a schema name. Either is None when the operation has no body, or when its schema
     resolves to something that is not a class in this document — None, never a placeholder.
+
+    ``has_request_body`` / ``has_response_body`` exist because that sentence describes **two
+    different facts** and a consumer needs to tell them apart. A ``DELETE`` returning nothing and a
+    response whose ``$ref`` could not be resolved both give ``returns_class = None``: the first is
+    correct, the second is a defect. Without the flags, any report of resolution quality has to
+    treat them alike, and the denominator it prints is wrong.
+
+    The measurement that earned this, from ``snm-api-native``'s operation emitter: counting bodyless
+    operations as unresolved reported **8 of 20** resolved on TMF641 where the truth is **8 of 8** —
+    the other 12 are DELETEs and notification listeners that correctly return nothing. A 40% success
+    rate and a 100% one, from the same graph.
     """
 
     iri: str
@@ -234,6 +245,9 @@ class OperationFact:
     returns_class: str | None
     accepts_class: str | None
     status_codes: tuple[int, ...]
+    #: Whether the document declares a body at all, independent of whether its class resolved.
+    has_request_body: bool = False
+    has_response_body: bool = False
 
 
 @dataclass(frozen=True)
@@ -827,6 +841,7 @@ def build_mapping(
     document: dict,
     *,
     namespace: str,
+    operation_namespace: str | None = None,
     schema_namespaces: dict[str, str] | None = None,
     transport_namespace: str = DEFAULT_TRANSPORT_NAMESPACE,
     external_schemas: dict[str, dict[str, Any]] | None = None,
@@ -836,6 +851,9 @@ def build_mapping(
     Args:
         document: A parsed OpenAPI document. Never modified.
         namespace: Default namespace for every class in the document.
+        operation_namespace: Namespace for operation IRIs. Defaults to ``namespace``. Separate
+            because an operation is a description of how to reach a resource, not a term in the
+            vocabulary, and a consumer may publish the two under different bases.
         schema_namespaces: Optional ``{ClassName: namespace_uri}`` override, for a merged
             cross-domain spec where one document's schemas belong to several namespaces. Honoured
             through :func:`openapi_to_rdf.property_uri.namespace_for_schema`, the single point of
@@ -938,6 +956,11 @@ def build_mapping(
     _info = document.get("info") or {}
     _api = api_slug(_info.get("title", "") if isinstance(_info, dict) else "")
     _version = major_version(_info.get("version", "") if isinstance(_info, dict) else "")
+    # Operations may live under a DIFFERENT namespace from the vocabulary, and a consumer may
+    # need them to: an operation is not a resource OF the API, it is a description of how to
+    # reach one, so putting it beside the classes conflates a vocabulary term with an
+    # affordance description. Defaults to `namespace` so existing callers are unaffected.
+    _op_ns = operation_namespace or namespace
     for path_template, path_item in (document.get("paths") or {}).items():
         path_item = _resolve_document_ref(path_item, document)
         if not isinstance(path_item, dict):
@@ -965,12 +988,16 @@ def build_mapping(
             key = f"{method.upper()} {path_template}"
             operations[key] = OperationFact(
                 iri=_operation_iri(
-                    namespace, method, path_template, api=_api, version=_version
+                    _op_ns, method, path_template, api=_api, version=_version
                 ),
                 method=method.upper(),
                 path_template=path_template,
                 returns_class=returned,
                 accepts_class=accepted,
+                has_response_body=any(
+                    _body_schema(responses[key], document) is not None for _code, key in successes
+                ),
+                has_request_body=_body_schema(operation.get("requestBody"), document) is not None,
                 status_codes=_status_codes(operation),
             )
 
