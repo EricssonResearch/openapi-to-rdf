@@ -812,6 +812,15 @@ def test_a_referenced_external_class_gets_its_declaring_documents_iri(split_file
 
     Pre-fix this emits <http://ericsson.com/models/3gpp/rdf/common#Addressable> — a 3GPP IRI
     inside a TM Forum vocabulary, and an IRI no document declares.
+
+    **The split model states its shared namespace.** `document_namespaces` is supplied here and
+    that is not a workaround: a class's namespace is a property of the document that DECLARES it,
+    and the library cannot know `common.yaml` was converted under a namespace its filename does not
+    imply. Absent that instruction the fallback is the declaring document's own derived namespace,
+    which is what keeps the 38-document 3GPP corpus joined — see
+    `test_the_zero_config_default_is_the_declaring_documents_derived_namespace` below. An earlier
+    draft of this test omitted the map and expected the shared namespace anyway, which contradicted
+    the spec and, implemented, took 3GPP from 16 dangling class targets to 79.
     """
     from rdflib import RDFS, URIRef
 
@@ -823,12 +832,77 @@ def test_a_referenced_external_class_gets_its_declaring_documents_iri(split_file
         base_namespace=shared,
         output_dir=str(tmp_path / "out"),
         external_refs=[str(split_files["common"])],
+        document_namespaces={COMMON: shared},
     )
     converter.convert()
     assert (
         URIRef(f"{shared}PolicyRef"),
         RDFS.subClassOf,
         URIRef(f"{shared}Addressable"),
+    ) in converter.rdf_graph
+
+
+def test_the_zero_config_default_is_the_declaring_documents_derived_namespace(tmp_path):
+    """With no `document_namespaces`, an external class keeps ITS OWN document's derived namespace.
+
+    This is the 3GPP convention and it is the default because it is the only answer derivable
+    without instruction: it is what that document's own conversion would produce. Asserting the
+    opposite is what regressed the corpus 16 -> 79 dangling targets.
+    """
+    import yaml
+    from rdflib import RDFS, URIRef
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+    from openapi_to_rdf.property_uri import namespace_for_document
+
+    prefix = "http://example.test/models/"
+    common = tmp_path / "TS28623_ComDefs.yaml"
+    common.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "ComDefs", "version": "1.0"},
+                "components": {
+                    "schemas": {"Thing": {"type": "object",
+                                          "properties": {"id": {"type": "string"}}}}
+                },
+            }
+        )
+    )
+    api = tmp_path / "TS28541_5GcNrm.yaml"
+    api.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "5GcNrm", "version": "1.0"},
+                "components": {
+                    "schemas": {
+                        "Cell": {
+                            "allOf": [
+                                {"$ref": "TS28623_ComDefs.yaml#/components/schemas/Thing"},
+                                {"type": "object",
+                                 "properties": {"cellId": {"type": "string"}}},
+                            ]
+                        }
+                    }
+                },
+            }
+        )
+    )
+    converter = OpenAPIToSHACLConverter(
+        str(api),
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(common)],
+        base_namespace_prefix=prefix,
+    )
+    converter.convert()
+    declaring_ns = namespace_for_document("TS28623_ComDefs.yaml", prefix)
+    referring_ns = namespace_for_document("TS28541_5GcNrm.yaml", prefix)
+    assert declaring_ns != referring_ns  # the test is vacuous if these coincide
+    assert (
+        URIRef(f"{referring_ns}Cell"),
+        RDFS.subClassOf,
+        URIRef(f"{declaring_ns}Thing"),
     ) in converter.rdf_graph
 
 
@@ -854,7 +928,17 @@ def test_document_namespaces_overrides_per_document(split_files, tmp_path):
 
 
 def test_an_external_class_is_referenced_but_never_declared(split_files, tmp_path):
-    """AC-7. The declaring document emits the declaration; re-declaring would duplicate it."""
+    """AC-7. The declaring document emits the declaration; re-declaring would duplicate it.
+
+    **Subject-scoped, and that scoping is the whole point.** AC-7 forbids triples whose SUBJECT is
+    an external class or a property minted under it. An object-position reference is REQUIRED, not
+    merely tolerated: `rdfs:subClassOf`, `rdfs:range`, `sh:class` and `sh:xone` members all name the
+    external class as an object, and they are what the task exists to emit. An earlier draft of this
+    test asserted `not list(shacl_graph.triples((None, None, external)))`, which forbids the object
+    position too; implemented, it collapsed a `oneOf` over one external and one local class into a
+    bare `sh:class <local>`, so an instance whose value was legally the external class **failed
+    validation**. A false rejection, produced by a test that was broader than the criterion it cited.
+    """
     from rdflib import RDF, RDFS, URIRef
 
     from openapi_to_rdf import OpenAPIToSHACLConverter
@@ -865,12 +949,26 @@ def test_an_external_class_is_referenced_but_never_declared(split_files, tmp_pat
         base_namespace=shared,
         output_dir=str(tmp_path / "out"),
         external_refs=[str(split_files["common"])],
+        document_namespaces={COMMON: shared},
     )
     converter.convert()
     external = URIRef(f"{shared}Addressable")
+
+    # Nothing is declared ABOUT the external class...
     assert (external, RDF.type, RDFS.Class) not in converter.rdf_graph
-    assert not list(converter.rdf_graph.triples((None, RDFS.domain, external)))
-    assert not list(converter.shacl_graph.triples((None, None, external)))
+    assert not list(converter.rdf_graph.triples((external, None, None)))
+    assert not list(converter.shacl_graph.triples((external, None, None)))
+    # ...nor about a property minted under it.
+    for graph in (converter.rdf_graph, converter.shacl_graph):
+        assert not [s for s in graph.subjects() if str(s).startswith(f"{external}/")]
+
+    # ...but the local class still SUBCLASSES it, and still validates the properties it inherits.
+    local = URIRef(f"{shared}PolicyRef")
+    assert (local, RDFS.subClassOf, external) in converter.rdf_graph
+    paths = {str(o) for o in converter.shacl_graph.objects(None, converter.SH.path)}
+    assert f"{external}/href" in paths, (
+        f"PolicyRef's shape must still validate the inherited href; got {sorted(paths)}"
+    )
 ```
 
 - [ ] **Step 2: Run the tests to verify they fail**
