@@ -105,6 +105,7 @@ Nothing here writes the input document or touches the filesystem.
 
 from __future__ import annotations
 
+import posixpath
 import re
 from dataclasses import dataclass
 from typing import Any
@@ -203,6 +204,24 @@ class ClassFact:
     parents: tuple[str, ...]
     is_transport: bool
     referent: str | None = None
+    #: The document that DECLARES this class, or None for the document being converted. Provenance,
+    #: never identity: `HYPOTHESES.md` settles that the source document is recorded as a fact and
+    #: never as an IRI segment, and this field is that fact. What it *does* decide is which
+    #: namespace the class is minted under, because a class's namespace is a property of the
+    #: document that declares it — see the spec's D1.
+    declaring_document: str | None = None
+
+    @property
+    def is_external(self) -> bool:
+        """True when another document in the OAD declares this class.
+
+        Projections that DECLARE terms must skip these; projections that merely REFERENCE them
+        must not. The declaring document already emits the declaration, which is what makes a
+        split conversion's union equal to the whole-document conversion — the acceptance
+        criterion. Re-declaring would also publish two contradictory definitions under one IRI
+        wherever two documents declare the same name differently: 44 such names on 3GPP.
+        """
+        return self.declaring_document is not None
 
 
 @dataclass(frozen=True)
@@ -283,6 +302,11 @@ class Mapping:
     #: object is meant to be everything one walk of the document yields — a projection that opened
     #: the document again could disagree with the rest of the fact set about what it says.
     api_version: str | None = None
+    #: ``(schema_name, document)`` for each external schema NOT registered because the name was
+    #: already taken by a different body. Reported rather than merged: deciding that two
+    #: same-named schemas are one class is an opinionated modelling step this project refuses to
+    #: take silently, and 44 of the 49 names declared in two 3GPP documents genuinely differ.
+    external_name_collisions: tuple[tuple[str, str], ...] = ()
 
     def declaring_class(self, class_name: str, property_name: str) -> str:
         """The class that declares ``property_name`` for a node of ``class_name``.
@@ -623,6 +647,57 @@ def is_iri_valued(property_name: str, spec: Any, schemas: dict[str, Any]) -> boo
     return False
 
 
+def _ref_document_key(document: str) -> str:
+    """The key an external document is indexed under: its basename.
+
+    ``_external_schemas_map`` is keyed by basename and ``_resolve_reference`` basenames before
+    looking up, but ``_parents_of`` used the parsed prefix verbatim — so a ref carrying a
+    directory component (``sub/common.yaml#/...``) resolved for range purposes and failed for
+    inheritance. Latent rather than live: **0 of 2,313** external refs in the 3GPP corpus carry a
+    directory component. Keyed here so the two paths agree by construction rather than by corpus
+    accident (spec D3). ``posixpath``, not ``os.path``: a ``$ref`` is a URI and its separator is
+    ``/`` on every platform.
+    """
+    return posixpath.basename(document)
+
+
+def _external_parents_of(
+    schema_def: Any,
+    schemas: dict[str, Any],
+    external_schemas: dict[str, dict[str, Any]],
+) -> list[tuple[str, str]]:
+    """``(document, schema_name)`` for each top-level ``allOf`` external ``$ref`` that resolves.
+
+    The document qualifier is what :func:`_parents_of` throws away, and it is load-bearing twice:
+    it decides the namespace the parent is minted under, and it says which document's schemas an
+    internal ``#/...`` ref inside that parent resolves against.
+
+    Applies the same exclusions as :func:`_parents_of` — a ``$ref`` to a primitive is a datatype
+    constraint and a ``$ref`` to a ``oneOf`` union names no class, so neither yields a parent.
+    """
+    if not isinstance(schema_def, dict):
+        return []
+    found: list[tuple[str, str]] = []
+    for member in schema_def.get("allOf") or []:
+        if _ref_name(member) is not None:
+            continue  # An internal ref, resolved by `_parents_of`.
+        ref = member.get("$ref") if isinstance(member, dict) else None
+        parsed = _parse_external_ref(ref) if isinstance(ref, str) else None
+        if parsed is None:
+            continue
+        document, schema_name = parsed
+        document = _ref_document_key(document)
+        document_schemas = external_schemas.get(document)
+        if not document_schemas or schema_name not in document_schemas:
+            continue
+        external_def = document_schemas[schema_name]
+        if is_primitive_def(external_def, document_schemas) or is_json_only_union(external_def):
+            continue
+        if (document, schema_name) not in found:
+            found.append((document, schema_name))
+    return found
+
+
 def _parents_of(
     schema_def: Any,
     schemas: dict[str, Any],
@@ -661,6 +736,7 @@ def _parents_of(
             parsed = _parse_external_ref(ref)
             if parsed:
                 doc, schema_name = parsed
+                doc = _ref_document_key(doc)
                 if doc in ext_schemas and schema_name in ext_schemas[doc]:
                     ext_schema = ext_schemas[doc][schema_name]
                     # Check if it's a class-like schema (not primitive, not union)
@@ -856,6 +932,7 @@ def build_mapping(
     schema_namespaces: dict[str, str] | None = None,
     transport_namespace: str = DEFAULT_TRANSPORT_NAMESPACE,
     external_schemas: dict[str, dict[str, Any]] | None = None,
+    external_namespaces: dict[str, str] | None = None,
 ) -> Mapping:
     """Derive the fact set every projection reads, from one walk over the document.
 
@@ -880,6 +957,13 @@ def build_mapping(
             an OAD MUST be fully parsed in order to locate possible reference targets"*. An
             unresolvable external ref is not an error here — it yields no parent and is reported
             where an IRI would be minted.
+        external_namespaces: Optional ``{document_name: namespace_uri}`` for the documents in
+            ``external_schemas``. A class's namespace is a property of the document that DECLARES
+            it, so an external class is minted under its own document's namespace — which is what
+            lets 3GPP keep one vocabulary per document while TM Forum's split model keeps one
+            vocabulary across documents. A document with no entry falls back to ``namespace``:
+            that is this parameter's documented default for every class in the mapping, and it is
+            exactly right for the split model, so the zero-configuration case is the split one.
 
     Returns:
         A :class:`Mapping`. Classes come from ``components/schemas`` and operations from
@@ -894,33 +978,90 @@ def build_mapping(
     schemas: dict[str, Any] = components.get("schemas") or {}
     overrides = dict(schema_namespaces or {})
 
-    def namespace_of(schema_name: str) -> str:
-        return namespace_for_schema(schema_name, namespace, overrides)
-
     # --- Classes. Every named schema that is not a primitive/datatype alias, and not a
     # --- JSON-only `oneOf` union (which is not a kind of thing — determination S2). -----------
+    ext_schemas = external_schemas or {}
+    ext_namespaces = external_namespaces or {}
     classes: dict[str, ClassFact] = {}
     parents: dict[str, tuple[str, ...]] = {}
-    for schema_name, schema_def in schemas.items():
-        if not isinstance(schema_def, dict) or is_primitive_def(schema_def, schemas):
-            continue
-        if is_json_only_union(schema_def):
-            continue
-        parents[schema_name] = _parents_of(schema_def, schemas, external_schemas)
-        transport = is_transport(schema_name)
+    #: Each registered class's defining schema, so `declared_by` does not have to assume the
+    #: definition came from the local document.
+    definitions: dict[str, Any] = {}
+    collisions: list[tuple[str, str]] = []
+
+    def namespace_of_document(document: str | None) -> str:
+        return namespace if document is None else ext_namespaces.get(document, namespace)
+
+    def class_namespace_of(schema_name: str, document: str | None, transport: bool) -> str:
         # Transport envelopes are minted under their own namespace so plumbing is distinguishable
-        # by IRI alone; domain classes keep the document's (possibly overridden) namespace.
-        class_namespace_uri = transport_namespace if transport else namespace_of(schema_name)
+        # by IRI alone; everything else under its DECLARING document's (possibly overridden)
+        # namespace. One function, so a class and the properties it declares cannot land in two.
+        if transport:
+            return transport_namespace
+        return namespace_for_schema(schema_name, namespace_of_document(document), overrides)
+
+    def register(schema_name: str, schema_def: Any, document: str | None) -> bool:
+        """Register one named schema as a class. False when it is not a class, or already known."""
+        if not isinstance(schema_def, dict):
+            return False
+        document_schemas = schemas if document is None else ext_schemas.get(document, {})
+        if is_primitive_def(schema_def, document_schemas) or is_json_only_union(schema_def):
+            return False
+        if schema_name in classes:
+            # Local always wins, and so does the first external registration. A name declared in
+            # two documents with two different bodies is two classes, and this index holds one:
+            # 49 of 1,741 3GPP schema names are declared in more than one of the 38 documents and
+            # 44 of those differ. Report the skip; never merge silently.
+            if document is not None and definitions.get(schema_name) != schema_def:
+                collisions.append((schema_name, document))
+            return False
+        transport = is_transport(schema_name)
+        parents[schema_name] = _parents_of(schema_def, document_schemas, ext_schemas)
+        definitions[schema_name] = schema_def
         classes[schema_name] = ClassFact(
-            iri=class_namespace_uri + format_local_name(schema_name),
+            iri=class_namespace_of(schema_name, document, transport)
+            + format_local_name(schema_name),
             parents=parents[schema_name],
             is_transport=transport,
             referent=referent_name(schema_name),
+            declaring_document=document,
         )
+        return True
+
+    for schema_name, schema_def in schemas.items():
+        register(schema_name, schema_def, None)
+
+    # --- External ancestors participate in attribution exactly as local ones do. --------------
+    # Without this, `_resolve_declaring_class` walks `parents`, hits a name with no entry, and
+    # stops at the document boundary — so a restated inherited property is attributed to the leaf
+    # and mints a second IRI for one field. Measured: 34 such pairs on a split TMF620.
+    # Spec: docs/superpowers/specs/2026-09-23-external-schema-ingestion-design.md (D2).
+    queue: list[tuple[str, str]] = []
+    for schema_name in list(classes):
+        if classes[schema_name].is_external:
+            continue
+        queue.extend(_external_parents_of(definitions[schema_name], schemas, ext_schemas))
+    visited: set[tuple[str, str]] = set()
+    while queue:
+        external_doc, schema_name = queue.pop(0)
+        if (external_doc, schema_name) in visited:
+            continue
+        visited.add((external_doc, schema_name))
+        document_schemas = ext_schemas.get(external_doc, {})
+        external_def = document_schemas.get(schema_name)
+        if not register(schema_name, external_def, external_doc):
+            continue
+        # Its own ancestors are external from THIS document's point of view too, whether they sit
+        # in the same external document or a third one. A parent in neither is a dangling ref: the
+        # walk stops and the emitter reports it, which is the existing no-guessing behaviour.
+        for parent in parents[schema_name]:
+            if parent in document_schemas:
+                queue.append((external_doc, parent))
+        queue.extend(_external_parents_of(external_def, document_schemas, ext_schemas))
 
     # --- Properties, attributed to the class that declares them. ----------------------------
-    declared_by = {name: flattened_properties(schemas[name]) for name in classes}
-    required_by = {name: flattened_required(schemas[name]) for name in classes}
+    declared_by = {name: flattened_properties(definitions[name]) for name in classes}
+    required_by = {name: flattened_required(definitions[name]) for name in classes}
 
     properties: dict[str, PropertyFact] = {}
     properties_by_class: dict[tuple[str, str], PropertyFact] = {}
@@ -939,12 +1080,9 @@ def build_mapping(
                 1 if property_name in required_by[class_name] else 0,
                 spec.get("minItems", 0) if is_list else 0,
             )
-            # A transport envelope's properties live under the transport namespace with their
-            # class: a property IRI must not claim a domain namespace its domain does not have.
-            declaring_ns = (
-                transport_namespace
-                if classes[declaring].is_transport
-                else namespace_of(declaring)
+            declaring_fact = classes[declaring]
+            declaring_ns = class_namespace_of(
+                declaring, declaring_fact.declaring_document, declaring_fact.is_transport
             )
             fact = PropertyFact(
                 iri=str(property_uri(declaring_ns, declaring, property_name)),
@@ -956,9 +1094,11 @@ def build_mapping(
                 max_count=spec.get("maxItems") if is_list else 1,
             )
             properties_by_class[(declaring, property_name)] = fact
-            # First declaration in document order owns the by-name index; every fact is kept in
-            # properties_by_class. See Mapping's docstring.
-            properties.setdefault(property_name, fact)
+            # First LOCAL declaration in document order owns the by-name index; an external entry
+            # could shadow a local one, and this index is what a context/overlay keys on. Every
+            # fact is kept in properties_by_class. See Mapping's docstring.
+            if not classes[declaring].is_external:
+                properties.setdefault(property_name, fact)
 
     # --- Operations. `paths` is in scope; the README disclaimer predates this. ---------------
     operations: dict[str, OperationFact] = {}
@@ -1020,4 +1160,5 @@ def build_mapping(
         operations=operations,
         properties_by_class=properties_by_class,
         api_version=str(raw_version) if raw_version else None,
+        external_name_collisions=tuple(collisions),
     )
