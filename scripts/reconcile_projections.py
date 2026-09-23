@@ -74,6 +74,8 @@ def reconcile(mapping, doc: dict | None = None, spec_path: Path | None = None) -
                     class_iri = str(class_subj)
                     # Match back to class name by IRI
                     for name, fact in mapping.classes.items():
+                        if fact.is_external:
+                            continue
                         if fact.iri == class_iri:
                             ttl_classes[name] = class_iri
                             break
@@ -86,11 +88,18 @@ def reconcile(mapping, doc: dict | None = None, spec_path: Path | None = None) -
 
         # Stated exclusions: transport envelopes excluded from TTL by design
         for name, fact in mapping.classes.items():
+            if fact.is_external:
+                continue
             if fact.is_transport and name not in ttl_classes:
                 exclusions[name] = "transport envelope (excluded from TTL by design)"
 
-    # The mapping itself is the reference
-    expected = {name: fact.iri for name, fact in mapping.classes.items()}
+    # An external class is declared by ITS OWN document and deliberately referenced-only here, so
+    # it is not a term this document's TTL is expected to declare. The count is reported so a
+    # rename that quietly widens this exclusion fails loudly instead of narrowing the gate.
+    external_classes = [name for name, fact in mapping.classes.items() if fact.is_external]
+    expected = {
+        name: fact.iri for name, fact in mapping.classes.items() if not fact.is_external
+    }
 
     # 2. Overlay
     overlay_classes = {}
@@ -201,6 +210,8 @@ def reconcile(mapping, doc: dict | None = None, spec_path: Path | None = None) -
         "names_checked": len(expected),
         "operations_classes_count": len(ops_classes),
         "ttl_classes_count": len(ttl_classes),
+        "external_classes_excluded": len(external_classes),
+        "external_classes": sorted(external_classes),
     }
 
 
@@ -220,6 +231,7 @@ def main():
 
     print(f"Names checked: {result['names_checked']}")
     print(f"TTL classes: {result.get('ttl_classes_count', 0)}")
+    print(f"External classes excluded: {result.get('external_classes_excluded', 0)}")
     print(f"Exclusions: {len(result['exclusions'])}")
     print(f"Shared (all agree): {len(result['shared'])}")
     print(f"Disagreements: {len(result['disagreements'])}")

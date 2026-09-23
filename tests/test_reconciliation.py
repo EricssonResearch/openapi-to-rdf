@@ -233,3 +233,68 @@ def test_build_mapping_needs_no_second_input() -> None:
     # This is already true - build_mapping takes only the document and namespace
     mapping = build_mapping(SPEC, namespace=NS)
     assert len(mapping.classes) >= 2
+
+
+def test_reconciliation_excludes_external_classes_and_counts_them(tmp_path):
+    """An external class is deliberately absent from the TTL, so it must be out of `expected`.
+
+    The count is asserted, not just the exclusion: a gate that quietly excludes an unbounded set
+    reports clean while covering less and less.
+    """
+    import yaml
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+    from scripts.reconcile_projections import reconcile
+
+    common = tmp_path / "common.yaml"
+    common.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "Common", "version": "1.0"},
+                "components": {
+                    "schemas": {
+                        "Addressable": {
+                            "type": "object",
+                            "properties": {"href": {"type": "string"}},
+                        }
+                    }
+                },
+            }
+        )
+    )
+    api = tmp_path / "api.yaml"
+    api.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "Api", "version": "1.0"},
+                "components": {
+                    "schemas": {
+                        "PolicyRef": {
+                            "allOf": [
+                                {"$ref": "common.yaml#/components/schemas/Addressable"},
+                                {"type": "object",
+                                 "properties": {"@type": {"type": "string"}}},
+                            ]
+                        }
+                    }
+                },
+            }
+        )
+    )
+    converter = OpenAPIToSHACLConverter(
+        str(api),
+        base_namespace="https://example.org/",
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(common)],
+    )
+    converter.convert()
+
+    with open(api) as handle:
+        document = yaml.safe_load(handle)
+    result = reconcile(converter.mapping, doc=document, spec_path=api)
+
+    assert result["external_classes_excluded"] == 1
+    assert "Addressable" in converter.mapping.classes
+    assert not result["only_in"]["ttl_only"]
