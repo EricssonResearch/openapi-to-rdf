@@ -10,6 +10,7 @@ from openapi_to_rdf.mapping import (
     REFERS_TO_LOCAL,
     SERIALISATION_ARTIFACT_LOCAL,
     STRING_FORMAT_DATATYPES,
+    IRI_VALUED_LOCAL,
     TRANSPORT_MARKER_LOCAL,
     build_mapping,
     is_json_only_union,
@@ -231,6 +232,7 @@ class OpenAPIToSHACLConverter:
         # `transport_namespace` parameter docstring for the 76-vs-1 triple measurement.
         self.TRANSPORT = Namespace(self.transport_namespace)
         self.TRANSPORT_MARKER = self.TRANSPORT[TRANSPORT_MARKER_LOCAL]
+        self.IRI_VALUED = self.TRANSPORT[IRI_VALUED_LOCAL]
         self.SERIALISATION_ARTIFACT = self.TRANSPORT[SERIALISATION_ARTIFACT_LOCAL]
         self.REFERS_TO = self.TRANSPORT[REFERS_TO_LOCAL]
         self.rdf_graph.bind("transport", self.TRANSPORT)
@@ -1399,6 +1401,20 @@ class OpenAPIToSHACLConverter:
         # asserting it again per subclass adds nothing and entails something false.
         if domain_class is not None:
             self.rdf_graph.add((predicate_uri, RDFS.domain, declaring_class))
+
+        # Carry `is_iri_valued` into the TBox, not only into the JSON-LD context. A consumer that
+        # derives coercions from the vocabulary -- which is a reasonable thing to do, and what
+        # `snm-api-native` does -- otherwise gets a complete-looking context with ZERO `@type: @id`
+        # entries, because the fact existed only in the Mapping. Measured before this: 0 of 36
+        # coercions on TMF641, every `href` lifting as a literal rather than a followable edge.
+        if domain_class is not None and self.mapping is not None:
+            # Derived here rather than reusing an earlier `class_local`, which is bound in a
+            # different branch: `properties_by_class` is keyed by DECLARING class, which is what
+            # `declaring_class` holds at this point.
+            declaring_local = str(declaring_class).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
+            fact = self.mapping.properties_by_class.get((declaring_local, prop_name))
+            if fact is not None and fact.is_iri_valued:
+                self.rdf_graph.add((predicate_uri, self.IRI_VALUED, Literal(True)))
 
         # Per RDF Schema (W3C Recommendation), rdfs:range propagates under
         # entailment rather than validating. An invented range is not a loose

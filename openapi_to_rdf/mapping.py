@@ -151,6 +151,17 @@ DEFAULT_TRANSPORT_NAMESPACE = "http://ericsson.com/models/transport/"
 #: Relative to the transport namespace in force. **Ours**, like the namespace.
 TRANSPORT_MARKER_LOCAL = "isTransportEnvelope"
 
+#: Marker predicate asserting that a property's value is a URL denoting a resource, not a string
+#: about one. Relative to the transport namespace in force. **Ours**, like the namespace.
+#:
+#: Emitted from 2026-09-23. The fact already lived on ``PropertyFact.is_iri_valued`` and reached the
+#: JSON-LD context as ``@type: @id``, but nothing carried it into the TBox — so a consumer deriving
+#: coercions FROM the vocabulary got none. `snm-api-native`'s `context_from_tbox` did exactly that
+#: and produced a context with **0 of 36** coercions, silently: every `href` lifted as a literal
+#: instead of a followable edge, and its own foreign-TBox guard accepted the file because a
+#: DIFFERENT marker family (``isTransportEnvelope``, 29 of them) was present.
+IRI_VALUED_LOCAL = "isIriValued"
+
 #: Marker predicate asserting that a class is a serialisation artifact — a *mention* of an entity
 #: rather than a kind of entity — and the predicate pointing at what it mentions. **Ours.**
 SERIALISATION_ARTIFACT_LOCAL = "isSerialisationArtifact"
