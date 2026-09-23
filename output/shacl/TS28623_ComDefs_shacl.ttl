@@ -19,41 +19,153 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:maxLength 253 ;
-    sh:minLength 4 ;
-    sh:pattern "^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\.?$" ;
-    sh:targetClass TS28623_ComDefs:Fqdn .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:gMonth ;
-    sh:targetClass TS28623_ComDefs:DateMonth .
+    sh:targetClass TS28623_ComDefs:SystemDN .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-    sh:targetClass TS28623_ComDefs:AdministrativeState .
+    sh:targetClass TS28623_ComDefs:BasicAdministrativeState .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:dateTime ;
-    sh:targetClass TS28623_ComDefs:DateTimeRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:dateTime ;
-    sh:targetClass TS28623_ComDefs:DateTime .
+    sh:datatype xsd:gMonthDay ;
+    sh:targetClass TS28623_ComDefs:DateMonthDay .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_PlmnIdRo:mcc ;
+            sh:pattern "^[0-9]{3}$" ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_PlmnIdRo:mnc ;
+            sh:pattern "^[0-9]{2,3}$" ] ;
+    sh:targetClass TS28623_ComDefs:PlmnIdRo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:GeoCoordinate ;
+    sh:targetClass TS28623_ComDefs:ConvexGeoPolygon .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:float ;
+    sh:targetClass TS28623_ComDefs:Float .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[0-9]{3}$" ;
+    sh:targetClass TS28623_ComDefs:MccRo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:UriRo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:Filter .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "IDLE"^^xsd:string "ACTIVE"^^xsd:string "BUSY"^^xsd:string ) ;
+    sh:targetClass TS28623_ComDefs:UsageState .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:targetClass TS28623_ComDefs:NotificationId .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ;
+    sh:targetClass TS28623_ComDefs:Ipv4AddrRo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:Ipv6Addr .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[0-9]{3}$" ;
+    sh:targetClass TS28623_ComDefs:Mcc .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:DnList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseGet:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseGet:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs_ErrorResponseGet:badQueryParams ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseGet:type ],
+        [ a sh:PropertyShape ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:reason ],
+                            sh:minCount 1 ;
+                            sh:path TS28623_ComDefs:type ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:minCount 1 ;
-                            sh:path TS28623_ComDefs:badOp ],
+                            sh:path TS28623_ComDefs:status ],
                         [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28623_ComDefs:badQueryParams ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ComDefs:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ComDefs:reason ] ] ;
+            sh:path TS28623_ComDefs_ErrorResponseGet:otherProblems ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseGet:title ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponseGet .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ;
+    sh:targetClass TS28623_ComDefs:Ipv4Addr .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseDefault:title ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseDefault:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseDefault:status ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ComDefs_ErrorResponseDefault:badObjects ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponseDefault:type ],
+        [ a sh:PropertyShape ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
                             sh:path TS28623_ComDefs:title ],
@@ -64,48 +176,30 @@
                             sh:path TS28623_ComDefs:type ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
+                            sh:path TS28623_ComDefs:badAttributes ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:status ] ] ;
-            sh:path TS28623_ComDefs_ErrorResponsePatch:otherProblems ],
+                            sh:path TS28623_ComDefs:status ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ComDefs:reason ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28623_ComDefs:badObjects ] ] ;
+            sh:path TS28623_ComDefs_ErrorResponseDefault:otherProblems ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponsePatch:title ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponsePatch:type ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponsePatch:badOP ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponsePatch:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponsePatch:reason ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponsePatch .
+            sh:path TS28623_ComDefs_ErrorResponseDefault:badAttributes ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponseDefault .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:pattern "^[0-9]{3}$" ;
-    sh:targetClass TS28623_ComDefs:MccRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:Ipv6AddrRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:Ipv6PrefixRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:DnRo .
+    sh:maxLength 253 ;
+    sh:minLength 4 ;
+    sh:pattern "^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\.?$" ;
+    sh:targetClass TS28623_ComDefs:Fqdn .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -113,16 +207,93 @@
     sh:targetClass TS28623_ComDefs:OperationalState .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "IDLE"^^xsd:string "ACTIVE"^^xsd:string "BUSY"^^xsd:string ) ;
-    sh:targetClass TS28623_ComDefs:UsageState .
+    sh:datatype xsd:time ;
+    sh:targetClass TS28623_ComDefs:FullTime .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:float ;
+    sh:maxInclusive 180 ;
+    sh:minInclusive -180 ;
+    sh:targetClass TS28623_ComDefs:Longitude .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
     sh:targetClass TS28623_ComDefs:AttributeValueChangeSet .
 
 [] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[0-9]{2,3}$" ;
+    sh:targetClass TS28623_ComDefs:Mnc .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[0-9]{2,3}$" ;
+    sh:targetClass TS28623_ComDefs:MncRo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:gMonth ;
+    sh:targetClass TS28623_ComDefs:DateMonth .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:targetClass TS28623_ComDefs:UtraCellId .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponsePatch:title ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponsePatch:badOP ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponsePatch:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponsePatch:type ],
+        [ a sh:PropertyShape ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:minCount 1 ;
+                            sh:path TS28623_ComDefs:type ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ComDefs:status ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ComDefs:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:minCount 1 ;
+                            sh:path TS28623_ComDefs:badOp ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ComDefs:reason ] ] ;
+            sh:path TS28623_ComDefs_ErrorResponsePatch:otherProblems ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_ErrorResponsePatch:status ] ;
+    sh:targetClass TS28623_ComDefs:ErrorResponsePatch .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28623_ComDefs_NotificationHeader:href ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -152,13 +323,99 @@
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28623_ComDefs_NotificationHeader:notificationId ],
+            sh:path TS28623_ComDefs_NotificationHeader:notificationId ] ;
+    sh:targetClass TS28623_ComDefs:NotificationHeader .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
+    sh:targetClass TS28623_ComDefs:AvailabilityStatus .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:DnListRo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[A-Fa-f0-9]{7}$" ;
+    sh:targetClass TS28623_ComDefs:EutraCellId .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28623_ComDefs:AttributeNameValuePairSet .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:dateTime ;
+    sh:targetClass TS28623_ComDefs:DateTime .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:Ipv6PrefixRo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:float ;
+    sh:maxInclusive 90 ;
+    sh:minInclusive -90 ;
+    sh:targetClass TS28623_ComDefs:Latitude .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 180 ;
+            sh:minInclusive -180 ;
+            sh:path TS28623_ComDefs_GeoCoordinate:longitude ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_GeoCoordinate:altitude ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 90 ;
+            sh:minInclusive -90 ;
+            sh:path TS28623_ComDefs_GeoCoordinate:latitude ] ;
+    sh:targetClass TS28623_ComDefs:GeoCoordinate .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:time ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_TimeInterval:intervalEnd ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:time ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_TimeInterval:intervalStart ] ;
+    sh:targetClass TS28623_ComDefs:TimeInterval .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_Subscription:timeTick ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs_NotificationHeader:href ] ;
-    sh:targetClass TS28623_ComDefs:NotificationHeader .
+            sh:path TS28623_ComDefs_Subscription:consumerReference ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_Subscription:filter ] ;
+    sh:targetClass TS28623_ComDefs:Subscription .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28623_ComDefs:Ipv6AddrRo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:GeoArea ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_GeoAreaToCellMapping:geoArea ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_GeoAreaToCellMapping:associationThreshold ] ;
+    sh:targetClass TS28623_ComDefs:GeoAreaToCellMapping .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -168,35 +425,11 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-    sh:targetClass TS28623_ComDefs:BasicAdministrativeState .
+    sh:targetClass TS28623_ComDefs:DnRo .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_GeoAreaToCellMapping:associationThreshold ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:GeoArea ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_GeoAreaToCellMapping:geoArea ] ;
-    sh:targetClass TS28623_ComDefs:GeoAreaToCellMapping .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:maxLength 253 ;
-    sh:minLength 4 ;
-    sh:pattern "^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\.?$" ;
-    sh:targetClass TS28623_ComDefs:FqdnRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:Dn .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:pattern "^[0-9]{2,3}$" ;
-    sh:targetClass TS28623_ComDefs:Mnc .
+    sh:datatype xsd:dateTime ;
+    sh:targetClass TS28623_ComDefs:DateTimeRo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -210,81 +443,29 @@
     sh:targetClass TS28623_ComDefs:ErrorResponse .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:status ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:badAttributes ],
-        [ a sh:PropertyShape ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28623_ComDefs:badAttributes ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28623_ComDefs:badObjects ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:reason ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:status ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:minCount 1 ;
-                            sh:path TS28623_ComDefs:type ] ] ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:otherProblems ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:title ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:badObjects ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:type ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseDefault:reason ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponseDefault .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:AttributeNameValuePairSet .
-
-[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:DnList .
+    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+    sh:targetClass TS28623_ComDefs:AdministrativeState .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:float ;
+    sh:targetClass TS28623_ComDefs:FloatRo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:gMonthDay ;
             sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_PlmnIdRo:mcc ;
-            sh:pattern "^[0-9]{3}$" ],
+            sh:path TS28623_ComDefs_DayInYear:monthDay ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:gMonth ;
             sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_PlmnIdRo:mnc ;
-            sh:pattern "^[0-9]{2,3}$" ] ;
-    sh:targetClass TS28623_ComDefs:PlmnIdRo .
+            sh:path TS28623_ComDefs_DayInYear:month ] ;
+    sh:targetClass TS28623_ComDefs:DayInYear .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:pattern "^[0-9]{3}$" ;
-    sh:targetClass TS28623_ComDefs:Mcc .
+    sh:pattern "^[A-Fa-f0-9]{11}$" ;
+    sh:targetClass TS28623_ComDefs:Nid .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -293,187 +474,10 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:pattern "^[0-9]{2,3}$" ;
-    sh:targetClass TS28623_ComDefs:MncRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:float ;
-    sh:maxInclusive 90 ;
-    sh:minInclusive -90 ;
-    sh:targetClass TS28623_ComDefs:Latitude .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:pattern "^[A-Fa-f0-9]{7}$" ;
-    sh:targetClass TS28623_ComDefs:EutraCellId .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS28623_ComDefs:NotificationId .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:float ;
-    sh:targetClass TS28623_ComDefs:FloatRo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseGet:title ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_ComDefs_ErrorResponseGet:badQueryParams ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseGet:type ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseGet:reason ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_ErrorResponseGet:status ],
-        [ a sh:PropertyShape ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:reason ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:minCount 1 ;
-                            sh:path TS28623_ComDefs:type ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:status ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28623_ComDefs:badQueryParams ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ComDefs:title ] ] ;
-            sh:path TS28623_ComDefs_ErrorResponseGet:otherProblems ] ;
-    sh:targetClass TS28623_ComDefs:ErrorResponseGet .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:targetClass TS28623_ComDefs:UtraCellId .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:Filter .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:gMonthDay ;
-    sh:targetClass TS28623_ComDefs:DateMonthDay .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_GeoCoordinate:altitude ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 180 ;
-            sh:minInclusive -180 ;
-            sh:path TS28623_ComDefs_GeoCoordinate:longitude ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 90 ;
-            sh:minInclusive -90 ;
-            sh:path TS28623_ComDefs_GeoCoordinate:latitude ] ;
-    sh:targetClass TS28623_ComDefs:GeoCoordinate .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
-    sh:targetClass TS28623_ComDefs:AvailabilityStatus .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:SystemDN .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:pattern "^[A-Fa-f0-9]{11}$" ;
-    sh:targetClass TS28623_ComDefs:Nid .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_Subscription:consumerReference ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_Subscription:filter ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_Subscription:timeTick ] ;
-    sh:targetClass TS28623_ComDefs:Subscription .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:UriRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:float ;
-    sh:maxInclusive 180 ;
-    sh:minInclusive -180 ;
-    sh:targetClass TS28623_ComDefs:Longitude .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:time ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_TimeInterval:intervalStart ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:time ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_TimeInterval:intervalEnd ] ;
-    sh:targetClass TS28623_ComDefs:TimeInterval .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:GeoCoordinate ;
-    sh:targetClass TS28623_ComDefs:ConvexGeoPolygon .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:pattern "^[A-Fa-f0-9]{9}$" ;
-    sh:targetClass TS28623_ComDefs:NrCellId .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:time ;
-    sh:targetClass TS28623_ComDefs:FullTime .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:float ;
-    sh:targetClass TS28623_ComDefs:Float .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:gMonth ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_DayInYear:month ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:gMonthDay ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_DayInYear:monthDay ] ;
-    sh:targetClass TS28623_ComDefs:DayInYear .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ;
-    sh:targetClass TS28623_ComDefs:Ipv4Addr .
+    sh:maxLength 253 ;
+    sh:minLength 4 ;
+    sh:pattern "^([0-9A-Za-z]([-0-9A-Za-z]{0,61}[0-9A-Za-z])?\\.)+[A-Za-z]{2,63}\\.?$" ;
+    sh:targetClass TS28623_ComDefs:FqdnRo .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -481,31 +485,27 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ;
-    sh:targetClass TS28623_ComDefs:Ipv4AddrRo .
+    sh:targetClass TS28623_ComDefs:Ipv6Prefix .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:pattern "^[A-Fa-f0-9]{9}$" ;
+    sh:targetClass TS28623_ComDefs:NrCellId .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_PlmnId:mcc ;
-            sh:pattern "^[0-9]{3}$" ],
+            sh:path TS28623_ComDefs_PlmnId:mnc ;
+            sh:pattern "^[0-9]{2,3}$" ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_ComDefs_PlmnId:mnc ;
-            sh:pattern "^[0-9]{2,3}$" ] ;
+            sh:path TS28623_ComDefs_PlmnId:mcc ;
+            sh:pattern "^[0-9]{3}$" ] ;
     sh:targetClass TS28623_ComDefs:PlmnId .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:Ipv6Prefix .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:DnListRo .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28623_ComDefs:Ipv6Addr .
+    sh:targetClass TS28623_ComDefs:Dn .
 

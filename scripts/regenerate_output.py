@@ -53,6 +53,14 @@ def main():
     specs = sorted(gpp_dir.glob("*.yaml"))
     print(f"Regenerating output/ from {len(specs)} specs...")
 
+    # One table, shared by every conversion, so a document and its referrers agree on where each
+    # class lives. Passing base_namespace per document while leaving siblings to re-derive from
+    # the filename is what left 175 dangling class targets in this tree — see
+    # docs/superpowers/specs/2026-09-23-external-schema-ingestion-design.md (D1).
+    document_namespaces = {
+        path.name: f"https://example.org/{path.stem}/" for path in specs
+    }
+
     for spec_path in specs:
         print(f"  {spec_path.name}")
         # Get sibling refs for cross-document resolution
@@ -60,9 +68,10 @@ def main():
 
         converter = OpenAPIToSHACLConverter(
             str(spec_path),
-            base_namespace=f"https://example.org/{spec_path.stem}/",
+            base_namespace=document_namespaces[spec_path.name],
             output_dir=str(output_dir),
             external_refs=external_refs,
+            document_namespaces=document_namespaces,
         )
         converter.run()
 

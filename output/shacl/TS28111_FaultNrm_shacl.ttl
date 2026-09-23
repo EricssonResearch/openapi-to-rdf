@@ -16,8 +16,8 @@
 @prefix TS28111_FaultNrm_NotifyPotentialFaultyAlarmList: <https://example.org/TS28111_FaultNrm/NotifyPotentialFaultyAlarmList/> .
 @prefix TS28111_FaultNrm_ThresholdHysteresis: <https://example.org/TS28111_FaultNrm/ThresholdHysteresis/> .
 @prefix TS28111_FaultNrm_ThresholdInfo: <https://example.org/TS28111_FaultNrm/ThresholdInfo/> .
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
-@prefix TS28623_GenericNrm: <http://ericsson.com/models/3gpp/TS28623/GenericNrm#> .
+@prefix TS28623_ComDefs: <https://example.org/TS28623_ComDefs/> .
+@prefix TS28623_GenericNrm: <https://example.org/TS28623_GenericNrm/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -25,43 +25,34 @@
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "ALIGNMENT_REQUIRED"^^xsd:string "ALIGNMENT_NOT_REQUIRED"^^xsd:string ) ;
-    sh:targetClass TS28111_FaultNrm:AlarmListAlignmentRequirement .
+    sh:targetClass TS28111_FaultNrm:AlarmId .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28111_FaultNrm:Comments .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_Comment:commentText ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_Comment:commentTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_Comment:commentSystemId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_Comment:commentUserId ] ;
+    sh:targetClass TS28111_FaultNrm:Comment .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:serviceProvider ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:securityAlarmDetector ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ;
-                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ] ) ] ) ;
-                    sh:path TS28111_FaultNrm:probableCause ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalInformation ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-                    sh:path TS28111_FaultNrm:correlatedNotifications ],
-                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
                     sh:maxCount 1 ;
@@ -71,124 +62,6 @@
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:serviceUser ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalText ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:changedAlarmAttributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:alarmId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:securityAlarmDetector ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:changedAlarmAttributes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:serviceProvider ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:serviceUser ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:correlatedNotifications ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedSecAlarmGeneral .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "ALIGNMENT_REQUIRED"^^xsd:string "ALIGNMENT_NOT_REQUIRED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmListAlignmentRequirement ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:reason ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ALIGNMENT_REQUIRED"^^xsd:string "ALIGNMENT_NOT_REQUIRED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyAlarmListRebuilt:alarmListAlignmentRequirement ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyAlarmListRebuilt:reason ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyAlarmListRebuilt .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
                     sh:path TS28111_FaultNrm:alarmId ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
@@ -201,17 +74,23 @@
                                             sh:datatype xsd:string ] ) ] ) ;
                     sh:path TS28111_FaultNrm:probableCause ],
                 [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
                     sh:class TS28111_FaultNrm:Comments ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:comments ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmType ] ] ;
+                    sh:path TS28111_FaultNrm:comments ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyComments:alarmType ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -236,146 +115,8 @@
                                     sh:datatype xsd:string ;
                                     sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
                                     sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_NotifyComments:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyComments:alarmType ] ;
+            sh:path TS28111_FaultNrm_NotifyComments:probableCause ] ;
     sh:targetClass TS28111_FaultNrm:NotifyComments .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-    sh:targetClass TS28111_FaultNrm:PerceivedSeverity .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28111_FaultNrm:administrativeState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28111_FaultNrm:unreliableAlarmScope ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28111_FaultNrm:operationalState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28111_FaultNrm:numOfAlarmRecords ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:dateTime ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28111_FaultNrm:lastModification ],
-                                [ a sh:PropertyShape ;
-                                    sh:maxCount 1 ;
-                                    sh:node [ a sh:NodeShape ] ;
-                                    sh:path TS28111_FaultNrm:alarmRecords ] ] ;
-                    sh:path TS28111_FaultNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28111_FaultNrm:numOfAlarmRecords ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28111_FaultNrm:operationalState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28111_FaultNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:node [ a sh:NodeShape ] ;
-                            sh:path TS28111_FaultNrm:alarmRecords ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28111_FaultNrm:unreliableAlarmScope ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:dateTime ;
-                            sh:maxCount 1 ;
-                            sh:path TS28111_FaultNrm:lastModification ] ] ;
-            sh:path TS28111_FaultNrm_AlarmList-Single:attributes ] ;
-    sh:targetClass TS28111_FaultNrm:AlarmList-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ;
-                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ] ) ] ) ;
-                    sh:path TS28111_FaultNrm:probableCause ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmType ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarm:alarmId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarm:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarm:perceivedSeverity ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarm .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28111_FaultNrm:Comments .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
@@ -385,49 +126,10 @@
                     sh:maxCount 1 ;
                     sh:path TS28111_FaultNrm:thresholdInfo ],
                 [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:monitoredAttributes ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:backedUpStatus ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalText ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-                    sh:path TS28111_FaultNrm:correlatedNotifications ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:proposedRepairActions ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:backUpObject ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
                     sh:maxCount 1 ;
                     sh:path TS28111_FaultNrm:trendIndication ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmType ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                     sh:maxCount 1 ;
@@ -435,6 +137,42 @@
                     sh:xone ( [ a sh:NodeShape ;
                                 sh:datatype xsd:string ] [ a sh:NodeShape ;
                                 sh:datatype xsd:integer ] ) ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalText ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
+                    sh:maxCount 1,
+                        2 ;
+                    sh:path TS28111_FaultNrm:stateChangeDefinition ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:backUpObject ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalInformation ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:backedUpStatus ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                     sh:datatype xsd:integer ;
@@ -446,33 +184,78 @@
                                             sh:datatype xsd:string ] ) ] ) ;
                     sh:path TS28111_FaultNrm:probableCause ],
                 [ a sh:PropertyShape ;
-                    rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
-                    sh:maxCount 1,
-                        2 ;
-                    sh:path TS28111_FaultNrm:stateChangeDefinition ],
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ],
+                    sh:path TS28111_FaultNrm:proposedRepairActions ],
                 [ a sh:PropertyShape ;
                     sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
                     sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalInformation ] ] ;
+                    sh:path TS28111_FaultNrm:monitoredAttributes ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+                    sh:path TS28111_FaultNrm:correlatedNotifications ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
             sh:maxCount 1 ;
             sh:path TS28111_FaultNrm_NotifyNewAlarm:monitoredAttributes ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:specificProblem ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:backedUpStatus ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:proposedRepairActions ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ThresholdInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:thresholdInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:backUpObject ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:additionalInformation ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:path TS28111_FaultNrm_NotifyNewAlarm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:backedUpStatus ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:datatype xsd:integer ;
@@ -484,315 +267,19 @@
                                     sh:datatype xsd:string ] ) ] ) ;
             sh:path TS28111_FaultNrm_NotifyNewAlarm:probableCause ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:backUpObject ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:thresholdInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:specificProblem ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] ) ],
-        [ a sh:PropertyShape ;
             rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
             sh:maxCount 1,
                 2 ;
             sh:path TS28111_FaultNrm_NotifyNewAlarm:stateChangeDefinition ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:proposedRepairActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:trendIndication ],
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:rootCauseIndicator ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:path TS28111_FaultNrm_NotifyNewAlarm:correlatedNotifications ] ;
+            sh:path TS28111_FaultNrm_NotifyNewAlarm:additionalText ] ;
     sh:targetClass TS28111_FaultNrm:NotifyNewAlarm .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
-    sh:targetClass TS28111_FaultNrm:AckState .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_ThresholdInfo:thresholdLevel ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28111_FaultNrm:ThresholdHysteresis ;
-                                sh:path TS28111_FaultNrm:up ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28111_FaultNrm:ThresholdHysteresis ;
-                                sh:path TS28111_FaultNrm:down ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_ThresholdInfo:observedValue ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_ThresholdInfo:armTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_ThresholdInfo:observedMeasurement ] ;
-    sh:targetClass TS28111_FaultNrm:ThresholdInfo .
-
-[] a sh:NodeShape ;
-    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-    sh:targetClass TS28111_FaultNrm:CorrelatedNotifications .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_Comment:commentTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_Comment:commentSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_Comment:commentUserId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_Comment:commentText ] ;
-    sh:targetClass TS28111_FaultNrm:Comment .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_ThresholdHysteresis:low ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_ThresholdHysteresis:high ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:float ] ) ] ;
-    sh:targetClass TS28111_FaultNrm:ThresholdHysteresis .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:correlatedNotifications ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyCorrelatedNotificationChanged:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyCorrelatedNotificationChanged:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyCorrelatedNotificationChanged:correlatedNotifications ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyCorrelatedNotificationChanged .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:objectInstance ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:alarmChangedTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:ackSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:notificationId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:alarmRaisedTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:clearUserId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:thresholdinfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:backUpObject ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:serviceUser ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:ackTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:trendIndication ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:specificProblem ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:alarmClearedTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:securityAlarmDetector ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_AlarmRecord:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:backedUpStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:proposedRepairActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:serviceProvider ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:monitoredAttributes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:clearSystemId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:path TS28111_FaultNrm_AlarmRecord:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
-            sh:maxCount 1,
-                2 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:stateChangeDefinition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:ackState ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_AlarmRecord:ackUserId ] ;
-    sh:targetClass TS28111_FaultNrm:AlarmRecord .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-    sh:targetClass TS28111_FaultNrm:AlarmType .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_CorrelatedNotification:notificationIds ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_CorrelatedNotification:sourceObjectInstance ] ;
-    sh:targetClass TS28111_FaultNrm:CorrelatedNotification .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "notifyNewAlarm"^^xsd:string "notifyChangedAlarm"^^xsd:string "notifyChangedAlarmGeneral"^^xsd:string "notifyAckStateChanged"^^xsd:string "notifyCorrelatedNotificationChanged"^^xsd:string "notifyComments"^^xsd:string "notifyClearedAlarm"^^xsd:string "notifyAlarmListRebuilt"^^xsd:string "notifyPotentialFaultyAlarmList"^^xsd:string ) ;
-    sh:targetClass TS28111_FaultNrm:AlarmNotificationTypes .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -800,261 +287,89 @@
     sh:targetClass TS28111_FaultNrm:TrendIndication .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28111_FaultNrm:AlarmId .
-
-[] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalText ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ;
-                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ] ) ] ) ;
-                    sh:path TS28111_FaultNrm:probableCause ],
-                [ a sh:PropertyShape ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:reason ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyPotentialFaultyAlarmList:reason ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyPotentialFaultyAlarmList .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
                     sh:datatype xsd:boolean ;
                     sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:backedUpStatus ],
+                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:correlatedNotifications ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyCorrelatedNotificationChanged:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyCorrelatedNotificationChanged:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyCorrelatedNotificationChanged:rootCauseIndicator ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyCorrelatedNotificationChanged .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalText ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:serviceUser ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+                    sh:path TS28111_FaultNrm:correlatedNotifications ],
                 [ a sh:PropertyShape ;
                     sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
                     sh:maxCount 1 ;
                     sh:path TS28111_FaultNrm:changedAlarmAttributes ],
                 [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:proposedRepairActions ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:monitoredAttributes ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:backUpObject ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-                    sh:path TS28111_FaultNrm:correlatedNotifications ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmType ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:trendIndication ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
-                    sh:maxCount 1,
-                        2 ;
-                    sh:path TS28111_FaultNrm:stateChangeDefinition ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:specificProblem ;
-                    sh:xone ( [ a sh:NodeShape ;
-                                sh:datatype xsd:string ] [ a sh:NodeShape ;
-                                sh:datatype xsd:integer ] ) ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
-                [ a sh:PropertyShape ;
                     sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
                     sh:maxCount 1 ;
                     sh:path TS28111_FaultNrm:additionalInformation ],
                 [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:ThresholdInfo ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:thresholdInfo ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:ThresholdInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:thresholdInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
-            sh:maxCount 1,
-                2 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:stateChangeDefinition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:trendIndication ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:proposedRepairActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:monitoredAttributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:backUpObject ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:changedAlarmAttributes ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:backedUpStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:additionalInformation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:additionalText ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:specificProblem ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] ) ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarmGeneral .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:clearUserId ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-                    sh:path TS28111_FaultNrm:correlatedNotifications ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmType ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:clearSystemId ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ;
-                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                            sh:datatype xsd:string ] ) ] ) ;
-                    sh:path TS28111_FaultNrm:probableCause ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:clearSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:correlatedNotifications ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:clearUserId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyClearedAlarm:alarmType ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyClearedAlarm .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_ComDefs:NotificationHeader ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
                     sh:maxCount 1 ;
@@ -1069,147 +384,119 @@
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:serviceUser ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:specificProblem ;
-                    sh:xone ( [ a sh:NodeShape ;
-                                sh:datatype xsd:string ] [ a sh:NodeShape ;
-                                sh:datatype xsd:integer ] ) ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalText ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmId ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
                     sh:path TS28111_FaultNrm:securityAlarmDetector ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:additionalInformation ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
-                    sh:path TS28111_FaultNrm:correlatedNotifications ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                     sh:datatype xsd:integer ;
                     sh:maxCount 1 ;
-                    sh:minCount 1 ;
                     sh:or ( [ sh:or ( [ a sh:NodeShape ;
                                             sh:datatype xsd:string ;
                                             sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
                                             sh:datatype xsd:string ] ) ] ) ;
                     sh:path TS28111_FaultNrm:probableCause ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:rootCauseIndicator ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:specificProblem ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] ) ],
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:serviceUser ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:serviceProvider ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:alarmId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:serviceUser ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:securityAlarmDetector ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:additionalInformation ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:or ( [ sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] ) ] ) ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:probableCause ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28111_FaultNrm:CorrelatedNotification ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:correlatedNotifications ],
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:alarmType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
             sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:perceivedSeverity ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyNewSecAlarm .
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:securityAlarmDetector ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:changedAlarmAttributes ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:serviceProvider ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:alarmId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] ) ] ) ;
+            sh:path TS28111_FaultNrm_NotifyChangedSecAlarmGeneral:probableCause ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedSecAlarmGeneral .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "notifyNewAlarm"^^xsd:string "notifyChangedAlarm"^^xsd:string "notifyChangedAlarmGeneral"^^xsd:string "notifyAckStateChanged"^^xsd:string "notifyCorrelatedNotificationChanged"^^xsd:string "notifyComments"^^xsd:string "notifyClearedAlarm"^^xsd:string "notifyAlarmListRebuilt"^^xsd:string "notifyPotentialFaultyAlarmList"^^xsd:string ) ;
+    sh:targetClass TS28111_FaultNrm:AlarmNotificationTypes .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_ThresholdInfo:armTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_ThresholdInfo:observedValue ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_ThresholdInfo:observedMeasurement ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_ThresholdInfo:thresholdLevel ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28111_FaultNrm:ThresholdHysteresis ;
+                                sh:path TS28111_FaultNrm:up ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28111_FaultNrm:ThresholdHysteresis ;
+                                sh:path TS28111_FaultNrm:down ] ] ) ] ;
+    sh:targetClass TS28111_FaultNrm:ThresholdInfo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "ALIGNMENT_REQUIRED"^^xsd:string "ALIGNMENT_NOT_REQUIRED"^^xsd:string ) ;
+    sh:targetClass TS28111_FaultNrm:AlarmListAlignmentRequirement .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:ackState ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:perceivedSeverity ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28111_FaultNrm:ackSystemId ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:alarmType ],
-                [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                     sh:datatype xsd:integer ;
                     sh:maxCount 1 ;
@@ -1221,15 +508,49 @@
                     sh:path TS28111_FaultNrm:probableCause ],
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
                     sh:path TS28111_FaultNrm:alarmId ],
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:ackSystemId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28111_FaultNrm:ackUserId ] ] ;
+                    sh:path TS28111_FaultNrm:ackState ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:ackUserId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmType ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyAckStateChanged:ackState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyAckStateChanged:alarmType ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -1246,6 +567,11 @@
             sh:path TS28111_FaultNrm_NotifyAckStateChanged:probableCause ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyAckStateChanged:ackUserId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -1253,30 +579,248 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyAckStateChanged:ackUserId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyAckStateChanged:alarmType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyAckStateChanged:ackSystemId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyAckStateChanged:ackState ] ;
+            sh:path TS28111_FaultNrm_NotifyAckStateChanged:ackSystemId ] ;
     sh:targetClass TS28111_FaultNrm:NotifyAckStateChanged .
 
 [] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ;
+                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ] ) ] ) ;
+                    sh:path TS28111_FaultNrm:probableCause ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarm:alarmType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarm:alarmId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] ) ] ) ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarm:probableCause ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarm .
+
+[] a sh:NodeShape ;
+    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+    sh:targetClass TS28111_FaultNrm:CorrelatedNotifications .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:ThresholdInfo ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:thresholdInfo ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalInformation ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:proposedRepairActions ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:changedAlarmAttributes ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:backedUpStatus ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+                    sh:path TS28111_FaultNrm:correlatedNotifications ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:trendIndication ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
+                    sh:maxCount 1,
+                        2 ;
+                    sh:path TS28111_FaultNrm:stateChangeDefinition ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:specificProblem ;
+                    sh:xone ( [ a sh:NodeShape ;
+                                sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                sh:datatype xsd:integer ] ) ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:backUpObject ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ;
+                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ] ) ] ) ;
+                    sh:path TS28111_FaultNrm:probableCause ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:monitoredAttributes ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalText ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:backUpObject ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ThresholdInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:thresholdInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:alarmId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
+            sh:maxCount 1,
+                2 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:stateChangeDefinition ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:specificProblem ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:backedUpStatus ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:monitoredAttributes ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] ) ] ) ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:proposedRepairActions ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:changedAlarmAttributes ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyChangedAlarmGeneral:alarmType ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyChangedAlarmGeneral .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ALIGNMENT_REQUIRED"^^xsd:string "ALIGNMENT_NOT_REQUIRED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmListAlignmentRequirement ],
+                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
@@ -1285,6 +829,462 @@
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28111_FaultNrm_NotifyPotentialFaultyAlarmList:reason ] ;
-    sh:targetClass TS28111_FaultNrm:NotifyPotentialFaultyAlarmList .
+            sh:path TS28111_FaultNrm_NotifyAlarmListRebuilt:reason ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALIGNMENT_REQUIRED"^^xsd:string "ALIGNMENT_NOT_REQUIRED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyAlarmListRebuilt:alarmListAlignmentRequirement ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyAlarmListRebuilt .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+    sh:targetClass TS28111_FaultNrm:PerceivedSeverity .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
+    sh:targetClass TS28111_FaultNrm:AckState .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:monitoredAttributes ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:notificationId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] ) ] ) ;
+            sh:path TS28111_FaultNrm_AlarmRecord:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:ThresholdInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:thresholdinfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:proposedRepairActions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:backedUpStatus ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:securityAlarmDetector ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ACKNOWLEDGED"^^xsd:string "UNACKNOWLEDGED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:ackState ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:path TS28111_FaultNrm_AlarmRecord:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:clearUserId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:alarmChangedTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:backUpObject ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:alarmRaisedTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:alarmClearedTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:ackSystemId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:ackTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:ackUserId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:serviceProvider ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." ;
+            sh:maxCount 1,
+                2 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:stateChangeDefinition ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:additionalText ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:specificProblem ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:serviceUser ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:clearSystemId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_AlarmRecord:alarmType ] ;
+    sh:targetClass TS28111_FaultNrm:AlarmRecord .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:clearUserId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:clearSystemId ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ;
+                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ] ) ] ) ;
+                    sh:path TS28111_FaultNrm:probableCause ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+                    sh:path TS28111_FaultNrm:correlatedNotifications ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:clearSystemId ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] ) ] ) ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:alarmType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyClearedAlarm:clearUserId ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyClearedAlarm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ComDefs:NotificationHeader ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:securityAlarmDetector ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:serviceProvider ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ;
+                                            sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                            sh:datatype xsd:string ] ) ] ) ;
+                    sh:path TS28111_FaultNrm:probableCause ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:rootCauseIndicator ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:serviceUser ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:alarmType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalText ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28111_FaultNrm:CorrelatedNotification ;
+                    sh:path TS28111_FaultNrm:correlatedNotifications ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:additionalInformation ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28111_FaultNrm:perceivedSeverity ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:maxCount 1 ;
+                    sh:path TS28111_FaultNrm:specificProblem ;
+                    sh:xone ( [ a sh:NodeShape ;
+                                sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                sh:datatype xsd:integer ] ) ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:additionalInformation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:rootCauseIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28111_FaultNrm:CorrelatedNotification ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:correlatedNotifications ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:serviceUser ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INDETERMINATE"^^xsd:string "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:or ( [ sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PROBABLE_CAUSE_001"^^xsd:string "PROBABLE_CAUSE_002"^^xsd:string "PROBABLE_CAUSE_003"^^xsd:string "PROBABLE_CAUSE_004"^^xsd:string "PROBABLE_CAUSE_005"^^xsd:string ) ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] ) ] ) ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:probableCause ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:alarmType ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:specificProblem ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:securityAlarmDetector ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_NotifyNewSecAlarm:serviceProvider ] ;
+    sh:targetClass TS28111_FaultNrm:NotifyNewSecAlarm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:dateTime ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28111_FaultNrm:lastModification ],
+                                [ a sh:PropertyShape ;
+                                    sh:maxCount 1 ;
+                                    sh:node [ a sh:NodeShape ] ;
+                                    sh:path TS28111_FaultNrm:alarmRecords ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28111_FaultNrm:numOfAlarmRecords ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28111_FaultNrm:unreliableAlarmScope ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28111_FaultNrm:administrativeState ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28111_FaultNrm:operationalState ] ] ;
+                    sh:path TS28111_FaultNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28111_FaultNrm:unreliableAlarmScope ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28111_FaultNrm:operationalState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28111_FaultNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:dateTime ;
+                            sh:maxCount 1 ;
+                            sh:path TS28111_FaultNrm:lastModification ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:path TS28111_FaultNrm:numOfAlarmRecords ],
+                        [ a sh:PropertyShape ;
+                            sh:maxCount 1 ;
+                            sh:node [ a sh:NodeShape ] ;
+                            sh:path TS28111_FaultNrm:alarmRecords ] ] ;
+            sh:path TS28111_FaultNrm_AlarmList-Single:attributes ] ;
+    sh:targetClass TS28111_FaultNrm:AlarmList-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_ThresholdHysteresis:high ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:float ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28111_FaultNrm_ThresholdHysteresis:low ] ;
+    sh:targetClass TS28111_FaultNrm:ThresholdHysteresis .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_CorrelatedNotification:sourceObjectInstance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS28111_FaultNrm_CorrelatedNotification:notificationIds ] ;
+    sh:targetClass TS28111_FaultNrm:CorrelatedNotification .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "COMMUNICATIONS_ALARM"^^xsd:string "QUALITY_OF_SERVICE_ALARM"^^xsd:string "PROCESSING_ERROR_ALARM"^^xsd:string "EQUIPMENT_ALARM"^^xsd:string "ENVIRONMENTAL_ALARM"^^xsd:string "INTEGRITY_VIOLATION"^^xsd:string "OPERATIONAL_VIOLATION"^^xsd:string "PHYSICAL_VIOLATION"^^xsd:string "SECURITY_SERVICE_OR_MECHANISM_VIOLATION"^^xsd:string "TIME_DOMAIN_VIOLATION"^^xsd:string ) ;
+    sh:targetClass TS28111_FaultNrm:AlarmType .
 
