@@ -156,8 +156,7 @@ class OpenAPIToSHACLConverter:
             external_namespaces={
                 document: self._namespace_for_document(document)
                 for document in getattr(self, "_external_schemas_map", {})
-                if os.path.basename(document) in self.document_namespaces
-            } or None,
+            },
         )
         self._bind_standard_prefixes()
         self._bind_custom_namespaces()
@@ -1719,7 +1718,12 @@ class OpenAPIToSHACLConverter:
                     # this document's.
                     if self.mapping is not None and ref_name in self.mapping.classes:
                         return self._class_iri(ref_name), None
-                    ext_ns_uri = self._namespace_for_document(doc_name)
+                    # Per-schema overrides apply to external schemas too (promised by the
+                    # schema_namespaces docstring).
+                    if ref_name in self.schema_namespaces:
+                        ext_ns_uri = self.schema_namespaces[ref_name]
+                    else:
+                        ext_ns_uri = self._namespace_for_document(doc_name)
                     ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
                     if ext_prefix not in self.prefixes:
                         ext_ns = Namespace(ext_ns_uri)

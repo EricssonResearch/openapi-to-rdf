@@ -100,6 +100,7 @@ def test_external_ref_in_allof_resolves_to_correct_class(multidoc_workspace):
 def test_external_ref_as_property_target_resolves(multidoc_workspace):
     """An external $ref as a property's target must resolve to the correct class IRI."""
     from openapi_to_rdf import OpenAPIToSHACLConverter
+    from rdflib import RDFS, URIRef
 
     referring_path = str(multidoc_workspace["referring"])
     base_path = str(multidoc_workspace["base"])
@@ -111,20 +112,16 @@ def test_external_ref_as_property_target_resolves(multidoc_workspace):
     )
     converter.convert()
 
-    # The payload property should point to CommonType from base.yaml
-    graph = converter.rdf_graph
-    # Check that the payload property has an rdfs:range that references CommonType
-    from rdflib import RDFS
+    # The payload property should point to CommonType from base.yaml.
+    # With no document_namespaces, base.yaml gets the filename-derived namespace.
+    expected_common_type = URIRef("http://ericsson.com/models/3gpp/rdf/base#CommonType")
 
-    # Find payload property's range
-    payload_ranges = list(graph.objects(None, RDFS.range))
+    # Find all rdfs:range objects
+    payload_ranges = set(converter.rdf_graph.objects(None, RDFS.range))
 
-    # At least one range should contain "CommonType" in its IRI
-    # (The exact IRI depends on the namespace assigned to external schemas)
-    has_common_type_range = any("CommonType" in str(r) for r in payload_ranges)
-
-    assert has_common_type_range, (
-        f"Property must have rdfs:range pointing to CommonType, got ranges: {[str(r) for r in payload_ranges]}"
+    assert expected_common_type in payload_ranges, (
+        f"Property must have rdfs:range pointing to {expected_common_type}, "
+        f"got ranges: {[str(r) for r in payload_ranges]}"
     )
 
 
@@ -204,12 +201,14 @@ def test_split_model_common_class_iri_is_stable(tmp_path: Path):
     with open(specific_path, "w") as f:
         yaml.dump(specific_doc, f)
 
-    # Convert Specific with Common as external ref
+    # Convert Specific with Common as external ref.
+    # This is the split model, so pass document_namespaces for the shared vocabulary.
     shared_namespace = "https://example.org/api/"
     converter = OpenAPIToSHACLConverter(
         str(specific_path),
         base_namespace=shared_namespace,
         external_refs=[str(common_path)],
+        document_namespaces={"common.yaml": shared_namespace},
     )
     converter.convert()
 
@@ -218,9 +217,10 @@ def test_split_model_common_class_iri_is_stable(tmp_path: Path):
         "Order must have TimePeriod as parent via cross-document $ref"
     )
 
-    # And the inheritance edge is emitted in RDF
-    subclass_triples = list(converter.rdf_graph.triples((None, RDFS.subClassOf, None)))
-    order_parents = [str(o) for s, p, o in subclass_triples if "Order" in str(s)]
-    assert any("TimePeriod" in parent for parent in order_parents), (
-        f"Order subClassOf triple must reference TimePeriod; got {order_parents}"
+    # And the inheritance edge is emitted in RDF with both classes under the shared namespace
+    from rdflib import URIRef
+    order_iri = URIRef(f"{shared_namespace}Order")
+    time_period_iri = URIRef(f"{shared_namespace}TimePeriod")
+    assert (order_iri, RDFS.subClassOf, time_period_iri) in converter.rdf_graph, (
+        f"Order must have rdfs:subClassOf TimePeriod under shared namespace"
     )

@@ -486,6 +486,8 @@ def test_a_referenced_external_class_gets_its_declaring_documents_iri(split_file
 
     Pre-fix this emits <http://ericsson.com/models/3gpp/rdf/common#Addressable> — a 3GPP IRI
     inside a TM Forum vocabulary, and an IRI no document declares.
+
+    TM Forum split model: one shared vocabulary, so document_namespaces is required.
     """
     from rdflib import RDFS, URIRef
 
@@ -497,6 +499,7 @@ def test_a_referenced_external_class_gets_its_declaring_documents_iri(split_file
         base_namespace=shared,
         output_dir=str(tmp_path / "out"),
         external_refs=[str(split_files["common"])],
+        document_namespaces={COMMON: shared},
     )
     converter.convert()
     assert (
@@ -539,9 +542,78 @@ def test_an_external_class_is_referenced_but_never_declared(split_files, tmp_pat
         base_namespace=shared,
         output_dir=str(tmp_path / "out"),
         external_refs=[str(split_files["common"])],
+        document_namespaces={COMMON: shared},
     )
     converter.convert()
     external = URIRef(f"{shared}Addressable")
+    # No triple whose SUBJECT is the external class IRI
     assert (external, RDF.type, RDFS.Class) not in converter.rdf_graph
-    assert not list(converter.rdf_graph.triples((None, RDFS.domain, external)))
-    assert not list(converter.shacl_graph.triples((None, None, external)))
+    # No triple whose subject is a property IRI minted under the external class
+    external_prop_prefix = f"{shared}Addressable/"
+    assert not any(
+        str(s).startswith(external_prop_prefix)
+        for s, _, _ in converter.rdf_graph.triples((None, None, None))
+    )
+    # But object-position references are kept: PolicyRef subClassOf Addressable
+    assert (
+        URIRef(f"{shared}PolicyRef"),
+        RDFS.subClassOf,
+        external,
+    ) in converter.rdf_graph
+
+
+def test_zero_config_external_class_uses_filename_derived_namespace(tmp_path):
+    """3GPP default: no base_namespace, no document_namespaces, external class gets filename-derived IRI.
+
+    A class's namespace is a property of the document that declares it, so absent instruction
+    the best available answer is what that document's own conversion would produce.
+    """
+    from rdflib import RDFS, URIRef
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    # Create TS28623_ComDefs.yaml with Thing
+    comdefs_doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "ComDefs", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Thing": {
+                    "type": "object",
+                    "properties": {"id": {"type": "string"}},
+                }
+            }
+        },
+    }
+    comdefs_path = _write(tmp_path, "TS28623_ComDefs.yaml", comdefs_doc)
+
+    # Create local document inheriting from Thing
+    local_doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "Local", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Leaf": {
+                    "allOf": [
+                        {"$ref": "TS28623_ComDefs.yaml#/components/schemas/Thing"},
+                        {"type": "object", "properties": {"name": {"type": "string"}}},
+                    ]
+                }
+            }
+        },
+    }
+    local_path = _write(tmp_path, "local.yaml", local_doc)
+
+    # Convert with NO base_namespace and NO document_namespaces
+    converter = OpenAPIToSHACLConverter(
+        str(local_path),
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(comdefs_path)],
+    )
+    converter.convert()
+
+    # Thing's IRI must be the filename-derived one: http://ericsson.com/models/3gpp/TS28623/ComDefs#Thing
+    # (not the local document's derived namespace)
+    thing_iri = URIRef("http://ericsson.com/models/3gpp/TS28623/ComDefs#Thing")
+    local_leaf = URIRef("http://ericsson.com/models/3gpp/rdf/local#Leaf")
+    assert (local_leaf, RDFS.subClassOf, thing_iri) in converter.rdf_graph
