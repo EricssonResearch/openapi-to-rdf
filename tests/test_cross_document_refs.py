@@ -222,5 +222,5 @@ def test_split_model_common_class_iri_is_stable(tmp_path: Path):
     order_iri = URIRef(f"{shared_namespace}Order")
     time_period_iri = URIRef(f"{shared_namespace}TimePeriod")
     assert (order_iri, RDFS.subClassOf, time_period_iri) in converter.rdf_graph, (
-        f"Order must have rdfs:subClassOf TimePeriod under shared namespace"
+        "Order must have rdfs:subClassOf TimePeriod under shared namespace"
     )

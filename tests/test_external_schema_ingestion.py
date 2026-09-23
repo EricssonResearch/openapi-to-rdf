@@ -617,3 +617,236 @@ def test_zero_config_external_class_uses_filename_derived_namespace(tmp_path):
     thing_iri = URIRef("http://ericsson.com/models/3gpp/TS28623/ComDefs#Thing")
     local_leaf = URIRef("http://ericsson.com/models/3gpp/rdf/local#Leaf")
     assert (local_leaf, RDFS.subClassOf, thing_iri) in converter.rdf_graph
+
+
+def test_oneof_with_external_class_preserves_both_members(tmp_path):
+    """C2: oneOf over external and local class must preserve both members in sh:xone.
+
+    The suppression must be subject-scoped only. Before the fix, external classes were
+    dropped from object position, collapsing a two-member oneOf to a bare sh:class
+    (false rejection for legal instances of the external class).
+    """
+    from rdflib import RDF, RDFS, Namespace, URIRef
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    # External document with Addressable (which must be a registered ancestor)
+    ext_doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "External", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Addressable": {
+                    "type": "object",
+                    "properties": {"href": {"type": "string"}},
+                }
+            }
+        },
+    }
+    ext_path = _write(tmp_path, "external.yaml", ext_doc)
+
+    # Local document with:
+    # - LocalThing (local class)
+    # - Inheritor (inherits from Addressable so it's a registered ancestor)
+    # - Container with property whose oneOf includes both
+    local_doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "Local", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "LocalThing": {
+                    "type": "object",
+                    "properties": {"id": {"type": "string"}},
+                },
+                "Inheritor": {
+                    "allOf": [
+                        {"$ref": "external.yaml#/components/schemas/Addressable"},
+                        {"type": "object", "properties": {"name": {"type": "string"}}},
+                    ]
+                },
+                "Container": {
+                    "type": "object",
+                    "properties": {
+                        "target": {
+                            "oneOf": [
+                                {"$ref": "#/components/schemas/LocalThing"},
+                                {"$ref": "external.yaml#/components/schemas/Addressable"},
+                            ]
+                        }
+                    },
+                },
+            }
+        },
+    }
+    local_path = _write(tmp_path, "local.yaml", local_doc)
+
+    # Convert with shared namespace (split model)
+    shared = "https://api.example/"
+    converter = OpenAPIToSHACLConverter(
+        str(local_path),
+        base_namespace=shared,
+        output_dir=str(tmp_path / "out"),
+        external_refs=[str(ext_path)],
+        document_namespaces={"external.yaml": shared},
+    )
+    converter.convert()
+
+    # Find the Container NodeShape and its target property shape
+    SH = Namespace("http://www.w3.org/ns/shacl#")
+    container_iri = URIRef(f"{shared}Container")
+
+    # Get the NodeShape for Container
+    container_shapes = list(converter.shacl_graph.subjects(SH.targetClass, container_iri))
+    assert len(container_shapes) == 1, "Container must have exactly one NodeShape"
+    container_shape = container_shapes[0]
+
+    # Get the property shape for 'target'
+    prop_shapes = list(converter.shacl_graph.objects(container_shape, SH.property))
+    target_shape = None
+    for ps in prop_shapes:
+        path = list(converter.shacl_graph.objects(ps, SH.path))
+        if path and "target" in str(path[0]):
+            target_shape = ps
+            break
+
+    assert target_shape is not None, "Container must have a property shape for 'target'"
+
+    # The property shape must have sh:xone (not a bare sh:class)
+    xone_lists = list(converter.shacl_graph.objects(target_shape, SH.xone))
+    assert len(xone_lists) == 1, "target must have sh:xone constraint"
+
+    # The xone must have TWO members (LocalThing and Addressable)
+    from rdflib.collection import Collection
+    members = list(Collection(converter.shacl_graph, xone_lists[0]))
+    assert len(members) == 2, f"sh:xone must have 2 members, got {len(members)}"
+
+    # Both members should have sh:class constraints
+    member_classes = set()
+    for member in members:
+        classes = list(converter.shacl_graph.objects(member, getattr(SH, 'class')))
+        assert len(classes) == 1, f"Each xone member must have exactly one sh:class"
+        member_classes.add(str(classes[0]))
+
+    # Verify both LocalThing and Addressable are present
+    assert f"{shared}LocalThing" in member_classes, "sh:xone must include LocalThing"
+    assert f"{shared}Addressable" in member_classes, "sh:xone must include Addressable"
+
+
+def test_restated_property_path_matches_declaring_document(tmp_path):
+    """sh:path for restated inherited property must match declaring document's emission.
+
+    Zero-config mode: no document_namespaces. Local class inherits external class and
+    restates one of its properties. The sh:path IRI must sit under the declaring
+    document's namespace (filename-derived) and match what that document's own
+    conversion declares.
+    """
+    from rdflib import RDF, RDFS, Namespace
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+
+    # common.yaml with Addressable that has href and id
+    common_doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "Common", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "Addressable": {
+                    "type": "object",
+                    "properties": {
+                        "href": {"type": "string"},
+                        "id": {"type": "string"},
+                    },
+                }
+            }
+        },
+    }
+    common_path = _write(tmp_path, "common.yaml", common_doc)
+
+    # api.yaml with PolicyRef that inherits Addressable and restates href
+    api_doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1.0"},
+        "components": {
+            "schemas": {
+                "PolicyRef": {
+                    "allOf": [
+                        {"$ref": "common.yaml#/components/schemas/Addressable"},
+                        {
+                            "type": "object",
+                            "properties": {
+                                "href": {"type": "string"},  # Restated from Addressable
+                                "@type": {"type": "string"},
+                            },
+                        },
+                    ]
+                }
+            }
+        },
+    }
+    api_path = _write(tmp_path, "api.yaml", api_doc)
+
+    # Convert api.yaml with NO document_namespaces (zero-config)
+    api_converter = OpenAPIToSHACLConverter(
+        str(api_path),
+        output_dir=str(tmp_path / "out_api"),
+        external_refs=[str(common_path)],
+    )
+    api_converter.convert()
+
+    # Convert common.yaml standalone
+    common_converter = OpenAPIToSHACLConverter(
+        str(common_path),
+        output_dir=str(tmp_path / "out_common"),
+    )
+    common_converter.convert()
+
+    # Find the href property IRI in common.yaml's conversion
+    SH = Namespace("http://www.w3.org/ns/shacl#")
+    common_addressable = None
+    for s in common_converter.rdf_graph.subjects(RDF.type, RDFS.Class):
+        if "Addressable" in str(s):
+            common_addressable = s
+            break
+    assert common_addressable is not None, "common.yaml must declare Addressable"
+
+    # Get common.yaml's NodeShape for Addressable
+    common_shapes = list(common_converter.shacl_graph.subjects(SH.targetClass, common_addressable))
+    assert len(common_shapes) == 1
+    common_shape = common_shapes[0]
+
+    # Find href property shape in common.yaml
+    common_href_path = None
+    for ps in common_converter.shacl_graph.objects(common_shape, SH.property):
+        paths = list(common_converter.shacl_graph.objects(ps, SH.path))
+        if paths and "href" in str(paths[0]):
+            common_href_path = paths[0]
+            break
+    assert common_href_path is not None, "common.yaml must declare href property"
+
+    # Find PolicyRef's NodeShape in api.yaml
+    api_policy_ref = None
+    for s in api_converter.rdf_graph.subjects(RDF.type, RDFS.Class):
+        if "PolicyRef" in str(s):
+            api_policy_ref = s
+            break
+    assert api_policy_ref is not None, "api.yaml must declare PolicyRef"
+
+    api_shapes = list(api_converter.shacl_graph.subjects(SH.targetClass, api_policy_ref))
+    assert len(api_shapes) == 1
+    api_shape = api_shapes[0]
+
+    # Find href property shape in api.yaml (inherited from Addressable)
+    api_href_path = None
+    for ps in api_converter.shacl_graph.objects(api_shape, SH.property):
+        paths = list(api_converter.shacl_graph.objects(ps, SH.path))
+        if paths and "href" in str(paths[0]):
+            api_href_path = paths[0]
+            break
+    assert api_href_path is not None, "api.yaml must have href property shape (inherited)"
+
+    # The sh:path IRIs must be identical
+    assert api_href_path == common_href_path, (
+        f"sh:path for restated inherited property must match declaring document:\n"
+        f"  api.yaml:    {api_href_path}\n"
+        f"  common.yaml: {common_href_path}"
+    )

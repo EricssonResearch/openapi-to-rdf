@@ -321,13 +321,24 @@ class OpenAPIToSHACLConverter:
     def _class_namespace_uri(self, schema_name):
         """The namespace a named schema's class and property IRIs are minted under.
 
-        Transport for a wire envelope, the schema's own (possibly overridden) namespace otherwise.
-        One function, so a class and the properties it declares cannot land in two namespaces.
+        Transport for a wire envelope; otherwise consults the Mapping's declaring_document and
+        resolves through _namespace_for_document. This ensures a class and the properties it
+        declares cannot land in two namespaces, which is the invariant the docstring claims.
+        Before this consulted _namespace_for_schema, which never saw declaring_document, so in
+        zero-config mode a class came out as .../rdf/common#Addressable (correct) while its
+        restated inherited property got sh:path .../rdf/api/Addressable/href — an IRI whose RDF
+        declaration we suppress as external, and which common.yaml's own conversion declares as
+        .../rdf/common/Addressable/href. The shape's sh:path matched nothing in conformant data.
         """
         if self.mapping is not None:
             fact = self.mapping.classes.get(schema_name)
-            if fact is not None and fact.is_transport:
-                return self.transport_namespace
+            if fact is not None:
+                if fact.is_transport:
+                    return self.transport_namespace
+                # For external classes, resolve through the declaring document's namespace
+                if fact.declaring_document is not None:
+                    return self._namespace_for_document(fact.declaring_document)
+        # Local class or no mapping: use schema_namespaces if present, else base_namespace
         return self._namespace_for_schema(schema_name)
 
     def _class_iri(self, schema_name):
@@ -475,13 +486,9 @@ class OpenAPIToSHACLConverter:
                     # A VALUE constraint, so it resolves a reference to its referent (S8).
                     value_class = self._value_class_iri(ref, class_uri)
                     if value_class is not None:
-                        # Suppress sh:class constraints targeting external classes (AC-7).
-                        value_local = str(value_class).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
-                        value_fact = self.mapping.classes.get(value_local) if self.mapping else None
-                        if value_fact is None or not value_fact.is_external:
-                            self.shacl_graph.add(
-                                (property_shape, getattr(self.SH, 'class'), value_class)
-                            )
+                        self.shacl_graph.add(
+                            (property_shape, getattr(self.SH, 'class'), value_class)
+                        )
                 else:
                     # Handle datatype reference — inline constraints from the referenced schema
                     datatype = self._get_datatype_from_ref(ref)
@@ -1200,16 +1207,9 @@ class OpenAPIToSHACLConverter:
                 
                 # Combine all constraints (class URIs and NodeShapes) in sh:or
                 all_shapes = []
-                
-                # Add NodeShapes for each class URI, filtering out external classes
-                non_external_class_uris = []
+
+                # Add NodeShapes for each class URI
                 for class_uri in class_uris:
-                    # Suppress sh:class constraints targeting external classes (AC-7).
-                    class_local = str(class_uri).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
-                    class_fact = self.mapping.classes.get(class_local) if self.mapping else None
-                    if class_fact is not None and class_fact.is_external:
-                        continue
-                    non_external_class_uris.append(class_uri)
                     class_shape = self._create_bnode()
                     self.shacl_graph.add((class_shape, RDF.type, self.SH.NodeShape))
                     self.shacl_graph.add((class_shape, getattr(self.SH, 'class'), class_uri))
@@ -1219,8 +1219,8 @@ class OpenAPIToSHACLConverter:
                 all_shapes.extend(constraint_shapes)
 
                 # If we have only one shape and it's a class URI (no constraint shapes), use it directly
-                if len(all_shapes) == 1 and len(non_external_class_uris) == 1 and len(constraint_shapes) == 0:
-                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), non_external_class_uris[0]))
+                if len(all_shapes) == 1 and len(class_uris) == 1 and len(constraint_shapes) == 0:
+                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), class_uris[0]))
                 elif len(all_shapes) > 0:
                     # Use sh:or to combine all constraints
                     or_list = self._create_bnode()
@@ -1243,11 +1243,7 @@ class OpenAPIToSHACLConverter:
                         if self._is_object_type_from_ref(ref):
                             parent_uri, _ = self._resolve_reference(ref)
                             if parent_uri is not None:
-                                # Suppress sh:class constraints targeting external classes (AC-7).
-                                parent_local = str(parent_uri).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
-                                parent_fact = self.mapping.classes.get(parent_local) if self.mapping else None
-                                if parent_fact is None or not parent_fact.is_external:
-                                    self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), parent_uri))
+                                self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), parent_uri))
                     else:
                         # Inline constraint/object: pass subject=None so _handle_object_type
                         # doesn't create a duplicate NodeShape.
