@@ -1,5 +1,19 @@
 # OpenAPI-to-RDF SHACL Coverage Report
 
+> **STALE — do not read the identifiers below as current (noted 2026-09-23).**
+>
+> Generated 2026-04-03 and not regenerated since, so it predates at least: the property-IRI separator
+> change from `#` to `/` (commit `d3ca42f`), which means **every property IRI in this file is written
+> in a form the tool no longer emits**; the single-`rdfs:range` and single-`rdfs:domain` rules; the
+> transport-namespace split; and the external-schema work of 2026-09-23.
+>
+> Regenerate before citing anything from it:
+> `uv run python scripts/generate_coverage_report.py`
+>
+> Nothing in the repository reads this file — only its generator writes it — so it is kept as a
+> regenerable artifact, not a reference. Whether the report's *shape* is still what anyone wants has
+> not been reviewed.
+
 > Generated: 2026-04-03 23:39:55
 
 ## Summary

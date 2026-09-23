@@ -3,6 +3,20 @@
 _Spec for `docs/REQUEST-external-schema-ingestion.md`. Written 2026-09-23. Decisions taken with the
 user in the brainstorming session of the same date._
 
+> **Status: implemented, with known gaps. Not merge-ready.** Read `HYPOTHESES.md` for the current
+> state before trusting anything here — several passages below were written before the work and were
+> wrong. The ones that mattered are struck through or marked where they appear, rather than deleted,
+> so the reasoning that produced them stays visible:
+>
+> - **AC-1** is met on 3GPP and TMF620; **not** on TMF622 (6 invented pairs) or TMF641 (9).
+> - **AC-2** (whole ≡ split isomorphism) is **not met**; the suppression rule in this spec can orphan
+>   a property so neither half emits it.
+> - **AC-3** was written as 0, corrected to 9 for 3GPP; TM Forum is 0 only after a later fix.
+> - **AC-6**'s counter is **vacuous** as implemented — it cannot reach a non-zero value.
+>
+> Where this document says a thing "must" hold, that is the design intent, not a measured outcome.
+> Every figure that *was* measured names the script that produced it.
+
 ## In one paragraph
 
 A class's IRI must be a function of **the document that declares it**. Today it is a function of
@@ -63,12 +77,19 @@ passes that, while references to them are minted under
 
 **175 distinct dangling class targets.** The `rdfs:domain` row is the control: domains are always
 local, so an instrument that reports 0 there and non-zero above is one that can produce both
-answers. The 9 non-family `rdfs:range` danglers are expected by design — `ClassFact.referent` is
-minted by convention and may name a class the document does not declare (see `mapping.py`'s module
-docstring).
+answers.
 
-This contradicts a determination already settled in `HYPOTHESES.md`: *"File structure is provenance,
-never identity — the source document is recorded as a triple, never as an IRI segment."*
+~~The 9 non-family `rdfs:range` danglers are expected by design — `ClassFact.referent` is minted by
+convention and may name a class the document does not declare.~~ **Superseded 2026-09-23 (`24af6aa`).**
+Minting a referent by convention is right; leaving the minted term *undeclared* is not, and calling
+that "by design" is what let 45 of TMF620's 275 `rdfs:range` axioms point at nothing. The referent is
+now declared and marked `isMintedByConvention`.
+
+This contradicts a determination then recorded in `HYPOTHESES.md` as *"File structure is provenance,
+never identity"*. That determination has since been **scoped**: it holds within one description, and
+not across descriptions — 3GPP's per-document namespaces are correct and load-bearing. See
+`HYPOTHESES.md` for the corrected wording; reading the unqualified version as universal is how this
+spec's own zero-config default came out wrong.
 
 The same defect produces the consumer's TM Forum divergence. On a minimal two-document fixture under
 one namespace, the whole-document conversion emits
@@ -106,7 +127,8 @@ rather than by corpus accident.
 **Deferred by decision, RDFS/SHACL path first.** The grounds for deferring are verified rather than
 assumed: `rdf_converter.py` is a separate emitter with its own namespace binding and is not reached
 by any code this spec changes, so the D1 fix neither repairs nor worsens it. `HYPOTHESES.md` already
-records this path as secondary (AC-3: "O4 is still live for inline properties and on the OWL path").
+records this path as secondary (AC-3 of the *consolidation* spec — a different numbering from this
+document's AC-3 below: "O4 is still live for inline properties and on the OWL path").
 No test in this change asserts anything about it.
 
 ### D5 — the gates named in the request cannot observe any of this
@@ -165,10 +187,22 @@ to match `_external_schemas_map`. Resolution for a class declared in document `D
 
 `build_mapping` gains `external_namespaces: dict[str, str] | None`, the same map restricted to
 external documents. When an external document has no entry, its classes fall back to the mapping's
-own `namespace`. That is not a new guess: `namespace` is already documented as "Default namespace for
-every class in the document", and extending that default is exactly right for the split model — which
-is why the request's reproduction shape works with zero configuration. The converter, which is the
-component that knows filenames, always supplies the full map, so 3GPP keeps per-document namespaces.
+own `namespace` — `build_mapping` has no filenames and no prefix, so that is the only default
+available to it, and it suits a direct caller working within one vocabulary.
+
+**The converter must always supply the full map**, because it is the component that knows filenames.
+Where it does not, external classes take the *referring* document's namespace, which is wrong for a
+corpus like 3GPP where each document is its own vocabulary — measured: filtering the map so it was
+supplied only for documents listed in `document_namespaces` took the 38-document 3GPP corpus from
+**16 dangling class targets to 79**. The zero-config fallback for the converter is therefore the
+declaring document's filename-derived namespace, not the referring document's.
+
+Consequence, accepted deliberately: a TM Forum split must **state** its shared namespace
+(`document_namespaces={"common.yaml": <shared>}`). The library cannot infer that a carve is packaging
+rather than a vocabulary boundary — nothing in an OpenAPI document says which. An earlier draft of
+this section read "extending that default is exactly right for the split model", which is true of a
+direct `build_mapping` caller and false of the converter; stated without that distinction it is how
+the 16 → 79 regression got specified.
 
 ### Part 2 — register external schemas, reference-only
 
@@ -259,14 +293,19 @@ classes from `expected`**, and the exclusion needs its own assertion so the gate
   whole-document conversion**. Pre-fix: 34 such pairs.
 * `AC-2` Whole and split conversions of one document yield **isomorphic** RDF vocabularies, compared
   as graphs by `scripts/measure_split_isomorphism.py`.
-* `AC-3` Dangling class targets over the 3GPP corpus, converted with siblings loaded: **9**.
-  Pre-fix: 175 distinct. **Corrected from 0 on review**: this spec's own D1 table says 9 of the 141
-  `rdfs:range` danglers are outside the filename-derived family and expected by design, so 0 was
-  unreachable as written and would have sent an implementer chasing nine phantoms or quietly
-  weakening the criterion. Measured after the fix: **175 → 9**, residual characterised as `$ref`-alias
-  mis-classification. TM Forum reports 98, all convention-minted referents — verified, not assumed:
-  `Agreement` is declared in none of the three documents while `AgreementRef` is, so
-  `ClassFact.referent` mints a class no document declares.
+* `AC-3` Dangling class targets, both corpora, converted with siblings loaded:
+  **3GPP 9, TM Forum 0** (`scripts/measure_corpora.py`, metric `dangling_class_targets_corpuswide`).
+  * Originally written as **0** for 3GPP. That was unreachable as written and was corrected to 9 on
+    review — the residue is a **separate, pre-existing defect** this spec does not address: pure
+    `$ref` alias schemas, where the referrer mints a class IRI while the declaring document emits a
+    datatype, because `is_primitive_def` cannot see through an external `$ref`. Recorded as an open
+    finding in `HYPOTHESES.md`.
+  * TM Forum reached 0 only after a **later** change (`24af6aa`) that declares a `*Ref`'s referent.
+    An earlier version of this criterion recorded TM Forum's 98 as "all convention-minted referents",
+    which was true, and then treated that as making them acceptable — which was wrong. Minting a
+    referent by convention is correct; leaving the minted term undeclared is not. The metric was
+    reporting an incomplete ontology. **Do not reintroduce the proposal to exclude referents from this
+    metric.**
 * `AC-4` Transitivity holds: a class in document 1 whose parent is in document 2 whose parent is
   back in document 1 resolves all three, with each class's IRI taken from its own declaring
   document.

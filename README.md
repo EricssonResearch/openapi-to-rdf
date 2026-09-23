@@ -8,8 +8,8 @@ The tool converts `components/schemas` to RDF/SHACL vocabularies and `paths` to 
 
 - **Dual Output Formats**: Generate separate RDF vocabulary + SHACL shapes (default) or traditional RDF/OWL
 - **Schema Coverage**: Converts OpenAPI schemas including objects, arrays, enums, and logical operators
-- **W3C Standards Compliant**: Assigns proper `rdfs:domain`, `rdfs:range` to properties, and constraints via SHACL vocabulary
-- **Universality**: Should works with any OpenAPI schema specification, althoug only tested with 3GPP input.
+- **Uses W3C vocabularies**: `rdfs:domain` and `rdfs:range` on properties, constraints expressed in SHACL. Not a compliance claim — no conformance suite is run, and `rdfs:range` is emitted only where a property has exactly one target class, because a range propagates under RDFS entailment and a multi-target range would assert something the document does not say.
+- **Tested on two corpora**: the 38 3GPP SA5 Rel-19 documents in `assets/`, and three TM Forum Open API v5 documents (not redistributed; see `scripts/_corpora.py`). Other OpenAPI documents are expected to work but are not exercised — and the two corpora repeatedly disagree about what they cover, so "works on 3GPP" has more than once turned out not to mean "works".
 - **3GPP SA5 RDF/SHACL**: We provide pre-generated RDF/SHACL output for 3GPP SA5 Release-19 OpenAPI schemas (downloaded from `https://forge.3gpp.org/rep/sa5/MnS/` into `assets/`)
 
 ## Installation

@@ -177,10 +177,25 @@ H6.
   Commit `6b71d07`. The `anyOf` limitation is pinned with `xfail(strict=True)`.
 - **No guessing, no placeholders** (S3, S4, O5, O6) — a fragment-less `$ref` is refused rather than
   given a placeholder IRI, which used to leak the build directory. Commit `6915f5b`.
-- **File structure is provenance, never identity** — the source document is recorded as a triple,
-  never as an IRI segment. Decisive argument: under file-derived identity a class in
+- **File structure is not identity WITHIN one description** — the source document is recorded as a
+  triple, never as an IRI segment. Argument: under file-derived identity a class in
   `common-tmf-v5.yaml` would get a different IRI than the same class inlined, contradicting the
   premise of the split model (one class, one IRI, N APIs).
+
+  **Scope correction, 2026-09-23.** This was previously written as "file structure is provenance,
+  never identity", with no qualifier, and read as a universal rule. It is not one, and 3GPP is a
+  standing counterexample in this same repository: each TS document is its own published vocabulary,
+  so `TS28623_ComDefs.yaml` → `…/TS28623/ComDefs#` is correct and load-bearing — the 38 documents
+  only join up *because* a class carries its declaring document's namespace. The filename there is a
+  proxy for the specification number, which is the real identifier, not for packaging.
+
+  The distinction is whether the file boundary is a **published vocabulary boundary**: for 3GPP it is,
+  for a carve of TM Forum's API family it is not. Nothing in an OpenAPI document states which case
+  applies, so it is an input (`document_namespaces`), not a derivation.
+
+  **Cost of the unqualified version:** I read it as universal while specifying external-schema
+  ingestion, and it contributed to a zero-config default that took 3GPP from 16 dangling class
+  targets to 79 before review caught it.
 - **The `Mapping` spine: one derived object, four projections** — TTL (vocabulary + SHACL), Overlay
   1.1.0, JSON-LD `@context`, Hydra operation graph. Commits `278987a`, `5ead8a3`, then `928a884`…
   `73b8ff3`. A reconciliation gate checks the four agree on every class IRI (AC-4).
@@ -190,21 +205,32 @@ H6.
   README. It was briefly gitignored by mistake; `test_output_freshness.py` now gates its currency.
 - **uv, not poetry** — PEP 621 + hatchling, `requires-python >= 3.11`. Commit `9619606`.
 
-- **External schemas are now registered as classes (D1)** — 3GPP `rdfs:subClassOf` dangling targets
-  **34 of 46 → 0 of 46**, `rdfs:range` **141 of 797 → 9 of 797** (9 are `$ref`-alias
-  mis-classifications, see open findings). TM Forum `rdfs:range` **98** dangling targets are
-  convention-minted referents (PolicyRef→Policy, PlaceRef→Place, etc., plus _FVO/_MVO variants) and
-  are legitimate by design — `mapping.py`'s module docstring documents that referent names are "minted
-  by convention, not looked up". Evidence: `scripts/measure_corpora.py` metric
-  `dangling_class_targets_corpuswide`, artifact `artifacts/external-schema-ingestion.json`.
-  Defect fixed in commits `[commit SHAs from this plan]`.
+- **A class's IRI comes from its declaring document, not the referring one (D1 in the spec)** — a
+  document's namespace was derived twice, by two identical function bodies of which only one could be
+  overridden by `base_namespace`, so supplying it desynchronised a document from every referrer.
+  Evidence: `scripts/measure_corpora.py` metric `dangling_class_targets_corpuswide`, artifact
+  `artifacts/external-schema-ingestion.json`. Commits `338c0f2` (one derivation), `4bbacae`…`3306ea8`
+  (the converter wiring, over three review rounds).
 
-- **A class's IRI is now derived from its declaring document, not the referring one (D2)** — before
-  this fix, a class in document A referenced from document B would get an IRI namespaced to B's
-  filename, so every referrer minted a distinct IRI for the same class. Now the declaring document
-  owns the namespace, and all referrers agree. Evidence: `scripts/measure_split_isomorphism.py`
-  metric `invented_pairs` on TMF620 **34 → 0**, artifact `artifacts/split-isomorphism.json`.
-  Defect fixed in commits `[commit SHAs from this plan]`.
+- **External schemas are registered as classes, so attribution crosses documents (D2 in the spec)** —
+  `build_mapping` indexed local `components/schemas` only, so an external ancestor had no entry in
+  `classes`/`parents`/`declared_by` and the ancestry walk stopped at the boundary. Commits `9e0ea4b`,
+  `9e476d6`. Real-corpus effect over the 38 3GPP documents: **144 properties gained a target class
+  that was previously dropped, 0 lost one.**
+
+  _(The D1/D2 labels were swapped in the first version of these two entries. The spec is the
+  authority: D1 is the namespace defect, D2 is the registration defect.)_
+
+- **A `*Ref`'s referent is declared** — `rdfs:range` names the referent, because in RDF an IRI already
+  is a reference, but the referent itself was never declared, so the axiom pointed at nothing. TMF620:
+  56 `*Ref` classes, **39 referents undeclared → declared and marked `isMintedByConvention`**; corpus
+  `dangling_class_targets_corpuswide` on TM Forum **98 → 0**. Commit `24af6aa`.
+
+  **This supersedes an earlier claim in this file that TM Forum's 98 dangling targets were "legitimate
+  by design" because referent names are minted by convention.** That was wrong, and it was my ruling
+  rather than a measurement: minting by convention is right, but it does not excuse leaving the minted
+  term undeclared. The metric was reporting an incomplete ontology, and I proposed excluding those
+  targets from the gate instead of fixing what the gate found. Do not reintroduce that exclusion.
 
 ## Open questions / next tests
 
@@ -212,10 +238,50 @@ H6.
   the next change touches the converter or the fixture generator. Do not start coding without it.
 - **352 `sh:targetClass` triples point at `rdfs:Datatype`.** Noticed, never measured; the TM Forum
   count was never established.
-- **AC-2 is not met** — determinations L9, L8 and S9 have no test in this repo. AC-2 exists because
-  "carried as a comment" is exactly what failed to stop defect F12 (`allOf` property loss) being
-  independently rediscovered in three repos.
-- **AC-3 is partial** — O4 is still live for inline properties and on the OWL path.
+> **Two different AC numberings appear in this file.** Those written `AC-n (consolidation)` come from
+> `snm-api-native/docs/specs/2026-09-18-consolidate-openapi-to-rdf.md`; those written
+> `AC-n (ingestion)` come from `docs/superpowers/specs/2026-09-23-external-schema-ingestion-design.md`.
+> They are unrelated and their numbers collide. Always write which one you mean.
+
+- **AC-2 (consolidation) is not met** — determinations L9, L8 and S9 have no test in this repo. It
+  exists because "carried as a comment" is exactly what failed to stop defect F12 (`allOf` property
+  loss) being independently rediscovered in three repos.
+- **AC-3 (consolidation) is partial** — O4 is still live for inline properties and on the OWL path.
+
+- **AC-1 (ingestion) is not met on two of three TM Forum documents** — STATUS: **open**
+  (confidence: high). A split conversion must invent no `(declaring_class, property)` pair the whole
+  document does not have. TMF620 reaches **0**; TMF622 has **6** and TMF641 has **9**, and all 15 are
+  on `GeographicLocation` and its `_FVO`/`_MVO` variants. Measured by
+  `scripts/measure_split_isomorphism.py`, artifact `artifacts/split-isomorphism.json`, 2026-09-23.
+  Structurally uniform, so probably one cause; the cause is **not** identified. Earlier wording in this
+  file cited "34 → 0" from TMF620 alone, which overstated it.
+
+- **AC-2 (ingestion) is not met: whole and split vocabularies are not isomorphic** — STATUS: **open**
+  (confidence: high). `graphs_isomorphic` is False on 35 of 38 3GPP documents and on all 3 TM Forum
+  documents. Smallest case diagnosed by hand: `TS28104_MdaReport`, whole 33 triples vs split 32, the
+  single missing triple being `attributes rdf:type rdf:Property`. Mechanism, **hypothesis not
+  measurement**: the AC-7 (ingestion) suppression rule can orphan a term — where a property's
+  declaring class is external in the document that would otherwise publish it, the referring half
+  suppresses it and the declaring half never reaches it, so neither emits it. Found only because
+  `measure_split_isomorphism.py` exists.
+
+- **The reconciliation gate's external-class counter is vacuous** — STATUS: **open** (confidence:
+  high). `scripts/reconcile_projections.py` reports `external_classes_excluded: 0` for every spec,
+  because it never passes `external_schemas` to `build_mapping`, so no class is ever external in its
+  mapping. The counter was added by this plan and cannot reach a non-zero value — the same
+  "guard whose inputs cannot reach the failure region" mode this file records elsewhere.
+
+- **128 of 965 property IRIs are unscoped, and carry no `rdfs:domain`** — STATUS: **open**
+  (confidence: high). Measured on one TMF620 conversion: 727 class-scoped `<base>/<Class>/<prop>`
+  against 128 unscoped `<base>/<prop>`. All 128 come from `shacl_converter.py`'s inline-sub-object
+  fallback (an inline object has no schema name, so there is nothing to scope under); `version`
+  collects 16 `rdfs:comment` values, `name` 15, `description` 12. A second site in the
+  `anyOf`/`oneOf` branch mints the same unscoped shape and additionally dash-folds via `format_name`;
+  it fired **0 times** across TMF620, TS28541_NrNrm and TS29571_CommonData, so it is reachable but
+  unexercised by either corpus rather than dead. **Deciding what an inline object's scope should be is
+  a vocabulary decision, not yet taken.** It also blocks finishing the comment rule: after the
+  declaring-class fix, TMF620 surplus comments went 137 → 126 and **124 of the residual 126 sit on
+  these unscoped IRIs**, where there is no declaring class to compare against.
 
 - **D3 (new finding): pure `$ref` alias schemas mis-classified, causing 9 3GPP dangling class
   targets** — STATUS: **open** (confidence: high)
@@ -237,6 +303,8 @@ H6.
   separate emitters. This plan's changes do not reach the OWL emitter, and the decision was to fix
   RDFS/SHACL first. The symptom is identical to D2: a document and its referrers cannot agree on
   where a class lives. Deferred by user decision 2026-09-23, RDFS/SHACL path first.
+  (An earlier version of this entry called the symptom "identical to D2"; it is D1, the namespace
+  defect. D2 is the registration defect.)
 
 ## Dead ends (tried, didn't work — don't repeat)
 
