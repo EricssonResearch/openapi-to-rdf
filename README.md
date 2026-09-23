@@ -139,3 +139,66 @@ merging step (see [CONVERSION_DOC.md](CONVERSION_DOC.md)).
 
 📖 **For comprehensive conversion examples and detailed explanations of all OpenAPI patterns, see [CONVERSION_DOC.md](CONVERSION_DOC.md)**
 
+
+## Vocabulary this tool uses, and what is ours
+
+Everything below is stated so a reader can tell a standard from a convention from an invention.
+Presenting any of it as more authoritative than it is would be the failure mode this section exists
+to prevent.
+
+| term | status |
+|---|---|
+| `rdf:`, `rdfs:`, `owl:`, `xsd:`, `sh:` | **W3C Recommendations** |
+| `dcterms:hasVersion` | **DCMI Recommendation**, permanent namespace |
+| `hydra:` (`Operation`, `method`, `returns`, `expects`, `supportedOperation`, `IriTemplate`, `template`) | **W3C Community Group draft**, *not* a Recommendation. Chosen for its permanent `w3.org/ns/` namespace; may be called a convention with a stable namespace, may **not** be called a standard |
+| **`affordance:invokedAt`** | **OURS. Minted by this project. Asserts no external authority.** |
+| the operation IRI scheme | **OURS.** No standard names operations in RDF |
+| the class and property IRI scheme | **OURS** |
+
+### `affordance:invokedAt` — a term we had to invent
+
+`https://semantic.ericsson.com/ontology/affordance/invokedAt`
+
+Relates a `hydra:Operation` to the `hydra:IriTemplate` it is invoked at. **Nothing in Hydra Core,
+Dublin Core or any W3C Recommendation defines it**, and it must not be presented as standard
+vocabulary in a paper, a report or a dataset description.
+
+It exists because Hydra models *a templated link* (`hydra:IriTemplate` + `hydra:template`) and
+*operations a class supports* (`hydra:supportedOperation`), but has **no term relating an operation
+to its template**. The obvious shortcut is unavailable: `hydra:template`'s domain is
+`hydra:IriTemplate`, so putting it straight on the operation would entail *the operation IS a
+template*, which is false. This projection did exactly that until 2026-09-22.
+
+The emitted shape is therefore:
+
+```turtle
+<…/operation/serviceOrdering/v5/get/serviceOrder>
+    a hydra:Operation ;
+    hydra:method "GET" ;
+    dcterms:hasVersion "5.0.0" ;
+    hydra:returns tmf:ServiceOrder ;
+    affordance:invokedAt <…/operation/serviceOrdering/v5/get/serviceOrder#template> .
+
+<…/operation/serviceOrdering/v5/get/serviceOrder#template>
+    a hydra:IriTemplate ;
+    hydra:template "/serviceOrder" .
+```
+
+The template node is a real IRI rather than a blank node, deliberately, so a consumer can address
+it. Swapping Hydra for WoT means replacing the Hydra terms; this one must be **re-justified**
+against whatever the replacement offers rather than carried over unexamined.
+
+### Operation IRIs: `operation/<api>/<majorVersion>/<method><path>`
+
+Derived from `info.title` and `info.version` — both **REQUIRED** by the OpenAPI Specification — plus
+the method and path template. Not from `operationId`, which is **optional** and duplicated in
+practice: a scheme that needs an optional field has no defined behaviour on a document omitting it.
+
+The API and version segments fix two silently-merging collisions measured on 2026-09-22:
+
+* **across versions** — TMF641 v5 and v4.1 under one namespace produced **20 of 20 identical**
+  operation IRIs, carrying two conflicting `dcterms:hasVersion` literals on one node;
+* **across APIs** — every TM Forum API defines `/hub`, so `delete/hub/{id}` was **one node shared by
+  TMF620, TMF622 and TMF641**.
+
+Both now measure 0.

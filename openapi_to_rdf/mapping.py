@@ -254,6 +254,10 @@ class Mapping:
     properties: dict[str, PropertyFact]
     operations: dict[str, OperationFact]
     properties_by_class: dict[tuple[str, str], PropertyFact]
+    #: ``info.version`` verbatim, or None. Here rather than re-read by a projection, because this
+    #: object is meant to be everything one walk of the document yields — a projection that opened
+    #: the document again could disagree with the rest of the fact set about what it says.
+    api_version: str | None = None
 
     def declaring_class(self, class_name: str, property_name: str) -> str:
         """The class that declares ``property_name`` for a node of ``class_name``.
@@ -769,17 +773,54 @@ def _class_of_body(schema: Any, schemas: dict[str, Any], classes: dict[str, Any]
     return name if name in classes else None
 
 
-def _operation_iri(namespace: str, method: str, path_template: str) -> str:
-    """Mint an operation IRI from its method and path.
+def api_slug(title: str) -> str:
+    """``info.title`` as one lowerCamelCase IRI segment. ``"Product Catalog Management"`` -> ``productCatalogManagement``."""
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", title or "") if w]
+    if not words:
+        return "api"
+    head, *rest = words
+    return head[0].lower() + head[1:] + "".join(w[0].upper() + w[1:] for w in rest)
 
-    **This IRI scheme is OURS** and asserts no external authority: no standard names operations
-    in RDF, and Hydra (a W3C Community Group draft, not a Recommendation) gives a *type*, not an
-    identifier scheme. Derived from the method and path rather than from ``operationId`` because
-    ``operationId`` is optional and is duplicated in practice, while a method is unique within a
-    Path Item Object by construction. Percent-encoded so distinct paths cannot collide —
-    ``/order/{id}`` and ``/order/-id-`` must not land on one IRI.
+
+def major_version(version: str) -> str:
+    """``"5.0.0"`` -> ``"v5"``. The major only: a patch bump must not move every operation IRI."""
+    leading = re.match(r"\d+", str(version or ""))
+    return f"v{leading.group(0)}" if leading else "vUnversioned"
+
+
+def _operation_iri(
+    namespace: str, method: str, path_template: str, *, api: str, version: str
+) -> str:
+    """Mint an operation IRI from the API, its major version, the method and the path.
+
+    **This IRI scheme is OURS** and asserts no external authority: no standard names operations in
+    RDF, and Hydra (a W3C Community Group draft, not a Recommendation) gives a *type*, not an
+    identifier scheme.
+
+    Derived from method and path rather than from ``operationId``, which is **optional** in the
+    OpenAPI Specification and duplicated in practice, while a method is unique within a Path Item
+    Object by construction. Percent-encoded so distinct paths cannot collide — ``/order/{id}`` and
+    ``/order/-id-`` must not land on one IRI.
+
+    **The API and version segments were added 2026-09-22 to fix two measured collisions.** Without
+    them the scheme is not an identifier at all when a store holds more than one document, and both
+    failures are silent — they merge nodes rather than raising:
+
+    * **Across versions.** Converting TMF641 v5 and v4.1 under one namespace produced **20 of 20
+      identical** operation IRIs, so every operation of both versions was one node, carrying two
+      conflicting ``dcterms:hasVersion`` literals.
+    * **Across APIs.** Every TM Forum API defines ``/hub``, so ``delete/hub/{id}`` was **one node
+      shared by TMF620, TMF622 and TMF641** — 2 collisions per pair, measured.
+
+    ``info.title`` and ``info.version`` are **REQUIRED** by the OpenAPI Specification, so both
+    segments are always derivable. That is why they are preferred to ``operationId`` even though an
+    ``operationId``-based scheme would read more prettily: a scheme that needs an optional field has
+    no defined behaviour on a document that omits it.
     """
-    return f"{namespace}operation/{method.lower()}{quote(path_template, safe='/')}"
+    return (
+        f"{namespace}operation/{api}/{version}/"
+        f"{method.lower()}{quote(path_template, safe='/')}"
+    )
 
 
 def build_mapping(
@@ -892,6 +933,11 @@ def build_mapping(
 
     # --- Operations. `paths` is in scope; the README disclaimer predates this. ---------------
     operations: dict[str, OperationFact] = {}
+    # Read once: every operation IRI needs them, and info.title/info.version are
+    # REQUIRED by the OpenAPI Specification so both are always present.
+    _info = document.get("info") or {}
+    _api = api_slug(_info.get("title", "") if isinstance(_info, dict) else "")
+    _version = major_version(_info.get("version", "") if isinstance(_info, dict) else "")
     for path_template, path_item in (document.get("paths") or {}).items():
         path_item = _resolve_document_ref(path_item, document)
         if not isinstance(path_item, dict):
@@ -918,7 +964,9 @@ def build_mapping(
             )
             key = f"{method.upper()} {path_template}"
             operations[key] = OperationFact(
-                iri=_operation_iri(namespace, method, path_template),
+                iri=_operation_iri(
+                    namespace, method, path_template, api=_api, version=_version
+                ),
                 method=method.upper(),
                 path_template=path_template,
                 returns_class=returned,
@@ -926,9 +974,12 @@ def build_mapping(
                 status_codes=_status_codes(operation),
             )
 
+    info = document.get("info") or {}
+    raw_version = info.get("version") if isinstance(info, dict) else None
     return Mapping(
         classes=classes,
         properties=properties,
         operations=operations,
         properties_by_class=properties_by_class,
+        api_version=str(raw_version) if raw_version else None,
     )
