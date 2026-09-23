@@ -19,6 +19,8 @@ converters; it has no rdflib Graph dependencies and is cheap to test.
 
 from __future__ import annotations
 
+import re
+
 from rdflib import URIRef
 
 
@@ -124,3 +126,34 @@ def property_uri(base_namespace: str, class_name: str, property_name: str) -> UR
     """
     safe_prop = format_local_name(property_name)
     return URIRef(class_namespace(base_namespace, class_name) + safe_prop)
+
+
+def namespace_for_document(filename: str, base_namespace_prefix: str) -> str:
+    """The namespace the classes of one OpenAPI *document* are minted under.
+
+    ``TS28623_ComDefs.yaml`` → ``<prefix>TS28623/ComDefs#``; anything else →
+    ``<prefix>rdf/<stem>#``.
+
+    **The single copy of this derivation**, and the reason it is a module-level function rather
+    than a converter method. The emitter previously held it twice — once for the document being
+    converted, where an explicit ``base_namespace`` could override it, and once for every sibling
+    document, where nothing could. Supplying ``base_namespace`` therefore desynchronised a
+    document from everything that referred to it, and the referring document emitted an IRI no
+    document declared: **175 distinct dangling class targets** in the committed 3GPP ``output/``
+    tree (34 of 46 ``rdfs:subClassOf`` targets, 141 of 797 ``rdfs:range``, against 0 of 889
+    ``rdfs:domain`` as the control). Recorded as D1 in
+    ``docs/superpowers/specs/2026-09-23-external-schema-ingestion-design.md``.
+
+    A class's namespace is a property of the document that DECLARES it. Which namespace a given
+    document gets is the caller's to state (``document_namespaces``); this function is only the
+    fallback when the caller has not stated one.
+    """
+    stem = filename.rsplit("/", 1)[-1]
+    for extension in (".yaml", ".yml"):
+        if stem.endswith(extension):
+            stem = stem[: -len(extension)]
+            break
+    match = re.match(r"(?P<num>TS\d*)_(?P<name>.*)", stem)
+    if match:
+        return f"{base_namespace_prefix}{match.group('num')}/{match.group('name')}#"
+    return f"{base_namespace_prefix}rdf/{stem}#"

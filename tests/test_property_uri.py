@@ -105,3 +105,53 @@ class TestPropertyUri:
     def test_none_property_raises(self):
         with pytest.raises(ValueError):
             property_uri("http://x#", "A", None)
+
+
+def test_namespace_for_document_derives_the_3gpp_shape():
+    from openapi_to_rdf.property_uri import namespace_for_document
+
+    prefix = "http://ericsson.com/models/3gpp/"
+    assert (
+        namespace_for_document("TS28623_ComDefs.yaml", prefix)
+        == "http://ericsson.com/models/3gpp/TS28623/ComDefs#"
+    )
+
+
+def test_namespace_for_document_falls_back_for_a_non_3gpp_filename():
+    from openapi_to_rdf.property_uri import namespace_for_document
+
+    prefix = "http://ericsson.com/models/3gpp/"
+    assert (
+        namespace_for_document("common.yaml", prefix)
+        == "http://ericsson.com/models/3gpp/rdf/common#"
+    )
+
+
+def test_the_converter_derives_its_own_namespace_through_the_shared_function(tmp_path):
+    """The self path and the sibling path must not be able to drift apart again.
+
+    This is D1 in one assertion: the two derivations were identical bodies, and identical
+    bodies drift. See the spec's D1 section.
+    """
+    import yaml
+
+    from openapi_to_rdf import OpenAPIToSHACLConverter
+    from openapi_to_rdf.property_uri import namespace_for_document
+
+    spec = tmp_path / "TS28623_ComDefs.yaml"
+    spec.write_text(
+        yaml.safe_dump(
+            {
+                "openapi": "3.0.0",
+                "info": {"title": "ComDefs", "version": "1.0"},
+                "components": {"schemas": {"Thing": {"type": "object",
+                                                     "properties": {"id": {"type": "string"}}}}},
+            }
+        )
+    )
+    prefix = "http://example.test/models/"
+    converter = OpenAPIToSHACLConverter(
+        str(spec), output_dir=str(tmp_path / "out"), external_refs=[],
+        base_namespace_prefix=prefix,
+    )
+    assert converter.base_namespace == namespace_for_document("TS28623_ComDefs.yaml", prefix)

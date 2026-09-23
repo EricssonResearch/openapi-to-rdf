@@ -22,6 +22,7 @@ from openapi_to_rdf.property_index import PropertyIndex
 from openapi_to_rdf.property_uri import (
     class_namespace,
     format_local_name,
+    namespace_for_document,
     namespace_for_schema,
     property_uri,
 )
@@ -144,18 +145,15 @@ class OpenAPIToSHACLConverter:
         self._bind_custom_namespaces()
 
     def _generate_base_namespace(self):
-        """Generate namespace from filename using configurable prefix: TS28xxx_Name -> {prefix}TSxxx/Name#"""
-        filename = os.path.basename(self.yaml_file)
-        name_without_ext = os.path.splitext(filename)[0]
-        
-        # Match pattern like TS28623_ComDefs
-        match = re.match(r"(?P<num>TS\d*)_(?P<name>.*)", name_without_ext)
-        if match:
-            num_part = match.group('num')
-            name_part = match.group('name')
-            return f"{self.base_namespace_prefix}{num_part}/{name_part}#"
-        else:
-            return f"{self.base_namespace_prefix}rdf/{name_without_ext}#"
+        """This document's own namespace, derived from its filename.
+
+        Delegates to :func:`openapi_to_rdf.property_uri.namespace_for_document` so the self path
+        and the sibling path cannot drift. See that function for the 175-dangling-target
+        measurement that earned the collapse.
+        """
+        return namespace_for_document(
+            os.path.basename(self.yaml_file), self.base_namespace_prefix
+        )
 
     def _load_yaml(self):
         """Load the YAML file into a Python dictionary."""
@@ -248,7 +246,7 @@ class OpenAPIToSHACLConverter:
         for ext in self.external_refs:
             ext_filename = os.path.basename(ext)
             ext_prefix = self.format_name(os.path.splitext(ext_filename)[0])
-            ext_ns_uri = self._generate_namespace_for_file(ext_filename)
+            ext_ns_uri = namespace_for_document(ext_filename, self.base_namespace_prefix)
             ext_ns = Namespace(ext_ns_uri)
             self.prefixes[ext_prefix] = ext_ns
             self.rdf_graph.bind(ext_prefix, ext_ns)
@@ -324,17 +322,6 @@ class OpenAPIToSHACLConverter:
         if ns_uri == self.base_namespace:
             return self.main_prefix[format_local_name(schema_name)]
         return Namespace(ns_uri)[format_local_name(schema_name)]
-
-    def _generate_namespace_for_file(self, filename):
-        """Generate namespace URI for external file using configurable prefix."""
-        name_without_ext = os.path.splitext(filename)[0]
-        match = re.match(r"(?P<num>TS\d*)_(?P<name>.*)", name_without_ext)
-        if match:
-            num_part = match.group('num')
-            name_part = match.group('name')
-            return f"{self.base_namespace_prefix}{num_part}/{name_part}#"
-        else:
-            return f"{self.base_namespace_prefix}rdf/{name_without_ext}#"
 
     def _get_schemas(self):
         """Return the components/schemas dict, or empty dict."""
@@ -1678,7 +1665,7 @@ class OpenAPIToSHACLConverter:
                         # No override: generate namespace from filename
                         ext_prefix = self.format_name(os.path.splitext(doc_name)[0])
                         if ext_prefix not in self.prefixes:
-                            ext_ns_uri = self._generate_namespace_for_file(doc_part)
+                            ext_ns_uri = namespace_for_document(doc_part, self.base_namespace_prefix)
                             ext_ns = Namespace(ext_ns_uri)
                             self.prefixes[ext_prefix] = ext_ns
                             self.rdf_graph.bind(ext_prefix, ext_ns)
