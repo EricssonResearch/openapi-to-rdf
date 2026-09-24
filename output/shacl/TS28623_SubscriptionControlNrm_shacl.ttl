@@ -20,6 +20,10 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_SubscriptionControlNrm:notificationRecipientAddress ],
+                                [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:path TS28623_SubscriptionControlNrm:notificationTypes ;
                                     sh:xone ( [ a sh:NodeShape ;
@@ -36,26 +40,22 @@
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_SubscriptionControlNrm:notificationRecipientAddress ],
+                                    sh:path TS28623_SubscriptionControlNrm:notificationFilter ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
                                     sh:path TS28623_SubscriptionControlNrm:scope ;
                                     sh:xone ( [ a sh:NodeShape ;
                                                 sh:property [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:integer ;
+                                                        sh:path TS28623_SubscriptionControlNrm:scopeLevel ],
+                                                    [ a sh:PropertyShape ;
                                                         sh:datatype xsd:string ;
                                                         sh:in ( "BASE_ONLY"^^xsd:string "BASE_ALL"^^xsd:string "BASE_NTH_LEVEL"^^xsd:string "BASE_SUBTREE"^^xsd:string ) ;
-                                                        sh:path TS28623_SubscriptionControlNrm:scopeType ],
-                                                    [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:integer ;
-                                                        sh:path TS28623_SubscriptionControlNrm:scopeLevel ] ] [ a sh:NodeShape ;
+                                                        sh:path TS28623_SubscriptionControlNrm:scopeType ] ] [ a sh:NodeShape ;
                                                 sh:property [ a sh:PropertyShape ;
                                                         sh:datatype xsd:string ;
-                                                        sh:path TS28623_SubscriptionControlNrm:dataNodeSelector ] ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_SubscriptionControlNrm:notificationFilter ] ] ;
+                                                        sh:path TS28623_SubscriptionControlNrm:dataNodeSelector ] ] ) ] ] ;
                     sh:path TS28623_SubscriptionControlNrm:attributes ],
                 [ a sh:PropertyShape ;
                     sh:class TS28623_SubscriptionControlNrm:HeartbeatControl-Single ;
@@ -65,28 +65,20 @@
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_SubscriptionControlNrm:notificationRecipientAddress ],
-                        [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
                             sh:path TS28623_SubscriptionControlNrm:scope ;
                             sh:xone ( [ a sh:NodeShape ;
                                         sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:integer ;
-                                                sh:path TS28623_SubscriptionControlNrm:scopeLevel ],
-                                            [ a sh:PropertyShape ;
                                                 sh:datatype xsd:string ;
                                                 sh:in ( "BASE_ONLY"^^xsd:string "BASE_ALL"^^xsd:string "BASE_NTH_LEVEL"^^xsd:string "BASE_SUBTREE"^^xsd:string ) ;
-                                                sh:path TS28623_SubscriptionControlNrm:scopeType ] ] [ a sh:NodeShape ;
+                                                sh:path TS28623_SubscriptionControlNrm:scopeType ],
+                                            [ a sh:PropertyShape ;
+                                                sh:datatype xsd:integer ;
+                                                sh:path TS28623_SubscriptionControlNrm:scopeLevel ] ] [ a sh:NodeShape ;
                                         sh:property [ a sh:PropertyShape ;
                                                 sh:datatype xsd:string ;
                                                 sh:path TS28623_SubscriptionControlNrm:dataNodeSelector ] ] ) ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_SubscriptionControlNrm:notificationFilter ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:path TS28623_SubscriptionControlNrm:notificationTypes ;
@@ -100,7 +92,15 @@
                                         sh:datatype xsd:string ;
                                         sh:in ( "notifyHeartbeat"^^xsd:string ) ] [ a sh:NodeShape ;
                                         sh:datatype xsd:string ;
-                                        sh:in ( "notifyFileReady"^^xsd:string "notifyFilePreparationError"^^xsd:string ) ] ) ] ] ;
+                                        sh:in ( "notifyFileReady"^^xsd:string "notifyFilePreparationError"^^xsd:string ) ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_SubscriptionControlNrm:notificationRecipientAddress ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_SubscriptionControlNrm:notificationFilter ] ] ;
             sh:path TS28623_SubscriptionControlNrm_NtfSubscriptionControl-Single:attributes ],
         [ a sh:PropertyShape ;
             sh:class TS28623_SubscriptionControlNrm:HeartbeatControl-Single ;
@@ -111,14 +111,14 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_SubscriptionControlNrm:NtfSubscriptionControl-Single ;
-            sh:path TS28623_SubscriptionControlNrm_SubNetwork-ncO-SubscriptionControlNrm:NtfSubscriptionControl ] ;
-    sh:targetClass TS28623_SubscriptionControlNrm:SubNetwork-ncO-SubscriptionControlNrm .
+            sh:path TS28623_SubscriptionControlNrm_ManagedElement-ncO-SubscriptionControlNrm:NtfSubscriptionControl ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:ManagedElement-ncO-SubscriptionControlNrm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_SubscriptionControlNrm:NtfSubscriptionControl-Single ;
-            sh:path TS28623_SubscriptionControlNrm_ManagedElement-ncO-SubscriptionControlNrm:NtfSubscriptionControl ] ;
-    sh:targetClass TS28623_SubscriptionControlNrm:ManagedElement-ncO-SubscriptionControlNrm .
+            sh:path TS28623_SubscriptionControlNrm_SubNetwork-ncO-SubscriptionControlNrm:NtfSubscriptionControl ] ;
+    sh:targetClass TS28623_SubscriptionControlNrm:SubNetwork-ncO-SubscriptionControlNrm .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;

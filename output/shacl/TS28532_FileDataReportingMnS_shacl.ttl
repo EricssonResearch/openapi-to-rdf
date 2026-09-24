@@ -13,6 +13,10 @@
             sh:property [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
+                    sh:path TS28532_FileDataReportingMnS:reason ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
                     sh:path TS28532_FileDataReportingMnS:additionalText ],
                 [ a sh:PropertyShape ;
                     sh:class TS28532_FileDataReportingMnS:FileInfo ;
@@ -20,11 +24,15 @@
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_NotifyFileReady:additionalText ],
+            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:reason ],
         [ a sh:PropertyShape ;
             sh:class TS28532_FileDataReportingMnS:FileInfo ;
-            sh:path TS28532_FileDataReportingMnS_NotifyFileReady:fileInfoList ] ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
+            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:fileInfoList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:additionalText ] ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -35,39 +43,26 @@
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:class TS28532_FileDataReportingMnS:FileInfo ;
-                    sh:path TS28532_FileDataReportingMnS:fileInfoList ],
-                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:path TS28532_FileDataReportingMnS:additionalText ],
                 [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28532_FileDataReportingMnS:reason ] ] ;
+                    sh:class TS28532_FileDataReportingMnS:FileInfo ;
+                    sh:path TS28532_FileDataReportingMnS:fileInfoList ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:reason ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:additionalText ],
-        [ a sh:PropertyShape ;
             sh:class TS28532_FileDataReportingMnS:FileInfo ;
-            sh:path TS28532_FileDataReportingMnS_NotifyFilePreparationError:fileInfoList ] ;
-    sh:targetClass TS28532_FileDataReportingMnS:NotifyFilePreparationError .
+            sh:path TS28532_FileDataReportingMnS_NotifyFileReady:fileInfoList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS_NotifyFileReady:additionalText ] ;
+    sh:targetClass TS28532_FileDataReportingMnS:NotifyFileReady .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_FileInfo:fileExpirationTime ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "Performance"^^xsd:string "Trace"^^xsd:string "Analytics"^^xsd:string "Proprietary"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_FileInfo:fileDataType ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileCompression ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
@@ -75,19 +70,24 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_FileInfo:fileCompression ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileFormat ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:path TS28532_FileDataReportingMnS_FileInfo:fileSize ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "Performance"^^xsd:string "Trace"^^xsd:string "Analytics"^^xsd:string "Proprietary"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_FileInfo:fileFormat ],
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileDataType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28532_FileDataReportingMnS_FileInfo:fileLocation ] ;
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileLocation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28532_FileDataReportingMnS_FileInfo:fileExpirationTime ] ;
     sh:targetClass TS28532_FileDataReportingMnS:FileInfo .
 
 [] a sh:NodeShape ;

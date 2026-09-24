@@ -10,16 +10,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
-    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
-            sh:path TS28623_ThresholdMonitorNrm_ManagedElement-ncO-ThresholdMonitorNrm:ThresholdMonitor ] ;
-    sh:targetClass TS28623_ThresholdMonitorNrm:ManagedElement-ncO-ThresholdMonitorNrm .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
             sh:path TS28623_ThresholdMonitorNrm_SubNetwork-ncO-ThresholdMonitorNrm:ThresholdMonitor ] ;
@@ -56,40 +46,45 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ThresholdMonitorNrm:objectInstances ],
+                                    sh:path TS28623_ThresholdMonitorNrm:administrativeState ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ThresholdMonitorNrm:rootObjectInstances ],
+                                    sh:path TS28623_ThresholdMonitorNrm:objectInstances ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28623_ThresholdMonitorNrm:operationalState ],
                                 [ a sh:PropertyShape ;
-                                    sh:class TS28623_ThresholdMonitorNrm:ThresholdInfo ;
-                                    sh:path TS28623_ThresholdMonitorNrm:thresholdInfoList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ThresholdMonitorNrm:administrativeState ],
+                                    sh:path TS28623_ThresholdMonitorNrm:rootObjectInstances ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:integer ;
                                     sh:maxCount 1 ;
                                     sh:minInclusive 1 ;
-                                    sh:path TS28623_ThresholdMonitorNrm:monitorGranularityPeriod ] ] ;
+                                    sh:path TS28623_ThresholdMonitorNrm:monitorGranularityPeriod ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_ThresholdMonitorNrm:ThresholdInfo ;
+                                    sh:path TS28623_ThresholdMonitorNrm:thresholdInfoList ] ] ;
                     sh:path TS28623_ThresholdMonitorNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_ThresholdMonitorNrm:operationalState ],
+                            sh:path TS28623_ThresholdMonitorNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:minInclusive 1 ;
+                            sh:path TS28623_ThresholdMonitorNrm:monitorGranularityPeriod ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
@@ -98,19 +93,24 @@
                             sh:class TS28623_ThresholdMonitorNrm:ThresholdInfo ;
                             sh:path TS28623_ThresholdMonitorNrm:thresholdInfoList ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:minInclusive 1 ;
-                            sh:path TS28623_ThresholdMonitorNrm:monitorGranularityPeriod ],
-                        [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_ThresholdMonitorNrm:administrativeState ],
+                            sh:path TS28623_ThresholdMonitorNrm:operationalState ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
                             sh:path TS28623_ThresholdMonitorNrm:objectInstances ] ] ;
             sh:path TS28623_ThresholdMonitorNrm_ThresholdMonitor-Single:attributes ] ;
     sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ThresholdMonitor-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ThresholdMonitorNrm:ThresholdMonitor-Single ;
+            sh:path TS28623_ThresholdMonitorNrm_ManagedElement-ncO-ThresholdMonitorNrm:ThresholdMonitor ] ;
+    sh:targetClass TS28623_ThresholdMonitorNrm:ManagedElement-ncO-ThresholdMonitorNrm .
 
