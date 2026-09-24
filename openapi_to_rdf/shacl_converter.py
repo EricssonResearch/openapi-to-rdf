@@ -1,5 +1,4 @@
 import os
-import re
 from typing import Any
 import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
@@ -1474,22 +1473,48 @@ class OpenAPIToSHACLConverter:
         # `snm-api-native` does -- otherwise gets a complete-looking context with ZERO `@type: @id`
         # entries, because the fact existed only in the Mapping. Measured before this: 0 of 36
         # coercions on TMF641, every `href` lifting as a literal rather than a followable edge.
-        if domain_class is not None and self.mapping is not None and not declaring_class_is_external:
+        is_iri_valued_property = False
+        if domain_class is not None and self.mapping is not None:
             # Derived here rather than reusing an earlier `class_local`, which is bound in a
             # different branch: `properties_by_class` is keyed by DECLARING class, which is what
             # `declaring_class` holds at this point.
             declaring_local = str(declaring_class).rsplit("#", 1)[-1].rsplit("/", 1)[-1]
             fact = self.mapping.properties_by_class.get((declaring_local, prop_name))
-            if fact is not None and fact.is_iri_valued:
+            is_iri_valued_property = fact is not None and fact.is_iri_valued
+            if is_iri_valued_property and not declaring_class_is_external:
                 self.rdf_graph.add((predicate_uri, self.IRI_VALUED, Literal(True)))
 
         # Per RDF Schema (W3C Recommendation), rdfs:range propagates under
         # entailment rather than validating. An invented range is not a loose
         # constraint, it is a false axiom. Emit rdfs:range only where it is
-        # provably true: datatype ranges always, class ranges only for
-        # single-target properties. Multi-target and un-analyzable properties
-        # defer their constraint to SHACL, where it binds without entailing.
-        if range_uri is not None and not declaring_class_is_external:
+        # provably true: datatype ranges except on an IRI-valued property (see
+        # below), class ranges only for single-target properties. Multi-target
+        # and un-analyzable properties defer their constraint to SHACL, where it
+        # binds without entailing.
+        #
+        # **"Datatype ranges always" was wrong, and it contradicted the marker emitted five lines
+        # above.** For an IRI-valued property the datatype range is not merely unproven, it is false:
+        # JSON Schema `type: string` describes the WIRE format (a JSON string holding a URL), not the
+        # RDF object, which is a resource. Emitting both said two incompatible things about one
+        # property —
+        #
+        #     tmf:Addressable/href  transport:isIriValued  true         # object is an IRI
+        #     tmf:Addressable/href  rdfs:range             xsd:string   # object is a string literal
+        #
+        # — and RDFS entailment then does exactly what it says: `p rdfs:range xsd:string` with
+        # `s p <IRI>` entails `<IRI> a xsd:string`, typing a URL as a string.
+        #
+        # Measured 2026-09-24 (reported by `snm-api-native`, reproduced here): **every** IRI-valued
+        # property carried both — 15 of 15 on TMF641, 20 of 20 on TMF620, all with `xsd:string`.
+        # 3GPP is unaffected: 0 IRI-valued properties on TS28541_NrNrm, and the check produced
+        # positives on TM Forum, so that zero is a result rather than a silent instrument.
+        #
+        # The marker wins over the range because `is_iri_valued` is a deliberate determination about
+        # what `href` MEANS (S5/F10 — TM Forum applies `format: uri` inconsistently and never to
+        # `href`), while the range here is a mechanical read of the wire type. Where the lexical form
+        # still needs constraining, SHACL does it without entailing — and the SHACL side of this
+        # property is untouched.
+        if range_uri is not None and not declaring_class_is_external and not is_iri_valued_property:
             # The rule above has to be ENFORCED here, not just described: one class-scoped
             # property URI can be reached more than once (a polymorphic `oneOf`, or the same
             # property resolved through two branches), and `Graph.add` is a set insert, so two
