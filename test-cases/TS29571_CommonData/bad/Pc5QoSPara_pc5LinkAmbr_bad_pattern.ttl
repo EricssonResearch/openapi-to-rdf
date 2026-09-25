@@ -14,16 +14,16 @@
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
 @prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Pc5QoSPara/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Pc5QosFlowItem/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Pc5FlowBitRates/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Pc5FlowBitRates/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Pc5QosFlowItem/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:Pc5QoSPara ;
     ns1:pc5LinkAmbr "!!!INVALID!!!"^^xsd:string ;
     ns1:pc5QosFlowList [ a TS29571_CommonData:Pc5QosFlowItem ;
-            ns2:pc5FlowBitRates [ a TS29571_CommonData:Pc5FlowBitRates ;
-                    ns3:guaFbr "aaaa"^^xsd:string ;
-                    ns3:maxFbr "aaaa"^^xsd:string ] ;
-            ns2:pqi 127 ;
-            ns2:range 50 ] .
+            ns3:pc5FlowBitRates [ a TS29571_CommonData:Pc5FlowBitRates ;
+                    ns2:guaFbr "aaaa"^^xsd:string ;
+                    ns2:maxFbr "aaaa"^^xsd:string ] ;
+            ns3:pqi 127 ;
+            ns3:range 50 ] .
 

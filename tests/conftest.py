@@ -81,10 +81,32 @@ def _output_dir_is_read_only(request: pytest.FixtureRequest):
 CORPUS_DIR = Path(__file__).resolve().parent.parent / "assets" / "MnS-Rel-19-OpenAPI" / "OpenAPI"
 
 #: Use as `pytestmark = SKIP_WITHOUT_CORPUS` in any module that reads the corpus.
+def _corpus_is_complete() -> bool:
+    """Is the corpus PRESENT AND COMPLETE, judged against the manifest?
+
+    `is_dir()` is not enough, and that was measured rather than imagined. Switching branches between a
+    revision where `assets/` was tracked and one where it is fetched left SIX documents on disk out of
+    44 -- the tracked ones were removed, the fetched-only ones stayed. The directory existed, the guard
+    passed, and four tests failed with `corpus spec missing: ...TS29571_CommonData.yaml`, which reads
+    like a broken test rather than an incomplete fetch.
+
+    Compared against the manifest rather than a hardcoded count, so the number lives in one place.
+    """
+    if not CORPUS_DIR.is_dir():
+        return False
+    manifest = CORPUS_DIR.parent.parent / "corpus-manifest.json"
+    if not manifest.exists():
+        return False
+    import json
+
+    expected = set(json.loads(manifest.read_text(encoding="utf-8"))["files"])
+    return expected.issubset({p.name for p in CORPUS_DIR.iterdir() if p.is_file()})
+
+
 SKIP_WITHOUT_CORPUS = pytest.mark.skipif(
-    not CORPUS_DIR.is_dir(),
+    not _corpus_is_complete(),
     reason=(
-        f"the 3GPP corpus is not present at {CORPUS_DIR}. It is fetched, not redistributed: "
+        f"the 3GPP corpus at {CORPUS_DIR} is absent or INCOMPLETE. It is fetched, not redistributed: "
         "run `uv run python scripts/fetch_corpus.py` (downloads from 3GPP Forge at the pinned tag "
         "in assets/corpus-manifest.json and verifies every file by digest)."
     ),

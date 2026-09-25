@@ -13,30 +13,30 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv6AddressRange/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv4AddressRange/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/VplmnOffloadingInfo/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv4AddressRange/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/VplmnOffloadingInfo/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv6AddressRange/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
 @prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv6PrefixRange/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:VplmnOffloadingInfo ;
-    ns4:allowedTraffic true ;
-    ns4:fqdnList "aaaa"^^xsd:string ;
-    ns4:fqdnPatterns [ a TS29571_CommonData:FqdnPatternMatchingRule ;
+    ns2:allowedTraffic true ;
+    ns2:fqdnList "aaaa"^^xsd:string ;
+    ns2:fqdnPatterns [ a TS29571_CommonData:FqdnPatternMatchingRule ;
             TS29571_CommonData:regex "test-value"^^xsd:string ] ;
-    ns4:ipv4AddrMasks "aaaa"^^xsd:string ;
-    ns4:ipv4AddressRanges [ a TS29571_CommonData:Ipv4AddressRange ;
-            ns3:end "aaaa"^^xsd:string ;
-            ns3:start "aaaa"^^xsd:string ] ;
-    ns4:ipv6AddressRanges [ a TS29571_CommonData:Ipv6AddressRange ;
-            ns1:end "test-value"^^xsd:string ;
-            ns1:start "test-value"^^xsd:string ] ;
-    ns4:ipv6PrefixRanges [ a TS29571_CommonData:Ipv6PrefixRange ;
+    ns2:ipv4AddrMasks "aaaa"^^xsd:string ;
+    ns2:ipv4AddressRanges [ a TS29571_CommonData:Ipv4AddressRange ;
+            ns1:end "aaaa"^^xsd:string ;
+            ns1:start "aaaa"^^xsd:string ] ;
+    ns2:ipv6AddressRanges [ a TS29571_CommonData:Ipv6AddressRange ;
+            ns3:end "test-value"^^xsd:string ;
+            ns3:start "test-value"^^xsd:string ] ;
+    ns2:ipv6PrefixRanges [ a TS29571_CommonData:Ipv6PrefixRange ;
             ns5:end "test-value"^^xsd:string ;
             ns5:start "test-value"^^xsd:string ] ;
-    ns4:offloadIdentifier "!!!INVALID!!!"^^xsd:string ;
-    ns4:vplmnId [ a TS29571_CommonData:PlmnId ;
-            ns2:mcc "aaaa"^^xsd:string ;
-            ns2:mnc "aaaa"^^xsd:string ] .
+    ns2:offloadIdentifier "!!!INVALID!!!"^^xsd:string ;
+    ns2:vplmnId [ a TS29571_CommonData:PlmnId ;
+            ns4:mcc "aaaa"^^xsd:string ;
+            ns4:mnc "aaaa"^^xsd:string ] .
 

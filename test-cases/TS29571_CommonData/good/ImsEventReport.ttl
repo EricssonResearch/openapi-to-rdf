@@ -13,18 +13,18 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/BdcReport/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ImsEventReport/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AdcReport/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ImsEventReportInfo/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ImsEventReport/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ImsEventReportInfo/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/BdcReport/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AdcReport/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:ImsEventReport ;
-    ns2:eventReport [ a TS29571_CommonData:ImsEventReportInfo ;
-            ns4:adcReport [ a TS29571_CommonData:AdcReport ;
-                    ns3:adcStatus "ADC_ESTABLISHED"^^xsd:string ] ;
-            ns4:bdcReport [ a TS29571_CommonData:BdcReport ;
-                    ns1:bdcStatus "BDC_ESTABLISHED"^^xsd:string ] ] ;
-    ns2:imsEvent "ADC_ESTABLISHMENT"^^xsd:string ;
-    ns2:sessionId "test-value"^^xsd:string .
+    ns1:eventReport [ a TS29571_CommonData:ImsEventReportInfo ;
+            ns2:adcReport [ a TS29571_CommonData:AdcReport ;
+                    ns4:adcStatus "ADC_ESTABLISHED"^^xsd:string ] ;
+            ns2:bdcReport [ a TS29571_CommonData:BdcReport ;
+                    ns3:bdcStatus "BDC_ESTABLISHED"^^xsd:string ] ] ;
+    ns1:imsEvent "ADC_ESTABLISHMENT"^^xsd:string ;
+    ns1:sessionId "test-value"^^xsd:string .
 

@@ -13,42 +13,42 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/LocationAreaId/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ServiceAreaId/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/CellGlobalId/> .
-@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/RoutingAreaId/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/LocationAreaId/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/RoutingAreaId/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ServiceAreaId/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/CellGlobalId/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:GeraLocation ;
     TS29571_CommonData:ageOfLocationInformation 32768 ;
     TS29571_CommonData:cgi [ a TS29571_CommonData:CellGlobalId ;
-            ns4:cellId "AFaf"^^xsd:string ;
-            ns4:lac "AFaf"^^xsd:string ;
-            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ] ;
+            ns5:cellId "AFaf"^^xsd:string ;
+            ns5:lac "AFaf"^^xsd:string ;
+            ns5:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ] ;
     TS29571_CommonData:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
     TS29571_CommonData:geographicalInformation "09AF09AF09AF09AF"^^xsd:string ;
     TS29571_CommonData:lai [ a TS29571_CommonData:LocationAreaId ;
-            ns2:lac "AFaf"^^xsd:string ;
-            ns2:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ] ;
+            ns1:lac "AFaf"^^xsd:string ;
+            ns1:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ] ;
     TS29571_CommonData:locationNumber "test-value"^^xsd:string ;
     TS29571_CommonData:mscNumber "test-value"^^xsd:string ;
     TS29571_CommonData:rai [ a TS29571_CommonData:RoutingAreaId ;
-            ns5:lac "AFaf"^^xsd:string ;
-            ns5:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ;
-            ns5:rac "AF"^^xsd:string ] ;
+            ns2:lac "AFaf"^^xsd:string ;
+            ns2:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ;
+            ns2:rac "AF"^^xsd:string ] ;
     TS29571_CommonData:sai [ a TS29571_CommonData:ServiceAreaId ;
-            ns3:lac "AFaf"^^xsd:string ;
-            ns3:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ;
-            ns3:sac "AFaf"^^xsd:string ] ;
+            ns4:lac "AFaf"^^xsd:string ;
+            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ;
+            ns4:sac "AFaf"^^xsd:string ] ;
     TS29571_CommonData:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime ;
     TS29571_CommonData:vlrNumber "test-value"^^xsd:string .
 

@@ -13,25 +13,25 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppBindingInfo/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NetworkId/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppDcInfo/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ImsEventFilter/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ImsEventFilter/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppBindingInfo/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NetworkId/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppDcInfo/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:ImsEventFilter ;
-    ns4:appBindingInfo [ a TS29571_CommonData:AppBindingInfo ;
-            ns1:appDcInfo [ a TS29571_CommonData:appDcInfo ;
+    ns1:appBindingInfo [ a TS29571_CommonData:AppBindingInfo ;
+            ns2:appDcInfo [ a TS29571_CommonData:appDcInfo ;
                     TS29571_CommonData:adcEndpointType "UE"^^xsd:string ;
                     TS29571_CommonData:streamId "50"^^xsd:string ] ;
-            ns1:appDcInfoList [ a TS29571_CommonData:AppDcInfo ;
-                    ns3:adcEndpointType "UE"^^xsd:string ;
-                    ns3:streamId 50 ] ;
-            ns1:applicationId "test-value"^^xsd:string ;
-            ns1:plmnId [ a TS29571_CommonData:NetworkId ;
-                    ns2:mcc "aaaa"^^xsd:string ;
-                    ns2:mnc "aaaa"^^xsd:string ] ] ;
-    ns4:calledId "aaaa"^^xsd:string ;
-    ns4:callingId "!!!INVALID!!!"^^xsd:string ;
-    ns4:sessionId "test-value"^^xsd:string .
+            ns2:appDcInfoList [ a TS29571_CommonData:AppDcInfo ;
+                    ns4:adcEndpointType "UE"^^xsd:string ;
+                    ns4:streamId 50 ] ;
+            ns2:applicationId "test-value"^^xsd:string ;
+            ns2:plmnId [ a TS29571_CommonData:NetworkId ;
+                    ns3:mcc "aaaa"^^xsd:string ;
+                    ns3:mnc "aaaa"^^xsd:string ] ] ;
+    ns1:calledId "aaaa"^^xsd:string ;
+    ns1:callingId "!!!INVALID!!!"^^xsd:string ;
+    ns1:sessionId "test-value"^^xsd:string .
 

@@ -52,208 +52,168 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:class TS28572_PlanManagement:SummaryStatus ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_SelfLink:self ] ;
-    sh:targetClass TS28572_PlanManagement:SelfLink .
-
-[] a sh:NodeShape ;
-    sh:targetClass TS28572_PlanManagement:MemberConflict .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "The identifiers of one or more activation jobs that shall be triggered by this condition." ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:activationJobs ],
+            sh:path TS28572_PlanManagement_ExecutionDetails:summary ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:isTriggerOnce ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "an optional version for the Trigger Descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:version ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Descriptive name of the trigger descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:name ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The date and time at which the evaluation of the condition expression shall start. The evaluation result is set to \"False\" before that date and time. If the information element is not specified, evaluation of the trigger condition shall start immediately." ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:startEvaluationAt ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The date and time at which the evaluation of the condition expression shall stop. The evaluation result is set to \"False\" after that date and time. If the information element is not specified, evaluation of the trigger condition shall continue until the deletion of the trigger condition descriptor." ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:stopEvaluationAt ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:customProperties ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The condition expression" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:conditionExpression ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:hysteresis ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The evaluation period specifies the interval of time in seconds  between two consecutive condition expression evaluations." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:evaluationPeriod ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to describe the purpose of the trigger" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:description ] ;
-    sh:targetClass TS28572_PlanManagement:TriggerDescriptorBaseProperties .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:currentEvaluationResult ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Unique id of the plan configuration descriptor" ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:id ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:isTriggerActive ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:lastTriggeredAt ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created." ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:lastModifiedAt ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Unique id of the plan configuration descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptor:id ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptor:isTriggerActive ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created." ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptor:lastModifiedAt ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptor:lastTriggeredAt ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_TriggerDescriptor:currentEvaluationResult ] ;
-    sh:targetClass TS28572_PlanManagement:TriggerDescriptor .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanGroupRef:planConfigGroupDescrId ] ;
-    sh:targetClass TS28572_PlanManagement:PlanGroupRef .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_FallbackPlanRef:fallbackConfigDescrId ] ;
-    sh:targetClass TS28572_PlanManagement:FallbackPlanRef .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:PlanConfigurationDescriptorRequest ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_EmbeddedPlan:planConfigDescr ] ;
-    sh:targetClass TS28572_PlanManagement:EmbeddedPlan .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:PlanConfigurationDescriptor ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:SelfLink ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:_links ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:SelfLink ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorResponse:_links ] ;
-    sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptorResponse .
+            sh:class TS28572_PlanManagement:MemberConflict ;
+            sh:path TS28572_PlanManagement_ExecutionDetails:memberConflicts ] ;
+    sh:targetClass TS28572_PlanManagement:ExecutionDetails .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "UNKNOWN"^^xsd:string "VALIDATION_SUCCEEDED"^^xsd:string "VALIDATION_FAILED"^^xsd:string ) ;
-    sh:targetClass TS28572_PlanManagement:ValidationState .
+    sh:in ( "YANG_BASED"^^xsd:string "OPENAPI_BASED"^^xsd:string ) ;
+    sh:targetClass TS28572_PlanManagement:ConfigChangesContentType .
 
 [] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:EmbeddedPlan,
+        TS28572_PlanManagement:EmbeddedPlanGroup,
+        TS28572_PlanManagement:FallbackPlanRef,
+        TS28572_PlanManagement:PlanGroupRef,
+        TS28572_PlanManagement:PlanRef,
+        TS28572_PlanManagement:ValidationJobStatus ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:stoppedAt ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "NOT_STARTED"^^xsd:string "ACTIVATED"^^xsd:string "ACTIVATION_FAILED"^^xsd:string "PARTIALLY_ACTIVATED"^^xsd:string "ACTIVATION_FAILED_ROLLED_BACK"^^xsd:string "ACTIVATION_FAILED_ROLLBACK_FAILED"^^xsd:string ) ;
+                    sh:datatype xsd:boolean ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:activationState ],
+                    sh:path TS28572_PlanManagement:cancelRequest ],
                 [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:startedAt ],
-                [ a sh:PropertyShape ;
+                    rdfs:comment "id of the validation job" ;
                     sh:datatype xsd:string ;
-                    sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:jobState ] ] ;
+                    sh:path TS28572_PlanManagement:id ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:ValidationJobLinks ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:_links ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:currentConfigTime ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:JobDetails ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:jobDetails ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:ExecutionDetails ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:validationDetails ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
+            sh:class TS28572_PlanManagement:ExecutionDetails ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJobStatus:jobState ],
+            sh:path TS28572_PlanManagement_ValidationJob:validationDetails ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_STARTED"^^xsd:string "ACTIVATED"^^xsd:string "ACTIVATION_FAILED"^^xsd:string "PARTIALLY_ACTIVATED"^^xsd:string "ACTIVATION_FAILED_ROLLED_BACK"^^xsd:string "ACTIVATION_FAILED_ROLLBACK_FAILED"^^xsd:string ) ;
+            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJobStatus:activationState ],
+            sh:path TS28572_PlanManagement_ValidationJob:cancelRequest ],
         [ a sh:PropertyShape ;
+            rdfs:comment "id of the validation job" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ValidationJob:id ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJobStatus:stoppedAt ],
+            sh:path TS28572_PlanManagement_ValidationJob:currentConfigTime ],
         [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:ValidationJobLinks ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ValidationJob:_links ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:JobDetails ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ValidationJob:jobDetails ] ;
+    sh:targetClass TS28572_PlanManagement:ValidationJob .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NOT_STARTED"^^xsd:string "ACTIVATED"^^xsd:string "ACTIVATION_FAILED"^^xsd:string "PARTIALLY_ACTIVATED"^^xsd:string "ACTIVATION_FAILED_ROLLED_BACK"^^xsd:string "ACTIVATION_FAILED_ROLLBACK_FAILED"^^xsd:string ) ;
+    sh:targetClass TS28572_PlanManagement:ActivationState .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "The validation state for the last time plan configuration group was validated" ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_VALIDATED"^^xsd:string "PARTIALLY_VALID"^^xsd:string "VALID"^^xsd:string "INVALID"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:validationState ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Specifies the execution behavior when the plan configuration group is activated" ;
+            sh:datatype xsd:string ;
+            sh:in ( "ATOMIC"^^xsd:string "BEST_EFFORT"^^xsd:string "STOP_ON_ERROR"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:activationMode ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
+                "list of plan or plan group descriptor identifiers" ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:members ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                rdfs:comment "Unique id of the plan configuration descriptor." ;
+                                sh:datatype xsd:string ;
+                                sh:minCount 1 ;
+                                sh:path TS28572_PlanManagement:planConfigDescrId ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                rdfs:comment "Unique id of the plan configuration group descriptor." ;
+                                sh:datatype xsd:string ;
+                                sh:minCount 1 ;
+                                sh:path TS28572_PlanManagement:planConfigGroupDescrId ] ] ) ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "last time the plan was validated" ;
             sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJobStatus:startedAt ] ;
-    sh:targetClass TS28572_PlanManagement:ActivationJobStatus .
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:lastValidatedAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Descriptive name of the plan group configuration descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:name ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Unique id of the plan group configuration descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:id ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:customProperties ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "version of the plan group configuration descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:version ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "the last time the plan was modified" ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:lastModifiedAt ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:isFailOnMemberConflicts ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to describe the purpose of the plan group configuration" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:description ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:isOrdered ] ;
+    sh:targetClass TS28572_PlanManagement:PlanConfigurationGroupDescriptor .
 
 [] a sh:NodeShape ;
     sh:class TS28572_PlanManagement:EmbeddedPlan,
@@ -265,30 +225,204 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This information element, when present, specifies that the trigger shall not be activated immediately, when the evaluation result changes from false to true, but only when the evaluation results is true for a specified time (which must be a multiple of the evaluation period) or a specified number of times." ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_SummaryStatus:conflicting ],
+            sh:path TS28572_PlanManagement_Hysteresis:numberOfTrueEvaluations ],
         [ a sh:PropertyShape ;
+            rdfs:comment "The hysteresis, when present, specifies that the trigger shall not be activated immediately, when the evaluation result changes from false to true, but only when the evaluation results is true for a specified time (which must be a multiple of the evaluation period). Unit is seconds" ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_SummaryStatus:succeeded ],
+            sh:path TS28572_PlanManagement_Hysteresis:timeOfTrueEvaluations ] ;
+    sh:targetClass TS28572_PlanManagement:Hysteresis .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanGroupRef:planConfigGroupDescrId ] ;
+    sh:targetClass TS28572_PlanManagement:PlanGroupRef .
+
+[] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:TriggerDescriptor ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ] ;
+                    sh:path TS28572_PlanManagement:_links ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorResponse:_links ] ;
+    sh:targetClass TS28572_PlanManagement:TriggerDescriptorResponse .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ConfigChangeWritable:changeId ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            rdfs:comment "Target data node path" ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_SummaryStatus:rollbackFailed ],
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ConfigChangeWritable:target ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_SummaryStatus:failed ],
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_ConfigChangeWritable:value ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            rdfs:comment "text describing the change" ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_SummaryStatus:rollbackSucceeded ],
+            sh:path TS28572_PlanManagement_ConfigChangeWritable:description ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            rdfs:comment "The operation to perform" ;
+            sh:datatype xsd:string ;
+            sh:in ( "create"^^xsd:string "merge"^^xsd:string "merge-create"^^xsd:string "delete"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_SummaryStatus:notFinished ] ;
-    sh:targetClass TS28572_PlanManagement:SummaryStatus .
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ConfigChangeWritable:modifyOperator ] ;
+    sh:targetClass TS28572_PlanManagement:ConfigChangeWritable .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanRef:planConfigDescrId ] ;
+    sh:targetClass TS28572_PlanManagement:PlanRef .
+
+[] a sh:NodeShape ;
+    sh:targetClass TS28572_PlanManagement:MemberConflict .
+
+[] a sh:NodeShape ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "NOT_STARTED"^^xsd:string "ACTIVATED"^^xsd:string "ACTIVATION_FAILED"^^xsd:string "PARTIALLY_ACTIVATED"^^xsd:string "ACTIVATION_FAILED_ROLLED_BACK"^^xsd:string "ACTIVATION_FAILED_ROLLBACK_FAILED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:activationState ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:stoppedAt ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:jobState ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:startedAt ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJobStatus:stoppedAt ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_STARTED"^^xsd:string "ACTIVATED"^^xsd:string "ACTIVATION_FAILED"^^xsd:string "PARTIALLY_ACTIVATED"^^xsd:string "ACTIVATION_FAILED_ROLLED_BACK"^^xsd:string "ACTIVATION_FAILED_ROLLBACK_FAILED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJobStatus:activationState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJobStatus:jobState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJobStatus:startedAt ] ;
+    sh:targetClass TS28572_PlanManagement:ActivationJobStatus .
+
+[] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created." ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:lastModifiedAt ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:isTriggerActive ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:currentEvaluationResult ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:lastTriggeredAt ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Unique id of the plan configuration descriptor" ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:id ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptor:isTriggerActive ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptor:currentEvaluationResult ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptor:lastTriggeredAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created." ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptor:lastModifiedAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Unique id of the plan configuration descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptor:id ] ;
+    sh:targetClass TS28572_PlanManagement:TriggerDescriptor .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "YANG_BASED"^^xsd:string "OPENAPI_BASED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:configChangesContentType ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Descriptive name of the plan group configuration descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:name ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Specifies the execution behavior when the plan is activated" ;
+            sh:datatype xsd:string ;
+            sh:in ( "ATOMIC"^^xsd:string "BEST_EFFORT"^^xsd:string "STOP_ON_ERROR"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:activationMode ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The version of the planned configuration. Its format is implementation specific." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:version ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:customProperties ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to describe the purpose of the plan configuration" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:description ] ;
+    sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties .
 
 [] a sh:NodeShape ;
     sh:node [ a sh:NodeShape ;
@@ -299,7 +433,7 @@
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:in ( "Link to the plan validation job"^^xsd:string ) ;
+                                    sh:in ( "Link to the plan activation job"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:title ],
                                 [ a sh:PropertyShape ;
@@ -319,600 +453,19 @@
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "GET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:method ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ] ] ;
-                    sh:path TS28572_PlanManagement:descriptor ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:LinkObject ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
                                     sh:in ( "PATCH"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:method ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
                                     sh:in ( "Link to cancel the job"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ] ] ;
-                    sh:path TS28572_PlanManagement:cancel ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:LinkObject ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "GET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:method ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "Link to GET the job details"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ] ] ;
-                    sh:path TS28572_PlanManagement:validationDetails ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:LinkObject ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "Link to GET the job status"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:title ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "GET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:method ] ] ;
-                    sh:path TS28572_PlanManagement:status ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to the plan validation job"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ] ] ;
-            sh:path TS28572_PlanManagement_ValidationJobLinks:self ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ] ] ;
-            sh:path TS28572_PlanManagement_ValidationJobLinks:descriptor ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to GET the job details"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ] ] ;
-            sh:path TS28572_PlanManagement_ValidationJobLinks:validationDetails ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to GET the job status"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ] ] ;
-            sh:path TS28572_PlanManagement_ValidationJobLinks:status ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to cancel the job"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "PATCH"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ] ] ;
-            sh:path TS28572_PlanManagement_ValidationJobLinks:cancel ] ;
-    sh:targetClass TS28572_PlanManagement:ValidationJobLinks .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "The identifier of the planned configuration" ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:id ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "The plan configuration changes" ;
-                    sh:class TS28572_PlanManagement:ConfigChange ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:configChanges ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "the last time the plan was modified" ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:lastModifiedAt ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "last time the plan was validated" ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:lastValidatedAt ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "The validation state of the plan." ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "NOT_VALIDATED"^^xsd:string "VALID"^^xsd:string "INVALID"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:validationState ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "The plan configuration changes" ;
-            sh:class TS28572_PlanManagement:ConfigChange ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:configChanges ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The validation state of the plan." ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_VALIDATED"^^xsd:string "VALID"^^xsd:string "INVALID"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:validationState ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The identifier of the planned configuration" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:id ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "the last time the plan was modified" ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:lastModifiedAt ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "last time the plan was validated" ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:lastValidatedAt ] ;
-    sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptor .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:TriggerDescriptor ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ] ;
-                    sh:path TS28572_PlanManagement:_links ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_TriggerDescriptorResponse:_links ] ;
-    sh:targetClass TS28572_PlanManagement:TriggerDescriptorResponse .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "YANG_BASED"^^xsd:string "OPENAPI_BASED"^^xsd:string ) ;
-    sh:targetClass TS28572_PlanManagement:ConfigChangesContentType .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
-    sh:targetClass TS28572_PlanManagement:JobState .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:EmbeddedPlan,
-        TS28572_PlanManagement:EmbeddedPlanGroup,
-        TS28572_PlanManagement:FallbackPlanRef,
-        TS28572_PlanManagement:PlanGroupRef,
-        TS28572_PlanManagement:PlanRef ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:createdFallbackConfigDescrId ],
-                [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:jobState ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:cancelRequest ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "id of the activation job" ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:id ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:JobDetails ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:jobDetails ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:startedAt ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:ExecutionDetails ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:activationDetails ],
-                [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:activationState ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:ActivationJobLinks ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:_links ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:stoppedAt ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:ActivationJobLinks ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:_links ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:JobDetails ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:jobDetails ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:activationState ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:createdFallbackConfigDescrId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "id of the activation job" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:id ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:ExecutionDetails ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:activationDetails ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:startedAt ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:stoppedAt ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:jobState ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJob:cancelRequest ] ;
-    sh:targetClass TS28572_PlanManagement:ActivationJob .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:customProperties ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to describe the purpose of the plan configuration" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:description ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Specifies the execution behavior when the plan is activated" ;
-            sh:datatype xsd:string ;
-            sh:in ( "ATOMIC"^^xsd:string "BEST_EFFORT"^^xsd:string "STOP_ON_ERROR"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:activationMode ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Descriptive name of the plan group configuration descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:name ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The version of the planned configuration. Its format is implementation specific." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:version ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "YANG_BASED"^^xsd:string "OPENAPI_BASED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:configChangesContentType ] ;
-    sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_CancelRequest:cancelRequest ] ;
-    sh:targetClass TS28572_PlanManagement:CancelRequest .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "The hysteresis, when present, specifies that the trigger shall not be activated immediately, when the evaluation result changes from false to true, but only when the evaluation results is true for a specified time (which must be a multiple of the evaluation period). Unit is seconds" ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_Hysteresis:timeOfTrueEvaluations ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This information element, when present, specifies that the trigger shall not be activated immediately, when the evaluation result changes from false to true, but only when the evaluation results is true for a specified time (which must be a multiple of the evaluation period) or a specified number of times." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_Hysteresis:numberOfTrueEvaluations ] ;
-    sh:targetClass TS28572_PlanManagement:Hysteresis .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NOT_STARTED"^^xsd:string "ACTIVATED"^^xsd:string "ACTIVATION_FAILED"^^xsd:string "PARTIALLY_ACTIVATED"^^xsd:string "ACTIVATION_FAILED_ROLLED_BACK"^^xsd:string "ACTIVATION_FAILED_ROLLBACK_FAILED"^^xsd:string ) ;
-    sh:targetClass TS28572_PlanManagement:ActivationState .
-
-[] a sh:NodeShape ;
-    rdfs:comment "COMPLETE_RESTORE type fallback",
-        "The configuration changes associated with UNDO type fallback" ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "YANG_BASED"^^xsd:string "OPENAPI_BASED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:configChangesContentType ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment """The configuration change set specifying the configuration in case the fallback configuration is of the "UNDO" type. The format of "configChanges" is specified in "configChangesContentType". Exactly one of this element or the fallbackConfig shall be present.
-""" ;
-                    sh:class TS28572_PlanManagement:ConfigChangeWritable ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:configChanges ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ] ;
-                    sh:path TS28572_PlanManagement:_links ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "The fallback configuration associated with COMPLETE_RESTORE" ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:fallbackConfig ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:_links ] ;
-    sh:targetClass TS28572_PlanManagement:FallbackConfigurationDescriptorResponse .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_EmbeddedPlanGroup:planConfigGroupDescr ] ;
-    sh:targetClass TS28572_PlanManagement:EmbeddedPlanGroup .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ] ;
-                    sh:path TS28572_PlanManagement:_links ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptorResponse:_links ] ;
-    sh:targetClass TS28572_PlanManagement:PlanConfigurationGroupDescriptorResponse .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Specifies the execution behavior when the plan configuration group is activated" ;
-            sh:datatype xsd:string ;
-            sh:in ( "ATOMIC"^^xsd:string "BEST_EFFORT"^^xsd:string "STOP_ON_ERROR"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:activationMode ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:isFailOnMemberConflicts ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:isOrdered ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "last time the plan was validated" ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:lastValidatedAt ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Used to describe the purpose of the plan group configuration" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:description ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "the last time the plan was modified" ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:lastModifiedAt ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Descriptive name of the plan group configuration descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:name ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:customProperties ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Unique id of the plan group configuration descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:id ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "version of the plan group configuration descriptor" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:version ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
-                "list of plan or plan group descriptor identifiers" ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:members ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                rdfs:comment "Unique id of the plan configuration descriptor." ;
-                                sh:datatype xsd:string ;
-                                sh:minCount 1 ;
-                                sh:path TS28572_PlanManagement:planConfigDescrId ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                rdfs:comment "Unique id of the plan configuration group descriptor." ;
-                                sh:datatype xsd:string ;
-                                sh:minCount 1 ;
-                                sh:path TS28572_PlanManagement:planConfigGroupDescrId ] ] ) ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The validation state for the last time plan configuration group was validated" ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_VALIDATED"^^xsd:string "PARTIALLY_VALID"^^xsd:string "VALID"^^xsd:string "INVALID"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptor:validationState ] ;
-    sh:targetClass TS28572_PlanManagement:PlanConfigurationGroupDescriptor .
-
-[] a sh:NodeShape ;
-    sh:class TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
-    sh:targetClass TS28572_PlanManagement:TriggerDescriptorRequest .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJobStatus:jobState ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJobStatus:stoppedAt ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJobStatus:validationState ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJobStatus:startedAt ] ;
-    sh:targetClass TS28572_PlanManagement:ValidationJobStatus .
-
-[] a sh:NodeShape ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:LinkObject ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "GET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:method ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "Link to GET the job details"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ] ] ;
-                    sh:path TS28572_PlanManagement:validationDetails ],
+                                    sh:path TS28572_PlanManagement:href ] ] ;
+                    sh:path TS28572_PlanManagement:cancel ],
                 [ a sh:PropertyShape ;
                     sh:class TS28572_PlanManagement:LinkObject ;
                     sh:maxCount 1 ;
@@ -924,19 +477,19 @@
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "PATCH"^^xsd:string ) ;
+                                    sh:in ( "GET"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:method ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:in ( "Link to cancel the job"^^xsd:string ) ;
+                                    sh:in ( "Link to GET the job details"^^xsd:string ) ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ] ] ;
-                    sh:path TS28572_PlanManagement:cancel ],
+                                    sh:path TS28572_PlanManagement:title ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:href ] ] ;
+                    sh:path TS28572_PlanManagement:validationDetails ],
                 [ a sh:PropertyShape ;
                     sh:class TS28572_PlanManagement:LinkObject ;
                     sh:maxCount 1 ;
@@ -944,14 +497,14 @@
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:in ( "Link to GET the job status"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
                                     sh:in ( "GET"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:method ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "Link to GET the job status"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:title ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
@@ -964,10 +517,6 @@
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
                                     sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:title ],
@@ -975,89 +524,13 @@
                                     sh:datatype xsd:string ;
                                     sh:in ( "GET"^^xsd:string ) ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:method ] ] ;
-                    sh:path TS28572_PlanManagement:descriptor ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:LinkObject ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "GET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
                                     sh:path TS28572_PlanManagement:method ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:href ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "Link to the plan activation job"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28572_PlanManagement:title ] ] ;
-                    sh:path TS28572_PlanManagement:self ] ] ;
+                                    sh:path TS28572_PlanManagement:href ] ] ;
+                    sh:path TS28572_PlanManagement:descriptor ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to GET the job details"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ] ] ;
-            sh:path TS28572_PlanManagement_ActivationJobLinks:validationDetails ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ] ] ;
-            sh:path TS28572_PlanManagement_ActivationJobLinks:descriptor ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:LinkObject ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:href ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "Link to the plan activation job"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:title ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "GET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28572_PlanManagement:method ] ] ;
-            sh:path TS28572_PlanManagement_ActivationJobLinks:self ],
-        [ a sh:PropertyShape ;
             sh:class TS28572_PlanManagement:LinkObject ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
@@ -1100,163 +573,204 @@
         [ a sh:PropertyShape ;
             sh:class TS28572_PlanManagement:LinkObject ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ActivationJobLinks:fallback ] ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to the plan activation job"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ] ] ;
+            sh:path TS28572_PlanManagement_ActivationJobLinks:self ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ] ] ;
+            sh:path TS28572_PlanManagement_ActivationJobLinks:descriptor ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJobLinks:fallback ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to GET the job details"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ] ] ;
+            sh:path TS28572_PlanManagement_ActivationJobLinks:validationDetails ] ;
     sh:targetClass TS28572_PlanManagement:ActivationJobLinks .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "text describing the change" ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:dateTime ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChange:description ],
+            sh:path TS28572_PlanManagement_ValidationJobStatus:startedAt ],
         [ a sh:PropertyShape ;
-            rdfs:comment "The operation to perform" ;
-            sh:datatype xsd:string ;
-            sh:in ( "create"^^xsd:string "merge"^^xsd:string "merge-create"^^xsd:string "delete"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChange:modifyOperator ],
+            sh:path TS28572_PlanManagement_ValidationJobStatus:jobState ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_ConfigChange:value ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "The identifier of the operation. It may or may not be provided. If provided, it shall be unique within an instance of \"configChanges\" and it shall be provided for all changes in \"configChanges\"." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChange:changeId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Target data node path" ;
-            sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChange:target ] ;
-    sh:targetClass TS28572_PlanManagement:ConfigChange .
+            sh:path TS28572_PlanManagement_ValidationJobStatus:validationState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ValidationJobStatus:stoppedAt ] ;
+    sh:targetClass TS28572_PlanManagement:ValidationJobStatus .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:MemberConflict ;
-            sh:path TS28572_PlanManagement_ExecutionDetails:memberConflicts ],
-        [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:SummaryStatus ;
+            sh:class TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ExecutionDetails:summary ] ;
-    sh:targetClass TS28572_PlanManagement:ExecutionDetails .
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_EmbeddedPlanGroup:planConfigGroupDescr ] ;
+    sh:targetClass TS28572_PlanManagement:EmbeddedPlanGroup .
+
+[] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    sh:targetClass TS28572_PlanManagement:TriggerDescriptorRequest .
 
 [] a sh:NodeShape ;
     sh:class TS28572_PlanManagement:EmbeddedPlan,
         TS28572_PlanManagement:EmbeddedPlanGroup,
         TS28572_PlanManagement:FallbackPlanRef,
         TS28572_PlanManagement:PlanGroupRef,
-        TS28572_PlanManagement:PlanRef,
-        TS28572_PlanManagement:ValidationJobStatus ;
+        TS28572_PlanManagement:PlanRef ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:class TS28572_PlanManagement:ValidationJobLinks ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:stoppedAt ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:createdFallbackConfigDescrId ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:startedAt ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:ActivationJobLinks ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
                     sh:path TS28572_PlanManagement:_links ],
                 [ a sh:PropertyShape ;
-                    rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
-                    sh:datatype xsd:dateTime ;
                     sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:currentConfigTime ],
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:activationState ],
+                [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:jobState ],
                 [ a sh:PropertyShape ;
                     sh:class TS28572_PlanManagement:ExecutionDetails ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:validationDetails ],
+                    sh:path TS28572_PlanManagement:activationDetails ],
                 [ a sh:PropertyShape ;
                     sh:class TS28572_PlanManagement:JobDetails ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
                     sh:path TS28572_PlanManagement:jobDetails ],
                 [ a sh:PropertyShape ;
-                    rdfs:comment "id of the validation job" ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:cancelRequest ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "id of the activation job" ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:id ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:cancelRequest ] ] ;
+                    sh:path TS28572_PlanManagement:id ] ] ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJob:currentConfigTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJob:cancelRequest ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "id of the validation job" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJob:id ],
+            sh:path TS28572_PlanManagement_ActivationJob:activationState ],
         [ a sh:PropertyShape ;
             sh:class TS28572_PlanManagement:JobDetails ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJob:jobDetails ],
+            sh:path TS28572_PlanManagement_ActivationJob:jobDetails ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJob:stoppedAt ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJob:cancelRequest ],
         [ a sh:PropertyShape ;
             sh:class TS28572_PlanManagement:ExecutionDetails ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJob:validationDetails ],
+            sh:path TS28572_PlanManagement_ActivationJob:activationDetails ],
         [ a sh:PropertyShape ;
-            sh:class TS28572_PlanManagement:ValidationJobLinks ;
+            sh:class TS28572_PlanManagement:ActivationJobLinks ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ValidationJob:_links ] ;
-    sh:targetClass TS28572_PlanManagement:ValidationJob .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "The target URI of the link." ;
+            sh:path TS28572_PlanManagement_ActivationJob:_links ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "id of the activation job" ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_LinkObject:href ],
+            sh:path TS28572_PlanManagement_ActivationJob:id ],
         [ a sh:PropertyShape ;
-            rdfs:comment "The content type expected when following this link (MIME type)." ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJob:startedAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_LinkObject:type ],
+            sh:path TS28572_PlanManagement_ActivationJob:createdFallbackConfigDescrId ],
         [ a sh:PropertyShape ;
-            rdfs:comment "The HTTP method to use for this action link." ;
-            sh:datatype xsd:string ;
-            sh:in ( "GET"^^xsd:string "POST"^^xsd:string "PUT"^^xsd:string "DELETE"^^xsd:string "PATCH"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_LinkObject:method ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_LinkObject:templated ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "A human-readable title that describes the link's purpose." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_LinkObject:title ] ;
-    sh:targetClass TS28572_PlanManagement:LinkObject .
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ActivationJob:jobState ] ;
+    sh:targetClass TS28572_PlanManagement:ActivationJob .
 
 [] a sh:NodeShape ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "name of the job." ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:name ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "description/purpose of the job." ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28572_PlanManagement:description ],
-                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
                     sh:maxCount 1 ;
@@ -1267,12 +781,27 @@
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:minCount 1 ;
-                    sh:path TS28572_PlanManagement:id ] ] ;
+                    sh:path TS28572_PlanManagement:id ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "description/purpose of the job." ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:description ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "name of the job." ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:name ] ] ;
     sh:property [ a sh:PropertyShape ;
             rdfs:comment "description/purpose of the job." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28572_PlanManagement_JobListEntry:description ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "name of the job." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_JobListEntry:name ],
         [ a sh:PropertyShape ;
             rdfs:comment "id of the job." ;
             sh:datatype xsd:string ;
@@ -1284,13 +813,311 @@
             sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_JobListEntry:jobState ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "name of the job." ;
+            sh:path TS28572_PlanManagement_JobListEntry:jobState ] ;
+    sh:targetClass TS28572_PlanManagement:JobListEntry .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "UNKNOWN"^^xsd:string "VALIDATION_SUCCEEDED"^^xsd:string "VALIDATION_FAILED"^^xsd:string ) ;
+    sh:targetClass TS28572_PlanManagement:ValidationState .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "A human-readable title that describes the link's purpose." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_JobListEntry:name ] ;
-    sh:targetClass TS28572_PlanManagement:JobListEntry .
+            sh:path TS28572_PlanManagement_LinkObject:title ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The content type expected when following this link (MIME type)." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_LinkObject:type ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_LinkObject:templated ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The target URI of the link." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_LinkObject:href ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The HTTP method to use for this action link." ;
+            sh:datatype xsd:string ;
+            sh:in ( "GET"^^xsd:string "POST"^^xsd:string "PUT"^^xsd:string "DELETE"^^xsd:string "PATCH"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_LinkObject:method ] ;
+    sh:targetClass TS28572_PlanManagement:LinkObject .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "The date and time at which the evaluation of the condition expression shall start. The evaluation result is set to \"False\" before that date and time. If the information element is not specified, evaluation of the trigger condition shall start immediately." ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:startEvaluationAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Descriptive name of the trigger descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:name ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The condition expression" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:conditionExpression ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Used to describe the purpose of the trigger" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:description ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:hysteresis ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:isTriggerOnce ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "an optional version for the Trigger Descriptor" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:version ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The evaluation period specifies the interval of time in seconds  between two consecutive condition expression evaluations." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:evaluationPeriod ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:customProperties ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The date and time at which the evaluation of the condition expression shall stop. The evaluation result is set to \"False\" after that date and time. If the information element is not specified, evaluation of the trigger condition shall continue until the deletion of the trigger condition descriptor." ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:stopEvaluationAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The identifiers of one or more activation jobs that shall be triggered by this condition." ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_TriggerDescriptorBaseProperties:activationJobs ] ;
+    sh:targetClass TS28572_PlanManagement:TriggerDescriptorBaseProperties .
+
+[] a sh:NodeShape ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:LinkObject ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "Link to the plan validation job"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:title ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "GET"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:method ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:href ] ] ;
+                    sh:path TS28572_PlanManagement:self ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:LinkObject ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:href ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "GET"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:method ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "Link to GET the job details"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:title ] ] ;
+                    sh:path TS28572_PlanManagement:validationDetails ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:LinkObject ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "Link to cancel the job"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:title ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:href ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "PATCH"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:method ] ] ;
+                    sh:path TS28572_PlanManagement:cancel ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:LinkObject ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "GET"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:method ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:title ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:href ] ] ;
+                    sh:path TS28572_PlanManagement:descriptor ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:LinkObject ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:href ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "Link to GET the job status"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:title ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "GET"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28572_PlanManagement:method ] ] ;
+                    sh:path TS28572_PlanManagement:status ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to GET the job details"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ] ] ;
+            sh:path TS28572_PlanManagement_ValidationJobLinks:validationDetails ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "PATCH"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to cancel the job"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ] ] ;
+            sh:path TS28572_PlanManagement_ValidationJobLinks:cancel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to the plan (or plan group) configuration descriptor"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ] ] ;
+            sh:path TS28572_PlanManagement_ValidationJobLinks:descriptor ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to the plan validation job"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ] ] ;
+            sh:path TS28572_PlanManagement_ValidationJobLinks:self ],
+        [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:LinkObject ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:href ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:method ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "Link to GET the job status"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28572_PlanManagement:title ] ] ;
+            sh:path TS28572_PlanManagement_ValidationJobLinks:status ] ;
+    sh:targetClass TS28572_PlanManagement:ValidationJobLinks .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:PlanConfigurationDescriptorRequest ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_EmbeddedPlan:planConfigDescr ] ;
+    sh:targetClass TS28572_PlanManagement:EmbeddedPlan .
 
 [] a sh:NodeShape ;
     sh:class TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
@@ -1308,82 +1135,77 @@
     sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptorRequest .
 
 [] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ] ;
+                    sh:path TS28572_PlanManagement:_links ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_PlanConfigurationGroupDescriptorResponse:_links ] ;
+    sh:targetClass TS28572_PlanManagement:PlanConfigurationGroupDescriptorResponse .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NOT_STARTED"^^xsd:string "QUEUED"^^xsd:string "RUNNING"^^xsd:string "CANCELLING"^^xsd:string "CANCELLED"^^xsd:string "COMPLETED"^^xsd:string "FAILED"^^xsd:string ) ;
+    sh:targetClass TS28572_PlanManagement:JobState .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "The identifier of the operation. It may or may not be provided. If provided, it shall be unique within an instance of \"configChanges\" and it shall be provided for all changes in \"configChanges\"." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_ConfigChange:changeId ],
+        [ a sh:PropertyShape ;
             rdfs:comment "The operation to perform" ;
             sh:datatype xsd:string ;
             sh:in ( "create"^^xsd:string "merge"^^xsd:string "merge-create"^^xsd:string "delete"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChangeWritable:modifyOperator ],
+            sh:path TS28572_PlanManagement_ConfigChange:modifyOperator ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_ConfigChangeWritable:value ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "text describing the change" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChangeWritable:description ],
+            sh:path TS28572_PlanManagement_ConfigChange:value ],
         [ a sh:PropertyShape ;
             rdfs:comment "Target data node path" ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChangeWritable:target ],
+            sh:path TS28572_PlanManagement_ConfigChange:target ],
         [ a sh:PropertyShape ;
+            rdfs:comment "text describing the change" ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ConfigChangeWritable:changeId ] ;
-    sh:targetClass TS28572_PlanManagement:ConfigChangeWritable .
+            sh:path TS28572_PlanManagement_ConfigChange:description ] ;
+    sh:targetClass TS28572_PlanManagement:ConfigChange .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "id of the descriptor." ;
-            sh:datatype xsd:string ;
+            sh:class TS28572_PlanManagement:LinkObject ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_DescriptorListEntry:id ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "version of the descriptor." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_DescriptorListEntry:version ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "description/purpose of the descriptor." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_DescriptorListEntry:description ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "name of the descriptor." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_DescriptorListEntry:name ] ;
-    sh:targetClass TS28572_PlanManagement:DescriptorListEntry .
+            sh:path TS28572_PlanManagement_SelfLink:self ] ;
+    sh:targetClass TS28572_PlanManagement:SelfLink .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_PlanRef:planConfigDescrId ] ;
-    sh:targetClass TS28572_PlanManagement:PlanRef .
+            sh:path TS28572_PlanManagement_FallbackPlanRef:fallbackConfigDescrId ] ;
+    sh:targetClass TS28572_PlanManagement:FallbackPlanRef .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28572_PlanManagement_ErrorDetail:badDataNode ],
-        [ a sh:PropertyShape ;
             rdfs:comment "The type of the error" ;
             sh:datatype xsd:string ;
             sh:in ( "SCHEMA_VALIDATION_ERROR"^^xsd:string "DATA_NODE_TREE_ERROR"^^xsd:string "MODIFICATION_NOT_ALLOWED"^^xsd:string "ACCESS_CONTROL_CONFLICT"^^xsd:string "APPLICATION_LAYER_ERROR"^^xsd:string "SERVER_ERROR"^^xsd:string "OTHER"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:path TS28572_PlanManagement_ErrorDetail:type ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28572_PlanManagement_ErrorDetail:errorInfo ],
         [ a sh:PropertyShape ;
             rdfs:comment "A short, human-readable summary of the problem type" ;
             sh:datatype xsd:string ;
@@ -1398,6 +1220,184 @@
             rdfs:comment "A human-readable explanation specific to this occurrence of the problem." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28572_PlanManagement_ErrorDetail:detail ] ;
+            sh:path TS28572_PlanManagement_ErrorDetail:detail ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_ErrorDetail:errorInfo ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_ErrorDetail:badDataNode ] ;
     sh:targetClass TS28572_PlanManagement:ErrorDetail .
+
+[] a sh:NodeShape ;
+    rdfs:comment "COMPLETE_RESTORE type fallback",
+        "The configuration changes associated with UNDO type fallback" ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ] ;
+                    sh:path TS28572_PlanManagement:_links ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "The fallback configuration associated with COMPLETE_RESTORE" ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:fallbackConfig ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "YANG_BASED"^^xsd:string "OPENAPI_BASED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:configChangesContentType ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment """The configuration change set specifying the configuration in case the fallback configuration is of the "UNDO" type. The format of "configChanges" is specified in "configChangesContentType". Exactly one of this element or the fallbackConfig shall be present.
+""" ;
+                    sh:class TS28572_PlanManagement:ConfigChangeWritable ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:configChanges ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:_links ] ;
+    sh:targetClass TS28572_PlanManagement:FallbackConfigurationDescriptorResponse .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "name of the descriptor." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_DescriptorListEntry:name ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "id of the descriptor." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_DescriptorListEntry:id ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "description/purpose of the descriptor." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_DescriptorListEntry:description ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "version of the descriptor." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_DescriptorListEntry:version ] ;
+    sh:targetClass TS28572_PlanManagement:DescriptorListEntry .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_CancelRequest:cancelRequest ] ;
+    sh:targetClass TS28572_PlanManagement:CancelRequest .
+
+[] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:PlanConfigurationDescriptor ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28572_PlanManagement:SelfLink ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:_links ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28572_PlanManagement:SelfLink ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptorResponse:_links ] ;
+    sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptorResponse .
+
+[] a sh:NodeShape ;
+    sh:class TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "The validation state of the plan." ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "NOT_VALIDATED"^^xsd:string "VALID"^^xsd:string "INVALID"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:validationState ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "The plan configuration changes" ;
+                    sh:class TS28572_PlanManagement:ConfigChange ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:configChanges ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "The identifier of the planned configuration" ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:id ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "last time the plan was validated" ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28572_PlanManagement:lastValidatedAt ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "the last time the plan was modified" ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28572_PlanManagement:lastModifiedAt ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "the last time the plan was modified" ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:lastModifiedAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The validation state of the plan." ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_VALIDATED"^^xsd:string "VALID"^^xsd:string "INVALID"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:validationState ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The plan configuration changes" ;
+            sh:class TS28572_PlanManagement:ConfigChange ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:configChanges ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "last time the plan was validated" ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:lastValidatedAt ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "The identifier of the planned configuration" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28572_PlanManagement_PlanConfigurationDescriptor:id ] ;
+    sh:targetClass TS28572_PlanManagement:PlanConfigurationDescriptor .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_SummaryStatus:succeeded ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_SummaryStatus:conflicting ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_SummaryStatus:rollbackFailed ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_SummaryStatus:notFinished ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_SummaryStatus:failed ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28572_PlanManagement_SummaryStatus:rollbackSucceeded ] ;
+    sh:targetClass TS28572_PlanManagement:SummaryStatus .
 

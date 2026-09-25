@@ -56,90 +56,63 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationExplorationResult ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentExplorationReport:expectationExplorationResults ] ;
-    sh:targetClass TS28312_IntentNrm:IntentExplorationReport .
+            sh:path TS28312_IntentNrm_ExpectationExplorationResult:expectationId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:ExpectationTarget ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_ExpectationExplorationResult:targetExplorationResults ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:Context ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_ExpectationExplorationResult:contextExplorationResults ] ;
+    sh:targetClass TS28312_IntentNrm:ExpectationExplorationResult .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ImplicitIntent ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationReport:implicitIntent ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentFulfilmentNegotiationFeedback ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationReport:intentFulfilmentNegotiationConsumerFeedback ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:PossibleIntentOutcome ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationReport:possibleIntentOutcomeList ] ;
-    sh:targetClass TS28312_IntentNrm:IntentFulfilmentNegotiationReport .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentReference ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentFeasibilityCheckReport ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentFeasibilityCheckReport ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:dateTime ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:lastUpdatedTime ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentFulfilmentNegotiationReport ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentFulfilmentNegotiationReport ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentConflictReport ;
-                    sh:path TS28312_IntentNrm:intentConflictReports ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentFulfilmentReport ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentFulfilmentReport ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentExplorationReport ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentExplorationReport ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentUtilityReport ;
-                    sh:path TS28312_IntentNrm:intentUtilityReports ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentFulfilmentNegotiationReport ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentFulfilmentNegotiationReport ],
+            sh:path TS28312_IntentNrm_UtilityDefinition:utilityDefinitionId ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentReference ],
+            sh:path TS28312_IntentNrm_UtilityDefinition:utilityDescription ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentConflictReport ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentConflictReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentFeasibilityCheckReport ;
+            sh:class TS28312_IntentNrm:UtilityParameter ;
+            sh:path TS28312_IntentNrm_UtilityDefinition:utilityParameterList ] ;
+    sh:targetClass TS28312_IntentNrm:UtilityDefinition .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "It describes the expectation object type which can be supported by a specific intent handling function of MnS producer." ;
+            sh:datatype xsd:string ;
+            sh:in ( "RAN_SUBNETWORK"^^xsd:string "EDGE_SERVICE_SUPPORT"^^xsd:string "5GC_SUBNETWORK"^^xsd:string "RADIO_SERVICE"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentFeasibilityCheckReport ],
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentHandlingCapability:supportedExpectationObjectType ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentFulfilmentReport ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentFulfilmentReport ],
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentHandlingCapability:intentHandlingCapabilityId ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentUtilityReport ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentUtilityReports ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentExplorationReport ;
+            sh:class TS28312_IntentNrm:SupportedExpectationTargetInfo ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentHandlingCapability:supportedExpectationTargetInfoList ] ;
+    sh:targetClass TS28312_IntentNrm:IntentHandlingCapability .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:intentExplorationReport ],
+            sh:path TS28312_IntentNrm_UtilityResult:utilityResult ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReport-Single:lastUpdatedTime ] ;
-    sh:targetClass TS28312_IntentNrm:IntentReport-Single .
+            sh:path TS28312_IntentNrm_UtilityResult:utilityFunctionId ] ;
+    sh:targetClass TS28312_IntentNrm:UtilityResult .
 
 [] a sh:NodeShape ;
     sh:class TS28312_IntentNrm:IntentReport-Single ;
@@ -147,15 +120,128 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:FulfilmentInfo ;
+            sh:datatype xsd:string ;
+            sh:in ( "ACKNOWLEDGED"^^xsd:string "COMPLIANT"^^xsd:string "DEGRADED"^^xsd:string "SUSPENDED"^^xsd:string "TERMINATED"^^xsd:string "FULFILMENTFAILED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_FulfilmentInfo:notFullfilledState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationFulfilmentResult:expectationFulfilmentInfo ],
+            sh:path TS28312_IntentNrm_FulfilmentInfo:fulfilmentStatus ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An attribute which is used when FulfilmentInfo is implemented for IntentFulfilmentInfo" ;
+            sh:datatype xsd:string ;
+            sh:path TS28312_IntentNrm_FulfilmentInfo:notFulfilledReasons ] ;
+    sh:targetClass TS28312_IntentNrm:FulfilmentInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationFeedback:referredIntentOutcomeId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationFeedback:consumerSatisfactionIndex ] ;
+    sh:targetClass TS28312_IntentNrm:IntentFulfilmentNegotiationFeedback .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
+    sh:targetClass TS28312_IntentNrm:Selectivity .
+
+[] a sh:NodeShape ;
+    sh:class TS28312_IntentNrm:Intent-Single ;
+    sh:targetClass TS28312_IntentNrm:Intent-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:Context ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetContexts ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetName ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:FulfilmentInfo ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetFulfilmentInfo ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:or ( [ a sh:NodeShape ;
+                        sh:datatype xsd:double ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:dateTime ] ),
+                ( [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:Frequency ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:GeoCoordinate ;
+                                        sh:minCount 1 ;
+                                        sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:GeoCircle ;
+                                        sh:maxCount 1 ;
+                                        sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                        sh:path TS28312_IntentNrm:daysOfWeek ],
+                                    [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ],
+                                    [ a sh:PropertyShape ;
+                                        sh:datatype xsd:integer ;
+                                        sh:maxInclusive 31 ;
+                                        sh:minInclusive 0 ;
+                                        sh:path TS28312_IntentNrm:daysOfMonth ] ] ] ) ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetAchievedValue ] ;
+    sh:targetClass TS28312_IntentNrm:TargetFulfilmentResult .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:PlmnId ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_UEGroup:pLMNId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 255 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentNrm_UEGroup:fiveQI ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_NrNrm:Snssai ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_UEGroup:sNssai ] ;
+    sh:targetClass TS28312_IntentNrm:UEGroup .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:path TS28312_IntentNrm_ExpectationFulfilmentResult:expectaitonId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:FulfilmentInfo ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_ExpectationFulfilmentResult:expectationFulfilmentInfo ],
         [ a sh:PropertyShape ;
             sh:class TS28312_IntentNrm:TargetFulfilmentResult ;
             sh:path TS28312_IntentNrm_ExpectationFulfilmentResult:targetFulfilmentResults ] ;
@@ -164,154 +250,107 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UtilityParameter:parameterName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UtilityParameter:parameterWeight ] ;
-    sh:targetClass TS28312_IntentNrm:UtilityParameter .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_PossibleImpact:impactedObjects ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_PossibleImpact:impactedAttributes ] ;
-    sh:targetClass TS28312_IntentNrm:PossibleImpact .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentConflictReport:conflictingIntent ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This will be present if the MnS producer supports reporting on conflicts of type TARGET_CONFLICT." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentConflictReport:conflictingTarget ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MODIFY"^^xsd:string "DELETE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentConflictReport:recommendedSolutions ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This will be present if the MnS producer supports reporting on conflicts of type EXPECTATION_CONFLICT or  TARGET_CONFLICT." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentConflictReport:conflictingExpectation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentConflictReport:conflictId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INTENT_CONFLICT"^^xsd:string "EXPECTATION_CONFLICT"^^xsd:string "TARGET_CONFLICT"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentConflictReport:conflictType ] ;
-    sh:targetClass TS28312_IntentNrm:IntentConflictReport .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "ACKNOWLEDGED"^^xsd:string "COMPLIANT"^^xsd:string "DEGRADED"^^xsd:string "SUSPENDED"^^xsd:string "TERMINATED"^^xsd:string "FULFILMENTFAILED"^^xsd:string ) ;
-    sh:targetClass TS28312_IntentNrm:NotFulfilledState .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationFulfilmentResult ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentReport:expectationFulfilmentResult ],
-        [ a sh:PropertyShape ;
-            rdfs:comment """It describes the additional information of intent intent fulfilment.The content and format is vendor specific.
- Examples of additional fulfilment information could be:Types for the list of managed objects (e.g. NE, NF, Cell) 
- which are updated during intent fulfilment, or, Instance information for the list of managed objects (e.g. NE, NF,
-  Cell)  and corresponding attributes which are updated during intent fulfilment.""" ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentReport:additionalFulfilmentInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:FulfilmentInfo ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentReport:intentFulfilmentInfo ] ;
-    sh:targetClass TS28312_IntentNrm:IntentFulfilmentReport .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "FEASIBILITYCHECK"^^xsd:string "FULFILMENT_WITHOUT_NEGOTIATION"^^xsd:string "EXPLORATION"^^xsd:string "FULFILMENT_WITH_NEGOTIATION"^^xsd:string ) ;
-    sh:targetClass TS28312_IntentNrm:IntentMgmtPurpose .
-
-[] a sh:NodeShape ;
-    sh:class TS28312_IntentNrm:Intent-Single ;
-    sh:targetClass TS28312_IntentNrm:Intent-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationObject:objectInstance ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "RAN_SUBNETWORK"^^xsd:string "EDGE_SERVICE_SUPPORT"^^xsd:string "5GC_SUBNETWORK"^^xsd:string "RADIO_SERVICE"^^xsd:string "SUBNETWORK"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationObject:objectType ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions to be  used as filter information to identify the object(s) to which a given intentExpectation should apply." ;
-            sh:class TS28312_IntentNrm:Context ;
-            sh:path TS28312_IntentNrm_ExpectationObject:objectContexts ] ;
-    sh:targetClass TS28312_IntentNrm:ExpectationObject .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFeasibilityCheckReport:feasibilityCheckResult ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:InFeasibleExpectationInfo ;
-            sh:path TS28312_IntentNrm_IntentFeasibilityCheckReport:inFeasibleExpectationInfos ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "An attribute which is used when feasibilityCheckResult is INFEASIBLE" ;
-            sh:datatype xsd:string ;
-            sh:in ( "INVALID_INTENT_EXPRESSION"^^xsd:string "INTENT_CONFLICT"^^xsd:string ) ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFeasibilityCheckReport:infeasibilityReasons ] ;
-    sh:targetClass TS28312_IntentNrm:IntentFeasibilityCheckReport .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationTarget:targetName ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It represents the preference information of the Consumer on expectationTargets." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 10 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentNrm_ExpectationTarget:preferenceWeight ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationTarget:contextSelectivity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
             sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationTarget:targetCondition ],
+            sh:path TS28312_IntentNrm_Context:contextCondition ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:or ( [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:Frequency ] [ rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                        sh:or ( [ a sh:NodeShape ;
+                                    sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
+                                    sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
+                                    sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
+                                    sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
+                                    sh:class TS28312_IntentNrm:Frequency ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:GeoCoordinate ;
+                                                    sh:minCount 1 ;
+                                                    sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:GeoCircle ;
+                                                    sh:maxCount 1 ;
+                                                    sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ],
+                                                [ a sh:PropertyShape ;
+                                                    sh:datatype xsd:string ;
+                                                    sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                                    sh:path TS28312_IntentNrm:daysOfWeek ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:datatype xsd:integer ;
+                                                    sh:maxInclusive 31 ;
+                                                    sh:minInclusive 0 ;
+                                                    sh:path TS28312_IntentNrm:daysOfMonth ],
+                                                [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] ),
+                            ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:double ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:boolean ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:dateTime ] ) ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:GeoCoordinate ;
+                                        sh:minCount 1 ;
+                                        sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:GeoCircle ;
+                                        sh:maxCount 1 ;
+                                        sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                        sh:path TS28312_IntentNrm:daysOfWeek ],
+                                    [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ],
+                                    [ a sh:PropertyShape ;
+                                        sh:datatype xsd:integer ;
+                                        sh:maxInclusive 31 ;
+                                        sh:minInclusive 0 ;
+                                        sh:path TS28312_IntentNrm:daysOfMonth ] ] ] ),
+                ( [ a sh:NodeShape ;
+                        sh:datatype xsd:double ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:dateTime ] ) ;
+            sh:path TS28312_IntentNrm_Context:contextValueRange ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_Context:contextAttribute ] ;
+    sh:targetClass TS28312_IntentNrm:Context .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:or ( [ a sh:NodeShape ;
+                        sh:datatype xsd:double ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:dateTime ] ),
+                ( [ a sh:NodeShape ;
                         sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
                         sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
                         sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
@@ -380,114 +419,88 @@
                                         sh:path TS28312_IntentNrm:daysOfMonth ],
                                     [ a sh:PropertyShape ;
                                         sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ),
-                ( [ a sh:NodeShape ;
-                        sh:datatype xsd:double ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:dateTime ] ) ;
-            sh:path TS28312_IntentNrm_ExpectationTarget:targetValueRange ],
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ) ;
+            sh:path TS28312_IntentNrm_SupportedExpectationTargetInfo:supportedTargetValueRange ],
         [ a sh:PropertyShape ;
-            rdfs:comment "It describes the list of constraints and conditions that should apply for a specific expectationTarget." ;
-            sh:class TS28312_IntentNrm:Context ;
-            sh:path TS28312_IntentNrm_ExpectationTarget:targetContexts ] ;
-    sh:targetClass TS28312_IntentNrm:ExpectationTarget .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "It describes the expectation object type which can be supported by a specific intent handling function of MnS producer." ;
             sh:datatype xsd:string ;
-            sh:in ( "RAN_SUBNETWORK"^^xsd:string "EDGE_SERVICE_SUPPORT"^^xsd:string "5GC_SUBNETWORK"^^xsd:string "RADIO_SERVICE"^^xsd:string ) ;
+            sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentHandlingCapability:supportedExpectationObjectType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:SupportedExpectationTargetInfo ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentHandlingCapability:supportedExpectationTargetInfoList ],
+            sh:path TS28312_IntentNrm_SupportedExpectationTargetInfo:supportedTargetCondition ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentHandlingCapability:intentHandlingCapabilityId ] ;
-    sh:targetClass TS28312_IntentNrm:IntentHandlingCapability .
+            sh:path TS28312_IntentNrm_SupportedExpectationTargetInfo:supportedTargetName ] ;
+    sh:targetClass TS28312_IntentNrm:SupportedExpectationTargetInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentConflictReport:conflictingIntent ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_PossibleIntentOutcome:possibleIntentOutcomeId ],
+            sh:path TS28312_IntentNrm_IntentConflictReport:conflictId ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:PossibleImpact ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_PossibleIntentOutcome:possibleImpacts ],
+            rdfs:comment "This will be present if the MnS producer supports reporting on conflicts of type TARGET_CONFLICT." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentConflictReport:conflictingTarget ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationFulfilmentResult ;
+            rdfs:comment "This will be present if the MnS producer supports reporting on conflicts of type EXPECTATION_CONFLICT or  TARGET_CONFLICT." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentConflictReport:conflictingExpectation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MODIFY"^^xsd:string "DELETE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentConflictReport:recommendedSolutions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "INTENT_CONFLICT"^^xsd:string "EXPECTATION_CONFLICT"^^xsd:string "TARGET_CONFLICT"^^xsd:string ) ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_PossibleIntentOutcome:expectationFulfilmentResults ],
+            sh:path TS28312_IntentNrm_IntentConflictReport:conflictType ] ;
+    sh:targetClass TS28312_IntentNrm:IntentConflictReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment """It describes the additional information of intent intent fulfilment.The content and format is vendor specific.
+ Examples of additional fulfilment information could be:Types for the list of managed objects (e.g. NE, NF, Cell) 
+ which are updated during intent fulfilment, or, Instance information for the list of managed objects (e.g. NE, NF,
+  Cell)  and corresponding attributes which are updated during intent fulfilment.""" ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentFulfilmentReport:additionalFulfilmentInfo ],
         [ a sh:PropertyShape ;
             sh:class TS28312_IntentNrm:FulfilmentInfo ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_PossibleIntentOutcome:intentFulfilmentInfo ] ;
-    sh:targetClass TS28312_IntentNrm:PossibleIntentOutcome .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the specified conditions for intent reporting.",
-                "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:path TS28312_IntentNrm_IntentReportControl:reportingConditions ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:TimeCondition ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:TargetFulfilmentCondition ] ) ],
+            sh:path TS28312_IntentNrm_IntentFulfilmentReport:intentFulfilmentInfo ],
         [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the time period for which the fulfilment process is observed and at the end of which the fulfilmentInfo for corresponding ExpectationTargets, IntentExpectations and Intent is updated." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
+            sh:class TS28312_IntentNrm:ExpectationFulfilmentResult ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReportControl:observationPeriod ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the specified targets needed to be reported." ;
-            sh:datatype xsd:string ;
-            sh:path TS28312_IntentNrm_IntentReportControl:reportingTargets ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the type of IntentReports." ;
-            sh:datatype xsd:string ;
-            sh:in ( "INTENT_FULFILMENT_REPORT"^^xsd:string "INTENT_CONFLICT_REPORT"^^xsd:string "INTENT_FEASIBILITY_CHECK_REPORT"^^xsd:string "INTENT_EXPLORATION_REPORT"^^xsd:string "INTENT_FULFILMENT_NEGOTIATION_REPORT"^^xsd:string "INTENT_UTILITY_REPORT"^^xsd:string ) ;
-            sh:path TS28312_IntentNrm_IntentReportControl:expectedReportTypes ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the address of report recipient for MnS consumer.  It shall be supported when the implicit intent report subscription mechanism is supported." ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentReportControl:reportRecipientAddress ] ;
-    sh:targetClass TS28312_IntentNrm:IntentReportControl .
-
-[] a sh:NodeShape ;
-    sh:class TS28312_IntentNrm:IntentHandlingFunction-Single ;
-    sh:targetClass TS28312_IntentNrm:IntentHandlingFunction-Multiple .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
-    sh:targetClass TS28312_IntentNrm:Condition .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UtilityResult:utilityResult ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UtilityResult:utilityFunctionId ] ;
-    sh:targetClass TS28312_IntentNrm:UtilityResult .
+            sh:path TS28312_IntentNrm_IntentFulfilmentReport:expectationFulfilmentResult ] ;
+    sh:targetClass TS28312_IntentNrm:IntentFulfilmentReport .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
     sh:in ( "INTENT_FULFILMENT_REPORT"^^xsd:string "INTENT_CONFLICT_REPORT"^^xsd:string "INTENT_FEASIBILITY_CHECK_REPORT"^^xsd:string "INTENT_EXPLORATION_REPORT"^^xsd:string "INTENT_FULFILMENT_NEGOTIATION_REPORT"^^xsd:string "INTENT_UTILITY_REPORT"^^xsd:string ) ;
     sh:targetClass TS28312_IntentNrm:ExpectedReportType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentHandlingFunction-Single ;
+            sh:path TS28312_IntentNrm_SubNetwork-ncO-IntentNrm:IntentHandlingFunction ] ;
+    sh:targetClass TS28312_IntentNrm:SubNetwork-ncO-IntentNrm .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
+    sh:targetClass TS28312_IntentNrm:Condition .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -503,224 +516,22 @@
     sh:targetClass TS28312_IntentNrm:InFeasibleExpectationInfo .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "An attribute which is used when FulfilmentInfo is implemented for IntentFulfilmentInfo" ;
-            sh:datatype xsd:string ;
-            sh:path TS28312_IntentNrm_FulfilmentInfo:notFulfilledReasons ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_FulfilmentInfo:fulfilmentStatus ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ACKNOWLEDGED"^^xsd:string "COMPLIANT"^^xsd:string "DEGRADED"^^xsd:string "SUSPENDED"^^xsd:string "TERMINATED"^^xsd:string "FULFILMENTFAILED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_FulfilmentInfo:notFullfilledState ] ;
-    sh:targetClass TS28312_IntentNrm:FulfilmentInfo .
+    sh:class TS28312_IntentNrm:IntentHandlingFunction-Single ;
+    sh:targetClass TS28312_IntentNrm:IntentHandlingFunction-Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "This attribute shall be supported, when the frequency information represent RF reference frequency. The allowed values for NR see TS 38.104 subclause 5.4.2.1; The allowed values for EUTRAN see TS 36.104 [X] subclause 5.7.3; " ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Frequency:arfcn ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This attribute shall be supported, when the frequency information represent frequency operating band.  The allowed values for NR see TS 38.104 subclause 5.4.2.3; The allowed value for EUTRAN see TS 36.104 subclause 5.7.3       " ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Frequency:freqband ] ;
-    sh:targetClass TS28312_IntentNrm:Frequency .
+            sh:class TS28312_IntentNrm:ExpectationExplorationResult ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentExplorationReport:expectationExplorationResults ] ;
+    sh:targetClass TS28312_IntentNrm:IntentExplorationReport .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_SupportedExpectationTargetInfo:supportedTargetName ],
+            rdfs:comment "It describes the list of constraints and conditions that should apply for a specific expectationTarget." ;
+            sh:class TS28312_IntentNrm:Context ;
+            sh:path TS28312_IntentNrm_ExpectationTarget:targetContexts ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:or ( [ a sh:NodeShape ;
-                        sh:datatype xsd:double ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:dateTime ] ),
-                ( [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:Frequency ] [ rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                        sh:or ( [ a sh:NodeShape ;
-                                    sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
-                                    sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
-                                    sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
-                                    sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
-                                    sh:class TS28312_IntentNrm:Frequency ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:GeoCoordinate ;
-                                                    sh:minCount 1 ;
-                                                    sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:GeoCircle ;
-                                                    sh:maxCount 1 ;
-                                                    sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:datatype xsd:string ;
-                                                    sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                                    sh:path TS28312_IntentNrm:daysOfWeek ],
-                                                [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:datatype xsd:integer ;
-                                                    sh:maxInclusive 31 ;
-                                                    sh:minInclusive 0 ;
-                                                    sh:path TS28312_IntentNrm:daysOfMonth ],
-                                                [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] ),
-                            ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:double ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:boolean ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:dateTime ] ) ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:GeoCoordinate ;
-                                        sh:minCount 1 ;
-                                        sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:GeoCircle ;
-                                        sh:maxCount 1 ;
-                                        sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ],
-                                    [ a sh:PropertyShape ;
-                                        sh:datatype xsd:string ;
-                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                        sh:path TS28312_IntentNrm:daysOfWeek ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:datatype xsd:integer ;
-                                        sh:maxInclusive 31 ;
-                                        sh:minInclusive 0 ;
-                                        sh:path TS28312_IntentNrm:daysOfMonth ],
-                                    [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ) ;
-            sh:path TS28312_IntentNrm_SupportedExpectationTargetInfo:supportedTargetValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_SupportedExpectationTargetInfo:supportedTargetCondition ] ;
-    sh:targetClass TS28312_IntentNrm:SupportedExpectationTargetInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentCondition:targetCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentCondition:targetName ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:or ( [ a sh:NodeShape ;
-                        sh:datatype xsd:double ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:dateTime ] ),
-                ( [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:Frequency ] [ rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                        sh:or ( [ a sh:NodeShape ;
-                                    sh:datatype xsd:double ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:string ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:boolean ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                                    sh:datatype xsd:dateTime ] ),
-                            ( [ a sh:NodeShape ;
-                                    sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
-                                    sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
-                                    sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
-                                    sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
-                                    sh:class TS28312_IntentNrm:Frequency ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:GeoCoordinate ;
-                                                    sh:minCount 1 ;
-                                                    sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:GeoCircle ;
-                                                    sh:maxCount 1 ;
-                                                    sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:datatype xsd:string ;
-                                                    sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                                    sh:path TS28312_IntentNrm:daysOfWeek ],
-                                                [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                            sh:property [ a sh:PropertyShape ;
-                                                    sh:datatype xsd:integer ;
-                                                    sh:maxInclusive 31 ;
-                                                    sh:minInclusive 0 ;
-                                                    sh:path TS28312_IntentNrm:daysOfMonth ],
-                                                [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] ) ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:GeoCoordinate ;
-                                        sh:minCount 1 ;
-                                        sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:GeoCircle ;
-                                        sh:maxCount 1 ;
-                                        sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ],
-                                    [ a sh:PropertyShape ;
-                                        sh:datatype xsd:string ;
-                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                        sh:path TS28312_IntentNrm:daysOfWeek ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:datatype xsd:integer ;
-                                        sh:maxInclusive 31 ;
-                                        sh:minInclusive 0 ;
-                                        sh:path TS28312_IntentNrm:daysOfMonth ],
-                                    [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ) ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentCondition:targetValueRange ] ;
-    sh:targetClass TS28312_IntentNrm:TargetFulfilmentCondition .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:or ( [ a sh:NodeShape ;
@@ -760,19 +571,141 @@
                                                     sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
                                                     sh:path TS28312_IntentNrm:daysOfWeek ] ] ] [ sh:node [ a sh:NodeShape ;
                                             sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ],
+                                                [ a sh:PropertyShape ;
                                                     sh:datatype xsd:integer ;
                                                     sh:maxInclusive 31 ;
                                                     sh:minInclusive 0 ;
-                                                    sh:path TS28312_IntentNrm:daysOfMonth ],
-                                                [ a sh:PropertyShape ;
-                                                    sh:class TS28623_ComDefs:TimeInterval ;
-                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] ),
+                                                    sh:path TS28312_IntentNrm:daysOfMonth ] ] ] ),
                             ( [ a sh:NodeShape ;
                                     sh:datatype xsd:double ] [ a sh:NodeShape ;
                                     sh:datatype xsd:string ] [ a sh:NodeShape ;
                                     sh:datatype xsd:boolean ] [ a sh:NodeShape ;
                                     sh:datatype xsd:integer ] [ a sh:NodeShape ;
                                     sh:datatype xsd:dateTime ] ) ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:GeoCoordinate ;
+                                        sh:minCount 1 ;
+                                        sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:GeoCircle ;
+                                        sh:maxCount 1 ;
+                                        sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ],
+                                    [ a sh:PropertyShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                        sh:path TS28312_IntentNrm:daysOfWeek ] ] ] [ sh:node [ a sh:NodeShape ;
+                                sh:property [ a sh:PropertyShape ;
+                                        sh:datatype xsd:integer ;
+                                        sh:maxInclusive 31 ;
+                                        sh:minInclusive 0 ;
+                                        sh:path TS28312_IntentNrm:daysOfMonth ],
+                                    [ a sh:PropertyShape ;
+                                        sh:class TS28623_ComDefs:TimeInterval ;
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ) ;
+            sh:path TS28312_IntentNrm_ExpectationTarget:targetValueRange ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It represents the preference information of the Consumer on expectationTargets." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 10 ;
+            sh:minInclusive 0 ;
+            sh:path TS28312_IntentNrm_ExpectationTarget:preferenceWeight ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_ExpectationTarget:targetName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_ExpectationTarget:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_ExpectationTarget:contextSelectivity ] ;
+    sh:targetClass TS28312_IntentNrm:ExpectationTarget .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:UtilityResult ;
+            sh:path TS28312_IntentNrm_IntentUtilityReport:utilityResultList ] ;
+    sh:targetClass TS28312_IntentNrm:IntentUtilityReport .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "DELIVER"^^xsd:string "ENSURE"^^xsd:string "MAINTAIN"^^xsd:string ) ;
+    sh:targetClass TS28312_IntentNrm:ExpectationVerb .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentCondition:targetCondition ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentCondition:targetName ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:or ( [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:Frequency ] [ rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                        sh:or ( [ a sh:NodeShape ;
+                                    sh:datatype xsd:double ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:boolean ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                                    sh:datatype xsd:dateTime ] ),
+                            ( [ a sh:NodeShape ;
+                                    sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
+                                    sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
+                                    sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
+                                    sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
+                                    sh:class TS28312_IntentNrm:Frequency ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:GeoCoordinate ;
+                                                    sh:minCount 1 ;
+                                                    sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:GeoCircle ;
+                                                    sh:maxCount 1 ;
+                                                    sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ],
+                                                [ a sh:PropertyShape ;
+                                                    sh:datatype xsd:string ;
+                                                    sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                                    sh:path TS28312_IntentNrm:daysOfWeek ] ] ] [ sh:node [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:TimeInterval ;
+                                                    sh:path TS28312_IntentNrm:timeIntervals ],
+                                                [ a sh:PropertyShape ;
+                                                    sh:datatype xsd:integer ;
+                                                    sh:maxInclusive 31 ;
+                                                    sh:minInclusive 0 ;
+                                                    sh:path TS28312_IntentNrm:daysOfMonth ] ] ] ) ] [ sh:node [ a sh:NodeShape ;
                                 sh:property [ a sh:PropertyShape ;
                                         sh:class TS28623_ComDefs:GeoCoordinate ;
                                         sh:minCount 1 ;
@@ -798,52 +731,321 @@
                                         sh:path TS28312_IntentNrm:daysOfMonth ],
                                     [ a sh:PropertyShape ;
                                         sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ) ;
-            sh:path TS28312_IntentNrm_Context:contextValueRange ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "IS_EQUAL_TO"^^xsd:string "IS_LESS_THAN"^^xsd:string "IS_GREATER_THAN"^^xsd:string "IS_WITHIN_RANGE"^^xsd:string "IS_OUTSIDE_RANGE"^^xsd:string "IS_ONE_OF"^^xsd:string "IS_NOT_ONE_OF"^^xsd:string "IS_EQUAL_TO_OR_LESS_THAN"^^xsd:string "IS_EQUAL_TO_OR_GREATER_THAN"^^xsd:string "IS_ALL_OF"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_Context:contextCondition ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_Context:contextAttribute ] ;
-    sh:targetClass TS28312_IntentNrm:Context .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
-    sh:targetClass TS28312_IntentNrm:Selectivity .
+                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] ),
+                ( [ a sh:NodeShape ;
+                        sh:datatype xsd:double ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:dateTime ] ) ;
+            sh:path TS28312_IntentNrm_TargetFulfilmentCondition:targetValueRange ] ;
+    sh:targetClass TS28312_IntentNrm:TargetFulfilmentCondition .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "A unique identifier of the intentExpectation within the intent." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_UtilityParameter:parameterName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_UtilityParameter:parameterWeight ] ;
+    sh:targetClass TS28312_IntentNrm:UtilityParameter .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentReference ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentFulfilmentNegotiationReport ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentFulfilmentNegotiationReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentFulfilmentReport ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentFulfilmentReport ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:dateTime ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:lastUpdatedTime ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentConflictReport ;
+                    sh:path TS28312_IntentNrm:intentConflictReports ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentExplorationReport ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentExplorationReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentFeasibilityCheckReport ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentFeasibilityCheckReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentUtilityReport ;
+                    sh:path TS28312_IntentNrm:intentUtilityReports ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentUtilityReport ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentUtilityReports ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentFulfilmentNegotiationReport ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentFulfilmentNegotiationReport ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:lastUpdatedTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentFeasibilityCheckReport ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentFeasibilityCheckReport ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentReference ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentExplorationReport ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentExplorationReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentConflictReport ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentConflictReports ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentFulfilmentReport ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReport-Single:intentFulfilmentReport ] ;
+    sh:targetClass TS28312_IntentNrm:IntentReport-Single .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
+    sh:targetClass TS28312_IntentNrm:FulfilmentStatus .
+
+[] a sh:NodeShape ;
+    sh:class TS28312_IntentNrm:IntentUtilityFormula-Single ;
+    sh:targetClass TS28312_IntentNrm:IntentUtilityFormula-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:double ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:utilityOffset ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:UtilityParameter ;
+                    sh:path TS28312_IntentNrm:utilityParameterList ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:double ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:utilityScale ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:utilityFunctionId ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityFunctionId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityOffset ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:UtilityParameter ;
+            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityParameterList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityScale ] ;
+    sh:targetClass TS28312_IntentNrm:IntentUtilityFormula-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:minCount 1 ;
+                    sh:node [ a sh:NodeShape ] ;
+                    sh:path TS28312_IntentNrm:intentExpectations ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions that should apply  for the entire intent even if there may be specific contexts defined for specific parts of the intent  " ;
+                    sh:class TS28312_IntentNrm:Context ;
+                    sh:path TS28312_IntentNrm:intentContexts ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "FEASIBILITYCHECK"^^xsd:string "FULFILMENT_WITHOUT_NEGOTIATION"^^xsd:string "EXPLORATION"^^xsd:string "FULFILMENT_WITH_NEGOTIATION"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28312_IntentNrm:intentMgmtPurpose ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentUtilityFormulaRef ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:consumerSatisfactionIndexThreshold ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentPreemptionCapability ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28312_IntentNrm:intentReportReference ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It expresses the priority of the stated intent within a MnS consumer." ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:maxInclusive 100 ;
+                    sh:minInclusive 1 ;
+                    sh:path TS28312_IntentNrm:intentPriority ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentReportControl ;
+                    sh:minCount 1 ;
+                    sh:path TS28312_IntentNrm:intentReportControl ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:implicitIntentIndex ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It describes the intent administrative state.  This attribute is used when MnS consumer-suspension mechanism is supported" ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:intentAdminState ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:expectationSelectivity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28312_IntentNrm:contextSelectivity ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:minCount 1 ;
+                    sh:path TS28312_IntentNrm:userLabel ] ] ;
+    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentExpectation:expectationId ],
+            sh:path TS28312_IntentNrm_Intent-Single:userLabel ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:ExpectationTarget ;
+            sh:datatype xsd:string ;
+            sh:in ( "FEASIBILITYCHECK"^^xsd:string "FULFILMENT_WITHOUT_NEGOTIATION"^^xsd:string "EXPLORATION"^^xsd:string "FULFILMENT_WITH_NEGOTIATION"^^xsd:string ) ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentExpectation:expectationTargets ],
+            sh:path TS28312_IntentNrm_Intent-Single:intentMgmtPurpose ],
         [ a sh:PropertyShape ;
+            rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions that should apply  for the entire intent even if there may be specific contexts defined for specific parts of the intent  " ;
+            sh:class TS28312_IntentNrm:Context ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:contextSelectivity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentReportReference ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentReportControl ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentReportControl ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It expresses the priority of the stated intent within a MnS consumer." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentPriority ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It describes the intent administrative state.  This attribute is used when MnS consumer-suspension mechanism is supported" ;
+            sh:datatype xsd:string ;
+            sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentAdminState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:consumerSatisfactionIndexThreshold ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:implicitIntentIndex ],
+        [ a sh:PropertyShape ;
+            sh:minCount 1 ;
+            sh:node [ a sh:NodeShape ] ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentExpectations ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:expectationSelectivity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentPreemptionCapability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Intent-Single:intentUtilityFormulaRef ] ;
+    sh:targetClass TS28312_IntentNrm:Intent-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_PossibleImpact:impactedAttributes ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_PossibleImpact:impactedObjects ] ;
+    sh:targetClass TS28312_IntentNrm:PossibleImpact .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:InFeasibleExpectationInfo ;
+            sh:path TS28312_IntentNrm_IntentFeasibilityCheckReport:inFeasibleExpectationInfos ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "An attribute which is used when feasibilityCheckResult is INFEASIBLE" ;
+            sh:datatype xsd:string ;
+            sh:in ( "INVALID_INTENT_EXPRESSION"^^xsd:string "INTENT_CONFLICT"^^xsd:string ) ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentFeasibilityCheckReport:infeasibilityReasons ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentFeasibilityCheckReport:feasibilityCheckResult ] ;
+    sh:targetClass TS28312_IntentNrm:IntentFeasibilityCheckReport .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "FEASIBILITYCHECK"^^xsd:string "FULFILMENT_WITHOUT_NEGOTIATION"^^xsd:string "EXPLORATION"^^xsd:string "FULFILMENT_WITH_NEGOTIATION"^^xsd:string ) ;
+    sh:targetClass TS28312_IntentNrm:IntentMgmtPurpose .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:class TS28312_IntentNrm:ExpectationObject ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:path TS28312_IntentNrm_IntentExpectation:expectationObject ],
         [ a sh:PropertyShape ;
+            rdfs:comment "A unique identifier of the intentExpectation within the intent." ;
             sh:datatype xsd:string ;
-            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentExpectation:contextSelectivity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "DELIVER"^^xsd:string "ENSURE"^^xsd:string "MAINTAIN"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentExpectation:expectationVerb ],
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentExpectation:expectationId ],
         [ a sh:PropertyShape ;
             rdfs:comment "It represents the preference information of the Consumer on expectations." ;
             sh:datatype xsd:integer ;
@@ -852,62 +1054,23 @@
             sh:minInclusive 0 ;
             sh:path TS28312_IntentNrm_IntentExpectation:preferenceWeight ],
         [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:Context ;
-            sh:path TS28312_IntentNrm_IntentExpectation:expectationContexts ] ;
-    sh:targetClass TS28312_IntentNrm:IntentExpectation .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:Intent-Single ;
-                    sh:path TS28312_IntentNrm:Intent ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:UtilityDefinition ;
-                    sh:path TS28312_IntentNrm:supportedUtilityList ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentReport-Single ;
-                    sh:path TS28312_IntentNrm:IntentReport ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentHandlingCapability ;
-                    sh:minCount 1 ;
-                    sh:path TS28312_IntentNrm:intentHandlingCapabilityList ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentUtilityFormula-Single ;
-                    sh:path TS28312_IntentNrm:IntentUtilityFormula ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentReport-Single ;
-            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:IntentReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentHandlingCapability ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:intentHandlingCapabilityList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentUtilityFormula-Single ;
-            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:IntentUtilityFormula ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:UtilityDefinition ;
-            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:supportedUtilityList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:Intent-Single ;
-            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:Intent ] ;
-    sh:targetClass TS28312_IntentNrm:IntentHandlingFunction-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:Context ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationExplorationResult:contextExplorationResults ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationExplorationResult:expectationId ],
+            sh:path TS28312_IntentNrm_IntentExpectation:contextSelectivity ],
         [ a sh:PropertyShape ;
             sh:class TS28312_IntentNrm:ExpectationTarget ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_ExpectationExplorationResult:targetExplorationResults ] ;
-    sh:targetClass TS28312_IntentNrm:ExpectationExplorationResult .
+            sh:path TS28312_IntentNrm_IntentExpectation:expectationTargets ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:Context ;
+            sh:path TS28312_IntentNrm_IntentExpectation:expectationContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DELIVER"^^xsd:string "ENSURE"^^xsd:string "MAINTAIN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentExpectation:expectationVerb ] ;
+    sh:targetClass TS28312_IntentNrm:IntentExpectation .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -919,302 +1082,139 @@
     sh:targetClass TS28312_IntentNrm:ImplicitIntent .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minInclusive 0 ;
-            sh:path TS28312_IntentNrm_UEGroup:fiveQI ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_NrNrm:Snssai ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UEGroup:sNssai ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:PlmnId ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UEGroup:pLMNId ] ;
-    sh:targetClass TS28312_IntentNrm:UEGroup .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationFeedback:consumerSatisfactionIndex ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationFeedback:referredIntentOutcomeId ] ;
-    sh:targetClass TS28312_IntentNrm:IntentFulfilmentNegotiationFeedback .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentHandlingFunction-Single ;
-            sh:path TS28312_IntentNrm_SubNetwork-ncO-IntentNrm:IntentHandlingFunction ] ;
-    sh:targetClass TS28312_IntentNrm:SubNetwork-ncO-IntentNrm .
-
-[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "DELIVER"^^xsd:string "ENSURE"^^xsd:string "MAINTAIN"^^xsd:string ) ;
-    sh:targetClass TS28312_IntentNrm:ExpectationVerb .
-
-[] a sh:NodeShape ;
-    sh:class TS28312_IntentNrm:IntentUtilityFormula-Single ;
-    sh:targetClass TS28312_IntentNrm:IntentUtilityFormula-Multiple .
+    sh:in ( "ACKNOWLEDGED"^^xsd:string "COMPLIANT"^^xsd:string "DEGRADED"^^xsd:string "SUSPENDED"^^xsd:string "TERMINATED"^^xsd:string "FULFILMENTFAILED"^^xsd:string ) ;
+    sh:targetClass TS28312_IntentNrm:NotFulfilledState .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:or ( [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:PlmnId ] [ a sh:NodeShape ;
-                        sh:class TS28623_ComDefs:GeoCoordinate ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:UEGroup ] [ a sh:NodeShape ;
-                        sh:class TS28312_IntentNrm:Frequency ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:GeoCoordinate ;
-                                        sh:minCount 1 ;
-                                        sh:path TS28312_IntentNrm:geoPolygon ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:GeoCircle ;
-                                        sh:maxCount 1 ;
-                                        sh:path TS28312_IntentNrm:geoCircle ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:datatype xsd:string ;
-                                        sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                        sh:path TS28312_IntentNrm:daysOfWeek ],
-                                    [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ] ] ] [ sh:node [ a sh:NodeShape ;
-                                sh:property [ a sh:PropertyShape ;
-                                        sh:class TS28623_ComDefs:TimeInterval ;
-                                        sh:path TS28312_IntentNrm:timeIntervals ],
-                                    [ a sh:PropertyShape ;
-                                        sh:datatype xsd:integer ;
-                                        sh:maxInclusive 31 ;
-                                        sh:minInclusive 0 ;
-                                        sh:path TS28312_IntentNrm:daysOfMonth ] ] ] ),
-                ( [ a sh:NodeShape ;
-                        sh:datatype xsd:double ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                        sh:datatype xsd:boolean ] [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:dateTime ] ) ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetAchievedValue ],
-        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the address of report recipient for MnS consumer.  It shall be supported when the implicit intent report subscription mechanism is supported." ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_IntentReportControl:reportRecipientAddress ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the specified targets needed to be reported." ;
+            sh:datatype xsd:string ;
+            sh:path TS28312_IntentNrm_IntentReportControl:reportingTargets ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the type of IntentReports." ;
+            sh:datatype xsd:string ;
+            sh:in ( "INTENT_FULFILMENT_REPORT"^^xsd:string "INTENT_CONFLICT_REPORT"^^xsd:string "INTENT_FEASIBILITY_CHECK_REPORT"^^xsd:string "INTENT_EXPLORATION_REPORT"^^xsd:string "INTENT_FULFILMENT_NEGOTIATION_REPORT"^^xsd:string "INTENT_UTILITY_REPORT"^^xsd:string ) ;
+            sh:path TS28312_IntentNrm_IntentReportControl:expectedReportTypes ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the time period for which the fulfilment process is observed and at the end of which the fulfilmentInfo for corresponding ExpectationTargets, IntentExpectations and Intent is updated." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetName ],
+            sh:path TS28312_IntentNrm_IntentReportControl:observationPeriod ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the specified conditions for intent reporting.",
+                "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28312_IntentNrm_IntentReportControl:reportingConditions ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:TimeCondition ] [ a sh:NodeShape ;
+                        sh:class TS28312_IntentNrm:TargetFulfilmentCondition ] ) ] ;
+    sh:targetClass TS28312_IntentNrm:IntentReportControl .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:Intent-Single ;
+                    sh:path TS28312_IntentNrm:Intent ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentReport-Single ;
+                    sh:path TS28312_IntentNrm:IntentReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:UtilityDefinition ;
+                    sh:path TS28312_IntentNrm:supportedUtilityList ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentUtilityFormula-Single ;
+                    sh:path TS28312_IntentNrm:IntentUtilityFormula ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28312_IntentNrm:IntentHandlingCapability ;
+                    sh:minCount 1 ;
+                    sh:path TS28312_IntentNrm:intentHandlingCapabilityList ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:UtilityDefinition ;
+            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:supportedUtilityList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentUtilityFormula-Single ;
+            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:IntentUtilityFormula ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentReport-Single ;
+            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:IntentReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:IntentHandlingCapability ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:intentHandlingCapabilityList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:Intent-Single ;
+            sh:path TS28312_IntentNrm_IntentHandlingFunction-Single:Intent ] ;
+    sh:targetClass TS28312_IntentNrm:IntentHandlingFunction-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This attribute shall be supported, when the frequency information represent frequency operating band.  The allowed values for NR see TS 38.104 subclause 5.4.2.3; The allowed value for EUTRAN see TS 36.104 subclause 5.7.3       " ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Frequency:freqband ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This attribute shall be supported, when the frequency information represent RF reference frequency. The allowed values for NR see TS 38.104 subclause 5.4.2.1; The allowed values for EUTRAN see TS 36.104 [X] subclause 5.7.3; " ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28312_IntentNrm_Frequency:arfcn ] ;
+    sh:targetClass TS28312_IntentNrm:Frequency .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:ExpectationFulfilmentResult ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_PossibleIntentOutcome:expectationFulfilmentResults ],
+        [ a sh:PropertyShape ;
+            sh:class TS28312_IntentNrm:PossibleImpact ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_PossibleIntentOutcome:possibleImpacts ],
         [ a sh:PropertyShape ;
             sh:class TS28312_IntentNrm:FulfilmentInfo ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetFulfilmentInfo ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:Context ;
-            sh:path TS28312_IntentNrm_TargetFulfilmentResult:targetContexts ] ;
-    sh:targetClass TS28312_IntentNrm:TargetFulfilmentResult .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:consumerSatisfactionIndexThreshold ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentPreemptionCapability ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:boolean ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:implicitIntentIndex ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28312_IntentNrm:userLabel ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "FEASIBILITYCHECK"^^xsd:string "FULFILMENT_WITHOUT_NEGOTIATION"^^xsd:string "EXPLORATION"^^xsd:string "FULFILMENT_WITH_NEGOTIATION"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28312_IntentNrm:intentMgmtPurpose ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "It expresses the priority of the stated intent within a MnS consumer." ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:maxInclusive 100 ;
-                    sh:minInclusive 1 ;
-                    sh:path TS28312_IntentNrm:intentPriority ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:minCount 1 ;
-                    sh:path TS28312_IntentNrm:intentReportReference ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:contextSelectivity ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:IntentReportControl ;
-                    sh:minCount 1 ;
-                    sh:path TS28312_IntentNrm:intentReportControl ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions that should apply  for the entire intent even if there may be specific contexts defined for specific parts of the intent  " ;
-                    sh:class TS28312_IntentNrm:Context ;
-                    sh:path TS28312_IntentNrm:intentContexts ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentUtilityFormulaRef ],
-                [ a sh:PropertyShape ;
-                    sh:minCount 1 ;
-                    sh:node [ a sh:NodeShape ] ;
-                    sh:path TS28312_IntentNrm:intentExpectations ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "It describes the intent administrative state.  This attribute is used when MnS consumer-suspension mechanism is supported" ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:intentAdminState ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:expectationSelectivity ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:minCount 1 ;
-            sh:node [ a sh:NodeShape ] ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentExpectations ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:userLabel ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions that should apply  for the entire intent even if there may be specific contexts defined for specific parts of the intent  " ;
-            sh:class TS28312_IntentNrm:Context ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentContexts ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentUtilityFormulaRef ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It expresses the priority of the stated intent within a MnS consumer." ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentPriority ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:implicitIntentIndex ],
+            sh:path TS28312_IntentNrm_PossibleIntentOutcome:intentFulfilmentInfo ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:consumerSatisfactionIndexThreshold ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
             sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentReportReference ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "FEASIBILITYCHECK"^^xsd:string "FULFILMENT_WITHOUT_NEGOTIATION"^^xsd:string "EXPLORATION"^^xsd:string "FULFILMENT_WITH_NEGOTIATION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentMgmtPurpose ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:contextSelectivity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "ALL_OF"^^xsd:string "ONE_OF"^^xsd:string "ANY_OF"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:expectationSelectivity ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It describes the intent administrative state.  This attribute is used when MnS consumer-suspension mechanism is supported" ;
-            sh:datatype xsd:string ;
-            sh:in ( "ACTIVATED"^^xsd:string "DEACTIVATED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentAdminState ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentPreemptionCapability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:IntentReportControl ;
-            sh:minCount 1 ;
-            sh:path TS28312_IntentNrm_Intent-Single:intentReportControl ] ;
-    sh:targetClass TS28312_IntentNrm:Intent-Single .
+            sh:path TS28312_IntentNrm_PossibleIntentOutcome:possibleIntentOutcomeId ] ;
+    sh:targetClass TS28312_IntentNrm:PossibleIntentOutcome .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:UtilityResult ;
-            sh:path TS28312_IntentNrm_IntentUtilityReport:utilityResultList ] ;
-    sh:targetClass TS28312_IntentNrm:IntentUtilityReport .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:utilityFunctionId ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28312_IntentNrm:UtilityParameter ;
-                    sh:path TS28312_IntentNrm:utilityParameterList ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:double ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:utilityScale ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:double ;
-                    sh:maxCount 1 ;
-                    sh:path TS28312_IntentNrm:utilityOffset ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
+            rdfs:comment "It describes the list of Context(s) which represents the constraints and conditions to be  used as filter information to identify the object(s) to which a given intentExpectation should apply." ;
+            sh:class TS28312_IntentNrm:Context ;
+            sh:path TS28312_IntentNrm_ExpectationObject:objectContexts ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RAN_SUBNETWORK"^^xsd:string "EDGE_SERVICE_SUPPORT"^^xsd:string "5GC_SUBNETWORK"^^xsd:string "RADIO_SERVICE"^^xsd:string "SUBNETWORK"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityScale ],
+            sh:path TS28312_IntentNrm_ExpectationObject:objectType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityFunctionId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityOffset ],
-        [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:UtilityParameter ;
-            sh:path TS28312_IntentNrm_IntentUtilityFormula-Single:utilityParameterList ] ;
-    sh:targetClass TS28312_IntentNrm:IntentUtilityFormula-Single .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "FULFILLED"^^xsd:string "NOT_FULFILLED"^^xsd:string ) ;
-    sh:targetClass TS28312_IntentNrm:FulfilmentStatus .
+            sh:path TS28312_IntentNrm_ExpectationObject:objectInstance ] ;
+    sh:targetClass TS28312_IntentNrm:ExpectationObject .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28312_IntentNrm:UtilityParameter ;
-            sh:path TS28312_IntentNrm_UtilityDefinition:utilityParameterList ],
+            sh:class TS28312_IntentNrm:PossibleIntentOutcome ;
+            sh:minCount 1 ;
+            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationReport:possibleIntentOutcomeList ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:class TS28312_IntentNrm:IntentFulfilmentNegotiationFeedback ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UtilityDefinition:utilityDefinitionId ],
+            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationReport:intentFulfilmentNegotiationConsumerFeedback ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:class TS28312_IntentNrm:ImplicitIntent ;
             sh:maxCount 1 ;
-            sh:path TS28312_IntentNrm_UtilityDefinition:utilityDescription ] ;
-    sh:targetClass TS28312_IntentNrm:UtilityDefinition .
+            sh:path TS28312_IntentNrm_IntentFulfilmentNegotiationReport:implicitIntent ] ;
+    sh:targetClass TS28312_IntentNrm:IntentFulfilmentNegotiationReport .
 

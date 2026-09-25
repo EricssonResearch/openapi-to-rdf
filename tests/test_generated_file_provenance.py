@@ -123,7 +123,21 @@ def test_the_notice_file_disclaims_the_generated_artifacts() -> None:
     text = notice.read_text(encoding="utf-8")
     assert "3GPP Organizational Partners" in text
     assert "are NOT 3GPP's work" in text
-    assert "Not redistributed" in text, "the TM Forum corpus's status must stay stated"
+    # Asserted on the FACT, not the phrase. This read `"Not redistributed" in text` and would have kept
+    # passing when two TM Forum documents were vendored on 2026-09-25, guarding a sentence that had
+    # become false. What must hold is that NOTICE's account matches the tree.
+    tmforum = Path(__file__).resolve().parent.parent / "assets" / "tmforum"
+    vendored = sorted(p.name for p in tmforum.glob("*.yaml")) if tmforum.is_dir() else []
+    for name in vendored:
+        assert name in text, f"{name} is vendored but NOTICE does not mention it"
+    if vendored:
+        assert "Apache-2.0" in text, "vendored TM Forum documents need their licence named"
+        # No `assert "Not redistributed" not in text`. That was tried and it failed on NOTICE's own
+        # record of what the section USED to say -- a legitimate historical quote. A check on a PHRASE
+        # cannot tell a live claim from a quoted one, and the positive assertions above and below carry
+        # the meaning: if every vendored filename is named and the licence is stated, the section
+        # describes the tree. That is the fact; the wording is not the project's to freeze.
+    assert "TMF641" in text, "the absent document's status is the part a reader will ask about"
     # The open licensing question must not quietly disappear into a claim of compliance.
     assert "has **not** been verified" in text
 

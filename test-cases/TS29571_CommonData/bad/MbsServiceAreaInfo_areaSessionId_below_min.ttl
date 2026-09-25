@@ -13,25 +13,25 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceAreaInfo/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceArea/> .
 @prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NcgiTai/> .
-@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceArea/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceAreaInfo/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:MbsServiceAreaInfo ;
-    ns1:areaSessionId -1 ;
-    ns1:mbsServiceArea [ a TS29571_CommonData:MbsServiceArea ;
-            ns5:intendedServAreaList "test-value"^^xsd:string ;
-            ns5:ncgiList [ a TS29571_CommonData:NcgiTai ;
+    ns5:areaSessionId -1 ;
+    ns5:mbsServiceArea [ a TS29571_CommonData:MbsServiceArea ;
+            ns3:intendedServAreaList "test-value"^^xsd:string ;
+            ns3:ncgiList [ a TS29571_CommonData:NcgiTai ;
                     ns4:tai [ a TS29571_CommonData:Tai ;
-                            ns2:nid "AFaf09AFaf0"^^xsd:string ;
-                            ns2:tac "aaaa"^^xsd:string ] ] ;
-            ns5:taiList [ a TS29571_CommonData:Tai ;
-                    ns2:nid "AFaf09AFaf0"^^xsd:string ;
-                    ns2:plmnId [ a TS29571_CommonData:PlmnId ;
-                            ns3:mcc "aaaa"^^xsd:string ;
-                            ns3:mnc "aaaa"^^xsd:string ] ;
-                    ns2:tac "aaaa"^^xsd:string ] ] .
+                            ns1:nid "AFaf09AFaf0"^^xsd:string ;
+                            ns1:tac "aaaa"^^xsd:string ] ] ;
+            ns3:taiList [ a TS29571_CommonData:Tai ;
+                    ns1:nid "AFaf09AFaf0"^^xsd:string ;
+                    ns1:plmnId [ a TS29571_CommonData:PlmnId ;
+                            ns2:mcc "aaaa"^^xsd:string ;
+                            ns2:mnc "aaaa"^^xsd:string ] ;
+                    ns1:tac "aaaa"^^xsd:string ] ] .
 

@@ -13,39 +13,39 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/QmcConfigInfo/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Snssai/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
 @prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/QmcAreaScope/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Snssai/> .
-@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
-@prefix ns6: <https://semantics.ericsson.com/openapi/TS29571_CommonData/QoeTarget/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/QoeTarget/> .
+@prefix ns6: <https://semantics.ericsson.com/openapi/TS29571_CommonData/QmcConfigInfo/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:QmcConfigInfo ;
-    ns2:areaScope [ a TS29571_CommonData:QmcAreaScope ;
+    ns6:areaScope [ a TS29571_CommonData:QmcAreaScope ;
             ns3:nrCellIdList "AFaf09AFa"^^xsd:string ;
             ns3:plmnList [ a TS29571_CommonData:PlmnId ;
-                    ns1:mcc "aaaa"^^xsd:string ;
-                    ns1:mnc "aaaa"^^xsd:string ] ;
+                    ns4:mcc "aaaa"^^xsd:string ;
+                    ns4:mnc "aaaa"^^xsd:string ] ;
             ns3:tacList "aaaa"^^xsd:string ;
             ns3:taiList [ a TS29571_CommonData:Tai ;
-                    ns5:nid "AFaf09AFaf0"^^xsd:string ;
-                    ns5:plmnId [ a TS29571_CommonData:PlmnId ;
-                            ns1:mcc "aaaa"^^xsd:string ;
-                            ns1:mnc "aaaa"^^xsd:string ] ;
-                    ns5:tac "aaaa"^^xsd:string ] ] ;
-    ns2:availableRanVisibleQoeMetrics "APPLICATION_LAYER_BUFFER_LEVEL_LIST"^^xsd:string ;
-    ns2:containerForAppLayerMeasConfig "test-value"^^xsd:string ;
-    ns2:mbsCommunicationServiceType "MULTICAST"^^xsd:string ;
-    ns2:qoeCollectionEntityAddress [ a TS29571_CommonData:IpAddr ;
+                    ns2:nid "AFaf09AFaf0"^^xsd:string ;
+                    ns2:plmnId [ a TS29571_CommonData:PlmnId ;
+                            ns4:mcc "aaaa"^^xsd:string ;
+                            ns4:mnc "aaaa"^^xsd:string ] ;
+                    ns2:tac "aaaa"^^xsd:string ] ] ;
+    ns6:availableRanVisibleQoeMetrics "APPLICATION_LAYER_BUFFER_LEVEL_LIST"^^xsd:string ;
+    ns6:containerForAppLayerMeasConfig "test-value"^^xsd:string ;
+    ns6:mbsCommunicationServiceType "MULTICAST"^^xsd:string ;
+    ns6:qoeCollectionEntityAddress [ a TS29571_CommonData:IpAddr ;
             TS29571_CommonData:ipv4Addr "aaaa"^^xsd:string ;
             TS29571_CommonData:ipv6Addr "test-value"^^xsd:string ;
             TS29571_CommonData:ipv6Prefix "test-value"^^xsd:string ] ;
-    ns2:qoeTarget [ a TS29571_CommonData:QoeTarget ;
-            ns6:imsi "09090"^^xsd:string ;
-            ns6:supi "aaaa"^^xsd:string ] ;
-    ns2:serviceType "DASH"^^xsd:string ;
-    ns2:sliceScope [ a TS29571_CommonData:Snssai ;
-            ns4:sd "AFaf09"^^xsd:string ;
-            ns4:sst 127 ] .
+    ns6:qoeTarget [ a TS29571_CommonData:QoeTarget ;
+            ns5:imsi "09090"^^xsd:string ;
+            ns5:supi "aaaa"^^xsd:string ] ;
+    ns6:serviceType "DASH"^^xsd:string ;
+    ns6:sliceScope [ a TS29571_CommonData:Snssai ;
+            ns1:sd "AFaf09"^^xsd:string ;
+            ns1:sst 127 ] .
 

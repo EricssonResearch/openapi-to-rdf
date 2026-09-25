@@ -20,11 +20,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "notifyHeartbeat"^^xsd:string ) ;
-    sh:targetClass TS28532_HeartbeatNtf:HeartbeatNotificationTypes .
-
-[] a sh:NodeShape ;
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
@@ -36,4 +31,9 @@
             sh:maxCount 1 ;
             sh:path TS28532_HeartbeatNtf_NotifyHeartbeat:heartbeatNtfPeriod ] ;
     sh:targetClass TS28532_HeartbeatNtf:NotifyHeartbeat .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "notifyHeartbeat"^^xsd:string ) ;
+    sh:targetClass TS28532_HeartbeatNtf:HeartbeatNotificationTypes .
 

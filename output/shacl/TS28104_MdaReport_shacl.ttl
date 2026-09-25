@@ -42,6 +42,67 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:trendIndication ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:ManagementDataCollectionInfo ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:managementDataCollectionRecommendations ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:RecommendedAction ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:recommendedActions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:statisticsInfoList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RAN_ISSUE"^^xsd:string "CN_ISSUE"^^xsd:string "UNKNOWN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:issueDomain ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:potentialFailureType ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:potentialFailureCause ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "INTERMEDIATE"^^xsd:string "CLEARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:perceivedSeverity ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:failurePredictionObject ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:issueID ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:eventTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_FailurePredictionOutput:predictedFailureEndTime ] ;
+    sh:targetClass TS28104_MdaReport:FailurePredictionOutput .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:ProjectionDuration ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_PagingOptimizationAnalysisOutput:oOCDuration ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:GeoCoordinate ;
+            sh:minCount 1 ;
+            sh:path TS28104_MdaReport_PagingOptimizationAnalysisOutput:oOCLocation ],
+        [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:minCount 1 ;
             sh:path TS28104_MdaReport_PagingOptimizationAnalysisOutput:oOCMap ;
@@ -51,173 +112,8 @@
                                 sh:path TS28104_MdaReport:geoPolygon ] ] [ a sh:NodeShape ;
                         sh:property [ a sh:PropertyShape ;
                                 sh:class TS28623_ComDefs:GeoCircle ;
-                                sh:path TS28104_MdaReport:geoCircle ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:ProjectionDuration ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_PagingOptimizationAnalysisOutput:oOCDuration ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:GeoCoordinate ;
-            sh:minCount 1 ;
-            sh:path TS28104_MdaReport_PagingOptimizationAnalysisOutput:oOCLocation ] ;
+                                sh:path TS28104_MdaReport:geoCircle ] ] ) ] ;
     sh:targetClass TS28104_MdaReport:PagingOptimizationAnalysisOutput .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MEASUREMENT"^^xsd:string "KPI"^^xsd:string "TRACE_MDT"^^xsd:string "QOE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:managementDataType ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:targetEntities ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:managementData ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:string ;
-                        sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] ) ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:collectionDuration ] ;
-    sh:targetClass TS28104_MdaReport:ManagementDataCollectionInfo .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:RecommendedAction ;
-            sh:path TS28104_MdaReport_PMDataOutput:thresholdAdjustmentRecommendations ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:PmPrediction ;
-            sh:minCount 1 ;
-            sh:path TS28104_MdaReport_PMDataOutput:pmPredictions ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:ThresholdAssessment ;
-            sh:path TS28104_MdaReport_PMDataOutput:thresholdAssessment ] ;
-    sh:targetClass TS28104_MdaReport:PMDataOutput .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "It indicates list of performance metrics with threshold configuration issue. Performance metrics include measurements defined in TS 28.552 and KPIs defined in TS 28.554. For non-3GPP specified measurements the name is defined elsewhere." ;
-            sh:datatype xsd:string ;
-            sh:path TS28104_MdaReport_ThresholdAssessment:performanceMetrics ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ThresholdAssessment:confidenceScore ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ThresholdAssessment:timeWindow ] ;
-    sh:targetClass TS28104_MdaReport:ThresholdAssessment .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:RecommendedAction ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:recommendedActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "WEAK_COVERAGE"^^xsd:string "COVERAGE_HOLE"^^xsd:string "PILOT_POLLUTION"^^xsd:string "OVERSHOOT_COVERAGE"^^xsd:string "DL_ULCHANNEL_COVERAGE_MISMATCH"^^xsd:string "Other"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:coverageProblemType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:coverageProblemId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:RadioEnvironmentMap ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:radioEnvironmentMap ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:cellConfigurations ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:coverageProblemAreas ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:GeoCoordinate ;
-                                sh:path TS28104_MdaReport:geoPolygon ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:GeoCircle ;
-                                sh:path TS28104_MdaReport:geoCircle ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:problematicCells ] ;
-    sh:targetClass TS28104_MdaReport:CoverageProblemAnalysisOutput .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SLIGHT_CONGESTION"^^xsd:string "MODERATE_CONGESTION"^^xsd:string "SEVERE_CONGESTION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:severityLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:RecommendedAction ;
-            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:recommendedActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:trafficCongestionId ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:trafficCongestionAreas ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:GeoCoordinate ;
-                                sh:path TS28104_MdaReport:geoPolygon ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:GeoCircle ;
-                                sh:path TS28104_MdaReport:geoCircle ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NON_REGULAR_TRAFFIC_CONGESTION"^^xsd:string "REGULAR_TRAFFIC_CONGESTION"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:trafficCongestionType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:timeDuration ] ;
-    sh:targetClass TS28104_MdaReport:TrafficCongestionProblemAnalysisOutput .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaReport:mDARequestRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28104_MdaReport:MDAOutputs ;
-                                    sh:path TS28104_MdaReport:mDAOutputs ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaReport:mDAReportID ] ] ;
-                    sh:path TS28104_MdaReport:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:class TS28104_MdaReport:MDAOutputs ;
-                            sh:path TS28104_MdaReport:mDAOutputs ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaReport:mDARequestRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaReport:mDAReportID ] ] ;
-            sh:path TS28104_MdaReport_MDAReport:attributes ] ;
-    sh:targetClass TS28104_MdaReport:MDAReport .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -227,61 +123,34 @@
             sh:path TS28104_MdaReport_Recommended3GPPAction:op ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28104_MdaReport_Recommended3GPPAction:additionalText ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28104_MdaReport_Recommended3GPPAction:value ],
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_Recommended3GPPAction:mOInstance ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaReport_Recommended3GPPAction:path ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_Recommended3GPPAction:mOInstance ] ;
+            sh:path TS28104_MdaReport_Recommended3GPPAction:additionalText ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28104_MdaReport_Recommended3GPPAction:value ] ;
     sh:targetClass TS28104_MdaReport:Recommended3GPPAction .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:RecommendedAction ;
-            sh:path TS28104_MdaReport_NFScalingDimensioningDataAnalysisOutput:recommendedActions ] ;
-    sh:targetClass TS28104_MdaReport:NFScalingDimensioningDataAnalysisOutput .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_ThresholdAssessment:confidenceScore ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates list of performance metrics with threshold configuration issue. Performance metrics include measurements defined in TS 28.552 and KPIs defined in TS 28.554. For non-3GPP specified measurements the name is defined elsewhere." ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName ],
+            sh:path TS28104_MdaReport_ThresholdAssessment:performanceMetrics ],
         [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue ] ;
-    sh:targetClass TS28104_MdaReport:MDAOutputEntry .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28104_MdaReport_MeasurementDataCorrelationRecommendation:recommendedMeasurementDataToCollect ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28104_MdaReport_MeasurementDataCorrelationRecommendation:recommendedMeasurementDataNotToCollect ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100 ;
-            sh:minInclusive 0 ;
-            sh:path TS28104_MdaReport_MeasurementDataCorrelationRecommendation:modelPerformanceImpact ] ;
-    sh:targetClass TS28104_MdaReport:MeasurementDataCorrelationRecommendation .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ProjectionDuration:fromTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_ProjectionDuration:toTime ] ;
-    sh:targetClass TS28104_MdaReport:ProjectionDuration .
+            sh:path TS28104_MdaReport_ThresholdAssessment:timeWindow ] ;
+    sh:targetClass TS28104_MdaReport:ThresholdAssessment .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -296,91 +165,207 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:MeasurementDataCorrelationRecommendation ;
-            sh:path TS28104_MdaReport_TrainingDataAnalysisOutput:measurementDataCorrelationRecommendation ] ;
-    sh:targetClass TS28104_MdaReport:TrainingDataAnalysisOutput .
+            sh:class TS28104_MdaReport:CoverageCharacterization ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_RadioEnvironmentMap:coverageCharacterization ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_RadioEnvironmentMap:geoCoordinate ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCoordinate ;
+                                sh:path TS28104_MdaReport:geoPolygon ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCircle ;
+                                sh:path TS28104_MdaReport:geoCircle ] ] ) ] ;
+    sh:targetClass TS28104_MdaReport:RadioEnvironmentMap .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
+            sh:datatype xsd:string ;
+            sh:path TS28104_MdaReport_MeasurementDataCorrelationRecommendation:recommendedMeasurementDataNotToCollect ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:predictedFailureEndTime ],
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28104_MdaReport_MeasurementDataCorrelationRecommendation:modelPerformanceImpact ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:issueID ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:ManagementDataCollectionInfo ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:managementDataCollectionRecommendations ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:eventTime ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:potentialFailureCause ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:string ] ) ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:RecommendedAction ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:recommendedActions ],
-        [ a sh:PropertyShape ;
+            sh:path TS28104_MdaReport_MeasurementDataCorrelationRecommendation:recommendedMeasurementDataToCollect ] ;
+    sh:targetClass TS28104_MdaReport:MeasurementDataCorrelationRecommendation .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "MORE_SEVERE"^^xsd:string "NO_CHANGE"^^xsd:string "LESS_SEVERE"^^xsd:string ) ;
+            sh:in ( "MEASUREMENT"^^xsd:string "KPI"^^xsd:string "TRACE_MDT"^^xsd:string "QOE"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:trendIndication ],
+            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:managementDataType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:collectionDuration ],
         [ a sh:PropertyShape ;
             rdfs:comment "This datatype is used for writable attribute" ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:failurePredictionObject ],
+            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:targetEntities ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CRITICAL"^^xsd:string "MAJOR"^^xsd:string "MINOR"^^xsd:string "WARNING"^^xsd:string "INTERMEDIATE"^^xsd:string "CLEARED"^^xsd:string ) ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:perceivedSeverity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "RAN_ISSUE"^^xsd:string "CN_ISSUE"^^xsd:string "UNKNOWN"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:issueDomain ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:potentialFailureType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28104_MdaReport_FailurePredictionOutput:statisticsInfoList ] ;
-    sh:targetClass TS28104_MdaReport:FailurePredictionOutput .
+            sh:path TS28104_MdaReport_ManagementDataCollectionInfo:managementData ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] ) ] ;
+    sh:targetClass TS28104_MdaReport:ManagementDataCollectionInfo .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindowRo ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:analyticsWindow ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:confidenceDegree ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:mDAOutputList ;
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:coverageProblemAreas ;
             sh:xone ( [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:CoverageProblemAnalysisOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:MobilityPerformanceAnalysisOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:TrainingDataAnalysisOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:NFScalingDimensioningDataAnalysisOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:PMDataOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:FailurePredictionOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:PagingOptimizationAnalysisOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:TrafficCongestionProblemAnalysisOutput ] [ a sh:NodeShape ;
-                        sh:class TS28104_MdaReport:MDAOutputEntry ] ) ],
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCoordinate ;
+                                sh:path TS28104_MdaReport:geoPolygon ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCircle ;
+                                sh:path TS28104_MdaReport:geoCircle ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:RecommendedAction ;
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:recommendedActions ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:mDAType ] ;
-    sh:targetClass TS28104_MdaReport:MDAOutputs .
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:coverageProblemId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:problematicCells ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:cellConfigurations ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "WEAK_COVERAGE"^^xsd:string "COVERAGE_HOLE"^^xsd:string "PILOT_POLLUTION"^^xsd:string "OVERSHOOT_COVERAGE"^^xsd:string "DL_ULCHANNEL_COVERAGE_MISMATCH"^^xsd:string "Other"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:coverageProblemType ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:RadioEnvironmentMap ;
+            sh:path TS28104_MdaReport_CoverageProblemAnalysisOutput:radioEnvironmentMap ] ;
+    sh:targetClass TS28104_MdaReport:CoverageProblemAnalysisOutput .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:RecommendedAction ;
+            sh:path TS28104_MdaReport_NFScalingDimensioningDataAnalysisOutput:recommendedActions ] ;
+    sh:targetClass TS28104_MdaReport:NFScalingDimensioningDataAnalysisOutput .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_ProjectionDuration:toTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_ProjectionDuration:fromTime ] ;
+    sh:targetClass TS28104_MdaReport:ProjectionDuration .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:RecommendedAction ;
+            sh:path TS28104_MdaReport_PMDataOutput:thresholdAdjustmentRecommendations ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:ThresholdAssessment ;
+            sh:path TS28104_MdaReport_PMDataOutput:thresholdAssessment ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:PmPrediction ;
+            sh:minCount 1 ;
+            sh:path TS28104_MdaReport_PMDataOutput:pmPredictions ] ;
+    sh:targetClass TS28104_MdaReport:PMDataOutput .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue ] ;
+    sh:targetClass TS28104_MdaReport:MDAOutputEntry .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaReport:mDAReportID ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaReport:mDARequestRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28104_MdaReport:MDAOutputs ;
+                                    sh:path TS28104_MdaReport:mDAOutputs ] ] ;
+                    sh:path TS28104_MdaReport:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaReport:mDAReportID ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28104_MdaReport:MDAOutputs ;
+                            sh:path TS28104_MdaReport:mDAOutputs ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaReport:mDARequestRef ] ] ;
+            sh:path TS28104_MdaReport_MDAReport:attributes ] ;
+    sh:targetClass TS28104_MdaReport:MDAReport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:ThresholdAssessment ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_PmPrediction:thresholdAssessment ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_PmPrediction:pmName ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_PmPrediction:pmPredictedValue ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:float ] ) ] ;
+    sh:targetClass TS28104_MdaReport:PmPrediction .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28104_MdaReport_RecommendedAction:recommendedNon3GPPActions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_RecommendedAction:actionInterval ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:Recommended3GPPAction ;
+            sh:path TS28104_MdaReport_RecommendedAction:recommended3GPPActions ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:path TS28104_MdaReport_RecommendedAction:timeWindow ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28104_MdaReport_RecommendedAction:recommendedHumanReadableActions ] ;
+    sh:targetClass TS28104_MdaReport:RecommendedAction .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -407,26 +392,59 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:ThresholdAssessment ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_PmPrediction:thresholdAssessment ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_PmPrediction:pmName ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_PmPrediction:pmPredictedValue ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:float ] ) ] ;
-    sh:targetClass TS28104_MdaReport:PmPrediction .
+            sh:class TS28104_MdaReport:MeasurementDataCorrelationRecommendation ;
+            sh:path TS28104_MdaReport_TrainingDataAnalysisOutput:measurementDataCorrelationRecommendation ] ;
+    sh:targetClass TS28104_MdaReport:TrainingDataAnalysisOutput .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindowRo ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputs:analyticsWindow ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputs:mDAOutputList ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:CoverageProblemAnalysisOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:MobilityPerformanceAnalysisOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:TrainingDataAnalysisOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:NFScalingDimensioningDataAnalysisOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:PMDataOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:FailurePredictionOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:PagingOptimizationAnalysisOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:TrafficCongestionProblemAnalysisOutput ] [ a sh:NodeShape ;
+                        sh:class TS28104_MdaReport:MDAOutputEntry ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputs:confidenceDegree ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputs:mDAType ] ;
+    sh:targetClass TS28104_MdaReport:MDAOutputs .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:timeDuration ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:trafficCongestionId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:RecommendedAction ;
+            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:recommendedActions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NON_REGULAR_TRAFFIC_CONGESTION"^^xsd:string "REGULAR_TRAFFIC_CONGESTION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:trafficCongestionType ],
+        [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_RadioEnvironmentMap:geoCoordinate ;
+            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:trafficCongestionAreas ;
             sh:xone ( [ a sh:NodeShape ;
                         sh:property [ a sh:PropertyShape ;
                                 sh:class TS28623_ComDefs:GeoCoordinate ;
@@ -435,27 +453,9 @@
                                 sh:class TS28623_ComDefs:GeoCircle ;
                                 sh:path TS28104_MdaReport:geoCircle ] ] ) ],
         [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:CoverageCharacterization ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_RadioEnvironmentMap:coverageCharacterization ] ;
-    sh:targetClass TS28104_MdaReport:RadioEnvironmentMap .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:path TS28104_MdaReport_RecommendedAction:recommendedNon3GPPActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28104_MdaReport_RecommendedAction:recommendedHumanReadableActions ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:in ( "SLIGHT_CONGESTION"^^xsd:string "MODERATE_CONGESTION"^^xsd:string "SEVERE_CONGESTION"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_RecommendedAction:actionInterval ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:TimeWindow ;
-            sh:path TS28104_MdaReport_RecommendedAction:timeWindow ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:Recommended3GPPAction ;
-            sh:path TS28104_MdaReport_RecommendedAction:recommended3GPPActions ] ;
-    sh:targetClass TS28104_MdaReport:RecommendedAction .
+            sh:path TS28104_MdaReport_TrafficCongestionProblemAnalysisOutput:severityLevel ] ;
+    sh:targetClass TS28104_MdaReport:TrafficCongestionProblemAnalysisOutput .
 

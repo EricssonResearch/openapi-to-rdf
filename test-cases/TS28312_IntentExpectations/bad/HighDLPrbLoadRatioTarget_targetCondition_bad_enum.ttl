@@ -13,16 +13,16 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS28312_IntentExpectations: <https://semantics.ericsson.com/openapi/TS28312_IntentExpectations/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS28312_IntentExpectations/HighDLPrbLoadRatioTarget/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS28312_IntentExpectations/HighDLPrbLoadContext/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS28312_IntentExpectations/HighDLPrbLoadContext/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS28312_IntentExpectations/HighDLPrbLoadRatioTarget/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS28312_IntentExpectations:test_instance a TS28312_IntentExpectations:HighDLPrbLoadRatioTarget ;
-    ns1:targetCondition "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
-    ns1:targetContexts [ a TS28312_IntentExpectations:HighDLPrbLoadContext ;
-            ns2:contextAttribute "HighDLPrbLoadThreshold"^^xsd:string ;
-            ns2:contextCondition "IS_LESS_THAN"^^xsd:string ;
-            ns2:contextValueRange 50 ] ;
-    ns1:targetName "HighDLPrbLoadRatio"^^xsd:string ;
-    ns1:targetValueRange 50 .
+    ns2:targetCondition "NOT_A_VALID_ENUM_VALUE"^^xsd:string ;
+    ns2:targetContexts [ a TS28312_IntentExpectations:HighDLPrbLoadContext ;
+            ns1:contextAttribute "HighDLPrbLoadThreshold"^^xsd:string ;
+            ns1:contextCondition "IS_LESS_THAN"^^xsd:string ;
+            ns1:contextValueRange 50 ] ;
+    ns2:targetName "HighDLPrbLoadRatio"^^xsd:string ;
+    ns2:targetValueRange 50 .
 

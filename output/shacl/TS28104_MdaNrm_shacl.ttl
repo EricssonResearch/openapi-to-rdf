@@ -28,54 +28,38 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:class TS28104_MdaNrm:MDAFunction-Single ;
-    sh:targetClass TS28104_MdaNrm:MDAFunction-Multiple .
-
-[] a sh:NodeShape ;
     sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
     sh:targetClass TS28104_MdaNrm:MDAOutputs .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAFunction-Single ;
-            sh:path TS28104_MdaNrm_SubNetwork-ncO-MdaNrm:MDAFunction ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAReport-Single ;
-            sh:path TS28104_MdaNrm_SubNetwork-ncO-MdaNrm:MDAReport ] ;
-    sh:targetClass TS28104_MdaNrm:SubNetwork-ncO-MdaNrm .
+    sh:class TS28104_MdaNrm:MDAFunction-Single ;
+    sh:targetClass TS28104_MdaNrm:MDAFunction-Multiple .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:filterValue ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:ThresholdInfo ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:threshold ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:timeOut ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:analyticsPeriod ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:TimeWindow ;
-                                sh:path TS28104_MdaNrm:timeDurations ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:integer ;
-                                sh:path TS28104_MdaNrm:granularityPeriod ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:mDAOutputIEName ] ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputIEFilter .
+    sh:datatype xsd:string ;
+    sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
+    sh:targetClass TS28104_MdaNrm:MDAType .
 
 [] a sh:NodeShape ;
     sh:class TS28104_MdaNrm:MDARequest-Single ;
     sh:targetClass TS28104_MdaNrm:MDARequest-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAOutputIEFilter ;
+            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAOutputIEFilters ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAType ] ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputPerMDAType .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAFunction-Single ;
+            sh:path TS28104_MdaNrm_ManagedElement-ncO-MdaNrm:MDAFunction ] ;
+    sh:targetClass TS28104_MdaNrm:ManagedElement-ncO-MdaNrm .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -88,22 +72,55 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAType ],
+            sh:class TS28104_MdaNrm:MDAFunction-Single ;
+            sh:path TS28104_MdaNrm_SubNetwork-ncO-MdaNrm:MDAFunction ],
         [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAOutputIEFilter ;
-            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAOutputIEFilters ] ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputPerMDAType .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
-    sh:targetClass TS28104_MdaNrm:MDAType .
+            sh:class TS28104_MdaNrm:MDAReport-Single ;
+            sh:path TS28104_MdaNrm_SubNetwork-ncO-MdaNrm:MDAReport ] ;
+    sh:targetClass TS28104_MdaNrm:SubNetwork-ncO-MdaNrm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:timeOut ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:mDAOutputIEName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:filterValue ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:analyticsPeriod ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:TimeWindow ;
+                                sh:path TS28104_MdaNrm:timeDurations ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:datatype xsd:integer ;
+                                sh:path TS28104_MdaNrm:granularityPeriod ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:ThresholdInfo ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:threshold ] ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputIEFilter .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
+    sh:targetClass TS28104_MdaNrm:ReportingMethod .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_ThresholdInfo:thresholdValue ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                        sh:datatype xsd:float ] ) ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm_ThresholdInfo:monitoredMDAOutputIE ],
@@ -112,12 +129,6 @@
             sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string "UP_AND_DOWN"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm_ThresholdInfo:thresholdDirection ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_ThresholdInfo:thresholdValue ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                        sh:datatype xsd:float ] ) ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm_ThresholdInfo:hysteresis ;
@@ -129,27 +140,9 @@
     sh:targetClass TS28104_MdaNrm:ThresholdInfo .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
-    sh:targetClass TS28104_MdaNrm:ReportingMethod .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAFunction-Single ;
-            sh:path TS28104_MdaNrm_ManagedElement-ncO-MdaNrm:MDAFunction ] ;
-    sh:targetClass TS28104_MdaNrm:ManagedElement-ncO-MdaNrm .
-
-[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:ManagedFunction-ncO,
         TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28104_MdaNrm:MDAReport-Single ;
-                    sh:path TS28104_MdaNrm:MDAReport ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28104_MdaNrm:MDARequest-Single ;
-                    sh:path TS28104_MdaNrm:MDARequest ] ],
-        [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
                     sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
                     sh:maxCount 1 ;
@@ -157,19 +150,26 @@
                             sh:property [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for readOnly attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:mLModelRefList ],
+                                    sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for readOnly attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ],
+                                    sh:path TS28104_MdaNrm:mLModelRefList ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
                                     sh:path TS28104_MdaNrm:supportedMDACapabilities ] ] ;
-                    sh:path TS28104_MdaNrm:attributes ] ] ;
+                    sh:path TS28104_MdaNrm:attributes ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28104_MdaNrm:MDAReport-Single ;
+                    sh:path TS28104_MdaNrm:MDAReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28104_MdaNrm:MDARequest-Single ;
+                    sh:path TS28104_MdaNrm:MDARequest ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAReport-Single ;
-            sh:path TS28104_MdaNrm_MDAFunction-Single:MDAReport ],
+            sh:class TS28104_MdaNrm:MDARequest-Single ;
+            sh:path TS28104_MdaNrm_MDAFunction-Single:MDARequest ],
         [ a sh:PropertyShape ;
             sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
             sh:maxCount 1 ;
@@ -179,17 +179,17 @@
                             sh:maxCount 1 ;
                             sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ],
                         [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:mLModelRefList ],
-                        [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:in ( "COVERAGE_ANALYTICS_COVERAGE_PROBLEM_ANALYSIS"^^xsd:string "COVERAGE_ANALYTICS_PAGING_OPTIMIZATION"^^xsd:string "SLS_ANALYSIS_SERVICE_EXPERIENCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_THROUGHPUT_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_TRAFFIC_ANALYSIS"^^xsd:string "SLS_ANALYSIS_E2E_LATENCY_ANALYSIS"^^xsd:string "SLS_ANALYSIS_NETWORK_SLICE_LOAD_ANALYSIS"^^xsd:string "UE_THROUGHPUT_ANALYSIS_TRAFFIC_CONGESTION_PROBLEM_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_APPLICATION_DEPLOYMENT_LOCATION_ANALYSIS"^^xsd:string "SLS_ANALYSIS_EDGE_COMPUTING_PERFORMANCE_ANALYSIS"^^xsd:string "SLS_ANALYSIS_TRAFFIC_CONGESTION_PREDICTION_ANALYSIS"^^xsd:string "MDA_ASSISTED_FAULT_MANAGEMENT_FAILURE_PREDICTION"^^xsd:string "MDA_ASSISTED_ENERGY_SAVING_ENERGY_SAVING_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_MOBILITY_PERFORMANCE_ANALYSIS"^^xsd:string "MOBILITY_MANAGEMENT_ANALYTICS_HANDOVER_OPTIMIZATION"^^xsd:string "MAINTENANCE_MAINTENANCE_ANALYTICS"^^xsd:string "MAINTENANCE_SOFTWARE_UPGRADE_VALIDATION_ANALYTICS"^^xsd:string "RESOURCE_ANALYTICS_VIRTUALIZED_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_PHYSICAL_RESOURCE_UTILIZATION_ANALYSIS_NF"^^xsd:string "RESOURCE_ANALYTICS_5GC_CONTROL_PLANE_CONGESTION_ANALYSIS"^^xsd:string "PREDICTIONS_PM_DATA"^^xsd:string "ATSSS_PERFORMANCE_TRAFFIC_STEERING_ANALYTICS"^^xsd:string "CORRELATION_ANALYTICS_TRAINING_DATA_ANALYSIS"^^xsd:string "CORRELATION_ANALYTICS_NF_SCALING_DIMENSIONING_DATA_ANALYSIS"^^xsd:string ) ;
-                            sh:path TS28104_MdaNrm:supportedMDACapabilities ] ] ;
+                            sh:path TS28104_MdaNrm:supportedMDACapabilities ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:mLModelRefList ] ] ;
             sh:path TS28104_MdaNrm_MDAFunction-Single:attributes ],
         [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDARequest-Single ;
-            sh:path TS28104_MdaNrm_MDAFunction-Single:MDARequest ] ;
+            sh:class TS28104_MdaNrm:MDAReport-Single ;
+            sh:path TS28104_MdaNrm_MDAFunction-Single:MDAReport ] ;
     sh:targetClass TS28104_MdaNrm:MDAFunction-Single .
 
 [] a sh:NodeShape ;
@@ -199,44 +199,6 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:dateTime ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:startTime ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:analyticsScope ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        rdfs:comment "This datatype is used for writable attribute" ;
-                                                        sh:path TS28104_MdaNrm:managedEntitiesScope ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                                        sh:path TS28104_MdaNrm:areaScope ;
-                                                        sh:xone ( [ a sh:NodeShape ;
-                                                                    sh:property [ a sh:PropertyShape ;
-                                                                            sh:class TS28623_ComDefs:GeoCoordinate ;
-                                                                            sh:path TS28104_MdaNrm:geoPolygon ] ] [ a sh:NodeShape ;
-                                                                    sh:property [ a sh:PropertyShape ;
-                                                                            sh:class TS28623_ComDefs:GeoCircle ;
-                                                                            sh:path TS28104_MdaNrm:geoCircle ] ] ) ] ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
-                                    sh:path TS28104_MdaNrm:requestedMDAOutputs ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:reportingMethod ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:dateTime ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:stopTime ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:thresholdMonitorRefList ],
-                                [ a sh:PropertyShape ;
                                     sh:class TS28104_MdaNrm:ReportingTarget ;
                                     sh:maxCount 1 ;
                                     sh:path TS28104_MdaNrm:reportingTarget ],
@@ -259,19 +221,66 @@
                                                                             sh:class TS28623_ComDefs:GeoCircle ;
                                                                             sh:path TS28104_MdaNrm:geoCircle ] ] ) ] ] ) ],
                                 [ a sh:PropertyShape ;
+                                    sh:datatype xsd:dateTime ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:stopTime ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:dateTime ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:startTime ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
+                                    sh:path TS28104_MdaNrm:requestedMDAOutputs ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:reportingMethod ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:thresholdMonitorRefList ],
+                                [ a sh:PropertyShape ;
                                     sh:class TS28104_MdaNrm:ThresholdInfo ;
-                                    sh:path TS28104_MdaNrm:performanceThresholdInfo ] ] ;
+                                    sh:path TS28104_MdaNrm:performanceThresholdInfo ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:analyticsScope ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        rdfs:comment "This datatype is used for writable attribute" ;
+                                                        sh:path TS28104_MdaNrm:managedEntitiesScope ] ] [ a sh:NodeShape ;
+                                                sh:property [ a sh:PropertyShape ;
+                                                        rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                                        sh:path TS28104_MdaNrm:areaScope ;
+                                                        sh:xone ( [ a sh:NodeShape ;
+                                                                    sh:property [ a sh:PropertyShape ;
+                                                                            sh:class TS28623_ComDefs:GeoCoordinate ;
+                                                                            sh:path TS28104_MdaNrm:geoPolygon ] ] [ a sh:NodeShape ;
+                                                                    sh:property [ a sh:PropertyShape ;
+                                                                            sh:class TS28623_ComDefs:GeoCircle ;
+                                                                            sh:path TS28104_MdaNrm:geoCircle ] ] ) ] ] ) ] ] ;
                     sh:path TS28104_MdaNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:datatype xsd:dateTime ;
                             sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:thresholdMonitorRefList ],
+                            sh:path TS28104_MdaNrm:stopTime ],
                         [ a sh:PropertyShape ;
-                            sh:class TS28104_MdaNrm:ThresholdInfo ;
-                            sh:path TS28104_MdaNrm:performanceThresholdInfo ],
+                            sh:datatype xsd:string ;
+                            sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:reportingMethod ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
+                            sh:path TS28104_MdaNrm:requestedMDAOutputs ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28104_MdaNrm:ReportingTarget ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:reportingTarget ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
@@ -293,10 +302,11 @@
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:dateTime ;
                             sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:stopTime ],
+                            sh:path TS28104_MdaNrm:startTime ],
                         [ a sh:PropertyShape ;
-                            sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
-                            sh:path TS28104_MdaNrm:requestedMDAOutputs ],
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:thresholdMonitorRefList ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
@@ -316,18 +326,8 @@
                                                                     sh:class TS28623_ComDefs:GeoCircle ;
                                                                     sh:path TS28104_MdaNrm:geoCircle ] ] ) ] ] ) ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:dateTime ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:startTime ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28104_MdaNrm:ReportingTarget ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:reportingTarget ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:reportingMethod ] ] ;
+                            sh:class TS28104_MdaNrm:ThresholdInfo ;
+                            sh:path TS28104_MdaNrm:performanceThresholdInfo ] ] ;
             sh:path TS28104_MdaNrm_MDARequest-Single:attributes ] ;
     sh:targetClass TS28104_MdaNrm:MDARequest-Single .
 

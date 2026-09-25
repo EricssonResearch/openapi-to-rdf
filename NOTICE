@@ -4,7 +4,10 @@
 
 ### 3GPP SA5 MnS OpenAPI definitions — `assets/MnS-Rel-19-OpenAPI/`
 
-39 files, downloaded from <https://forge.3gpp.org/rep/sa5/MnS/> and redistributed unmodified.
+45 files (44 documents plus the corpus README), **fetched** from
+<https://forge.3gpp.org/rep/sa5/MnS/> at tag `Tag_Rel19_SA112` by `scripts/fetch_corpus.py` and
+digest-verified against `assets/corpus-manifest.json`. They are NOT redistributed here: the
+directory is git-ignored, and only the manifest is tracked.
 
     (c) 2023, 3GPP Organizational Partners
     (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
@@ -22,10 +25,23 @@ Every generated file repeats that in a header, so the statement travels with the
 living only here. `tests/test_generated_file_provenance.py` is what keeps the headers from going
 missing.
 
-### TM Forum Open API v5
+### TM Forum Open API v5 — `assets/tmforum/`
 
-**Not redistributed.** The three documents this project is also tested against are located at runtime
-by `scripts/_corpora.py` and are not present in this repository. Obtain them from TM Forum directly.
+**Two of the three are redistributed, under Apache-2.0.** `TMF620-Product_Catalog_Management-v5.0.0.oas.yaml`
+and `TMF622-ProductOrdering-v5.0.0.oas.yaml`, taken from the `tmforum-apis` GitHub organisation at recorded
+upstream commits. `assets/tmforum/LICENSE` is the Apache-2.0 text as published there, and
+`assets/tmforum/PROVENANCE.md` records the commit and SHA-256 of each file.
+
+TM Forum has not produced, reviewed or endorsed anything this project derives from those documents.
+
+**TMF641 Service Ordering v5 is NOT here, and that is a finding rather than an omission.** Its origin
+could not be established: the only Service Ordering repository in the Apache-2.0 organisation holds no
+v5 document. `scripts/_corpora.py` still locates it at runtime for anyone who has a copy, and
+`assets/tmforum/PROVENANCE.md` states what was searched.
+
+This section said "**Not redistributed** ... obtain them from TM Forum directly" until 2026-09-25, which
+was true when written and false the moment the two Apache-2.0 documents were vendored. A licence
+statement that has quietly stopped matching the tree is worse than none.
 
 ## Unverified
 

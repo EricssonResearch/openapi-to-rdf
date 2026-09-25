@@ -13,24 +13,24 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceArea/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NcgiTai/> .
-@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceAreaInfo/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NcgiTai/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceAreaInfo/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceArea/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:MbsServiceAreaInfo ;
-    ns5:mbsServiceArea [ a TS29571_CommonData:MbsServiceArea ;
-            ns1:intendedServAreaList "test-value"^^xsd:string ;
-            ns1:ncgiList [ a TS29571_CommonData:NcgiTai ;
-                    ns4:tai [ a TS29571_CommonData:Tai ;
-                            ns3:nid "AFaf09AFaf0"^^xsd:string ;
-                            ns3:tac "aaaa"^^xsd:string ] ] ;
-            ns1:taiList [ a TS29571_CommonData:Tai ;
-                    ns3:nid "AFaf09AFaf0"^^xsd:string ;
-                    ns3:plmnId [ a TS29571_CommonData:PlmnId ;
-                            ns2:mcc "aaaa"^^xsd:string ;
-                            ns2:mnc "aaaa"^^xsd:string ] ;
-                    ns3:tac "aaaa"^^xsd:string ] ] .
+    ns4:mbsServiceArea [ a TS29571_CommonData:MbsServiceArea ;
+            ns5:intendedServAreaList "test-value"^^xsd:string ;
+            ns5:ncgiList [ a TS29571_CommonData:NcgiTai ;
+                    ns1:tai [ a TS29571_CommonData:Tai ;
+                            ns2:nid "AFaf09AFaf0"^^xsd:string ;
+                            ns2:tac "aaaa"^^xsd:string ] ] ;
+            ns5:taiList [ a TS29571_CommonData:Tai ;
+                    ns2:nid "AFaf09AFaf0"^^xsd:string ;
+                    ns2:plmnId [ a TS29571_CommonData:PlmnId ;
+                            ns3:mcc "aaaa"^^xsd:string ;
+                            ns3:mnc "aaaa"^^xsd:string ] ;
+                    ns2:tac "aaaa"^^xsd:string ] ] .
 
