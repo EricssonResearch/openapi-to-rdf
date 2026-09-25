@@ -11,6 +11,11 @@ import collections
 from pathlib import Path
 
 import pytest
+
+from conftest import SKIP_WITHOUT_CORPUS
+
+#: The corpus is fetched, not committed; skip with the remedy rather than failing.
+pytestmark = SKIP_WITHOUT_CORPUS
 import yaml
 from rdflib import Graph
 from rdflib.namespace import SH

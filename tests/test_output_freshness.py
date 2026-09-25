@@ -37,6 +37,9 @@ import sys
 from pathlib import Path
 
 import pytest
+
+# The regeneration needs the corpus, which is fetched rather than committed: skip with the remedy.
+from conftest import SKIP_WITHOUT_CORPUS
 from rdflib import Graph
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -147,6 +150,7 @@ def test_comparison_ignores_serialization_but_catches_semantics(tmp_path: Path) 
 
 
 @pytest.mark.slow
+@SKIP_WITHOUT_CORPUS
 def test_output_matches_fresh_regeneration(tmp_path: Path) -> None:
     """The committed output/ must match a fresh run of regenerate_output.py.
 

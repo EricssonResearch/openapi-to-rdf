@@ -67,3 +67,25 @@ def _output_dir_is_read_only(request: pytest.FixtureRequest):
             "cwd-relative 'output/', so omitting it targets the repo's deliverable tree.",
             pytrace=False,
         )
+
+# ─────────────────────────────────────────────────────────────────────────────────────────────────
+# The 3GPP corpus is FETCHED, not committed (2026-09-25). Tests that read it must SKIP WITH THE
+# REMEDY when it is absent, not fail.
+#
+# Verified by simulating a fresh clone -- moving the corpus aside and running the suite. Before this,
+# `tests/test_shape_uniqueness.py` reported 4 failures about term counts, which tells a newcomer
+# nothing about what to do. `scripts/fetch_corpus.py --check` already named the command; the tests did
+# not, and the tests are what someone runs first.
+# ─────────────────────────────────────────────────────────────────────────────────────────────────
+
+CORPUS_DIR = Path(__file__).resolve().parent.parent / "assets" / "MnS-Rel-19-OpenAPI" / "OpenAPI"
+
+#: Use as `pytestmark = SKIP_WITHOUT_CORPUS` in any module that reads the corpus.
+SKIP_WITHOUT_CORPUS = pytest.mark.skipif(
+    not CORPUS_DIR.is_dir(),
+    reason=(
+        f"the 3GPP corpus is not present at {CORPUS_DIR}. It is fetched, not redistributed: "
+        "run `uv run python scripts/fetch_corpus.py` (downloads from 3GPP Forge at the pinned tag "
+        "in assets/corpus-manifest.json and verifies every file by digest)."
+    ),
+)

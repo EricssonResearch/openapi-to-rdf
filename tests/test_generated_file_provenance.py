@@ -147,7 +147,10 @@ def test_the_tool_names_its_own_vocabulary_not_the_callers() -> None:
 
     spec = REPO / "assets" / "MnS-Rel-19-OpenAPI" / "OpenAPI" / "TS28623_ComDefs.yaml"
     if not spec.exists():
-        pytest.skip(f"{spec} absent")
+        pytest.skip(
+            f"{spec} absent; the corpus is fetched, not redistributed -- "
+            "run `uv run python scripts/fetch_corpus.py`"
+        )
 
     namespaces = []
     for prefix in ("https://acme.example/", "https://other.example/models/"):

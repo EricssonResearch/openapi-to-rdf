@@ -8,6 +8,11 @@ from __future__ import annotations
 
 import yaml
 
+from conftest import SKIP_WITHOUT_CORPUS
+
+#: The corpus is fetched, not committed; skip with the remedy rather than failing on a fresh clone.
+pytestmark = SKIP_WITHOUT_CORPUS
+
 SPEC = {
     "openapi": "3.0.0",
     "info": {"title": "MappingProbe", "version": "1.0"},
