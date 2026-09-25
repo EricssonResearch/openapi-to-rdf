@@ -42,6 +42,8 @@
 @prefix TS28623_TraceControlNrm_traceConfig-Type: <https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceConfig-Type/> .
 @prefix TS28623_TraceControlNrm_traceReference-Type: <https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceReference-Type/> .
 @prefix TS28623_TraceControlNrm_triggeringEvents-Type: <https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/triggeringEvents-Type/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -134,6 +136,13 @@ TS28623_TraceControlNrm:traceReference-Type a rdfs:Class ;
 
 TS28623_TraceControlNrm:triggeringEvents-Type a rdfs:Class ;
     rdfs:comment "Specifies when to start a Trace Recording Session and which message shall be recorded first, when to stop a Trace Recording Session and which message shall be recorded last respectively. See 3GPP TS 32.422 clause 5.1 for additional details." .
+
+TS28623_TraceControlNrm: a owl:Ontology ;
+    dcterms:creator <https://github.com/EricssonResearch/openapi-to-rdf> ;
+    dcterms:publisher "Jean Martins <jean.martins@ericsson.com>" ;
+    dcterms:rights "Derived by openapi-to-rdf from the source document named in dcterms:source. The publisher of that document did not produce, review or endorse this vocabulary and it must not be cited as their model." ;
+    dcterms:source "TS28623_TraceControlNrm.yaml" ;
+    owl:versionInfo "openapi-to-rdf 0.2.0" .
 
 TS28623_TraceControlNrm_AreaConfig:freqInfo a rdf:Property ;
     rdfs:domain TS28623_TraceControlNrm:AreaConfig ;

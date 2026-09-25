@@ -25,6 +25,8 @@
 @prefix TS28532_ProvMnS_PatchItem: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/PatchItem/> .
 @prefix TS28532_ProvMnS_Scope: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/Scope/> .
 @prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix transport: <https://semantics.ericsson.com/vocab/transport/> .
@@ -59,6 +61,13 @@ TS28532_ProvMnS:Scope a rdfs:Class .
 transport:NotifyEvent a rdfs:Class ;
     rdfs:subClassOf TS28623_ComDefs:NotificationHeader ;
     transport:isTransportEnvelope true .
+
+TS28532_ProvMnS: a owl:Ontology ;
+    dcterms:creator <https://github.com/EricssonResearch/openapi-to-rdf> ;
+    dcterms:publisher "Jean Martins <jean.martins@ericsson.com>" ;
+    dcterms:rights "Derived by openapi-to-rdf from the source document named in dcterms:source. The publisher of that document did not produce, review or endorse this vocabulary and it must not be cited as their model." ;
+    dcterms:source "TS28532_ProvMnS.yaml" ;
+    owl:versionInfo "openapi-to-rdf 0.2.0" .
 
 TS28532_ProvMnS:CmNotificationTypes a rdfs:Datatype .
 

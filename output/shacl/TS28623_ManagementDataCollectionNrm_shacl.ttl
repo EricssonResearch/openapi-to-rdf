@@ -26,6 +26,11 @@
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "CN"^^xsd:string "RAN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:networkDomain ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
             sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:objectInstances ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
@@ -44,11 +49,6 @@
                         sh:datatype xsd:integer ;
                         sh:maxCount 32 ] ) ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CN"^^xsd:string "RAN"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:networkDomain ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:path TS28623_ManagementDataCollectionNrm_NodeFilter:sst ],
@@ -60,14 +60,14 @@
     sh:targetClass TS28623_ManagementDataCollectionNrm:NodeFilter .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
-    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Multiple .
-
-[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
             sh:path TS28623_ManagementDataCollectionNrm_SubNetwork-ncO-ManagementDataCollectionNrm:ManagementDataCollection ] ;
     sh:targetClass TS28623_ManagementDataCollectionNrm:SubNetwork-ncO-ManagementDataCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Single ;
+    sh:targetClass TS28623_ManagementDataCollectionNrm:ManagementDataCollection-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -78,15 +78,7 @@
                             sh:property [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:condition ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:processMonitor ],
+                                    sh:path TS28623_ManagementDataCollectionNrm:jobId ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
@@ -96,11 +88,11 @@
                                                         sh:datatype xsd:integer ;
                                                         sh:path TS28623_ManagementDataCollectionNrm:fileReportingPeriod ] ] [ a sh:NodeShape ;
                                                 sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:integer ;
-                                                        sh:path TS28623_ManagementDataCollectionNrm:fileReportingPeriod ],
-                                                    [ a sh:PropertyShape ;
                                                         sh:datatype xsd:string ;
-                                                        sh:path TS28623_ManagementDataCollectionNrm:notificationRecipientAddress ] ] [ a sh:NodeShape ;
+                                                        sh:path TS28623_ManagementDataCollectionNrm:notificationRecipientAddress ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:integer ;
+                                                        sh:path TS28623_ManagementDataCollectionNrm:fileReportingPeriod ] ] [ a sh:NodeShape ;
                                                 sh:property [ a sh:PropertyShape ;
                                                         sh:datatype xsd:string ;
                                                         sh:path TS28623_ManagementDataCollectionNrm:fileLocation ],
@@ -113,16 +105,7 @@
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:jobId ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_ComDefs:TimeWindow ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
+                                    sh:path TS28623_ManagementDataCollectionNrm:condition ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
@@ -132,43 +115,31 @@
                                                 sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
                                                 sh:datatype xsd:string ] ) ],
                                 [ a sh:PropertyShape ;
+                                    sh:class TS28623_ComDefs:TimeWindow ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
+                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:boolean ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_ManagementDataCollectionNrm:consolidateOutput ] ] ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:consolidateOutput ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ManagementDataCollectionNrm:processMonitor ] ] ;
                     sh:path TS28623_ManagementDataCollectionNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            sh:class TS28623_ComDefs:TimeWindow ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:condition ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:managementData ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:datatype xsd:string ;
-                                        sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
-                                        sh:datatype xsd:string ] ) ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_ManagementDataCollectionNrm:jobId ],
-                        [ a sh:PropertyShape ;
                             sh:class TS28623_GenericNrm:ProcessMonitor ;
                             sh:maxCount 1 ;
                             sh:path TS28623_ManagementDataCollectionNrm:processMonitor ],
@@ -187,14 +158,43 @@
                                                 sh:datatype xsd:integer ;
                                                 sh:path TS28623_ManagementDataCollectionNrm:fileReportingPeriod ] ] [ a sh:NodeShape ;
                                         sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:string ;
-                                                sh:path TS28623_ManagementDataCollectionNrm:fileLocation ],
-                                            [ a sh:PropertyShape ;
                                                 sh:datatype xsd:integer ;
-                                                sh:path TS28623_ManagementDataCollectionNrm:fileReportingPeriod ] ] [ a sh:NodeShape ;
+                                                sh:path TS28623_ManagementDataCollectionNrm:fileReportingPeriod ],
+                                            [ a sh:PropertyShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:path TS28623_ManagementDataCollectionNrm:fileLocation ] ] [ a sh:NodeShape ;
                                         sh:property [ a sh:PropertyShape ;
                                                 sh:datatype xsd:string ;
                                                 sh:path TS28623_ManagementDataCollectionNrm:streamTarget ] ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_ManagementDataCollectionNrm:NodeFilter ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:targetNodeFilter ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:managementData ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:jobId ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:dataScope ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:condition ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_ComDefs:TimeWindow ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ManagementDataCollectionNrm:collectionTimeWindow ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:boolean ;
                             sh:maxCount 1 ;

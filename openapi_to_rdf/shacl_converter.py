@@ -2,7 +2,8 @@ import os
 import sys
 from typing import Any
 import yaml
-from rdflib import BNode, Graph, Literal, Namespace, URIRef
+from rdflib import OWL, BNode, Graph, Literal, Namespace, URIRef
+from rdflib.namespace import DCTERMS
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 
@@ -422,8 +423,49 @@ class OpenAPIToSHACLConverter:
             if "schemas" in self.data["components"]:
                 self._parse_schemas(self.data["components"]["schemas"])
 
+        # Stamped after parsing, so it is present even when a document yields no schemas: a graph with
+        # no classes still has to say what produced it, or "empty" is indistinguishable from "foreign".
+        self._stamp_provenance()
+
         if self.properties_without_constraints > 0:
             print(f"ℹ️  {self.properties_without_constraints} properties carried no value constraint and were omitted from SHACL shapes")
+
+    def _stamp_provenance(self) -> None:
+        """State IN THE GRAPH which tool produced it, from what, and that nobody endorsed it.
+
+        Added 2026-09-25. The provenance existed only as a Turtle `#` comment, which survives `cat` and
+        nothing else: a consumer meets this data through `Graph.parse`, a triple store or a merge, and
+        by then the comment is gone. Measured before this: the emitted graph had 5 distinct predicates,
+        no `owl:Ontology`, and the tool's name nowhere in it.
+
+        The concrete consumer is `snm-api-native`'s S9 refusal, which had to INFER authorship from the
+        presence of `isIriValued` markers. That inference is wrong for a document with no IRI-valued
+        properties: `TS28104_MdaNrm.yaml`, converted by this toolchain, carries zero markers and was
+        refused as "a TBox it did not emit". An explicit statement replaces the guess.
+
+        Standard terms only -- `owl:versionInfo` (OWL 2, W3C Recommendation) and `dcterms:source` /
+        `creator` / `rights` (DCMI Metadata Terms, a DCMI Recommendation). Provenance is exactly the
+        case where minting a term would be wrong.
+
+        The subject is the document's own namespace IRI, so the statement is ABOUT this vocabulary and
+        travels with it through a merge rather than floating free.
+        """
+        from openapi_to_rdf.provenance import CONTACT, DERIVED_DISCLAIMER, PROJECT_URL
+
+        try:
+            from openapi_to_rdf import __version__ as tool_version
+        except Exception:  # pragma: no cover - version metadata absent in a source checkout
+            tool_version = "unknown"
+
+        subject = URIRef(self.base_namespace)
+        self.rdf_graph.add((subject, RDF.type, OWL.Ontology))
+        self.rdf_graph.add((subject, OWL.versionInfo, Literal(f"openapi-to-rdf {tool_version}")))
+        self.rdf_graph.add((subject, DCTERMS.source, Literal(os.path.basename(self.yaml_file))))
+        self.rdf_graph.add((subject, DCTERMS.creator, URIRef(PROJECT_URL)))
+        self.rdf_graph.add((subject, DCTERMS.rights, Literal(DERIVED_DISCLAIMER)))
+        self.rdf_graph.add((subject, DCTERMS.publisher, Literal(CONTACT)))
+        self.rdf_graph.bind("owl", OWL)
+        self.rdf_graph.bind("dcterms", DCTERMS)
 
     def _parse_schemas(self, schemas):
         """Parse each schema definition in the OpenAPI components."""

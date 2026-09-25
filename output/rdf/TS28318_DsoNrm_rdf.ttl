@@ -19,6 +19,8 @@
 @prefix TS28318_DsoNrm_SubNetwork-ncO-DsoNrm: <https://semantics.ericsson.com/openapi/TS28318_DsoNrm/SubNetwork-ncO-DsoNrm/> .
 @prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
 @prefix TS28623_ThresholdMonitorNrm: <https://semantics.ericsson.com/openapi/TS28623_ThresholdMonitorNrm/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -36,6 +38,13 @@ TS28318_DsoNrm:OutageAndRecoveryInfo-Single a rdfs:Class ;
     rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28318_DsoNrm:SubNetwork-ncO-DsoNrm a rdfs:Class .
+
+TS28318_DsoNrm: a owl:Ontology ;
+    dcterms:creator <https://github.com/EricssonResearch/openapi-to-rdf> ;
+    dcterms:publisher "Jean Martins <jean.martins@ericsson.com>" ;
+    dcterms:rights "Derived by openapi-to-rdf from the source document named in dcterms:source. The publisher of that document did not produce, review or endorse this vocabulary and it must not be cited as their model." ;
+    dcterms:source "TS28318_DsoNrm.yaml" ;
+    owl:versionInfo "openapi-to-rdf 0.2.0" .
 
 TS28318_DsoNrm_DsoThresholdMonitor-Single:targetThresholdLocation a rdf:Property ;
     rdfs:domain TS28318_DsoNrm:DsoThresholdMonitor-Single ;

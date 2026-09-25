@@ -23,6 +23,8 @@
 @prefix TS28532_StreamingDataMnS_streamInfoWithReporters-Type: <https://semantics.ericsson.com/openapi/TS28532_StreamingDataMnS/streamInfoWithReporters-Type/> .
 @prefix TS28532_StreamingDataMnS_vsDataContainer-Type: <https://semantics.ericsson.com/openapi/TS28532_StreamingDataMnS/vsDataContainer-Type/> .
 @prefix TS28623_TraceControlNrm: <https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -59,6 +61,13 @@ TS28532_StreamingDataMnS:traceInfo-Type a rdfs:Class ;
 
 TS28532_StreamingDataMnS:vsDataContainer-Type a rdfs:Class ;
     rdfs:comment "container for vendor specific data (see 3GPP TS 28.622)" .
+
+TS28532_StreamingDataMnS: a owl:Ontology ;
+    dcterms:creator <https://github.com/EricssonResearch/openapi-to-rdf> ;
+    dcterms:publisher "Jean Martins <jean.martins@ericsson.com>" ;
+    dcterms:rights "Derived by openapi-to-rdf from the source document named in dcterms:source. The publisher of that document did not produce, review or endorse this vocabulary and it must not be cited as their model." ;
+    dcterms:source "TS28532_StreamingDataMnS.yaml" ;
+    owl:versionInfo "openapi-to-rdf 0.2.0" .
 
 TS28532_StreamingDataMnS_analyticsInfo-Type:activityDetails a rdf:Property ;
     rdfs:domain TS28532_StreamingDataMnS:analyticsInfo-Type ;

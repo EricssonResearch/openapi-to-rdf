@@ -61,6 +61,8 @@
 @prefix TS29512_Npcf_SMPolicyControl_UpPathChgEvent: <https://semantics.ericsson.com/vocab/transport/UpPathChgEvent/> .
 @prefix TS29512_Npcf_SMPolicyControl_UsageMonitoringData: <https://semantics.ericsson.com/openapi/TS29512_Npcf_SMPolicyControl/UsageMonitoringData/> .
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix transport: <https://semantics.ericsson.com/vocab/transport/> .
@@ -255,6 +257,13 @@ TS29512_Npcf_SMPolicyControl:UsageMonitoringData a rdfs:Class ;
 transport:UpPathChgEvent a rdfs:Class ;
     rdfs:comment "Note: This property is nullable in OpenAPI - null vs absent semantics not preserved in RDF" ;
     transport:isTransportEnvelope true .
+
+TS29512_Npcf_SMPolicyControl: a owl:Ontology ;
+    dcterms:creator <https://github.com/EricssonResearch/openapi-to-rdf> ;
+    dcterms:publisher "Jean Martins <jean.martins@ericsson.com>" ;
+    dcterms:rights "Derived by openapi-to-rdf from the source document named in dcterms:source. The publisher of that document did not produce, review or endorse this vocabulary and it must not be cited as their model." ;
+    dcterms:source "TS29512_Npcf_SMPolicyControl.yaml" ;
+    owl:versionInfo "openapi-to-rdf 0.2.0" .
 
 TS29512_Npcf_SMPolicyControl_AccNetChId:accNetChaIdValue a rdf:Property ;
     rdfs:domain TS29512_Npcf_SMPolicyControl:AccNetChId ;

@@ -206,6 +206,8 @@
 @prefix TS29571_CommonData_WirelineArea: <https://semantics.ericsson.com/openapi/TS29571_CommonData/WirelineArea/> .
 @prefix TS29571_CommonData_WirelineServiceAreaRestriction: <https://semantics.ericsson.com/openapi/TS29571_CommonData/WirelineServiceAreaRestriction/> .
 @prefix TS29571_CommonData_WlanMeasurement: <https://semantics.ericsson.com/openapi/TS29571_CommonData/WlanMeasurement/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix transport: <https://semantics.ericsson.com/vocab/transport/> .
@@ -1301,6 +1303,13 @@ TS29571_CommonData:WlanRtt a rdfs:Class ;
 transport:MbsSessionEvent a rdfs:Class ;
     rdfs:comment "MBS session event" ;
     transport:isTransportEnvelope true .
+
+TS29571_CommonData: a owl:Ontology ;
+    dcterms:creator <https://github.com/EricssonResearch/openapi-to-rdf> ;
+    dcterms:publisher "Jean Martins <jean.martins@ericsson.com>" ;
+    dcterms:rights "Derived by openapi-to-rdf from the source document named in dcterms:source. The publisher of that document did not produce, review or endorse this vocabulary and it must not be cited as their model." ;
+    dcterms:source "TS29571_CommonData.yaml" ;
+    owl:versionInfo "openapi-to-rdf 0.2.0" .
 
 TS29571_CommonData:5GPrukId a rdfs:Datatype ;
     rdfs:comment """A string carrying the CP-PRUK ID of the 5G ProSe Remote UE or the 5G ProSe End UE. The CP-PRUK ID is a string in NAI format as specified in clause 28.7.11 of 3GPP TS 23.003.
