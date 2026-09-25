@@ -13,6 +13,7 @@
 # Regenerate: uv run python scripts/regenerate_output.py
 
 @prefix TS28532_FileDataReportingMnS: <https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/> .
+@prefix TS28532_FileDataReportingMnS_FileCreationErrorInfoList: <https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileCreationErrorInfoList/> .
 @prefix TS28532_FileDataReportingMnS_FileInfo: <https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo/> .
 @prefix TS28532_FileDataReportingMnS_NotifyFilePreparationError: <https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/NotifyFilePreparationError/> .
 @prefix TS28532_FileDataReportingMnS_NotifyFileReady: <https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/NotifyFileReady/> .
@@ -21,6 +22,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+TS28532_FileDataReportingMnS:FileCreationErrorInfoList a rdfs:Class .
+
 TS28532_FileDataReportingMnS:FileInfo a rdfs:Class .
 
 TS28532_FileDataReportingMnS:NotifyFilePreparationError a rdfs:Class ;
@@ -28,6 +31,18 @@ TS28532_FileDataReportingMnS:NotifyFilePreparationError a rdfs:Class ;
 
 TS28532_FileDataReportingMnS:NotifyFileReady a rdfs:Class ;
     rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
+
+TS28532_FileDataReportingMnS_FileCreationErrorInfoList:fileDataType a rdf:Property ;
+    rdfs:domain TS28532_FileDataReportingMnS:FileCreationErrorInfoList ;
+    rdfs:range xsd:string .
+
+TS28532_FileDataReportingMnS_FileCreationErrorInfoList:fileLocation a rdf:Property ;
+    rdfs:domain TS28532_FileDataReportingMnS:FileCreationErrorInfoList ;
+    rdfs:range xsd:string .
+
+TS28532_FileDataReportingMnS_FileCreationErrorInfoList:jobId a rdf:Property ;
+    rdfs:domain TS28532_FileDataReportingMnS:FileCreationErrorInfoList ;
+    rdfs:range xsd:string .
 
 TS28532_FileDataReportingMnS:FileDataType a rdfs:Datatype .
 
@@ -59,6 +74,10 @@ TS28532_FileDataReportingMnS_FileInfo:fileSize a rdf:Property ;
     rdfs:domain TS28532_FileDataReportingMnS:FileInfo ;
     rdfs:range xsd:integer .
 
+TS28532_FileDataReportingMnS_FileInfo:jobId a rdf:Property ;
+    rdfs:domain TS28532_FileDataReportingMnS:FileInfo ;
+    rdfs:range xsd:string .
+
 TS28532_FileDataReportingMnS:FileNotificationTypes a rdfs:Datatype .
 
 TS28532_FileDataReportingMnS_NotifyFilePreparationError:additionalText a rdf:Property ;
@@ -67,7 +86,7 @@ TS28532_FileDataReportingMnS_NotifyFilePreparationError:additionalText a rdf:Pro
 
 TS28532_FileDataReportingMnS_NotifyFilePreparationError:fileInfoList a rdf:Property ;
     rdfs:domain TS28532_FileDataReportingMnS:NotifyFilePreparationError ;
-    rdfs:range TS28532_FileDataReportingMnS:FileInfo .
+    rdfs:range TS28532_FileDataReportingMnS:FileCreationErrorInfoList .
 
 TS28532_FileDataReportingMnS_NotifyFilePreparationError:reason a rdf:Property ;
     rdfs:domain TS28532_FileDataReportingMnS:NotifyFilePreparationError ;
@@ -84,8 +103,7 @@ TS28532_FileDataReportingMnS_NotifyFileReady:fileInfoList a rdf:Property ;
 TS28532_FileDataReportingMnS:additionalText a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28532_FileDataReportingMnS:fileInfoList a rdf:Property ;
-    rdfs:range TS28532_FileDataReportingMnS:FileInfo .
+TS28532_FileDataReportingMnS:fileInfoList a rdf:Property .
 
 TS28532_FileDataReportingMnS:reason a rdf:Property ;
     rdfs:range xsd:string .

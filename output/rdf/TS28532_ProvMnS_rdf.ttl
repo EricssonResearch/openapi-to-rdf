@@ -15,11 +15,13 @@
 @prefix TS28532_ProvMnS: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/> .
 @prefix TS28532_ProvMnS_CorrelatedNotification: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/CorrelatedNotification/> .
 @prefix TS28532_ProvMnS_MoiChange: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/MoiChange/> .
+@prefix TS28532_ProvMnS_NotifyDataNodeTreeSyncRecommended: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyDataNodeTreeSyncRecommended/> .
 @prefix TS28532_ProvMnS_NotifyEvent: <https://semantics.ericsson.com/vocab/transport/NotifyEvent/> .
 @prefix TS28532_ProvMnS_NotifyMoiAttributeValueChanges: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiAttributeValueChanges/> .
 @prefix TS28532_ProvMnS_NotifyMoiChanges: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiChanges/> .
 @prefix TS28532_ProvMnS_NotifyMoiCreation: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiCreation/> .
 @prefix TS28532_ProvMnS_NotifyMoiDeletion: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiDeletion/> .
+@prefix TS28532_ProvMnS_NotifyPotentialFaultyDataNodeTree: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyPotentialFaultyDataNodeTree/> .
 @prefix TS28532_ProvMnS_PatchItem: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/PatchItem/> .
 @prefix TS28532_ProvMnS_Scope: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/Scope/> .
 @prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
@@ -32,6 +34,9 @@ TS28532_ProvMnS:CorrelatedNotification a rdfs:Class .
 
 TS28532_ProvMnS:MoiChange a rdfs:Class .
 
+TS28532_ProvMnS:NotifyDataNodeTreeSyncRecommended a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
+
 TS28532_ProvMnS:NotifyMoiAttributeValueChanges a rdfs:Class ;
     rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
@@ -42,6 +47,9 @@ TS28532_ProvMnS:NotifyMoiCreation a rdfs:Class ;
     rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_ProvMnS:NotifyMoiDeletion a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
+
+TS28532_ProvMnS:NotifyPotentialFaultyDataNodeTree a rdfs:Class ;
     rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_ProvMnS:PatchItem a rdfs:Class .
@@ -98,6 +106,10 @@ TS28532_ProvMnS_MoiChange:sourceIndicator a rdf:Property ;
 TS28532_ProvMnS_MoiChange:value a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:MoiChange .
 
+TS28532_ProvMnS_NotifyDataNodeTreeSyncRecommended:scope a rdf:Property ;
+    rdfs:domain TS28532_ProvMnS:NotifyDataNodeTreeSyncRecommended ;
+    rdfs:range xsd:string .
+
 TS28532_ProvMnS_NotifyMoiAttributeValueChanges:additionalText a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:NotifyMoiAttributeValueChanges ;
     rdfs:range xsd:string .
@@ -150,6 +162,10 @@ TS28532_ProvMnS_NotifyMoiDeletion:sourceIndicator a rdf:Property ;
     rdfs:domain TS28532_ProvMnS:NotifyMoiDeletion ;
     rdfs:range xsd:string .
 
+TS28532_ProvMnS_NotifyPotentialFaultyDataNodeTree:scope a rdf:Property ;
+    rdfs:domain TS28532_ProvMnS:NotifyPotentialFaultyDataNodeTree ;
+    rdfs:range xsd:string .
+
 TS28532_ProvMnS:Operation a rdfs:Datatype .
 
 TS28532_ProvMnS_PatchItem:from a rdf:Property ;
@@ -198,6 +214,9 @@ TS28532_ProvMnS:correlatedNotifications a rdf:Property ;
 
 TS28532_ProvMnS:moiChanges a rdf:Property ;
     rdfs:range TS28532_ProvMnS:MoiChange .
+
+TS28532_ProvMnS:scope a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28532_ProvMnS:sourceIndicator a rdf:Property ;
     rdfs:range xsd:string .

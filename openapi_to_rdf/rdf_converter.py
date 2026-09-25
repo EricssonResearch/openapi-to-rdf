@@ -3,7 +3,7 @@
 INTERNAL/LEGACY: This converter is NOT part of the public API and does NOT honour the
 determinations the SHACL path enforces. It folds ``-`` → ``_`` on both class and property
 names, mints a class per ``oneOf`` union, and invents a class from ``info.title``. Its class
-names differ from the SHACL path (and therefore from ``Mapping.classes``) on 37 of 38 3GPP
+names differ from the SHACL path (and therefore from ``Mapping.classes``) on 37 of the 38 3GPP
 specs.
 
 For new work, use ``build_mapping`` and project from it. This converter remains available

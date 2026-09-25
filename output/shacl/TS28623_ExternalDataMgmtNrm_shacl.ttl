@@ -1,0 +1,95 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28623_ExternalDataMgmtNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_ExternalDataMgmtNrm: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/> .
+@prefix TS28623_ExternalDataMgmtNrm_ExternalDataScope: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/ExternalDataScope/> .
+@prefix TS28623_ExternalDataMgmtNrm_ExternalDataType-Single: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/ExternalDataType-Single/> .
+@prefix TS28623_ExternalDataMgmtNrm_SubNetwork-ncO-ExternalDataMgmtNrm: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/SubNetwork-ncO-ExternalDataMgmtNrm/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_ExternalDataMgmtNrm:ExternalDataType-Single ;
+    sh:targetClass TS28623_ExternalDataMgmtNrm:ExternalDataType-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:path TS28623_ExternalDataMgmtNrm:mediaLocation ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ExternalDataMgmtNrm:externalDataTypeSchema ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_ExternalDataMgmtNrm:ExternalDataScope ;
+                                    sh:path TS28623_ExternalDataMgmtNrm:externalDataScope ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_ExternalDataMgmtNrm:externalDataType ] ] ;
+                    sh:path TS28623_ExternalDataMgmtNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28623_ExternalDataMgmtNrm:mediaLocation ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ExternalDataMgmtNrm:externalDataTypeSchema ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_ExternalDataMgmtNrm:ExternalDataScope ;
+                            sh:path TS28623_ExternalDataMgmtNrm:externalDataScope ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_ExternalDataMgmtNrm:externalDataType ] ] ;
+            sh:path TS28623_ExternalDataMgmtNrm_ExternalDataType-Single:attributes ] ;
+    sh:targetClass TS28623_ExternalDataMgmtNrm:ExternalDataType-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28623_ExternalDataMgmtNrm_ExternalDataScope:geoAreas ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCoordinate ;
+                                sh:path TS28623_ExternalDataMgmtNrm:geoPolygon ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCircle ;
+                                sh:path TS28623_ExternalDataMgmtNrm:geoCircle ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ExternalDataMgmtNrm_ExternalDataScope:objectInstancesExcluded ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_ExternalDataMgmtNrm_ExternalDataScope:objectInstancesIncluded ] ;
+    sh:targetClass TS28623_ExternalDataMgmtNrm:ExternalDataScope .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ExternalDataMgmtNrm:ExternalDataType-Single ;
+            sh:path TS28623_ExternalDataMgmtNrm_SubNetwork-ncO-ExternalDataMgmtNrm:ExternalDataType ] ;
+    sh:targetClass TS28623_ExternalDataMgmtNrm:SubNetwork-ncO-ExternalDataMgmtNrm .
+

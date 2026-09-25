@@ -9,7 +9,26 @@ the task plan is `snm-api-native/docs/superpowers/plans/2026-09-18-openapi-to-rd
 
 ## Where the suite stands
 
-**791 passed, 50 failed, 1 xfailed** (baseline measured 2026-09-21, full run, 491s, `PYTEST_EXIT=1`).
+**1126 passed, 66 failed, 1 xfailed** (2026-09-25, `-m "not network"`, 537s, `PYTEST_EXIT=1`).
+Previously 791/50 (2026-09-21) and 844/49 (2026-09-24).
+
+**The jump is the corpus, not a regression.** As of 2026-09-25 the 3GPP corpus is FETCHED at tag
+`Tag_Rel19_SA112` (`scripts/fetch_corpus.py`) instead of being a committed snapshot, so it is 44
+documents rather than 38 and every parametrised test grew. The snapshot it replaced was not
+reproducible from any ref -- 8 of its 39 files matched the tag byte-for-byte, and 19 of its 38
+documents declared a Rel-18 version inside a directory named Rel-19.
+
+**All 66 failures are the SAME generator defect, in two shapes:**
+
+* **61 `test_bad_instance_rejected`** -- the pre-existing 49, on a larger corpus. Unchanged in kind.
+* **5 `test_good_instance_conforms`** -- NEW in 2026-09-25, and the same root cause seen from the other
+  side. The generator emits instances using properties the shapes do not model: on
+  `TS28623_ComDefs/GeoAreaToCellMapping` it produces `convexGeoPolygon`, a name that appears NOWHERE in
+  that document, against a `sh:xone` whose two branches are `geoPolygon` and `geoCircle` -- which is
+  exactly what the source declares. The shapes are right and the fixture is invented. Verified by
+  reading the source schema rather than inferred from the failure.
+
+So the note below still holds for all 66, and the count moving is not evidence about the converter.
 
 **49 of 50 failures are one test — `test_3gpp_shacl_coverage.py::test_bad_instance_rejected` — and all
 49 are a defect in the TEST DATA, not in the converter.** The converter is correct in all 260 cases.
@@ -17,7 +36,7 @@ See H1–H3, now resolved, and the repair plan below them. The 50th failure was
 `test_output_freshness`, a pre-existing staleness (stale output/ from a previous commit that changed
 the emitter without regenerating). Fixed by the 2026-09-23 regeneration.
 
-**Read this before touching the 49:** they are not a blocker for anything. They do not affect
+**Read this before touching the 66:** they are not a blocker for anything. They do not affect
 conversion, the TM Forum path, or any deliverable. A previous session spent two days on them on the
 strength of their being red, while the TM Forum work they were mistaken for a blocker on took ten
 minutes. Red is not the same as blocking.

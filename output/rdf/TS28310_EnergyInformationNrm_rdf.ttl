@@ -1,0 +1,87 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# RDF vocabulary produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28310_EnergyInformationNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28310_EnergyInformationNrm: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/> .
+@prefix TS28310_EnergyInformationNrm_EnergyInfoGroup-Single: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/EnergyInfoGroup-Single/> .
+@prefix TS28310_EnergyInformationNrm_EnergySourceInfo: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/EnergySourceInfo/> .
+@prefix TS28310_EnergyInformationNrm_EnergySupplyInfo-Single: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/EnergySupplyInfo-Single/> .
+@prefix TS28310_EnergyInformationNrm_SubNetwork-ncO-EnergyInformationNrm: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/SubNetwork-ncO-EnergyInformationNrm/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28310_EnergyInformationNrm:EnergyInfoGroup-Multiple a rdfs:Class .
+
+TS28310_EnergyInformationNrm:EnergyInfoGroup-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28310_EnergyInformationNrm:EnergySourceInfo a rdfs:Class .
+
+TS28310_EnergyInformationNrm:EnergySupplyInfo-Multiple a rdfs:Class .
+
+TS28310_EnergyInformationNrm:EnergySupplyInfo-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28310_EnergyInformationNrm:SubNetwork-ncO-EnergyInformationNrm a rdfs:Class .
+
+TS28310_EnergyInformationNrm_EnergyInfoGroup-Single:attributes a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:EnergyInfoGroup-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28310_EnergyInformationNrm_EnergySourceInfo:energyCompositionPercentage a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:EnergySourceInfo ;
+    rdfs:range xsd:float .
+
+TS28310_EnergyInformationNrm_EnergySourceInfo:energySourceCef a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:EnergySourceInfo ;
+    rdfs:range xsd:float .
+
+TS28310_EnergyInformationNrm_EnergySourceInfo:energySourceType a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:EnergySourceInfo ;
+    rdfs:range xsd:string .
+
+TS28310_EnergyInformationNrm_EnergySourceInfo:renewableEnergy a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:EnergySourceInfo ;
+    rdfs:range xsd:boolean .
+
+TS28310_EnergyInformationNrm_EnergySupplyInfo-Single:attributes a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:EnergySupplyInfo-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28310_EnergyInformationNrm:EnergySupplyMode a rdfs:Datatype .
+
+TS28310_EnergyInformationNrm_SubNetwork-ncO-EnergyInformationNrm:EnergyInfoGroup a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:SubNetwork-ncO-EnergyInformationNrm ;
+    rdfs:range TS28310_EnergyInformationNrm:EnergyInfoGroup-Multiple .
+
+TS28310_EnergyInformationNrm_SubNetwork-ncO-EnergyInformationNrm:EnergySupplyInfo a rdf:Property ;
+    rdfs:domain TS28310_EnergyInformationNrm:SubNetwork-ncO-EnergyInformationNrm ;
+    rdfs:range TS28310_EnergyInformationNrm:EnergySupplyInfo-Multiple .
+
+TS28310_EnergyInformationNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
+
+TS28310_EnergyInformationNrm:energySourceList a rdf:Property ;
+    rdfs:range TS28310_EnergyInformationNrm:EnergySourceInfo .
+
+TS28310_EnergyInformationNrm:energySupplyMode a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28310_EnergyInformationNrm:energySupplyModeRefList a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28310_EnergyInformationNrm:memberDNList a rdf:Property ;
+    rdfs:range xsd:string .
+

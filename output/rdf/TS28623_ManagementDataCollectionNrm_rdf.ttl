@@ -12,6 +12,7 @@
 #
 # Regenerate: uv run python scripts/regenerate_output.py
 
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
 @prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
 @prefix TS28623_ManagementDataCollectionNrm: <https://semantics.ericsson.com/openapi/TS28623_ManagementDataCollectionNrm/> .
 @prefix TS28623_ManagementDataCollectionNrm_ManagementDataCollection-Single: <https://semantics.ericsson.com/openapi/TS28623_ManagementDataCollectionNrm/ManagementDataCollection-Single/> .
@@ -46,6 +47,10 @@ TS28623_ManagementDataCollectionNrm_NodeFilter:networkDomain a rdf:Property ;
     rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
     rdfs:range xsd:string .
 
+TS28623_ManagementDataCollectionNrm_NodeFilter:objectInstances a rdf:Property ;
+    rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
+    rdfs:range TS28623_ComDefs:Dn .
+
 TS28623_ManagementDataCollectionNrm_NodeFilter:sst a rdf:Property ;
     rdfs:domain TS28623_ManagementDataCollectionNrm:NodeFilter ;
     rdfs:range xsd:integer .
@@ -58,13 +63,25 @@ TS28623_ManagementDataCollectionNrm:attributes a rdf:Property ;
     rdfs:range rdfs:Resource .
 
 TS28623_ManagementDataCollectionNrm:collectionTimeWindow a rdf:Property ;
+    rdfs:range TS28623_ComDefs:TimeWindow .
+
+TS28623_ManagementDataCollectionNrm:condition a rdf:Property ;
     rdfs:range xsd:string .
+
+TS28623_ManagementDataCollectionNrm:consolidateOutput a rdf:Property ;
+    rdfs:range xsd:boolean .
 
 TS28623_ManagementDataCollectionNrm:dataScope a rdf:Property ;
     rdfs:range xsd:string .
 
+TS28623_ManagementDataCollectionNrm:jobId a rdf:Property ;
+    rdfs:range xsd:string .
+
 TS28623_ManagementDataCollectionNrm:managementData a rdf:Property ;
     rdfs:range xsd:string .
+
+TS28623_ManagementDataCollectionNrm:processMonitor a rdf:Property ;
+    rdfs:range TS28623_GenericNrm:ProcessMonitor .
 
 TS28623_ManagementDataCollectionNrm:reportingCtrl a rdf:Property ;
     rdfs:range xsd:string .

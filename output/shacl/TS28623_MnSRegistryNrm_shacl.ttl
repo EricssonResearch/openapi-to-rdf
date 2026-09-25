@@ -12,8 +12,10 @@
 #
 # Regenerate: uv run python scripts/regenerate_output.py
 
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
 @prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
 @prefix TS28623_MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/> .
+@prefix TS28623_MnSRegistryNrm_MgmtDataInfo-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/> .
 @prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo-Single/> .
 @prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsRegistry-Single/> .
 @prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm/> .
@@ -23,6 +25,102 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NR_PROVISIONING"^^xsd:string "5GC_PROVISIONING"^^xsd:string "NETWORK_SLICING_PROVISIONING"^^xsd:string "EDGE_COMPUTING_PROVISIONING"^^xsd:string "PERFORMANCE_METRIC_COLLECTION_CONTROL"^^xsd:string "PERFORMANCE_METRIC_DATA_REPORT"^^xsd:string "PERFORMANCE_METRIC_THRESHOLD_MONITOR_CONTROL"^^xsd:string "PERFORMANCE_METRIC_THRESHOLD_NOTIFICATION"^^xsd:string "FAULT_CONTROL"^^xsd:string "FAULT_NOTIFICATION"^^xsd:string "TRACE_MDT_DATA_COLLECTION_CONTROL"^^xsd:string "TRACE_MDT_DATA_REPORT"^^xsd:string "STM_PROVISIONING"^^xsd:string "STM_STREAMING"^^xsd:string "QOE_DATA_COLLECTION_CONTROL"^^xsd:string "QOE_DATA_REPORT"^^xsd:string "FILE_RETRIEVAL"^^xsd:string "FILE_DOWNLOAD"^^xsd:string "CONFIGURATION_PLAN_MGMT"^^xsd:string "SUBSCRIPTION_CONTROL"^^xsd:string "HEARTBEAT_CONTROL"^^xsd:string "HEARTBEAT_NOTIFICATION"^^xsd:string "MANAGEMENT_DATA_ANALYTIC"^^xsd:string "RANSC_MANAGEMENT"^^xsd:string "SON_POLICY"^^xsd:string "COMMUNICATION_SERVICE_ASSURANCE_CONTROL"^^xsd:string "CLOSED_CONTROL_LOOP_MANAGEMENT"^^xsd:string "INTENT_DRIVEN_MANAGEMENT"^^xsd:string "ML_MODEL_MANAGEMENT"^^xsd:string "NDT_LCM"^^xsd:string "MNS_REGISTRY_AND_DISCOVERY"^^xsd:string "MGMTDATA_REGISTRY_AND_DISCOVERY"^^xsd:string "MNS_ACCESS_CONTROL_MANAGEMENT"^^xsd:string "DSO_RAPID_RECOVERY_AND_THRESHOLD_MONITORING"^^xsd:string "EXTERNALDATA_DISCOVERY_AND_REQUEST"^^xsd:string ) ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsCapability .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "This attribute describes the maximum period of the requested historical data. The period is defined in seconds. When the value of this attribute is NULL, which means the  capability of querying historical data is not supported." ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:historicalDataPeriod ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It defines the list of management data that can be supported.",
+                        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:path TS28623_MnSRegistryNrm:supportedManagementData ;
+                    sh:xone ( [ a sh:NodeShape ;
+                                sh:datatype xsd:string ;
+                                sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
+                                sh:datatype xsd:string ] ) ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "This datatype is used for writable attribute" ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:supportedDataReportingMnSRef ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Granularity periods supported for the production of associated management data. The period is defined in seconds." ;
+                    sh:datatype xsd:integer ;
+                    sh:path TS28623_MnSRegistryNrm:supportedGranularityPeriods ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "Reporting periods supported for the associated management data. The period is defined in seconds." ;
+                    sh:datatype xsd:integer ;
+                    sh:path TS28623_MnSRegistryNrm:supportedReportingPeriods ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "List of supported reporting methods for the associated  management data." ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "FILE"^^xsd:string "STREAM"^^xsd:string ) ;
+                    sh:minCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:supportedReportingMethod ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "List of supported sub counter capabilities for the associated management data." ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+                    sh:minCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:supportedDataScope ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "This datatype is used for writable attribute" ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:supportedDataRequestMnSRef ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This attribute describes the maximum period of the requested historical data. The period is defined in seconds. When the value of this attribute is NULL, which means the  capability of querying historical data is not supported." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:historicalDataPeriod ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedDataReportingMnSRef ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedDataRequestMnSRef ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Reporting periods supported for the associated management data. The period is defined in seconds." ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedReportingPeriods ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "List of supported sub counter capabilities for the associated management data." ;
+            sh:datatype xsd:string ;
+            sh:in ( "SNSSAI"^^xsd:string "5QI"^^xsd:string "PLMN"^^xsd:string ) ;
+            sh:minCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedDataScope ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Granularity periods supported for the production of associated management data. The period is defined in seconds." ;
+            sh:datatype xsd:integer ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedGranularityPeriods ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "List of supported reporting methods for the associated  management data." ;
+            sh:datatype xsd:string ;
+            sh:in ( "FILE"^^xsd:string "STREAM"^^xsd:string ) ;
+            sh:minCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedReportingMethod ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It defines the list of management data that can be supported.",
+                "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedManagementData ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ;
+                        sh:in ( "COVERAGE"^^xsd:string "CAPACITY"^^xsd:string "ENERGY_EFFICIENCY"^^xsd:string "MOBILITY"^^xsd:string "ACCESSIBILITY"^^xsd:string ) ] [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] ) ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:MgmtDataInfo-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+    sh:targetClass TS28623_MnSRegistryNrm:MgmtDataInfo-Multiple .
+
+[] a sh:NodeShape ;
     sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
     sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Multiple .
 
@@ -30,29 +128,35 @@
     sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
-                    sh:path TS28623_MnSRegistryNrm:MnsInfo ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
-            sh:path TS28623_MnSRegistryNrm_MnsRegistry-Single:MnsInfo ] ;
-    sh:targetClass TS28623_MnSRegistryNrm:MnsRegistry-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "It is used to provide information about the management scope of the Management Service. The management scope is  used to represent the set of managed object instances that can be accessed using the Management Service.",
+                        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:minCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsScope ;
+                    sh:xone ( [ a sh:NodeShape ;
+                                sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                sh:xone ( [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:GeoCoordinate ;
+                                                    sh:path TS28623_MnSRegistryNrm:geoPolygon ] ] [ a sh:NodeShape ;
+                                            sh:property [ a sh:PropertyShape ;
+                                                    sh:class TS28623_ComDefs:GeoCircle ;
+                                                    sh:path TS28623_MnSRegistryNrm:geoCircle ] ] ) ] [ a sh:NodeShape ;
+                                sh:class TS28623_GenericNrm:Tai ] ) ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It describes the types of management capabilities of the MnS instance provided by the MnS producer." ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "NR_PROVISIONING"^^xsd:string "5GC_PROVISIONING"^^xsd:string "NETWORK_SLICING_PROVISIONING"^^xsd:string "EDGE_COMPUTING_PROVISIONING"^^xsd:string "PERFORMANCE_METRIC_COLLECTION_CONTROL"^^xsd:string "PERFORMANCE_METRIC_DATA_REPORT"^^xsd:string "PERFORMANCE_METRIC_THRESHOLD_MONITOR_CONTROL"^^xsd:string "PERFORMANCE_METRIC_THRESHOLD_NOTIFICATION"^^xsd:string "FAULT_CONTROL"^^xsd:string "FAULT_NOTIFICATION"^^xsd:string "TRACE_MDT_DATA_COLLECTION_CONTROL"^^xsd:string "TRACE_MDT_DATA_REPORT"^^xsd:string "STM_PROVISIONING"^^xsd:string "STM_STREAMING"^^xsd:string "QOE_DATA_COLLECTION_CONTROL"^^xsd:string "QOE_DATA_REPORT"^^xsd:string "FILE_RETRIEVAL"^^xsd:string "FILE_DOWNLOAD"^^xsd:string "CONFIGURATION_PLAN_MGMT"^^xsd:string "SUBSCRIPTION_CONTROL"^^xsd:string "HEARTBEAT_CONTROL"^^xsd:string "HEARTBEAT_NOTIFICATION"^^xsd:string "MANAGEMENT_DATA_ANALYTIC"^^xsd:string "RANSC_MANAGEMENT"^^xsd:string "SON_POLICY"^^xsd:string "COMMUNICATION_SERVICE_ASSURANCE_CONTROL"^^xsd:string "CLOSED_CONTROL_LOOP_MANAGEMENT"^^xsd:string "INTENT_DRIVEN_MANAGEMENT"^^xsd:string "ML_MODEL_MANAGEMENT"^^xsd:string "NDT_LCM"^^xsd:string "MNS_REGISTRY_AND_DISCOVERY"^^xsd:string "MGMTDATA_REGISTRY_AND_DISCOVERY"^^xsd:string "MNS_ACCESS_CONTROL_MANAGEMENT"^^xsd:string "DSO_RAPID_RECOVERY_AND_THRESHOLD_MONITORING"^^xsd:string "EXTERNALDATA_DISCOVERY_AND_REQUEST"^^xsd:string ) ;
+                    sh:path TS28623_MnSRegistryNrm:mnsCapability ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo which represent a management service instance" ;
+                    sh:datatype xsd:string ;
+                    sh:minCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mgmtDataInfoRef ],
+                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
                     sh:path TS28623_MnSRegistryNrm:mnsAddress ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
-                    sh:datatype xsd:string ;
-                    sh:path TS28623_MnSRegistryNrm:mnsScope ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsType ],
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
@@ -60,29 +164,73 @@
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsVersion ] ] ;
+                    sh:path TS28623_MnSRegistryNrm:mnsVersion ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsType ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsType ],
         [ a sh:PropertyShape ;
+            rdfs:comment "It is used to provide information about the management scope of the Management Service. The management scope is  used to represent the set of managed object instances that can be accessed using the Management Service.",
+                "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:minCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsScope ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                        rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                        sh:xone ( [ a sh:NodeShape ;
+                                    sh:property [ a sh:PropertyShape ;
+                                            sh:class TS28623_ComDefs:GeoCoordinate ;
+                                            sh:path TS28623_MnSRegistryNrm:geoPolygon ] ] [ a sh:NodeShape ;
+                                    sh:property [ a sh:PropertyShape ;
+                                            sh:class TS28623_ComDefs:GeoCircle ;
+                                            sh:path TS28623_MnSRegistryNrm:geoCircle ] ] ) ] [ a sh:NodeShape ;
+                        sh:class TS28623_GenericNrm:Tai ] ) ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It describes the types of management capabilities of the MnS instance provided by the MnS producer." ;
             sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion ],
+            sh:in ( "NR_PROVISIONING"^^xsd:string "5GC_PROVISIONING"^^xsd:string "NETWORK_SLICING_PROVISIONING"^^xsd:string "EDGE_COMPUTING_PROVISIONING"^^xsd:string "PERFORMANCE_METRIC_COLLECTION_CONTROL"^^xsd:string "PERFORMANCE_METRIC_DATA_REPORT"^^xsd:string "PERFORMANCE_METRIC_THRESHOLD_MONITOR_CONTROL"^^xsd:string "PERFORMANCE_METRIC_THRESHOLD_NOTIFICATION"^^xsd:string "FAULT_CONTROL"^^xsd:string "FAULT_NOTIFICATION"^^xsd:string "TRACE_MDT_DATA_COLLECTION_CONTROL"^^xsd:string "TRACE_MDT_DATA_REPORT"^^xsd:string "STM_PROVISIONING"^^xsd:string "STM_STREAMING"^^xsd:string "QOE_DATA_COLLECTION_CONTROL"^^xsd:string "QOE_DATA_REPORT"^^xsd:string "FILE_RETRIEVAL"^^xsd:string "FILE_DOWNLOAD"^^xsd:string "CONFIGURATION_PLAN_MGMT"^^xsd:string "SUBSCRIPTION_CONTROL"^^xsd:string "HEARTBEAT_CONTROL"^^xsd:string "HEARTBEAT_NOTIFICATION"^^xsd:string "MANAGEMENT_DATA_ANALYTIC"^^xsd:string "RANSC_MANAGEMENT"^^xsd:string "SON_POLICY"^^xsd:string "COMMUNICATION_SERVICE_ASSURANCE_CONTROL"^^xsd:string "CLOSED_CONTROL_LOOP_MANAGEMENT"^^xsd:string "INTENT_DRIVEN_MANAGEMENT"^^xsd:string "ML_MODEL_MANAGEMENT"^^xsd:string "NDT_LCM"^^xsd:string "MNS_REGISTRY_AND_DISCOVERY"^^xsd:string "MGMTDATA_REGISTRY_AND_DISCOVERY"^^xsd:string "MNS_ACCESS_CONTROL_MANAGEMENT"^^xsd:string "DSO_RAPID_RECOVERY_AND_THRESHOLD_MONITORING"^^xsd:string "EXTERNALDATA_DISCOVERY_AND_REQUEST"^^xsd:string ) ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsCapability ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsAddress ],
         [ a sh:PropertyShape ;
-            rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
+            rdfs:comment "List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo which represent a management service instance" ;
             sh:datatype xsd:string ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsScope ],
+            sh:minCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mgmtDataInfoRef ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel ] ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion ] ;
     sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
+                    sh:path TS28623_MnSRegistryNrm:MnsInfo ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+                    sh:path TS28623_MnSRegistryNrm:MgmtDataInfo ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
+            sh:path TS28623_MnSRegistryNrm_MnsRegistry-Single:MnsInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+            sh:path TS28623_MnSRegistryNrm_MnsRegistry-Single:MgmtDataInfo ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsRegistry-Single .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;

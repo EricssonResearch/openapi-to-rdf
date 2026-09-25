@@ -1,0 +1,129 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28310_EnergyInformationNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28310_EnergyInformationNrm: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/> .
+@prefix TS28310_EnergyInformationNrm_EnergyInfoGroup-Single: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/EnergyInfoGroup-Single/> .
+@prefix TS28310_EnergyInformationNrm_EnergySourceInfo: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/EnergySourceInfo/> .
+@prefix TS28310_EnergyInformationNrm_EnergySupplyInfo-Single: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/EnergySupplyInfo-Single/> .
+@prefix TS28310_EnergyInformationNrm_SubNetwork-ncO-EnergyInformationNrm: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/SubNetwork-ncO-EnergyInformationNrm/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28310_EnergyInformationNrm:memberDNList ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28310_EnergyInformationNrm:energySupplyModeRefList ] ] ;
+                    sh:path TS28310_EnergyInformationNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28310_EnergyInformationNrm:energySupplyModeRefList ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28310_EnergyInformationNrm:memberDNList ] ] ;
+            sh:path TS28310_EnergyInformationNrm_EnergyInfoGroup-Single:attributes ] ;
+    sh:targetClass TS28310_EnergyInformationNrm:EnergyInfoGroup-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28310_EnergyInformationNrm:EnergySupplyInfo-Single ;
+            sh:path TS28310_EnergyInformationNrm_SubNetwork-ncO-EnergyInformationNrm:EnergySupplyInfo ],
+        [ a sh:PropertyShape ;
+            sh:class TS28310_EnergyInformationNrm:EnergyInfoGroup-Single ;
+            sh:path TS28310_EnergyInformationNrm_SubNetwork-ncO-EnergyInformationNrm:EnergyInfoGroup ] ;
+    sh:targetClass TS28310_EnergyInformationNrm:SubNetwork-ncO-EnergyInformationNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28310_EnergyInformationNrm_EnergySourceInfo:energySourceType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 1 ;
+            sh:path TS28310_EnergyInformationNrm_EnergySourceInfo:energyCompositionPercentage ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:minInclusive 0 ;
+            sh:path TS28310_EnergyInformationNrm_EnergySourceInfo:energySourceCef ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28310_EnergyInformationNrm_EnergySourceInfo:renewableEnergy ] ;
+    sh:targetClass TS28310_EnergyInformationNrm:EnergySourceInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:class TS28310_EnergyInformationNrm:EnergySourceInfo ;
+                                    sh:minCount 1 ;
+                                    sh:path TS28310_EnergyInformationNrm:energySourceList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "GRID_ELECTRICITY"^^xsd:string "BACKUP_ENERGY"^^xsd:string "LOCALLY_GENERATED_ENERGY"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28310_EnergyInformationNrm:energySupplyMode ] ] ;
+                    sh:path TS28310_EnergyInformationNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "GRID_ELECTRICITY"^^xsd:string "BACKUP_ENERGY"^^xsd:string "LOCALLY_GENERATED_ENERGY"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28310_EnergyInformationNrm:energySupplyMode ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28310_EnergyInformationNrm:EnergySourceInfo ;
+                            sh:minCount 1 ;
+                            sh:path TS28310_EnergyInformationNrm:energySourceList ] ] ;
+            sh:path TS28310_EnergyInformationNrm_EnergySupplyInfo-Single:attributes ] ;
+    sh:targetClass TS28310_EnergyInformationNrm:EnergySupplyInfo-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28310_EnergyInformationNrm:EnergyInfoGroup-Single ;
+    sh:targetClass TS28310_EnergyInformationNrm:EnergyInfoGroup-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28310_EnergyInformationNrm:EnergySupplyInfo-Single ;
+    sh:targetClass TS28310_EnergyInformationNrm:EnergySupplyInfo-Multiple .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "GRID_ELECTRICITY"^^xsd:string "BACKUP_ENERGY"^^xsd:string "LOCALLY_GENERATED_ENERGY"^^xsd:string ) ;
+    sh:targetClass TS28310_EnergyInformationNrm:EnergySupplyMode .
+

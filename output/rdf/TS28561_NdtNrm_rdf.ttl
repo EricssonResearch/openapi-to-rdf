@@ -1,0 +1,235 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# RDF vocabulary produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28561_NdtNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28561_NdtNrm: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/> .
+@prefix TS28561_NdtNrm_NDTFunction-Single: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTFunction-Single/> .
+@prefix TS28561_NdtNrm_NDTFunctionScope: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTFunctionScope/> .
+@prefix TS28561_NdtNrm_NDTInputDescription: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTInputDescription/> .
+@prefix TS28561_NdtNrm_NDTJob-Single: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTJob-Single/> .
+@prefix TS28561_NdtNrm_NDTOutputDataPoint: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTOutputDataPoint/> .
+@prefix TS28561_NdtNrm_NDTOutputDescription: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTOutputDescription/> .
+@prefix TS28561_NdtNrm_NDTReport-Single: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTReport-Single/> .
+@prefix TS28561_NdtNrm_NdtJobExecutionReqts: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NdtJobExecutionReqts/> .
+@prefix TS28561_NdtNrm_PerformanceData: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/PerformanceData/> .
+@prefix TS28561_NdtNrm_SimulationData: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/SimulationData/> .
+@prefix TS28561_NdtNrm_SimulationDataDescriptor: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/SimulationDataDescriptor/> .
+@prefix TS28561_NdtNrm_SubNetwork-ncO-NDTNrm: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/SubNetwork-ncO-NDTNrm/> .
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28561_NdtNrm:NDTFunction-Multiple a rdfs:Class .
+
+TS28561_NdtNrm:NDTFunction-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28561_NdtNrm:NDTFunctionScope a rdfs:Class .
+
+TS28561_NdtNrm:NDTInputDescription a rdfs:Class .
+
+TS28561_NdtNrm:NDTJob-Multiple a rdfs:Class .
+
+TS28561_NdtNrm:NDTJob-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28561_NdtNrm:NDTOutputDataPoint a rdfs:Class .
+
+TS28561_NdtNrm:NDTOutputDescription a rdfs:Class .
+
+TS28561_NdtNrm:NDTReport-Multiple a rdfs:Class .
+
+TS28561_NdtNrm:NDTReport-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28561_NdtNrm:NdtJobExecutionReqts a rdfs:Class .
+
+TS28561_NdtNrm:PerformanceData a rdfs:Class .
+
+TS28561_NdtNrm:SimulationData a rdfs:Class .
+
+TS28561_NdtNrm:SimulationDataDescriptor a rdfs:Class .
+
+TS28561_NdtNrm:SubNetwork-ncO-NDTNrm a rdfs:Class .
+
+TS28561_NdtNrm:NDTCapability a rdfs:Datatype .
+
+TS28561_NdtNrm_NDTFunction-Single:nDTFunctionRefList a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTFunction-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTFunction-Single:nDTFunctionScope a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTFunction-Single ;
+    rdfs:range TS28561_NdtNrm:NDTFunctionScope .
+
+TS28561_NdtNrm_NDTFunction-Single:supportedNDTCapabilities a rdf:Property ;
+    rdfs:comment "It indicates the different types of NDT application use cases which the NDT is capable of undertaking.. New values can be added to this list in future releases to support new use cases." ;
+    rdfs:domain TS28561_NdtNrm:NDTFunction-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTFunctionScope:nDTCNScope a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTFunctionScope ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTFunctionScope:nDTRANScope a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTFunctionScope ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTInputDescription:nDTInputDescriptionId a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTInputDescription ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTInputDescription:networkEventInfo a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTInputDescription ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTInputDescription:simulationDataDescriptor a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTInputDescription ;
+    rdfs:range TS28561_NdtNrm:SimulationDataDescriptor .
+
+TS28561_NdtNrm_NDTJob-Single:nDTCapability a rdf:Property ;
+    rdfs:comment "It indicates the type of application use cases that is desired to be executed. New values can be added to this list in future releases to support new use cases." ;
+    rdfs:domain TS28561_NdtNrm:NDTJob-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTJob-Single:nDTJobExecutionRequirements a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTJob-Single ;
+    rdfs:range TS28561_NdtNrm:NdtJobExecutionReqts .
+
+TS28561_NdtNrm_NDTJob-Single:nDTJobRefList a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTJob-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTJob-Single:nDTJobScenario a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTJob-Single ;
+    rdfs:range TS28561_NdtNrm:NDTInputDescription .
+
+TS28561_NdtNrm_NDTJob-Single:nDTJobSynchScope a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTJob-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTJob-Single:nDTReportRefList a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTJob-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTOutputDataPoint:networkConfiguration a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTOutputDataPoint ;
+    rdfs:range TS28561_NdtNrm:NDTOutputDescription .
+
+TS28561_NdtNrm_NDTOutputDataPoint:networkState a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTOutputDataPoint ;
+    rdfs:range TS28561_NdtNrm:NDTOutputDescription .
+
+TS28561_NdtNrm_NDTOutputDataPoint:observations a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTOutputDataPoint ;
+    rdfs:range TS28561_NdtNrm:NDTOutputDescription .
+
+TS28561_NdtNrm_NDTOutputDescription:nDTOutputDescriptionId a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTOutputDescription ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTOutputDescription:objectAttributeList a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTOutputDescription ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28561_NdtNrm_NDTOutputDescription:objectInstance a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTOutputDescription ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NDTReport-Single:nDTJobOutputData a rdf:Property ;
+    rdfs:comment "It indicates the list of NDTOutput(s) that are provided by the NDT function as the output for any task executed in an instantiated NDT job." ;
+    rdfs:domain TS28561_NdtNrm:NDTReport-Single ;
+    rdfs:range TS28561_NdtNrm:NDTOutputDataPoint .
+
+TS28561_NdtNrm_NDTReport-Single:nDTJobRef a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NDTReport-Single ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_NdtJobExecutionReqts:maxRuntime a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:NdtJobExecutionReqts ;
+    rdfs:range xsd:integer .
+
+TS28561_NdtNrm_PerformanceData:performanceDataName a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:PerformanceData ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_PerformanceData:performanceDataScalingFactor a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:PerformanceData ;
+    rdfs:range xsd:integer .
+
+TS28561_NdtNrm_PerformanceData:performanceDataValue a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:PerformanceData ;
+    rdfs:range xsd:integer .
+
+TS28561_NdtNrm_SimulationData:configurationData a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:SimulationData ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28561_NdtNrm_SimulationData:mDTData a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:SimulationData ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28561_NdtNrm_SimulationData:performanceData a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:SimulationData ;
+    rdfs:range TS28561_NdtNrm:PerformanceData .
+
+TS28561_NdtNrm_SimulationDataDescriptor:condition a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:SimulationDataDescriptor ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm_SimulationDataDescriptor:simulationData a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:SimulationDataDescriptor ;
+    rdfs:range TS28561_NdtNrm:SimulationData .
+
+TS28561_NdtNrm_SubNetwork-ncO-NDTNrm:NDTFunction a rdf:Property ;
+    rdfs:domain TS28561_NdtNrm:SubNetwork-ncO-NDTNrm ;
+    rdfs:range TS28561_NdtNrm:NDTFunction-Multiple .
+
+TS28561_NdtNrm:nDTCapability a rdf:Property ;
+    rdfs:comment "It indicates the type of application use cases that is desired to be executed. New values can be added to this list in future releases to support new use cases." ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm:nDTFunctionRefList a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm:nDTFunctionScope a rdf:Property ;
+    rdfs:range TS28561_NdtNrm:NDTFunctionScope .
+
+TS28561_NdtNrm:nDTJobExecutionRequirements a rdf:Property ;
+    rdfs:range TS28561_NdtNrm:NdtJobExecutionReqts .
+
+TS28561_NdtNrm:nDTJobOutputData a rdf:Property ;
+    rdfs:comment "It indicates the list of NDTOutput(s) that are provided by the NDT function as the output for any task executed in an instantiated NDT job." ;
+    rdfs:range TS28561_NdtNrm:NDTOutputDataPoint .
+
+TS28561_NdtNrm:nDTJobRef a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm:nDTJobRefList a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm:nDTJobScenario a rdf:Property ;
+    rdfs:range TS28561_NdtNrm:NDTInputDescription .
+
+TS28561_NdtNrm:nDTJobSynchScope a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm:nDTReportRefList a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28561_NdtNrm:supportedNDTCapabilities a rdf:Property ;
+    rdfs:comment "It indicates the different types of NDT application use cases which the NDT is capable of undertaking.. New values can be added to this list in future releases to support new use cases." ;
+    rdfs:range xsd:string .
+

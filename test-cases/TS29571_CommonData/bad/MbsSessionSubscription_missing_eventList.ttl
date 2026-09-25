@@ -1,0 +1,45 @@
+# GENERATED TEST FIXTURE -- do not edit; regenerate instead.
+#
+# SHACL validation instance produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS29571_CommonData.yaml
+#
+# The class and property names are the source document's. The VALUES are synthetic, chosen
+# to satisfy or violate one constraint of the shapes THIS project derives. The publisher of
+# that document did not produce, review or endorse this file, and it is NOT conformance test
+# data for their specification. See NOTICE for the corpora this repository bundles.
+#
+# Regenerate: uv run python scripts/generate_test_cases.py
+
+@prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsSessionSubscription/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsSessionId/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ssm/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tmgi/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:MbsSessionSubscription ;
+    ns1:areaSessionId 32767 ;
+    ns1:expiryTime "2024-01-15T10:30:00+00:00"^^xsd:dateTime ;
+    ns1:mbsSessionId [ a TS29571_CommonData:MbsSessionId ;
+            ns3:nid "AFaf09AFaf0"^^xsd:string ;
+            ns3:ssm [ a TS29571_CommonData:Ssm ;
+                    ns4:destIpAddr [ a TS29571_CommonData:IpAddr ;
+                            TS29571_CommonData:ipv4Addr "aaaa"^^xsd:string ;
+                            TS29571_CommonData:ipv6Addr "test-value"^^xsd:string ;
+                            TS29571_CommonData:ipv6Prefix "test-value"^^xsd:string ] ;
+                    ns4:sourceIpAddr [ a TS29571_CommonData:IpAddr ;
+                            TS29571_CommonData:ipv4Addr "aaaa"^^xsd:string ;
+                            TS29571_CommonData:ipv6Addr "test-value"^^xsd:string ;
+                            TS29571_CommonData:ipv6Prefix "test-value"^^xsd:string ] ] ;
+            ns3:tmgi [ a TS29571_CommonData:Tmgi ;
+                    ns5:mbsServiceId "AFaf09"^^xsd:string ;
+                    ns5:plmnId [ a TS29571_CommonData:PlmnId ;
+                            ns2:mcc "aaaa"^^xsd:string ;
+                            ns2:mnc "aaaa"^^xsd:string ] ] ] ;
+    ns1:nfcInstanceId "test-value"^^xsd:string ;
+    ns1:notifyCorrelationId "test-value"^^xsd:string ;
+    ns1:notifyUri "test-value"^^xsd:string .
+

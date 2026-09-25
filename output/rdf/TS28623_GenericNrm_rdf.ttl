@@ -15,6 +15,7 @@
 @prefix TS28104_MdaNrm: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/> .
 @prefix TS28105_AiMlNrm: <https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/> .
 @prefix TS28111_FaultNrm: <https://semantics.ericsson.com/openapi/TS28111_FaultNrm/> .
+@prefix TS28310_EnergyInformationNrm: <https://semantics.ericsson.com/openapi/TS28310_EnergyInformationNrm/> .
 @prefix TS28312_IntentNrm: <https://semantics.ericsson.com/openapi/TS28312_IntentNrm/> .
 @prefix TS28317_RanScNrm: <https://semantics.ericsson.com/openapi/TS28317_RanScNrm/> .
 @prefix TS28318_DsoNrm: <https://semantics.ericsson.com/openapi/TS28318_DsoNrm/> .
@@ -23,7 +24,10 @@
 @prefix TS28541_5GcNrm: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/> .
 @prefix TS28541_NrNrm: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/> .
 @prefix TS28541_SliceNrm: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/> .
+@prefix TS28561_NdtNrm: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/> .
+@prefix TS28567_CclNrm: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/> .
 @prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_ExternalDataMgmtNrm: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/> .
 @prefix TS28623_FileManagementNrm: <https://semantics.ericsson.com/openapi/TS28623_FileManagementNrm/> .
 @prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
 @prefix TS28623_GenericNrm_ConditionMonitor-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/ConditionMonitor-Single/> .
@@ -35,7 +39,7 @@
 @prefix TS28623_GenericNrm_ManagementNode-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/ManagementNode-Single/> .
 @prefix TS28623_GenericNrm_MeContext-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/MeContext-Single/> .
 @prefix TS28623_GenericNrm_MnsAgent-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/MnsAgent-Single/> .
-@prefix TS28623_GenericNrm_PeeParameter: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/PeeParameter/> .
+@prefix TS28623_GenericNrm_PeeParameters: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/PeeParameters/> .
 @prefix TS28623_GenericNrm_ProcessMonitor: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/ProcessMonitor/> .
 @prefix TS28623_GenericNrm_Scheduler-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/Scheduler-Single/> .
 @prefix TS28623_GenericNrm_SubNetwork-Attr: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/SubNetwork-Attr/> .
@@ -45,7 +49,7 @@
 @prefix TS28623_GenericNrm_Tai: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/Tai/> .
 @prefix TS28623_GenericNrm_Top: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/Top/> .
 @prefix TS28623_GenericNrm_Top-Attr: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/Top-Attr/> .
-@prefix TS28623_GenericNrm_VnfParameter: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/VnfParameter/> .
+@prefix TS28623_GenericNrm_VnfParameters: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/VnfParameters/> .
 @prefix TS28623_GenericNrm_VsDataContainer-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/VsDataContainer-Single/> .
 @prefix TS28623_ManagementDataCollectionNrm: <https://semantics.ericsson.com/openapi/TS28623_ManagementDataCollectionNrm/> .
 @prefix TS28623_MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/> .
@@ -108,7 +112,8 @@ TS28623_GenericNrm:MnsAgent-Multiple a rdfs:Class .
 TS28623_GenericNrm:MnsAgent-Single a rdfs:Class ;
     rdfs:subClassOf TS28623_GenericNrm:Top .
 
-TS28623_GenericNrm:PeeParameter a rdfs:Class .
+TS28623_GenericNrm:PeeParameters a rdfs:Class ;
+    rdfs:comment "-> This <<dataType>> represents the parameter list for the control and monitoring of power, energy and environmental parameters." .
 
 TS28623_GenericNrm:ProcessMonitor a rdfs:Class ;
     rdfs:comment "This data type is the \"ProcessMonitor\" data type without specialisations." .
@@ -125,6 +130,7 @@ TS28623_GenericNrm:SubNetwork-Multiple a rdfs:Class .
 TS28623_GenericNrm:SubNetwork-Single a rdfs:Class ;
     rdfs:subClassOf TS28104_MdaNrm:SubNetwork-ncO-MdaNrm,
         TS28105_AiMlNrm:SubNetwork-ncO-AiMlNrm,
+        TS28310_EnergyInformationNrm:SubNetwork-ncO-EnergyInformationNrm,
         TS28312_IntentNrm:SubNetwork-ncO-IntentNrm,
         TS28317_RanScNrm:SubNetwork-ncO-RanScNrm,
         TS28318_DsoNrm:SubNetwork-ncO-DsoNrm,
@@ -133,6 +139,9 @@ TS28623_GenericNrm:SubNetwork-Single a rdfs:Class ;
         TS28541_5GcNrm:SubNetwork-ncO-5GcNrm,
         TS28541_NrNrm:SubNetwork-ncO-NrNrm,
         TS28541_SliceNrm:SubNetwork-ncO-SliceNrm,
+        TS28561_NdtNrm:SubNetwork-ncO-NDTNrm,
+        TS28567_CclNrm:SubNetwork-ncO-CCLNrm,
+        TS28623_ExternalDataMgmtNrm:SubNetwork-ncO-ExternalDataMgmtNrm,
         TS28623_FileManagementNrm:SubNetwork-ncO-FileManagementNrm,
         TS28623_GenericNrm:ManagedElement-Multiple,
         TS28623_GenericNrm:SubNetwork-Attr,
@@ -163,7 +172,8 @@ TS28623_GenericNrm:Top-Attr a rdfs:Class .
 TS28623_GenericNrm:TransportProtocol a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
 
-TS28623_GenericNrm:VnfParameter a rdfs:Class .
+TS28623_GenericNrm:VnfParameters a rdfs:Class ;
+    rdfs:comment "-> This <<dataType>> represents the parameter set of the VNF instance(s) corresponding to an NE." .
 
 TS28623_GenericNrm:VsDataContainer-Multiple a rdfs:Class .
 
@@ -251,7 +261,7 @@ TS28623_GenericNrm_ManagedElement-ncO:SupportedNotifications a rdf:Property ;
 
 TS28623_GenericNrm_ManagedFunction-Attr:peeParametersList a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:ManagedFunction-Attr ;
-    rdfs:range TS28623_GenericNrm:PeeParameter .
+    rdfs:range TS28623_GenericNrm:PeeParameters .
 
 TS28623_GenericNrm_ManagedFunction-Attr:priorityLabel a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:ManagedFunction-Attr ;
@@ -270,7 +280,7 @@ TS28623_GenericNrm_ManagedFunction-Attr:userLabel a rdf:Property ;
 
 TS28623_GenericNrm_ManagedFunction-Attr:vnfParametersList a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:ManagedFunction-Attr ;
-    rdfs:range TS28623_GenericNrm:VnfParameter .
+    rdfs:range TS28623_GenericNrm:VnfParameters .
 
 TS28623_GenericNrm_ManagedFunction-ncO:PerfMetricJob a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:ManagedFunction-ncO ;
@@ -305,43 +315,43 @@ TS28623_GenericNrm_MnsAgent-Single:attributes a rdf:Property ;
 
 TS28623_GenericNrm:NrCellId a rdfs:Datatype .
 
-TS28623_GenericNrm_PeeParameter:environmentType a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:environmentType a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_PeeParameter:equipmentType a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:equipmentType a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_PeeParameter:powerInterface a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:powerInterface a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_PeeParameter:siteAltitude a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:siteAltitude a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:float .
 
-TS28623_GenericNrm_PeeParameter:siteDescription a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:siteDescription a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_PeeParameter:siteIdentification a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:siteIdentification a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_PeeParameter:siteLatitude a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:siteLatitude a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:float .
 
-TS28623_GenericNrm_PeeParameter:siteLongitude a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:PeeParameter ;
+TS28623_GenericNrm_PeeParameters:siteLongitude a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:PeeParameters ;
     rdfs:range xsd:float .
 
 TS28623_GenericNrm_ProcessMonitor:endTime a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
     rdfs:range xsd:dateTime .
 
-TS28623_GenericNrm_ProcessMonitor:jobId a rdf:Property ;
+TS28623_GenericNrm_ProcessMonitor:id a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:ProcessMonitor ;
     rdfs:range xsd:string .
 
@@ -498,20 +508,20 @@ TS28623_GenericNrm_Top:objectInstance a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:Top ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_VnfParameter:autoScalable a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+TS28623_GenericNrm_VnfParameters:autoScalable a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:VnfParameters ;
     rdfs:range xsd:boolean .
 
-TS28623_GenericNrm_VnfParameter:flavourId a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+TS28623_GenericNrm_VnfParameters:flavourId a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:VnfParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_VnfParameter:vnfInstanceId a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+TS28623_GenericNrm_VnfParameters:vnfInstanceId a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:VnfParameters ;
     rdfs:range xsd:string .
 
-TS28623_GenericNrm_VnfParameter:vnfdId a rdf:Property ;
-    rdfs:domain TS28623_GenericNrm:VnfParameter ;
+TS28623_GenericNrm_VnfParameters:vnfdId a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:VnfParameters ;
     rdfs:range xsd:string .
 
 TS28623_GenericNrm_VsDataContainer-Single:VsDataContainer a rdf:Property ;

@@ -13,18 +13,20 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ncgi/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/> .
 @prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/GNbId/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
-@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Tai/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnIdNid/> .
+@prefix ns6: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NtnTaiInfo/> .
+@prefix ns7: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ncgi/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
-    ns3:ageOfLocationInformation 16383 ;
-    ns3:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
-    ns3:geographicalInformation "!!!INVALID!!!"^^xsd:string ;
-    ns3:globalGnbId [ a TS29571_CommonData:GlobalRanNodeId ;
+    ns1:ageOfLocationInformation 16383 ;
+    ns1:geodeticInformation "09AF09AF09AF09AF09AF"^^xsd:string ;
+    ns1:geographicalInformation "!!!INVALID!!!"^^xsd:string ;
+    ns1:globalGnbId [ a TS29571_CommonData:GlobalRanNodeId ;
             TS29571_CommonData:eNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:gNbId [ a TS29571_CommonData:GNbId ;
                     ns2:bitLength 27 ;
@@ -33,21 +35,29 @@ TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
             TS29571_CommonData:ngeNbId "aaaa"^^xsd:string ;
             TS29571_CommonData:nid "AFaf09AFaf0"^^xsd:string ;
             TS29571_CommonData:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns5:mcc "aaaa"^^xsd:string ;
-                    ns5:mnc "aaaa"^^xsd:string ] ;
+                    ns4:mcc "aaaa"^^xsd:string ;
+                    ns4:mnc "aaaa"^^xsd:string ] ;
             TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
             TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
-    ns3:ncgi [ a TS29571_CommonData:Ncgi ;
-            ns1:nid "AFaf09AFaf0"^^xsd:string ;
-            ns1:nrCellId "AFaf09AFa"^^xsd:string ;
-            ns1:plmnId [ a TS29571_CommonData:PlmnId ;
+    ns1:ignoreNcgi true ;
+    ns1:ncgi [ a TS29571_CommonData:Ncgi ;
+            ns7:nid "AFaf09AFaf0"^^xsd:string ;
+            ns7:nrCellId "AFaf09AFa"^^xsd:string ;
+            ns7:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns4:mcc "aaaa"^^xsd:string ;
+                    ns4:mnc "aaaa"^^xsd:string ] ] ;
+    ns1:ntnTaiInfo [ a TS29571_CommonData:NtnTaiInfo ;
+            ns6:derivedTac "aaaa"^^xsd:string ;
+            ns6:plmnId [ a TS29571_CommonData:PlmnIdNid ;
                     ns5:mcc "aaaa"^^xsd:string ;
-                    ns5:mnc "aaaa"^^xsd:string ] ] ;
-    ns3:tai [ a TS29571_CommonData:Tai ;
-            ns4:nid "AFaf09AFaf0"^^xsd:string ;
-            ns4:plmnId [ a TS29571_CommonData:PlmnId ;
-                    ns5:mcc "aaaa"^^xsd:string ;
-                    ns5:mnc "aaaa"^^xsd:string ] ;
-            ns4:tac "aaaa"^^xsd:string ] ;
-    ns3:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
+                    ns5:mnc "aaaa"^^xsd:string ;
+                    ns5:nid "AFaf09AFaf0"^^xsd:string ] ;
+            ns6:tacList "aaaa"^^xsd:string ] ;
+    ns1:tai [ a TS29571_CommonData:Tai ;
+            ns3:nid "AFaf09AFaf0"^^xsd:string ;
+            ns3:plmnId [ a TS29571_CommonData:PlmnId ;
+                    ns4:mcc "aaaa"^^xsd:string ;
+                    ns4:mnc "aaaa"^^xsd:string ] ;
+            ns3:tac "aaaa"^^xsd:string ] ;
+    ns1:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
 

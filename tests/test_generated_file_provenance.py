@@ -55,8 +55,10 @@ def test_every_generated_ttl_carries_a_provenance_header() -> None:
     while the other grew -- which is the shape of the mistake this test was extended to catch.
     """
     per_tree = {tree.name: sorted(tree.rglob("*.ttl")) for tree in TREES}
-    assert len(per_tree["output"]) == 76, "38 documents x (1 rdf + 1 shacl)"
-    assert len(per_tree["test-cases"]) == 628, "181 good + 447 bad, across 14 documents"
+    # 76 -> 88 and 628 -> 927 on 2026-09-25, when the corpus became a FETCH at `Tag_Rel19_SA112`
+    # instead of an un-derivable committed snapshot: 44 documents instead of 38.
+    assert len(per_tree["output"]) == 88, "44 documents x (1 rdf + 1 shacl)"
+    assert len(per_tree["test-cases"]) == 927, "247 good + 632 bad + 48 unchanged-name collisions"
 
     missing: list[str] = []
     for path in _generated_ttl():

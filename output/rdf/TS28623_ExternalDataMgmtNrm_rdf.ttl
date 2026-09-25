@@ -1,0 +1,68 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# RDF vocabulary produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28623_ExternalDataMgmtNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_ExternalDataMgmtNrm: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/> .
+@prefix TS28623_ExternalDataMgmtNrm_ExternalDataScope: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/ExternalDataScope/> .
+@prefix TS28623_ExternalDataMgmtNrm_ExternalDataType-Single: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/ExternalDataType-Single/> .
+@prefix TS28623_ExternalDataMgmtNrm_SubNetwork-ncO-ExternalDataMgmtNrm: <https://semantics.ericsson.com/openapi/TS28623_ExternalDataMgmtNrm/SubNetwork-ncO-ExternalDataMgmtNrm/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_ExternalDataMgmtNrm:ExternalDataScope a rdfs:Class .
+
+TS28623_ExternalDataMgmtNrm:ExternalDataType-Multiple a rdfs:Class .
+
+TS28623_ExternalDataMgmtNrm:ExternalDataType-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28623_ExternalDataMgmtNrm:SubNetwork-ncO-ExternalDataMgmtNrm a rdfs:Class .
+
+TS28623_ExternalDataMgmtNrm_ExternalDataScope:geoAreas a rdf:Property ;
+    rdfs:domain TS28623_ExternalDataMgmtNrm:ExternalDataScope ;
+    rdfs:range TS28623_ComDefs:GeoArea .
+
+TS28623_ExternalDataMgmtNrm_ExternalDataScope:objectInstancesExcluded a rdf:Property ;
+    rdfs:domain TS28623_ExternalDataMgmtNrm:ExternalDataScope ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28623_ExternalDataMgmtNrm_ExternalDataScope:objectInstancesIncluded a rdf:Property ;
+    rdfs:domain TS28623_ExternalDataMgmtNrm:ExternalDataScope ;
+    rdfs:range TS28623_ComDefs:Dn .
+
+TS28623_ExternalDataMgmtNrm_ExternalDataType-Single:attributes a rdf:Property ;
+    rdfs:domain TS28623_ExternalDataMgmtNrm:ExternalDataType-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28623_ExternalDataMgmtNrm_SubNetwork-ncO-ExternalDataMgmtNrm:ExternalDataType a rdf:Property ;
+    rdfs:domain TS28623_ExternalDataMgmtNrm:SubNetwork-ncO-ExternalDataMgmtNrm ;
+    rdfs:range TS28623_ExternalDataMgmtNrm:ExternalDataType-Multiple .
+
+TS28623_ExternalDataMgmtNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
+
+TS28623_ExternalDataMgmtNrm:externalDataScope a rdf:Property ;
+    rdfs:range TS28623_ExternalDataMgmtNrm:ExternalDataScope .
+
+TS28623_ExternalDataMgmtNrm:externalDataType a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_ExternalDataMgmtNrm:externalDataTypeSchema a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_ExternalDataMgmtNrm:mediaLocation a rdf:Property ;
+    rdfs:range TS28623_ComDefs:Uri .
+

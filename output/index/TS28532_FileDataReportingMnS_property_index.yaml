@@ -22,6 +22,11 @@ properties:
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: fileDataType
+  uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileCreationErrorInfoList/fileDataType
+  owner_class: FileCreationErrorInfoList
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: fileDataType
   uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo/fileDataType
   owner_class: FileInfo
   range: http://www.w3.org/2001/XMLSchema#string
@@ -39,17 +44,22 @@ properties:
 - local_name: fileInfoList
   uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/fileInfoList
   owner_class: null
-  range: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo
+  range: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileCreationErrorInfoList
   description: null
 - local_name: fileInfoList
   uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/NotifyFilePreparationError/fileInfoList
   owner_class: NotifyFilePreparationError
-  range: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo
+  range: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileCreationErrorInfoList
   description: null
 - local_name: fileInfoList
   uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/NotifyFileReady/fileInfoList
   owner_class: NotifyFileReady
   range: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo
+  description: null
+- local_name: fileLocation
+  uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileCreationErrorInfoList/fileLocation
+  owner_class: FileCreationErrorInfoList
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: fileLocation
   uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo/fileLocation
@@ -66,6 +76,16 @@ properties:
   owner_class: FileInfo
   range: http://www.w3.org/2001/XMLSchema#integer
   description: null
+- local_name: jobId
+  uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileCreationErrorInfoList/jobId
+  owner_class: FileCreationErrorInfoList
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: jobId
+  uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/FileInfo/jobId
+  owner_class: FileInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: reason
   uri: https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/reason
   owner_class: null
@@ -76,4 +96,11 @@ properties:
   owner_class: NotifyFilePreparationError
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
-collisions: []
+collisions:
+- local_name: fileInfoList
+  members:
+  - https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/NotifyFilePreparationError/fileInfoList
+  - https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/NotifyFileReady/fileInfoList
+  - https://semantics.ericsson.com/openapi/TS28532_FileDataReportingMnS/fileInfoList
+  differs_on:
+  - range

@@ -14,13 +14,20 @@
 
 @prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
 @prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix TS28623_ManagementDataCollectionNrm: <https://semantics.ericsson.com/openapi/TS28623_ManagementDataCollectionNrm/> .
 @prefix TS28623_MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/> .
+@prefix TS28623_MnSRegistryNrm_MgmtDataInfo-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/> .
 @prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo-Single/> .
 @prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsRegistry-Single/> .
 @prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28623_MnSRegistryNrm:MgmtDataInfo-Multiple a rdfs:Class .
+
+TS28623_MnSRegistryNrm:MgmtDataInfo-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
 
 TS28623_MnSRegistryNrm:MnsInfo-Multiple a rdfs:Class .
 
@@ -32,11 +39,60 @@ TS28623_MnSRegistryNrm:MnsRegistry-Single a rdfs:Class ;
 
 TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm a rdfs:Class .
 
+TS28623_MnSRegistryNrm:MgmtDataInfo a rdf:Property ;
+    rdfs:range TS28623_MnSRegistryNrm:MgmtDataInfo-Multiple .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:historicalDataPeriod a rdf:Property ;
+    rdfs:comment "This attribute describes the maximum period of the requested historical data. The period is defined in seconds. When the value of this attribute is NULL, which means the  capability of querying historical data is not supported." ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+    rdfs:range xsd:integer .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedDataReportingMnSRef a rdf:Property ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedDataRequestMnSRef a rdf:Property ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedDataScope a rdf:Property ;
+    rdfs:comment "List of supported sub counter capabilities for the associated management data." ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedGranularityPeriods a rdf:Property ;
+    rdfs:comment "Granularity periods supported for the production of associated management data. The period is defined in seconds." ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedManagementData a rdf:Property ;
+    rdfs:comment "It defines the list of management data that can be supported." ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
+    rdfs:range TS28623_ManagementDataCollectionNrm:ManagementData .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedReportingMethod a rdf:Property ;
+    rdfs:comment "List of supported reporting methods for the associated  management data." ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single .
+
+TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedReportingPeriods a rdf:Property ;
+    rdfs:comment "Reporting periods supported for the associated management data. The period is defined in seconds." ;
+    rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single .
+
+TS28623_MnSRegistryNrm:MnsCapability a rdfs:Datatype .
+
 TS28623_MnSRegistryNrm:MnsInfo a rdf:Property ;
     rdfs:range TS28623_MnSRegistryNrm:MnsInfo-Multiple .
 
+TS28623_MnSRegistryNrm_MnsInfo-Single:mgmtDataInfoRef a rdf:Property ;
+    rdfs:comment "List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo which represent a management service instance" ;
+    rdfs:domain TS28623_MnSRegistryNrm:MnsInfo-Single ;
+    rdfs:range TS28623_ComDefs:Dn .
+
 TS28623_MnSRegistryNrm_MnsInfo-Single:mnsAddress a rdf:Property ;
     rdfs:comment "Resource URI as defined in the relevant Technical Specification" ;
+    rdfs:domain TS28623_MnSRegistryNrm:MnsInfo-Single ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm_MnsInfo-Single:mnsCapability a rdf:Property ;
+    rdfs:comment "It describes the types of management capabilities of the MnS instance provided by the MnS producer." ;
     rdfs:domain TS28623_MnSRegistryNrm:MnsInfo-Single ;
     rdfs:range xsd:string .
 
@@ -45,9 +101,9 @@ TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm_MnsInfo-Single:mnsScope a rdf:Property ;
-    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
+    rdfs:comment "It is used to provide information about the management scope of the Management Service. The management scope is  used to represent the set of managed object instances that can be accessed using the Management Service." ;
     rdfs:domain TS28623_MnSRegistryNrm:MnsInfo-Single ;
-    rdfs:range TS28623_ComDefs:DnRo .
+    rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm_MnsInfo-Single:mnsType a rdf:Property ;
     rdfs:domain TS28623_MnSRegistryNrm:MnsInfo-Single ;
@@ -57,6 +113,10 @@ TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion a rdf:Property ;
     rdfs:domain TS28623_MnSRegistryNrm:MnsInfo-Single ;
     rdfs:range xsd:string .
 
+TS28623_MnSRegistryNrm_MnsRegistry-Single:MgmtDataInfo a rdf:Property ;
+    rdfs:domain TS28623_MnSRegistryNrm:MnsRegistry-Single ;
+    rdfs:range TS28623_MnSRegistryNrm:MgmtDataInfo-Multiple .
+
 TS28623_MnSRegistryNrm_MnsRegistry-Single:MnsInfo a rdf:Property ;
     rdfs:domain TS28623_MnSRegistryNrm:MnsRegistry-Single ;
     rdfs:range TS28623_MnSRegistryNrm:MnsInfo-Multiple .
@@ -65,20 +125,54 @@ TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry a rdf:Property 
     rdfs:domain TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm ;
     rdfs:range TS28623_MnSRegistryNrm:MnsRegistry-Single .
 
+TS28623_MnSRegistryNrm:historicalDataPeriod a rdf:Property ;
+    rdfs:comment "This attribute describes the maximum period of the requested historical data. The period is defined in seconds. When the value of this attribute is NULL, which means the  capability of querying historical data is not supported." ;
+    rdfs:range xsd:integer .
+
+TS28623_MnSRegistryNrm:mgmtDataInfoRef a rdf:Property ;
+    rdfs:comment "List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo which represent a management service instance" ;
+    rdfs:range TS28623_ComDefs:Dn .
+
 TS28623_MnSRegistryNrm:mnsAddress a rdf:Property ;
     rdfs:comment "Resource URI as defined in the relevant Technical Specification" ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:mnsCapability a rdf:Property ;
+    rdfs:comment "It describes the types of management capabilities of the MnS instance provided by the MnS producer." ;
     rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm:mnsLabel a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm:mnsScope a rdf:Property ;
-    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
-    rdfs:range TS28623_ComDefs:DnRo .
+    rdfs:comment "It is used to provide information about the management scope of the Management Service. The management scope is  used to represent the set of managed object instances that can be accessed using the Management Service." ;
+    rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm:mnsType a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_MnSRegistryNrm:mnsVersion a rdf:Property ;
     rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:supportedDataReportingMnSRef a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:supportedDataRequestMnSRef a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28623_MnSRegistryNrm:supportedDataScope a rdf:Property ;
+    rdfs:comment "List of supported sub counter capabilities for the associated management data." .
+
+TS28623_MnSRegistryNrm:supportedGranularityPeriods a rdf:Property ;
+    rdfs:comment "Granularity periods supported for the production of associated management data. The period is defined in seconds." .
+
+TS28623_MnSRegistryNrm:supportedManagementData a rdf:Property ;
+    rdfs:comment "It defines the list of management data that can be supported." ;
+    rdfs:range TS28623_ManagementDataCollectionNrm:ManagementData .
+
+TS28623_MnSRegistryNrm:supportedReportingMethod a rdf:Property ;
+    rdfs:comment "List of supported reporting methods for the associated  management data." .
+
+TS28623_MnSRegistryNrm:supportedReportingPeriods a rdf:Property ;
+    rdfs:comment "Reporting periods supported for the associated management data. The period is defined in seconds." .
 

@@ -26,18 +26,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob-Single ;
-            sh:path TS28623_QoEMeasurementCollectionNrm_SubNetwork-ncO-QoEMeasurementCollectionNrm:QMCJobs ] ;
-    sh:targetClass TS28623_QoEMeasurementCollectionNrm:SubNetwork-ncO-QoEMeasurementCollectionNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob-Single ;
-            sh:path TS28623_QoEMeasurementCollectionNrm_ManagedElement-ncO-QoEMeasurementCollectionNrm:QMCJobs ] ;
-    sh:targetClass TS28623_QoEMeasurementCollectionNrm:ManagedElement-ncO-QoEMeasurementCollectionNrm .
-
-[] a sh:NodeShape ;
     sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob-Single ;
     sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob-Multiple .
 
@@ -48,8 +36,42 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "DASH"^^xsd:string "MTSI"^^xsd:string "VR"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:serviceType ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "BROADCAST"^^xsd:string "MULTICAST"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:mBSCommunicationServiceType ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:jobId ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "APP_LAYER_BUFFER_LEVEL_LIST"^^xsd:string "PLAYOUT_DELAY_FOR_MEDIA_STARTUP"^^xsd:string ) ;
+                                    sh:maxCount 2 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:availableRANqoEMetrics ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:qMCConfigFile ],
+                                [ a sh:PropertyShape ;
                                     sh:class TS28541_NrNrm:Snssai ;
                                     sh:path TS28623_QoEMeasurementCollectionNrm:sliceScope ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:qoETarget ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_ComDefs:PlmnId ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:pLMNTarget ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_GenericNrm:AreaScope ;
+                                    sh:path TS28623_QoEMeasurementCollectionNrm:areaScope ],
                                 [ a sh:PropertyShape ;
                                     sh:class TS28623_TraceControlNrm:traceReference-Type ;
                                     sh:maxCount 1 ;
@@ -59,55 +81,50 @@
                                     sh:maxCount 1 ;
                                     sh:path TS28623_QoEMeasurementCollectionNrm:qoEReference ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:qoETarget ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:jobId ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "BROADCAST"^^xsd:string "MULTICAST"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:mBSCommunicationServiceType ],
-                                [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
                                     sh:path TS28623_QoEMeasurementCollectionNrm:qoECollectionEntityAddress ;
                                     sh:xone ( [ a sh:NodeShape ;
                                                 sh:datatype xsd:string ;
                                                 sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] [ a sh:NodeShape ;
-                                                sh:datatype xsd:string ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_ComDefs:PlmnId ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:pLMNTarget ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "DASH"^^xsd:string "MTSI"^^xsd:string "VR"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:serviceType ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "APPLAYERBUFFERLEVELLIST"^^xsd:string "PLAYOUTDELAYFORMEDIA_STARTUP"^^xsd:string ) ;
-                                    sh:maxCount 2 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:availableRANqoEMetrics ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:qMCConfigFile ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_GenericNrm:AreaScope ;
-                                    sh:path TS28623_QoEMeasurementCollectionNrm:areaScope ] ] ;
+                                                sh:datatype xsd:string ] ) ] ] ;
                     sh:path TS28623_QoEMeasurementCollectionNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
+                            sh:class TS28623_ComDefs:PlmnId ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:pLMNTarget ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "BROADCAST"^^xsd:string "MULTICAST"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:mBSCommunicationServiceType ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "DASH"^^xsd:string "MTSI"^^xsd:string "VR"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:serviceType ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:qoEReference ],
+                        [ a sh:PropertyShape ;
                             sh:class TS28623_TraceControlNrm:traceReference-Type ;
                             sh:maxCount 1 ;
                             sh:path TS28623_QoEMeasurementCollectionNrm:mDTAlignmentInformation ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "APP_LAYER_BUFFER_LEVEL_LIST"^^xsd:string "PLAYOUT_DELAY_FOR_MEDIA_STARTUP"^^xsd:string ) ;
+                            sh:maxCount 2 ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:availableRANqoEMetrics ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_NrNrm:Snssai ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:sliceScope ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_GenericNrm:AreaScope ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:areaScope ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
@@ -119,44 +136,27 @@
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:qoEReference ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:qoETarget ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "BROADCAST"^^xsd:string "MULTICAST"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:mBSCommunicationServiceType ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "APPLAYERBUFFERLEVELLIST"^^xsd:string "PLAYOUTDELAYFORMEDIA_STARTUP"^^xsd:string ) ;
-                            sh:maxCount 2 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:availableRANqoEMetrics ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_NrNrm:Snssai ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:sliceScope ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_ComDefs:PlmnId ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:pLMNTarget ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "DASH"^^xsd:string "MTSI"^^xsd:string "VR"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:serviceType ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
                             sh:path TS28623_QoEMeasurementCollectionNrm:jobId ],
                         [ a sh:PropertyShape ;
-                            sh:class TS28623_GenericNrm:AreaScope ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:areaScope ],
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:qMCConfigFile ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_QoEMeasurementCollectionNrm:qMCConfigFile ] ] ;
+                            sh:path TS28623_QoEMeasurementCollectionNrm:qoETarget ] ] ;
             sh:path TS28623_QoEMeasurementCollectionNrm_QMCJob-Single:attributes ] ;
     sh:targetClass TS28623_QoEMeasurementCollectionNrm:QMCJob-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob-Single ;
+            sh:path TS28623_QoEMeasurementCollectionNrm_SubNetwork-ncO-QoEMeasurementCollectionNrm:QMCJobs ] ;
+    sh:targetClass TS28623_QoEMeasurementCollectionNrm:SubNetwork-ncO-QoEMeasurementCollectionNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_QoEMeasurementCollectionNrm:QMCJob-Single ;
+            sh:path TS28623_QoEMeasurementCollectionNrm_ManagedElement-ncO-QoEMeasurementCollectionNrm:QMCJobs ] ;
+    sh:targetClass TS28623_QoEMeasurementCollectionNrm:ManagedElement-ncO-QoEMeasurementCollectionNrm .
 

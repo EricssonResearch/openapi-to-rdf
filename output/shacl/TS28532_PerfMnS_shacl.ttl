@@ -34,9 +34,20 @@
     sh:class TS28623_ComDefs:NotificationHeader ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                    sh:maxCount 1 ;
+                    sh:path TS28532_PerfMnS:observedPerfMetricValue ;
+                    sh:xone ( [ a sh:NodeShape ;
+                                sh:datatype xsd:integer ] [ a sh:NodeShape ;
+                                sh:datatype xsd:float ] ) ],
+                [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
-                    sh:path TS28532_PerfMnS:additionalText ],
+                    sh:path TS28532_PerfMnS:observedPerfMetricName ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:path TS28532_PerfMnS:monitorGranularityPeriod ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                     sh:maxCount 1 ;
@@ -59,33 +70,31 @@
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:maxCount 1 ;
-                    sh:path TS28532_PerfMnS:observedPerfMetricName ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:maxCount 1 ;
-                    sh:path TS28532_PerfMnS:observedPerfMetricValue ;
-                    sh:xone ( [ a sh:NodeShape ;
-                                sh:datatype xsd:integer ] [ a sh:NodeShape ;
-                                sh:datatype xsd:float ] ) ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:integer ;
-                    sh:maxCount 1 ;
-                    sh:path TS28532_PerfMnS:monitorGranularityPeriod ] ] ;
+                    sh:path TS28532_PerfMnS:additionalText ] ] ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricDirection ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricName ],
+        [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:path TS28532_PerfMnS_NotifyThresholdCrossing:monitorGranularityPeriod ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:additionalText ],
-        [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:thresholdValue ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricValue ;
             sh:xone ( [ a sh:NodeShape ;
                         sh:datatype xsd:integer ] [ a sh:NodeShape ;
                         sh:datatype xsd:float ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:additionalText ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
@@ -94,18 +103,9 @@
                         sh:datatype xsd:integer ] [ a sh:NodeShape ;
                         sh:datatype xsd:float ] ) ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricDirection ],
-        [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
             sh:maxCount 1 ;
-            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:observedPerfMetricValue ;
+            sh:path TS28532_PerfMnS_NotifyThresholdCrossing:thresholdValue ;
             sh:xone ( [ a sh:NodeShape ;
                         sh:datatype xsd:integer ] [ a sh:NodeShape ;
                         sh:datatype xsd:float ] ) ] ;

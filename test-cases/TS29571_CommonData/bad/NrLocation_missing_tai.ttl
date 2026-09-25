@@ -17,6 +17,8 @@
 @prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/> .
 @prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
 @prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/GNbId/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnIdNid/> .
+@prefix ns6: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NtnTaiInfo/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
@@ -36,11 +38,19 @@ TS29571_CommonData:test_instance a TS29571_CommonData:NrLocation ;
                     ns3:mnc "aaaa"^^xsd:string ] ;
             TS29571_CommonData:tngfId "aaaa"^^xsd:string ;
             TS29571_CommonData:wagfId "aaaa"^^xsd:string ] ;
+    ns2:ignoreNcgi true ;
     ns2:ncgi [ a TS29571_CommonData:Ncgi ;
             ns1:nid "AFaf09AFaf0"^^xsd:string ;
             ns1:nrCellId "AFaf09AFa"^^xsd:string ;
             ns1:plmnId [ a TS29571_CommonData:PlmnId ;
                     ns3:mcc "aaaa"^^xsd:string ;
                     ns3:mnc "aaaa"^^xsd:string ] ] ;
+    ns2:ntnTaiInfo [ a TS29571_CommonData:NtnTaiInfo ;
+            ns6:derivedTac "aaaa"^^xsd:string ;
+            ns6:plmnId [ a TS29571_CommonData:PlmnIdNid ;
+                    ns5:mcc "aaaa"^^xsd:string ;
+                    ns5:mnc "aaaa"^^xsd:string ;
+                    ns5:nid "AFaf09AFaf0"^^xsd:string ] ;
+            ns6:tacList "aaaa"^^xsd:string ] ;
     ns2:ueLocationTimestamp "2024-01-15T10:30:00+00:00"^^xsd:dateTime .
 

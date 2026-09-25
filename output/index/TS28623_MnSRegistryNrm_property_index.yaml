@@ -1,6 +1,16 @@
 source: TS28623_MnSRegistryNrm.yaml
 generated_by: openapi-to-rdf 0.2.0
 properties:
+- local_name: MgmtDataInfo
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Multiple
+  description: null
+- local_name: MgmtDataInfo
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsRegistry-Single/MgmtDataInfo
+  owner_class: MnsRegistry-Single
+  range: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Multiple
+  description: null
 - local_name: MnsInfo
   uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo
   owner_class: null
@@ -16,6 +26,32 @@ properties:
   owner_class: SubNetwork-ncO-MnSRegistryNrm
   range: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsRegistry-Single
   description: null
+- local_name: historicalDataPeriod
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/historicalDataPeriod
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: This attribute describes the maximum period of the requested historical
+    data. The period is defined in seconds. When the value of this attribute is NULL,
+    which means the  capability of querying historical data is not supported.
+- local_name: historicalDataPeriod
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/historicalDataPeriod
+  owner_class: MgmtDataInfo-Single
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: This attribute describes the maximum period of the requested historical
+    data. The period is defined in seconds. When the value of this attribute is NULL,
+    which means the  capability of querying historical data is not supported.
+- local_name: mgmtDataInfoRef
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/mgmtDataInfoRef
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/Dn
+  description: List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo
+    which represent a management service instance
+- local_name: mgmtDataInfoRef
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo-Single/mgmtDataInfoRef
+  owner_class: MnsInfo-Single
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/Dn
+  description: List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo
+    which represent a management service instance
 - local_name: mnsAddress
   uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/mnsAddress
   owner_class: null
@@ -26,6 +62,18 @@ properties:
   owner_class: MnsInfo-Single
   range: http://www.w3.org/2001/XMLSchema#string
   description: Resource URI as defined in the relevant Technical Specification
+- local_name: mnsCapability
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/mnsCapability
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: It describes the types of management capabilities of the MnS instance
+    provided by the MnS producer.
+- local_name: mnsCapability
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo-Single/mnsCapability
+  owner_class: MnsInfo-Single
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: It describes the types of management capabilities of the MnS instance
+    provided by the MnS producer.
 - local_name: mnsLabel
   uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/mnsLabel
   owner_class: null
@@ -39,19 +87,17 @@ properties:
 - local_name: mnsScope
   uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/mnsScope
   owner_class: null
-  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DnRo
-  description: List of the managed object instances that can be accessed using the
-    MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain
-    the DN of the SubNetwork instead of the DNs of the individual managed  entities
-    within the SubNetwork.
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: It is used to provide information about the management scope of the
+    Management Service. The management scope is  used to represent the set of managed
+    object instances that can be accessed using the Management Service.
 - local_name: mnsScope
   uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo-Single/mnsScope
   owner_class: MnsInfo-Single
-  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DnRo
-  description: List of the managed object instances that can be accessed using the
-    MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain
-    the DN of the SubNetwork instead of the DNs of the individual managed  entities
-    within the SubNetwork.
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: It is used to provide information about the management scope of the
+    Management Service. The management scope is  used to represent the set of managed
+    object instances that can be accessed using the Management Service.
 - local_name: mnsType
   uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/mnsType
   owner_class: null
@@ -72,4 +118,82 @@ properties:
   owner_class: MnsInfo-Single
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: supportedDataReportingMnSRef
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedDataReportingMnSRef
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedDataReportingMnSRef
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedDataReportingMnSRef
+  owner_class: MgmtDataInfo-Single
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedDataRequestMnSRef
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedDataRequestMnSRef
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedDataRequestMnSRef
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedDataRequestMnSRef
+  owner_class: MgmtDataInfo-Single
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedDataScope
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedDataScope
+  owner_class: null
+  range: null
+  description: List of supported sub counter capabilities for the associated management
+    data.
+- local_name: supportedDataScope
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedDataScope
+  owner_class: MgmtDataInfo-Single
+  range: null
+  description: List of supported sub counter capabilities for the associated management
+    data.
+- local_name: supportedGranularityPeriods
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedGranularityPeriods
+  owner_class: null
+  range: null
+  description: Granularity periods supported for the production of associated management
+    data. The period is defined in seconds.
+- local_name: supportedGranularityPeriods
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedGranularityPeriods
+  owner_class: MgmtDataInfo-Single
+  range: null
+  description: Granularity periods supported for the production of associated management
+    data. The period is defined in seconds.
+- local_name: supportedManagementData
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedManagementData
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28623_ManagementDataCollectionNrm/ManagementData
+  description: It defines the list of management data that can be supported.
+- local_name: supportedManagementData
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedManagementData
+  owner_class: MgmtDataInfo-Single
+  range: https://semantics.ericsson.com/openapi/TS28623_ManagementDataCollectionNrm/ManagementData
+  description: It defines the list of management data that can be supported.
+- local_name: supportedReportingMethod
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedReportingMethod
+  owner_class: null
+  range: null
+  description: List of supported reporting methods for the associated  management
+    data.
+- local_name: supportedReportingMethod
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedReportingMethod
+  owner_class: MgmtDataInfo-Single
+  range: null
+  description: List of supported reporting methods for the associated  management
+    data.
+- local_name: supportedReportingPeriods
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/supportedReportingPeriods
+  owner_class: null
+  range: null
+  description: Reporting periods supported for the associated management data. The
+    period is defined in seconds.
+- local_name: supportedReportingPeriods
+  uri: https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MgmtDataInfo-Single/supportedReportingPeriods
+  owner_class: MgmtDataInfo-Single
+  range: null
+  description: Reporting periods supported for the associated management data. The
+    period is defined in seconds.
 collisions: []

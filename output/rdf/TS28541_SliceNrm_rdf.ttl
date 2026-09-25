@@ -32,6 +32,7 @@
 @prefix TS28541_SliceNrm_LogicalInterfaceInfo: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/LogicalInterfaceInfo/> .
 @prefix TS28541_SliceNrm_MIoTEEPerfReq: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MIoTEEPerfReq/> .
 @prefix TS28541_SliceNrm_MaxNumberofPDUSessions: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MaxNumberofPDUSessions/> .
+@prefix TS28541_SliceNrm_MaxNumberofUEs: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MaxNumberofUEs/> .
 @prefix TS28541_SliceNrm_MaxPktSize: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MaxPktSize/> .
 @prefix TS28541_SliceNrm_N6Protection: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/N6Protection/> .
 @prefix TS28541_SliceNrm_NBIoT: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/NBIoT/> .
@@ -108,6 +109,8 @@ TS28541_SliceNrm:LogicalInterfaceInfo a rdfs:Class .
 TS28541_SliceNrm:MIoTEEPerfReq a rdfs:Class .
 
 TS28541_SliceNrm:MaxNumberofPDUSessions a rdfs:Class .
+
+TS28541_SliceNrm:MaxNumberofUEs a rdfs:Class .
 
 TS28541_SliceNrm:MaxPktSize a rdfs:Class .
 
@@ -246,7 +249,7 @@ TS28541_SliceNrm_CNSliceSubnetProfile:maxNumberOfPDUSessions a rdf:Property ;
 
 TS28541_SliceNrm_CNSliceSubnetProfile:maxNumberofUEs a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28541_SliceNrm:MaxNumberofUEs .
 
 TS28541_SliceNrm_CNSliceSubnetProfile:maxULDataVolume a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
@@ -264,6 +267,10 @@ TS28541_SliceNrm_CNSliceSubnetProfile:nssaaSupport a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
     rdfs:range TS28541_SliceNrm:NSSAASupport .
 
+TS28541_SliceNrm_CNSliceSubnetProfile:renewableEnergyPct a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
+    rdfs:range xsd:integer .
+
 TS28541_SliceNrm_CNSliceSubnetProfile:resourceSharingLevel a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
     rdfs:range xsd:string .
@@ -274,7 +281,7 @@ TS28541_SliceNrm_CNSliceSubnetProfile:sliceSimultaneousUse a rdf:Property ;
 
 TS28541_SliceNrm_CNSliceSubnetProfile:sliceSubnetAvailability a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
-    rdfs:range xsd:string .
+    rdfs:range TS28623_GenericNrm:SchedulingTime .
 
 TS28541_SliceNrm_CNSliceSubnetProfile:supportedDataNetworks a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:CNSliceSubnetProfile ;
@@ -459,6 +466,18 @@ TS28541_SliceNrm_MaxNumberofPDUSessions:servAttrCom a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:MaxNumberofPDUSessions ;
     rdfs:range TS28541_SliceNrm:ServAttrCom .
 
+TS28541_SliceNrm_MaxNumberofUEs:3GPPNoOfUEs a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:MaxNumberofUEs ;
+    rdfs:range xsd:integer .
+
+TS28541_SliceNrm_MaxNumberofUEs:non3GPPNoOfUEs a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:MaxNumberofUEs ;
+    rdfs:range xsd:integer .
+
+TS28541_SliceNrm_MaxNumberofUEs:servAttrCom a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:MaxNumberofUEs ;
+    rdfs:range TS28541_SliceNrm:ServAttrCom .
+
 TS28541_SliceNrm_MaxPktSize:maxsize a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:MaxPktSize ;
     rdfs:range xsd:integer .
@@ -611,7 +630,7 @@ TS28541_SliceNrm_RANSliceSubnetProfile:maxDLDataVolume a rdf:Property ;
 
 TS28541_SliceNrm_RANSliceSubnetProfile:maxNumberofUEs a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:RANSliceSubnetProfile ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28541_SliceNrm:MaxNumberofUEs .
 
 TS28541_SliceNrm_RANSliceSubnetProfile:maxULDataVolume a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:RANSliceSubnetProfile ;
@@ -627,6 +646,10 @@ TS28541_SliceNrm_RANSliceSubnetProfile:nonIPSupport a rdf:Property ;
 TS28541_SliceNrm_RANSliceSubnetProfile:positioning a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:RANSliceSubnetProfile ;
     rdfs:range TS28541_SliceNrm:Positioning .
+
+TS28541_SliceNrm_RANSliceSubnetProfile:renewableEnergyPct a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:RANSliceSubnetProfile ;
+    rdfs:range xsd:integer .
 
 TS28541_SliceNrm_RANSliceSubnetProfile:resourceSharingLevel a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:RANSliceSubnetProfile ;
@@ -797,7 +820,7 @@ TS28541_SliceNrm_ServiceProfile:maxNumberofPDUSessions a rdf:Property ;
 
 TS28541_SliceNrm_ServiceProfile:maxNumberofUEs a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:ServiceProfile ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28541_SliceNrm:MaxNumberofUEs .
 
 TS28541_SliceNrm_ServiceProfile:maxULDataVolume a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:ServiceProfile ;
@@ -835,13 +858,17 @@ TS28541_SliceNrm_ServiceProfile:radioSpectrum a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:ServiceProfile ;
     rdfs:range TS28541_SliceNrm:RadioSpectrum .
 
+TS28541_SliceNrm_ServiceProfile:renewableEnergyPct a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:ServiceProfile ;
+    rdfs:range xsd:integer .
+
 TS28541_SliceNrm_ServiceProfile:serviceProfileId a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:ServiceProfile ;
     rdfs:range xsd:string .
 
 TS28541_SliceNrm_ServiceProfile:sliceAvailability a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:ServiceProfile ;
-    rdfs:range xsd:string .
+    rdfs:range TS28623_GenericNrm:SchedulingTime .
 
 TS28541_SliceNrm_ServiceProfile:sliceSimultaneousUse a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:ServiceProfile ;
@@ -1009,7 +1036,7 @@ TS28541_SliceNrm_TopSliceSubnetProfile:dLDeterministicComm a rdf:Property ;
 
 TS28541_SliceNrm_TopSliceSubnetProfile:dLLatency a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
-    rdfs:range xsd:double .
+    rdfs:range xsd:integer .
 
 TS28541_SliceNrm_TopSliceSubnetProfile:dLMaxPktSize a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
@@ -1057,7 +1084,7 @@ TS28541_SliceNrm_TopSliceSubnetProfile:maxNumberOfPDUSessions a rdf:Property ;
 
 TS28541_SliceNrm_TopSliceSubnetProfile:maxNumberofUEs a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
-    rdfs:range xsd:integer .
+    rdfs:range TS28541_SliceNrm:MaxNumberofUEs .
 
 TS28541_SliceNrm_TopSliceSubnetProfile:maxULDataVolume a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
@@ -1082,6 +1109,10 @@ TS28541_SliceNrm_TopSliceSubnetProfile:positioning a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
     rdfs:range TS28541_SliceNrm:Positioning .
 
+TS28541_SliceNrm_TopSliceSubnetProfile:renewableEnergyPct a rdf:Property ;
+    rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
+    rdfs:range xsd:integer .
+
 TS28541_SliceNrm_TopSliceSubnetProfile:resourceSharingLevel a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
     rdfs:range xsd:string .
@@ -1092,7 +1123,7 @@ TS28541_SliceNrm_TopSliceSubnetProfile:sliceSimultaneousUse a rdf:Property ;
 
 TS28541_SliceNrm_TopSliceSubnetProfile:sliceSubnetAvailability a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
-    rdfs:range xsd:string .
+    rdfs:range TS28623_GenericNrm:SchedulingTime .
 
 TS28541_SliceNrm_TopSliceSubnetProfile:supportedDataNetworks a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
@@ -1124,7 +1155,7 @@ TS28541_SliceNrm_TopSliceSubnetProfile:uLDeterministicComm a rdf:Property ;
 
 TS28541_SliceNrm_TopSliceSubnetProfile:uLLatency a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
-    rdfs:range xsd:double .
+    rdfs:range xsd:integer .
 
 TS28541_SliceNrm_TopSliceSubnetProfile:uLMaxPktSize a rdf:Property ;
     rdfs:domain TS28541_SliceNrm:TopSliceSubnetProfile ;
@@ -1199,9 +1230,6 @@ TS28541_SliceNrm:attributes a rdf:Property ;
 TS28541_SliceNrm:availabilityStatus a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28541_SliceNrm:connectionPointRefList a rdf:Property ;
-    rdfs:range TS28541_SliceNrm:ConnectionPointInfo .
-
 TS28541_SliceNrm:coverageAreaTAList a rdf:Property ;
     rdfs:range TS28541_5GcNrm:TaiList .
 
@@ -1217,11 +1245,14 @@ TS28541_SliceNrm:epApplicationRefs a rdf:Property ;
 TS28541_SliceNrm:epTransportRefList a rdf:Property ;
     rdfs:range xsd:string .
 
+TS28541_SliceNrm:externalEndPointRefList a rdf:Property ;
+    rdfs:range TS28541_SliceNrm:ConnectionPointInfo .
+
 TS28541_SliceNrm:feasibilityResult a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28541_SliceNrm:feasibilityTimeWindow a rdf:Property ;
-    rdfs:range xsd:string .
+    rdfs:range TS28623_ComDefs:TimeWindow .
 
 TS28541_SliceNrm:inFeasibleReason a rdf:Property ;
     rdfs:range xsd:string .

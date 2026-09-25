@@ -316,16 +316,6 @@ properties:
   owner_class: listOfInterfaces-Type
   range: null
   description: null
-- local_name: TargetIdType
-  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceTarget-Type/TargetIdType
-  owner_class: traceTarget-Type
-  range: http://www.w3.org/2001/XMLSchema#string
-  description: null
-- local_name: TargetIdValue
-  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceTarget-Type/TargetIdValue
-  owner_class: traceTarget-Type
-  range: http://www.w3.org/2001/XMLSchema#string
-  description: null
 - local_name: TraceJob
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/ManagedElement-ncO-TraceControlNrm/TraceJob
   owner_class: ManagedElement-ncO-TraceControlNrm
@@ -384,7 +374,7 @@ properties:
 - local_name: areaScope
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/mdtConfig-Type/areaScope
   owner_class: mdtConfig-Type
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28623_GenericNrm/AreaScope
   description: null
 - local_name: arfcn
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/FreqInfo/arfcn
@@ -476,6 +466,11 @@ properties:
   owner_class: immediateMDTConfig-Type
   range: http://www.w3.org/2001/XMLSchema#integer
   description: null
+- local_name: eventTriggerConfig
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/immediateMDTConfig-Type/eventTriggerConfig
+  owner_class: immediateMDTConfig-Type
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/EventTriggerConfig
+  description: null
 - local_name: excessPacketDelayThresholdValue
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/excessPacketDelayThreshold-Type/excessPacketDelayThresholdValue
   owner_class: excessPacketDelayThreshold-Type
@@ -535,6 +530,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/TraceJob-Attr/jobType
   owner_class: TraceJob-Attr
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: layerOneRsrpPeriodicity
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/immediateMDTConfig-Type/layerOneRsrpPeriodicity
+  owner_class: immediateMDTConfig-Type
+  range: http://www.w3.org/2001/XMLSchema#integer
   description: null
 - local_name: listOfInterfaces
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceConfig-Type/listOfInterfaces
@@ -671,9 +671,14 @@ properties:
   owner_class: AreaConfig
   range: null
   description: null
+- local_name: plmnId
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/PLMNInfo/plmnId
+  owner_class: PLMNInfo
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/PlmnId
+  description: null
 - local_name: plmnList
-  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/loggedMDTConfig-Type/plmnList
-  owner_class: loggedMDTConfig-Type
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/mdtConfig-Type/plmnList
+  owner_class: mdtConfig-Type
   range: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/plmnList-Type
   description: null
 - local_name: plmnTarget
@@ -761,6 +766,11 @@ properties:
   owner_class: UECoreMeasConfig-Type
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: sNSSAI
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/PLMNInfo/sNSSAI
+  owner_class: PLMNInfo
+  range: https://semantics.ericsson.com/openapi/TS28541_NrNrm/Snssai
+  description: null
 - local_name: sensorInformation
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/mdtConfig-Type/sensorInformation
   owner_class: mdtConfig-Type
@@ -819,7 +829,17 @@ properties:
 - local_name: traceTarget
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/TraceJob-Attr/traceTarget
   owner_class: TraceJob-Attr
-  range: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceTarget-Type
+  range: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/TraceTarget
+  description: null
+- local_name: traceTargetType
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/TraceTarget/traceTargetType
+  owner_class: TraceTarget
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: traceTargetValueList
+  uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/TraceTarget/traceTargetValueList
+  owner_class: TraceTarget
+  range: null
   description: null
 - local_name: triggeringEvents
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/traceConfig-Type/triggeringEvents
@@ -839,6 +859,6 @@ properties:
 - local_name: ueCoreMeasurements
   uri: https://semantics.ericsson.com/openapi/TS28623_TraceControlNrm/UECoreMeasConfig-Type/ueCoreMeasurements
   owner_class: UECoreMeasConfig-Type
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: null
   description: null
 collisions: []

@@ -1,0 +1,844 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# RDF vocabulary produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28572_PlanManagement.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28572_PlanManagement: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/> .
+@prefix TS28572_PlanManagement_ActivationJob: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ActivationJob/> .
+@prefix TS28572_PlanManagement_ActivationJobLinks: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ActivationJobLinks/> .
+@prefix TS28572_PlanManagement_ActivationJobStatus: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ActivationJobStatus/> .
+@prefix TS28572_PlanManagement_CancelRequest: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/CancelRequest/> .
+@prefix TS28572_PlanManagement_ConfigChange: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ConfigChange/> .
+@prefix TS28572_PlanManagement_ConfigChangeWritable: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ConfigChangeWritable/> .
+@prefix TS28572_PlanManagement_DescriptorListEntry: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/DescriptorListEntry/> .
+@prefix TS28572_PlanManagement_EmbeddedPlan: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/EmbeddedPlan/> .
+@prefix TS28572_PlanManagement_EmbeddedPlanGroup: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/EmbeddedPlanGroup/> .
+@prefix TS28572_PlanManagement_ErrorDetail: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ErrorDetail/> .
+@prefix TS28572_PlanManagement_ExecutionDetails: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ExecutionDetails/> .
+@prefix TS28572_PlanManagement_FallbackConfigurationDescriptorResponse: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/FallbackConfigurationDescriptorResponse/> .
+@prefix TS28572_PlanManagement_FallbackPlanRef: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/FallbackPlanRef/> .
+@prefix TS28572_PlanManagement_Hysteresis: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/Hysteresis/> .
+@prefix TS28572_PlanManagement_JobListEntry: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/JobListEntry/> .
+@prefix TS28572_PlanManagement_LinkObject: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/LinkObject/> .
+@prefix TS28572_PlanManagement_MemberConflict: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/MemberConflict/> .
+@prefix TS28572_PlanManagement_PlanConfigurationDescriptor: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanConfigurationDescriptor/> .
+@prefix TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanConfigurationDescriptorBaseProperties/> .
+@prefix TS28572_PlanManagement_PlanConfigurationDescriptorRequest: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanConfigurationDescriptorRequest/> .
+@prefix TS28572_PlanManagement_PlanConfigurationDescriptorResponse: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanConfigurationDescriptorResponse/> .
+@prefix TS28572_PlanManagement_PlanConfigurationGroupDescriptor: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanConfigurationGroupDescriptor/> .
+@prefix TS28572_PlanManagement_PlanConfigurationGroupDescriptorResponse: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanConfigurationGroupDescriptorResponse/> .
+@prefix TS28572_PlanManagement_PlanGroupRef: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanGroupRef/> .
+@prefix TS28572_PlanManagement_PlanRef: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/PlanRef/> .
+@prefix TS28572_PlanManagement_SelfLink: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/SelfLink/> .
+@prefix TS28572_PlanManagement_SummaryStatus: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/SummaryStatus/> .
+@prefix TS28572_PlanManagement_TriggerDescriptor: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/TriggerDescriptor/> .
+@prefix TS28572_PlanManagement_TriggerDescriptorBaseProperties: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/TriggerDescriptorBaseProperties/> .
+@prefix TS28572_PlanManagement_TriggerDescriptorResponse: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/TriggerDescriptorResponse/> .
+@prefix TS28572_PlanManagement_ValidationJob: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ValidationJob/> .
+@prefix TS28572_PlanManagement_ValidationJobLinks: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ValidationJobLinks/> .
+@prefix TS28572_PlanManagement_ValidationJobStatus: <https://semantics.ericsson.com/openapi/TS28572_PlanManagement/ValidationJobStatus/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix transport: <https://semantics.ericsson.com/vocab/transport/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS28572_PlanManagement:ActivationJob a rdfs:Class .
+
+TS28572_PlanManagement:ActivationJobLinks a rdfs:Class .
+
+TS28572_PlanManagement:ActivationJobStatus a rdfs:Class .
+
+TS28572_PlanManagement:CancelRequest a rdfs:Class .
+
+TS28572_PlanManagement:ConfigChange a rdfs:Class .
+
+TS28572_PlanManagement:ConfigChangeWritable a rdfs:Class .
+
+TS28572_PlanManagement:DescriptorListEntry a rdfs:Class .
+
+TS28572_PlanManagement:EmbeddedPlan a rdfs:Class .
+
+TS28572_PlanManagement:EmbeddedPlanGroup a rdfs:Class .
+
+TS28572_PlanManagement:ErrorDetail a rdfs:Class .
+
+TS28572_PlanManagement:ExecutionDetails a rdfs:Class ;
+    rdfs:comment "Details of the execution of the operations that are contained in the planned configuration or planned configuration group referenced in the job." .
+
+TS28572_PlanManagement:FallbackConfigurationDescriptorResponse a rdfs:Class .
+
+TS28572_PlanManagement:FallbackPlan a rdfs:Class ;
+    transport:isMintedByConvention true .
+
+TS28572_PlanManagement:FallbackPlanRef a rdfs:Class ;
+    transport:isSerialisationArtifact true ;
+    transport:refersTo TS28572_PlanManagement:FallbackPlan .
+
+TS28572_PlanManagement:Hysteresis a rdfs:Class .
+
+TS28572_PlanManagement:JobListEntry a rdfs:Class .
+
+TS28572_PlanManagement:LinkObject a rdfs:Class ;
+    rdfs:comment "Defines the structure of a single hypermedia link." .
+
+TS28572_PlanManagement:MemberConflict a rdfs:Class .
+
+TS28572_PlanManagement:Plan a rdfs:Class ;
+    transport:isMintedByConvention true .
+
+TS28572_PlanManagement:PlanConfigurationDescriptor a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties .
+
+TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties a rdfs:Class .
+
+TS28572_PlanManagement:PlanConfigurationDescriptorRequest a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties .
+
+TS28572_PlanManagement:PlanConfigurationDescriptorResponse a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:PlanConfigurationDescriptor .
+
+TS28572_PlanManagement:PlanConfigurationGroupDescriptor a rdfs:Class .
+
+TS28572_PlanManagement:PlanConfigurationGroupDescriptorResponse a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:PlanConfigurationGroupDescriptor .
+
+TS28572_PlanManagement:PlanGroup a rdfs:Class ;
+    transport:isMintedByConvention true .
+
+TS28572_PlanManagement:PlanGroupRef a rdfs:Class ;
+    transport:isSerialisationArtifact true ;
+    transport:refersTo TS28572_PlanManagement:PlanGroup .
+
+TS28572_PlanManagement:PlanRef a rdfs:Class ;
+    transport:isSerialisationArtifact true ;
+    transport:refersTo TS28572_PlanManagement:Plan .
+
+TS28572_PlanManagement:SelfLink a rdfs:Class ;
+    rdfs:comment "Hypermedia links for this resource, including fixed and dynamic relations." .
+
+TS28572_PlanManagement:SummaryStatus a rdfs:Class .
+
+TS28572_PlanManagement:TriggerDescriptor a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:TriggerDescriptorBaseProperties .
+
+TS28572_PlanManagement:TriggerDescriptorBaseProperties a rdfs:Class .
+
+TS28572_PlanManagement:TriggerDescriptorRequest a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:TriggerDescriptorBaseProperties .
+
+TS28572_PlanManagement:TriggerDescriptorResponse a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:TriggerDescriptor .
+
+TS28572_PlanManagement:ValidationJob a rdfs:Class ;
+    rdfs:subClassOf TS28572_PlanManagement:ValidationJobStatus .
+
+TS28572_PlanManagement:ValidationJobLinks a rdfs:Class .
+
+TS28572_PlanManagement:ValidationJobRequest a rdfs:Class .
+
+TS28572_PlanManagement:ValidationJobStatus a rdfs:Class .
+
+TS28572_PlanManagement_ActivationJob:_links a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob ;
+    rdfs:range TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJob:activationDetails a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob .
+
+TS28572_PlanManagement_ActivationJob:activationState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob .
+
+TS28572_PlanManagement_ActivationJob:cancelRequest a rdf:Property ;
+    rdfs:comment "This boolean attribute allows to request to cancel the activation process by setting its value to \"True\". Setting the value to \"False\" has no observable result. Once the value is set to \"True\" it is immutable" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_ActivationJob:createdFallbackConfigDescrId a rdf:Property ;
+    rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ActivationJob:id a rdf:Property ;
+    rdfs:comment "id of the activation job" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ActivationJob:jobDetails a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob .
+
+TS28572_PlanManagement_ActivationJob:jobState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob .
+
+TS28572_PlanManagement_ActivationJob:startedAt a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_ActivationJob:stoppedAt a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJob ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_ActivationJobLinks:cancel a rdf:Property ;
+    rdfs:comment "A URI reference to cancel the job" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJobLinks:descriptor a rdf:Property ;
+    rdfs:comment "A URI reference to the plan or plan group configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJobLinks:fallback a rdf:Property ;
+    rdfs:comment "A URI reference to the fallback plan descriptor" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJobLinks:self a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJobLinks:status a rdf:Property ;
+    rdfs:comment "A URI reference to the status information" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJobLinks:validationDetails a rdf:Property ;
+    rdfs:comment "A URI reference to the status information" ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobLinks .
+
+TS28572_PlanManagement_ActivationJobStatus:activationState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobStatus ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ActivationJobStatus:jobState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobStatus ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ActivationJobStatus:startedAt a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobStatus ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_ActivationJobStatus:stoppedAt a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ActivationJobStatus ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:ActivationState a rdfs:Datatype .
+
+TS28572_PlanManagement_CancelRequest:cancelRequest a rdf:Property ;
+    rdfs:comment "Must be set to true to initiate cancellation." ;
+    rdfs:domain TS28572_PlanManagement:CancelRequest ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_ConfigChange:changeId a rdf:Property ;
+    rdfs:comment "The identifier of the operation. It may or may not be provided. If provided, it shall be unique within an instance of \"configChanges\" and it shall be provided for all changes in \"configChanges\"." ;
+    rdfs:domain TS28572_PlanManagement:ConfigChange ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChange:description a rdf:Property ;
+    rdfs:comment "text describing the change" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChange ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChange:modifyOperator a rdf:Property ;
+    rdfs:comment "The operation to perform" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChange ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChange:target a rdf:Property ;
+    rdfs:comment "Target data node path" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChange ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChange:value a rdf:Property ;
+    rdfs:comment "Value to apply (for create/merge/merge-create operations)" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChange ;
+    rdfs:range rdfs:Resource .
+
+TS28572_PlanManagement_ConfigChangeWritable:changeId a rdf:Property ;
+    rdfs:comment "The identifier of the operation. It may or may not be provided If provided, it shall be unique within an instance of \"configChanges\" and it shall be provided for all changes in \"configChanges\"." ;
+    rdfs:domain TS28572_PlanManagement:ConfigChangeWritable .
+
+TS28572_PlanManagement_ConfigChangeWritable:description a rdf:Property ;
+    rdfs:comment "text describing the change" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChangeWritable ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChangeWritable:modifyOperator a rdf:Property ;
+    rdfs:comment "The operation to perform" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChangeWritable ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChangeWritable:target a rdf:Property ;
+    rdfs:comment "Target data node path" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChangeWritable ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ConfigChangeWritable:value a rdf:Property ;
+    rdfs:comment "Value to apply (for create/merge/merge-create operations)" ;
+    rdfs:domain TS28572_PlanManagement:ConfigChangeWritable ;
+    rdfs:range rdfs:Resource .
+
+TS28572_PlanManagement:ConfigChangesContentType a rdfs:Datatype ;
+    rdfs:comment "The supported configuration content types." .
+
+TS28572_PlanManagement_DescriptorListEntry:description a rdf:Property ;
+    rdfs:comment "description/purpose of the descriptor." ;
+    rdfs:domain TS28572_PlanManagement:DescriptorListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_DescriptorListEntry:id a rdf:Property ;
+    rdfs:comment "id of the descriptor." ;
+    rdfs:domain TS28572_PlanManagement:DescriptorListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_DescriptorListEntry:name a rdf:Property ;
+    rdfs:comment "name of the descriptor." ;
+    rdfs:domain TS28572_PlanManagement:DescriptorListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_DescriptorListEntry:version a rdf:Property ;
+    rdfs:comment "version of the descriptor." ;
+    rdfs:domain TS28572_PlanManagement:DescriptorListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_EmbeddedPlan:planConfigDescr a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:EmbeddedPlan ;
+    rdfs:range TS28572_PlanManagement:PlanConfigurationDescriptorRequest .
+
+TS28572_PlanManagement_EmbeddedPlanGroup:planConfigGroupDescr a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:EmbeddedPlanGroup ;
+    rdfs:range TS28572_PlanManagement:PlanConfigurationGroupDescriptor .
+
+TS28572_PlanManagement_ErrorDetail:badDataNode a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ErrorDetail ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ErrorDetail:detail a rdf:Property ;
+    rdfs:comment "A human-readable explanation specific to this occurrence of the problem." ;
+    rdfs:domain TS28572_PlanManagement:ErrorDetail ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ErrorDetail:errorInfo a rdf:Property ;
+    rdfs:comment "additional error info (e.g. stackdump)" ;
+    rdfs:domain TS28572_PlanManagement:ErrorDetail ;
+    rdfs:range rdfs:Resource .
+
+TS28572_PlanManagement_ErrorDetail:reason a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ErrorDetail ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ErrorDetail:title a rdf:Property ;
+    rdfs:comment "A short, human-readable summary of the problem type" ;
+    rdfs:domain TS28572_PlanManagement:ErrorDetail ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ErrorDetail:type a rdf:Property ;
+    rdfs:comment "The type of the error" ;
+    rdfs:domain TS28572_PlanManagement:ErrorDetail ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ExecutionDetails:memberConflicts a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ExecutionDetails ;
+    rdfs:range TS28572_PlanManagement:MemberConflict .
+
+TS28572_PlanManagement_ExecutionDetails:results a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ExecutionDetails ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ExecutionDetails:summary a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ExecutionDetails ;
+    rdfs:range TS28572_PlanManagement:SummaryStatus .
+
+TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:_links a rdf:Property ;
+    rdfs:comment "Hypermedia links for fallback descriptor" ;
+    rdfs:domain TS28572_PlanManagement:FallbackConfigurationDescriptorResponse .
+
+TS28572_PlanManagement_FallbackPlanRef:fallbackConfigDescrId a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:FallbackPlanRef ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_Hysteresis:numberOfTrueEvaluations a rdf:Property ;
+    rdfs:comment "This information element, when present, specifies that the trigger shall not be activated immediately, when the evaluation result changes from false to true, but only when the evaluation results is true for a specified time (which must be a multiple of the evaluation period) or a specified number of times." ;
+    rdfs:domain TS28572_PlanManagement:Hysteresis ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_Hysteresis:timeOfTrueEvaluations a rdf:Property ;
+    rdfs:comment "The hysteresis, when present, specifies that the trigger shall not be activated immediately, when the evaluation result changes from false to true, but only when the evaluation results is true for a specified time (which must be a multiple of the evaluation period). Unit is seconds" ;
+    rdfs:domain TS28572_PlanManagement:Hysteresis ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_JobListEntry:description a rdf:Property ;
+    rdfs:comment "description/purpose of the job." ;
+    rdfs:domain TS28572_PlanManagement:JobListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_JobListEntry:id a rdf:Property ;
+    rdfs:comment "id of the job." ;
+    rdfs:domain TS28572_PlanManagement:JobListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_JobListEntry:jobState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:JobListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_JobListEntry:name a rdf:Property ;
+    rdfs:comment "name of the job." ;
+    rdfs:domain TS28572_PlanManagement:JobListEntry ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:JobState a rdfs:Datatype .
+
+TS28572_PlanManagement_LinkObject:href a rdf:Property ;
+    rdfs:comment "The target URI of the link." ;
+    rdfs:domain TS28572_PlanManagement:LinkObject ;
+    transport:isIriValued true .
+
+TS28572_PlanManagement_LinkObject:method a rdf:Property ;
+    rdfs:comment "The HTTP method to use for this action link." ;
+    rdfs:domain TS28572_PlanManagement:LinkObject ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_LinkObject:templated a rdf:Property ;
+    rdfs:comment "Indicates if the href is a URI Template (RFC 6570)." ;
+    rdfs:domain TS28572_PlanManagement:LinkObject ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_LinkObject:title a rdf:Property ;
+    rdfs:comment "A human-readable title that describes the link's purpose." ;
+    rdfs:domain TS28572_PlanManagement:LinkObject ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_LinkObject:type a rdf:Property ;
+    rdfs:comment "The content type expected when following this link (MIME type)." ;
+    rdfs:domain TS28572_PlanManagement:LinkObject ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_MemberConflict:memberConflict a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:MemberConflict ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptor:configChanges a rdf:Property ;
+    rdfs:comment "The plan configuration changes" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptor ;
+    rdfs:range TS28572_PlanManagement:ConfigChange .
+
+TS28572_PlanManagement_PlanConfigurationDescriptor:id a rdf:Property ;
+    rdfs:comment "The identifier of the planned configuration" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptor:lastModifiedAt a rdf:Property ;
+    rdfs:comment "the last time the plan was modified" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptor ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_PlanConfigurationDescriptor:lastValidatedAt a rdf:Property ;
+    rdfs:comment "last time the plan was validated" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptor ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_PlanConfigurationDescriptor:validationState a rdf:Property ;
+    rdfs:comment "The validation state of the plan." ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:activationMode a rdf:Property ;
+    rdfs:comment "Specifies the execution behavior when the plan is activated" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:configChangesContentType a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:customProperties a rdf:Property ;
+    rdfs:comment "A dynamic set of custom properties provided by client" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    rdfs:range rdfs:Resource .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:description a rdf:Property ;
+    rdfs:comment "Used to describe the purpose of the plan configuration" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:name a rdf:Property ;
+    rdfs:comment "Descriptive name of the plan group configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorBaseProperties:version a rdf:Property ;
+    rdfs:comment "The version of the planned configuration. Its format is implementation specific." ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorRequest:configChanges a rdf:Property ;
+    rdfs:comment "The plan configuration changes" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorRequest ;
+    rdfs:range TS28572_PlanManagement:ConfigChangeWritable .
+
+TS28572_PlanManagement_PlanConfigurationDescriptorResponse:_links a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationDescriptorResponse .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:activationMode a rdf:Property ;
+    rdfs:comment "Specifies the execution behavior when the plan configuration group is activated" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:customProperties a rdf:Property ;
+    rdfs:comment "A dynamic set of custom properties provided by client" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range rdfs:Resource .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:description a rdf:Property ;
+    rdfs:comment "Used to describe the purpose of the plan group configuration" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:id a rdf:Property ;
+    rdfs:comment "Unique id of the plan group configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:isFailOnMemberConflicts a rdf:Property ;
+    rdfs:comment "Specifies if the activation shall fail on detection of conflicts between planned configuration group members, or if the operations shall be processed as if there were no conflicts" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:isOrdered a rdf:Property ;
+    rdfs:comment "Specifies if the members of the planned configuration group are ordered. When ordered, the planned configuration group members shall be validated/activated in the specified order. When not ordered the planned configuration group members can be validated/activated in any order" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:lastModifiedAt a rdf:Property ;
+    rdfs:comment "the last time the plan was modified" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:lastValidatedAt a rdf:Property ;
+    rdfs:comment "last time the plan was validated" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:members a rdf:Property ;
+    rdfs:comment "list of plan or plan group descriptor identifiers" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:name a rdf:Property ;
+    rdfs:comment "Descriptive name of the plan group configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:validationState a rdf:Property ;
+    rdfs:comment "The validation state for the last time plan configuration group was validated" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptor:version a rdf:Property ;
+    rdfs:comment "version of the plan group configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanConfigurationGroupDescriptorResponse:_links a rdf:Property ;
+    rdfs:comment "Hypermedia links for plan descriptor" ;
+    rdfs:domain TS28572_PlanManagement:PlanConfigurationGroupDescriptorResponse .
+
+TS28572_PlanManagement_PlanGroupRef:planConfigGroupDescrId a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:PlanGroupRef ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_PlanRef:planConfigDescrId a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:PlanRef ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_SelfLink:self a rdf:Property ;
+    rdfs:comment "A link to the resource itself." ;
+    rdfs:domain TS28572_PlanManagement:SelfLink .
+
+TS28572_PlanManagement_SummaryStatus:conflicting a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:SummaryStatus ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_SummaryStatus:failed a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:SummaryStatus ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_SummaryStatus:notFinished a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:SummaryStatus ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_SummaryStatus:rollbackFailed a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:SummaryStatus ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_SummaryStatus:rollbackSucceeded a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:SummaryStatus ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_SummaryStatus:succeeded a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:SummaryStatus ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_TriggerDescriptor:currentEvaluationResult a rdf:Property ;
+    rdfs:comment "The current result of evaluating the \"condition-expression\"." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptor ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_TriggerDescriptor:id a rdf:Property ;
+    rdfs:comment "Unique id of the plan configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptor ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_TriggerDescriptor:isTriggerActive a rdf:Property ;
+    rdfs:comment "The indication if the trigger can start activation jobs (trigger is active), or if the trigger cannot start activation jobs (trigger is inactive)." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptor ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_TriggerDescriptor:lastModifiedAt a rdf:Property ;
+    rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptor ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_TriggerDescriptor:lastTriggeredAt a rdf:Property ;
+    rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptor ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:activationJobs a rdf:Property ;
+    rdfs:comment "The identifiers of one or more activation jobs that shall be triggered by this condition." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:conditionExpression a rdf:Property ;
+    rdfs:comment "The condition expression" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:customProperties a rdf:Property ;
+    rdfs:comment "A dynamic set of custom properties provided by client" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range rdfs:Resource .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:description a rdf:Property ;
+    rdfs:comment "Used to describe the purpose of the trigger" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:evaluationPeriod a rdf:Property ;
+    rdfs:comment "The evaluation period specifies the interval of time in seconds  between two consecutive condition expression evaluations." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:integer .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:hysteresis a rdf:Property ;
+    rdfs:comment "The hysteresis, when present, specifies that the trigger shall not be activated immediately when the evaluation result changes from false to true or a specified number of times.  Values greater or equal to 1 are allowed" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:isTriggerOnce a rdf:Property ;
+    rdfs:comment "The boolean indication, if the trigger is disarmed after the first firing." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:name a rdf:Property ;
+    rdfs:comment "Descriptive name of the trigger descriptor" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:startEvaluationAt a rdf:Property ;
+    rdfs:comment "The date and time at which the evaluation of the condition expression shall start. The evaluation result is set to \"False\" before that date and time. If the information element is not specified, evaluation of the trigger condition shall start immediately." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:stopEvaluationAt a rdf:Property ;
+    rdfs:comment "The date and time at which the evaluation of the condition expression shall stop. The evaluation result is set to \"False\" after that date and time. If the information element is not specified, evaluation of the trigger condition shall continue until the deletion of the trigger condition descriptor." ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_TriggerDescriptorBaseProperties:version a rdf:Property ;
+    rdfs:comment "an optional version for the Trigger Descriptor" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorBaseProperties ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_TriggerDescriptorResponse:_links a rdf:Property ;
+    rdfs:comment "Hypermedia links for trigger descriptor" ;
+    rdfs:domain TS28572_PlanManagement:TriggerDescriptorResponse .
+
+TS28572_PlanManagement_ValidationJob:_links a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJob ;
+    rdfs:range TS28572_PlanManagement:ValidationJobLinks .
+
+TS28572_PlanManagement_ValidationJob:cancelRequest a rdf:Property ;
+    rdfs:comment "boolean indicating the request of a job cancellation" ;
+    rdfs:domain TS28572_PlanManagement:ValidationJob ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement_ValidationJob:currentConfigTime a rdf:Property ;
+    rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
+    rdfs:domain TS28572_PlanManagement:ValidationJob ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_ValidationJob:id a rdf:Property ;
+    rdfs:comment "id of the validation job" ;
+    rdfs:domain TS28572_PlanManagement:ValidationJob ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_ValidationJob:jobDetails a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJob ;
+    rdfs:range TS28572_PlanManagement:JobDetails .
+
+TS28572_PlanManagement_ValidationJob:validationDetails a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJob ;
+    rdfs:range TS28572_PlanManagement:ExecutionDetails .
+
+TS28572_PlanManagement_ValidationJobLinks:cancel a rdf:Property ;
+    rdfs:comment "A URI reference to cancel the job" ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobLinks .
+
+TS28572_PlanManagement_ValidationJobLinks:descriptor a rdf:Property ;
+    rdfs:comment "A URI reference to the plan (or plan group) configuration descriptor" ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobLinks .
+
+TS28572_PlanManagement_ValidationJobLinks:self a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobLinks .
+
+TS28572_PlanManagement_ValidationJobLinks:status a rdf:Property ;
+    rdfs:comment "A URI reference to the status information" ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobLinks .
+
+TS28572_PlanManagement_ValidationJobLinks:validationDetails a rdf:Property ;
+    rdfs:comment "A URI reference to the status information" ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobLinks .
+
+TS28572_PlanManagement_ValidationJobStatus:jobState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobStatus .
+
+TS28572_PlanManagement_ValidationJobStatus:startedAt a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobStatus ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_ValidationJobStatus:stoppedAt a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobStatus ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement_ValidationJobStatus:validationState a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:ValidationJobStatus .
+
+TS28572_PlanManagement:ValidationState a rdfs:Datatype .
+
+TS28572_PlanManagement:_links a rdf:Property ;
+    rdfs:comment "Hypermedia links for fallback descriptor",
+        "Hypermedia links for plan descriptor",
+        "Hypermedia links for trigger descriptor" .
+
+TS28572_PlanManagement:activationDetails a rdf:Property .
+
+TS28572_PlanManagement:activationState a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:cancel a rdf:Property ;
+    rdfs:comment "A URI reference to cancel the job" .
+
+TS28572_PlanManagement:cancelRequest a rdf:Property ;
+    rdfs:comment "This boolean attribute allows to request to cancel the activation process by setting its value to \"True\". Setting the value to \"False\" has no observable result. Once the value is set to \"True\" it is immutable",
+        "boolean indicating the request of a job cancellation" ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement:configChanges a rdf:Property ;
+    rdfs:comment """The configuration change set specifying the configuration in case the fallback configuration is of the "UNDO" type. The format of "configChanges" is specified in "configChangesContentType". Exactly one of this element or the fallbackConfig shall be present.
+""",
+        "The plan configuration changes" .
+
+TS28572_PlanManagement:configChangesContentType a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:createdFallbackConfigDescrId a rdf:Property ;
+    rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:currentConfigTime a rdf:Property ;
+    rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:currentEvaluationResult a rdf:Property ;
+    rdfs:comment "The current result of evaluating the \"condition-expression\"." ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement:description a rdf:Property ;
+    rdfs:comment "description/purpose of the job." ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:descriptor a rdf:Property ;
+    rdfs:comment "A URI reference to the plan (or plan group) configuration descriptor",
+        "A URI reference to the plan or plan group configuration descriptor" .
+
+TS28572_PlanManagement:fallback a rdf:Property ;
+    rdfs:comment "A URI reference to the fallback plan descriptor" .
+
+TS28572_PlanManagement:fallbackConfig a rdf:Property ;
+    rdfs:comment "The fallback configuration associated with COMPLETE_RESTORE" ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:href a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:id a rdf:Property ;
+    rdfs:comment "The identifier of the planned configuration",
+        "Unique id of the plan configuration descriptor",
+        "id of the activation job",
+        "id of the job.",
+        "id of the validation job" ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:isTriggerActive a rdf:Property ;
+    rdfs:comment "The indication if the trigger can start activation jobs (trigger is active), or if the trigger cannot start activation jobs (trigger is inactive)." ;
+    rdfs:range xsd:boolean .
+
+TS28572_PlanManagement:jobDetails a rdf:Property ;
+    rdfs:range TS28572_PlanManagement:JobDetails .
+
+TS28572_PlanManagement:jobState a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:lastModifiedAt a rdf:Property ;
+    rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created.",
+        "the last time the plan was modified" ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:lastTriggeredAt a rdf:Property ;
+    rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:lastValidatedAt a rdf:Property ;
+    rdfs:comment "last time the plan was validated" ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:method a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:name a rdf:Property ;
+    rdfs:comment "name of the job." ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:self a rdf:Property .
+
+TS28572_PlanManagement:startedAt a rdf:Property ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:status a rdf:Property ;
+    rdfs:comment "A URI reference to the status information" .
+
+TS28572_PlanManagement:stoppedAt a rdf:Property ;
+    rdfs:range xsd:dateTime .
+
+TS28572_PlanManagement:title a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement:validationDetails a rdf:Property ;
+    rdfs:comment "A URI reference to the status information" ;
+    rdfs:range TS28572_PlanManagement:ExecutionDetails .
+
+TS28572_PlanManagement:validationState a rdf:Property ;
+    rdfs:comment "The validation state of the plan." ;
+    rdfs:range xsd:string .
+

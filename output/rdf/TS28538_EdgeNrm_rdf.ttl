@@ -14,8 +14,7 @@
 
 @prefix TS28538_EdgeNrm: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/> .
 @prefix TS28538_EdgeNrm_AffinityAntiAffinity: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/AffinityAntiAffinity/> .
-@prefix TS28538_EdgeNrm_AvailableEDNList: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/AvailableEDNList/> .
-@prefix TS28538_EdgeNrm_Duration: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/Duration/> .
+@prefix TS28538_EdgeNrm_AvailableEDN: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/AvailableEDN/> .
 @prefix TS28538_EdgeNrm_EASBundle-Single: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/EASBundle-Single/> .
 @prefix TS28538_EdgeNrm_EASFunction-Single: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/EASFunction-Single/> .
 @prefix TS28538_EdgeNrm_EASProfile-Single: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/EASProfile-Single/> .
@@ -29,12 +28,15 @@
 @prefix TS28538_EdgeNrm_FederatedECSInfo: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/FederatedECSInfo/> .
 @prefix TS28538_EdgeNrm_GeoLoc: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/GeoLoc/> .
 @prefix TS28538_EdgeNrm_GeographicalCoordinates: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/GeographicalCoordinates/> .
+@prefix TS28538_EdgeNrm_ManagedEdgeNFService-Single: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/ManagedEdgeNFService-Single/> .
+@prefix TS28538_EdgeNrm_Operation: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/Operation/> .
 @prefix TS28538_EdgeNrm_OperatorEdgeDataNetwork-Single: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/OperatorEdgeDataNetwork-Single/> .
 @prefix TS28538_EdgeNrm_OperatorEdgeFederation-Single: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/OperatorEdgeFederation-Single/> .
 @prefix TS28538_EdgeNrm_RegistrationInfo: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/RegistrationInfo/> .
 @prefix TS28538_EdgeNrm_RelocationTriggerInfo: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/RelocationTriggerInfo/> .
 @prefix TS28538_EdgeNrm_ResourceReservationRequirement: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/ResourceReservationRequirement/> .
 @prefix TS28538_EdgeNrm_ResourceReservationStatus: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/ResourceReservationStatus/> .
+@prefix TS28538_EdgeNrm_SAP: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/SAP/> .
 @prefix TS28538_EdgeNrm_ServingLocation: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/ServingLocation/> .
 @prefix TS28538_EdgeNrm_SoftwareImageInfo: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/SoftwareImageInfo/> .
 @prefix TS28538_EdgeNrm_SubNetwork-ncO-EdgeNrm: <https://semantics.ericsson.com/openapi/TS28538_EdgeNrm/SubNetwork-ncO-EdgeNrm/> .
@@ -49,9 +51,7 @@
 
 TS28538_EdgeNrm:AffinityAntiAffinity a rdfs:Class .
 
-TS28538_EdgeNrm:AvailableEDNList a rdfs:Class .
-
-TS28538_EdgeNrm:Duration a rdfs:Class .
+TS28538_EdgeNrm:AvailableEDN a rdfs:Class .
 
 TS28538_EdgeNrm:EASBundle-Multiple a rdfs:Class .
 
@@ -105,6 +105,13 @@ TS28538_EdgeNrm:GeoLoc a rdfs:Class .
 
 TS28538_EdgeNrm:GeographicalCoordinates a rdfs:Class .
 
+TS28538_EdgeNrm:ManagedEdgeNFService-Multiple a rdfs:Class .
+
+TS28538_EdgeNrm:ManagedEdgeNFService-Single a rdfs:Class ;
+    rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28538_EdgeNrm:Operation a rdfs:Class .
+
 TS28538_EdgeNrm:OperatorEdgeDataNetwork-Multiple a rdfs:Class .
 
 TS28538_EdgeNrm:OperatorEdgeDataNetwork-Single a rdfs:Class ;
@@ -123,6 +130,8 @@ TS28538_EdgeNrm:ResourceReservationRequirement a rdfs:Class .
 
 TS28538_EdgeNrm:ResourceReservationStatus a rdfs:Class .
 
+TS28538_EdgeNrm:SAP a rdfs:Class .
+
 TS28538_EdgeNrm:ServingLocation a rdfs:Class .
 
 TS28538_EdgeNrm:SoftwareImageInfo a rdfs:Class .
@@ -139,17 +148,13 @@ TS28538_EdgeNrm_AffinityAntiAffinity:affinityEAS a rdf:Property ;
 TS28538_EdgeNrm_AffinityAntiAffinity:antiAffinityEAS a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:AffinityAntiAffinity .
 
-TS28538_EdgeNrm_AvailableEDNList:resourceQuota a rdf:Property ;
-    rdfs:domain TS28538_EdgeNrm:AvailableEDNList ;
+TS28538_EdgeNrm_AvailableEDN:AvailableEDN a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:AvailableEDN ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm_AvailableEDN:resourceQuota a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:AvailableEDN ;
     rdfs:range TS28538_EdgeNrm:VirtualResource .
-
-TS28538_EdgeNrm_Duration:endTime a rdf:Property ;
-    rdfs:domain TS28538_EdgeNrm:Duration ;
-    rdfs:range xsd:dateTime .
-
-TS28538_EdgeNrm_Duration:startTime a rdf:Property ;
-    rdfs:domain TS28538_EdgeNrm:Duration ;
-    rdfs:range xsd:dateTime .
 
 TS28538_EdgeNrm_EASBundle-Single:bundleIdentifier a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EASBundle-Single ;
@@ -185,6 +190,10 @@ TS28538_EdgeNrm:EASFeature a rdfs:Datatype .
 TS28538_EdgeNrm:EASFunction a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:EASFunction-Multiple .
 
+TS28538_EdgeNrm_EASFunction-Single:ManagedEdgeNFService a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:EASFunction-Single ;
+    rdfs:range TS28538_EdgeNrm:ManagedEdgeNFService-Multiple .
+
 TS28538_EdgeNrm_EASFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EASFunction-Single .
 
@@ -214,7 +223,7 @@ TS28538_EdgeNrm_EASProfile-Single:eASProvider a rdf:Property ;
 
 TS28538_EdgeNrm_EASProfile-Single:eASSchedule a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EASProfile-Single ;
-    rdfs:range TS28538_EdgeNrm:Duration .
+    rdfs:range TS28623_ComDefs:TimeWindowRo .
 
 TS28538_EdgeNrm_EASProfile-Single:eASServiceContinuitySupport a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EASProfile-Single ;
@@ -250,7 +259,7 @@ TS28538_EdgeNrm_EASRequirements-Single:eASFeature a rdf:Property ;
 
 TS28538_EdgeNrm_EASRequirements-Single:eASSchedule a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EASRequirements-Single ;
-    rdfs:range TS28538_EdgeNrm:Duration .
+    rdfs:range TS28623_ComDefs:TimeWindow .
 
 TS28538_EdgeNrm_EASRequirements-Single:federationID a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EASRequirements-Single ;
@@ -303,6 +312,10 @@ TS28538_EdgeNrm:EASServicePermission a rdfs:Datatype ;
 TS28538_EdgeNrm:EASStatus a rdfs:Datatype ;
     rdfs:comment "any of enumerated value" .
 
+TS28538_EdgeNrm_ECSFunction-Single:ManagedEdgeNFService a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:ECSFunction-Single ;
+    rdfs:range TS28538_EdgeNrm:ManagedEdgeNFService-Multiple .
+
 TS28538_EdgeNrm_ECSFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:ECSFunction-Single .
 
@@ -316,6 +329,10 @@ TS28538_EdgeNrm_EDNConnectionInfo:eDNServiceArea a rdf:Property ;
 
 TS28538_EdgeNrm:EESFunction a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:EESFunction-Multiple .
+
+TS28538_EdgeNrm_EESFunction-Single:ManagedEdgeNFService a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:EESFunction-Single ;
+    rdfs:range TS28538_EdgeNrm:ManagedEdgeNFService-Multiple .
 
 TS28538_EdgeNrm_EESFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:EESFunction-Single .
@@ -368,9 +385,6 @@ TS28538_EdgeNrm_FederatedECSInfo:servedEESList a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:FederatedECSInfo ;
     rdfs:range xsd:string .
 
-TS28538_EdgeNrm:FederationExpiry a rdf:Property ;
-    rdfs:range xsd:dateTime .
-
 TS28538_EdgeNrm_GeoLoc:civicLocation a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:GeoLoc ;
     rdfs:range xsd:string .
@@ -387,6 +401,26 @@ TS28538_EdgeNrm_GeographicalCoordinates:longitude a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:GeographicalCoordinates ;
     rdfs:range xsd:integer .
 
+TS28538_EdgeNrm:ManagedEdgeNFService a rdf:Property ;
+    rdfs:range TS28538_EdgeNrm:ManagedEdgeNFService-Multiple .
+
+TS28538_EdgeNrm_ManagedEdgeNFService-Single:attributes a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:ManagedEdgeNFService-Single ;
+    rdfs:range rdfs:Resource .
+
+TS28538_EdgeNrm_Operation:allowedConsumers a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:Operation ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm_Operation:name a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:Operation ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm_Operation:operationSemantics a rdf:Property ;
+    rdfs:comment "any of enumrated value" ;
+    rdfs:domain TS28538_EdgeNrm:Operation ;
+    rdfs:range xsd:string .
+
 TS28538_EdgeNrm_OperatorEdgeDataNetwork-Single:availableEASResource a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:OperatorEdgeDataNetwork-Single ;
     rdfs:range xsd:string .
@@ -395,17 +429,17 @@ TS28538_EdgeNrm_OperatorEdgeDataNetwork-Single:edgeDataNetworkRef a rdf:Property
     rdfs:domain TS28538_EdgeNrm:OperatorEdgeDataNetwork-Single ;
     rdfs:range xsd:string .
 
-TS28538_EdgeNrm_OperatorEdgeFederation-Single:FederationExpiry a rdf:Property ;
-    rdfs:domain TS28538_EdgeNrm:OperatorEdgeFederation-Single ;
-    rdfs:range xsd:dateTime .
-
 TS28538_EdgeNrm_OperatorEdgeFederation-Single:acceptedEDN a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:OperatorEdgeFederation-Single ;
     rdfs:range xsd:string .
 
-TS28538_EdgeNrm_OperatorEdgeFederation-Single:avaibleEDNList a rdf:Property ;
+TS28538_EdgeNrm_OperatorEdgeFederation-Single:availableEDNList a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:OperatorEdgeFederation-Single ;
-    rdfs:range TS28538_EdgeNrm:AvailableEDNList .
+    rdfs:range TS28538_EdgeNrm:AvailableEDN .
+
+TS28538_EdgeNrm_OperatorEdgeFederation-Single:federationExpiry a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:OperatorEdgeFederation-Single ;
+    rdfs:range xsd:dateTime .
 
 TS28538_EdgeNrm_OperatorEdgeFederation-Single:federationID a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:OperatorEdgeFederation-Single ;
@@ -456,6 +490,14 @@ TS28538_EdgeNrm_ResourceReservationStatus:reservationStatus a rdf:Property ;
 TS28538_EdgeNrm_ResourceReservationStatus:resourceId a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:ResourceReservationStatus ;
     rdfs:range xsd:string .
+
+TS28538_EdgeNrm_SAP:host a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:SAP ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm_SAP:port a rdf:Property ;
+    rdfs:domain TS28538_EdgeNrm:SAP ;
+    rdfs:range xsd:integer .
 
 TS28538_EdgeNrm_ServingLocation:geographicalLocation a rdf:Property ;
     rdfs:domain TS28538_EdgeNrm:ServingLocation ;
@@ -530,16 +572,20 @@ TS28538_EdgeNrm:aCID a rdf:Property ;
 TS28538_EdgeNrm:acceptedEDN a rdf:Property ;
     rdfs:range xsd:string .
 
+TS28538_EdgeNrm:administrativeState a rdf:Property ;
+    rdfs:range xsd:string .
+
 TS28538_EdgeNrm:affinityAntiAffinity a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:AffinityAntiAffinity .
 
-TS28538_EdgeNrm:attributes a rdf:Property .
-
-TS28538_EdgeNrm:avaibleEDNList a rdf:Property ;
-    rdfs:range TS28538_EdgeNrm:AvailableEDNList .
+TS28538_EdgeNrm:attributes a rdf:Property ;
+    rdfs:range rdfs:Resource .
 
 TS28538_EdgeNrm:availableEASResource a rdf:Property ;
     rdfs:range xsd:string .
+
+TS28538_EdgeNrm:availableEDNList a rdf:Property ;
+    rdfs:range TS28538_EdgeNrm:AvailableEDN .
 
 TS28538_EdgeNrm:availableEdgeVirtualResources a rdf:Property ;
     rdfs:range xsd:string .
@@ -588,8 +634,7 @@ TS28538_EdgeNrm:eASProvider a rdf:Property ;
 TS28538_EdgeNrm:eASRequirementsRef a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28538_EdgeNrm:eASSchedule a rdf:Property ;
-    rdfs:range TS28538_EdgeNrm:Duration .
+TS28538_EdgeNrm:eASSchedule a rdf:Property .
 
 TS28538_EdgeNrm:eASServiceContinuitySupport a rdf:Property ;
     rdfs:range xsd:boolean .
@@ -636,6 +681,9 @@ TS28538_EdgeNrm:ednIdentifier a rdf:Property ;
 TS28538_EdgeNrm:federatedECSInfo a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:FederatedECSInfo .
 
+TS28538_EdgeNrm:federationExpiry a rdf:Property ;
+    rdfs:range xsd:dateTime .
+
 TS28538_EdgeNrm:federationID a rdf:Property ;
     rdfs:range xsd:string .
 
@@ -644,6 +692,12 @@ TS28538_EdgeNrm:leadingOPiD a rdf:Property ;
 
 TS28538_EdgeNrm:mainEASIdentifier a rdf:Property ;
     rdfs:range xsd:string .
+
+TS28538_EdgeNrm:operationalState a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28538_EdgeNrm:operations a rdf:Property ;
+    rdfs:range TS28538_EdgeNrm:Operation .
 
 TS28538_EdgeNrm:participatingOPiD a rdf:Property ;
     rdfs:range xsd:string .
@@ -682,6 +736,9 @@ TS28538_EdgeNrm:resourceReservationRequirement a rdf:Property ;
 TS28538_EdgeNrm:resourceReservationStatus a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:ResourceReservationStatus .
 
+TS28538_EdgeNrm:sAP a rdf:Property ;
+    rdfs:range TS28538_EdgeNrm:SAP .
+
 TS28538_EdgeNrm:serviceContinuity a rdf:Property ;
     rdfs:range xsd:boolean .
 
@@ -693,6 +750,9 @@ TS28538_EdgeNrm:sharedECSInfo a rdf:Property ;
 
 TS28538_EdgeNrm:softwareImageInfo a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:SoftwareImageInfo .
+
+TS28538_EdgeNrm:userLabel a rdf:Property ;
+    rdfs:range xsd:string .
 
 TS28538_EdgeNrm:virtualResource a rdf:Property ;
     rdfs:range TS28538_EdgeNrm:VirtualResource .

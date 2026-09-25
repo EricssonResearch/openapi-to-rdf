@@ -13,47 +13,85 @@
 # Regenerate: uv run python scripts/generate_test_cases.py
 
 @prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
-@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MdtConfiguration/> .
-@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AreaScope/> .
-@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/InterFreqTargetInfo/> .
-@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
-@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsfnArea/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/WlanMeasurement/> .
+@prefix ns10: <https://semantics.ericsson.com/openapi/TS29571_CommonData/BluetoothMeasurement/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MdtConfiguration/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AreaScope/> .
+@prefix ns4: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MeasurementName/> .
+@prefix ns5: <https://semantics.ericsson.com/openapi/TS29571_CommonData/InterFreqTargetInfo/> .
+@prefix ns6: <https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsfnArea/> .
+@prefix ns7: <https://semantics.ericsson.com/openapi/TS29571_CommonData/SliceScopePerPlmn/> .
+@prefix ns8: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Snssai/> .
+@prefix ns9: <https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 TS29571_CommonData:test_instance a TS29571_CommonData:MdtConfiguration ;
-    ns1:addPositioningMethodList "GNSS"^^xsd:string ;
-    ns1:areaScope [ a TS29571_CommonData:AreaScope ;
-            ns2:eutraCellIdList "AFaf09A"^^xsd:string ;
-            ns2:nrCellIdList "AFaf09AFa"^^xsd:string ;
-            ns2:tacList "aaaa"^^xsd:string ] ;
-    ns1:collectionPeriodRmmLte "1024"^^xsd:string ;
-    ns1:collectionPeriodRmmNr "1024"^^xsd:string ;
-    ns1:eventList "OUT_OF_COVERAG"^^xsd:string ;
-    ns1:eventThresholdRsrp 48 ;
-    ns1:eventThresholdRsrpNr 63 ;
-    ns1:eventThresholdRsrq 17 ;
-    ns1:eventThresholdRsrqNr 63 ;
-    ns1:interFreqTargetList [ a TS29571_CommonData:InterFreqTargetInfo ;
-            ns3:cellIdList 503 ;
-            ns3:dlCarrierFreq 1639582 ] ;
-    ns1:loggingDuration "600"^^xsd:string ;
-    ns1:loggingDurationNr "600"^^xsd:string ;
-    ns1:loggingInterval "128"^^xsd:string ;
-    ns1:loggingIntervalNr "128"^^xsd:string ;
-    ns1:mbsfnAreaList [ a TS29571_CommonData:MbsfnArea ;
-            ns5:carrierFrequency 131071 ;
-            ns5:mbsfnAreaId 127 ] ;
-    ns1:mdtAllowedPlmnIdList [ a TS29571_CommonData:PlmnId ;
-            ns4:mcc "aaaa"^^xsd:string ;
-            ns4:mnc "aaaa"^^xsd:string ] ;
-    ns1:measurementLteList "M1"^^xsd:string ;
-    ns1:measurementNrList "M1"^^xsd:string ;
-    ns1:measurementPeriodLte "1024"^^xsd:string ;
-    ns1:positioningMethod "GNSS"^^xsd:string ;
-    ns1:reportAmount "1"^^xsd:string ;
-    ns1:reportInterval "120"^^xsd:string ;
-    ns1:reportIntervalNr "120"^^xsd:string ;
-    ns1:reportType "PERIODICAL"^^xsd:string ;
-    ns1:reportingTriggerList "PERIODICAL"^^xsd:string ;
-    ns1:sensorMeasurementList "BAROMETRIC_PRESSURE"^^xsd:string .
+    ns2:addPositioningMethodList "GNSS"^^xsd:string ;
+    ns2:areaScope [ a TS29571_CommonData:AreaScope ;
+            ns3:cagList "AFaf09AF"^^xsd:string ;
+            ns3:eutraCellIdList "AFaf09A"^^xsd:string ;
+            ns3:nrCellIdList "AFaf09AFa"^^xsd:string ;
+            ns3:tacList "aaaa"^^xsd:string ] ;
+    ns2:bluetoothMeasurementLte [ a TS29571_CommonData:BluetoothMeasurement ;
+            ns10:bluetoothRssi "true"^^xsd:string ;
+            ns10:measurementNameList [ a TS29571_CommonData:MeasurementName ;
+                    ns4:bluetoothName "test-value"^^xsd:string ;
+                    ns4:wlanName "test-value"^^xsd:string ] ] ;
+    ns2:bluetoothMeasurementNr [ a TS29571_CommonData:BluetoothMeasurement ;
+            ns10:bluetoothRssi "true"^^xsd:string ;
+            ns10:measurementNameList [ a TS29571_CommonData:MeasurementName ;
+                    ns4:bluetoothName "test-value"^^xsd:string ;
+                    ns4:wlanName "test-value"^^xsd:string ] ] ;
+    ns2:collectionPeriodRmmLte "1024"^^xsd:string ;
+    ns2:collectionPeriodRmmNr "1024"^^xsd:string ;
+    ns2:eventList "OUT_OF_COVERAG"^^xsd:string ;
+    ns2:eventThresholdRsrp 48 ;
+    ns2:eventThresholdRsrpNr 63 ;
+    ns2:eventThresholdRsrq 17 ;
+    ns2:eventThresholdRsrqNr 63 ;
+    ns2:eventThresholdSinrNr 63 ;
+    ns2:interFreqTargetList [ a TS29571_CommonData:InterFreqTargetInfo ;
+            ns5:cellIdList 503 ;
+            ns5:dlCarrierFreq 1639582 ] ;
+    ns2:loggingDuration "600"^^xsd:string ;
+    ns2:loggingDurationNr "600"^^xsd:string ;
+    ns2:loggingInterval "128"^^xsd:string ;
+    ns2:loggingIntervalNr "128"^^xsd:string ;
+    ns2:mbsfnAreaList [ a TS29571_CommonData:MbsfnArea ;
+            ns6:carrierFrequency 131071 ;
+            ns6:mbsfnAreaId 127 ] ;
+    ns2:mdtAllowedPlmnIdList [ a TS29571_CommonData:PlmnId ;
+            ns9:mcc "aaaa"^^xsd:string ;
+            ns9:mnc "aaaa"^^xsd:string ] ;
+    ns2:measurementLteList "M1"^^xsd:string ;
+    ns2:measurementNrList "M1"^^xsd:string ;
+    ns2:measurementPeriodLte "1024"^^xsd:string ;
+    ns2:mnOnlyInd true ;
+    ns2:positioningMethod "GNSS"^^xsd:string ;
+    ns2:reportAmount "1"^^xsd:string ;
+    ns2:reportInterval "120"^^xsd:string ;
+    ns2:reportIntervalNr "120"^^xsd:string ;
+    ns2:reportType "PERIODICAL"^^xsd:string ;
+    ns2:reportingTriggerList "PERIODICAL"^^xsd:string ;
+    ns2:sensorMeasurementList "BAROMETRIC_PRESSURE"^^xsd:string ;
+    ns2:sensorMeasurementLteList "BAROMETRIC_PRESSURE"^^xsd:string ;
+    ns2:sliceAreaScope [ a TS29571_CommonData:SliceScopePerPlmn ;
+            ns7:plmn [ a TS29571_CommonData:PlmnId ;
+                    ns9:mcc "aaaa"^^xsd:string ;
+                    ns9:mnc "aaaa"^^xsd:string ] ;
+            ns7:sliceScope [ a TS29571_CommonData:Snssai ;
+                    ns8:sd "AFaf09"^^xsd:string ;
+                    ns8:sst 127 ] ] ;
+    ns2:wlanMeasurementLte [ a TS29571_CommonData:WlanMeasurement ;
+            ns1:measurementNameList [ a TS29571_CommonData:MeasurementName ;
+                    ns4:bluetoothName "test-value"^^xsd:string ;
+                    ns4:wlanName "test-value"^^xsd:string ] ;
+            ns1:wlanRssi "true"^^xsd:string ;
+            ns1:wlanRtt "true"^^xsd:string ] ;
+    ns2:wlanMeasurementNr [ a TS29571_CommonData:WlanMeasurement ;
+            ns1:measurementNameList [ a TS29571_CommonData:MeasurementName ;
+                    ns4:bluetoothName "test-value"^^xsd:string ;
+                    ns4:wlanName "test-value"^^xsd:string ] ;
+            ns1:wlanRssi "true"^^xsd:string ;
+            ns1:wlanRtt "true"^^xsd:string ] .
 

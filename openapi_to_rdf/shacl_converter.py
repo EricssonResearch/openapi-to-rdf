@@ -1,4 +1,5 @@
 import os
+import sys
 from typing import Any
 import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
@@ -112,6 +113,10 @@ class OpenAPIToSHACLConverter:
         # reason. An explicit `transport_namespace=` still wins, which is how `snm-api-native` keeps
         # its own stem.
         self.transport_namespace = transport_namespace or DEFAULT_TRANSPORT_NAMESPACE
+
+        #: `(where, repr(value))` for enum members that could not become literals. Non-empty means the
+        #: SOURCE document is malformed; see `_scalar_enum_members`.
+        self.malformed_enum_members: list[tuple[str, str]] = []
         self.output_dir = output_dir
         self.external_refs = external_refs if external_refs is not None else []
         # Per-schema namespace overrides for cross-domain merged specs.
@@ -631,7 +636,8 @@ class OpenAPIToSHACLConverter:
             if "maximum" in spec:
                 self.shacl_graph.add((property_shape, self.SH.maxInclusive, Literal(spec["maximum"])))
             if "enum" in spec:
-                processed_enum = ["NULL" if v is None else v for v in spec["enum"]]
+                members = self._scalar_enum_members(spec["enum"], where="a property enum")
+                processed_enum = ["NULL" if v is None else v for v in members]
                 enum_list = self._create_rdf_list(processed_enum)
                 self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), enum_list))
         
@@ -840,8 +846,45 @@ class OpenAPIToSHACLConverter:
             if "maximum" in ref_schema:
                 self.shacl_graph.add((property_shape, self.SH.maxInclusive, Literal(ref_schema["maximum"])))
         if "enum" in ref_schema:
-            processed = ["NULL" if v is None else v for v in ref_schema["enum"]]
+            members = self._scalar_enum_members(ref_schema["enum"], where="a referenced enum")
+            processed = ["NULL" if v is None else v for v in members]
             self.shacl_graph.add((property_shape, getattr(self.SH, 'in'), self._create_rdf_list(processed)))
+
+    def _scalar_enum_members(self, values: list, *, where: str) -> list:
+        """Enum members that can become RDF literals, with any non-scalar REPORTED and dropped.
+
+        Added 2026-09-25, when converting the real Rel-19 corpus crashed with
+        `AssertionError: Object {'HSPA_EVOLUTION        - type': 'string'} must be an rdflib term`.
+        The cause is upstream: `TS29571_CommonData.yaml` line 1700 at `Tag_Rel19_SA112` reads
+
+            - HSPA_EVOLUTION        - type: string
+
+        which is two lines collapsed into one, so YAML parses the enum's last member as a MAPPING and
+        the converter handed a dict to rdflib. The committed corpus predated that document revision,
+        which is why an un-derivable snapshot was hiding a crash on the published corpus.
+
+        Dropped rather than refused, and that is a judgement worth stating. Refusing the document would
+        be the usual stance here -- a converter must not invent -- but the malformation is in 3GPP's
+        published file, so refusing would make the real corpus unconvertible and block every figure
+        behind an upstream typo. Dropped rather than SILENTLY skipped, equally deliberately: the member
+        is named on stderr and counted in `self.malformed_enum_members`, because an enum that quietly
+        loses a value produces a SHACL shape that rejects legal data.
+        """
+        # `None` is KEPT. It is a legitimate enum member that callers convert to the string "NULL" --
+        # a YAML artifact the surrounding code documents and handles. The first version of this guard
+        # excluded it and silently dropped it, which its own warning reported as `[None]`; the message
+        # is what caught the regression. Only a container can never become a literal.
+        keep, dropped = [], []
+        for value in values:
+            (dropped if isinstance(value, (dict, list, set, tuple)) else keep).append(value)
+        if dropped:
+            self.malformed_enum_members.extend((where, repr(v)) for v in dropped)
+            print(
+                f"WARNING {where}: {len(dropped)} enum member(s) are not scalars and were DROPPED "
+                f"(malformed upstream YAML): {dropped!r}",
+                file=sys.stderr,
+            )
+        return keep
 
     def _handle_object_type(self, subject, property_shape, spec):
         """Handle object type schemas (type: object)."""
@@ -949,7 +992,8 @@ class OpenAPIToSHACLConverter:
             if "maxLength" in spec:
                 self.shacl_graph.add((node_shape, self.SH.maxLength, Literal(spec["maxLength"])))
             if "enum" in spec:
-                processed_enum = ["NULL" if v is None else v for v in spec["enum"]]
+                members = self._scalar_enum_members(spec["enum"], where="a property enum")
+                processed_enum = ["NULL" if v is None else v for v in members]
                 enum_list = self._create_rdf_list(processed_enum)
                 self.shacl_graph.add((node_shape, getattr(self.SH, 'in'), enum_list))
 
@@ -980,8 +1024,12 @@ class OpenAPIToSHACLConverter:
         # Handle enumerations
         if "enum" in spec:
             # Convert Python None values back to "NULL" strings (YAML parsing artifact)
+            #
+            # This was the FOURTH enum site, and the one that actually crashed. Three others were
+            # guarded first on the assumption they were the path; the traceback named this one. A guard
+            # placed where the defect is not costs a run and proves nothing.
             processed_enum = []
-            for value in spec["enum"]:
+            for value in self._scalar_enum_members(spec["enum"], where="a string enum"):
                 if value is None:
                     processed_enum.append("NULL")
                 else:

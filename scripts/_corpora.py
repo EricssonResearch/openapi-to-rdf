@@ -21,9 +21,23 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-#: The 3GPP corpus ships with this repository.
+#: The 3GPP corpus is FETCHED, not shipped (2026-09-25). `scripts/fetch_corpus.py` downloads it at the
+#: pinned tag in `assets/corpus-manifest.json`; the documents are 3GPP's and this repository is no
+#: longer a second copy of them. Anything that cannot find the directory should name that command in
+#: its skip reason -- see `FETCH_HINT` -- because "corpus not found" without the remedy sends a reader
+#: looking for a missing file rather than running one command.
 GPP_DIR = Path("assets/MnS-Rel-19-OpenAPI/OpenAPI")
-GPP_EXPECTED = 38
+
+#: 44 documents at `Tag_Rel19_SA112`, up from the 38 that used to be committed.
+#:
+#: The old 38 were not a release: 19 of them declared a major version of 18 in a directory named
+#: Rel-19, and NO ref reproduced the set -- 8 of 39 files matched the tag byte-for-byte. The 6 extra
+#: documents here (EnergyInformationNrm, NdtNrm, CclNrm, PlanManagement, ExternalDataMgmtNrm,
+#: FeatureNrm) are ones the un-derivable snapshot simply lacked.
+GPP_EXPECTED = 44
+
+#: Printed whenever the corpus is absent. One command, so a fresh clone is not a puzzle.
+FETCH_HINT = "run `uv run python scripts/fetch_corpus.py` (downloads from 3GPP Forge at a pinned tag)"
 
 #: The TM Forum v5 documents, by filename. Resolved relative to ``--tmforum-dir``.
 TMF_FILENAMES = (
@@ -121,14 +135,15 @@ def resolve(args: argparse.Namespace) -> list[Corpus]:
 
     gpp = sorted(args.gpp_dir.glob("*.yaml")) if args.gpp_dir.is_dir() else []
     if not gpp:
-        gpp_corpus = Corpus("3GPP", [], f"no documents under {args.gpp_dir}")
+        gpp_corpus = Corpus("3GPP", [], f"no documents under {args.gpp_dir}; {FETCH_HINT}")
     else:
         if len(gpp) != GPP_EXPECTED:
             # Asserted rather than accepted: the count is quoted in commit messages and reports, and
             # a corpus that silently grew or shrank invalidates every one of them.
             raise SystemExit(
                 f"expected {GPP_EXPECTED} 3GPP documents under {args.gpp_dir}, found {len(gpp)}. "
-                "Every 3GPP figure in this repository is quoted against 38; re-pin them deliberately."
+                f"Every 3GPP figure in this repository is quoted against {GPP_EXPECTED}; re-pin them "
+                f"deliberately. If the corpus was hand-modified, {FETCH_HINT} to restore the pin."
             )
         gpp_corpus = Corpus("3GPP", gpp)
 

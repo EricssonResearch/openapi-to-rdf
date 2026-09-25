@@ -1,0 +1,31 @@
+# GENERATED TEST FIXTURE -- do not edit; regenerate instead.
+#
+# SHACL validation instance produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS29571_CommonData.yaml
+#
+# The class and property names are the source document's. The VALUES are synthetic, chosen
+# to satisfy or violate one constraint of the shapes THIS project derives. The publisher of
+# that document did not produce, review or endorse this file, and it is NOT conformance test
+# data for their specification. See NOTICE for the corpora this repository bundles.
+#
+# Regenerate: uv run python scripts/generate_test_cases.py
+
+@prefix TS29571_CommonData: <https://semantics.ericsson.com/openapi/TS29571_CommonData/> .
+@prefix ns1: <https://semantics.ericsson.com/openapi/TS29571_CommonData/NetworkId/> .
+@prefix ns2: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppBindingInfo/> .
+@prefix ns3: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppDcInfo/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+TS29571_CommonData:test_instance a TS29571_CommonData:AppBindingInfo ;
+    ns2:appDcInfo [ a TS29571_CommonData:appDcInfo ;
+            TS29571_CommonData:adcEndpointType "UE"^^xsd:string ;
+            TS29571_CommonData:streamId "50"^^xsd:string ] ;
+    ns2:appDcInfoList [ a TS29571_CommonData:AppDcInfo ;
+            ns3:adcEndpointType "UE"^^xsd:string ;
+            ns3:streamId 50 ] ;
+    ns2:plmnId [ a TS29571_CommonData:NetworkId ;
+            ns1:mcc "aaaa"^^xsd:string ;
+            ns1:mnc "aaaa"^^xsd:string ] .
+

@@ -1094,7 +1094,8 @@ def build_mapping(
         if schema_name in classes:
             # Local always wins, and so does the first external registration. A name declared in
             # two documents is two classes, and this index holds one: 49 of 1,741 3GPP schema names
-            # are declared in more than one of the 38 documents. Report every skip, not only those
+            # are declared in more than one document (measured on the 38-document snapshot that preceded the
+            # pinned fetch). Report every skip, not only those
             # whose body differs — 5 of the 49 are identical, and silent merging is still a
             # decision this project refuses to take (Important 4).
             if document is not None:

@@ -30,6 +30,7 @@
 @prefix TS28541_SliceNrm_LogicalInterfaceInfo: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/LogicalInterfaceInfo/> .
 @prefix TS28541_SliceNrm_MIoTEEPerfReq: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MIoTEEPerfReq/> .
 @prefix TS28541_SliceNrm_MaxNumberofPDUSessions: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MaxNumberofPDUSessions/> .
+@prefix TS28541_SliceNrm_MaxNumberofUEs: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MaxNumberofUEs/> .
 @prefix TS28541_SliceNrm_MaxPktSize: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/MaxPktSize/> .
 @prefix TS28541_SliceNrm_N6Protection: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/N6Protection/> .
 @prefix TS28541_SliceNrm_NBIoT: <https://semantics.ericsson.com/openapi/TS28541_SliceNrm/NBIoT/> .
@@ -66,35 +67,75 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Single ;
+    sh:targetClass TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Multiple .
+
+[] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLLatency ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLMaxPktSize ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NSSAASupport ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:nssaaSupport ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxDLDataVolume ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxULDataVolume ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLReliability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxNumberofUEs ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxNumberofUEs ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DelayTolerance ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:delayTolerance ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DeterministicComm ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLDeterministicComm ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:energyEfficiency ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLLatency ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DeterministicComm ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLDeterministicComm ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxNumberOfPDUSessions ],
+        [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:XLThpt ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLThptPerSlice ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:EnergyEfficiency ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:energyEfficiency ],
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLThptPerSliceSubnet ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:activityFactor ],
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLPktDelayVariation ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:sliceAvailability ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:sliceSubnetAvailability ;
             sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:endTime ],
-                            [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:endTime ] ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
                         sh:property [ a sh:PropertyShape ;
                                 sh:class TS28623_ComDefs:TimeInterval ;
                                 sh:path TS28541_SliceNrm:timeIntervals ] ] [ a sh:NodeShape ;
@@ -114,572 +155,249 @@
                                 sh:class TS28623_ComDefs:TimeInterval ;
                                 sh:path TS28541_SliceNrm:timeIntervals ] ] ) ],
         [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:plmnInfoList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:UserMgmtOpen ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:userMgmtOpen ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:MaxNumberofPDUSessions ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:maxNumberofPDUSessions ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:RadioSpectrum ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:radioSpectrum ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLThptPerUE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:survivalTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:maxNumberofUEs ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DataNetwork ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:supportedDataNetworks ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLThptPerUE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLLatency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:availability ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uESpeed ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLThptPerSlice ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:N6Protection ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:n6Protection ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NBIoT ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:nBIoT ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uEMobilityLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:maxDLDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:MaxPktSize ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:networkSliceSharingIndicator ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLReliability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DeterministicComm ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLDeterministicComm ],
-        [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:DataNetworkAccess ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dataNetworkAccess ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:KPIMonitoring ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:kPIMonitoring ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NonIPSupport ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:nonIPSupport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:GeoArea ;
-            sh:path TS28541_SliceNrm_ServiceProfile:coverageArea ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:Positioning ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:positioning ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:Synchronicity ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:synchronicity ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLLatency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:serviceProfileId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NSSAASupport ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:nssaaSupport ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:maxULDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 255 ;
-            sh:minInclusive 0 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:sst ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DelayTolerance ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:delayTolerance ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:TermDensity ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:termDensity ],
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dataNetworkAccess ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
             sh:maxInclusive 4 ;
             sh:minInclusive 0 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:sliceSimultaneousUse ],
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:sliceSimultaneousUse ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLReliability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DataNetwork ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:supportedDataNetworks ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLPktDelayVariation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLThptPerSliceSubnet ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:survivalTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:availability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:Tai ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:coverageAreaTAList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:resourceSharingLevel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NonIPSupport ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:nonIPSupport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLMaxPktSize ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:renewableEnergyPct ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:N6Protection ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:n6Protection ] ;
+    sh:targetClass TS28541_SliceNrm:CNSliceSubnetProfile .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:energyEfficiency ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLThptPerSliceSubnet ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:DeterministicComm ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLDeterministicComm ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:MaxPktSize ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:uLMaxPktSize ],
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLDeterministicComm ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:dLReliability ],
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLReliability ],
         [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:V2XCommModels ;
+            sh:class TS28541_SliceNrm:DelayTolerance ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServiceProfile:v2XCommModels ] ;
-    sh:targetClass TS28541_SliceNrm:ServiceProfile .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "PERFORMANCE"^^xsd:string "FUNCTION"^^xsd:string "OPERATION"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:Tagging .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for readOnly attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:ResourceIsolationRule ;
-                                    sh:path TS28541_SliceNrm:resourceIsolationRuleList ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for readOnly attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "NETWORKSLICE"^^xsd:string "NETWORKSLICESUBNET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSlicingApplicability ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "NETWORKSLICE"^^xsd:string "NETWORKSLICESUBNET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSlicingApplicability ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:ResourceIsolationRule ;
-                            sh:path TS28541_SliceNrm:resourceIsolationRuleList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceSubnetRefList ] ] ;
-            sh:path TS28541_SliceNrm_IsolationProfile-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:IsolationProfile-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PERFORMANCE"^^xsd:string "FUNCTION"^^xsd:string "OPERATION"^^xsd:string ) ;
-            sh:path TS28541_SliceNrm_ServAttrCom:tagging ],
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:delayTolerance ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CHARACTER"^^xsd:string "SCALABILITY"^^xsd:string ) ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServAttrCom:category ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "API"^^xsd:string "KPI"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ServAttrCom:exposure ] ;
-    sh:targetClass TS28541_SliceNrm:ServAttrCom .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:ServiceProfile ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:inputServiceProfile ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:administrativeState ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:processMonitor ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:serviceProfileId ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:operationalState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:availabilityStatus ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:availabilityStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:operationalState ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_GenericNrm:ProcessMonitor ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:processMonitor ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:serviceProfileId ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:ServiceProfile ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:inputServiceProfile ] ] ;
-            sh:path TS28541_SliceNrm_NetworkSliceController-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceController-Single .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "CHARACTER"^^xsd:string "SCALABILITY"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:Category .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:logicalInterfaceId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "RIP"^^xsd:string "IGMP"^^xsd:string "OSPF"^^xsd:string "EGP"^^xsd:string "EIGRP"^^xsd:string "BGP"^^xsd:string "IS_IS"^^xsd:string "STATIC"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:routingProtocol ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:systemName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "VLAN"^^xsd:string "MPLS"^^xsd:string "SEGMENT"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:logicalInterfaceType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:portName ] ;
-    sh:targetClass TS28541_SliceNrm:LogicalInterfaceInfo .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:feasibilityResult ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:RequestedReservationExpiration ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:requestedReservationExpiration ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:processMonitor ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:ReservationExpiration ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:reservationExpiration ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "RESERVED"^^xsd:string "UNRESERVED"^^xsd:string "USED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:resourceReservationStatus ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:recommendationRequest ],
-                                [ a sh:PropertyShape ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:profile ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:class TS28541_SliceNrm:SliceProfile ] [ a sh:NodeShape ;
-                                                sh:class TS28541_SliceNrm:ServiceProfile ] ) ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:feasibilityTimeWindow ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28541_SliceNrm:startTime ],
-                                                    [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28541_SliceNrm:endTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                                                sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:dateTime ;
-                                                        sh:path TS28541_SliceNrm:endTime ] ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:inFeasibleReason ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:recommendedRequirements ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:boolean ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:resourceReservation ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:reservationFailureReason ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:reservationFailureReason ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:ReservationExpiration ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:reservationExpiration ],
-                        [ a sh:PropertyShape ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:profile ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:class TS28541_SliceNrm:SliceProfile ] [ a sh:NodeShape ;
-                                        sh:class TS28541_SliceNrm:ServiceProfile ] ) ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:feasibilityResult ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "RESERVED"^^xsd:string "UNRESERVED"^^xsd:string "USED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:resourceReservationStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:recommendedRequirements ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:RequestedReservationExpiration ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:requestedReservationExpiration ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_GenericNrm:ProcessMonitor ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:processMonitor ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:resourceReservation ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:feasibilityTimeWindow ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28541_SliceNrm:startTime ],
-                                            [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28541_SliceNrm:endTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                                        sh:property [ a sh:PropertyShape ;
-                                                sh:datatype xsd:dateTime ;
-                                                sh:path TS28541_SliceNrm:endTime ] ] ) ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:inFeasibleReason ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:boolean ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:recommendationRequest ] ] ;
-            sh:path TS28541_SliceNrm_FeasibilityCheckAndReservationJob-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28541_SliceNrm_KPIMonitoring:kPIList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_KPIMonitoring:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:KPIMonitoring .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:IsolationProfile-Single ;
-    sh:targetClass TS28541_SliceNrm:IsolationProfile-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:TunnellingMechanism ;
-            sh:path TS28541_SliceNrm_DataNetworkAccess:tunnellingMechanismList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DataAccess ;
-            sh:path TS28541_SliceNrm_DataNetworkAccess:dataAccessList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:LboAllowed ;
-            sh:path TS28541_SliceNrm_DataNetworkAccess:localBreakoutAllowedList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DataNetworkAccess:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:DataNetworkAccess .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NOT_SUPPORTED"^^xsd:string "BETWEEN_BS_AND_UE"^^xsd:string "BETWEEN_BS_AND_UE_AND_UE_AND_UE"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:SynAvailability .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MAXREGSUBS"^^xsd:string "MEANACTIVEUES"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_MIoTEEPerfReq:kpiType ],
+            sh:maxInclusive 4 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:sliceSimultaneousUse ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_MIoTEEPerfReq:req ] ;
-    sh:targetClass TS28541_SliceNrm:MIoTEEPerfReq .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLLatency ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:Positioning ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NBIoT:servAttrCom ],
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:positioning ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLMaxPktSize ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:nROperatingBands ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NBIoT:support ] ;
-    sh:targetClass TS28541_SliceNrm:NBIoT .
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:survivalTime ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DeterministicComm ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLDeterministicComm ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:renewableEnergyPct ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uEMobilityLevel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLPktDelayVariation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:resourceSharingLevel ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:maxDLDataVolume ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uESpeed ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLReliability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:activityFactor ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLMaxPktSize ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:KPIMonitoring ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:kPIMonitoring ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLPktDelayVariation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLThptPerSliceSubnet ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxNumberofUEs ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:maxNumberofUEs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLLatency ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:TermDensity ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:termDensity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:availability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:Tai ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:coverageAreaTAList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:Synchronicity ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:synchronicity ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:maxULDataVolume ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NonIPSupport ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:nonIPSupport ] ;
+    sh:targetClass TS28541_SliceNrm:RANSliceSubnetProfile .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:ServiceProfile ;
+    sh:targetClass TS28541_SliceNrm:ServiceProfileList .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "CIDE_CID"^^xsd:string "OTDOA"^^xsd:string "RF_FINGERPRINTING"^^xsd:string "AECID"^^xsd:string "HYBRID_POSITIONING"^^xsd:string "NET_RTK"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:PositioningAvailability .
+    sh:in ( "PERSEC"^^xsd:string "PERMIN"^^xsd:string "PERHOUR"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:PredictionFrequency .
 
 [] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:NetworkSliceSubnet-Single ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnet-Multiple .
+    sh:class TS28541_SliceNrm:NetworkSliceSubnetController-Single ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetController-Multiple .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NETWORKSLICE"^^xsd:string "NETWORKSLICESUBNET"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:NetworkSlicingApplicability .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
+            sh:in ( "INVOFLATENCY"^^xsd:string "NUMOFBITS_MULTIPLIED_INVOFLATENCY"^^xsd:string ) ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NsInfo:nsInstanceId ],
+            sh:path TS28541_SliceNrm_UrllcEEPerfReq:kpiType ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
+            sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NsInfo:nsName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NsInfo:description ] ;
-    sh:targetClass TS28541_SliceNrm:NsInfo .
+            sh:path TS28541_SliceNrm_UrllcEEPerfReq:req ] ;
+    sh:targetClass TS28541_SliceNrm:UrllcEEPerfReq .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -688,763 +406,70 @@
             sh:path TS28541_SliceNrm_N6Protection:servAttrCom ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:SecFunc ;
+            sh:minCount 1 ;
             sh:path TS28541_SliceNrm_N6Protection:secFuncList ] ;
     sh:targetClass TS28541_SliceNrm:N6Protection .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SecFunc:secFunType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SecFunc:secFunId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28541_SliceNrm_SecFunc:secRules ] ;
-    sh:targetClass TS28541_SliceNrm:SecFunc .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSharingIndicator .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:FeasibilityResult .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:path TS28541_SliceNrm_DeterministicComm:periodicityList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DeterministicComm:availability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DeterministicComm:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:DeterministicComm .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "API"^^xsd:string "KPI"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:Exposure .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_UrllcEEPerfReq:req ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "INVOFLATENCY"^^xsd:string "NUMOFBITS_MULTIPLIED_INVOFLATENCY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_UrllcEEPerfReq:kpiType ] ;
-    sh:targetClass TS28541_SliceNrm:UrllcEEPerfReq .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NETWORKSLICE"^^xsd:string "NETWORKSLICESUBNET"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:NetworkSlicingApplicability .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:float ;
-    sh:targetClass TS28541_SliceNrm:Float .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NetworkSliceSubnetController-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceSubnetController ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:EP_Transport-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:EP_Transport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceSubnetProviderCapabilities ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:IsolationProfile-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:IsolationProfile ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NetworkSlice-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSlice ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NetworkSliceController-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceController ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:FeasibilityCheckAndReservationJob ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NetworkSliceSubnet-Single ;
-            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceSubnet ] ;
-    sh:targetClass TS28541_SliceNrm:SubNetwork-ncO-SliceNrm .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:RANSliceSubnetProfile ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SliceProfile:rANSliceSubnetProfile ],
-        [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SliceProfile:plmnInfoList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:CNSliceSubnetProfile ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SliceProfile:cNSliceSubnetProfile ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SliceProfile:sliceProfileId ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:TopSliceSubnetProfile ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_SliceProfile:topSliceSubnetProfile ] ;
-    sh:targetClass TS28541_SliceNrm:SliceProfile .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Single ;
-    sh:targetClass TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:ServiceProfile ;
-    sh:targetClass TS28541_SliceNrm:ServiceProfileList .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RadioSpectrum:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28541_SliceNrm_RadioSpectrum:nROperatingBands ] ;
-    sh:targetClass TS28541_SliceNrm:RadioSpectrum .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:Support .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:MobilityLevel .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( true false ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LboAllowed:localBreakoutAllowed ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_LboAllowed:dataNetworkName ] ;
-    sh:targetClass TS28541_SliceNrm:LboAllowed .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NUMOFBITS"^^xsd:string "NUMOFBITS_RANBASED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_EmbbEEPerfReq:kpiType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_EmbbEEPerfReq:req ] ;
-    sh:targetClass TS28541_SliceNrm:EmbbEEPerfReq .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_UserMgmtOpen:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_UserMgmtOpen:support ] ;
-    sh:targetClass TS28541_SliceNrm:UserMgmtOpen .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28541_SliceNrm:InFeasibleReason .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DelayTolerance:support ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DelayTolerance:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:DelayTolerance .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "CIDE_CID"^^xsd:string "OTDOA"^^xsd:string "RF_FINGERPRINTING"^^xsd:string "AECID"^^xsd:string "HYBRID_POSITIONING"^^xsd:string "NET_RTK"^^xsd:string ) ;
-            sh:path TS28541_SliceNrm_Positioning:availability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_Positioning:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PERSEC"^^xsd:string "PERMIN"^^xsd:string "PERHOUR"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_Positioning:predictionFrequency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_Positioning:accuracy ] ;
-    sh:targetClass TS28541_SliceNrm:Positioning .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:operationalState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:availabilityStatus ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:sliceProfileId ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:SliceProfile ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:inputSliceProfile ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:processMonitor ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:administrativeState ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:availabilityStatus ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:SliceProfile ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:inputSliceProfile ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:sliceProfileId ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_GenericNrm:ProcessMonitor ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:processMonitor ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:operationalState ] ] ;
-            sh:path TS28541_SliceNrm_NetworkSliceSubnetController-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetController-Single .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28541_SliceNrm:RecommendedRequirements .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28541_SliceNrm_DataNetwork:dnnList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DataNetwork:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:DataNetwork .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:availability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DeterministicComm ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLDeterministicComm ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DeterministicComm ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLDeterministicComm ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uESpeed ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:maxNumberofUEs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:maxDLDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLLatency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uEMobilityLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4 ;
-            sh:minInclusive 0 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:sliceSimultaneousUse ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Tai ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:coverageAreaTAList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLThptPerUE ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DelayTolerance ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:delayTolerance ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:KPIMonitoring ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:kPIMonitoring ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:energyEfficiency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:resourceSharingLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLLatency ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:Synchronicity ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:synchronicity ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLThptPerSliceSubnet ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:Positioning ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:positioning ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:survivalTime ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:nROperatingBands ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLThptPerSliceSubnet ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLReliability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NonIPSupport ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:nonIPSupport ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:maxULDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLThptPerUE ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxDLDataVolume ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:TermDensity ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:termDensity ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:termDensity ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:activityFactor ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:dLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_RANSliceSubnetProfile:uLReliability ] ;
-    sh:targetClass TS28541_SliceNrm:RANSliceSubnetProfile .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:SliceProfile ;
-    sh:targetClass TS28541_SliceNrm:SliceProfileList .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Single ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_V2XCommModels:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_V2XCommModels:v2XMode ] ;
-    sh:targetClass TS28541_SliceNrm:V2XCommModels .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_EnergyEfficiency:servAttrCom ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_EnergyEfficiency:performance ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:class TS28541_SliceNrm:EmbbEEPerfReq ] [ a sh:NodeShape ;
-                        sh:class TS28541_SliceNrm:UrllcEEPerfReq ] [ a sh:NodeShape ;
-                        sh:class TS28541_SliceNrm:MIoTEEPerfReq ] ) ] ;
-    sh:targetClass TS28541_SliceNrm:EnergyEfficiency .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:NetworkSliceController-Single ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceController-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_MaxNumberofPDUSessions:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_MaxNumberofPDUSessions:nOofPDUSessions ] ;
-    sh:targetClass TS28541_SliceNrm:MaxNumberofPDUSessions .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DataAccess:dataNetworkName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "DIRECT_INTERNET_ACCESS"^^xsd:string "TERM_PVT_NETWORK"^^xsd:string "LOCAL_TRAFFIC"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_DataAccess:dataAccessUsed ] ;
-    sh:targetClass TS28541_SliceNrm:DataAccess .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TermDensity:density ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TermDensity:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:TermDensity .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NonIPSupport:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NonIPSupport:support ] ;
-    sh:targetClass TS28541_SliceNrm:NonIPSupport .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "L2TP_TUNNEL"^^xsd:string "GRE_TUNNEL"^^xsd:string "VPN_TUNNEL"^^xsd:string "LABEL_BASED_ROUTING"^^xsd:string "802.1Q_VLAN"^^xsd:string "SRV6"^^xsd:string "OTHER"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TunnellingMechanism:tunellingMechanismUsed ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TunnellingMechanism:dataNetworkName ] ;
-    sh:targetClass TS28541_SliceNrm:TunnellingMechanism .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28541_SliceNrm:ReservationFailureReason .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "PERSEC"^^xsd:string "PERMIN"^^xsd:string "PERHOUR"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:PredictionFrequency .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_MaxPktSize:maxsize ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_MaxPktSize:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:MaxPktSize .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:NetworkSlice-Single ;
-    sh:targetClass TS28541_SliceNrm:NetworkSlice-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:EP_Transport-Single ;
-    sh:targetClass TS28541_SliceNrm:EP_Transport-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_XLThpt:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_XLThpt:guaThpt ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_XLThpt:maxThpt ] ;
-    sh:targetClass TS28541_SliceNrm:XLThpt .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "BETWEEN_BS_AND_UE"^^xsd:string "BETWEEN_BS_AND_UE_AND_UE_AND_UE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_Synchronicity:availability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_Synchronicity:servAttrCom ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_Synchronicity:accuracy ] ;
-    sh:targetClass TS28541_SliceNrm:Synchronicity .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLThptPerSliceSubnet ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxNumberOfPDUSessions ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DataNetwork ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:supportedDataNetworks ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DataNetworkAccess ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dataNetworkAccess ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxNumberofUEs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLThptPerUE ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DeterministicComm ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLDeterministicComm ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:sliceSubnetAvailability ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:startTime ],
-                            [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:endTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:endTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:TimeInterval ;
-                                sh:path TS28541_SliceNrm:timeIntervals ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:TimeInterval ;
-                                sh:path TS28541_SliceNrm:timeIntervals ],
-                            [ a sh:PropertyShape ;
-                                sh:datatype xsd:string ;
-                                sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
-                                sh:path TS28541_SliceNrm:daysOfWeek ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:integer ;
-                                sh:maxInclusive 31 ;
-                                sh:minInclusive 0 ;
-                                sh:path TS28541_SliceNrm:daysOfMonth ],
-                            [ a sh:PropertyShape ;
-                                sh:class TS28623_ComDefs:TimeInterval ;
-                                sh:path TS28541_SliceNrm:timeIntervals ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:activityFactor ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLReliability ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLReliability ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uESpeed ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:NonIPSupport ;
             sh:maxCount 1 ;
             sh:path TS28541_SliceNrm_TopSliceSubnetProfile:nonIPSupport ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:resourceSharingLevel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:nROperatingBands ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:KPIMonitoring ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:kPIMonitoring ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DelayTolerance ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:delayTolerance ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxDLDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NSSAASupport ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:nssaaSupport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:Positioning ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:positioning ],
-        [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:XLThpt ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLThptPerUE ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLThptPerSliceSubnet ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxULDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:availability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:EnergyEfficiency ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:energyEfficiency ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLReliability ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uEMobilityLevel ],
         [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:Synchronicity ;
+            sh:class TS28541_SliceNrm:KPIMonitoring ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:synchronicity ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:kPIMonitoring ],
         [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:N6Protection ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:n6Protection ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLMaxPktSize ],
         [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Tai ;
+            sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:coverageAreaTAList ],
+            sh:maxInclusive 4 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:sliceSimultaneousUse ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxNumberOfPDUSessions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLLatency ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLMaxPktSize ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NSSAASupport ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:nssaaSupport ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:XLThpt ;
             sh:maxCount 1 ;
@@ -1456,435 +481,48 @@
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uESpeed ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:activityFactor ],
         [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:TermDensity ;
+            sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:termDensity ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:availability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLPktDelayVariation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:N6Protection ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:n6Protection ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLReliability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:Positioning ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:positioning ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxULDataVolume ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:DeterministicComm ;
             sh:maxCount 1 ;
             sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLDeterministicComm ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLLatency ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 4 ;
-            sh:minInclusive 0 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:sliceSimultaneousUse ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLLatency ] ;
-    sh:targetClass TS28541_SliceNrm:TopSliceSubnetProfile .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NSSAASupport:support ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:ServAttrCom ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_NSSAASupport:servAttrCom ] ;
-    sh:targetClass TS28541_SliceNrm:NSSAASupport .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "MANAGED_FUNCTION"^^xsd:string "NETWORK_SERVICE"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ResourceIsolationRule:resourceType ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "DEDICATED"^^xsd:string "SHARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ResourceIsolationRule:isolationRule ] ;
-    sh:targetClass TS28541_SliceNrm:ResourceIsolationRule .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:epApplicationRefs ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:ConnectionPointInfo ;
-                                    sh:path TS28541_SliceNrm:connectionPointRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:LogicalInterfaceInfo ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:localLogicalInterfaceInfo ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:ipAddress ;
-                                    sh:xone ( [ a sh:NodeShape ;
-                                                sh:datatype xsd:string ;
-                                                sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] [ a sh:NodeShape ;
-                                                sh:datatype xsd:string ] [ a sh:NodeShape ;
-                                                sh:datatype xsd:string ] ) ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:qosProfile ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:LogicalInterfaceInfo ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:localLogicalInterfaceInfo ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:epApplicationRefs ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:qosProfile ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:ConnectionPointInfo ;
-                            sh:path TS28541_SliceNrm:connectionPointRefList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:ipAddress ;
-                            sh:xone ( [ a sh:NodeShape ;
-                                        sh:datatype xsd:string ;
-                                        sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] [ a sh:NodeShape ;
-                                        sh:datatype xsd:string ] [ a sh:NodeShape ;
-                                        sh:datatype xsd:string ] ) ] ] ;
-            sh:path TS28541_SliceNrm_EP_Transport-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:EP_Transport-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ConnectionPointInfo:connectionPointId ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "VLAN"^^xsd:string "MPLS"^^xsd:string "SEGMENT"^^xsd:string "IPV4"^^xsd:string "IPV6"^^xsd:string "ATTACHMENT_CIRCUIT"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_ConnectionPointInfo:connectionPointIdType ] ;
-    sh:targetClass TS28541_SliceNrm:ConnectionPointInfo .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28623_GenericNrm:Tai ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:coverageAreaTAList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:XLThpt ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:uLThptPerSliceSubnet ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:dLlatency ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:XLThpt ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:dLThptPerSliceSubnet ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:uLlatency ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:XLThpt ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:dLThptPerSliceSubnet ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28623_GenericNrm:Tai ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:coverageAreaTAList ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:uLlatency ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:XLThpt ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:uLThptPerSliceSubnet ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:dLlatency ] ] ;
-            sh:path TS28541_SliceNrm_NetworkSliceSubnetProviderCapabilities-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Single .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:integer ;
-    sh:maxInclusive 4 ;
-    sh:minInclusive 0 ;
-    sh:targetClass TS28541_SliceNrm:SliceSimultaneousUse .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:NsInfo ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:nsInfo ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for readOnly attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:SliceProfile ;
-                                    sh:path TS28541_SliceNrm:sliceProfileList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:administrativeState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:isolationProfileRef ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:epTransportRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "TOP_SLICESUBNET"^^xsd:string "RAN_SLICESUBNET"^^xsd:string "CN_SLICESUBNET"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceSubnetType ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:operationalState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:priorityLabel ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for readOnly attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:managedFunctionRefList ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for readOnly attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceSubnetControllerRef ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:SliceProfile ;
-                            sh:path TS28541_SliceNrm:sliceProfileList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:managedFunctionRefList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceSubnetControllerRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:NsInfo ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:nsInfo ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:operationalState ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:epTransportRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:priorityLabel ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "TOP_SLICESUBNET"^^xsd:string "RAN_SLICESUBNET"^^xsd:string "CN_SLICESUBNET"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceSubnetType ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:isolationProfileRef ] ] ;
-            sh:path TS28541_SliceNrm_NetworkSliceSubnet-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnet-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28541_SliceNrm:NetworkSliceSubnetController-Single ;
-    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetController-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for readOnly attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceControllerRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:operationalState ],
-                                [ a sh:PropertyShape ;
-                                    sh:class TS28541_SliceNrm:ServiceProfile ;
-                                    sh:path TS28541_SliceNrm:serviceProfileList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:administrativeState ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28541_SliceNrm:isolationProfileRef ] ] ;
-                    sh:path TS28541_SliceNrm:attributes ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for readOnly attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceControllerRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:isolationProfileRef ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:operationalState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28541_SliceNrm:ServiceProfile ;
-                            sh:path TS28541_SliceNrm:serviceProfileList ] ] ;
-            sh:path TS28541_SliceNrm_NetworkSlice-Single:attributes ] ;
-    sh:targetClass TS28541_SliceNrm:NetworkSlice-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DeterministicComm ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLDeterministicComm ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:resourceSharingLevel ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:Tai ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:coverageAreaTAList ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DataNetworkAccess ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dataNetworkAccess ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLReliability ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLPktDelayVariation ],
-        [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:XLThpt ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLThptPerSliceSubnet ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLThptPerUE ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
+            sh:class TS28541_SliceNrm:Synchronicity ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxNumberofUEs ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLPktDelayVariation ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLMaxPktSize ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:energyEfficiency ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:N6Protection ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:n6Protection ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:survivalTime ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:synchronicity ],
         [ a sh:PropertyShape ;
             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:sliceSubnetAvailability ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:sliceSubnetAvailability ;
             sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:endTime ],
-                            [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:startTime ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:dateTime ;
-                                sh:path TS28541_SliceNrm:endTime ] ] [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
                         sh:property [ a sh:PropertyShape ;
                                 sh:class TS28623_ComDefs:TimeInterval ;
                                 sh:path TS28541_SliceNrm:timeIntervals ] ] [ a sh:NodeShape ;
@@ -1904,72 +542,653 @@
                                 sh:minInclusive 0 ;
                                 sh:path TS28541_SliceNrm:daysOfMonth ] ] ) ],
         [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NSSAASupport ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:nssaaSupport ],
+            sh:datatype xsd:string ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:nROperatingBands ],
         [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
+            sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLLatency ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLThptPerUE ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLThptPerUE ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxULDataVolume ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLLatency ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:NonIPSupport ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:nonIPSupport ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxDLDataVolume ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dLPktDelayVariation ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:integer ;
             sh:maxCount 1 ;
-            sh:maxInclusive 4 ;
-            sh:minInclusive 0 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:sliceSimultaneousUse ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:XLThpt ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:uLThptPerSliceSubnet ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:maxNumberOfPDUSessions ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DataNetwork ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:supportedDataNetworks ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:double ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLReliability ],
-        [ a sh:PropertyShape ;
-            sh:class TS28541_SliceNrm:DelayTolerance ;
-            sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:delayTolerance ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLLatency ],
         [ a sh:PropertyShape ;
             sh:class TS28541_SliceNrm:DeterministicComm ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:dLDeterministicComm ],
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLDeterministicComm ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:EnergyEfficiency ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:energyEfficiency ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DelayTolerance ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:delayTolerance ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:uLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DataNetworkAccess ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:dataNetworkAccess ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxNumberofUEs ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:maxNumberofUEs ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:Tai ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:coverageAreaTAList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DataNetwork ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:supportedDataNetworks ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:renewableEnergyPct ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TopSliceSubnetProfile:resourceSharingLevel ] ;
+    sh:targetClass TS28541_SliceNrm:TopSliceSubnetProfile .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NOT_SUPPORTED"^^xsd:string "BETWEEN_BS_AND_UE"^^xsd:string "BETWEEN_BS_AND_UE_AND_UE_AND_UE"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:SynAvailability .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSharingIndicator .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:Support .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:SharingLevel .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:MobilityLevel .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Single ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxNumberofUEs:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxNumberofUEs:3GPPNoOfUEs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxNumberofUEs:non3GPPNoOfUEs ] ;
+    sh:targetClass TS28541_SliceNrm:MaxNumberofUEs .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28541_SliceNrm:RecommendedRequirements .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28541_SliceNrm_RadioSpectrum:nROperatingBands ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_RadioSpectrum:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:RadioSpectrum .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_XLThpt:guaThpt ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_XLThpt:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_XLThpt:maxThpt ] ;
+    sh:targetClass TS28541_SliceNrm:XLThpt .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:FeasibilityResult .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MIoTEEPerfReq:req ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MAXREGSUBS"^^xsd:string "MEANACTIVEUES"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MIoTEEPerfReq:kpiType ] ;
+    sh:targetClass TS28541_SliceNrm:MIoTEEPerfReq .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:ipAddress ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ;
+                                                sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                                sh:datatype xsd:string ] ) ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:epApplicationRefs ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:ConnectionPointInfo ;
+                                    sh:path TS28541_SliceNrm:externalEndPointRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:LogicalInterfaceInfo ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:localLogicalInterfaceInfo ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:qosProfile ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:epApplicationRefs ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:ConnectionPointInfo ;
+                            sh:path TS28541_SliceNrm:externalEndPointRefList ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:ipAddress ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ;
+                                        sh:pattern "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ] [ a sh:NodeShape ;
+                                        sh:datatype xsd:string ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:qosProfile ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:LogicalInterfaceInfo ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:localLogicalInterfaceInfo ] ] ;
+            sh:path TS28541_SliceNrm_EP_Transport-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:EP_Transport-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DelayTolerance:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DelayTolerance:support ] ;
+    sh:targetClass TS28541_SliceNrm:DelayTolerance .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:SliceProfile ;
+    sh:targetClass TS28541_SliceNrm:SliceProfileList .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DataAccess:dataNetworkName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DIRECT_INTERNET_ACCESS"^^xsd:string "TERM_PVT_NETWORK"^^xsd:string "LOCAL_TRAFFIC"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DataAccess:dataAccessUsed ] ;
+    sh:targetClass TS28541_SliceNrm:DataAccess .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:XLThpt ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:uLThptPerSliceSubnet ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:uLlatency ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:dLlatency ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_GenericNrm:Tai ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:coverageAreaTAList ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:XLThpt ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:dLThptPerSliceSubnet ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:XLThpt ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:dLThptPerSliceSubnet ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:dLlatency ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_GenericNrm:Tai ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:coverageAreaTAList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:uLlatency ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:XLThpt ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:uLThptPerSliceSubnet ] ] ;
+            sh:path TS28541_SliceNrm_NetworkSliceSubnetProviderCapabilities-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERFORMANCE"^^xsd:string "FUNCTION"^^xsd:string "OPERATION"^^xsd:string ) ;
+            sh:path TS28541_SliceNrm_ServAttrCom:tagging ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CHARACTER"^^xsd:string "SCALABILITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServAttrCom:category ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "API"^^xsd:string "KPI"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServAttrCom:exposure ] ;
+    sh:targetClass TS28541_SliceNrm:ServAttrCom .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NUMOFBITS"^^xsd:string "NUMOFBITS_RANBASED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_EmbbEEPerfReq:kpiType ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:double ;
             sh:maxCount 1 ;
-            sh:path TS28541_SliceNrm_CNSliceSubnetProfile:availability ] ;
-    sh:targetClass TS28541_SliceNrm:CNSliceSubnetProfile .
+            sh:path TS28541_SliceNrm_EmbbEEPerfReq:req ] ;
+    sh:targetClass TS28541_SliceNrm:EmbbEEPerfReq .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:administrativeState ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:operationalState ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:SliceProfile ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:inputSliceProfile ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:availabilityStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:processMonitor ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:sliceProfileId ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:sliceProfileId ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_GenericNrm:ProcessMonitor ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:processMonitor ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:SliceProfile ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:inputSliceProfile ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:operationalState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:availabilityStatus ] ] ;
+            sh:path TS28541_SliceNrm_NetworkSliceSubnetController-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnetController-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:portName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:logicalInterfaceId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "RIP"^^xsd:string "IGMP"^^xsd:string "OSPF"^^xsd:string "EGP"^^xsd:string "EIGRP"^^xsd:string "BGP"^^xsd:string "IS_IS"^^xsd:string "STATIC"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:routingProtocol ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:systemName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "VLAN"^^xsd:string "MPLS"^^xsd:string "SEGMENT"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LogicalInterfaceInfo:logicalInterfaceType ] ;
+    sh:targetClass TS28541_SliceNrm:LogicalInterfaceInfo .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:integer ;
+    sh:maxInclusive 4 ;
+    sh:minInclusive 0 ;
+    sh:targetClass TS28541_SliceNrm:SliceSimultaneousUse .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:float ;
+    sh:targetClass TS28541_SliceNrm:Float .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NSSAASupport:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NSSAASupport:support ] ;
+    sh:targetClass TS28541_SliceNrm:NSSAASupport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NetworkSliceController-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceController ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:EP_Transport-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:EP_Transport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NetworkSliceSubnet-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceSubnet ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NetworkSliceSubnetProviderCapabilities-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceSubnetProviderCapabilities ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:IsolationProfile-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:IsolationProfile ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NetworkSlice-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSlice ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:FeasibilityCheckAndReservationJob ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NetworkSliceSubnetController-Single ;
+            sh:path TS28541_SliceNrm_SubNetwork-ncO-SliceNrm:NetworkSliceSubnetController ] ;
+    sh:targetClass TS28541_SliceNrm:SubNetwork-ncO-SliceNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:EP_Transport-Single ;
+    sh:targetClass TS28541_SliceNrm:EP_Transport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:IsolationProfile-Single ;
+    sh:targetClass TS28541_SliceNrm:IsolationProfile-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:recommendedRequirements ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:feasibilityResult ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:ReservationExpiration ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:reservationExpiration ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:RequestedReservationExpiration ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:requestedReservationExpiration ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:reservationFailureReason ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:resourceReservation ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:processMonitor ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "RESERVED"^^xsd:string "UNRESERVED"^^xsd:string "USED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:resourceReservationStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:boolean ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:recommendationRequest ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:inFeasibleReason ],
+                                [ a sh:PropertyShape ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:profile ;
+                                    sh:xone ( [ a sh:NodeShape ;
+                                                sh:class TS28541_SliceNrm:SliceProfile ] [ a sh:NodeShape ;
+                                                sh:class TS28541_SliceNrm:ServiceProfile ] ) ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_ComDefs:TimeWindow ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:feasibilityTimeWindow ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:resourceReservation ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:reservationFailureReason ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:RequestedReservationExpiration ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:requestedReservationExpiration ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "RESERVED"^^xsd:string "UNRESERVED"^^xsd:string "USED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:resourceReservationStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:boolean ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:recommendationRequest ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:recommendedRequirements ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_GenericNrm:ProcessMonitor ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:processMonitor ],
+                        [ a sh:PropertyShape ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:profile ;
+                            sh:xone ( [ a sh:NodeShape ;
+                                        sh:class TS28541_SliceNrm:SliceProfile ] [ a sh:NodeShape ;
+                                        sh:class TS28541_SliceNrm:ServiceProfile ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "FEASIBLE"^^xsd:string "INFEASIBLE"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:feasibilityResult ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_ComDefs:TimeWindow ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:feasibilityTimeWindow ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:ReservationExpiration ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:reservationExpiration ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:inFeasibleReason ] ] ;
+            sh:path TS28541_SliceNrm_FeasibilityCheckAndReservationJob-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:FeasibilityCheckAndReservationJob-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28541_SliceNrm_KPIMonitoring:kPIList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_KPIMonitoring:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:KPIMonitoring .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28541_SliceNrm:ReservationFailureReason .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NBIoT:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NBIoT:support ] ;
+    sh:targetClass TS28541_SliceNrm:NBIoT .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_Synchronicity:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_Synchronicity:accuracy ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "BETWEEN_BS_AND_UE"^^xsd:string "BETWEEN_BS_AND_UE_AND_UE_AND_UE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_Synchronicity:availability ] ;
+    sh:targetClass TS28541_SliceNrm:Synchronicity .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:NetworkSliceController-Single ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceController-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "L2TP_TUNNEL"^^xsd:string "GRE_TUNNEL"^^xsd:string "VPN_TUNNEL"^^xsd:string "LABEL_BASED_ROUTING"^^xsd:string "802.1Q_VLAN"^^xsd:string "SRV6"^^xsd:string "OTHER"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TunnellingMechanism:tunellingMechanismUsed ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TunnellingMechanism:dataNetworkName ] ;
+    sh:targetClass TS28541_SliceNrm:TunnellingMechanism .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -1977,7 +1196,776 @@
     sh:targetClass TS28541_SliceNrm:ResourceReservationStatus .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_V2XCommModels:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_V2XCommModels:v2XMode ] ;
+    sh:targetClass TS28541_SliceNrm:V2XCommModels .
+
+[] a sh:NodeShape ;
     sh:datatype xsd:string ;
-    sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
-    sh:targetClass TS28541_SliceNrm:SharingLevel .
+    sh:in ( "CHARACTER"^^xsd:string "SCALABILITY"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:Category .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:ServiceProfile ;
+                                    sh:path TS28541_SliceNrm:serviceProfileList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:operationalState ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:isolationProfileRef ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for readOnly attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceControllerRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:administrativeState ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:ServiceProfile ;
+                            sh:path TS28541_SliceNrm:serviceProfileList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceSubnetRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:operationalState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:isolationProfileRef ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceControllerRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:administrativeState ] ] ;
+            sh:path TS28541_SliceNrm_NetworkSlice-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:NetworkSlice-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DEDICATED"^^xsd:string "SHARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ResourceIsolationRule:isolationRule ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MANAGED_FUNCTION"^^xsd:string "NETWORK_SERVICE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ResourceIsolationRule:resourceType ] ;
+    sh:targetClass TS28541_SliceNrm:ResourceIsolationRule .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:ResourceIsolationRule ;
+                                    sh:path TS28541_SliceNrm:resourceIsolationRuleList ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for readOnly attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceRefList ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for readOnly attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "NETWORKSLICE"^^xsd:string "NETWORKSLICESUBNET"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSlicingApplicability ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceRefList ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "NETWORKSLICE"^^xsd:string "NETWORKSLICESUBNET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSlicingApplicability ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:ResourceIsolationRule ;
+                            sh:path TS28541_SliceNrm:resourceIsolationRuleList ] ] ;
+            sh:path TS28541_SliceNrm_IsolationProfile-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:IsolationProfile-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_Positioning:accuracy ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "CIDE_CID"^^xsd:string "OTDOA"^^xsd:string "RF_FINGERPRINTING"^^xsd:string "AECID"^^xsd:string "HYBRID_POSITIONING"^^xsd:string "NET_RTK"^^xsd:string ) ;
+            sh:maxCount 6 ;
+            sh:path TS28541_SliceNrm_Positioning:availability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_Positioning:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PERSEC"^^xsd:string "PERMIN"^^xsd:string "PERHOUR"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_Positioning:predictionFrequency ] ;
+    sh:targetClass TS28541_SliceNrm:Positioning .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "PERFORMANCE"^^xsd:string "FUNCTION"^^xsd:string "OPERATION"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:Tagging .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DataAccess ;
+            sh:path TS28541_SliceNrm_DataNetworkAccess:dataAccessList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:LboAllowed ;
+            sh:path TS28541_SliceNrm_DataNetworkAccess:localBreakoutAllowedList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DataNetworkAccess:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:TunnellingMechanism ;
+            sh:path TS28541_SliceNrm_DataNetworkAccess:tunnellingMechanismList ] ;
+    sh:targetClass TS28541_SliceNrm:DataNetworkAccess .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:serviceProfileId ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28623_GenericNrm:ProcessMonitor ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:processMonitor ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:ServiceProfile ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:inputServiceProfile ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:availabilityStatus ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:operationalState ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:administrativeState ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "IN_TEST"^^xsd:string "FAILED"^^xsd:string "POWER_OFF"^^xsd:string "OFF_LINE"^^xsd:string "OFF_DUTY"^^xsd:string "DEPENDENCY"^^xsd:string "DEGRADED"^^xsd:string "NOT_INSTALLED"^^xsd:string "LOG_FULL"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:availabilityStatus ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:operationalState ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:ServiceProfile ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:inputServiceProfile ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28623_GenericNrm:ProcessMonitor ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:processMonitor ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:serviceProfileId ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceRef ] ] ;
+            sh:path TS28541_SliceNrm_NetworkSliceController-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceController-Single .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "API"^^xsd:string "KPI"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:Exposure .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxNumberofPDUSessions:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxNumberofPDUSessions:nOofPDUSessions ] ;
+    sh:targetClass TS28541_SliceNrm:MaxNumberofPDUSessions .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NonIPSupport:support ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NonIPSupport:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:NonIPSupport .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NsInfo:nsName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NsInfo:description ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_NsInfo:nsInstanceId ] ;
+    sh:targetClass TS28541_SliceNrm:NsInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:NetworkSlice-Single ;
+    sh:targetClass TS28541_SliceNrm:NetworkSlice-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxNumberofPDUSessions ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:maxNumberofPDUSessions ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NBIoT ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:nBIoT ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLReliability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DeterministicComm ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLDeterministicComm ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxPktSize ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLMaxPktSize ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NonIPSupport ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:nonIPSupport ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLPktDelayVariation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLThptPerUE ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "STATIONARY"^^xsd:string "NOMADIC"^^xsd:string "RESTRICTED_MOBILITY"^^xsd:string "FULL_MOBILITY"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uEMobilityLevel ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:NSSAASupport ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:nssaaSupport ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 4 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:sliceSimultaneousUse ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLReliability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLLatency ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DeterministicComm ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLDeterministicComm ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28541_SliceNrm_ServiceProfile:coverageArea ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCoordinate ;
+                                sh:path TS28541_SliceNrm:geoPolygon ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCircle ;
+                                sh:path TS28541_SliceNrm:geoCircle ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:KPIMonitoring ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:kPIMonitoring ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 255 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:sst ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:maxULDataVolume ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLThptPerSlice ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:N6Protection ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:n6Protection ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "SHARED"^^xsd:string "NON_SHARED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:networkSliceSharingIndicator ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DelayTolerance ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:delayTolerance ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxNumberofUEs ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:maxNumberofUEs ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLPktDelayVariation ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:TermDensity ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:termDensity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:Positioning ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:positioning ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:Synchronicity ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:synchronicity ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:EnergyEfficiency ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:energyEfficiency ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:survivalTime ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100 ;
+            sh:minInclusive 0 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:renewableEnergyPct ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:XLThpt ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLThptPerSlice ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:activityFactor ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:availability ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DataNetwork ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:supportedDataNetworks ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:DataNetworkAccess ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dataNetworkAccess ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:serviceProfileId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uESpeed ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:maxDLDataVolume ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:UserMgmtOpen ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:userMgmtOpen ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:MaxPktSize ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:dLMaxPktSize ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:V2XCommModels ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:v2XCommModels ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:double ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:uLLatency ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28541_SliceNrm_ServiceProfile:sliceAvailability ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28623_ComDefs:TimeWindow ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:TimeInterval ;
+                                sh:path TS28541_SliceNrm:timeIntervals ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:datatype xsd:string ;
+                                sh:in ( "MONDAY"^^xsd:string "TUESDAY"^^xsd:string "WEDNESDAY"^^xsd:string "THURSDAY"^^xsd:string "FRIDAY"^^xsd:string "SATURDAY"^^xsd:string "SUNDAY"^^xsd:string ) ;
+                                sh:path TS28541_SliceNrm:daysOfWeek ],
+                            [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:TimeInterval ;
+                                sh:path TS28541_SliceNrm:timeIntervals ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:TimeInterval ;
+                                sh:path TS28541_SliceNrm:timeIntervals ],
+                            [ a sh:PropertyShape ;
+                                sh:datatype xsd:integer ;
+                                sh:maxInclusive 31 ;
+                                sh:minInclusive 0 ;
+                                sh:path TS28541_SliceNrm:daysOfMonth ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:plmnInfoList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:RadioSpectrum ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ServiceProfile:radioSpectrum ] ;
+    sh:targetClass TS28541_SliceNrm:ServiceProfile .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TermDensity:servAttrCom ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_TermDensity:density ] ;
+    sh:targetClass TS28541_SliceNrm:TermDensity .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28541_SliceNrm_DataNetwork:dnnList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DataNetwork:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:DataNetwork .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for readOnly attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:managedFunctionRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "TOP_SLICESUBNET"^^xsd:string "RAN_SLICESUBNET"^^xsd:string "CN_SLICESUBNET"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceSubnetType ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for readOnly attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:operationalState ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:SliceProfile ;
+                                    sh:path TS28541_SliceNrm:sliceProfileList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:administrativeState ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:isolationProfileRef ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:epTransportRefList ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for readOnly attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:networkSliceSubnetControllerRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:priorityLabel ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28541_SliceNrm:NsInfo ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28541_SliceNrm:nsInfo ] ] ;
+                    sh:path TS28541_SliceNrm:attributes ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:managedFunctionRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "TOP_SLICESUBNET"^^xsd:string "RAN_SLICESUBNET"^^xsd:string "CN_SLICESUBNET"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceSubnetType ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:SliceProfile ;
+                            sh:path TS28541_SliceNrm:sliceProfileList ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28541_SliceNrm:NsInfo ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:nsInfo ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceSubnetRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:priorityLabel ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for readOnly attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:networkSliceSubnetControllerRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:epTransportRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:isolationProfileRef ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28541_SliceNrm:operationalState ] ] ;
+            sh:path TS28541_SliceNrm_NetworkSliceSubnet-Single:attributes ] ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnet-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_EnergyEfficiency:servAttrCom ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_EnergyEfficiency:performance ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:class TS28541_SliceNrm:EmbbEEPerfReq ] [ a sh:NodeShape ;
+                        sh:class TS28541_SliceNrm:UrllcEEPerfReq ] [ a sh:NodeShape ;
+                        sh:class TS28541_SliceNrm:MIoTEEPerfReq ] ) ] ;
+    sh:targetClass TS28541_SliceNrm:EnergyEfficiency .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_UserMgmtOpen:support ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_UserMgmtOpen:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:UserMgmtOpen .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "CIDE_CID"^^xsd:string "OTDOA"^^xsd:string "RF_FINGERPRINTING"^^xsd:string "AECID"^^xsd:string "HYBRID_POSITIONING"^^xsd:string "NET_RTK"^^xsd:string ) ;
+    sh:targetClass TS28541_SliceNrm:PositioningAvailability .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ConnectionPointInfo:connectionPointId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "VLAN"^^xsd:string "MPLS"^^xsd:string "SEGMENT"^^xsd:string "IPV4"^^xsd:string "IPV6"^^xsd:string "ATTACHMENT_CIRCUIT"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_ConnectionPointInfo:connectionPointIdType ] ;
+    sh:targetClass TS28541_SliceNrm:ConnectionPointInfo .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SliceProfile:sliceProfileId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:TopSliceSubnetProfile ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SliceProfile:topSliceSubnetProfile ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:RANSliceSubnetProfile ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SliceProfile:rANSliceSubnetProfile ],
+        [ a sh:PropertyShape ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SliceProfile:plmnInfoList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:CNSliceSubnetProfile ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SliceProfile:cNSliceSubnetProfile ] ;
+    sh:targetClass TS28541_SliceNrm:SliceProfile .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:targetClass TS28541_SliceNrm:InFeasibleReason .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxPktSize:maxsize ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_MaxPktSize:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:MaxPktSize .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SecFunc:secFunId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28541_SliceNrm_SecFunc:secRules ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_SecFunc:secFunType ] ;
+    sh:targetClass TS28541_SliceNrm:SecFunc .
+
+[] a sh:NodeShape ;
+    sh:class TS28541_SliceNrm:NetworkSliceSubnet-Single ;
+    sh:targetClass TS28541_SliceNrm:NetworkSliceSubnet-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( true false ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LboAllowed:localBreakoutAllowed ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_LboAllowed:dataNetworkName ] ;
+    sh:targetClass TS28541_SliceNrm:LboAllowed .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "NOT_SUPPORTED"^^xsd:string "SUPPORTED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DeterministicComm:availability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:path TS28541_SliceNrm_DeterministicComm:periodicityList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28541_SliceNrm:ServAttrCom ;
+            sh:maxCount 1 ;
+            sh:path TS28541_SliceNrm_DeterministicComm:servAttrCom ] ;
+    sh:targetClass TS28541_SliceNrm:DeterministicComm .
 

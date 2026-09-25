@@ -53,6 +53,8 @@ TS28623_FileManagementNrm_File-Single:attributes a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:File-Single ;
     rdfs:range rdfs:Resource .
 
+TS28623_FileManagementNrm:FileContent a rdfs:Datatype .
+
 TS28623_FileManagementNrm_FileDownloadJob-Single:attributes a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJob-Single ;
     rdfs:range rdfs:Resource .
@@ -61,7 +63,7 @@ TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:endTime a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
     rdfs:range xsd:dateTime .
 
-TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:jobId a rdf:Property ;
+TS28623_FileManagementNrm_FileDownloadJobProcessMonitor:id a rdf:Property ;
     rdfs:domain TS28623_FileManagementNrm:FileDownloadJobProcessMonitor ;
     rdfs:range xsd:string .
 
@@ -114,10 +116,9 @@ TS28623_FileManagementNrm:attributes a rdf:Property ;
 TS28623_FileManagementNrm:cancelJob a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28623_FileManagementNrm:fileCompression a rdf:Property ;
-    rdfs:range xsd:string .
+TS28623_FileManagementNrm:file a rdf:Property .
 
-TS28623_FileManagementNrm:fileContent a rdf:Property ;
+TS28623_FileManagementNrm:fileCompression a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_FileManagementNrm:fileDataType a rdf:Property ;
@@ -130,7 +131,7 @@ TS28623_FileManagementNrm:fileFormat a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28623_FileManagementNrm:fileLocation a rdf:Property ;
-    rdfs:range xsd:string .
+    rdfs:range TS28623_FileManagementNrm:FileLocation .
 
 TS28623_FileManagementNrm:fileReadyTime a rdf:Property ;
     rdfs:range xsd:dateTime .

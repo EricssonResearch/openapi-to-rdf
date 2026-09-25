@@ -87,7 +87,11 @@ def test_each_target_class_has_exactly_one_node_shape(shapes: Graph) -> None:
     [
         ("TS29520_Nnwdaf_AnalyticsInfo.yaml", 16),
         ("TS29520_Nnwdaf_EventsSubscription.yaml", 79),
-        ("TS29571_CommonData.yaml", 309),
+        # 309 -> 505 on 2026-09-25: the corpus is now FETCHED at `Tag_Rel19_SA112` instead of being
+        # an un-derivable committed snapshot, and CommonData is the document that grew most (its
+        # declared terms went from 309 to 505). The other three documents here did not move, which is
+        # the useful part of re-pinning per document rather than as one total.
+        ("TS29571_CommonData.yaml", 505),
         ("TS28623_GenericNrm.yaml", 36),
     ],
 )

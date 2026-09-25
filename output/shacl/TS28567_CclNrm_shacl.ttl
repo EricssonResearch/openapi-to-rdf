@@ -1,0 +1,345 @@
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28567_CclNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28567_CclNrm: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/> .
+@prefix TS28567_CclNrm_CCLActionConflictsHandling: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/CCLActionConflictsHandling/> .
+@prefix TS28567_CclNrm_CCLComponent: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/CCLComponent/> .
+@prefix TS28567_CclNrm_CCLComponentsInfo: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/CCLComponentsInfo/> .
+@prefix TS28567_CclNrm_CCLReport-Single: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/CCLReport-Single/> .
+@prefix TS28567_CclNrm_CCLScope-Single: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/CCLScope-Single/> .
+@prefix TS28567_CclNrm_CCLScopeCoordinationCapability: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/CCLScopeCoordinationCapability/> .
+@prefix TS28567_CclNrm_ClosedControlLoop-Single: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/ClosedControlLoop-Single/> .
+@prefix TS28567_CclNrm_ConflictInformation: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/ConflictInformation/> .
+@prefix TS28567_CclNrm_ConflictManagementAndCoordinationEntity-Single: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/ConflictManagementAndCoordinationEntity-Single/> .
+@prefix TS28567_CclNrm_ConflictResolution: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/ConflictResolution/> .
+@prefix TS28567_CclNrm_FaultManagement: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/FaultManagement/> .
+@prefix TS28567_CclNrm_FaultManagementCCLReport: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/FaultManagementCCLReport/> .
+@prefix TS28567_CclNrm_GeneratedAlarmResult: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/GeneratedAlarmResult/> .
+@prefix TS28567_CclNrm_SubNetwork-ncO-CCLNrm: <https://semantics.ericsson.com/openapi/TS28567_CclNrm/SubNetwork-ncO-CCLNrm/> .
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictResolution:conflictingCCLId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictResolution:cCLGoalBreachPercentage ] ;
+    sh:targetClass TS28567_CclNrm:ConflictResolution .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictInformation:conflictingActions ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictInformation:conflictingCCLId ] ;
+    sh:targetClass TS28567_CclNrm:ConflictInformation .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:cCLPurposeRefList ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLScope-Single:cCLPurposeRefList ] ;
+    sh:targetClass TS28567_CclNrm:CCLScope-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28567_CclNrm:ConflictManagementAndCoordinationEntity-Single ;
+    sh:targetClass TS28567_CclNrm:ConflictManagementAndCoordinationEntity-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLActionConflictsHandling:targetCCL ],
+        [ a sh:PropertyShape ;
+            sh:class TS28567_CclNrm:ConflictResolution ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLActionConflictsHandling:conflictResolution ],
+        [ a sh:PropertyShape ;
+            sh:class TS28567_CclNrm:ConflictInformation ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLActionConflictsHandling:conflictInformation ] ;
+    sh:targetClass TS28567_CclNrm:CCLActionConflictsHandling .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLComponentsInfo:cCLComponentInfoId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DATA_COLLECTION"^^xsd:string "ANALYSIS"^^xsd:string "DECISION"^^xsd:string "EXECUTION"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLComponentsInfo:cCLSteps ] ;
+    sh:targetClass TS28567_CclNrm:CCLComponentsInfo .
+
+[] a sh:NodeShape ;
+    sh:class TS28567_CclNrm:CCLReport-Single ;
+    sh:targetClass TS28567_CclNrm:CCLReport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28567_CclNrm:ClosedControlLoop-Single ;
+            sh:path TS28567_CclNrm_SubNetwork-ncO-CCLNrm:ClosedControlLoop ] ;
+    sh:targetClass TS28567_CclNrm:SubNetwork-ncO-CCLNrm .
+
+[] a sh:NodeShape ;
+    sh:class TS28567_CclNrm:CCLScope-Single ;
+    sh:targetClass TS28567_CclNrm:CCLScope-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLScopeCoordinationCapability:cCLCoordinationCapabilityID ] ;
+    sh:targetClass TS28567_CclNrm:CCLScopeCoordinationCapability .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "MONITOR"^^xsd:string "ANALYSIS"^^xsd:string "DECISION"^^xsd:string "EXECUTION"^^xsd:string "OTHER"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLComponent:cCLComponentRole ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLComponent:cCLComponentIdentification ] ;
+    sh:targetClass TS28567_CclNrm:CCLComponent .
+
+[] a sh:NodeShape ;
+    sh:class TS28567_CclNrm:ClosedControlLoop-Single ;
+    sh:targetClass TS28567_CclNrm:ClosedControlLoop-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    rdfs:comment "It indicates a capability of a coordination entity to coordinate CCL conflicts." ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:coordinationCapability ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:coordinatedCCLsScopes ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28567_CclNrm:CCLActionConflictsHandling ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:cCLActionConflictsHandling ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "It indicates a capability of a coordination entity to coordinate CCL conflicts." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictManagementAndCoordinationEntity-Single:coordinationCapability ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictManagementAndCoordinationEntity-Single:coordinatedCCLsScopes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28567_CclNrm:CCLActionConflictsHandling ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ConflictManagementAndCoordinationEntity-Single:cCLActionConflictsHandling ] ;
+    sh:targetClass TS28567_CclNrm:ConflictManagementAndCoordinationEntity-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28567_CclNrm_GeneratedAlarmResult:enhancedCorrelationInformation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_GeneratedAlarmResult:alarmId ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_GeneratedAlarmResult:identifiedRootCauseInformation ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_GeneratedAlarmResult:alarmClearedStatus ] ;
+    sh:targetClass TS28567_CclNrm:GeneratedAlarmResult .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:path TS28567_CclNrm:faultManagementAlarmIdList ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:faultManagementIsolateObjectRequirement ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28623_ComDefs:TimeWindow ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:faultManagementTimeWindow ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:boolean ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:faultManagementBackUpObjectRequirement ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:clearUserId ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:TimeWindow ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_FaultManagement:faultManagementTimeWindow ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_FaultManagement:faultManagementBackUpObjectRequirement ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_FaultManagement:faultManagementIsolateObjectRequirement ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28567_CclNrm_FaultManagement:faultManagementAlarmIdList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_FaultManagement:clearUserId ] ;
+    sh:targetClass TS28567_CclNrm:FaultManagement .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28567_CclNrm_FaultManagementCCLReport:generatedAlarmResultList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_FaultManagementCCLReport:faultManagementCCLReportTime ] ;
+    sh:targetClass TS28567_CclNrm:FaultManagementCCLReport .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:administrativeState ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "This provides the priority of the CCL. This will be the numerical value between 1 to 10, with 1 being the least priority." ;
+                    sh:datatype xsd:integer ;
+                    sh:maxCount 1 ;
+                    sh:maxInclusive 10 ;
+                    sh:minInclusive 1 ;
+                    sh:path TS28567_CclNrm:cCLPriority ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It indicates information on the constituent components of a CCL." ;
+                    sh:class TS28567_CclNrm:CCLComponentsInfo ;
+                    sh:path TS28567_CclNrm:cCLComponentsInfo ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:operationalState ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:cCLPurposeRefList ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "DECISION_ACTIVATION"^^xsd:string "NOTIFY_RCOMMENDATION"^^xsd:string "DO_NOTHING"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:desiredBehavior ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It indicates the list of components ating as steps of the CCL. " ;
+                    sh:class TS28567_CclNrm:CCLComponent ;
+                    sh:path TS28567_CclNrm:cCLComponentList ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "ENERGYOPTIMIZATION"^^xsd:string "SLICEASSURANCE"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:cCLType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:cCLActionTrigger ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "It indicates information on the constituent components of a CCL." ;
+            sh:class TS28567_CclNrm:CCLComponentsInfo ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:cCLComponentsInfo ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the list of components ating as steps of the CCL. " ;
+            sh:class TS28567_CclNrm:CCLComponent ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:cCLComponentList ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:cCLActionTrigger ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:administrativeState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:cCLPurposeRefList ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "This provides the priority of the CCL. This will be the numerical value between 1 to 10, with 1 being the least priority." ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 10 ;
+            sh:minInclusive 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:cCLPriority ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:operationalState ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "DECISION_ACTIVATION"^^xsd:string "NOTIFY_RCOMMENDATION"^^xsd:string "DO_NOTHING"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:desiredBehavior ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "ENERGYOPTIMIZATION"^^xsd:string "SLICEASSURANCE"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_ClosedControlLoop-Single:cCLType ] ;
+    sh:targetClass TS28567_CclNrm:ClosedControlLoop-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28567_CclNrm:FaultManagementCCLReport ;
+                    sh:maxCount 1 ;
+                    sh:path TS28567_CclNrm:faultManagementCCLReport ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28567_CclNrm:FaultManagementCCLReport ;
+            sh:maxCount 1 ;
+            sh:path TS28567_CclNrm_CCLReport-Single:faultManagementCCLReport ] ;
+    sh:targetClass TS28567_CclNrm:CCLReport-Single .
+

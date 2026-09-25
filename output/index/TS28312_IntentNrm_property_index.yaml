@@ -26,6 +26,26 @@ properties:
   owner_class: IntentHandlingFunction-Single
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReport-Multiple
   description: null
+- local_name: IntentUtilityFormula
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula-Multiple
+  description: null
+- local_name: IntentUtilityFormula
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingFunction-Single/IntentUtilityFormula
+  owner_class: IntentHandlingFunction-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula-Multiple
+  description: null
+- local_name: additionalFulfilmentInfo
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentReport/additionalFulfilmentInfo
+  owner_class: IntentFulfilmentReport
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: "It describes the additional information of intent intent fulfilment.The\
+    \ content and format is vendor specific.\n Examples of additional fulfilment information\
+    \ could be:Types for the list of managed objects (e.g. NE, NF, Cell) \n which\
+    \ are updated during intent fulfilment, or, Instance information for the list\
+    \ of managed objects (e.g. NE, NF,\n  Cell)  and corresponding attributes which\
+    \ are updated during intent fulfilment."
 - local_name: arfcn
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Frequency/arfcn
   owner_class: Frequency
@@ -47,20 +67,35 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentConflictReport/conflictingExpectation
   owner_class: IntentConflictReport
   range: http://www.w3.org/2001/XMLSchema#string
-  description: 'This will be present if the value of conflictType is EXPECTATION_CONFLICT.
-    It describes the expectationId of the conflicting IntentExpectation with an Intent       '
+  description: This will be present if the MnS producer supports reporting on conflicts
+    of type EXPECTATION_CONFLICT or  TARGET_CONFLICT.
 - local_name: conflictingIntent
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentConflictReport/conflictingIntent
   owner_class: IntentConflictReport
   range: http://www.w3.org/2001/XMLSchema#string
-  description: This will be present if the value of conflictType is INTENT_CONFLICT.
-    It describes the DN of the conflicting intent
+  description: This will be present if the MnS producer supports reporting on INTENT_CONFLICT
+    or EXPECTATION_CONFLICT  or TARGET_CONFLICT.
 - local_name: conflictingTarget
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentConflictReport/conflictingTarget
   owner_class: IntentConflictReport
   range: http://www.w3.org/2001/XMLSchema#string
-  description: 'This will be present if the value of conflictType is TARGET_CONFLICT.
-    It describes the targetName of the conflicting ExpectationTarget with an IntentExpectation           '
+  description: This will be present if the MnS producer supports reporting on conflicts
+    of type TARGET_CONFLICT.
+- local_name: consumerSatisfactionIndex
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationFeedback/consumerSatisfactionIndex
+  owner_class: IntentFulfilmentNegotiationFeedback
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
+- local_name: consumerSatisfactionIndexThreshold
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/consumerSatisfactionIndexThreshold
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
+- local_name: consumerSatisfactionIndexThreshold
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/consumerSatisfactionIndexThreshold
+  owner_class: Intent-Single
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
 - local_name: contextAttribute
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context/contextAttribute
   owner_class: Context
@@ -70,6 +105,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context/contextCondition
   owner_class: Context
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: contextExplorationResults
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationExplorationResult/contextExplorationResults
+  owner_class: ExpectationExplorationResult
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context
   description: null
 - local_name: contextSelectivity
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/contextSelectivity
@@ -96,10 +136,15 @@ properties:
   owner_class: Context
   range: null
   description: null
-- local_name: endTime
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/endTime
+- local_name: daysOfMonth
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/daysOfMonth
   owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#dateTime
+  range: null
+  description: null
+- local_name: daysOfWeek
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/daysOfWeek
+  owner_class: null
+  range: null
   description: null
 - local_name: expectaitonId
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationFulfilmentResult/expectaitonId
@@ -111,6 +156,11 @@ properties:
   owner_class: IntentExpectation
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context
   description: null
+- local_name: expectationExplorationResults
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExplorationReport/expectationExplorationResults
+  owner_class: IntentExplorationReport
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationExplorationResult
+  description: null
 - local_name: expectationFulfilmentInfo
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationFulfilmentResult/expectationFulfilmentInfo
   owner_class: ExpectationFulfilmentResult
@@ -120,6 +170,21 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentReport/expectationFulfilmentResult
   owner_class: IntentFulfilmentReport
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationFulfilmentResult
+  description: null
+- local_name: expectationFulfilmentResults
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleIntentOutcome/expectationFulfilmentResults
+  owner_class: PossibleIntentOutcome
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationFulfilmentResult
+  description: null
+- local_name: expectationId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationExplorationResult/expectationId
+  owner_class: ExpectationExplorationResult
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: expectationId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/InFeasibleExpectationInfo/expectationId
+  owner_class: InFeasibleExpectationInfo
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: expectationId
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExpectation/expectationId
@@ -131,6 +196,16 @@ properties:
   owner_class: IntentExpectation
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationObject
   description: null
+- local_name: expectationSelectivity
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/expectationSelectivity
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: expectationSelectivity
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/expectationSelectivity
+  owner_class: Intent-Single
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: expectationTargets
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExpectation/expectationTargets
   owner_class: IntentExpectation
@@ -141,6 +216,11 @@ properties:
   owner_class: IntentExpectation
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: expectedReportTypes
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl/expectedReportTypes
+  owner_class: IntentReportControl
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: It indicates the type of IntentReports.
 - local_name: feasibilityCheckResult
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFeasibilityCheckReport/feasibilityCheckResult
   owner_class: IntentFeasibilityCheckReport
@@ -163,10 +243,65 @@ properties:
   owner_class: FulfilmentInfo
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
-- local_name: infeasibilityReason
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFeasibilityCheckReport/infeasibilityReason
+- local_name: geoCircle
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/geoCircle
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoCircle
+  description: null
+- local_name: geoPolygon
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/geoPolygon
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoCoordinate
+  description: null
+- local_name: impactedAttributes
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleImpact/impactedAttributes
+  owner_class: PossibleImpact
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/AttributeNameValuePairSet
+  description: null
+- local_name: impactedObjects
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleImpact/impactedObjects
+  owner_class: PossibleImpact
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DnRo
+  description: null
+- local_name: implicitIntent
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationReport/implicitIntent
+  owner_class: IntentFulfilmentNegotiationReport
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ImplicitIntent
+  description: null
+- local_name: implicitIntentContexts
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ImplicitIntent/implicitIntentContexts
+  owner_class: ImplicitIntent
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context
+  description: null
+- local_name: implicitIntentExpectations
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ImplicitIntent/implicitIntentExpectations
+  owner_class: ImplicitIntent
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExpectation
+  description: null
+- local_name: implicitIntentIndex
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/implicitIntentIndex
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
+- local_name: implicitIntentIndex
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/implicitIntentIndex
+  owner_class: Intent-Single
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
+- local_name: inFeasibleExpectationInfos
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFeasibilityCheckReport/inFeasibleExpectationInfos
   owner_class: IntentFeasibilityCheckReport
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/InFeasibleExpectationInfo
+  description: null
+- local_name: inFeasibleTargets
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/InFeasibleExpectationInfo/inFeasibleTargets
+  owner_class: InFeasibleExpectationInfo
+  range: null
+  description: It describes the list of TargetNames for the InFeasibleTargets
+- local_name: infeasibilityReasons
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFeasibilityCheckReport/infeasibilityReasons
+  owner_class: IntentFeasibilityCheckReport
+  range: null
   description: An attribute which is used when feasibilityCheckResult is INFEASIBLE
 - local_name: intentAdminState
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentAdminState
@@ -214,6 +349,16 @@ properties:
   owner_class: Intent-Single
   range: null
   description: null
+- local_name: intentExplorationReport
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentExplorationReport
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExplorationReport
+  description: null
+- local_name: intentExplorationReport
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReport-Single/intentExplorationReport
+  owner_class: IntentReport-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExplorationReport
+  description: null
 - local_name: intentFeasibilityCheckReport
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentFeasibilityCheckReport
   owner_class: null
@@ -228,6 +373,26 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentReport/intentFulfilmentInfo
   owner_class: IntentFulfilmentReport
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/FulfilmentInfo
+  description: null
+- local_name: intentFulfilmentInfo
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleIntentOutcome/intentFulfilmentInfo
+  owner_class: PossibleIntentOutcome
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/FulfilmentInfo
+  description: null
+- local_name: intentFulfilmentNegotiationConsumerFeedback
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationReport/intentFulfilmentNegotiationConsumerFeedback
+  owner_class: IntentFulfilmentNegotiationReport
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationFeedback
+  description: null
+- local_name: intentFulfilmentNegotiationReport
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentFulfilmentNegotiationReport
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationReport
+  description: null
+- local_name: intentFulfilmentNegotiationReport
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReport-Single/intentFulfilmentNegotiationReport
+  owner_class: IntentReport-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationReport
   description: null
 - local_name: intentFulfilmentReport
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentFulfilmentReport
@@ -253,6 +418,16 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingFunction-Single/intentHandlingCapabilityList
   owner_class: IntentHandlingFunction-Single
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingCapability
+  description: null
+- local_name: intentMgmtPurpose
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentMgmtPurpose
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: intentMgmtPurpose
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/intentMgmtPurpose
+  owner_class: Intent-Single
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: intentPreemptionCapability
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentPreemptionCapability
@@ -284,6 +459,16 @@ properties:
   owner_class: IntentReport-Single
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: intentReportControl
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentReportControl
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl
+  description: null
+- local_name: intentReportControl
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/intentReportControl
+  owner_class: Intent-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl
+  description: null
 - local_name: intentReportReference
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentReportReference
   owner_class: null
@@ -293,6 +478,26 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/intentReportReference
   owner_class: Intent-Single
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: intentUtilityFormulaRef
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentUtilityFormulaRef
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: intentUtilityFormulaRef
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/intentUtilityFormulaRef
+  owner_class: Intent-Single
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: intentUtilityReports
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/intentUtilityReports
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityReport
+  description: null
+- local_name: intentUtilityReports
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReport-Single/intentUtilityReports
+  owner_class: IntentReport-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityReport
   description: null
 - local_name: lastUpdatedTime
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/lastUpdatedTime
@@ -332,31 +537,82 @@ properties:
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: observationPeriod
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/observationPeriod
-  owner_class: null
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl/observationPeriod
+  owner_class: IntentReportControl
   range: http://www.w3.org/2001/XMLSchema#integer
-  description: It represents the observation period of the fulfilmentInfo for corresponding  ExpectationTargets,
-    IntentExpectations and Intent.
-- local_name: observationPeriod
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Intent-Single/observationPeriod
-  owner_class: Intent-Single
+  description: It indicates the time period for which the fulfilment process is observed
+    and at the end of which the fulfilmentInfo for corresponding ExpectationTargets,
+    IntentExpectations and Intent is updated.
+- local_name: pLMNId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UEGroup/pLMNId
+  owner_class: UEGroup
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/PlmnId
+  description: null
+- local_name: parameterName
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityParameter/parameterName
+  owner_class: UtilityParameter
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: parameterWeight
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityParameter/parameterWeight
+  owner_class: UtilityParameter
+  range: http://www.w3.org/2001/XMLSchema#double
+  description: null
+- local_name: possibleImpacts
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleIntentOutcome/possibleImpacts
+  owner_class: PossibleIntentOutcome
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleImpact
+  description: null
+- local_name: possibleIntentOutcomeId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleIntentOutcome/possibleIntentOutcomeId
+  owner_class: PossibleIntentOutcome
   range: http://www.w3.org/2001/XMLSchema#integer
-  description: It represents the observation period of the fulfilmentInfo for corresponding  ExpectationTargets,
-    IntentExpectations and Intent.
+  description: null
+- local_name: possibleIntentOutcomeList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationReport/possibleIntentOutcomeList
+  owner_class: IntentFulfilmentNegotiationReport
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/PossibleIntentOutcome
+  description: null
+- local_name: preferenceWeight
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationTarget/preferenceWeight
+  owner_class: ExpectationTarget
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: It represents the preference information of the Consumer on expectationTargets.
+- local_name: preferenceWeight
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExpectation/preferenceWeight
+  owner_class: IntentExpectation
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: It represents the preference information of the Consumer on expectations.
 - local_name: recommendedSolutions
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentConflictReport/recommendedSolutions
   owner_class: IntentConflictReport
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: referredIntentOutcomeId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentFulfilmentNegotiationFeedback/referredIntentOutcomeId
+  owner_class: IntentFulfilmentNegotiationFeedback
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
+- local_name: reportRecipientAddress
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl/reportRecipientAddress
+  owner_class: IntentReportControl
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: It indicates the address of report recipient for MnS consumer.  It
+    shall be supported when the implicit intent report subscription mechanism is supported.
+- local_name: reportingConditions
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl/reportingConditions
+  owner_class: IntentReportControl
+  range: null
+  description: It indicates the specified conditions for intent reporting.
+- local_name: reportingTargets
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentReportControl/reportingTargets
+  owner_class: IntentReportControl
+  range: null
+  description: It indicates the specified targets needed to be reported.
 - local_name: sNssai
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UEGroup/sNssai
   owner_class: UEGroup
   range: https://semantics.ericsson.com/openapi/TS28541_NrNrm/Snssai
-  description: null
-- local_name: startTime
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/startTime
-  owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#dateTime
   description: null
 - local_name: supportedExpectationObjectType
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingCapability/supportedExpectationObjectType
@@ -364,21 +620,50 @@ properties:
   range: http://www.w3.org/2001/XMLSchema#string
   description: It describes the expectation object type which can be supported by
     a specific intent handling function of MnS producer.
-- local_name: supportedExpectationTargetNames
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingCapability/supportedExpectationTargetNames
+- local_name: supportedExpectationTargetInfoList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingCapability/supportedExpectationTargetInfoList
   owner_class: IntentHandlingCapability
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/SupportedExpectationTargetInfo
+  description: null
+- local_name: supportedTargetCondition
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/SupportedExpectationTargetInfo/supportedTargetCondition
+  owner_class: SupportedExpectationTargetInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedTargetName
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/SupportedExpectationTargetInfo/supportedTargetName
+  owner_class: SupportedExpectationTargetInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedTargetValueRange
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/SupportedExpectationTargetInfo/supportedTargetValueRange
+  owner_class: SupportedExpectationTargetInfo
   range: null
-  description: It describes the supported expectation targets for the supported expectation
-    object type.
+  description: null
+- local_name: supportedUtilityList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/supportedUtilityList
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityDefinition
+  description: null
+- local_name: supportedUtilityList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentHandlingFunction-Single/supportedUtilityList
+  owner_class: IntentHandlingFunction-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityDefinition
+  description: null
 - local_name: targetAchievedValue
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentResult/targetAchievedValue
   owner_class: TargetFulfilmentResult
-  range: http://www.w3.org/2001/XMLSchema#double
+  range: null
   description: It describes the value that has been achieved for the expectation target
-    at the time at which  the report is generated.
+    at the time at which the report is generated.
 - local_name: targetCondition
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationTarget/targetCondition
   owner_class: ExpectationTarget
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: targetCondition
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentCondition/targetCondition
+  owner_class: TargetFulfilmentCondition
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: targetContexts
@@ -387,19 +672,34 @@ properties:
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context
   description: It describes the list of constraints and conditions that should apply
     for a specific expectationTarget.
+- local_name: targetContexts
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentResult/targetContexts
+  owner_class: TargetFulfilmentResult
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/Context
+  description: null
+- local_name: targetExplorationResults
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationExplorationResult/targetExplorationResults
+  owner_class: ExpectationExplorationResult
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationTarget
+  description: null
 - local_name: targetFulfilmentInfo
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentResult/targetFulfilmentInfo
   owner_class: TargetFulfilmentResult
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/FulfilmentInfo
   description: null
-- local_name: targetFulfilmentResult
-  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationFulfilmentResult/targetFulfilmentResult
+- local_name: targetFulfilmentResults
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationFulfilmentResult/targetFulfilmentResults
   owner_class: ExpectationFulfilmentResult
   range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentResult
   description: null
 - local_name: targetName
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationTarget/targetName
   owner_class: ExpectationTarget
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: targetName
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentCondition/targetName
+  owner_class: TargetFulfilmentCondition
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: targetName
@@ -412,6 +712,16 @@ properties:
   owner_class: ExpectationTarget
   range: null
   description: null
+- local_name: targetValueRange
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentCondition/targetValueRange
+  owner_class: TargetFulfilmentCondition
+  range: null
+  description: null
+- local_name: timeIntervals
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/timeIntervals
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeInterval
+  description: null
 - local_name: userLabel
   uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/userLabel
   owner_class: null
@@ -422,4 +732,93 @@ properties:
   owner_class: Intent-Single
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
-collisions: []
+- local_name: utilityDefinitionId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityDefinition/utilityDefinitionId
+  owner_class: UtilityDefinition
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: utilityDescription
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityDefinition/utilityDescription
+  owner_class: UtilityDefinition
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: utilityFunctionId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/utilityFunctionId
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: utilityFunctionId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula-Single/utilityFunctionId
+  owner_class: IntentUtilityFormula-Single
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: utilityFunctionId
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityResult/utilityFunctionId
+  owner_class: UtilityResult
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: utilityOffset
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/utilityOffset
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#double
+  description: null
+- local_name: utilityOffset
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula-Single/utilityOffset
+  owner_class: IntentUtilityFormula-Single
+  range: http://www.w3.org/2001/XMLSchema#double
+  description: null
+- local_name: utilityParameterList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/utilityParameterList
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityParameter
+  description: null
+- local_name: utilityParameterList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula-Single/utilityParameterList
+  owner_class: IntentUtilityFormula-Single
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityParameter
+  description: null
+- local_name: utilityParameterList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityDefinition/utilityParameterList
+  owner_class: UtilityDefinition
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityParameter
+  description: null
+- local_name: utilityResult
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityResult/utilityResult
+  owner_class: UtilityResult
+  range: http://www.w3.org/2001/XMLSchema#double
+  description: null
+- local_name: utilityResultList
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityReport/utilityResultList
+  owner_class: IntentUtilityReport
+  range: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/UtilityResult
+  description: null
+- local_name: utilityScale
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/utilityScale
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#double
+  description: null
+- local_name: utilityScale
+  uri: https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentUtilityFormula-Single/utilityScale
+  owner_class: IntentUtilityFormula-Single
+  range: http://www.w3.org/2001/XMLSchema#double
+  description: null
+collisions:
+- local_name: expectationId
+  members:
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationExplorationResult/expectationId
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/InFeasibleExpectationInfo/expectationId
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExpectation/expectationId
+  differs_on:
+  - description
+- local_name: preferenceWeight
+  members:
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationTarget/preferenceWeight
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/IntentExpectation/preferenceWeight
+  differs_on:
+  - description
+- local_name: targetContexts
+  members:
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/ExpectationTarget/targetContexts
+  - https://semantics.ericsson.com/openapi/TS28312_IntentNrm/TargetFulfilmentResult/targetContexts
+  differs_on:
+  - description

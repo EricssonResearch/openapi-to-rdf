@@ -18,14 +18,17 @@
 @prefix TS28623_ComDefs_ErrorResponseDefault: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/ErrorResponseDefault/> .
 @prefix TS28623_ComDefs_ErrorResponseGet: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/ErrorResponseGet/> .
 @prefix TS28623_ComDefs_ErrorResponsePatch: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/ErrorResponsePatch/> .
-@prefix TS28623_ComDefs_GeoArea: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoArea/> .
+@prefix TS28623_ComDefs_EventTriggerConfig: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/EventTriggerConfig/> .
 @prefix TS28623_ComDefs_GeoAreaToCellMapping: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoAreaToCellMapping/> .
+@prefix TS28623_ComDefs_GeoCircle: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoCircle/> .
 @prefix TS28623_ComDefs_GeoCoordinate: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoCoordinate/> .
 @prefix TS28623_ComDefs_NotificationHeader: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/NotificationHeader/> .
 @prefix TS28623_ComDefs_PlmnId: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/PlmnId/> .
 @prefix TS28623_ComDefs_PlmnIdRo: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/PlmnIdRo/> .
 @prefix TS28623_ComDefs_Subscription: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/Subscription/> .
 @prefix TS28623_ComDefs_TimeInterval: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeInterval/> .
+@prefix TS28623_ComDefs_TimeWindow: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeWindow/> .
+@prefix TS28623_ComDefs_TimeWindowRo: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeWindowRo/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix transport: <https://semantics.ericsson.com/vocab/transport/> .
@@ -36,8 +39,6 @@ TS28623_ComDefs:AttributeNameValuePairSet a rdfs:Class ;
 
 TS28623_ComDefs:AttributeValueChangeSet a rdfs:Class ;
     rdfs:comment "The first array item contains the attribute name value pairs with the new values, and the second array item the attribute name value pairs with the optional old values." .
-
-TS28623_ComDefs:ConvexGeoPolygon a rdfs:Class .
 
 TS28623_ComDefs:DayInYear a rdfs:Class .
 
@@ -58,9 +59,13 @@ TS28623_ComDefs:ErrorResponseGet a rdfs:Class ;
 TS28623_ComDefs:ErrorResponsePatch a rdfs:Class ;
     rdfs:comment "Default schema for the response message body in case the patch is not successful." .
 
-TS28623_ComDefs:GeoArea a rdfs:Class .
+TS28623_ComDefs:EventTriggerConfig a rdfs:Class ;
+    rdfs:comment "This defines the configuration parameters of trigger event used for M10 measurement in NR. For details, please refer to TS 32.422 subclause 5.10.X." .
 
 TS28623_ComDefs:GeoAreaToCellMapping a rdfs:Class .
+
+TS28623_ComDefs:GeoCircle a rdfs:Class ;
+    rdfs:comment "This datatype is specifies the geographical area for NTN" .
 
 TS28623_ComDefs:GeoCoordinate a rdfs:Class .
 
@@ -76,11 +81,19 @@ TS28623_ComDefs:Subscription a rdfs:Class .
 
 TS28623_ComDefs:TimeInterval a rdfs:Class .
 
+TS28623_ComDefs:TimeWindow a rdfs:Class ;
+    rdfs:comment "This datatype is used for writable attribute" .
+
+TS28623_ComDefs:TimeWindowRo a rdfs:Class ;
+    rdfs:comment "This datatype is used for readOnly attribute" .
+
 TS28623_ComDefs:AdministrativeState a rdfs:Datatype .
 
 TS28623_ComDefs:AvailabilityStatus a rdfs:Datatype .
 
 TS28623_ComDefs:BasicAdministrativeState a rdfs:Datatype .
+
+TS28623_ComDefs:CagId a rdfs:Datatype .
 
 TS28623_ComDefs:DateMonth a rdfs:Datatype .
 
@@ -157,7 +170,7 @@ TS28623_ComDefs_ErrorResponseGet:type a rdf:Property ;
     rdfs:domain TS28623_ComDefs:ErrorResponseGet ;
     rdfs:range xsd:string .
 
-TS28623_ComDefs_ErrorResponsePatch:badOP a rdf:Property ;
+TS28623_ComDefs_ErrorResponsePatch:badOp a rdf:Property ;
     rdfs:domain TS28623_ComDefs:ErrorResponsePatch ;
     rdfs:range xsd:string .
 
@@ -182,6 +195,26 @@ TS28623_ComDefs_ErrorResponsePatch:type a rdf:Property ;
 
 TS28623_ComDefs:EutraCellId a rdfs:Datatype .
 
+TS28623_ComDefs_EventTriggerConfig:eventType a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:EventTriggerConfig ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_EventTriggerConfig:hysteresisRAN a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:EventTriggerConfig ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_EventTriggerConfig:measurementQuantityRAN a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:EventTriggerConfig ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_EventTriggerConfig:thresholdRAN a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:EventTriggerConfig ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_EventTriggerConfig:timeToTriggerRAN a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:EventTriggerConfig ;
+    rdfs:range xsd:string .
+
 TS28623_ComDefs:Filter a rdfs:Datatype ;
     rdfs:comment "The filter format shall be compliant to Jex (TS 32.161)." .
 
@@ -200,17 +233,21 @@ TS28623_ComDefs:FqdnRo a rdfs:Datatype ;
 TS28623_ComDefs:FullTime a rdfs:Datatype ;
     rdfs:comment "format (e.g., full-time) is from RFC 3339" .
 
-TS28623_ComDefs_GeoArea:convexGeoPolygon a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:GeoArea ;
-    rdfs:range TS28623_ComDefs:ConvexGeoPolygon .
-
 TS28623_ComDefs_GeoAreaToCellMapping:associationThreshold a rdf:Property ;
     rdfs:domain TS28623_ComDefs:GeoAreaToCellMapping ;
     rdfs:range xsd:integer .
 
 TS28623_ComDefs_GeoAreaToCellMapping:geoArea a rdf:Property ;
     rdfs:domain TS28623_ComDefs:GeoAreaToCellMapping ;
-    rdfs:range TS28623_ComDefs:GeoArea .
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_GeoCircle:distanceRadius a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoCircle ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_GeoCircle:referenceLocation a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:GeoCircle ;
+    rdfs:range TS28623_ComDefs:GeoCoordinate .
 
 TS28623_ComDefs_GeoCoordinate:altitude a rdf:Property ;
     rdfs:domain TS28623_ComDefs:GeoCoordinate ;
@@ -241,6 +278,15 @@ TS28623_ComDefs:Ipv6Prefix a rdfs:Datatype ;
 
 TS28623_ComDefs:Ipv6PrefixRo a rdfs:Datatype ;
     rdfs:comment "This datatype is used for readOnly attribute" .
+
+TS28623_ComDefs:JexConditions a rdfs:Datatype ;
+    rdfs:comment "The value of the string shall be a Jex expression that is compliant to the  Jex conditions profile specified in clause 7.6 of TS 32.161." .
+
+TS28623_ComDefs:JexNodeSelectionAdvanced a rdfs:Datatype ;
+    rdfs:comment "The value of the string shall be a Jex expression that is compliant to the  Jex advanced profile specified in clause 7.5 of TS 32.161." .
+
+TS28623_ComDefs:JexNodeSelectionBasic a rdfs:Datatype ;
+    rdfs:comment "The value of the string shall be a Jex expression that is compliant to the  Jex basic profile specified in clause 7.4 of TS 32.161." .
 
 TS28623_ComDefs:Latitude a rdfs:Datatype .
 
@@ -273,6 +319,14 @@ TS28623_ComDefs_NotificationHeader:notificationId a rdf:Property ;
     rdfs:range xsd:integer .
 
 TS28623_ComDefs_NotificationHeader:notificationType a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range xsd:string .
+
+TS28623_ComDefs_NotificationHeader:sequenceNo a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:NotificationHeader ;
+    rdfs:range xsd:integer .
+
+TS28623_ComDefs_NotificationHeader:subscriptionId a rdf:Property ;
     rdfs:domain TS28623_ComDefs:NotificationHeader ;
     rdfs:range xsd:string .
 
@@ -325,6 +379,22 @@ TS28623_ComDefs_TimeInterval:intervalEnd a rdf:Property ;
 TS28623_ComDefs_TimeInterval:intervalStart a rdf:Property ;
     rdfs:domain TS28623_ComDefs:TimeInterval ;
     rdfs:range xsd:time .
+
+TS28623_ComDefs_TimeWindow:endTime a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:TimeWindow ;
+    rdfs:range xsd:dateTime .
+
+TS28623_ComDefs_TimeWindow:startTime a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:TimeWindow ;
+    rdfs:range xsd:dateTime .
+
+TS28623_ComDefs_TimeWindowRo:endTime a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:TimeWindowRo ;
+    rdfs:range xsd:dateTime .
+
+TS28623_ComDefs_TimeWindowRo:startTime a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:TimeWindowRo ;
+    rdfs:range xsd:dateTime .
 
 TS28623_ComDefs:Uri a rdfs:Datatype ;
     rdfs:comment "This datatype is used for writable attribute" .

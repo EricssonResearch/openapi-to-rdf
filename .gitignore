@@ -299,3 +299,15 @@ output_*/
 
 # Subagent-driven-development scratch: ledger, briefs, review packages. Per-plan, git-ignored.
 .superpowers/
+
+# The 3GPP SA5 MnS corpus is FETCHED, not redistributed (2026-09-25).
+#
+# `scripts/fetch_corpus.py` downloads it from https://forge.3gpp.org/rep/sa5/MnS/ at the pinned tag
+# recorded in `assets/corpus-manifest.json`, which stays TRACKED: it is the pin plus a SHA-256 per file,
+# and it is what makes a fresh clone reproduce the same corpus. The documents themselves are 3GPP's
+# ((c) 3GPP Organizational Partners -- see NOTICE) and there is no reason for this repository to be a
+# second copy of them.
+#
+# What was committed here before could not be re-derived from ANY ref: of 39 files only 8 matched the
+# tag byte-for-byte, and 19 of the 38 documents declared a Rel-18 version in a directory named Rel-19.
+assets/MnS-Rel-19-OpenAPI/

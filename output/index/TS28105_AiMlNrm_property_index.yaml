@@ -37,11 +37,6 @@ properties:
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLModel-Multiple
   description: null
 - local_name: MLModel
-  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AIMLInferenceFunction-Single/MLModel
-  owner_class: AIMLInferenceFunction-Single
-  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLModel-Multiple
-  description: null
-- local_name: MLModel
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLModelRepository-Single/MLModel
   owner_class: MLModelRepository-Single
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLModel-Multiple
@@ -229,17 +224,17 @@ properties:
 - local_name: aIMLInferenceName
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/aIMLInferenceName
   owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/NwdafAnalyticsType
   description: null
 - local_name: aIMLInferenceName
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/InferenceOutput/aIMLInferenceName
   owner_class: InferenceOutput
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/NwdafAnalyticsType
   description: null
 - local_name: aIMLInferenceName
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLCapabilityInfo/aIMLInferenceName
   owner_class: MLCapabilityInfo
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/NwdafAnalyticsType
   description: null
 - local_name: aIMLInferenceReportRefList
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/aIMLInferenceReportRefList
@@ -250,6 +245,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/activationStatus
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: allowedClusterTrainingTime
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ClusteringCriteria/allowedClusterTrainingTime
+  owner_class: ClusteringCriteria
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeWindow
   description: null
 - local_name: areNewTrainingDataUsed
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/areNewTrainingDataUsed
@@ -376,6 +376,14 @@ properties:
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#boolean
   description: null
+- local_name: candidateFLClientRefList
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLParticipationInfo/candidateFLClientRefList
+  owner_class: FLParticipationInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: 'List of MLTrainingFunction DNs capable of acting as FL clients. Applicable
+    when fLRole = FL_SERVER.
+
+    '
 - local_name: candidateTrainingDataSource
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/candidateTrainingDataSource
   owner_class: null
@@ -385,6 +393,21 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLCapabilityInfo/capabilityName
   owner_class: MLCapabilityInfo
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: clientRedundancy
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/clientRedundancy
+  owner_class: FLClientSelectionCriteria
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
+- local_name: clientRef
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLReportPerClient/clientRef
+  owner_class: FLReportPerClient
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: clusteringInfo
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/clusteringInfo
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ClusteringCriteria
   description: null
 - local_name: dataProviderRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLContext/dataProviderRef
@@ -396,10 +419,25 @@ properties:
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#integer
   description: null
+- local_name: dataSplitIndication
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DistributedTrainingExpectation/dataSplitIndication
+  owner_class: DistributedTrainingExpectation
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
 - local_name: decisionConfidenceScore
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ModelPerformance/decisionConfidenceScore
   owner_class: ModelPerformance
   range: http://www.w3.org/2001/XMLSchema#float
+  description: null
+- local_name: distributedTrainingExpectation
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/distributedTrainingExpectation
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DistributedTrainingExpectation
+  description: null
+- local_name: expectedInferenceScope
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/expectedInferenceScope
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/NwdafAnalyticsType
   description: null
 - local_name: expectedPerformanceGains
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AvailMLCapabilityReport/expectedPerformanceGains
@@ -411,15 +449,55 @@ properties:
   owner_class: null
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLContext
   description: null
-- local_name: expectedRuntimeContext
-  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/expectedRuntimeContext
-  owner_class: null
-  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLContext
+- local_name: expectedTrainingTime
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DistributedTrainingExpectation/expectedTrainingTime
+  owner_class: DistributedTrainingExpectation
+  range: http://www.w3.org/2001/XMLSchema#integer
   description: null
-- local_name: inferenceModelRef
-  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLContext/inferenceModelRef
+- local_name: fLClientSelectionCriteria
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLRequirement/fLClientSelectionCriteria
+  owner_class: FLRequirement
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria
+  description: null
+- local_name: fLParticipationInfo
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/fLParticipationInfo
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLParticipationInfo
+  description: null
+- local_name: fLReportPerClient
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/fLReportPerClient
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLReportPerClient
+  description: null
+- local_name: fLRequirement
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/fLRequirement
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLRequirement
+  description: null
+- local_name: fLRole
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLParticipationInfo/fLRole
+  owner_class: FLParticipationInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: impactedPM
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/PotentialImpactInfo/impactedPM
+  owner_class: PotentialImpactInfo
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ImpactedPM
+  description: null
+- local_name: impactedScope
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/PotentialImpactInfo/impactedScope
+  owner_class: PotentialImpactInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: inferenceEntityRef
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLContext/inferenceEntityRef
   owner_class: MLContext
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: inferenceExplanationInfo
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/InferenceOutput/inferenceExplanationInfo
+  owner_class: InferenceOutput
+  range: null
   description: null
 - local_name: inferenceOutputId
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/InferenceOutput/inferenceOutputId
@@ -434,7 +512,7 @@ properties:
 - local_name: inferenceOutputTime
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/InferenceOutput/inferenceOutputTime
   owner_class: InferenceOutput
-  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DateTime
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DateTimeRo
   description: null
 - local_name: inferenceOutputs
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/inferenceOutputs
@@ -446,6 +524,16 @@ properties:
   owner_class: InferenceOutput
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ModelPerformance
   description: null
+- local_name: inferenceScope
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/inferenceScope
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/NwdafAnalyticsType
+  description: null
+- local_name: isAvailableForFLTraining
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLParticipationInfo/isAvailableForFLTraining
+  owner_class: FLParticipationInfo
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
 - local_name: isSupportedForTesting
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedPerfIndicator/isSupportedForTesting
   owner_class: SupportedPerfIndicator
@@ -456,10 +544,20 @@ properties:
   owner_class: SupportedPerfIndicator
   range: http://www.w3.org/2001/XMLSchema#boolean
   description: null
+- local_name: knowledgeType
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLKnowledge/knowledgeType
+  owner_class: MLKnowledge
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: lastTrainingRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/lastTrainingRef
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: learningTechnologyName
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedLearningTechnology/learningTechnologyName
+  owner_class: SupportedLearningTechnology
+  range: null
   description: null
 - local_name: loadedMLModelRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/loadedMLModelRef
@@ -480,6 +578,21 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AvailMLCapabilityReport/mLCapabilityVersionId
   owner_class: AvailMLCapabilityReport
   range: null
+  description: null
+- local_name: mLKnowledge
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLKnowledge
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLKnowledge
+  description: null
+- local_name: mLKnowledgeName
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLKnowledgeName
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: mLKnowledgeName
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLKnowledge/mLKnowledgeName
+  owner_class: MLKnowledge
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: mLModelCoordinationGroupGeneratedRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLModelCoordinationGroupGeneratedRef
@@ -546,6 +659,11 @@ properties:
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: mLTrainingType
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLTrainingType
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: mLUpdateProcessRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLUpdateProcessRef
   owner_class: null
@@ -559,7 +677,7 @@ properties:
 - local_name: mLUpdateReportingPeriod
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLUpdateReportingPeriod
   owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeWindow
   description: null
 - local_name: mLUpdateRequestRefList
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/mLUpdateRequestRefList
@@ -569,7 +687,7 @@ properties:
 - local_name: managedActivationScope
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/managedActivationScope
   owner_class: null
-  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AIMLManagementPolicy
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: managedActivationScope
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AIMLManagementPolicy/managedActivationScope
@@ -579,12 +697,32 @@ properties:
 - local_name: memberMLModelRefList
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/memberMLModelRefList
   owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DnRo
+  description: null
+- local_name: minimumAvailableDataSamples
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/minimumAvailableDataSamples
+  owner_class: FLClientSelectionCriteria
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
+- local_name: minimumAvailableTimeDuration
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/minimumAvailableTimeDuration
+  owner_class: FLClientSelectionCriteria
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: Minutes
+- local_name: minimumInterimModelPerformance
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/minimumInterimModelPerformance
+  owner_class: FLClientSelectionCriteria
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ModelPerformance
   description: null
 - local_name: modelConfidenceIndication
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/modelConfidenceIndication
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
+- local_name: modelPerformanceOnClient
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLReportPerClient/modelPerformanceOnClient
+  owner_class: FLReportPerClient
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ModelPerformance
   description: null
 - local_name: modelPerformanceTesting
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/modelPerformanceTesting
@@ -606,12 +744,27 @@ properties:
   owner_class: null
   range: null
   description: null
+- local_name: numberOfDataSamplesUsed
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLReportPerClient/numberOfDataSamplesUsed
+  owner_class: FLReportPerClient
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: null
 - local_name: outputResult
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/InferenceOutput/outputResult
   owner_class: InferenceOutput
   range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/AttributeNameValuePairSet
   description: A map (list of key-value pairs) for Inference result name and it's
     value
+- local_name: pMIdentifier
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ImpactedPM/pMIdentifier
+  owner_class: ImpactedPM
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: participatingFLClientRefList
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/participatingFLClientRefList
+  owner_class: null
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: performanceGainThreshold
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/performanceGainThreshold
   owner_class: null
@@ -620,6 +773,11 @@ properties:
 - local_name: performanceIndicatorName
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedPerfIndicator/performanceIndicatorName
   owner_class: SupportedPerfIndicator
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: performanceMetric
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ClusteringCriteria/performanceMetric
+  owner_class: ClusteringCriteria
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: performanceMetric
@@ -642,6 +800,21 @@ properties:
   owner_class: null
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AIMLManagementPolicy
   description: null
+- local_name: potentialImpactInfo
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/potentialImpactInfo
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/PotentialImpactInfo
+  description: null
+- local_name: predictorResponseArray
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLKnowledge/predictorResponseArray
+  owner_class: MLKnowledge
+  range: null
+  description: Array of pair <String, String>
+- local_name: preferredModelDiversity
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ClusteringCriteria/preferredModelDiversity
+  owner_class: ClusteringCriteria
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: priority
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/priority
   owner_class: null
@@ -661,6 +834,31 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/progressStatus
   owner_class: null
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ProcessMonitor
+  description: null
+- local_name: rLEnvironmentScope
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/RLRequirement/rLEnvironmentScope
+  owner_class: RLRequirement
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: rLEnvironmentType
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/RLRequirement/rLEnvironmentType
+  owner_class: RLRequirement
+  range: null
+  description: null
+- local_name: rLImpactedScope
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/RLRequirement/rLImpactedScope
+  owner_class: RLRequirement
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: rLPerformanceRequirements
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/RLRequirement/rLPerformanceRequirements
+  owner_class: RLRequirement
+  range: https://semantics.ericsson.com/openapi/TS28623_ThresholdMonitorNrm/ThresholdInfo
+  description: null
+- local_name: rLRequirement
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/rLRequirement
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/RLRequirement
   description: null
 - local_name: requestStatus
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/requestStatus
@@ -682,6 +880,11 @@ properties:
   owner_class: null
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLContext
   description: null
+- local_name: servingGeoArea
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/servingGeoArea
+  owner_class: FLClientSelectionCriteria
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/GeoArea
+  description: null
 - local_name: sourceTrainedMLModelRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/sourceTrainedMLModelRef
   owner_class: null
@@ -692,11 +895,36 @@ properties:
   owner_class: ProcessMonitor
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: suggestedTrainingNodeList
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DistributedTrainingExpectation/suggestedTrainingNodeList
+  owner_class: DistributedTrainingExpectation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: supportedFLRole
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedLearningTechnology/supportedFLRole
+  owner_class: SupportedLearningTechnology
+  range: null
+  description: Included when FL is supported.
+- local_name: supportedInferenceNameList
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedLearningTechnology/supportedInferenceNameList
+  owner_class: SupportedLearningTechnology
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/NwdafAnalyticsType
+  description: Types of inference the training technologies can be applied to.
+- local_name: supportedLearningTechnology
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/supportedLearningTechnology
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedLearningTechnology
+  description: null
 - local_name: supportedPerformanceIndicators
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/supportedPerformanceIndicators
   owner_class: null
   range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedPerfIndicator
   description: null
+- local_name: supportedRLEnvironment
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/SupportedLearningTechnology/supportedRLEnvironment
+  owner_class: SupportedLearningTechnology
+  range: null
+  description: Included when RL is supported.
 - local_name: suspendProcess
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/suspendProcess
   owner_class: null
@@ -706,6 +934,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/suspendRequest
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
+- local_name: taskType
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/ClusteringCriteria/taskType
+  owner_class: ClusteringCriteria
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: terminationConditions
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/terminationConditions
@@ -732,6 +965,21 @@ properties:
   owner_class: null
   range: http://www.w3.org/2001/XMLSchema#float
   description: null
+- local_name: trainingDataStatisticalProperties
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/trainingDataStatisticalProperties
+  owner_class: null
+  range: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DataStatisticalProperties
+  description: null
+- local_name: trainingDataWithOrWithoutOutliers
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DataStatisticalProperties/trainingDataWithOrWithoutOutliers
+  owner_class: DataStatisticalProperties
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
+- local_name: trainingDataWithOrWithoutOutliers
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/trainingDataWithOrWithoutOutliers
+  owner_class: FLClientSelectionCriteria
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
 - local_name: trainingProcessRef
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/trainingProcessRef
   owner_class: null
@@ -750,12 +998,27 @@ properties:
 - local_name: trainingRequestSource
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/trainingRequestSource
   owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: null
+  description: null
+- local_name: trainingTimeDuration
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLReportPerClient/trainingTimeDuration
+  owner_class: FLReportPerClient
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeWindow
+  description: null
+- local_name: uniformlyDistributedTrainingData
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/DataStatisticalProperties/uniformlyDistributedTrainingData
+  owner_class: DataStatisticalProperties
+  range: http://www.w3.org/2001/XMLSchema#boolean
+  description: null
+- local_name: uniformlyDistributedTrainingData
+  uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/FLClientSelectionCriteria/uniformlyDistributedTrainingData
+  owner_class: FLClientSelectionCriteria
+  range: http://www.w3.org/2001/XMLSchema#boolean
   description: null
 - local_name: updateTimeDeadline
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/updateTimeDeadline
   owner_class: null
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS28623_ComDefs/TimeWindow
   description: null
 - local_name: updatedMLCapability
   uri: https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/updatedMLCapability
@@ -795,11 +1058,5 @@ collisions:
   - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLUpdateReport-Single/attributes
   - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLUpdateRequest-Single/attributes
   - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/attributes
-  differs_on:
-  - range
-- local_name: managedActivationScope
-  members:
-  - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AIMLManagementPolicy/managedActivationScope
-  - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/managedActivationScope
   differs_on:
   - range
