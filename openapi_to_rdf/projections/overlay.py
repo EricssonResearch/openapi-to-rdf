@@ -29,6 +29,7 @@ def overlay_from_mapping(
     title: str,
     version: str,
     variant_suffixes: tuple[str, ...] = (),
+    context_url: str | None = None,
 ) -> dict:
     """Project an OpenAPI Overlay 1.1.0 document from the Mapping.
 
@@ -37,6 +38,11 @@ def overlay_from_mapping(
         extends: The OpenAPI document this overlay annotates.
         title: Overlay title.
         version: Overlay version.
+        context_url: Where the JSON-LD context is served, recorded at the document root. Defaults to
+            `<extends>-context.jsonld`, which assumes the context sits beside the document. A caller
+            that SERVES its context -- `snm-api-native` answers `/context.jsonld` -- must be able to say
+            so, and the alternative was for it to rewrite this document afterwards: a second,
+            non-standard step, which is what adopting the standard Overlay exists to remove.
         variant_suffixes: Schema-name suffixes marking a SERIALISATION VARIANT of another schema. A
             schema whose name ends with one of these, and whose base name is also a class, is annotated
             with the BASE's IRI rather than its own. Empty by default: this is a naming convention of a
@@ -72,7 +78,8 @@ def overlay_from_mapping(
     actions: list[dict] = []
 
     # Document-level action: add x-jsonld-context reference (draft-polli-restapi-ld-keywords)
-    context_url = extends.replace(".yaml", "-context.jsonld").replace(".yml", "-context.jsonld")
+    if context_url is None:
+        context_url = extends.replace(".yaml", "-context.jsonld").replace(".yml", "-context.jsonld")
 
     actions.append({
         "target": "$",

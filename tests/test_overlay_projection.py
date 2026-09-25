@@ -266,3 +266,24 @@ def test_the_longest_suffix_wins() -> None:
         )
     )
     assert typed["Thing_X_MVO"] == typed["Thing"], typed
+
+
+def test_the_context_url_can_be_supplied_by_the_caller() -> None:
+    """A caller that SERVES its context must be able to say where.
+
+    The default assumes the context sits beside the document (`<extends>-context.jsonld`), which is
+    right for a file on disk and wrong for an API answering `/context.jsonld`. Without this the consumer
+    had to rewrite the emitted document afterwards -- a second, non-standard step, which is exactly what
+    adopting the standard Overlay removes.
+    """
+    mapping = build_mapping(_VARIANT_DOC, namespace="https://example.org/v/")
+
+    default = overlay_from_mapping(mapping, extends="v.yaml", title="t", version="1")
+    root = next(a for a in default["actions"] if a["target"] == "$")
+    assert root["update"]["x-jsonld-context"] == "v-context.jsonld"
+
+    served = overlay_from_mapping(
+        mapping, extends="v.yaml", title="t", version="1", context_url="/context.jsonld"
+    )
+    root = next(a for a in served["actions"] if a["target"] == "$")
+    assert root["update"]["x-jsonld-context"] == "/context.jsonld"
