@@ -54,7 +54,8 @@ reverting the regeneration.
 
 - **H1: 260 of 1,075 declared instance types have no `sh:targetClass` matching them, so every
   constraint on them is inert** — STATUS: **supported** (confidence: high)
-  evidence: `uv run python scripts/diagnose_shape_coverage.py` → 628 instance files, 1,075 declared
+  evidence: `uv run python scripts/diagnose_shape_coverage.py` → 927 instance files (628 before the
+  corpus became a pinned fetch on 2026-09-25), 1,075 declared
   types, 815 matched, **260 unreachable**; artifact `artifacts/shape-coverage.json`.
   This is the cause of all 49 `test_bad_instance_rejected` failures. The tell was that the failures
   spanned **all four constraint families at once** (29 enum, 7 below-min, 7 above-max, 4 pattern,
@@ -220,7 +221,8 @@ H6.
   `73b8ff3`. A reconciliation gate checks the four agree on every class IRI (AC-4).
 - **The conversion needs only the OpenAPI document** (AC-5) — proven, not asserted: deriving with an
   *empty* TBox produces a byte-identical overlay body. This is the adoption thesis in one line.
-- **`output/` is a published deliverable**, not scratch — 114 tracked files, advertised in the
+- **`output/` is a published deliverable**, not scratch — 132 tracked files (44 documents x rdf + shacl
+  + property index; 114 before the corpus became a pinned fetch), advertised in the
   README. It was briefly gitignored by mistake; `test_output_freshness.py` now gates its currency.
 - **uv, not poetry** — PEP 621 + hatchling, `requires-python >= 3.11`. Commit `9619606`.
 
