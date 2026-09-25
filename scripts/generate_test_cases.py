@@ -15,10 +15,13 @@ import re
 import tempfile
 from pathlib import Path
 
+from scripts._namespace import document_namespace
 import yaml
 from jsonschema import validate as js_validate, ValidationError
 from rdflib import Graph, Literal
 from rdflib.namespace import RDF, RDFS, XSD
+
+from openapi_to_rdf.provenance import CONTACT, PROJECT_URL
 
 
 # ── Schema helpers (source of truth: OpenAPI YAML) ──────────────────────
@@ -241,6 +244,37 @@ def write_ttl(graph, ns_prefix, ns, path):
     path.parent.mkdir(parents=True, exist_ok=True)
     graph.serialize(destination=str(path), format="turtle")
 
+    # Provenance header, added 2026-09-24. These 628 files carried none, and they are the LARGER of
+    # the two generated trees -- `output/` got headers first and I wrongly reported that as covering
+    # every generated file. It was 76 of 704.
+    #
+    # The source document comes from the PATH (`test-cases/<document>/<good|bad>/<case>.ttl`) because
+    # `write_ttl` is not told it. That is a real coupling, so it is asserted in
+    # `tests/test_generated_file_provenance.py`, which checks each header names its own document.
+    #
+    # The wording differs from the vocabulary header on the point that matters here: a `good/` and
+    # `bad/` tree named after 3GPP documents reads like a conformance suite, and it is not one. The
+    # values are synthetic and the cases were chosen to exercise OUR shapes.
+    document = path.parent.parent.name
+    header = (
+        "# GENERATED TEST FIXTURE -- do not edit; regenerate instead.\n"
+        "#\n"
+        "# SHACL validation instance produced by openapi-to-rdf\n"
+        f"#   {PROJECT_URL}\n"
+        f"# Contact: {CONTACT}\n"
+        f"# Source document: {document}.yaml\n"
+        "#\n"
+        "# The class and property names are the source document's. The VALUES are synthetic, chosen\n"
+        "# to satisfy or violate one constraint of the shapes THIS project derives. The publisher of\n"
+        "# that document did not produce, review or endorse this file, and it is NOT conformance test\n"
+        "# data for their specification. See NOTICE for the corpora this repository bundles.\n"
+        "#\n"
+        "# Regenerate: uv run python scripts/generate_test_cases.py\n"
+        "\n"
+    )
+    body = path.read_text(encoding="utf-8")
+    path.write_text(header + body, encoding="utf-8")
+
 
 # ── Main processing ─────────────────────────────────────────────────────
 
@@ -261,7 +295,7 @@ def process_file(yaml_path, output_dir):
     # tests/test_output_freshness.py. The vocabulary is only needed in memory to mint instance IRIs.
     converter = OpenAPIToSHACLConverter(
         str(yaml_path),
-        base_namespace=f"https://example.org/{stem}/",
+        base_namespace=document_namespace(stem),
         output_dir=tempfile.mkdtemp(prefix="gen-test-cases-"),
     )
     converter.convert()

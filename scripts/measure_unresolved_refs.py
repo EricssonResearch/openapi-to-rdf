@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from scripts._namespace import document_namespace
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter  # noqa: E402
 
 
@@ -36,7 +37,7 @@ def count_unresolved_refs(corpus_name: str, specs: list[Path]) -> dict:
 
             converter = OpenAPIToSHACLConverter(
                 str(spec_path),
-                base_namespace=f"https://example.org/{spec_path.stem}/",
+                base_namespace=document_namespace(spec_path.stem),
                 external_refs=external_refs,
             )
             converter.convert()

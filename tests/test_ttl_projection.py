@@ -37,11 +37,17 @@ import yaml
 from rdflib import Graph, Literal, Namespace, URIRef
 from rdflib.namespace import RDF, RDFS
 
+from openapi_to_rdf.mapping import DEFAULT_TRANSPORT_NAMESPACE
+
 SH = Namespace("http://www.w3.org/ns/shacl#")
 
 BASE_PREFIX = "http://example.org/probe/"
 NS = Namespace(f"{BASE_PREFIX}rdf/TtlProbe#")
-TRANSPORT = Namespace(f"{BASE_PREFIX}transport/")
+# NOT `f"{BASE_PREFIX}transport/"`. The transport namespace stopped being derived from the caller's
+# prefix on 2026-09-24: these are the TOOL's terms, and deriving them gave every caller a different IRI
+# for the same predicate -- same tool, same meaning, graphs that cannot join. `base_namespace_prefix`
+# still governs the DOCUMENT namespace, which is what the rest of this module exercises.
+TRANSPORT = Namespace(DEFAULT_TRANSPORT_NAMESPACE)
 
 PROBE = {
     "openapi": "3.0.0",
@@ -251,7 +257,7 @@ def test_the_envelope_properties_live_with_their_class(graphs) -> None:
     envelope = TRANSPORT["ServiceOrderCreateEvent"]
     owned = [str(p) for p in rdf.subjects(RDFS.domain, envelope)]
     assert len(owned) == 1, owned
-    assert owned[0] == f"{BASE_PREFIX}transport/ServiceOrderCreateEvent/event", owned
+    assert owned[0] == f"{DEFAULT_TRANSPORT_NAMESPACE}ServiceOrderCreateEvent/event", owned
 
 
 # --- S8: a reference contributes an edge to its referent, never a type --------------------------

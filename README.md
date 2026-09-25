@@ -81,36 +81,61 @@ Generates three files per input:
 
 ## Example Output
 
+> Every excerpt below is **copied from `output/`**, not written by hand. The previous version of this
+> section was hand-typed and had drifted on three counts: a namespace the tool no longer mints
+> (`http://ericsson.com/.../ComDefs#`, hash-separated), and a class — `TimeWindow` — that is a `oneOf`
+> union and therefore gets **no class declared** at all, so the example advertised output that
+> contradicted the project's own determination. `tests/test_readme_examples.py` now keeps these honest.
+
 ### RDF Vocabulary (`*_rdf.ttl`)
 
 Properties are minted under a **per-class namespace**, so two schemas
 that happen to use the same property name produce two distinct URIs.
 
+Every generated file opens with a provenance header, because a derived vocabulary that looks official
+is worse than one that looks unfinished:
+
 ```turtle
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
-@prefix TS28623_ComDefs_TimeWindow: <http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeWindow#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# RDF vocabulary produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28623_ComDefs.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
 
-TS28623_ComDefs:TimeWindow a rdfs:Class .
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_ComDefs_DayInYear: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/DayInYear/> .
 
-TS28623_ComDefs_TimeWindow:startTime a rdf:Property ;
-    rdfs:domain TS28623_ComDefs:TimeWindow ;
-    rdfs:range TS28623_ComDefs:DateTime .
+TS28623_ComDefs:DayInYear a rdfs:Class .
+
+TS28623_ComDefs_DayInYear:month a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:DayInYear ;
+    rdfs:range xsd:gMonth .
+
+TS28623_ComDefs_DayInYear:monthDay a rdf:Property ;
+    rdfs:domain TS28623_ComDefs:DayInYear ;
+    rdfs:range xsd:gMonthDay .
 ```
 
 ### SHACL Shapes (`*_shacl.ttl`)
 ```turtle
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix TS28623_ComDefs: <http://ericsson.com/models/3gpp/TS28623/ComDefs#> .
-@prefix TS28623_ComDefs_TimeWindow: <http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeWindow#> .
-
 [] a sh:NodeShape ;
-    sh:targetClass TS28623_ComDefs:TimeWindow ;
     sh:property [ a sh:PropertyShape ;
-        sh:path TS28623_ComDefs_TimeWindow:startTime ;
-        sh:class TS28623_ComDefs:DateTime ;
-        sh:maxCount 1 ] .
+            sh:datatype xsd:gMonth ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_DayInYear:month ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:gMonthDay ;
+            sh:maxCount 1 ;
+            sh:path TS28623_ComDefs_DayInYear:monthDay ] ;
+    sh:targetClass TS28623_ComDefs:DayInYear .
 ```
 
 ### Property Index (`*_property_index.yaml`)
@@ -119,18 +144,27 @@ TS28623_ComDefs_TimeWindow:startTime a rdf:Property ;
 source: TS28623_ComDefs.yaml
 generated_by: openapi-to-rdf 0.2.0
 properties:
-  - local_name: startTime
-    uri: http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeWindow#startTime
-    owner_class: TimeWindow
-    range: http://ericsson.com/models/3gpp/TS28623/ComDefs#DateTime
+  - local_name: month
+    uri: https://semantics.ericsson.com/openapi/TS28623_ComDefs/DayInYear/month
+    owner_class: DayInYear
+    range: http://www.w3.org/2001/XMLSchema#gMonth
     description: null
   # ... one entry per (class, property) pair
+collisions: []   # none in this document
+```
+
+A real collision, from `output/index/TS28105_AiMlNrm_property_index.yaml` — `attributes` is declared by
+20 classes in one document and the per-class namespace is what keeps them distinct:
+
+```yaml
 collisions:
-  - local_name: startTime
+  - local_name: attributes
     members:
-      - http://ericsson.com/models/3gpp/TS28623/ComDefs/TimeWindow#startTime
-      - http://ericsson.com/models/3gpp/TS28623/ComDefs/PerfMetricJob#startTime
-    differs_on: [range]
+      - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/AIMLInferenceFunction-Single/attributes
+      - https://semantics.ericsson.com/openapi/TS28105_AiMlNrm/MLModel-Single/attributes
+      # ... 18 more
+    differs_on:
+      - range
 ```
 
 The `collisions` section flags same-named properties that disagree on
@@ -157,7 +191,7 @@ to prevent.
 
 ### `affordance:invokedAt` — a term we had to invent
 
-`https://semantic.ericsson.com/ontology/affordance/invokedAt`
+`https://semantics.ericsson.com/ontology/affordance/invokedAt`
 
 Relates a `hydra:Operation` to the `hydra:IriTemplate` it is invoked at. **Nothing in Hydra Core,
 Dublin Core or any W3C Recommendation defines it**, and it must not be presented as standard

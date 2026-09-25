@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from scripts._namespace import document_namespace
 import yaml
 from rdflib import RDF, RDFS, Namespace
 
@@ -60,7 +61,7 @@ def reconcile(mapping, doc: dict | None = None, spec_path: Path | None = None) -
                 else:
                     namespace = first_iri + '#'  # Fallback
             else:
-                namespace = "https://example.org/ontology/"
+                namespace = document_namespace(spec_path.stem)
 
             with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as tf:
                 yaml.dump(doc, tf)
@@ -221,12 +222,15 @@ def main():
 
     parser = argparse.ArgumentParser(description="Reconcile projections")
     parser.add_argument("spec", type=Path, help="OpenAPI spec file")
-    parser.add_argument("--namespace", default="https://example.org/ontology/",
+    parser.add_argument("--namespace", default=None,
                         help="Base namespace")
     args = parser.parse_args()
 
     doc = yaml.safe_load(args.spec.read_text())
-    mapping = build_mapping(doc, namespace=args.namespace)
+    # `--namespace` defaults to None so the stem comes from one place. Previously it defaulted to
+    # `https://example.org/ontology/`, which quietly put a placeholder into anything this produced.
+    namespace = args.namespace or document_namespace(Path(args.spec).stem)
+    mapping = build_mapping(doc, namespace=namespace)
     result = reconcile(mapping, doc=doc, spec_path=args.spec)
 
     print(f"Names checked: {result['names_checked']}")

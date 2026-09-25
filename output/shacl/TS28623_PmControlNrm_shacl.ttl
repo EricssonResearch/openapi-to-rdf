@@ -1,18 +1,26 @@
-@prefix TS28623_GenericNrm: <https://example.org/TS28623_GenericNrm/> .
-@prefix TS28623_PmControlNrm: <https://example.org/TS28623_PmControlNrm/> .
-@prefix TS28623_PmControlNrm_ManagedElement-PmControlNrm: <https://example.org/TS28623_PmControlNrm/ManagedElement-PmControlNrm/> .
-@prefix TS28623_PmControlNrm_PerfMetricJob-Single: <https://example.org/TS28623_PmControlNrm/PerfMetricJob-Single/> .
-@prefix TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm: <https://example.org/TS28623_PmControlNrm/SubNetwork-ncO-PmControlNrm/> .
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28623_PmControlNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix TS28623_PmControlNrm: <https://semantics.ericsson.com/openapi/TS28623_PmControlNrm/> .
+@prefix TS28623_PmControlNrm_ManagedElement-PmControlNrm: <https://semantics.ericsson.com/openapi/TS28623_PmControlNrm/ManagedElement-PmControlNrm/> .
+@prefix TS28623_PmControlNrm_PerfMetricJob-Single: <https://semantics.ericsson.com/openapi/TS28623_PmControlNrm/PerfMetricJob-Single/> .
+@prefix TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm: <https://semantics.ericsson.com/openapi/TS28623_PmControlNrm/SubNetwork-ncO-PmControlNrm/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_PmControlNrm:PerfMetricJob-Single ;
-            sh:path TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm:PerfMetricJob ] ;
-    sh:targetClass TS28623_PmControlNrm:SubNetwork-ncO-PmControlNrm .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -25,6 +33,12 @@
     sh:targetClass TS28623_PmControlNrm:PerfMetricJob-Multiple .
 
 [] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_PmControlNrm:PerfMetricJob-Single ;
+            sh:path TS28623_PmControlNrm_SubNetwork-ncO-PmControlNrm:PerfMetricJob ] ;
+    sh:targetClass TS28623_PmControlNrm:SubNetwork-ncO-PmControlNrm .
+
+[] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
@@ -34,6 +48,11 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28623_PmControlNrm:administrativeState ],
+                                [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
                                     sh:path TS28623_PmControlNrm:reportingCtrl ;
@@ -42,11 +61,11 @@
                                                         sh:datatype xsd:integer ;
                                                         sh:path TS28623_PmControlNrm:fileReportingPeriod ] ] [ a sh:NodeShape ;
                                                 sh:property [ a sh:PropertyShape ;
-                                                        sh:datatype xsd:string ;
-                                                        sh:path TS28623_PmControlNrm:notificationRecipientAddress ],
-                                                    [ a sh:PropertyShape ;
                                                         sh:datatype xsd:integer ;
-                                                        sh:path TS28623_PmControlNrm:fileReportingPeriod ] ] [ a sh:NodeShape ;
+                                                        sh:path TS28623_PmControlNrm:fileReportingPeriod ],
+                                                    [ a sh:PropertyShape ;
+                                                        sh:datatype xsd:string ;
+                                                        sh:path TS28623_PmControlNrm:notificationRecipientAddress ] ] [ a sh:NodeShape ;
                                                 sh:property [ a sh:PropertyShape ;
                                                         sh:datatype xsd:string ;
                                                         sh:path TS28623_PmControlNrm:fileLocation ],
@@ -58,16 +77,8 @@
                                                         sh:path TS28623_PmControlNrm:streamTarget ] ] ) ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
-                                    sh:path TS28623_PmControlNrm:performanceMetrics ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_PmControlNrm:schedulerRef ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_PmControlNrm:administrativeState ],
+                                    sh:path TS28623_PmControlNrm:jobId ],
                                 [ a sh:PropertyShape ;
                                     rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
@@ -75,25 +86,28 @@
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_PmControlNrm:jobId ],
+                                    sh:path TS28623_PmControlNrm:schedulerRef ],
                                 [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28623_PmControlNrm:rootObjectInstances ],
+                                    sh:datatype xsd:string ;
+                                    sh:path TS28623_PmControlNrm:performanceMetrics ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
                                     sh:maxCount 1 ;
                                     sh:path TS28623_PmControlNrm:operationalState ],
                                 [ a sh:PropertyShape ;
-                                    sh:datatype xsd:integer ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
                                     sh:maxCount 1 ;
-                                    sh:minInclusive 1 ;
-                                    sh:path TS28623_PmControlNrm:granularityPeriod ],
+                                    sh:path TS28623_PmControlNrm:rootObjectInstances ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28623_PmControlNrm:conditionMonitorRef ] ] ;
+                                    sh:path TS28623_PmControlNrm:conditionMonitorRef ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:integer ;
+                                    sh:maxCount 1 ;
+                                    sh:minInclusive 1 ;
+                                    sh:path TS28623_PmControlNrm:granularityPeriod ] ] ;
                     sh:path TS28623_PmControlNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -103,25 +117,20 @@
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_PmControlNrm:operationalState ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28623_PmControlNrm:performanceMetrics ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
                             sh:maxCount 1 ;
                             sh:path TS28623_PmControlNrm:conditionMonitorRef ],
                         [ a sh:PropertyShape ;
-                            sh:datatype xsd:integer ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
                             sh:maxCount 1 ;
-                            sh:minInclusive 1 ;
-                            sh:path TS28623_PmControlNrm:granularityPeriod ],
+                            sh:path TS28623_PmControlNrm:administrativeState ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_PmControlNrm:rootObjectInstances ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_PmControlNrm:schedulerRef ],
+                            sh:path TS28623_PmControlNrm:performanceMetrics ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
@@ -147,21 +156,26 @@
                                                 sh:path TS28623_PmControlNrm:streamTarget ] ] ) ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
-                            sh:in ( "LOCKED"^^xsd:string "UNLOCKED"^^xsd:string ) ;
+                            sh:in ( "ENABLED"^^xsd:string "DISABLED"^^xsd:string ) ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_PmControlNrm:administrativeState ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28623_PmControlNrm:objectInstances ],
+                            sh:path TS28623_PmControlNrm:operationalState ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
                             sh:path TS28623_PmControlNrm:jobId ],
                         [ a sh:PropertyShape ;
+                            sh:datatype xsd:integer ;
+                            sh:maxCount 1 ;
+                            sh:minInclusive 1 ;
+                            sh:path TS28623_PmControlNrm:granularityPeriod ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:maxCount 1 ;
+                            sh:path TS28623_PmControlNrm:schedulerRef ],
+                        [ a sh:PropertyShape ;
                             rdfs:comment "This datatype is used for writable attribute" ;
                             sh:maxCount 1 ;
-                            sh:path TS28623_PmControlNrm:rootObjectInstances ] ] ;
+                            sh:path TS28623_PmControlNrm:objectInstances ] ] ;
             sh:path TS28623_PmControlNrm_PerfMetricJob-Single:attributes ] ;
     sh:targetClass TS28623_PmControlNrm:PerfMetricJob-Single .
 

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import pytest
 
+from openapi_to_rdf.mapping import DEFAULT_BASE_NAMESPACE_PREFIX as PREFIX
 from openapi_to_rdf import build_mapping
 
 #: The document name external refs in these fixtures point at.
@@ -484,7 +485,7 @@ def split_files(tmp_path, split_with_restatement):
 def test_a_referenced_external_class_gets_its_declaring_documents_iri(split_files, tmp_path):
     """D1: the referring document used to mint this from the FILENAME and a hardcoded prefix.
 
-    Pre-fix this emits <http://ericsson.com/models/3gpp/rdf/common#Addressable> — a 3GPP IRI
+    Pre-fix this emits <{PREFIX}rdf/common#Addressable> — a 3GPP IRI
     inside a TM Forum vocabulary, and an IRI no document declares.
 
     TM Forum split model: one shared vocabulary, so document_namespaces is required.
@@ -612,10 +613,10 @@ def test_zero_config_external_class_uses_filename_derived_namespace(tmp_path):
     )
     converter.convert()
 
-    # Thing's IRI must be the filename-derived one: http://ericsson.com/models/3gpp/TS28623/ComDefs#Thing
+    # Thing's IRI must be the filename-derived one: {PREFIX}TS28623/ComDefs#Thing
     # (not the local document's derived namespace)
-    thing_iri = URIRef("http://ericsson.com/models/3gpp/TS28623/ComDefs#Thing")
-    local_leaf = URIRef("http://ericsson.com/models/3gpp/rdf/local#Leaf")
+    thing_iri = URIRef(f"{PREFIX}TS28623/ComDefs#Thing")
+    local_leaf = URIRef(f"{PREFIX}rdf/local#Leaf")
     assert (local_leaf, RDFS.subClassOf, thing_iri) in converter.rdf_graph
 
 

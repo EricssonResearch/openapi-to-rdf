@@ -1,29 +1,35 @@
-@prefix TS28104_MdaReport: <https://example.org/TS28104_MdaReport/> .
-@prefix TS28104_MdaReport_MDAOutputEntry: <https://example.org/TS28104_MdaReport/MDAOutputEntry/> .
-@prefix TS28104_MdaReport_MDAOutputs: <https://example.org/TS28104_MdaReport/MDAOutputs/> .
-@prefix TS28104_MdaReport_MDAReport: <https://example.org/TS28104_MdaReport/MDAReport/> .
-@prefix TS28104_MdaReport_TimeWindow: <https://example.org/TS28104_MdaReport/TimeWindow/> .
-@prefix TS28623_GenericNrm: <https://example.org/TS28623_GenericNrm/> .
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28104_MdaReport.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28104_MdaReport: <https://semantics.ericsson.com/openapi/TS28104_MdaReport/> .
+@prefix TS28104_MdaReport_MDAOutputEntry: <https://semantics.ericsson.com/openapi/TS28104_MdaReport/MDAOutputEntry/> .
+@prefix TS28104_MdaReport_MDAOutputs: <https://semantics.ericsson.com/openapi/TS28104_MdaReport/MDAOutputs/> .
+@prefix TS28104_MdaReport_MDAReport: <https://semantics.ericsson.com/openapi/TS28104_MdaReport/MDAReport/> .
+@prefix TS28104_MdaReport_TimeWindow: <https://semantics.ericsson.com/openapi/TS28104_MdaReport/TimeWindow/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:confidenceDegree ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:TimeWindow ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:analyticsWindow ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaReport:MDAOutputEntry ;
-            sh:path TS28104_MdaReport_MDAOutputs:mDAOutputList ],
+            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue ],
         [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputs:mDAType ] ;
-    sh:targetClass TS28104_MdaReport:MDAOutputs .
+            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName ] ;
+    sh:targetClass TS28104_MdaReport:MDAOutputEntry .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -32,17 +38,17 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
-                                    sh:class TS28104_MdaReport:MDAOutputs ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaReport:mDAOutputs ],
-                                [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
                                     sh:path TS28104_MdaReport:mDARequestRef ],
                                 [ a sh:PropertyShape ;
                                     sh:datatype xsd:string ;
                                     sh:maxCount 1 ;
-                                    sh:path TS28104_MdaReport:mDAReportID ] ] ;
+                                    sh:path TS28104_MdaReport:mDAReportID ],
+                                [ a sh:PropertyShape ;
+                                    sh:class TS28104_MdaReport:MDAOutputs ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaReport:mDAOutputs ] ] ;
                     sh:path TS28104_MdaReport:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
@@ -54,11 +60,11 @@
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28104_MdaReport:mDAReportID ],
+                            sh:path TS28104_MdaReport:mDARequestRef ],
                         [ a sh:PropertyShape ;
                             sh:datatype xsd:string ;
                             sh:maxCount 1 ;
-                            sh:path TS28104_MdaReport:mDARequestRef ] ] ;
+                            sh:path TS28104_MdaReport:mDAReportID ] ] ;
             sh:path TS28104_MdaReport_MDAReport:attributes ] ;
     sh:targetClass TS28104_MdaReport:MDAReport .
 
@@ -66,11 +72,19 @@
     sh:property [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEName ],
+            sh:path TS28104_MdaReport_MDAOutputs:mDAType ],
         [ a sh:PropertyShape ;
+            sh:datatype xsd:float ;
             sh:maxCount 1 ;
-            sh:path TS28104_MdaReport_MDAOutputEntry:mDAOutputIEValue ] ;
-    sh:targetClass TS28104_MdaReport:MDAOutputEntry .
+            sh:path TS28104_MdaReport_MDAOutputs:confidenceDegree ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:TimeWindow ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaReport_MDAOutputs:analyticsWindow ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaReport:MDAOutputEntry ;
+            sh:path TS28104_MdaReport_MDAOutputs:mDAOutputList ] ;
+    sh:targetClass TS28104_MdaReport:MDAOutputs .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;

@@ -27,6 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from scripts._namespace import document_namespace
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
 
 
@@ -58,7 +59,7 @@ def main():
     # the filename is what left 175 dangling class targets in this tree — see
     # docs/superpowers/specs/2026-09-23-external-schema-ingestion-design.md (D1).
     document_namespaces = {
-        path.name: f"https://example.org/{path.stem}/" for path in specs
+        path.name: document_namespace(path.stem) for path in specs
     }
 
     for spec_path in specs:

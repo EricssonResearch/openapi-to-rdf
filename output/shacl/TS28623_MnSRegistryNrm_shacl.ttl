@@ -1,66 +1,30 @@
-@prefix TS28623_GenericNrm: <https://example.org/TS28623_GenericNrm/> .
-@prefix TS28623_MnSRegistryNrm: <https://example.org/TS28623_MnSRegistryNrm/> .
-@prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <https://example.org/TS28623_MnSRegistryNrm/MnsInfo-Single/> .
-@prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <https://example.org/TS28623_MnSRegistryNrm/MnsRegistry-Single/> .
-@prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <https://example.org/TS28623_MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm/> .
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28623_MnSRegistryNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
+@prefix TS28623_MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/> .
+@prefix TS28623_MnSRegistryNrm_MnsInfo-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsInfo-Single/> .
+@prefix TS28623_MnSRegistryNrm_MnsRegistry-Single: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/MnsRegistry-Single/> .
+@prefix TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm: <https://semantics.ericsson.com/openapi/TS28623_MnSRegistryNrm/SubNetwork-ncO-MnSRegistryNrm/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsVersion ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
-                    sh:datatype xsd:string ;
-                    sh:path TS28623_MnSRegistryNrm:mnsScope ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsLabel ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsAddress ],
-                [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
-                    sh:maxCount 1 ;
-                    sh:path TS28623_MnSRegistryNrm:mnsType ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsAddress ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsType ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
-            sh:datatype xsd:string ;
-            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsScope ] ;
-    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_MnSRegistryNrm:MnsRegistry-Single ;
-            sh:maxCount 1 ;
-            sh:path TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry ] ;
-    sh:targetClass TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm .
+    sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -74,6 +38,56 @@
     sh:targetClass TS28623_MnSRegistryNrm:MnsRegistry-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28623_MnSRegistryNrm:MnsInfo-Single ;
-    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Multiple .
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsAddress ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
+                    sh:datatype xsd:string ;
+                    sh:path TS28623_MnSRegistryNrm:mnsScope ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsType ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsLabel ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
+                    sh:maxCount 1 ;
+                    sh:path TS28623_MnSRegistryNrm:mnsVersion ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:in ( "PROV_MNS"^^xsd:string "FAULT_SUPERVISION_MNS"^^xsd:string "STREAMING_DATA_REPORTING_MNS"^^xsd:string "FILE_DATA_REPORTING_MNS"^^xsd:string ) ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsType ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsVersion ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsAddress ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "List of the managed object instances that can be accessed using the MnS. If a complete SubNetwork can be accessed using the MnS, this attribute may  contain the DN of the SubNetwork instead of the DNs of the individual managed  entities within the SubNetwork." ;
+            sh:datatype xsd:string ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsScope ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_MnsInfo-Single:mnsLabel ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:MnsInfo-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_MnSRegistryNrm:MnsRegistry-Single ;
+            sh:maxCount 1 ;
+            sh:path TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry ] ;
+    sh:targetClass TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm .
 

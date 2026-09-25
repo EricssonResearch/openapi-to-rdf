@@ -13,6 +13,8 @@ from pathlib import Path
 import pytest
 import yaml
 
+from openapi_to_rdf.mapping import DEFAULT_BASE_NAMESPACE_PREFIX
+
 
 @pytest.fixture
 def multidoc_workspace(tmp_path: Path) -> dict[str, Path]:
@@ -114,7 +116,11 @@ def test_external_ref_as_property_target_resolves(multidoc_workspace):
 
     # The payload property should point to CommonType from base.yaml.
     # With no document_namespaces, base.yaml gets the filename-derived namespace.
-    expected_common_type = URIRef("http://ericsson.com/models/3gpp/rdf/base#CommonType")
+    # Derived from the constant, not retyped: this exercises the ZERO-CONFIG path, so it asserts
+    # whatever the library's default prefix is. That default changed on 2026-09-24 from
+    # `http://ericsson.com/models/3gpp/` -- which claimed an Ericsson authority over a caller's
+    # document and said "3gpp" whatever the input was -- to an RFC 2606 placeholder.
+    expected_common_type = URIRef(f"{DEFAULT_BASE_NAMESPACE_PREFIX}rdf/base#CommonType")
 
     # Find all rdfs:range objects
     payload_ranges = set(converter.rdf_graph.objects(None, RDFS.range))

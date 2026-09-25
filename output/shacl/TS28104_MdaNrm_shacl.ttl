@@ -1,30 +1,42 @@
-@prefix TS28104_MdaNrm: <https://example.org/TS28104_MdaNrm/> .
-@prefix TS28104_MdaNrm_MDAFunction-Single: <https://example.org/TS28104_MdaNrm/MDAFunction-Single/> .
-@prefix TS28104_MdaNrm_MDAOutputIEFilter: <https://example.org/TS28104_MdaNrm/MDAOutputIEFilter/> .
-@prefix TS28104_MdaNrm_MDAOutputPerMDAType: <https://example.org/TS28104_MdaNrm/MDAOutputPerMDAType/> .
-@prefix TS28104_MdaNrm_MDARequest-Single: <https://example.org/TS28104_MdaNrm/MDARequest-Single/> .
-@prefix TS28104_MdaNrm_ManagedElement-ncO-MdaNrm: <https://example.org/TS28104_MdaNrm/ManagedElement-ncO-MdaNrm/> .
-@prefix TS28104_MdaNrm_SubNetwork-ncO-MdaNrm: <https://example.org/TS28104_MdaNrm/SubNetwork-ncO-MdaNrm/> .
-@prefix TS28104_MdaNrm_ThresholdInfo: <https://example.org/TS28104_MdaNrm/ThresholdInfo/> .
-@prefix TS28104_MdaReport: <https://example.org/TS28104_MdaReport/> .
-@prefix TS28623_ComDefs: <https://example.org/TS28623_ComDefs/> .
-@prefix TS28623_GenericNrm: <https://example.org/TS28623_GenericNrm/> .
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# SHACL shapes produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28104_MdaNrm.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28104_MdaNrm: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/> .
+@prefix TS28104_MdaNrm_MDAFunction-Single: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/MDAFunction-Single/> .
+@prefix TS28104_MdaNrm_MDAOutputIEFilter: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/MDAOutputIEFilter/> .
+@prefix TS28104_MdaNrm_MDAOutputPerMDAType: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/MDAOutputPerMDAType/> .
+@prefix TS28104_MdaNrm_MDARequest-Single: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/MDARequest-Single/> .
+@prefix TS28104_MdaNrm_ManagedElement-ncO-MdaNrm: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/ManagedElement-ncO-MdaNrm/> .
+@prefix TS28104_MdaNrm_SubNetwork-ncO-MdaNrm: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/SubNetwork-ncO-MdaNrm/> .
+@prefix TS28104_MdaNrm_ThresholdInfo: <https://semantics.ericsson.com/openapi/TS28104_MdaNrm/ThresholdInfo/> .
+@prefix TS28104_MdaReport: <https://semantics.ericsson.com/openapi/TS28104_MdaReport/> .
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
+@prefix TS28623_GenericNrm: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 [] a sh:NodeShape ;
-    sh:class TS28104_MdaNrm:MDAFunction-Single ;
-    sh:targetClass TS28104_MdaNrm:MDAFunction-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28104_MdaNrm:MDARequest-Single ;
-    sh:targetClass TS28104_MdaNrm:MDARequest-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputs .
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAOutputIEFilter ;
+            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAOutputIEFilters ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAType ] ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputPerMDAType .
 
 [] a sh:NodeShape ;
     sh:datatype xsd:string ;
@@ -33,13 +45,84 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAFunction-Single ;
-            sh:path TS28104_MdaNrm_ManagedElement-ncO-MdaNrm:MDAFunction ] ;
-    sh:targetClass TS28104_MdaNrm:ManagedElement-ncO-MdaNrm .
+            sh:class TS28104_MdaNrm:ThresholdInfo ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:threshold ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:filterValue ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:analyticsPeriod ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28104_MdaReport:TimeWindow ;
+                                sh:path TS28104_MdaNrm:timeDurations ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:datatype xsd:integer ;
+                                sh:path TS28104_MdaNrm:granularityPeriod ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:timeOut ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_MDAOutputIEFilter:mDAOutputIEName ] ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputIEFilter .
 
 [] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:targetClass TS28104_MdaNrm:MDATypes .
+    sh:class TS28623_GenericNrm:ManagedFunction-ncO,
+        TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
+                    sh:maxCount 1 ;
+                    sh:node [ a sh:NodeShape ;
+                            sh:property [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ],
+                                [ a sh:PropertyShape ;
+                                    sh:datatype xsd:string ;
+                                    sh:path TS28104_MdaNrm:supportedMDACapabilities ],
+                                [ a sh:PropertyShape ;
+                                    rdfs:comment "This datatype is used for writable attribute" ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:mLModelRefList ] ] ;
+                    sh:path TS28104_MdaNrm:attributes ] ],
+        [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28104_MdaNrm:MDAReport-Single ;
+                    sh:path TS28104_MdaNrm:MDAReport ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28104_MdaNrm:MDARequest-Single ;
+                    sh:path TS28104_MdaNrm:MDARequest ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
+            sh:maxCount 1 ;
+            sh:node [ a sh:NodeShape ;
+                    sh:property [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:mLModelRefList ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:path TS28104_MdaNrm:supportedMDACapabilities ],
+                        [ a sh:PropertyShape ;
+                            rdfs:comment "This datatype is used for writable attribute" ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ] ] ;
+            sh:path TS28104_MdaNrm_MDAFunction-Single:attributes ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDAReport-Single ;
+            sh:path TS28104_MdaNrm_MDAFunction-Single:MDAReport ],
+        [ a sh:PropertyShape ;
+            sh:class TS28104_MdaNrm:MDARequest-Single ;
+            sh:path TS28104_MdaNrm_MDAFunction-Single:MDARequest ] ;
+    sh:targetClass TS28104_MdaNrm:MDAFunction-Single .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
@@ -48,6 +131,10 @@
                     sh:maxCount 1 ;
                     sh:node [ a sh:NodeShape ;
                             sh:property [ a sh:PropertyShape ;
+                                    sh:datatype xsd:dateTime ;
+                                    sh:maxCount 1 ;
+                                    sh:path TS28104_MdaNrm:startTime ],
+                                [ a sh:PropertyShape ;
                                     rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                                     sh:maxCount 1 ;
                                     sh:path TS28104_MdaNrm:recommendationFilter ;
@@ -84,32 +171,12 @@
                                     sh:path TS28104_MdaNrm:stopTime ],
                                 [ a sh:PropertyShape ;
                                     sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
-                                    sh:path TS28104_MdaNrm:requestedMDAOutputs ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:dateTime ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:startTime ] ] ;
+                                    sh:path TS28104_MdaNrm:requestedMDAOutputs ] ] ;
                     sh:path TS28104_MdaNrm:attributes ] ] ;
     sh:property [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:node [ a sh:NodeShape ;
                     sh:property [ a sh:PropertyShape ;
-                            sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
-                            sh:path TS28104_MdaNrm:requestedMDAOutputs ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:dateTime ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:stopTime ],
-                        [ a sh:PropertyShape ;
-                            sh:class TS28104_MdaNrm:ReportingTarget ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:reportingTarget ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:reportingMethod ],
-                        [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
                             sh:path TS28104_MdaNrm:recommendationFilter ;
@@ -120,6 +187,18 @@
                                         sh:property [ a sh:PropertyShape ;
                                                 sh:class TS28623_ComDefs:GeoArea ;
                                                 sh:path TS28104_MdaNrm:areaScope ] ] ) ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:string ;
+                            sh:in ( "FILE"^^xsd:string "STREAMING"^^xsd:string "NOTIFICATION"^^xsd:string ) ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:reportingMethod ],
+                        [ a sh:PropertyShape ;
+                            sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
+                            sh:path TS28104_MdaNrm:requestedMDAOutputs ],
+                        [ a sh:PropertyShape ;
+                            sh:datatype xsd:dateTime ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:stopTime ],
                         [ a sh:PropertyShape ;
                             rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
                             sh:maxCount 1 ;
@@ -132,11 +211,31 @@
                                                 sh:class TS28623_ComDefs:GeoArea ;
                                                 sh:path TS28104_MdaNrm:areaScope ] ] ) ],
                         [ a sh:PropertyShape ;
+                            sh:class TS28104_MdaNrm:ReportingTarget ;
+                            sh:maxCount 1 ;
+                            sh:path TS28104_MdaNrm:reportingTarget ],
+                        [ a sh:PropertyShape ;
                             sh:datatype xsd:dateTime ;
                             sh:maxCount 1 ;
                             sh:path TS28104_MdaNrm:startTime ] ] ;
             sh:path TS28104_MdaNrm_MDARequest-Single:attributes ] ;
     sh:targetClass TS28104_MdaNrm:MDARequest-Single .
+
+[] a sh:NodeShape ;
+    sh:class TS28104_MdaNrm:MDAReport-Single ;
+    sh:targetClass TS28104_MdaNrm:MDAReport-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28104_MdaNrm:MDARequest-Single ;
+    sh:targetClass TS28104_MdaNrm:MDARequest-Multiple .
+
+[] a sh:NodeShape ;
+    sh:class TS28104_MdaNrm:MDAOutputPerMDAType ;
+    sh:targetClass TS28104_MdaNrm:MDAOutputs .
+
+[] a sh:NodeShape ;
+    sh:class TS28104_MdaNrm:MDAFunction-Single ;
+    sh:targetClass TS28104_MdaNrm:MDAFunction-Multiple .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
@@ -148,100 +247,19 @@
     sh:targetClass TS28104_MdaNrm:SubNetwork-ncO-MdaNrm .
 
 [] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:filterValue ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:analyticsPeriod ;
-            sh:xone ( [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:class TS28104_MdaReport:TimeWindow ;
-                                sh:path TS28104_MdaNrm:timeDurations ] ] [ a sh:NodeShape ;
-                        sh:property [ a sh:PropertyShape ;
-                                sh:datatype xsd:integer ;
-                                sh:path TS28104_MdaNrm:granularityPeriod ] ] ) ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:ThresholdInfo ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:threshold ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:dateTime ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:timeOut ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputIEFilter:mDAOutputIEName ] ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputIEFilter .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:ManagedFunction-ncO,
-        TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
-                    sh:maxCount 1 ;
-                    sh:node [ a sh:NodeShape ;
-                            sh:property [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:mLModelRefList ],
-                                [ a sh:PropertyShape ;
-                                    sh:datatype xsd:string ;
-                                    sh:path TS28104_MdaNrm:supportedMDACapabilities ],
-                                [ a sh:PropertyShape ;
-                                    rdfs:comment "This datatype is used for writable attribute" ;
-                                    sh:maxCount 1 ;
-                                    sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ] ] ;
-                    sh:path TS28104_MdaNrm:attributes ] ],
-        [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:class TS28104_MdaNrm:MDARequest-Single ;
-                    sh:path TS28104_MdaNrm:MDARequest ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28104_MdaNrm:MDAReport-Single ;
-                    sh:path TS28104_MdaNrm:MDAReport ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_GenericNrm:ManagedFunction-Attr ;
-            sh:maxCount 1 ;
-            sh:node [ a sh:NodeShape ;
-                    sh:property [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:mLModelRefList ],
-                        [ a sh:PropertyShape ;
-                            rdfs:comment "This datatype is used for writable attribute" ;
-                            sh:maxCount 1 ;
-                            sh:path TS28104_MdaNrm:aIMLInferenceFunctionRefList ],
-                        [ a sh:PropertyShape ;
-                            sh:datatype xsd:string ;
-                            sh:path TS28104_MdaNrm:supportedMDACapabilities ] ] ;
-            sh:path TS28104_MdaNrm_MDAFunction-Single:attributes ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAReport-Single ;
-            sh:path TS28104_MdaNrm_MDAFunction-Single:MDAReport ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDARequest-Single ;
-            sh:path TS28104_MdaNrm_MDAFunction-Single:MDARequest ] ;
-    sh:targetClass TS28104_MdaNrm:MDAFunction-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28104_MdaNrm:MDAReport-Single ;
-    sh:targetClass TS28104_MdaNrm:MDAReport-Multiple .
+    sh:datatype xsd:string ;
+    sh:targetClass TS28104_MdaNrm:MDATypes .
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_ThresholdInfo:monitoredMDAOutputIE ],
-        [ a sh:PropertyShape ;
             sh:datatype xsd:string ;
             sh:in ( "UP"^^xsd:string "DOWN"^^xsd:string "UP_AND_DOWN"^^xsd:string ) ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm_ThresholdInfo:thresholdDirection ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28104_MdaNrm_ThresholdInfo:monitoredMDAOutputIE ],
         [ a sh:PropertyShape ;
             sh:maxCount 1 ;
             sh:path TS28104_MdaNrm_ThresholdInfo:hysteresis ;
@@ -260,11 +278,7 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAType ],
-        [ a sh:PropertyShape ;
-            sh:class TS28104_MdaNrm:MDAOutputIEFilter ;
-            sh:path TS28104_MdaNrm_MDAOutputPerMDAType:mDAOutputIEFilters ] ;
-    sh:targetClass TS28104_MdaNrm:MDAOutputPerMDAType .
+            sh:class TS28104_MdaNrm:MDAFunction-Single ;
+            sh:path TS28104_MdaNrm_ManagedElement-ncO-MdaNrm:MDAFunction ] ;
+    sh:targetClass TS28104_MdaNrm:ManagedElement-ncO-MdaNrm .
 

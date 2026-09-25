@@ -1,22 +1,32 @@
-@prefix TS28532_ProvMnS: <https://example.org/TS28532_ProvMnS/> .
-@prefix TS28532_ProvMnS_CorrelatedNotification: <https://example.org/TS28532_ProvMnS/CorrelatedNotification/> .
-@prefix TS28532_ProvMnS_MoiChange: <https://example.org/TS28532_ProvMnS/MoiChange/> .
-@prefix TS28532_ProvMnS_NotifyEvent: <http://ericsson.com/models/3gpp/transport/NotifyEvent/> .
-@prefix TS28532_ProvMnS_NotifyMoiAttributeValueChanges: <https://example.org/TS28532_ProvMnS/NotifyMoiAttributeValueChanges/> .
-@prefix TS28532_ProvMnS_NotifyMoiChanges: <https://example.org/TS28532_ProvMnS/NotifyMoiChanges/> .
-@prefix TS28532_ProvMnS_NotifyMoiCreation: <https://example.org/TS28532_ProvMnS/NotifyMoiCreation/> .
-@prefix TS28532_ProvMnS_NotifyMoiDeletion: <https://example.org/TS28532_ProvMnS/NotifyMoiDeletion/> .
-@prefix TS28532_ProvMnS_PatchItem: <https://example.org/TS28532_ProvMnS/PatchItem/> .
-@prefix TS28532_ProvMnS_Scope: <https://example.org/TS28532_ProvMnS/Scope/> .
-@prefix TS28623_ComDefs: <https://example.org/TS28623_ComDefs/> .
+# GENERATED FILE -- do not edit; your changes will be overwritten.
+#
+# RDF vocabulary produced by openapi-to-rdf
+#   https://github.com/EricssonResearch/openapi-to-rdf
+# Contact: Jean Martins <jean.martins@ericsson.com>
+# Source document: TS28532_ProvMnS.yaml
+#
+# The CONVERSION is this project's work. The class and property names below, and the
+# `rdfs:comment` descriptions, are the source document's own text. The publisher of that
+# document did not produce, review or endorse this file, and it must not be cited as
+# their model. See NOTICE for the corpora this repository bundles and their terms.
+#
+# Regenerate: uv run python scripts/regenerate_output.py
+
+@prefix TS28532_ProvMnS: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/> .
+@prefix TS28532_ProvMnS_CorrelatedNotification: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/CorrelatedNotification/> .
+@prefix TS28532_ProvMnS_MoiChange: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/MoiChange/> .
+@prefix TS28532_ProvMnS_NotifyEvent: <https://semantics.ericsson.com/vocab/transport/NotifyEvent/> .
+@prefix TS28532_ProvMnS_NotifyMoiAttributeValueChanges: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiAttributeValueChanges/> .
+@prefix TS28532_ProvMnS_NotifyMoiChanges: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiChanges/> .
+@prefix TS28532_ProvMnS_NotifyMoiCreation: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiCreation/> .
+@prefix TS28532_ProvMnS_NotifyMoiDeletion: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/NotifyMoiDeletion/> .
+@prefix TS28532_ProvMnS_PatchItem: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/PatchItem/> .
+@prefix TS28532_ProvMnS_Scope: <https://semantics.ericsson.com/openapi/TS28532_ProvMnS/Scope/> .
+@prefix TS28623_ComDefs: <https://semantics.ericsson.com/openapi/TS28623_ComDefs/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix transport: <http://ericsson.com/models/3gpp/transport/> .
+@prefix transport: <https://semantics.ericsson.com/vocab/transport/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-transport:NotifyEvent a rdfs:Class ;
-    transport:isTransportEnvelope true ;
-    rdfs:subClassOf TS28623_ComDefs:NotificationHeader .
 
 TS28532_ProvMnS:CorrelatedNotification a rdfs:Class .
 
@@ -38,17 +48,9 @@ TS28532_ProvMnS:PatchItem a rdfs:Class .
 
 TS28532_ProvMnS:Scope a rdfs:Class .
 
-TS28532_ProvMnS_NotifyEvent:additionalInformation a rdf:Property ;
-    rdfs:domain transport:NotifyEvent ;
-    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
-
-TS28532_ProvMnS_NotifyEvent:additionalText a rdf:Property ;
-    rdfs:domain transport:NotifyEvent ;
-    rdfs:range xsd:string .
-
-TS28532_ProvMnS_NotifyEvent:specificProblem a rdf:Property ;
-    rdfs:domain transport:NotifyEvent ;
-    rdfs:range xsd:string .
+transport:NotifyEvent a rdfs:Class ;
+    rdfs:subClassOf TS28623_ComDefs:NotificationHeader ;
+    transport:isTransportEnvelope true .
 
 TS28532_ProvMnS:CmNotificationTypes a rdfs:Datatype .
 
@@ -201,5 +203,17 @@ TS28532_ProvMnS:sourceIndicator a rdf:Property ;
     rdfs:range xsd:string .
 
 TS28532_ProvMnS:specificProblem a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS_NotifyEvent:additionalInformation a rdf:Property ;
+    rdfs:domain transport:NotifyEvent ;
+    rdfs:range TS28623_ComDefs:AttributeNameValuePairSet .
+
+TS28532_ProvMnS_NotifyEvent:additionalText a rdf:Property ;
+    rdfs:domain transport:NotifyEvent ;
+    rdfs:range xsd:string .
+
+TS28532_ProvMnS_NotifyEvent:specificProblem a rdf:Property ;
+    rdfs:domain transport:NotifyEvent ;
     rdfs:range xsd:string .
 

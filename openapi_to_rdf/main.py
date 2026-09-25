@@ -4,6 +4,7 @@ import os
 import sys
 from pathlib import Path
 
+from openapi_to_rdf.mapping import DEFAULT_BASE_NAMESPACE_PREFIX
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
 from openapi_to_rdf.rdf_converter import OpenAPIToRDFConverter
 
@@ -132,8 +133,13 @@ Common OpenAPI sources:
     )
     parser.add_argument(
         "--namespace-prefix",
-        default="http://ericsson.com/models/3gpp/",
-        help="Base namespace prefix for generated URIs (default: http://ericsson.com/models/3gpp/)"
+        default=DEFAULT_BASE_NAMESPACE_PREFIX,
+        help=(
+            f"Base namespace prefix for generated URIs. Default {DEFAULT_BASE_NAMESPACE_PREFIX} is a "
+            "PLACEHOLDER (RFC 2606 reserves example.org for exactly this) -- pass your own namespace "
+            "for anything you intend to publish. The previous default asserted an Ericsson authority "
+            "over the caller's document and said '3gpp' regardless of the input."
+        )
     )
     parser.add_argument(
         "--version",

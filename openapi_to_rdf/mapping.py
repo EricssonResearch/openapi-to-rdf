@@ -146,7 +146,38 @@ STRING_FORMAT_DATATYPES = {
 #: class by IRI alone, and it is overridable per conversion
 #: (``build_mapping(..., transport_namespace=...)``). Mirrors ``TRANSPORT_NS`` in
 #: ``snm-api-native``'s ``scripts/emit_tbox.py``.
-DEFAULT_TRANSPORT_NAMESPACE = "http://ericsson.com/models/transport/"
+#: The fallback namespace for a CALLER's document when they supply none.
+#:
+#: A placeholder on purpose, and `example.org` specifically because RFC 2606 §3 reserves it for exactly
+#: this -- documentation and examples -- so it is guaranteed never to be a real authority and is
+#: recognisable as a placeholder by anyone who knows the RFC.
+#:
+#: It used to be `http://ericsson.com/models/3gpp/`, which was wrong twice over: it asserted an
+#: Ericsson authority over someone else's document, and it said "3gpp" whatever the input was. This
+#: project cannot know a caller's namespace, and inventing one that looks official is worse than one
+#: that obviously is not.
+#:
+#: Artifacts THIS repository publishes do not use it -- `scripts/_namespace.py` supplies a real stem
+#: for those, and `tests/test_readme_examples.py` fails if a placeholder reaches the README.
+DEFAULT_BASE_NAMESPACE_PREFIX = "https://example.org/"
+
+#: The namespace for THIS PROJECT's own terms -- `isIriValued`, `isTransportEnvelope`,
+#: `isSerialisationArtifact`, `refersTo`, `isMintedByConvention`.
+#:
+#: **Fixed, and deliberately not derived from the caller's namespace** (changed 2026-09-24). It used to
+#: default to `<base_namespace_prefix>transport/`, so a user converting under `https://acme.example/`
+#: got `https://acme.example/transport/isIriValued` -- a term that looks like theirs, carrying our
+#: semantics, and different from every other user's IRI for the same predicate. Same tool, same
+#: meaning, no two graphs able to join. A vocabulary the TOOL defines has to be named by the tool.
+#:
+#: The previous value was `http://ericsson.com/models/transport/`: `http`, and a stem retired
+#: elsewhere in this repository. Three Ericsson stems were in use across the sibling projects at that
+#: point; this one now matches `yang-to-rdf`'s host. See `scripts/_namespace.py` for the part of that
+#: split which is still unresolved.
+#:
+#: OURS, and asserting no external authority: the host does not resolve, and nothing here claims it
+#: does. An IRI identifies without dereferencing.
+DEFAULT_TRANSPORT_NAMESPACE = "https://semantics.ericsson.com/vocab/transport/"
 
 #: Marker predicate asserting that a class is a wire envelope rather than a domain concept.
 #: Relative to the transport namespace in force. **Ours**, like the namespace.

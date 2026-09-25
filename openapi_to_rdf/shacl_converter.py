@@ -5,6 +5,11 @@ from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 
+from openapi_to_rdf.provenance import CONTACT, PROJECT_URL
+from openapi_to_rdf.mapping import (
+    DEFAULT_BASE_NAMESPACE_PREFIX,
+    DEFAULT_TRANSPORT_NAMESPACE,
+)
 from openapi_to_rdf.mapping import (
     REFERS_TO_LOCAL,
     MINTED_BY_CONVENTION_LOCAL,
@@ -56,7 +61,7 @@ class OpenAPIToSHACLConverter:
     have seen the defect.
     """
 
-    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix="http://ericsson.com/models/3gpp/", schema_namespaces=None, document_namespaces=None, transport_namespace=None):
+    def __init__(self, yaml_file, base_namespace=None, output_dir="output", external_refs=None, base_namespace_prefix=DEFAULT_BASE_NAMESPACE_PREFIX, schema_namespaces=None, document_namespaces=None, transport_namespace=None):
         """Initialize the converter with SHACL-based approach.
 
         Args:
@@ -88,9 +93,11 @@ class OpenAPIToSHACLConverter:
                 ``base_namespace``: 175 distinct dangling class targets in the committed 3GPP
                 ``output/`` tree. See the spec's D1.
             transport_namespace: Namespace for wire envelopes (notification
-                wrappers, event payloads, JSON Patch documents). Defaults to
-                ``<base_namespace_prefix>transport/``, so it follows
-                ``--namespace-prefix``. Envelopes are emitted under this
+                wrappers, event payloads, JSON Patch documents) and for this
+                project's own marker terms. Defaults to
+                :data:`DEFAULT_TRANSPORT_NAMESPACE` -- a FIXED project stem, and
+                deliberately not derived from ``base_namespace_prefix``, which
+                would give every caller a different IRI for the same predicate. Envelopes are emitted under this
                 namespace and marked, never omitted: omitting them broke
                 nesting, measured on TMF641's ``ServiceOrderCreateEvent``
                 where the inner ``ServiceOrder`` lifted 76 triples standalone
@@ -100,7 +107,11 @@ class OpenAPIToSHACLConverter:
         self.yaml_file = yaml_file
         self.base_namespace_prefix = base_namespace_prefix
         self.base_namespace = base_namespace or self._generate_base_namespace()
-        self.transport_namespace = transport_namespace or f"{base_namespace_prefix}transport/"
+        # DEFAULT_TRANSPORT_NAMESPACE, not `<base_namespace_prefix>transport/`: these are the TOOL's
+        # terms, so they must not inherit the caller's authority. See that constant for the measured
+        # reason. An explicit `transport_namespace=` still wins, which is how `snm-api-native` keeps
+        # its own stem.
+        self.transport_namespace = transport_namespace or DEFAULT_TRANSPORT_NAMESPACE
         self.output_dir = output_dir
         self.external_refs = external_refs if external_refs is not None else []
         # Per-schema namespace overrides for cross-domain merged specs.
@@ -2050,6 +2061,14 @@ class OpenAPIToSHACLConverter:
         rdf_path = os.path.join(rdf_dir, rdf_filename)
         try:
             self.rdf_graph.serialize(destination=rdf_path, format="turtle")
+            # Prepended after serialization rather than passed to rdflib: it has no hook for a
+            # leading comment, and Turtle `#` comments are invisible to a parser, so this cannot
+            # change the graph. `tests/test_generated_file_provenance.py` asserts every generated
+            # file carries one, because the freshness gate compares graphs and would never notice.
+            with open(rdf_path, "r+", encoding="utf-8") as handle:
+                body = handle.read()
+                handle.seek(0)
+                handle.write(self._provenance_header("RDF vocabulary") + body)
             print(f"✅ RDF vocabulary file saved: {rdf_path}")
         except Exception as e:
             raise ValueError(f"Failed to serialize RDF graph to {rdf_path}: {e}")
@@ -2059,6 +2078,10 @@ class OpenAPIToSHACLConverter:
         shacl_path = os.path.join(shacl_dir, shacl_filename)
         try:
             self.shacl_graph.serialize(destination=shacl_path, format="turtle")
+            with open(shacl_path, "r+", encoding="utf-8") as handle:
+                body = handle.read()
+                handle.seek(0)
+                handle.write(self._provenance_header("SHACL shapes") + body)
             print(f"✅ SHACL shapes file saved: {shacl_path}")
         except Exception as e:
             raise ValueError(f"Failed to serialize SHACL graph to {shacl_path}: {e}")
@@ -2071,6 +2094,41 @@ class OpenAPIToSHACLConverter:
             print(f"✅ Property index saved: {index_path}")
         except Exception as e:
             raise ValueError(f"Failed to write property index to {index_path}: {e}")
+
+    def _provenance_header(self, kind: str) -> str:
+        """A `#` comment block stating where a generated file came from, and who did NOT make it.
+
+        Added 2026-09-24. The generated `.ttl` files carried NO provenance at all -- they opened
+        straight into `@prefix` lines. Nothing misattributed them, but nothing attributed them either:
+        a reader holding `output/rdf/TS28623_ComDefs_rdf.ttl` could not tell it was machine-generated,
+        from which document, or that the `rdfs:comment` text in it is the source document's prose
+        rather than ours.
+
+        Deliberately GENERIC about the publisher. This converter runs on 3GPP, on TM Forum and on
+        arbitrary documents, so naming a standards body here would be wrong for most inputs. The
+        specific attribution for corpora this repository BUNDLES belongs in `NOTICE`, which is a
+        repository-level fact rather than a per-file one.
+
+        The disclaimer sentence is the load-bearing one: a derived vocabulary that looks official is
+        worse than one that looks unfinished, because a reader may cite it as the standard's own model.
+        """
+        source = os.path.basename(self.yaml_file)
+        return (
+            "# GENERATED FILE -- do not edit; your changes will be overwritten.\n"
+            "#\n"
+            f"# {kind} produced by openapi-to-rdf\n"
+            f"#   {PROJECT_URL}\n"
+            f"# Contact: {CONTACT}\n"
+            f"# Source document: {source}\n"
+            "#\n"
+            "# The CONVERSION is this project's work. The class and property names below, and the\n"
+            "# `rdfs:comment` descriptions, are the source document's own text. The publisher of that\n"
+            "# document did not produce, review or endorse this file, and it must not be cited as\n"
+            "# their model. See NOTICE for the corpora this repository bundles and their terms.\n"
+            "#\n"
+            "# Regenerate: uv run python scripts/regenerate_output.py\n"
+            "\n"
+        )
 
     def run(self):
         """Run the full conversion process."""

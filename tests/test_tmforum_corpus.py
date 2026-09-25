@@ -28,6 +28,7 @@ import pytest
 from rdflib import RDF, RDFS, Graph, URIRef
 
 from openapi_to_rdf.mapping import MINTED_BY_CONVENTION_LOCAL
+from openapi_to_rdf.mapping import DEFAULT_TRANSPORT_NAMESPACE
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
@@ -170,7 +171,7 @@ def test_declared_classes_are_shaped(converted: dict[str, tuple[Graph, Graph]]) 
     are known, deliberate exceptions (see HYPOTHESES.md H3), so a hard zero would be a false claim.
     """
     minted_marker = URIRef(
-        "http://ericsson.com/models/3gpp/transport/" + MINTED_BY_CONVENTION_LOCAL
+        DEFAULT_TRANSPORT_NAMESPACE + MINTED_BY_CONVENTION_LOCAL
     )
     for stem, (vocabulary, shapes) in converted.items():
         classes = set(vocabulary.subjects(RDF.type, RDFS.Class))

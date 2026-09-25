@@ -36,7 +36,14 @@ DCTERMS = Namespace("http://purl.org/dc/terms/")
 #:
 #: Swapping Hydra for WoT means replacing the Hydra terms above; this one would have to be
 #: re-justified against whatever the new vocabulary offers, not carried over unexamined.
-AFFORDANCE_LOCAL_NAMESPACE = "https://semantic.ericsson.com/ontology/affordance/"
+# `semantics` (plural) as of 2026-09-25, when the host was settled. This term is OURS -- Hydra has no
+# predicate relating an operation to its template, and `hydra:template`'s domain is `hydra:IriTemplate`,
+# so putting it on the operation would entail the operation IS a template.
+#
+# It was singular until now, while `DEFAULT_TRANSPORT_NAMESPACE` in the same package was plural: two of
+# this project's OWN vocabularies under two hosts differing by one letter. `snm-api-native` carries an
+# independent copy of this same string in `snm_api/affordances.py`, and nothing gated that they agree.
+AFFORDANCE_LOCAL_NAMESPACE = "https://semantics.ericsson.com/ontology/affordance/"
 INVOKED_AT = URIRef(AFFORDANCE_LOCAL_NAMESPACE + "invokedAt")
 # ─────────────────────────────────────────────────────────────────────────────────────────────────
 
