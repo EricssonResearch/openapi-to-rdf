@@ -57,6 +57,7 @@ addopts = "--strict-markers"
 markers = [
     "slow: regenerates the whole output/ tree or converts the full corpus (minutes, not seconds). Skip with -m 'not slow' during development; CI runs everything.",
     "writes_output: escape hatch from the tests/conftest.py guard that forbids writing into output/. Nothing uses it; if something needs it, say why in a comment at the mark.",
+    "network: reaches 3GPP Forge. Only the corpus-pin verification needs it, and that check cannot be done offline -- it is what would catch a moved tag. Skips with a stated reason rather than passing when the forge is unreachable, because a network test that silently succeeds without a network is worse than no test.",
 ]
 
 [tool.ruff]
