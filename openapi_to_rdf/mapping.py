@@ -242,6 +242,18 @@ class ClassFact:
     parents: tuple[str, ...]
     is_transport: bool
     referent: str | None = None
+
+    #: True when the schema is an OBJECT — `type: object`, or composing one through `allOf`/`oneOf`.
+    #:
+    #: Recorded because `draft-polli-restapi-ld-keywords` requires it: a schema carrying
+    #: `x-jsonld-type` or `x-jsonld-context` MUST be of type object, since JSON-LD cannot carry
+    #: semantics on a non-object value. A projection that annotated
+    #: `InformationRequiredArray` (`type: array`) produced a document the draft forbids, and the
+    #: consumer's conformance test caught it.
+    #:
+    #: Defaults True so a caller constructing a ClassFact by hand is not silently excluded from
+    #: annotation; `build_mapping` sets it from the schema.
+    is_object: bool = True
     #: The document that DECLARES this class, or None for the document being converted. Provenance,
     #: never identity: `HYPOTHESES.md` settles that the source document is recorded as a fact and
     #: never as an IRI segment, and this field is that fact. What it *does* decide is which
@@ -770,6 +782,25 @@ def _external_parents_of(
     return found
 
 
+def _is_object_schema(schema: object) -> bool:
+    """Is this schema an object, in the sense `draft-polli-restapi-ld-keywords` requires?
+
+    `type: object` outright, or a composition (`allOf`/`oneOf`/`anyOf`) — a composed schema is an object
+    when its members are, and TMF composes constantly without restating `type`. A schema declaring
+    `type: array` or a scalar is NOT, and annotating one produces a document the draft forbids.
+
+    No `type` and no composition is treated as an object: OpenAPI leaves `type` optional and TMF omits
+    it on 154 of 156 inline `allOf` members. Refusing those would drop real classes, which is the worse
+    error of the two.
+    """
+    if not isinstance(schema, dict):
+        return False
+    declared = schema.get("type")
+    if declared is not None:
+        return declared == "object"
+    return True
+
+
 def _parents_of(
     schema_def: Any,
     schemas: dict[str, Any],
@@ -1112,6 +1143,7 @@ def build_mapping(
             is_transport=transport,
             referent=referent_name(schema_name),
             declaring_document=document,
+            is_object=_is_object_schema(schema_def),
         )
         return True
 

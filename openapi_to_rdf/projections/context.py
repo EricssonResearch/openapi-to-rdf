@@ -45,29 +45,46 @@ def context_from_mapping(mapping: Mapping, *, base: str) -> dict:
 
     # For each class, create a type-scoped term
     for class_name, class_fact in mapping.classes.items():
-        # Build the class-level context
-        class_context: dict = {}
-
-        # Add properties for this class (declared or inherited)
-        for (declaring_class, prop_name), prop_fact in mapping.properties_by_class.items():
-            if declaring_class == class_name or _is_ancestor(
-                declaring_class, class_name, mapping
-            ):
-                # Special case: 'id' maps directly to '@id'
-                if prop_name == "id":
-                    class_context["id"] = "@id"
-                # Add this property to the class context
-                elif prop_fact.is_iri_valued:
-                    class_context[prop_name] = {"@type": "@id", "@id": prop_fact.iri}
-                elif prop_fact.datatype:
-                    class_context[prop_name] = {"@type": prop_fact.datatype, "@id": prop_fact.iri}
-                else:
-                    # Just map to the property IRI
-                    class_context[prop_name] = {"@id": prop_fact.iri}
-
-        context[class_name] = {"@id": class_fact.iri, "@context": class_context}
+        context[class_name] = {
+            "@id": class_fact.iri,
+            "@context": term_map_for_class(mapping, class_name),
+        }
 
     return {"@context": context}
+
+
+def term_map_for_class(mapping: Mapping, class_name: str) -> dict:
+    """The type-scoped term map for one class: its own properties AND its inherited ones, flattened.
+
+    Extracted from `context_from_mapping` on 2026-09-25 so the OVERLAY projection can emit the same
+    map as a schema-level `x-jsonld-context`. `draft-polli-restapi-ld-keywords` defines that keyword at
+    schema level, so a conformant Overlay can carry it — and a consumer needed it: the Kiota fork reads
+    per-schema `x-jsonld-context` to generate a model's `ONTOLOGY_PROPERTIES`, and an Overlay carrying
+    only `x-jsonld-type` left those empty.
+
+    Flattening the ancestry is the whole point and is not an optimisation. A JSON-LD type-scoped context
+    does NOT inherit: without the walk, `NumberCharacteristic` loses `name` and `valueType` and a
+    consumer reading that class alone never learns it lost half the properties.
+
+    One definition, two projections. Before this the overlay's per-schema contexts and the context
+    document were built by different code in different repositories, which is how they came to disagree.
+    """
+    term_map: dict = {}
+    for (declaring_class, prop_name), prop_fact in mapping.properties_by_class.items():
+        if declaring_class != class_name and not _is_ancestor(declaring_class, class_name, mapping):
+            continue
+        if prop_name == "id":
+            # `id` maps to `@id`: it is the node's identity, not a property of it. Dropping this is what
+            # collapses every subject to a blank node, and blank nodes cannot be joined across
+            # deployments, which is the entire point of doing this.
+            term_map["id"] = "@id"
+        elif prop_fact.is_iri_valued:
+            term_map[prop_name] = {"@type": "@id", "@id": prop_fact.iri}
+        elif prop_fact.datatype:
+            term_map[prop_name] = {"@type": prop_fact.datatype, "@id": prop_fact.iri}
+        else:
+            term_map[prop_name] = {"@id": prop_fact.iri}
+    return term_map
 
 
 def _is_ancestor(potential_ancestor: str, class_name: str, mapping: Mapping) -> bool:

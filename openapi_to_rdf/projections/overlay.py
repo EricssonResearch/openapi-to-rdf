@@ -8,6 +8,7 @@ JSONPath targets) carrying ``x-jsonld-type`` / ``x-jsonld-context`` — keywords
 from __future__ import annotations
 
 from openapi_to_rdf.mapping import Mapping
+from openapi_to_rdf.projections.context import term_map_for_class
 
 
 def _base_name(class_name: str, variant_suffixes: tuple[str, ...]) -> str | None:
@@ -87,8 +88,16 @@ def overlay_from_mapping(
         "update": {"x-jsonld-context": context_url},
     })
 
-    # Per-schema actions: add x-jsonld-type
+    # Per-schema actions: add x-jsonld-type and x-jsonld-context
     for class_name, class_fact in mapping.classes.items():
+        # `draft-polli-restapi-ld-keywords` requires an annotated schema to be of type OBJECT: JSON-LD
+        # cannot carry semantics on a non-object value. Annotating `InformationRequiredArray`
+        # (`type: array`) produced a document the draft forbids, and the consumer's conformance test is
+        # what caught it. Skipped entirely rather than annotated with type-only, because the rule is
+        # about annotating at all.
+        if not class_fact.is_object:
+            continue
+
         iri = class_fact.iri
         note = ""
         base = _base_name(class_name, variant_suffixes)
@@ -99,13 +108,37 @@ def overlay_from_mapping(
             iri = mapping.classes[base].iri
             note = f" (serialisation variant of {base}; typed as its base)"
 
+        update: dict = {"x-jsonld-type": iri}
+
+        # The schema-level `x-jsonld-context`, added 2026-09-25. `draft-polli-restapi-ld-keywords`
+        # defines the keyword at schema level, so a conformant Overlay carries it and an adopter does
+        # not have to fall back to a bespoke format to get it.
+        #
+        # A consumer needed it concretely: the Kiota fork reads per-schema `x-jsonld-context` to
+        # generate a model's `ONTOLOGY_PROPERTIES`. An Overlay with only `x-jsonld-type` left those
+        # EMPTY, so generated clients carried a class binding and no property bindings --
+        # `AttributeError: type object 'NumberCharacteristic' has no attribute 'ONTOLOGY_PROPERTIES'`.
+        #
+        # Built by `term_map_for_class`, the same function `context_from_mapping` uses, so the overlay's
+        # per-schema contexts and the context document cannot disagree. They were built by different
+        # code in different repositories before this, which is how they came to.
+        #
+        # A variant takes its BASE's term map along with its base's IRI: the two have to agree about
+        # which class the payload is, or the type says one thing and the properties another.
+        term_map = term_map_for_class(mapping, base if note else class_name)
+        if term_map:
+            # `@version: 1.1` is required, not decoration: a term definition carrying its own
+            # `@context` is a JSON-LD 1.1 scoped context, and a 1.0 processor silently ignores it. The
+            # consumer asserts its presence on every inline context for exactly that reason.
+            update["x-jsonld-context"] = {"@version": 1.1, **term_map}
+
         actions.append({
             "target": f"$.components.schemas['{class_name}']",
             "description": (
-                f"Annotate {class_name} with JSON-LD type "
+                f"Annotate {class_name} with JSON-LD type and context "
                 f"(draft-polli-restapi-ld-keywords){note}"
             ),
-            "update": {"x-jsonld-type": iri},
+            "update": update,
         })
 
     return {
