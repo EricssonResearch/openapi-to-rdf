@@ -489,9 +489,6 @@ TS28541_NrNrm: a owl:Ontology ;
     dcterms:source "TS28541_NrNrm.yaml" ;
     owl:versionInfo "openapi-to-rdf 0.2.0" .
 
-TS28541_NrNrm:AIOTReader a rdf:Property ;
-    rdfs:range TS28541_NrNrm:AIOTReader-Multiple .
-
 TS28541_NrNrm_AIOTReader-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:AIOTReader-Single .
 
@@ -506,15 +503,9 @@ TS28541_NrNrm_AddressWithVlan:vlanId a rdf:Property ;
 TS28541_NrNrm_BWP-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:BWP-Single .
 
-TS28541_NrNrm:BWPSet a rdf:Property ;
-    rdfs:range TS28541_NrNrm:BWPSet-Multiple .
-
 TS28541_NrNrm_BWPSet-Single:bWPList a rdf:Property ;
     rdfs:domain TS28541_NrNrm:BWPSet-Single ;
     rdfs:range TS28623_ComDefs:Dn .
-
-TS28541_NrNrm:BWP_Multiple a rdf:Property ;
-    rdfs:range TS28541_NrNrm:BWP-Multiple .
 
 TS28541_NrNrm_BackhaulAddress:gnbId a rdf:Property ;
     rdfs:domain TS28541_NrNrm:BackhaulAddress ;
@@ -523,9 +514,6 @@ TS28541_NrNrm_BackhaulAddress:gnbId a rdf:Property ;
 TS28541_NrNrm_BackhaulAddress:tai a rdf:Property ;
     rdfs:domain TS28541_NrNrm:BackhaulAddress ;
     rdfs:range TS28623_GenericNrm:Tai .
-
-TS28541_NrNrm:Beam a rdf:Property ;
-    rdfs:range TS28541_NrNrm:Beam-Multiple .
 
 TS28541_NrNrm_Beam-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:Beam-Single .
@@ -536,9 +524,6 @@ TS28541_NrNrm_CCOFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:CCOFunction-Single ;
     rdfs:range rdfs:Resource .
 
-TS28541_NrNrm:CCOOvershootCoverageParameters a rdf:Property ;
-    rdfs:range TS28541_NrNrm:CCOOvershootCoverageParameters-Single .
-
 TS28541_NrNrm:CCOOvershootCoverageParameters_Single a rdf:Property ;
     rdfs:range TS28541_NrNrm:CCOOvershootCoverageParameters-Single .
 
@@ -546,20 +531,15 @@ TS28541_NrNrm_CCOParameters-Attr:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:CCOParameters-Attr ;
     rdfs:range rdfs:Resource .
 
-TS28541_NrNrm:CCOPilotPollutionParameters a rdf:Property .
+TS28541_NrNrm:CCOPilotPollutionParameters a rdf:Property ;
+    rdfs:range TS28541_NrNrm:CCOPilotPollutionParameters-Single .
 
 TS28541_NrNrm:CCOWeakCoverageParameters a rdf:Property ;
     rdfs:range TS28541_NrNrm:CCOWeakCoverageParameters-Single .
 
-TS28541_NrNrm:CESManagementFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:CESManagementFunction-Single .
-
 TS28541_NrNrm_CESManagementFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:CESManagementFunction-Single ;
     rdfs:range rdfs:Resource .
-
-TS28541_NrNrm:CPCIConfigurationFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:CPCIConfigurationFunction-Single .
 
 TS28541_NrNrm_CPCIConfigurationFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:CPCIConfigurationFunction-Single ;
@@ -590,9 +570,6 @@ TS28541_NrNrm:CellReselectionRedcap a rdf:Property ;
 
 TS28541_NrNrm:CellState a rdfs:Datatype .
 
-TS28541_NrNrm:CommonBeamformingFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:CommonBeamformingFunction-Single .
-
 TS28541_NrNrm_CommonBeamformingFunction-Single:Beam a rdf:Property ;
     rdfs:domain TS28541_NrNrm:CommonBeamformingFunction-Single ;
     rdfs:range TS28541_NrNrm:Beam-Multiple .
@@ -612,50 +589,29 @@ TS28541_NrNrm_CommonBeamformingFunction-Single:CCOWeakCoverageParameters a rdf:P
 TS28541_NrNrm_CommonBeamformingFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:CommonBeamformingFunction-Single .
 
-TS28541_NrNrm:Configurable5QISet a rdf:Property ;
-    rdfs:range TS28541_5GcNrm:Configurable5QISet-Multiple .
-
 TS28541_NrNrm:CoverageShape a rdfs:Datatype .
 
 TS28541_NrNrm:CyclicPrefix a rdfs:Datatype .
-
-TS28541_NrNrm:DANRManagementFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:DANRManagementFunction-Single .
 
 TS28541_NrNrm_DANRManagementFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:DANRManagementFunction-Single ;
     rdfs:range rdfs:Resource .
 
-TS28541_NrNrm:DESManagementFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:DESManagementFunction-Single .
-
 TS28541_NrNrm_DESManagementFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:DESManagementFunction-Single ;
     rdfs:range rdfs:Resource .
-
-TS28541_NrNrm:DLBOFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:DLBOFunction-Single .
 
 TS28541_NrNrm_DLBOFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:DLBOFunction-Single ;
     rdfs:range rdfs:Resource .
 
-TS28541_NrNrm:DMROFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:DMROFunction-Single .
-
 TS28541_NrNrm_DMROFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:DMROFunction-Single ;
     rdfs:range rdfs:Resource .
 
-TS28541_NrNrm:DPCIConfigurationFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:DPCIConfigurationFunction-Single .
-
 TS28541_NrNrm_DPCIConfigurationFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:DPCIConfigurationFunction-Single ;
     rdfs:range rdfs:Resource .
-
-TS28541_NrNrm:DRACHOptimizationFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:DRACHOptimizationFunction-Single .
 
 TS28541_NrNrm_DRACHOptimizationFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:DRACHOptimizationFunction-Single ;
@@ -665,63 +621,32 @@ TS28541_NrNrm:DigitalAzimuth a rdfs:Datatype .
 
 TS28541_NrNrm:DigitalTilt a rdfs:Datatype .
 
-TS28541_NrNrm:Dynamic5QISet a rdf:Property ;
-    rdfs:range TS28541_5GcNrm:Dynamic5QISet-Multiple .
-
-TS28541_NrNrm:EP_E1 a rdf:Property .
-
 TS28541_NrNrm_EP_E1-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_E1-Single .
-
-TS28541_NrNrm:EP_F1C a rdf:Property .
 
 TS28541_NrNrm_EP_F1C-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_F1C-Single .
 
-TS28541_NrNrm:EP_F1U a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_F1U-Multiple .
-
 TS28541_NrNrm_EP_F1U-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_F1U-Single .
-
-TS28541_NrNrm:EP_NgC a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_NgC-Multiple .
 
 TS28541_NrNrm_EP_NgC-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_NgC-Single .
 
-TS28541_NrNrm:EP_NgU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_NgU-Multiple .
-
 TS28541_NrNrm_EP_NgU-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_NgU-Single .
-
-TS28541_NrNrm:EP_S1U a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_S1U-Multiple .
 
 TS28541_NrNrm_EP_S1U-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_S1U-Single .
 
-TS28541_NrNrm:EP_X2C a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_X2C-Multiple .
-
 TS28541_NrNrm_EP_X2C-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_X2C-Single .
-
-TS28541_NrNrm:EP_X2U a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_X2U-Multiple .
 
 TS28541_NrNrm_EP_X2U-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_X2U-Single .
 
-TS28541_NrNrm:EP_XnC a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_XnC-Multiple .
-
 TS28541_NrNrm_EP_XnC-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_XnC-Single .
-
-TS28541_NrNrm:EP_XnU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EP_XnU-Multiple .
 
 TS28541_NrNrm_EP_XnU-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EP_XnU-Single .
@@ -734,21 +659,12 @@ TS28541_NrNrm_EUtraNetwork-Single:ExternalENBFunction a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EUtraNetwork-Single ;
     rdfs:range TS28541_NrNrm:ExternalENBFunction-Multiple .
 
-TS28541_NrNrm:EUtranCellRelation a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EUtranCellRelation-Multiple .
-
 TS28541_NrNrm_EUtranCellRelation-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EUtranCellRelation-Single .
-
-TS28541_NrNrm:EUtranFreqRelation a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EUtranFreqRelation-Multiple .
 
 TS28541_NrNrm_EUtranFreqRelation-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EUtranFreqRelation-Single ;
     rdfs:range rdfs:Resource .
-
-TS28541_NrNrm:EUtranFrequency a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EUtranFrequency-Multiple .
 
 TS28541_NrNrm_EUtranFrequency-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EUtranFrequency-Single ;
@@ -756,12 +672,6 @@ TS28541_NrNrm_EUtranFrequency-Single:attributes a rdf:Property ;
 
 TS28541_NrNrm:EUtranFrequencyRef a rdf:Property ;
     rdfs:range xsd:string .
-
-TS28541_NrNrm:EUtranNetwork a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EUtraNetwork-Single .
-
-TS28541_NrNrm:EphemerisInfoSet a rdf:Property ;
-    rdfs:range TS28541_NrNrm:EphemerisInfoSet-Multiple .
 
 TS28541_NrNrm_EphemerisInfoSet-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EphemerisInfoSet-Single .
@@ -780,9 +690,6 @@ TS28541_NrNrm_EsNotAllowedTimePeriod:startTime a rdf:Property ;
     rdfs:domain TS28541_NrNrm:EsNotAllowedTimePeriod ;
     rdfs:range xsd:string .
 
-TS28541_NrNrm:ExternalENBFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:ExternalENBFunction-Multiple .
-
 TS28541_NrNrm_ExternalENBFunction-Single:ExternalEUTranCell a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalENBFunction-Single ;
     rdfs:range TS28541_NrNrm:ExternalEUTranCell-Multiple .
@@ -790,14 +697,8 @@ TS28541_NrNrm_ExternalENBFunction-Single:ExternalEUTranCell a rdf:Property ;
 TS28541_NrNrm_ExternalENBFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalENBFunction-Single .
 
-TS28541_NrNrm:ExternalEUTranCell a rdf:Property ;
-    rdfs:range TS28541_NrNrm:ExternalEUTranCell-Multiple .
-
 TS28541_NrNrm_ExternalEUTranCell-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalEUTranCell-Single .
-
-TS28541_NrNrm:ExternalGNBCUCPFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:ExternalGNBCUCPFunction-Multiple .
 
 TS28541_NrNrm_ExternalGNBCUCPFunction-Single:EP_E1 a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalGNBCUCPFunction-Single ;
@@ -818,9 +719,6 @@ TS28541_NrNrm_ExternalGNBCUCPFunction-Single:ExternalNRCellCU a rdf:Property ;
 TS28541_NrNrm_ExternalGNBCUCPFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalGNBCUCPFunction-Single .
 
-TS28541_NrNrm:ExternalGNBCUUPFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:ExternalGNBCUUPFunction-Multiple .
-
 TS28541_NrNrm_ExternalGNBCUUPFunction-Single:EP_E1 a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalGNBCUUPFunction-Single ;
     rdfs:range TS28541_NrNrm:EP_E1-Multiple .
@@ -836,9 +734,6 @@ TS28541_NrNrm_ExternalGNBCUUPFunction-Single:EP_XnU a rdf:Property ;
 TS28541_NrNrm_ExternalGNBCUUPFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalGNBCUUPFunction-Single .
 
-TS28541_NrNrm:ExternalGNBDUFunction a rdf:Property ;
-    rdfs:range TS28541_NrNrm:ExternalGNBDUFunction-Multiple .
-
 TS28541_NrNrm_ExternalGNBDUFunction-Single:EP_F1C a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalGNBDUFunction-Single ;
     rdfs:range TS28541_NrNrm:EP_F1C-Multiple .
@@ -849,9 +744,6 @@ TS28541_NrNrm_ExternalGNBDUFunction-Single:EP_F1U a rdf:Property ;
 
 TS28541_NrNrm_ExternalGNBDUFunction-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalGNBDUFunction-Single .
-
-TS28541_NrNrm:ExternalNRCellCU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:ExternalNRCellCU-Multiple .
 
 TS28541_NrNrm_ExternalNRCellCU-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:ExternalNRCellCU-Single .
@@ -1212,9 +1104,6 @@ TS28541_NrNrm_MnrOamIPConfig:seGwConfiguration a rdf:Property ;
     rdfs:domain TS28541_NrNrm:MnrOamIPConfig ;
     rdfs:range xsd:string .
 
-TS28541_NrNrm:NRCellCU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRCellCU-Multiple .
-
 TS28541_NrNrm_NRCellCU-Single:CESManagementFunction a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRCellCU-Single ;
     rdfs:range TS28541_NrNrm:CESManagementFunction-Single .
@@ -1258,9 +1147,6 @@ TS28541_NrNrm_NRCellCU-Single:RRMPolicyRatio a rdf:Property ;
 TS28541_NrNrm_NRCellCU-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRCellCU-Single .
 
-TS28541_NrNrm:NRCellDU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRCellDU-Multiple .
-
 TS28541_NrNrm_NRCellDU-Single:CPCIConfigurationFunction a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRCellDU-Single ;
     rdfs:range TS28541_NrNrm:CPCIConfigurationFunction-Single .
@@ -1276,9 +1162,6 @@ TS28541_NrNrm_NRCellDU-Single:RRMPolicyRatio a rdf:Property ;
 TS28541_NrNrm_NRCellDU-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRCellDU-Single .
 
-TS28541_NrNrm:NRCellRelation a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRCellRelation-Multiple .
-
 TS28541_NrNrm_NRCellRelation-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRCellRelation-Single ;
     rdfs:range rdfs:Resource .
@@ -1286,22 +1169,13 @@ TS28541_NrNrm_NRCellRelation-Single:attributes a rdf:Property ;
 TS28541_NrNrm_NRECMappingRule-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRECMappingRule-Single .
 
-TS28541_NrNrm:NRFreqRelation a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRFreqRelation-Multiple .
-
 TS28541_NrNrm_NRFreqRelation-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRFreqRelation-Single ;
     rdfs:range rdfs:Resource .
 
-TS28541_NrNrm:NRFrequency a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRFrequency-Multiple .
-
 TS28541_NrNrm_NRFrequency-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRFrequency-Single ;
     rdfs:range rdfs:Resource .
-
-TS28541_NrNrm:NRNetwork a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRNetwork-Single .
 
 TS28541_NrNrm_NRNetwork-Single:ExternalGNBCUCPFunction a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRNetwork-Single ;
@@ -1318,9 +1192,6 @@ TS28541_NrNrm_NRNetwork-Single:ExternalGNBDUFunction a rdf:Property ;
 TS28541_NrNrm_NRNetwork-Single:NRFrequency a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRNetwork-Single ;
     rdfs:range TS28541_NrNrm:NRFrequency-Multiple .
-
-TS28541_NrNrm:NROperatorCellDU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NROperatorCellDU-Multiple .
 
 TS28541_NrNrm_NROperatorCellDU-Single:administrativeState a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NROperatorCellDU-Single ;
@@ -1344,9 +1215,6 @@ TS28541_NrNrm_NRSectorCarrier-Single:CommonBeamformingFunction a rdf:Property ;
 
 TS28541_NrNrm_NRSectorCarrier-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NRSectorCarrier-Single .
-
-TS28541_NrNrm:NRSectorCarrier_Multiple a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NRSectorCarrier-Multiple .
 
 TS28541_NrNrm_NTNEntityConf:nTNConfEntity a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NTNEntityConf ;
@@ -1372,9 +1240,6 @@ TS28541_NrNrm_NTNTimeBasedConfig-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:NTNTimeBasedConfig-Single .
 
 TS28541_NrNrm:NrPci a rdfs:Datatype .
-
-TS28541_NrNrm:OperatorDU a rdf:Property ;
-    rdfs:range TS28541_NrNrm:OperatorDU-Multiple .
 
 TS28541_NrNrm_OperatorDU-Single:EP_F1C a rdf:Property ;
     rdfs:domain TS28541_NrNrm:OperatorDU-Single ;
@@ -1497,9 +1362,6 @@ TS28541_NrNrm_RRMPolicyMember:snssai a rdf:Property ;
     rdfs:domain TS28541_NrNrm:RRMPolicyMember ;
     rdfs:range TS28541_NrNrm:Snssai .
 
-TS28541_NrNrm:RRMPolicyRatio a rdf:Property ;
-    rdfs:range TS28541_NrNrm:RRMPolicyRatio-Multiple .
-
 TS28541_NrNrm_RRMPolicyRatio-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:RRMPolicyRatio-Single .
 
@@ -1560,9 +1422,6 @@ TS28541_NrNrm_RimRSReportInfo:functionalityOfRIMRS a rdf:Property ;
 TS28541_NrNrm_RimRSReportInfo:propagationDelay a rdf:Property ;
     rdfs:domain TS28541_NrNrm:RimRSReportInfo ;
     rdfs:range xsd:integer .
-
-TS28541_NrNrm:RimRSSet a rdf:Property ;
-    rdfs:range TS28541_NrNrm:RimRSSet-Multiple .
 
 TS28541_NrNrm_RimRSSet-Single:attributes a rdf:Property ;
     rdfs:domain TS28541_NrNrm:RimRSSet-Single ;
@@ -1831,9 +1690,6 @@ TS28541_NrNrm:arfcnSUL a rdf:Property ;
 TS28541_NrNrm:arfcnUL a rdf:Property ;
     rdfs:range xsd:integer .
 
-TS28541_NrNrm:attributes a rdf:Property ;
-    rdfs:range rdfs:Resource .
-
 TS28541_NrNrm:bSChannelBwDL a rdf:Property ;
     rdfs:range xsd:integer .
 
@@ -1842,9 +1698,6 @@ TS28541_NrNrm:bSChannelBwSUL a rdf:Property ;
 
 TS28541_NrNrm:bSChannelBwUL a rdf:Property ;
     rdfs:range xsd:integer .
-
-TS28541_NrNrm:bWPList a rdf:Property ;
-    rdfs:range TS28623_ComDefs:Dn .
 
 TS28541_NrNrm:bWPRef a rdf:Property ;
     rdfs:comment "Condition is BWP sets are not supported" ;
@@ -1907,7 +1760,6 @@ TS28541_NrNrm:cesSwitch a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS28541_NrNrm:configurable5QISetRef a rdf:Property ;
-    rdfs:comment "This attribute is condition optional. The condition is NG-RAN Multi-Operator Core Network (NG-RAN MOCN) network sharing with operator specific 5QI is supported." ;
     rdfs:range xsd:string .
 
 TS28541_NrNrm:configuredMaxTxPower a rdf:Property ;
@@ -1965,7 +1817,6 @@ TS28541_NrNrm:drachOptimizationControl a rdf:Property ;
     rdfs:range xsd:boolean .
 
 TS28541_NrNrm:dynamic5QISetRef a rdf:Property ;
-    rdfs:comment "This attribute is condition optional. The condition is NG-RAN Multi-Operator Core Network (NG-RAN MOCN) network sharing with operator specific 5QI is supported." ;
     rdfs:range xsd:string .
 
 TS28541_NrNrm:eNBId a rdf:Property ;
@@ -2149,9 +2000,6 @@ TS28541_NrNrm:nTNEntityConfigList a rdf:Property ;
     rdfs:range TS28541_NrNrm:NTNEntityConf .
 
 TS28541_NrNrm:nTNTAClist a rdf:Property .
-
-TS28541_NrNrm:nTNTimeBasedConfig a rdf:Property ;
-    rdfs:range TS28541_NrNrm:NTNTimeBasedConfig-Multiple .
 
 TS28541_NrNrm:nTNpLMNInfoList a rdf:Property ;
     rdfs:range TS28541_NrNrm:PlmnInfoList .

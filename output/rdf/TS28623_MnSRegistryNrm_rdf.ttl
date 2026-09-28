@@ -48,9 +48,6 @@ TS28623_MnSRegistryNrm: a owl:Ontology ;
     dcterms:source "TS28623_MnSRegistryNrm.yaml" ;
     owl:versionInfo "openapi-to-rdf 0.2.0" .
 
-TS28623_MnSRegistryNrm:MgmtDataInfo a rdf:Property ;
-    rdfs:range TS28623_MnSRegistryNrm:MgmtDataInfo-Multiple .
-
 TS28623_MnSRegistryNrm_MgmtDataInfo-Single:historicalDataPeriod a rdf:Property ;
     rdfs:comment "This attribute describes the maximum period of the requested historical data. The period is defined in seconds. When the value of this attribute is NULL, which means the  capability of querying historical data is not supported." ;
     rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single ;
@@ -86,9 +83,6 @@ TS28623_MnSRegistryNrm_MgmtDataInfo-Single:supportedReportingPeriods a rdf:Prope
     rdfs:domain TS28623_MnSRegistryNrm:MgmtDataInfo-Single .
 
 TS28623_MnSRegistryNrm:MnsCapability a rdfs:Datatype .
-
-TS28623_MnSRegistryNrm:MnsInfo a rdf:Property ;
-    rdfs:range TS28623_MnSRegistryNrm:MnsInfo-Multiple .
 
 TS28623_MnSRegistryNrm_MnsInfo-Single:mgmtDataInfoRef a rdf:Property ;
     rdfs:comment "List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo which represent a management service instance" ;
@@ -133,55 +127,4 @@ TS28623_MnSRegistryNrm_MnsRegistry-Single:MnsInfo a rdf:Property ;
 TS28623_MnSRegistryNrm_SubNetwork-ncO-MnSRegistryNrm:MnsRegistry a rdf:Property ;
     rdfs:domain TS28623_MnSRegistryNrm:SubNetwork-ncO-MnSRegistryNrm ;
     rdfs:range TS28623_MnSRegistryNrm:MnsRegistry-Single .
-
-TS28623_MnSRegistryNrm:historicalDataPeriod a rdf:Property ;
-    rdfs:comment "This attribute describes the maximum period of the requested historical data. The period is defined in seconds. When the value of this attribute is NULL, which means the  capability of querying historical data is not supported." ;
-    rdfs:range xsd:integer .
-
-TS28623_MnSRegistryNrm:mgmtDataInfoRef a rdf:Property ;
-    rdfs:comment "List of DN of MgmtDataInfo instance(s) which are associated the MnSInfo which represent a management service instance" ;
-    rdfs:range TS28623_ComDefs:Dn .
-
-TS28623_MnSRegistryNrm:mnsAddress a rdf:Property ;
-    rdfs:comment "Resource URI as defined in the relevant Technical Specification" ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsCapability a rdf:Property ;
-    rdfs:comment "It describes the types of management capabilities of the MnS instance provided by the MnS producer." ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsLabel a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsScope a rdf:Property ;
-    rdfs:comment "It is used to provide information about the management scope of the Management Service. The management scope is  used to represent the set of managed object instances that can be accessed using the Management Service." ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsType a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:mnsVersion a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:supportedDataReportingMnSRef a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:supportedDataRequestMnSRef a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28623_MnSRegistryNrm:supportedDataScope a rdf:Property ;
-    rdfs:comment "List of supported sub counter capabilities for the associated management data." .
-
-TS28623_MnSRegistryNrm:supportedGranularityPeriods a rdf:Property ;
-    rdfs:comment "Granularity periods supported for the production of associated management data. The period is defined in seconds." .
-
-TS28623_MnSRegistryNrm:supportedManagementData a rdf:Property ;
-    rdfs:comment "It defines the list of management data that can be supported." ;
-    rdfs:range TS28623_ManagementDataCollectionNrm:ManagementData .
-
-TS28623_MnSRegistryNrm:supportedReportingMethod a rdf:Property ;
-    rdfs:comment "List of supported reporting methods for the associated  management data." .
-
-TS28623_MnSRegistryNrm:supportedReportingPeriods a rdf:Property ;
-    rdfs:comment "Reporting periods supported for the associated management data. The period is defined in seconds." .
 

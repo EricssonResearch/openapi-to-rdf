@@ -547,7 +547,7 @@ class OpenAPIToSHACLConverter:
                 self.rdf_graph.add((referent_iri, RDF.type, RDFS.Class))
                 self.rdf_graph.add((referent_iri, self.MINTED_BY_CONVENTION, Literal(True)))
 
-    def _type_clause(self, subject, property_shape, spec):
+    def _type_clause(self, subject, property_shape, spec, owner=None):
         """Main type processing clause, mirrors Prolog type_clause/4."""
         
         # Handle $ref references
@@ -595,7 +595,7 @@ class OpenAPIToSHACLConverter:
 
         # Handle object type
         if spec.get("type") == "object":
-            self._handle_object_type(subject, property_shape, spec)
+            self._handle_object_type(subject, property_shape, spec, owner=owner)
 
         # Handle array type  
         elif spec.get("type") == "array":
@@ -943,7 +943,7 @@ class OpenAPIToSHACLConverter:
             )
         return keep
 
-    def _handle_object_type(self, subject, property_shape, spec):
+    def _handle_object_type(self, subject, property_shape, spec, owner=None):
         """Handle object type schemas (type: object)."""
         if subject is not None:
             # Create rdfs:Class in RDF graph
@@ -991,7 +991,14 @@ class OpenAPIToSHACLConverter:
             required_props = spec.get("required", [])
             
             for prop_name, prop_def in properties.items():
-                self._process_property(subject, node_shape, prop_name, prop_def, required_props)
+                # `owner` carries WHO DECLARES these properties; `subject` carries whether a
+                # NodeShape is wanted. They were one parameter, and passing None to suppress a
+                # duplicate NodeShape also erased the owning class, so the property IRI came out
+                # unscoped. See `_process_property`'s docstring for the measured cost.
+                self._process_property(
+                    subject if subject is not None else owner,
+                    node_shape, prop_name, prop_def, required_props,
+                )
 
     def _handle_array_type(self, subject, property_shape, spec):
         """Handle array type schemas.
@@ -1383,9 +1390,11 @@ class OpenAPIToSHACLConverter:
                             if parent_uri is not None:
                                 self.shacl_graph.add((property_shape, getattr(self.SH, 'class'), parent_uri))
                     else:
-                        # Inline constraint/object: pass subject=None so _handle_object_type
-                        # doesn't create a duplicate NodeShape.
-                        self._type_clause(None, property_shape, spec)
+                        # `subject=None` suppresses the duplicate NodeShape; `owner=subject` keeps
+                        # the declaring class, which the same argument used to erase. An inline
+                        # `allOf` member has no name of its own, and its properties are properties of
+                        # the schema whose `allOf` it belongs to -- defined here, so declared here.
+                        self._type_clause(None, property_shape, spec, owner=subject)
             else:
                 # For oneOf/anyOf, we need to create separate shapes but avoid RDF lists
                 # Create individual property shapes for each constraint

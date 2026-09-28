@@ -365,6 +365,21 @@ TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:_links a rdf:Prop
     rdfs:comment "Hypermedia links for fallback descriptor" ;
     rdfs:domain TS28572_PlanManagement:FallbackConfigurationDescriptorResponse .
 
+TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:configChanges a rdf:Property ;
+    rdfs:comment """The configuration change set specifying the configuration in case the fallback configuration is of the "UNDO" type. The format of "configChanges" is specified in "configChangesContentType". Exactly one of this element or the fallbackConfig shall be present.
+""" ;
+    rdfs:domain TS28572_PlanManagement:FallbackConfigurationDescriptorResponse ;
+    rdfs:range TS28572_PlanManagement:ConfigChangeWritable .
+
+TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:configChangesContentType a rdf:Property ;
+    rdfs:domain TS28572_PlanManagement:FallbackConfigurationDescriptorResponse ;
+    rdfs:range xsd:string .
+
+TS28572_PlanManagement_FallbackConfigurationDescriptorResponse:fallbackConfig a rdf:Property ;
+    rdfs:comment "The fallback configuration associated with COMPLETE_RESTORE" ;
+    rdfs:domain TS28572_PlanManagement:FallbackConfigurationDescriptorResponse ;
+    rdfs:range xsd:string .
+
 TS28572_PlanManagement_FallbackPlanRef:fallbackConfigDescrId a rdf:Property ;
     rdfs:domain TS28572_PlanManagement:FallbackPlanRef ;
     rdfs:range xsd:string .
@@ -735,119 +750,12 @@ TS28572_PlanManagement_ValidationJobStatus:validationState a rdf:Property ;
 
 TS28572_PlanManagement:ValidationState a rdfs:Datatype .
 
-TS28572_PlanManagement:_links a rdf:Property ;
-    rdfs:comment "Hypermedia links for fallback descriptor",
-        "Hypermedia links for plan descriptor",
-        "Hypermedia links for trigger descriptor" .
-
-TS28572_PlanManagement:activationDetails a rdf:Property .
-
-TS28572_PlanManagement:activationState a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:cancel a rdf:Property ;
-    rdfs:comment "A URI reference to cancel the job" .
-
-TS28572_PlanManagement:cancelRequest a rdf:Property ;
-    rdfs:comment "This boolean attribute allows to request to cancel the activation process by setting its value to \"True\". Setting the value to \"False\" has no observable result. Once the value is set to \"True\" it is immutable",
-        "boolean indicating the request of a job cancellation" ;
-    rdfs:range xsd:boolean .
-
-TS28572_PlanManagement:configChanges a rdf:Property ;
-    rdfs:comment """The configuration change set specifying the configuration in case the fallback configuration is of the "UNDO" type. The format of "configChanges" is specified in "configChangesContentType". Exactly one of this element or the fallbackConfig shall be present.
-""",
-        "The plan configuration changes" .
-
-TS28572_PlanManagement:configChangesContentType a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:createdFallbackConfigDescrId a rdf:Property ;
-    rdfs:comment "Id of the created Fallback Plan Configuration Descriptor" ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:currentConfigTime a rdf:Property ;
-    rdfs:comment "The date and time of the current configuration state against which the planned configuration or planned configuration group is validated." ;
-    rdfs:range xsd:dateTime .
-
-TS28572_PlanManagement:currentEvaluationResult a rdf:Property ;
-    rdfs:comment "The current result of evaluating the \"condition-expression\"." ;
-    rdfs:range xsd:boolean .
-
-TS28572_PlanManagement:description a rdf:Property ;
-    rdfs:comment "description/purpose of the job." ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:descriptor a rdf:Property ;
-    rdfs:comment "A URI reference to the plan (or plan group) configuration descriptor",
-        "A URI reference to the plan or plan group configuration descriptor" .
-
-TS28572_PlanManagement:fallback a rdf:Property ;
-    rdfs:comment "A URI reference to the fallback plan descriptor" .
-
-TS28572_PlanManagement:fallbackConfig a rdf:Property ;
-    rdfs:comment "The fallback configuration associated with COMPLETE_RESTORE" ;
-    rdfs:range xsd:string .
-
 TS28572_PlanManagement:href a rdf:Property ;
     rdfs:range xsd:string .
-
-TS28572_PlanManagement:id a rdf:Property ;
-    rdfs:comment "The identifier of the planned configuration",
-        "Unique id of the plan configuration descriptor",
-        "id of the activation job",
-        "id of the job.",
-        "id of the validation job" ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:isTriggerActive a rdf:Property ;
-    rdfs:comment "The indication if the trigger can start activation jobs (trigger is active), or if the trigger cannot start activation jobs (trigger is inactive)." ;
-    rdfs:range xsd:boolean .
-
-TS28572_PlanManagement:jobDetails a rdf:Property ;
-    rdfs:range TS28572_PlanManagement:JobDetails .
-
-TS28572_PlanManagement:jobState a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:lastModifiedAt a rdf:Property ;
-    rdfs:comment "The date and time at which the trigger condition was modified the last time by a MnS consumer. Upon creation of the trigger condition descriptor the value of the information element is set to the date and time at which the descriptor is created.",
-        "the last time the plan was modified" ;
-    rdfs:range xsd:dateTime .
-
-TS28572_PlanManagement:lastTriggeredAt a rdf:Property ;
-    rdfs:comment "The date and time at which the evaluation result of the trigger condition changed the last time from \"False\" to \"True\"." ;
-    rdfs:range xsd:dateTime .
-
-TS28572_PlanManagement:lastValidatedAt a rdf:Property ;
-    rdfs:comment "last time the plan was validated" ;
-    rdfs:range xsd:dateTime .
 
 TS28572_PlanManagement:method a rdf:Property ;
     rdfs:range xsd:string .
 
-TS28572_PlanManagement:name a rdf:Property ;
-    rdfs:comment "name of the job." ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:self a rdf:Property .
-
-TS28572_PlanManagement:startedAt a rdf:Property ;
-    rdfs:range xsd:dateTime .
-
-TS28572_PlanManagement:status a rdf:Property ;
-    rdfs:comment "A URI reference to the status information" .
-
-TS28572_PlanManagement:stoppedAt a rdf:Property ;
-    rdfs:range xsd:dateTime .
-
 TS28572_PlanManagement:title a rdf:Property ;
-    rdfs:range xsd:string .
-
-TS28572_PlanManagement:validationDetails a rdf:Property ;
-    rdfs:comment "A URI reference to the status information" ;
-    rdfs:range TS28572_PlanManagement:ExecutionDetails .
-
-TS28572_PlanManagement:validationState a rdf:Property ;
-    rdfs:comment "The validation state of the plan." ;
     rdfs:range xsd:string .
 

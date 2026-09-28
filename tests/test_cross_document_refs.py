@@ -230,3 +230,84 @@ def test_split_model_common_class_iri_is_stable(tmp_path: Path):
     assert (order_iri, RDFS.subClassOf, time_period_iri) in converter.rdf_graph, (
         "Order must have rdfs:subClassOf TimePeriod under shared namespace"
     )
+
+
+def test_no_property_iri_is_minted_outside_the_mapping(tmp_path) -> None:
+    """Every property the graph declares must be one the Mapping attributed. No second IRI.
+
+    THE DEFECT THIS GUARDS, measured 2026-09-28. `_type_clause` passed `subject=None` for an inline
+    `allOf` member to suppress a duplicate NodeShape, and the same argument also carried "which class
+    owns these properties" -- so `_process_property` fell to `self.main_prefix[safe_prop]` and minted an
+    UNSCOPED IRI. The result was two IRIs for one property: `<ns>AnLFFunction` beside the correct
+    `<ns>NwdafFunction-Single/AnLFFunction`, which the Mapping had attributed properly all along.
+
+    Corpus effect: 89 duplicate subjects in `TS28541_5GcNrm` alone, 702 triples across the 44 3GPP
+    documents, and every one of the 89 already had its scoped twin in the same graph -- pure duplicates,
+    nothing lost when they went. It was also the dominant reason whole-vs-split conversions disagreed
+    (`scripts/diagnose_split_divergence.py`: 90.2% of the divergence), because a split document never
+    minted the duplicate.
+
+    It also COLLIDED: `EP_AIOT3` is an inline member property of both `AmfFunction-Single` and
+    `AiotfFunction-Single`, so unscoped they became one IRI carrying two classes' domains.
+
+    Asserted against the MAPPING rather than against a list of expected IRIs, because the Mapping is
+    the independent path -- it is built by different code and it had the right answer while the emitter
+    did not.
+    """
+    import yaml
+
+    from rdflib.namespace import RDF
+
+    from openapi_to_rdf import build_mapping
+    from openapi_to_rdf.provenance import split_provenance
+    from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
+
+    ns = "https://example.org/v/"
+    document = {
+        "openapi": "3.0.0",
+        "info": {"title": "Inline", "version": "1"},
+        "components": {"schemas": {
+            # The real shape, reduced: a named schema whose `allOf` carries an INLINE member with
+            # properties. That member has no name, so its properties belong to `Holder`.
+            "Holder": {"allOf": [
+                {"$ref": "#/components/schemas/Base"},
+                {"type": "object", "properties": {"inlineProp": {"type": "string"}}},
+            ]},
+            # A second holder declaring the SAME inline property name, which is what made the old
+            # unscoped mint collide rather than merely be redundant.
+            "OtherHolder": {"allOf": [
+                {"$ref": "#/components/schemas/Base"},
+                {"type": "object", "properties": {"inlineProp": {"type": "string"}}},
+            ]},
+            "Base": {"type": "object", "properties": {"id": {"type": "string"}}},
+        }},
+    }
+    spec = tmp_path / "inline.yaml"
+    spec.write_text(yaml.safe_dump(document))
+
+    converter = OpenAPIToSHACLConverter(str(spec), base_namespace=ns, output_dir=str(tmp_path / "out"))
+    converter.convert()
+    graph, _ = split_provenance(converter.rdf_graph, ns)
+    mapping = build_mapping(document, namespace=ns)
+
+    mapping_iris = {fact.iri for fact in mapping.properties_by_class.values()}
+    # A property subject is one carrying a `/` after the namespace; a class IRI has none.
+    graph_properties = {
+        str(s) for s in set(graph.subjects())
+        if str(s).startswith(ns) and "/" in str(s)[len(ns):]
+    }
+    unscoped = {
+        str(s) for s in set(graph.subjects())
+        if str(s).startswith(ns) and "/" not in str(s)[len(ns):]
+        and (s, RDF.type, RDF.Property) in graph
+    }
+
+    assert not unscoped, f"unscoped property IRIs minted: {sorted(unscoped)}"
+    assert graph_properties <= mapping_iris, {
+        "in_graph_not_in_mapping": sorted(graph_properties - mapping_iris)
+    }
+    # Non-vacuous, and the candidate set is stated: the two holders must each have their OWN
+    # `inlineProp`, so the collision is what is being ruled out rather than merely the redundancy.
+    assert f"{ns}Holder/inlineProp" in graph_properties, sorted(graph_properties)
+    assert f"{ns}OtherHolder/inlineProp" in graph_properties, sorted(graph_properties)
+    assert len(graph_properties) >= 2, sorted(graph_properties)

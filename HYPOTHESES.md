@@ -312,22 +312,46 @@ H6.
   `artifacts/split-divergence-causes.json`, over all 44 3GPP documents — 778 triples present whole and
   absent split:
 
-      702   90.2%   unscoped IRI, dropped by the split   -> a VOCABULARY DECISION, not a defect
+      702   90.2%   unscoped IRI, dropped by the split   -> a DUPLICATE mint; now FIXED, see below
         0    0.0%   class-scoped IRI, dropped            -> the AC-7 orphaning defect
        67    8.6%   datatype range -> a class            -> the SPLIT IS RIGHT, the whole is wrong
         4    0.5%   class range -> a datatype            -> the real split defect
         5    0.6%   unexplained
 
+  After the duplicate-IRI fix, re-measured the same way — **79 triples**, of which 67 (84.8%) are the
+  split being right, 5 unscoped, 4 the split defect, 3 unexplained.
+
   **AC-7 orphaning has ZERO instances.** It was the recorded mechanism for five days and it does not
   happen: not one class-scoped property is dropped by splitting. It was a hypothesis inferred from a
   direction (net loss) and the direction had a different cause.
 
-  **90% of the "divergence" is not an ingestion defect at all.** It is the unscoped-property-IRI family
-  already open in this file ("128 of 965 property IRIs are unscoped"): `shacl_converter`'s
-  inline-sub-object fallback mints `<ns>AnLFFunction` with no `/Class/` segment, because an inline object
-  has no schema name to scope under. Splitting the document changes which half holds the inline object
-  and the unscoped term stops being minted. **That is blocked on the vocabulary decision nobody has
-  taken**, and fixing the ingestion path cannot touch it.
+  **90% of the "divergence" was a DUPLICATE IRI, and it is now FIXED** (2026-09-28). It was recorded here
+  as the unscoped-property-IRI family "blocked on a vocabulary decision nobody has taken". That framing
+  was wrong, and the ruling that dissolved it is one sentence of first principles: *if a property is
+  defined inline, it is defined HERE, not elsewhere.*
+
+  There was no decision to take, because `build_mapping` had already taken it: it attributes an inline
+  `allOf` member's properties to the schema whose `allOf` it belongs to, giving
+  `:NwdafFunction-Single/AnLFFunction`. Only the TTL emitter disagreed. `_type_clause` passed
+  `subject=None` for an inline member so `_handle_object_type` would not create a duplicate NodeShape —
+  and that one argument also carried *which class owns these properties*, so `_process_property` fell
+  through to `self.main_prefix[safe_prop]` and minted a SECOND, unscoped IRI. Two concerns in one
+  parameter. Fixed by threading `owner=` separately.
+
+  **They were pure duplicates: 89 subjects removed from `TS28541_5GcNrm`, 0 added, and all 89 already
+  had their correctly-scoped twin in the same graph.** Nothing moved and nothing was lost. Corpus-wide:
+  702 duplicate triples gone, `output/` shrank by 1,226 lines, and the emitted property IRIs now equal
+  the Mapping's exactly — 958 = 958, zero in the graph the Mapping does not have.
+
+  They also COLLIDED, which is the second reason the ruling is right: `EP_AIOT3` is an inline member
+  property of both `AmfFunction-Single` and `AiotfFunction-Single`, so unscoped the two became one IRI
+  carrying two classes' domains.
+
+  Effect on this hypothesis: divergence **778 → 79 triples**, documents isomorphic on vocabulary
+  **6 → 30 of 47**, substantive passes **2 → 25**. Guarded by
+  `tests/test_cross_document_refs.py::test_no_property_iri_is_minted_outside_the_mapping`, asserted
+  against the Mapping rather than a list of expected IRIs, and watched failing by restoring the old
+  argument.
 
   **9% is the split being MORE correct than the whole document.** Where a property's `items.$ref` names a
   top-level `oneOf` union, determination S2 gives that union no class, so the WHOLE conversion falls back
