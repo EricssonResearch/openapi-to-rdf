@@ -116,8 +116,11 @@ def test_applying_overlay_reproduces_annotated_document() -> None:
             schema_name = action["target"].split("['")[1].split("']")[0]
             annotated["components"]["schemas"][schema_name].update(action["update"])
 
-    # The annotated document should have x-jsonld-context at the root
-    assert "x-jsonld-context" in annotated
+    # The annotated document records where the context is served. Under `x-api-context-url`, NOT
+    # `x-jsonld-context`: the draft scopes its keywords to an object schema, so the document root is
+    # outside their definition (see `test_the_root_key_is_never_the_draft_keyword`).
+    assert "x-api-context-url" in annotated
+    assert "x-jsonld-context" not in annotated
     # And x-jsonld-type on the Order schema
     assert "x-jsonld-type" in annotated["components"]["schemas"]["Order"]
     assert annotated["components"]["schemas"]["Order"]["x-jsonld-type"] == NS + "Order"
@@ -280,10 +283,62 @@ def test_the_context_url_can_be_supplied_by_the_caller() -> None:
 
     default = overlay_from_mapping(mapping, extends="v.yaml", title="t", version="1")
     root = next(a for a in default["actions"] if a["target"] == "$")
-    assert root["update"]["x-jsonld-context"] == "v-context.jsonld"
+    assert root["update"] == {"x-api-context-url": "v-context.jsonld"}
 
     served = overlay_from_mapping(
         mapping, extends="v.yaml", title="t", version="1", context_url="/context.jsonld"
     )
     root = next(a for a in served["actions"] if a["target"] == "$")
-    assert root["update"]["x-jsonld-context"] == "/context.jsonld"
+    assert root["update"] == {"x-api-context-url": "/context.jsonld"}
+
+    # A caller with its own convention names the key.
+    keyed = overlay_from_mapping(
+        mapping, extends="v.yaml", title="t", version="1",
+        context_url="/c.jsonld", context_url_key="x-vendor-context",
+    )
+    root = next(a for a in keyed["actions"] if a["target"] == "$")
+    assert root["update"] == {"x-vendor-context": "/c.jsonld"}
+
+
+def test_the_root_key_is_never_the_draft_keyword() -> None:
+    """`x-jsonld-context` at the document root is not a thing the draft defines, and was emitted here.
+
+    Verified against the primary source rather than inferred from prose about it:
+    draft-polli-restapi-ld-keywords-09 (fetched 2026-09-27 from
+    `https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-09.txt`) titles §2 "JSON Schema
+    keywords" and opens "*A schema ... MAY use the following JSON Schema keywords*", then adds "*The
+    schema MUST be of type object*". The OpenAPI document root is not a schema, so the keyword has no
+    definition there. §2.2 compounds it: "*if the x-jsonld-context is a URL string, that URL needs to be
+    dereferenced and processed*", which forces a build-time fetch on any generator that reads it.
+
+    Refused rather than renamed, because a caller passing that key has made a conformance decision and
+    is entitled to be told it is wrong instead of having it quietly corrected.
+    """
+    mapping = build_mapping(_VARIANT_DOC, namespace="https://example.org/v/")
+
+    with pytest.raises(ValueError, match="draft-polli-restapi-ld-keywords-09"):
+        overlay_from_mapping(
+            mapping, extends="v.yaml", title="t", version="1",
+            context_url_key="x-jsonld-context",
+        )
+
+    # And the default output does not carry it at the root either -- the inversion above would pass
+    # even if the default were still wrong, since it only exercises the explicit argument.
+    default = overlay_from_mapping(mapping, extends="v.yaml", title="t", version="1")
+    root = next(a for a in default["actions"] if a["target"] == "$")
+    assert "x-jsonld-context" not in root["update"]
+    # Per-schema is where the keyword BELONGS, so assert it is still there: a fix that removed it
+    # everywhere would satisfy the line above and destroy the projection.
+    schema_actions = [a for a in default["actions"] if a["target"] != "$"]
+    assert schema_actions and all("x-jsonld-context" in a["update"] for a in schema_actions)
+
+
+def test_no_root_action_when_the_caller_wants_none() -> None:
+    """`context_url=""` suppresses it: a consumer reading only inlined per-schema contexts needs no
+    pointer, and emitting one it never reads is a key that can only go stale."""
+    mapping = build_mapping(_VARIANT_DOC, namespace="https://example.org/v/")
+    document = overlay_from_mapping(
+        mapping, extends="v.yaml", title="t", version="1", context_url=""
+    )
+    assert not [a for a in document["actions"] if a["target"] == "$"]
+    assert document["actions"], "suppressing the root action must not empty the document"

@@ -31,6 +31,7 @@ def overlay_from_mapping(
     version: str,
     variant_suffixes: tuple[str, ...] = (),
     context_url: str | None = None,
+    context_url_key: str = "x-api-context-url",
 ) -> dict:
     """Project an OpenAPI Overlay 1.1.0 document from the Mapping.
 
@@ -39,11 +40,35 @@ def overlay_from_mapping(
         extends: The OpenAPI document this overlay annotates.
         title: Overlay title.
         version: Overlay version.
-        context_url: Where the JSON-LD context is served, recorded at the document root. Defaults to
-            `<extends>-context.jsonld`, which assumes the context sits beside the document. A caller
-            that SERVES its context -- `snm-api-native` answers `/context.jsonld` -- must be able to say
-            so, and the alternative was for it to rewrite this document afterwards: a second,
-            non-standard step, which is what adopting the standard Overlay exists to remove.
+        context_url: Where the JSON-LD context is served, recorded at the document root under
+            `context_url_key`. Defaults to `<extends>-context.jsonld`, which assumes the context sits
+            beside the document. A caller that SERVES its context -- `snm-api-native` answers
+            `/context.jsonld` -- must be able to say so, and the alternative was for it to rewrite this
+            document afterwards: a second, non-standard step, which is what adopting the standard
+            Overlay exists to remove. Pass `context_url=""` to emit no root action at all.
+        context_url_key: The document-root key the context URL is recorded under. Defaults to
+            `x-api-context-url`, and **must not** be `x-jsonld-context`, which this refuses.
+
+            Verified against the primary source, not inferred: draft-polli-restapi-ld-keywords-09
+            (`https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-09.txt`, read 2026-09-27)
+            titles its §2 "JSON Schema keywords" and opens "*A schema ... MAY use the following JSON
+            Schema keywords*". Both keywords are scoped to a schemaObject, and the same section adds
+            "*The schema MUST be of type object*". The OpenAPI document root is not a schema, so
+            `x-jsonld-context` there is outside the keyword's defined scope -- this projection emitted it
+            there until 2026-09-27, which was a placement the draft does not define.
+
+            §2.2 makes it worse than a scope error: "*if the x-jsonld-context is a URL string, that URL
+            needs to be dereferenced and processed to generate the instance context*". A generator
+            reading a bare URL must fetch at build time, and hermetic builds break. `snm-api-native`
+            records that as determination **P4** -- "a producer targeting generators MUST inline the
+            context" -- and reserves the root key `x-api-context-url` explicitly "to avoid collision
+            with the registered keys". Emitting the registered keyword there collided with the key that
+            existed to prevent the collision.
+
+            OURS, and it asserts no external authority: `x-api-context-url` is `snm-api-native`'s own
+            key, chosen as the default here because it is the only established spelling for this fact
+            that is known not to collide with a registered keyword. A caller with a different convention
+            passes its own.
         variant_suffixes: Schema-name suffixes marking a SERIALISATION VARIANT of another schema. A
             schema whose name ends with one of these, and whose base name is also a class, is annotated
             with the BASE's IRI rather than its own. Empty by default: this is a naming convention of a
@@ -76,17 +101,33 @@ def overlay_from_mapping(
     if not mapping.classes:
         raise ValueError("no classes to annotate")
 
+    # REFUSED, not coerced. `x-jsonld-context` at the document root is outside the keyword's scope
+    # (draft-polli-restapi-ld-keywords-09 §2 defines it as a JSON Schema keyword on an OBJECT schema) and
+    # a bare URL under it forces a generator to dereference at build time (§2.2). Silently renaming the
+    # caller's key would hide a conformance decision they are entitled to make explicitly.
+    if context_url_key == "x-jsonld-context":
+        raise ValueError(
+            "context_url_key='x-jsonld-context' is refused: draft-polli-restapi-ld-keywords-09 §2 "
+            "scopes that keyword to a schemaObject of type `object`, so the document root is outside "
+            "its definition, and §2.2 notes a URL-string value must be dereferenced at build time. "
+            "Use a key of your own (the default `x-api-context-url`) or pass context_url='' to emit "
+            "no root action."
+        )
+
     actions: list[dict] = []
 
-    # Document-level action: add x-jsonld-context reference (draft-polli-restapi-ld-keywords)
+    # Document-level action: where the context is SERVED. Not a draft keyword -- the draft defines no
+    # document-root pointer at all -- so it goes under a key the caller owns, and `context_url=""`
+    # suppresses it entirely for a caller whose consumers read only the inlined per-schema contexts.
     if context_url is None:
         context_url = extends.replace(".yaml", "-context.jsonld").replace(".yml", "-context.jsonld")
 
-    actions.append({
-        "target": "$",
-        "description": "Add JSON-LD context reference (draft-polli-restapi-ld-keywords)",
-        "update": {"x-jsonld-context": context_url},
-    })
+    if context_url:
+        actions.append({
+            "target": "$",
+            "description": f"Record where the JSON-LD context is served ({context_url_key})",
+            "update": {context_url_key: context_url},
+        })
 
     # Per-schema actions: add x-jsonld-type and x-jsonld-context
     for class_name, class_fact in mapping.classes.items():
