@@ -444,8 +444,51 @@ def is_json_only_union(schema_def: Any) -> bool:
     What the union genuinely carries is a constraint on the *property* that accepts it, and that is
     preserved: :func:`target_classes_for` expands the members, which a projection emits as
     ``sh:or``/``sh:xone``.
+
+    **A ``oneOf`` whose members say only which properties are REQUIRED is not a union** (2026-09-28).
+    This returned ``bool(schema_def.get("oneOf"))`` — any ``oneOf`` at all — and that suppressed classes
+    for schemas that are plainly objects. ``TS28541_5GcNrm:PlmnRange`` is::
+
+        type: object
+        oneOf: [{required: [start, end]}, {required: [pattern]}]
+        properties: {start: ..., end: ..., pattern: ...}
+
+    Those members carry no ``$ref``, no ``type`` and no ``properties``. They are a co-occurrence
+    constraint on ONE object's own fields — "either both bounds, or a pattern" — which is what
+    ``oneOf`` is for in JSON Schema besides type alternation. There is no second kind of thing here and
+    nothing to co-denote; there is one class with three properties.
+
+    The two populations separate perfectly on the corpus, which is why the test is safe to narrow.
+    Measured over all 44 3GPP documents:
+
+    * **69 true type unions** — not one carries ``type: object`` or ``properties``;
+    * **22 constraint-only ``oneOf``** — every one carries BOTH.
+
+    Cost of the broad version, measured: the class was suppressed, so a property whose ``items.$ref``
+    named it got ``rdfs:range xsd:string`` in a whole-document conversion and a DANGLING
+    ``rdfs:range :PlmnRange`` in a split one — an IRI nothing declares. Neither arm was right, and the
+    whole-vs-split gate reported the difference as 67 divergent triples while the real defect was here.
+
+    Recorded in HYPOTHESES.md's H3 table as "top-level ``oneOf``, so the converter is right to emit no
+    shape". That verdict was correct for 69 of the 71 it covered and wrong for ``PlmnRange`` and
+    ``ImsiRange``, which the table listed without checking whether their members were type alternatives.
     """
-    return isinstance(schema_def, dict) and bool(schema_def.get("oneOf"))
+    if not isinstance(schema_def, dict):
+        return False
+    members = schema_def.get("oneOf")
+    if not isinstance(members, list) or not members:
+        return False
+    # Keys a member may carry while still being a constraint on the enclosing object rather than an
+    # alternative type. `not` belongs here for the same reason `required` does: it constrains, it does
+    # not name a kind. Anything else -- `$ref`, `type`, `properties`, `items`, `enum` -- makes the member
+    # a type in its own right, which is the case S2 is about.
+    constraint_only_keys = {"required", "description", "title", "not"}
+    member_keys: set[str] = set()
+    for member in members:
+        if not isinstance(member, dict):
+            return True  # a non-object member is not a constraint; treat as a union
+        member_keys |= set(member)
+    return not member_keys <= constraint_only_keys
 
 
 def referent_name(schema_name: str) -> str | None:

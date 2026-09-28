@@ -21,10 +21,15 @@ The four buckets, which need four different responses:
   HYPOTHESES.md, "128 of 965 property IRIs are unscoped". Not an ingestion defect.
 * **vanished_scoped** — the same, but class-scoped. This IS the ingestion defect the AC-7 orphaning
   hypothesis is about: a property whose declaring class is external in the half that would publish it.
-* **range_corrected** — the whole conversion says `rdfs:range xsd:string` and the split names a class.
-  The SPLIT IS RIGHT and the whole document is wrong: the target is a top-level `oneOf` union, which
-  determination S2 gives no class, so the whole conversion falls back to a string while the split
-  registers it as an external class (D2) and resolves it properly. A defect in the WHOLE path.
+* **range_corrected** — the whole conversion uses a datatype, the split names a class, AND THE SPLIT'S
+  TARGET IS DECLARED. Only then is the split right. Before the S2 narrowing this was the `PlmnRange`
+  case: an object with a constraint-only `oneOf` that `is_json_only_union` wrongly suppressed.
+* **range_dangling** — the same shape but the split's target is NOT declared, so the split has emitted
+  an `rdfs:range` pointing at nothing and the WHOLE document was right. This is defect **D3**:
+  `is_primitive_def` returns False for an external `$ref`, so a split half cannot see that
+  `Tac: {type: string, pattern: ...}` is a primitive and treats the alias as a class. The distinction
+  matters enough to be its own bucket because without it the classifier reported 57 triples as "the
+  split is right" when the split was wrong.
 * **range_degraded** — the reverse of the above: the whole conversion names a class and the split falls
   back to a datatype. The ONE bucket where the split is genuinely worse, and it is small.
 * **other** — anything the four above do not explain. Kept so the classification cannot quietly
@@ -54,7 +59,7 @@ from typing import Any
 
 import yaml
 from rdflib import Graph, URIRef
-from rdflib.namespace import RDFS, XSD
+from rdflib.namespace import RDF, RDFS, XSD
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -128,13 +133,25 @@ def classify(path: Path, work_dir: Path) -> dict[str, Any]:
         whole_names_class = bool(whole_range) and not whole_is_datatype
         split_names_class = bool(split_range) and not split_is_datatype
         if whole_is_datatype and split_names_class:
-            # The split resolved a class where the whole document fell back to a datatype. Keyed on the
-            # XSD namespace rather than on `xsd:string` alone: the first version of this test hardcoded
-            # the string case and left 14 triples "unexplained", 12 of which were the same phenomenon
-            # with `xsd:integer`. A filter narrower than the class it describes is this file's own
-            # recurring error.
-            counts["range_corrected"] += triples_here
-            buckets["range_corrected"].append(str(subject)[len(NAMESPACE):])
+            # The split named a class where the whole document used a datatype. WHETHER THAT IS BETTER
+            # DEPENDS ON THE TARGET BEING DECLARED, and the first version of this classifier did not
+            # check -- it reported all 57 of these as "the split is right" for three consecutive
+            # reports. They are mostly the reverse: `AreaScope/tacList` is `array of $ref Tac` where
+            # `Tac` is a string with a pattern, so `rdfs:range xsd:string` is CORRECT and the split's
+            # `rdfs:range :Tac` points at an IRI nothing declares. That is defect D3 -- `is_primitive_def`
+            # returns False for an EXTERNAL `$ref`, so a split half cannot see the alias is a primitive.
+            #
+            # Keyed on the XSD namespace rather than `xsd:string` alone: an earlier version hardcoded the
+            # string case and left 14 triples unexplained, 12 of them the same thing with `xsd:integer`.
+            target_declared = all(
+                (target, RDF.type, RDFS.Class) in split for target in split_range
+            )
+            key = "range_corrected" if target_declared else "range_dangling"
+            counts[key] += triples_here
+            buckets[key].append(
+                f"{str(subject)[len(NAMESPACE):]} {sorted(str(r).replace(NAMESPACE, ':') for r in whole_range)}"
+                f" -> {sorted(str(r).replace(NAMESPACE, ':') for r in split_range)}"
+            )
         elif whole_names_class and split_is_datatype:
             # The reverse, and the ONE bucket where the split is genuinely worse: it lost a class range
             # the whole document resolved. This is the real split defect, and it is small.
@@ -210,11 +227,13 @@ def main(argv: list[str] | None = None) -> int:
     labels = {
         "vanished_unscoped": "unscoped IRI, dropped by the split  -> VOCABULARY DECISION, not a bug",
         "vanished_scoped":   "class-scoped IRI, dropped           -> the AC-7 orphaning defect",
-        "range_corrected":   "datatype range -> a class           -> the SPLIT is right, whole is wrong",
+        "range_corrected":   "datatype -> a DECLARED class        -> the SPLIT is right, whole is wrong",
+        "range_dangling":    "datatype -> an UNDECLARED class     -> the SPLIT is wrong: defect D3",
         "range_degraded":    "class range -> a datatype           -> the SPLIT is wrong: the real defect",
         "other":             "unexplained                         -> the classification is incomplete",
     }
-    for key in ("vanished_unscoped", "vanished_scoped", "range_corrected", "range_degraded", "other"):
+    for key in ("vanished_unscoped", "vanished_scoped", "range_corrected", "range_dangling",
+                "range_degraded", "other"):
         n = totals.get(key, 0)
         share = f"{100 * n / lost_total:5.1f}%" if lost_total else "    -"
         print(f"  {n:6}  {share}  {labels[key]}")

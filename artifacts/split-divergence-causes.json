@@ -28,30 +28,30 @@
     "lost_triples": 8,
     "gained_triples": 8,
     "by_cause": {
-      "range_degraded": 4,
-      "range_corrected": 2,
-      "other": 2
+      "other": 2,
+      "range_dangling": 2,
+      "range_degraded": 4
     },
     "examples": {
+      "other": [
+        "SupportedLearningTechnology/supportedInferenceNameList whole_range=['https://example.org/v/NwdafAnalyticsType'] split_range=['https://example.org/v/AIMLInferenceName']",
+        "expectedInferenceScope whole_range=['https://example.org/v/NwdafAnalyticsType'] split_range=['https://example.org/v/AIMLInferenceName']"
+      ],
+      "range_dangling": [
+        "RLRequirement/rLEnvironmentScope ['http://www.w3.org/2001/XMLSchema#string'] -> [':EnvironmentScope']",
+        "RLRequirement/rLImpactedScope ['http://www.w3.org/2001/XMLSchema#string'] -> [':EnvironmentScope']"
+      ],
       "range_degraded": [
         "InferenceOutput/aIMLInferenceName ['https://example.org/v/NwdafAnalyticsType'] -> ['http://www.w3.org/2001/XMLSchema#string']",
         "MLCapabilityInfo/aIMLInferenceName ['https://example.org/v/NwdafAnalyticsType'] -> ['http://www.w3.org/2001/XMLSchema#string']",
         "aIMLInferenceName ['https://example.org/v/NwdafAnalyticsType'] -> ['http://www.w3.org/2001/XMLSchema#string']",
         "inferenceScope ['https://example.org/v/NwdafAnalyticsType'] -> ['http://www.w3.org/2001/XMLSchema#string']"
-      ],
-      "range_corrected": [
-        "RLRequirement/rLEnvironmentScope",
-        "RLRequirement/rLImpactedScope"
-      ],
-      "other": [
-        "SupportedLearningTechnology/supportedInferenceNameList whole_range=['https://example.org/v/NwdafAnalyticsType'] split_range=['https://example.org/v/AIMLInferenceName']",
-        "expectedInferenceScope whole_range=['https://example.org/v/NwdafAnalyticsType'] split_range=['https://example.org/v/AIMLInferenceName']"
       ]
     },
     "subjects_by_cause": {
-      "range_degraded": 4,
-      "range_corrected": 2,
-      "other": 2
+      "other": 2,
+      "range_dangling": 2,
+      "range_degraded": 4
     },
     "accounted": true
   },
@@ -106,24 +106,24 @@
     "lost_triples": 6,
     "gained_triples": 2,
     "by_cause": {
-      "vanished_unscoped": 5,
-      "range_corrected": 1
+      "range_dangling": 1,
+      "vanished_unscoped": 5
     },
     "examples": {
+      "range_dangling": [
+        "IntentReportControl/expectedReportTypes ['http://www.w3.org/2001/XMLSchema#string'] -> [':ExpectedReportType']"
+      ],
       "vanished_unscoped": [
         "daysOfMonth",
         "daysOfWeek",
         "geoCircle",
         "geoPolygon",
         "timeIntervals"
-      ],
-      "range_corrected": [
-        "IntentReportControl/expectedReportTypes"
       ]
     },
     "subjects_by_cause": {
-      "vanished_unscoped": 5,
-      "range_corrected": 1
+      "range_dangling": 1,
+      "vanished_unscoped": 5
     },
     "accounted": true
   },
@@ -233,15 +233,15 @@
     "lost_triples": 1,
     "gained_triples": 1,
     "by_cause": {
-      "range_corrected": 1
+      "range_dangling": 1
     },
     "examples": {
-      "range_corrected": [
-        "connectionInfo-Type/connection"
+      "range_dangling": [
+        "connectionInfo-Type/connection ['http://www.w3.org/2001/XMLSchema#string'] -> [':connectionId-Type']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 1
+      "range_dangling": 1
     },
     "accounted": true
   },
@@ -269,34 +269,37 @@
   },
   {
     "spec": "TS28541_5GcNrm.yaml",
-    "whole_triples": 3376,
-    "split_triples": 3376,
-    "lost_triples": 8,
-    "gained_triples": 8,
+    "whole_triples": 3430,
+    "split_triples": 3432,
+    "lost_triples": 7,
+    "gained_triples": 9,
     "by_cause": {
-      "range_corrected": 8
+      "range_corrected": 4,
+      "range_dangling": 3
     },
     "examples": {
       "range_corrected": [
-        "CallbackUriPrefixItem/notificationTypes",
-        "ChfInfo/plmnRangeList",
-        "ConditionItem/consumerNfTypes",
-        "DccfInfo/servingNfTypeList",
-        "DnnUpfInfoItem/ipv4IndexList",
-        "DnnUpfInfoItem/ipv6IndexList",
-        "LmfInfo/servingAnNodeTypes",
-        "TrustAfInfo/afEvents"
+        "DnnUpfInfoItem/ipv4IndexList ['http://www.w3.org/2001/XMLSchema#string'] -> [':IpIndex']",
+        "DnnUpfInfoItem/ipv6IndexList ['http://www.w3.org/2001/XMLSchema#string'] -> [':IpIndex']",
+        "LmfInfo/servingAnNodeTypes ['http://www.w3.org/2001/XMLSchema#string'] -> [':AnNodeType']",
+        "TrustAfInfo/afEvents ['http://www.w3.org/2001/XMLSchema#string'] -> [':AfEvent']"
+      ],
+      "range_dangling": [
+        "CallbackUriPrefixItem/notificationTypes ['http://www.w3.org/2001/XMLSchema#string'] -> [':NotificationType']",
+        "ConditionItem/consumerNfTypes ['http://www.w3.org/2001/XMLSchema#string'] -> [':NFType']",
+        "DccfInfo/servingNfTypeList ['http://www.w3.org/2001/XMLSchema#string'] -> [':NFType']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 8
+      "range_corrected": 4,
+      "range_dangling": 3
     },
     "accounted": true
   },
   {
     "spec": "TS28541_NrNrm.yaml",
-    "whole_triples": 1296,
-    "split_triples": 1297,
+    "whole_triples": 1309,
+    "split_triples": 1310,
     "lost_triples": 2,
     "gained_triples": 3,
     "by_cause": {
@@ -305,7 +308,7 @@
     },
     "examples": {
       "range_corrected": [
-        "cSonPciList"
+        "cSonPciList ['http://www.w3.org/2001/XMLSchema#integer'] -> [':CSonPciList']"
       ],
       "other": [
         "nRPciList whole_range=['http://www.w3.org/2001/XMLSchema#integer'] split_range=['http://www.w3.org/2001/XMLSchema#string']"
@@ -335,23 +338,23 @@
     "lost_triples": 2,
     "gained_triples": 2,
     "by_cause": {
-      "range_corrected": 2
+      "range_dangling": 2
     },
     "examples": {
-      "range_corrected": [
-        "measJobCreation-RequestType/iOCInstanceList",
-        "measJobInfo-ResourceType/iOCInstanceList"
+      "range_dangling": [
+        "measJobCreation-RequestType/iOCInstanceList ['http://www.w3.org/2001/XMLSchema#string'] -> [':uri-Type']",
+        "measJobInfo-ResourceType/iOCInstanceList ['http://www.w3.org/2001/XMLSchema#string'] -> [':uri-Type']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 2
+      "range_dangling": 2
     },
     "accounted": true
   },
   {
     "spec": "TS28561_NdtNrm.yaml",
-    "whole_triples": 106,
-    "split_triples": 106,
+    "whole_triples": 112,
+    "split_triples": 112,
     "lost_triples": 0,
     "gained_triples": 0,
     "by_cause": {},
@@ -377,16 +380,16 @@
     "lost_triples": 2,
     "gained_triples": 2,
     "by_cause": {
-      "range_corrected": 2
+      "range_dangling": 2
     },
     "examples": {
-      "range_corrected": [
-        "ExecutionDetails/results",
-        "PlanConfigurationGroupDescriptor/members"
+      "range_dangling": [
+        "ExecutionDetails/results ['http://www.w3.org/2001/XMLSchema#string'] -> [':Result']",
+        "PlanConfigurationGroupDescriptor/members ['http://www.w3.org/2001/XMLSchema#string'] -> [':Member']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 2
+      "range_dangling": 2
     },
     "accounted": true
   },
@@ -436,8 +439,8 @@
   },
   {
     "spec": "TS28623_GenericNrm.yaml",
-    "whole_triples": 327,
-    "split_triples": 330,
+    "whole_triples": 335,
+    "split_triples": 338,
     "lost_triples": 0,
     "gained_triples": 3,
     "by_cause": {},
@@ -463,15 +466,15 @@
     "lost_triples": 1,
     "gained_triples": 1,
     "by_cause": {
-      "range_corrected": 1
+      "range_dangling": 1
     },
     "examples": {
-      "range_corrected": [
-        "MnsInfo-Single/mnsCapability"
+      "range_dangling": [
+        "MnsInfo-Single/mnsCapability ['http://www.w3.org/2001/XMLSchema#string'] -> [':MnsCapability']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 1
+      "range_dangling": 1
     },
     "accounted": true
   },
@@ -541,10 +544,10 @@
     },
     "examples": {
       "range_corrected": [
-        "SessionRuleReport/policyDecFailureReports",
-        "SmPolicyDecision/policyCtrlReqTriggers",
-        "SmPolicyUpdateContextData/policyDecFailureReports",
-        "SmPolicyUpdateContextData/repPolicyCtrlReqTriggers"
+        "SessionRuleReport/policyDecFailureReports ['http://www.w3.org/2001/XMLSchema#string'] -> [':PolicyDecisionFailureCode']",
+        "SmPolicyDecision/policyCtrlReqTriggers ['http://www.w3.org/2001/XMLSchema#string'] -> [':PolicyControlRequestTrigger']",
+        "SmPolicyUpdateContextData/policyDecFailureReports ['http://www.w3.org/2001/XMLSchema#string'] -> [':PolicyDecisionFailureCode']",
+        "SmPolicyUpdateContextData/repPolicyCtrlReqTriggers ['http://www.w3.org/2001/XMLSchema#string'] -> [':PolicyControlRequestTrigger']"
       ]
     },
     "subjects_by_cause": {
@@ -554,8 +557,8 @@
   },
   {
     "spec": "TS29514_Npcf_PolicyAuthorization.yaml",
-    "whole_triples": 709,
-    "split_triples": 709,
+    "whole_triples": 809,
+    "split_triples": 809,
     "lost_triples": 2,
     "gained_triples": 2,
     "by_cause": {
@@ -563,8 +566,8 @@
     },
     "examples": {
       "range_corrected": [
-        "EventsSubscReqData/reqAnis",
-        "EventsSubscReqDataRm/reqAnis"
+        "EventsSubscReqData/reqAnis ['http://www.w3.org/2001/XMLSchema#string'] -> [':RequiredAccessInfo']",
+        "EventsSubscReqDataRm/reqAnis ['http://www.w3.org/2001/XMLSchema#string'] -> [':RequiredAccessInfo']"
       ]
     },
     "subjects_by_cause": {
@@ -583,7 +586,7 @@
     },
     "examples": {
       "range_corrected": [
-        "RequestedContext/contexts"
+        "RequestedContext/contexts ['http://www.w3.org/2001/XMLSchema#string'] -> [':ContextType']"
       ]
     },
     "subjects_by_cause": {
@@ -593,51 +596,63 @@
   },
   {
     "spec": "TS29520_Nnwdaf_EventsSubscription.yaml",
-    "whole_triples": 920,
-    "split_triples": 920,
-    "lost_triples": 6,
-    "gained_triples": 6,
+    "whole_triples": 1008,
+    "split_triples": 1008,
+    "lost_triples": 2,
+    "gained_triples": 2,
     "by_cause": {
-      "range_corrected": 6
+      "range_corrected": 1,
+      "range_dangling": 1
     },
     "examples": {
       "range_corrected": [
-        "AnalyticsContextIdentifier/nfAnaCtxts",
-        "CongestionInfo/topAppListDl",
-        "CongestionInfo/topAppListUl",
-        "EventNotification/qosSustainInfos",
-        "EventSubscription/qosFlowRetThds",
-        "TrafficCharacterization/fDescs"
+        "AnalyticsContextIdentifier/nfAnaCtxts ['http://www.w3.org/2001/XMLSchema#string'] -> [':NwdafEvent']"
+      ],
+      "range_dangling": [
+        "EventSubscription/qosFlowRetThds ['http://www.w3.org/2001/XMLSchema#string'] -> [':RetainabilityThreshold']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 6
+      "range_corrected": 1,
+      "range_dangling": 1
     },
     "accounted": true
   },
   {
     "spec": "TS29571_CommonData.yaml",
-    "whole_triples": 3191,
-    "split_triples": 3191,
-    "lost_triples": 36,
-    "gained_triples": 36,
+    "whole_triples": 3320,
+    "split_triples": 3320,
+    "lost_triples": 31,
+    "gained_triples": 31,
     "by_cause": {
-      "range_corrected": 36
+      "range_corrected": 10,
+      "range_dangling": 21
     },
     "examples": {
       "range_corrected": [
-        "AreaScope/nrCellIdList",
-        "AreaScope/tacList",
-        "ClockQualityAcceptanceCriterion/parentTimeSource",
-        "ClockQualityAcceptanceCriterion/synchronizationState",
-        "ClockQualityAcceptanceCriterionRm/parentTimeSource",
-        "ClockQualityAcceptanceCriterionRm/synchronizationState",
-        "EcsServerAddr/ecsUriList",
-        "ExplanatoryProperties/sounds"
+        "ClockQualityAcceptanceCriterion/parentTimeSource ['http://www.w3.org/2001/XMLSchema#string'] -> [':TimeSource']",
+        "ClockQualityAcceptanceCriterion/synchronizationState ['http://www.w3.org/2001/XMLSchema#string'] -> [':SynchronizationState']",
+        "ClockQualityAcceptanceCriterionRm/parentTimeSource ['http://www.w3.org/2001/XMLSchema#string'] -> [':TimeSource']",
+        "ClockQualityAcceptanceCriterionRm/synchronizationState ['http://www.w3.org/2001/XMLSchema#string'] -> [':SynchronizationState']",
+        "MdtConfiguration/addPositioningMethodList ['http://www.w3.org/2001/XMLSchema#string'] -> [':PositioningMethodMdt']",
+        "MdtConfiguration/reportingTriggerList ['http://www.w3.org/2001/XMLSchema#string'] -> [':ReportingTrigger']",
+        "MdtConfiguration/sensorMeasurementList ['http://www.w3.org/2001/XMLSchema#string'] -> [':SensorMeasurement']",
+        "MdtConfiguration/sensorMeasurementLteList ['http://www.w3.org/2001/XMLSchema#string'] -> [':SensorMeasurement']"
+      ],
+      "range_dangling": [
+        "Area/tacs ['http://www.w3.org/2001/XMLSchema#string'] -> [':Tac']",
+        "AreaScope/nrCellIdList ['http://www.w3.org/2001/XMLSchema#string'] -> [':NrCellId']",
+        "AreaScope/tacList ['http://www.w3.org/2001/XMLSchema#string'] -> [':Tac']",
+        "EcsServerAddr/ecsUriList ['http://www.w3.org/2001/XMLSchema#string'] -> [':Uri']",
+        "ExplanatoryProperties/sounds ['http://www.w3.org/2001/XMLSchema#string'] -> [':Uri']",
+        "ExplanatoryProperties/urls ['http://www.w3.org/2001/XMLSchema#string'] -> [':Uri']",
+        "GeographicalProperties/geos ['http://www.w3.org/2001/XMLSchema#string'] -> [':Uri']",
+        "IdentificationProperties/photos ['http://www.w3.org/2001/XMLSchema#string'] -> [':Uri']"
       ]
     },
     "subjects_by_cause": {
-      "range_corrected": 36
+      "range_corrected": 10,
+      "range_dangling": 21
     },
     "accounted": true
   }

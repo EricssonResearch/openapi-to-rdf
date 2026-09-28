@@ -44,6 +44,7 @@
 @prefix TS28541_5GcNrm_ChfInfo: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/ChfInfo/> .
 @prefix TS28541_5GcNrm_CollocatedNfInstance: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/CollocatedNfInstance/> .
 @prefix TS28541_5GcNrm_CommModel: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/CommModel/> .
+@prefix TS28541_5GcNrm_ConditionGroup: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/ConditionGroup/> .
 @prefix TS28541_5GcNrm_ConditionItem: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/ConditionItem/> .
 @prefix TS28541_5GcNrm_Configurable5QISet-Single: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/Configurable5QISet-Single/> .
 @prefix TS28541_5GcNrm_DDNMFFunction-Single: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/DDNMFFunction-Single/> .
@@ -151,6 +152,7 @@
 @prefix TS28541_5GcNrm_GtpUPathQoSMonitoringControl-Single: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/GtpUPathQoSMonitoringControl-Single/> .
 @prefix TS28541_5GcNrm_HssInfo: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/HssInfo/> .
 @prefix TS28541_5GcNrm_IdentityRange: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/IdentityRange/> .
+@prefix TS28541_5GcNrm_ImsiRange: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/ImsiRange/> .
 @prefix TS28541_5GcNrm_InterfaceUpfInfoItem: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/InterfaceUpfInfoItem/> .
 @prefix TS28541_5GcNrm_InternalGroupIdRange: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/InternalGroupIdRange/> .
 @prefix TS28541_5GcNrm_IpEndPoint: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/IpEndPoint/> .
@@ -180,6 +182,7 @@
 @prefix TS28541_5GcNrm_N3iwfFunction-Single: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/N3iwfFunction-Single/> .
 @prefix TS28541_5GcNrm_NFService: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/NFService/> .
 @prefix TS28541_5GcNrm_NRTACRange: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/NRTACRange/> .
+@prefix TS28541_5GcNrm_NTNGlobalRanNodeID: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/NTNGlobalRanNodeID/> .
 @prefix TS28541_5GcNrm_NTNPLMNRestrictionsInfo: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/NTNPLMNRestrictionsInfo/> .
 @prefix TS28541_5GcNrm_Ncgi: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/Ncgi/> .
 @prefix TS28541_5GcNrm_NcgiTai: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/NcgiTai/> .
@@ -211,6 +214,7 @@
 @prefix TS28541_5GcNrm_PfdData: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/PfdData/> .
 @prefix TS28541_5GcNrm_PlmnIdNid: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/PlmnIdNid/> .
 @prefix TS28541_5GcNrm_PlmnOauth2: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/PlmnOauth2/> .
+@prefix TS28541_5GcNrm_PlmnRange: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/PlmnRange/> .
 @prefix TS28541_5GcNrm_PlmnSnssai: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/PlmnSnssai/> .
 @prefix TS28541_5GcNrm_PredefinedPccRuleSet-Single: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/PredefinedPccRuleSet-Single/> .
 @prefix TS28541_5GcNrm_ProseCapability: <https://semantics.ericsson.com/openapi/TS28541_5GcNrm/ProseCapability/> .
@@ -421,6 +425,11 @@ TS28541_5GcNrm:CollocatedNfInstance a rdfs:Class ;
 TS28541_5GcNrm:CommModel a rdfs:Class .
 
 TS28541_5GcNrm:CommModelList a rdfs:Class .
+
+TS28541_5GcNrm:ConditionGroup a rdfs:Class ;
+    rdfs:comment """List (array) of conditions (joined by the "and" or "or" logical relationship), under which an NF Instance with an NFStatus or NFServiceStatus value set to, "CANARY_RELEASE", or with a "canaryRelease" attribute set to true, shall be selected by an NF Service Consumer.
+""",
+        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28541_5GcNrm:ConditionItem a rdfs:Class ;
     rdfs:comment """A ConditionItem consists of a number of attributes representing individual conditions (e.g. a SUPI range, or a TAI list). If several attributes/conditions are present, the evaluation of the ConditionItem is <true> if all attributes/conditions are evaluated as <true> (i.e., it follows the AND logical relationship).
@@ -935,6 +944,11 @@ TS28541_5GcNrm:IdentityRange a rdfs:Class .
 
 TS28541_5GcNrm:IdentityRangeList a rdfs:Class .
 
+TS28541_5GcNrm:ImsiRange a rdfs:Class ;
+    rdfs:comment """A range of IMSIs (subscriber identities), either based on a numeric range, or based on regular-expression matching
+""",
+        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
 TS28541_5GcNrm:InterfaceUpfInfoItem a rdfs:Class .
 
 TS28541_5GcNrm:InternalGroupIdRange a rdfs:Class .
@@ -1053,6 +1067,10 @@ TS28541_5GcNrm:NFService a rdfs:Class ;
     rdfs:comment "NF Service is defined in TS 29.510" .
 
 TS28541_5GcNrm:NRTACRange a rdfs:Class .
+
+TS28541_5GcNrm:NTNGlobalRanNodeID a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
+        "globally identification of an NG-RAN node" .
 
 TS28541_5GcNrm:NTNPLMNRestrictionsInfo a rdfs:Class ;
     rdfs:comment "restrictions per PLMN that relates to non-terrestrial network access" .
@@ -1181,6 +1199,10 @@ TS28541_5GcNrm:PlmnIdNid a rdfs:Class .
 
 TS28541_5GcNrm:PlmnOauth2 a rdfs:Class ;
     rdfs:comment "Oauth2.0 required indication for a given PLMN ID" .
+
+TS28541_5GcNrm:PlmnRange a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
+        "Range of PLMN IDs" .
 
 TS28541_5GcNrm:PlmnSnssai a rdfs:Class ;
     rdfs:comment "List of network slices (S-NSSAIs) for a given PLMN ID" .
@@ -1833,7 +1855,7 @@ TS28541_5GcNrm_ChfInfo:groupId a rdf:Property ;
 
 TS28541_5GcNrm_ChfInfo:plmnRangeList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ChfInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS28541_5GcNrm:PlmnRange .
 
 TS28541_5GcNrm_ChfInfo:primaryChfInstance a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ChfInfo ;
@@ -1873,6 +1895,12 @@ TS28541_5GcNrm_CommModel:targetNFServiceList a rdf:Property ;
 
 TS28541_5GcNrm:CommModelType a rdfs:Datatype ;
     rdfs:comment "any of enumerated value" .
+
+TS28541_5GcNrm_ConditionGroup:and a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:ConditionGroup .
+
+TS28541_5GcNrm_ConditionGroup:or a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:ConditionGroup .
 
 TS28541_5GcNrm_ConditionItem:consumerNfTypes a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:ConditionItem ;
@@ -2482,7 +2510,7 @@ TS28541_5GcNrm_HssInfo:imsPublicIdentityRanges a rdf:Property ;
 
 TS28541_5GcNrm_HssInfo:imsiRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:HssInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS28541_5GcNrm:ImsiRange .
 
 TS28541_5GcNrm_HssInfo:msisdnRanges a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:HssInfo ;
@@ -2498,6 +2526,18 @@ TS28541_5GcNrm_IdentityRange:pattern a rdf:Property ;
 
 TS28541_5GcNrm_IdentityRange:start a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:IdentityRange ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_ImsiRange:end a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:ImsiRange ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_ImsiRange:pattern a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:ImsiRange ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_ImsiRange:start a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:ImsiRange ;
     rdfs:range xsd:string .
 
 TS28541_5GcNrm_InterfaceUpfInfoItem:fqdn a rdf:Property ;
@@ -3365,6 +3405,34 @@ TS28541_5GcNrm_NRTACRange:nRTACstart a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NRTACRange ;
     rdfs:range xsd:string .
 
+TS28541_5GcNrm_NTNGlobalRanNodeID:gNbId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range xsd:integer .
+
+TS28541_5GcNrm_NTNGlobalRanNodeID:n3IwfId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_NTNGlobalRanNodeID:ngeNbId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_NTNGlobalRanNodeID:pLMNId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range TS28623_ComDefs:PlmnId .
+
+TS28541_5GcNrm_NTNGlobalRanNodeID:tngfId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_NTNGlobalRanNodeID:twifId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_NTNGlobalRanNodeID:wagfId a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:NTNGlobalRanNodeID ;
+    rdfs:range xsd:string .
+
 TS28541_5GcNrm_NTNPLMNRestrictionsInfo:blockedLocationInfoList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:NTNPLMNRestrictionsInfo ;
     rdfs:range TS28541_5GcNrm:BlockedLocationInfo .
@@ -4158,6 +4226,18 @@ TS28541_5GcNrm_PlmnOauth2:oauth2RequiredPlmnIdList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:PlmnOauth2 ;
     rdfs:range TS28623_ComDefs:PlmnId .
 
+TS28541_5GcNrm_PlmnRange:end a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:PlmnRange ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_PlmnRange:pattern a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:PlmnRange ;
+    rdfs:range xsd:string .
+
+TS28541_5GcNrm_PlmnRange:start a rdf:Property ;
+    rdfs:domain TS28541_5GcNrm:PlmnRange ;
+    rdfs:range xsd:string .
+
 TS28541_5GcNrm_PlmnSnssai:nid a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:PlmnSnssai ;
     rdfs:range xsd:string .
@@ -4357,7 +4437,7 @@ TS28541_5GcNrm_SatelliteBackhaulInfo:geoSatelliteId a rdf:Property ;
 
 TS28541_5GcNrm_SatelliteBackhaulInfo:nTNGlobalRanNodeID a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SatelliteBackhaulInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS28541_5GcNrm:NTNGlobalRanNodeID .
 
 TS28541_5GcNrm_SatelliteBackhaulInfo:satelliteBackhaulCategory a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SatelliteBackhaulInfo .
@@ -4629,7 +4709,7 @@ TS28541_5GcNrm_SmsfFunction-Single:attributes a rdf:Property ;
 
 TS28541_5GcNrm_SmsfInfo:remotePlmnRangeList a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SmsfInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS28541_5GcNrm:PlmnRange .
 
 TS28541_5GcNrm_SmsfInfo:roamingUeInd a rdf:Property ;
     rdfs:domain TS28541_5GcNrm:SmsfInfo ;

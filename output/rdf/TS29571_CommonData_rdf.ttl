@@ -21,6 +21,7 @@
 @prefix TS29571_CommonData_ApnRateStatus: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ApnRateStatus/> .
 @prefix TS29571_CommonData_AppBindingInfo: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppBindingInfo/> .
 @prefix TS29571_CommonData_AppDcInfo: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AppDcInfo/> .
+@prefix TS29571_CommonData_Area: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Area/> .
 @prefix TS29571_CommonData_AreaScope: <https://semantics.ericsson.com/openapi/TS29571_CommonData/AreaScope/> .
 @prefix TS29571_CommonData_Arp: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Arp/> .
 @prefix TS29571_CommonData_Atom: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Atom/> .
@@ -59,8 +60,11 @@
 @prefix TS29571_CommonData_EutraLocation: <https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/> .
 @prefix TS29571_CommonData_EventInformation: <https://semantics.ericsson.com/openapi/TS29571_CommonData/EventInformation/> .
 @prefix TS29571_CommonData_ExplanatoryProperties: <https://semantics.ericsson.com/openapi/TS29571_CommonData/ExplanatoryProperties/> .
+@prefix TS29571_CommonData_FqdnPatternMatchingRule: <https://semantics.ericsson.com/openapi/TS29571_CommonData/FqdnPatternMatchingRule/> .
 @prefix TS29571_CommonData_GNbId: <https://semantics.ericsson.com/openapi/TS29571_CommonData/GNbId/> .
 @prefix TS29571_CommonData_GeographicalProperties: <https://semantics.ericsson.com/openapi/TS29571_CommonData/GeographicalProperties/> .
+@prefix TS29571_CommonData_GeraLocation: <https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/> .
+@prefix TS29571_CommonData_GlobalRanNodeId: <https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/> .
 @prefix TS29571_CommonData_Guami: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Guami/> .
 @prefix TS29571_CommonData_HalTemplate: <https://semantics.ericsson.com/openapi/TS29571_CommonData/HalTemplate/> .
 @prefix TS29571_CommonData_HfcNodeId: <https://semantics.ericsson.com/openapi/TS29571_CommonData/HfcNodeId/> .
@@ -73,6 +77,7 @@
 @prefix TS29571_CommonData_IngressTunAddrInfo: <https://semantics.ericsson.com/openapi/TS29571_CommonData/IngressTunAddrInfo/> .
 @prefix TS29571_CommonData_InterFreqTargetInfo: <https://semantics.ericsson.com/openapi/TS29571_CommonData/InterFreqTargetInfo/> .
 @prefix TS29571_CommonData_InvalidParam: <https://semantics.ericsson.com/openapi/TS29571_CommonData/InvalidParam/> .
+@prefix TS29571_CommonData_IpAddr: <https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr/> .
 @prefix TS29571_CommonData_Ipv4AddressRange: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv4AddressRange/> .
 @prefix TS29571_CommonData_Ipv6AddressRange: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv6AddressRange/> .
 @prefix TS29571_CommonData_Ipv6PrefixRange: <https://semantics.ericsson.com/openapi/TS29571_CommonData/Ipv6PrefixRange/> .
@@ -199,6 +204,7 @@
 @prefix TS29571_CommonData_UeLevelMeasurementsConfiguration: <https://semantics.ericsson.com/openapi/TS29571_CommonData/UeLevelMeasurementsConfiguration/> .
 @prefix TS29571_CommonData_UpSecurity: <https://semantics.ericsson.com/openapi/TS29571_CommonData/UpSecurity/> .
 @prefix TS29571_CommonData_UserLocation: <https://semantics.ericsson.com/openapi/TS29571_CommonData/UserLocation/> .
+@prefix TS29571_CommonData_UtraLocation: <https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/> .
 @prefix TS29571_CommonData_VarRepPeriod: <https://semantics.ericsson.com/openapi/TS29571_CommonData/VarRepPeriod/> .
 @prefix TS29571_CommonData_VolumeTimedReport: <https://semantics.ericsson.com/openapi/TS29571_CommonData/VolumeTimedReport/> .
 @prefix TS29571_CommonData_VplmnDlAmbr: <https://semantics.ericsson.com/openapi/TS29571_CommonData/VplmnDlAmbr/> .
@@ -254,6 +260,10 @@ TS29571_CommonData:AppBindingInfo a rdfs:Class ;
 
 TS29571_CommonData:AppDcInfo a rdfs:Class ;
     rdfs:comment "Represents the application data channel is intened towards to a server or the remote UE." .
+
+TS29571_CommonData:Area a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
+        "Provides area information." .
 
 TS29571_CommonData:AreaScope a rdfs:Class ;
     rdfs:comment "Contain the area based on Cells or Tracking Areas." .
@@ -468,6 +478,10 @@ TS29571_CommonData:ExtSnssai a rdfs:Class ;
     rdfs:subClassOf TS29571_CommonData:Snssai,
         TS29571_CommonData:SnssaiExtension .
 
+TS29571_CommonData:FqdnPatternMatchingRule a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
+        "a matching rule for a FQDN pattern" .
+
 TS29571_CommonData:FqdnRm a rdfs:Class ;
     rdfs:comment "Note: Uses OpenAPI anyOf - complex logical constraints partially supported in SHACL" .
 
@@ -476,6 +490,15 @@ TS29571_CommonData:GNbId a rdfs:Class ;
 
 TS29571_CommonData:GeographicalProperties a rdfs:Class ;
     rdfs:comment """Represents the geographical information associated with the entity associated with the jCard.
+""" .
+
+TS29571_CommonData:GeraLocation a rdfs:Class ;
+    rdfs:comment "Exactly one of cgi, sai or lai shall be present.",
+        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
+TS29571_CommonData:GlobalRanNodeId a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL",
+        """One of the six attributes n3IwfId, gNbIdm, ngeNbId, wagfId, tngfId, eNbId shall be present.
 """ .
 
 TS29571_CommonData:GroupServiceId a rdfs:Class ;
@@ -535,6 +558,10 @@ TS29571_CommonData:InterFreqTargetInfo a rdfs:Class ;
 
 TS29571_CommonData:InvalidParam a rdfs:Class ;
     rdfs:comment "It contains an invalid parameter and a related description." .
+
+TS29571_CommonData:IpAddr a rdfs:Class ;
+    rdfs:comment "Contains an IP adresse.",
+        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS29571_CommonData:Ipv4AddressRange a rdfs:Class ;
     rdfs:comment "Range of IPv4 addresses" .
@@ -1268,6 +1295,10 @@ TS29571_CommonData:UserLocation a rdfs:Class ;
     rdfs:comment """At least one of eutraLocation, nrLocation, n3gaLocation, utraLocation, geraLocation and plmnLocation shall be present. Several of them may be present.
 """ .
 
+TS29571_CommonData:UtraLocation a rdfs:Class ;
+    rdfs:comment "Exactly one of cgi, sai or lai shall be present.",
+        "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
+
 TS29571_CommonData:VarRepPeriod a rdfs:Class ;
     rdfs:comment """Indicates the Variable reporting periodicity for event reporting
 """ .
@@ -1455,6 +1486,14 @@ TS29571_CommonData:ApplicationIdRm a rdfs:Datatype ;
 TS29571_CommonData:ApplicationlayerId a rdfs:Datatype ;
     rdfs:comment """String identifying an UE with application layer ID. The format of the application  layer ID parameter is same as the Application layer ID defined in clause 11.3.4 of  3GPP TS 24.554.
 """ .
+
+TS29571_CommonData_Area:areaCode a rdf:Property ;
+    rdfs:domain TS29571_CommonData:Area ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_Area:tacs a rdf:Property ;
+    rdfs:domain TS29571_CommonData:Area ;
+    rdfs:range xsd:string .
 
 TS29571_CommonData:AreaCode a rdfs:Datatype ;
     rdfs:comment "Values are operator specific." .
@@ -2014,7 +2053,7 @@ TS29571_CommonData_EasIpReplacementInfo:target a rdf:Property ;
 
 TS29571_CommonData_EasServerAddress:ip a rdf:Property ;
     rdfs:domain TS29571_CommonData:EasServerAddress ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData_EasServerAddress:port a rdf:Property ;
     rdfs:domain TS29571_CommonData:EasServerAddress ;
@@ -2038,7 +2077,7 @@ TS29571_CommonData_EcsServerAddr:ecsFqdnList a rdf:Property ;
 
 TS29571_CommonData_EcsServerAddr:ecsIpAddressList a rdf:Property ;
     rdfs:domain TS29571_CommonData:EcsServerAddr ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData_EcsServerAddr:ecsProviderId a rdf:Property ;
     rdfs:domain TS29571_CommonData:EcsServerAddr ;
@@ -2050,7 +2089,7 @@ TS29571_CommonData_EcsServerAddr:ecsUriList a rdf:Property ;
 
 TS29571_CommonData_Endpoint:ip a rdf:Property ;
     rdfs:domain TS29571_CommonData:Endpoint ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData_Endpoint:portNumber a rdf:Property ;
     rdfs:domain TS29571_CommonData:Endpoint ;
@@ -2092,11 +2131,11 @@ TS29571_CommonData_EutraLocation:geographicalInformation a rdf:Property ;
 
 TS29571_CommonData_EutraLocation:globalENbId a rdf:Property ;
     rdfs:domain TS29571_CommonData:EutraLocation ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_EutraLocation:globalNgenbId a rdf:Property ;
     rdfs:domain TS29571_CommonData:EutraLocation ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_EutraLocation:ignoreEcgi a rdf:Property ;
     rdfs:comment """This flag when present shall indicate that the Ecgi shall be ignored When present, it shall be set as follows: - true: ecgi shall be ignored. - false (default): ecgi shall not be ignored.
@@ -2189,6 +2228,14 @@ TS29571_CommonData:FloatRm a rdfs:Datatype ;
 TS29571_CommonData:Fqdn a rdfs:Datatype ;
     rdfs:comment "Fully Qualified Domain Name" .
 
+TS29571_CommonData_FqdnPatternMatchingRule:regex a rdf:Property ;
+    rdfs:domain TS29571_CommonData:FqdnPatternMatchingRule ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_FqdnPatternMatchingRule:stringMatchingRule a rdf:Property ;
+    rdfs:domain TS29571_CommonData:FqdnPatternMatchingRule ;
+    rdfs:range TS29571_CommonData:StringMatchingRule .
+
 TS29571_CommonData_GNbId:bitLength a rdf:Property ;
     rdfs:comment """Unsigned integer representing the bit length of the gNB ID as defined in clause 9.3.1.6 of 3GPP TS 38.413 [11], within the range 22 to 32.
 """ ;
@@ -2219,6 +2266,91 @@ TS29571_CommonData_GeographicalProperties:tzs a rdf:Property ;
     rdfs:comment """Represent the "tz" property which provides the time zone of the object the jCard represents as defined in IETF RFC 6350, section 6.5.1.
 """ ;
     rdfs:domain TS29571_CommonData:GeographicalProperties .
+
+TS29571_CommonData_GeraLocation:ageOfLocationInformation a rdf:Property ;
+    rdfs:comment """The value represents the elapsed time in minutes since the last network contact of the mobile station. Value "0" indicates that the location information was obtained after a successful paging procedure for  Active Location Retrieval when the UE is in idle mode or after a successful location reporting procedure the UE is in connected mode. Any other value than "0" indicates that the location information is the last known one. See 3GPP TS 29.002 clause 17.7.8.
+""" ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:integer .
+
+TS29571_CommonData_GeraLocation:cgi a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range TS29571_CommonData:CellGlobalId .
+
+TS29571_CommonData_GeraLocation:geodeticInformation a rdf:Property ;
+    rdfs:comment """Refers to Calling Geodetic Location.See ITU-T Recommendation Q.763 (1999) clause 3.88.2.  Only the description of an ellipsoid point with uncertainty circle is allowed to be used.
+""" ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GeraLocation:geographicalInformation a rdf:Property ;
+    rdfs:comment """Refer to geographical Information.See 3GPP TS 23.032 clause 7.3.2. Only the description of an ellipsoid point with uncertainty circle is allowed to be used.
+""" ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GeraLocation:lai a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range TS29571_CommonData:LocationAreaId .
+
+TS29571_CommonData_GeraLocation:locationNumber a rdf:Property ;
+    rdfs:comment "Location number within the PLMN. See 3GPP TS 23.003, clause 4.5." ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GeraLocation:mscNumber a rdf:Property ;
+    rdfs:comment "MSC number. See 3GPP TS 23.003 clause 5.1." ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GeraLocation:rai a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range TS29571_CommonData:RoutingAreaId .
+
+TS29571_CommonData_GeraLocation:sai a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range TS29571_CommonData:ServiceAreaId .
+
+TS29571_CommonData_GeraLocation:ueLocationTimestamp a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:dateTime .
+
+TS29571_CommonData_GeraLocation:vlrNumber a rdf:Property ;
+    rdfs:comment "VLR number. See 3GPP TS 23.003 clause 5.1." ;
+    rdfs:domain TS29571_CommonData:GeraLocation ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GlobalRanNodeId:eNbId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GlobalRanNodeId:gNbId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range TS29571_CommonData:GNbId .
+
+TS29571_CommonData_GlobalRanNodeId:n3IwfId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GlobalRanNodeId:ngeNbId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GlobalRanNodeId:nid a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GlobalRanNodeId:plmnId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range TS29571_CommonData:PlmnId .
+
+TS29571_CommonData_GlobalRanNodeId:tngfId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_GlobalRanNodeId:wagfId a rdf:Property ;
+    rdfs:domain TS29571_CommonData:GlobalRanNodeId ;
+    rdfs:range xsd:string .
 
 TS29571_CommonData:Gpsi a rdfs:Datatype ;
     rdfs:comment """String identifying a Gpsi shall contain either an External Id or an MSISDN.  It shall be formatted as follows -External Identifier= "extid-'extid', where 'extid'  shall be formatted according to clause 19.7.2 of 3GPP TS 23.003 that describes an  External Identifier. 
@@ -2426,6 +2558,18 @@ TS29571_CommonData_InvalidParam:reason a rdf:Property ;
     rdfs:domain TS29571_CommonData:InvalidParam ;
     rdfs:range xsd:string .
 
+TS29571_CommonData_IpAddr:ipv4Addr a rdf:Property ;
+    rdfs:domain TS29571_CommonData:IpAddr ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_IpAddr:ipv6Addr a rdf:Property ;
+    rdfs:domain TS29571_CommonData:IpAddr ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_IpAddr:ipv6Prefix a rdf:Property ;
+    rdfs:domain TS29571_CommonData:IpAddr ;
+    rdfs:range xsd:string .
+
 TS29571_CommonData:Ipv4Addr a rdfs:Datatype ;
     rdfs:comment """String identifying a IPv4 address formatted in the 'dotted decimal' notation as defined in RFC 1166.
 """ .
@@ -2500,7 +2644,7 @@ TS29571_CommonData_LocalOffloadingManagementInfo:fqdnList a rdf:Property ;
 
 TS29571_CommonData_LocalOffloadingManagementInfo:fqdnPatterns a rdf:Property ;
     rdfs:domain TS29571_CommonData:LocalOffloadingManagementInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:FqdnPatternMatchingRule .
 
 TS29571_CommonData_LocalOffloadingManagementInfo:ipv4AddrMasks a rdf:Property ;
     rdfs:domain TS29571_CommonData:LocalOffloadingManagementInfo ;
@@ -2853,7 +2997,7 @@ TS29571_CommonData_MdcEndpoint:fingerprints a rdf:Property ;
 
 TS29571_CommonData_MdcEndpoint:ip a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdcEndpoint ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData_MdcEndpoint:portNumber a rdf:Property ;
     rdfs:domain TS29571_CommonData:MdcEndpoint ;
@@ -3360,7 +3504,7 @@ TS29571_CommonData_NrLocation:geographicalInformation a rdf:Property ;
 
 TS29571_CommonData_NrLocation:globalGnbId a rdf:Property ;
     rdfs:domain TS29571_CommonData:NrLocation ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_NrLocation:ignoreNcgi a rdf:Property ;
     rdfs:domain TS29571_CommonData:NrLocation ;
@@ -3656,13 +3800,13 @@ TS29571_CommonData_PresenceInfo:globalRanNodeIdList a rdf:Property ;
     rdfs:comment """Represents the list of NG RAN node identifiers that constitutes the area. This IE shall be present if the Area of Interest subscribed is a list of NG RAN node identifiers. 
 """ ;
     rdfs:domain TS29571_CommonData:PresenceInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_PresenceInfo:globaleNbIdList a rdf:Property ;
     rdfs:comment """Represents the list of eNodeB identifiers that constitutes the area. This IE shall be  present if the Area of Interest subscribed is a list of eNodeB identifiers.
 """ ;
     rdfs:domain TS29571_CommonData:PresenceInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_PresenceInfo:ncgiList a rdf:Property ;
     rdfs:comment """Represents the list of NR cell Ids that constitutes the area. This IE shall be present if the Area of Interest subscribed is a list of NR cell Ids. 
@@ -3702,13 +3846,13 @@ TS29571_CommonData_PresenceInfoRm:globalRanNodeIdList a rdf:Property ;
     rdfs:comment """Represents the list of NG RAN node identifiers that constitutes the area. This IE shall be present if the Area of Interest subscribed is a list of NG RAN node identifiers.
 """ ;
     rdfs:domain TS29571_CommonData:PresenceInfoRm ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_PresenceInfoRm:globaleNbIdList a rdf:Property ;
     rdfs:comment """Represents the list of eNodeB identifiers that constitutes the area. This IE shall be present if the Area of Interest subscribed is a list of eNodeB identifiers.
 """ ;
     rdfs:domain TS29571_CommonData:PresenceInfoRm ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GlobalRanNodeId .
 
 TS29571_CommonData_PresenceInfoRm:ncgiList a rdf:Property ;
     rdfs:comment """Represents the list of NR cell Ids that constitutes the area. This IE shall be present if the Area of Interest subscribed is a list of NR cell Ids.
@@ -3965,7 +4109,7 @@ TS29571_CommonData_QmcConfigInfo:mdtAlignmentInfo a rdf:Property ;
 
 TS29571_CommonData_QmcConfigInfo:qoeCollectionEntityAddress a rdf:Property ;
     rdfs:domain TS29571_CommonData:QmcConfigInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData_QmcConfigInfo:qoeReference a rdf:Property ;
     rdfs:domain TS29571_CommonData:QmcConfigInfo ;
@@ -4333,7 +4477,7 @@ TS29571_CommonData_ServiceAreaId:sac a rdf:Property ;
 
 TS29571_CommonData_ServiceAreaRestriction:areas a rdf:Property ;
     rdfs:domain TS29571_CommonData:ServiceAreaRestriction ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:Area .
 
 TS29571_CommonData_ServiceAreaRestriction:maxNumOfTAs a rdf:Property ;
     rdfs:domain TS29571_CommonData:ServiceAreaRestriction ;
@@ -4475,11 +4619,11 @@ TS29571_CommonData_SpatialValidityCond:trackingAreaList a rdf:Property ;
 
 TS29571_CommonData_Ssm:destIpAddr a rdf:Property ;
     rdfs:domain TS29571_CommonData:Ssm ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData_Ssm:sourceIpAddr a rdf:Property ;
     rdfs:domain TS29571_CommonData:Ssm ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:IpAddr .
 
 TS29571_CommonData:StnSr a rdfs:Datatype ;
     rdfs:comment "String representing the STN-SR as defined in clause 18.6 of 3GPP TS 23.003." .
@@ -4779,7 +4923,7 @@ TS29571_CommonData_UserLocation:eutraLocation a rdf:Property ;
 
 TS29571_CommonData_UserLocation:geraLocation a rdf:Property ;
     rdfs:domain TS29571_CommonData:UserLocation ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:GeraLocation .
 
 TS29571_CommonData_UserLocation:n3gaLocation a rdf:Property ;
     rdfs:domain TS29571_CommonData:UserLocation ;
@@ -4791,7 +4935,47 @@ TS29571_CommonData_UserLocation:nrLocation a rdf:Property ;
 
 TS29571_CommonData_UserLocation:utraLocation a rdf:Property ;
     rdfs:domain TS29571_CommonData:UserLocation ;
+    rdfs:range TS29571_CommonData:UtraLocation .
+
+TS29571_CommonData_UtraLocation:ageOfLocationInformation a rdf:Property ;
+    rdfs:comment """The value represents the elapsed time in minutes since the last network contact of the mobile station.  Value "0" indicates that the location information was obtained after a successful paging procedure for Active Location Retrieval when the UE is in idle mode
+ or after a successful location reporting procedure the UE is in connected mode. Any
+other value than "0" indicates that the location information is the last known one.  See 3GPP TS 29.002 clause 17.7.8.
+""" ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range xsd:integer .
+
+TS29571_CommonData_UtraLocation:cgi a rdf:Property ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range TS29571_CommonData:CellGlobalId .
+
+TS29571_CommonData_UtraLocation:geodeticInformation a rdf:Property ;
+    rdfs:comment """Refers to Calling Geodetic Location. See ITU-T Recommendation Q.763 (1999) clause 3.88.2. Only the description of an ellipsoid point with uncertainty circle is allowed to be used.
+""" ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
     rdfs:range xsd:string .
+
+TS29571_CommonData_UtraLocation:geographicalInformation a rdf:Property ;
+    rdfs:comment """Refer to geographical Information.See 3GPP TS 23.032 clause 7.3.2. Only the description of an ellipsoid point with uncertainty circle is allowed to be used.
+""" ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range xsd:string .
+
+TS29571_CommonData_UtraLocation:lai a rdf:Property ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range TS29571_CommonData:LocationAreaId .
+
+TS29571_CommonData_UtraLocation:rai a rdf:Property ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range TS29571_CommonData:RoutingAreaId .
+
+TS29571_CommonData_UtraLocation:sai a rdf:Property ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range TS29571_CommonData:ServiceAreaId .
+
+TS29571_CommonData_UtraLocation:ueLocationTimestamp a rdf:Property ;
+    rdfs:domain TS29571_CommonData:UtraLocation ;
+    rdfs:range xsd:dateTime .
 
 TS29571_CommonData_VarRepPeriod:percValueNfLoad a rdf:Property ;
     rdfs:domain TS29571_CommonData:VarRepPeriod .
@@ -4840,7 +5024,7 @@ TS29571_CommonData_VplmnOffloadingInfo:fqdnList a rdf:Property ;
 
 TS29571_CommonData_VplmnOffloadingInfo:fqdnPatterns a rdf:Property ;
     rdfs:domain TS29571_CommonData:VplmnOffloadingInfo ;
-    rdfs:range xsd:string .
+    rdfs:range TS29571_CommonData:FqdnPatternMatchingRule .
 
 TS29571_CommonData_VplmnOffloadingInfo:ipv4AddrMasks a rdf:Property ;
     rdfs:domain TS29571_CommonData:VplmnOffloadingInfo ;

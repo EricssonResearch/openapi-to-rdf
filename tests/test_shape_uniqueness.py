@@ -91,13 +91,24 @@ def test_each_target_class_has_exactly_one_node_shape(shapes: Graph) -> None:
     ("spec_name", "expected_terms"),
     [
         ("TS29520_Nnwdaf_AnalyticsInfo.yaml", 16),
-        ("TS29520_Nnwdaf_EventsSubscription.yaml", 79),
+        # +7 on 2026-09-28, with CommonData +6 and GenericNrm +1: `is_json_only_union` stopped
+        # suppressing a class for a schema whose `oneOf` members carry only `required`. Such a `oneOf`
+        # is a co-occurrence constraint on ONE object's own fields, not a union of alternative types --
+        # `PlmnRange` is `type: object` with three properties and `oneOf: [{required: [start, end]},
+        # {required: [pattern]}]`. Determination S2 is about type alternation and was being applied to
+        # 22 schemas that are plainly objects. The 69 true unions in the corpus are unaffected: not one
+        # carries `type: object` or `properties`, and all 22 of these carry both.
+        #
+        # The uniqueness invariant this module is named for did NOT move -- every declared term still
+        # has exactly one node shape. Only the COUNT grew, which is the vocabulary gaining classes it
+        # should always have had.
+        ("TS29520_Nnwdaf_EventsSubscription.yaml", 86),
         # 309 -> 505 on 2026-09-25: the corpus is now FETCHED at `Tag_Rel19_SA112` instead of being
         # an un-derivable committed snapshot, and CommonData is the document that grew most (its
         # declared terms went from 309 to 505). The other three documents here did not move, which is
-        # the useful part of re-pinning per document rather than as one total.
-        ("TS29571_CommonData.yaml", 505),
-        ("TS28623_GenericNrm.yaml", 36),
+        # the useful part of re-pinning per document rather than as one total. 505 -> 511 on 2026-09-28.
+        ("TS29571_CommonData.yaml", 511),
+        ("TS28623_GenericNrm.yaml", 37),
     ],
 )
 def test_every_declared_term_has_exactly_one_node_shape_on_real_specs(

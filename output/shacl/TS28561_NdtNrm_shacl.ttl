@@ -22,6 +22,7 @@
 @prefix TS28561_NdtNrm_NDTReport-Single: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NDTReport-Single/> .
 @prefix TS28561_NdtNrm_NdtJobExecutionReqts: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/NdtJobExecutionReqts/> .
 @prefix TS28561_NdtNrm_PerformanceData: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/PerformanceData/> .
+@prefix TS28561_NdtNrm_ScopeDefinition: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/ScopeDefinition/> .
 @prefix TS28561_NdtNrm_SimulationData: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/SimulationData/> .
 @prefix TS28561_NdtNrm_SimulationDataDescriptor: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/SimulationDataDescriptor/> .
 @prefix TS28561_NdtNrm_SubNetwork-ncO-NDTNrm: <https://semantics.ericsson.com/openapi/TS28561_NdtNrm/SubNetwork-ncO-NDTNrm/> .
@@ -34,17 +35,185 @@
 
 [] a sh:NodeShape ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:NDTFunction-Single ;
-            sh:path TS28561_NdtNrm_SubNetwork-ncO-NDTNrm:NDTFunction ] ;
-    sh:targetClass TS28561_NdtNrm:SubNetwork-ncO-NDTNrm .
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTOutputDescription:objectInstance ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTOutputDescription:nDTOutputDescriptionId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28561_NdtNrm_NDTOutputDescription:objectAttributeList ] ;
+    sh:targetClass TS28561_NdtNrm:NDTOutputDescription .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTInputDescription:nDTInputDescriptionId ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:SimulationDataDescriptor ;
+            sh:path TS28561_NdtNrm_NDTInputDescription:simulationDataDescriptor ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTInputDescription:networkEventInfo ] ;
+    sh:targetClass TS28561_NdtNrm:NDTInputDescription .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28561_NdtNrm_SimulationData:configurationData ],
+        [ a sh:PropertyShape ;
+            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
+            sh:path TS28561_NdtNrm_SimulationData:mDTData ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:PerformanceData ;
+            sh:path TS28561_NdtNrm_SimulationData:performanceData ] ;
+    sh:targetClass TS28561_NdtNrm:SimulationData .
+
+[] a sh:NodeShape ;
+    sh:class TS28561_NdtNrm:NDTFunction-Single ;
+    sh:targetClass TS28561_NdtNrm:NDTFunction-Multiple .
 
 [] a sh:NodeShape ;
     sh:class TS28623_GenericNrm:Top ;
     sh:node [ a sh:NodeShape ;
             sh:property [ a sh:PropertyShape ;
-                    sh:class TS28561_NdtNrm:NDTInputDescription ;
+                    rdfs:comment "It indicates the list of NDTOutput(s) that are provided by the NDT function as the output for any task executed in an instantiated NDT job." ;
+                    sh:class TS28561_NdtNrm:NDTOutputDataPoint ;
+                    sh:minCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobOutputData ],
+                [ a sh:PropertyShape ;
+                    sh:datatype xsd:string ;
                     sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobScenario ],
+                    sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobRef ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobRef ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the list of NDTOutput(s) that are provided by the NDT function as the output for any task executed in an instantiated NDT job." ;
+            sh:class TS28561_NdtNrm:NDTOutputDataPoint ;
+            sh:minCount 1 ;
+            sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobOutputData ] ;
+    sh:targetClass TS28561_NdtNrm:NDTReport-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NdtJobExecutionReqts:maxRuntime ] ;
+    sh:targetClass TS28561_NdtNrm:NdtJobExecutionReqts .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_SimulationDataDescriptor:condition ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:SimulationData ;
+            sh:path TS28561_NdtNrm_SimulationDataDescriptor:simulationData ] ;
+    sh:targetClass TS28561_NdtNrm:SimulationDataDescriptor .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28561_NdtNrm:NDTFunctionScope ;
+                    sh:maxCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionScope ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "This datatype is used for writable attribute" ;
+                    sh:maxCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionRefList ],
+                [ a sh:PropertyShape ;
+                    rdfs:comment "It indicates the different types of NDT application use cases which the NDT is capable of undertaking.. New values can be added to this list in future releases to support new use cases." ;
+                    sh:datatype xsd:string ;
+                    sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
+                    sh:minCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTFunction-Single:supportedNDTCapabilities ] ] ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "This datatype is used for writable attribute" ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionRefList ],
+        [ a sh:PropertyShape ;
+            rdfs:comment "It indicates the different types of NDT application use cases which the NDT is capable of undertaking.. New values can be added to this list in future releases to support new use cases." ;
+            sh:datatype xsd:string ;
+            sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
+            sh:minCount 1 ;
+            sh:path TS28561_NdtNrm_NDTFunction-Single:supportedNDTCapabilities ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:NDTFunctionScope ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionScope ] ;
+    sh:targetClass TS28561_NdtNrm:NDTFunction-Single .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_PerformanceData:performanceDataScalingFactor ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_PerformanceData:performanceDataName ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_PerformanceData:performanceDataValue ] ;
+    sh:targetClass TS28561_NdtNrm:PerformanceData .
+
+[] a sh:NodeShape ;
+    sh:class TS28561_NdtNrm:NDTJob-Single ;
+    sh:targetClass TS28561_NdtNrm:NDTJob-Multiple .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:NDTFunction-Single ;
+            sh:path TS28561_NdtNrm_SubNetwork-ncO-NDTNrm:NDTFunction ] ;
+    sh:targetClass TS28561_NdtNrm:SubNetwork-ncO-NDTNrm .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:ScopeDefinition ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTFunctionScope:nDTCNScope ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:ScopeDefinition ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTFunctionScope:nDTRANScope ] ;
+    sh:targetClass TS28561_NdtNrm:NDTFunctionScope .
+
+[] a sh:NodeShape ;
+    sh:property [ a sh:PropertyShape ;
+            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
+            sh:path TS28561_NdtNrm_ScopeDefinition:areaScope ;
+            sh:xone ( [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCoordinate ;
+                                sh:path TS28561_NdtNrm:geoPolygon ] ] [ a sh:NodeShape ;
+                        sh:property [ a sh:PropertyShape ;
+                                sh:class TS28623_ComDefs:GeoCircle ;
+                                sh:path TS28561_NdtNrm:geoCircle ] ] ) ],
+        [ a sh:PropertyShape ;
+            sh:datatype xsd:string ;
+            sh:path TS28561_NdtNrm_ScopeDefinition:managedEntitiesScope ] ;
+    sh:targetClass TS28561_NdtNrm:ScopeDefinition .
+
+[] a sh:NodeShape ;
+    sh:datatype xsd:string ;
+    sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
+    sh:targetClass TS28561_NdtNrm:NDTCapability .
+
+[] a sh:NodeShape ;
+    sh:class TS28623_GenericNrm:Top ;
+    sh:node [ a sh:NodeShape ;
+            sh:property [ a sh:PropertyShape ;
+                    sh:class TS28561_NdtNrm:NdtJobExecutionReqts ;
+                    sh:maxCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobExecutionRequirements ],
                 [ a sh:PropertyShape ;
                     sh:datatype xsd:string ;
                     sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
@@ -53,23 +222,27 @@
                 [ a sh:PropertyShape ;
                     rdfs:comment "This datatype is used for readOnly attribute" ;
                     sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTReportRefList ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-                    sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobSynchScope ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28561_NdtNrm:NdtJobExecutionReqts ;
-                    sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobExecutionRequirements ],
+                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobRefList ],
                 [ a sh:PropertyShape ;
                     rdfs:comment "This datatype is used for readOnly attribute" ;
                     sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobRefList ] ] ;
+                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTReportRefList ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28561_NdtNrm:NDTInputDescription ;
+                    sh:maxCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobScenario ],
+                [ a sh:PropertyShape ;
+                    sh:class TS28561_NdtNrm:ScopeDefinition ;
+                    sh:maxCount 1 ;
+                    sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobSynchScope ] ] ;
     sh:property [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:NdtJobExecutionReqts ;
+            rdfs:comment "This datatype is used for readOnly attribute" ;
             sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobExecutionRequirements ],
+            sh:path TS28561_NdtNrm_NDTJob-Single:nDTReportRefList ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:ScopeDefinition ;
+            sh:maxCount 1 ;
+            sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobSynchScope ],
         [ a sh:PropertyShape ;
             sh:class TS28561_NdtNrm:NDTInputDescription ;
             sh:maxCount 1 ;
@@ -84,178 +257,22 @@
             sh:maxCount 1 ;
             sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobRefList ],
         [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for readOnly attribute" ;
+            sh:class TS28561_NdtNrm:NdtJobExecutionReqts ;
             sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTJob-Single:nDTReportRefList ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobSynchScope ] ;
+            sh:path TS28561_NdtNrm_NDTJob-Single:nDTJobExecutionRequirements ] ;
     sh:targetClass TS28561_NdtNrm:NDTJob-Single .
 
 [] a sh:NodeShape ;
-    sh:class TS28561_NdtNrm:NDTFunction-Single ;
-    sh:targetClass TS28561_NdtNrm:NDTFunction-Multiple .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    rdfs:comment "It indicates the different types of NDT application use cases which the NDT is capable of undertaking.. New values can be added to this list in future releases to support new use cases." ;
-                    sh:datatype xsd:string ;
-                    sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
-                    sh:minCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTFunction-Single:supportedNDTCapabilities ],
-                [ a sh:PropertyShape ;
-                    sh:class TS28561_NdtNrm:NDTFunctionScope ;
-                    sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionScope ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "This datatype is used for writable attribute" ;
-                    sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionRefList ] ] ;
     sh:property [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the different types of NDT application use cases which the NDT is capable of undertaking.. New values can be added to this list in future releases to support new use cases." ;
-            sh:datatype xsd:string ;
-            sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
-            sh:minCount 1 ;
-            sh:path TS28561_NdtNrm_NDTFunction-Single:supportedNDTCapabilities ],
-        [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:NDTFunctionScope ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionScope ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "This datatype is used for writable attribute" ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTFunction-Single:nDTFunctionRefList ] ;
-    sh:targetClass TS28561_NdtNrm:NDTFunction-Single .
-
-[] a sh:NodeShape ;
-    sh:class TS28561_NdtNrm:NDTJob-Single ;
-    sh:targetClass TS28561_NdtNrm:NDTJob-Multiple .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:SimulationDataDescriptor ;
-            sh:path TS28561_NdtNrm_NDTInputDescription:simulationDataDescriptor ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTInputDescription:networkEventInfo ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTInputDescription:nDTInputDescriptionId ] ;
-    sh:targetClass TS28561_NdtNrm:NDTInputDescription .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28561_NdtNrm_SimulationData:mDTData ],
-        [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:PerformanceData ;
-            sh:path TS28561_NdtNrm_SimulationData:performanceData ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28561_NdtNrm_SimulationData:configurationData ] ;
-    sh:targetClass TS28561_NdtNrm:SimulationData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTFunctionScope:nDTCNScope ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTFunctionScope:nDTRANScope ] ;
-    sh:targetClass TS28561_NdtNrm:NDTFunctionScope .
-
-[] a sh:NodeShape ;
-    sh:class TS28623_GenericNrm:Top ;
-    sh:node [ a sh:NodeShape ;
-            sh:property [ a sh:PropertyShape ;
-                    sh:datatype xsd:string ;
-                    sh:maxCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobRef ],
-                [ a sh:PropertyShape ;
-                    rdfs:comment "It indicates the list of NDTOutput(s) that are provided by the NDT function as the output for any task executed in an instantiated NDT job." ;
-                    sh:class TS28561_NdtNrm:NDTOutputDataPoint ;
-                    sh:minCount 1 ;
-                    sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobOutputData ] ] ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobRef ],
-        [ a sh:PropertyShape ;
-            rdfs:comment "It indicates the list of NDTOutput(s) that are provided by the NDT function as the output for any task executed in an instantiated NDT job." ;
-            sh:class TS28561_NdtNrm:NDTOutputDataPoint ;
-            sh:minCount 1 ;
-            sh:path TS28561_NdtNrm_NDTReport-Single:nDTJobOutputData ] ;
-    sh:targetClass TS28561_NdtNrm:NDTReport-Single .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_SimulationDataDescriptor:condition ],
-        [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:SimulationData ;
-            sh:path TS28561_NdtNrm_SimulationDataDescriptor:simulationData ] ;
-    sh:targetClass TS28561_NdtNrm:SimulationDataDescriptor .
-
-[] a sh:NodeShape ;
-    sh:datatype xsd:string ;
-    sh:in ( "RISKY_ACTIONS_PREDICTION"^^xsd:string "EVENTS_IMPACTS_VERIFICATION"^^xsd:string "NETWORK_ISSUE_INDUCEMENT"^^xsd:string "NETWORK_EVENTS_VERIFICATION"^^xsd:string "NETWORK_CONFIGURATIONS_VERIFICATION"^^xsd:string "AUTOMATION_CONFIGURATION_VERIFICATION"^^xsd:string "ML_TRAINING_DATA_GENERATION"^^xsd:string "USER_EXPERIENCE_DATA_GENERATION"^^xsd:string ) ;
-    sh:targetClass TS28561_NdtNrm:NDTCapability .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTOutputDescription:objectInstance ],
-        [ a sh:PropertyShape ;
-            sh:class TS28623_ComDefs:AttributeNameValuePairSet ;
-            sh:path TS28561_NdtNrm_NDTOutputDescription:objectAttributeList ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NDTOutputDescription:nDTOutputDescriptionId ] ;
-    sh:targetClass TS28561_NdtNrm:NDTOutputDescription .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:class TS28561_NdtNrm:NDTOutputDescription ;
-            sh:path TS28561_NdtNrm_NDTOutputDataPoint:networkState ],
-        [ a sh:PropertyShape ;
             sh:class TS28561_NdtNrm:NDTOutputDescription ;
             sh:path TS28561_NdtNrm_NDTOutputDataPoint:networkConfiguration ],
         [ a sh:PropertyShape ;
             sh:class TS28561_NdtNrm:NDTOutputDescription ;
-            sh:path TS28561_NdtNrm_NDTOutputDataPoint:observations ] ;
+            sh:path TS28561_NdtNrm_NDTOutputDataPoint:observations ],
+        [ a sh:PropertyShape ;
+            sh:class TS28561_NdtNrm:NDTOutputDescription ;
+            sh:path TS28561_NdtNrm_NDTOutputDataPoint:networkState ] ;
     sh:targetClass TS28561_NdtNrm:NDTOutputDataPoint .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_PerformanceData:performanceDataName ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_PerformanceData:performanceDataScalingFactor ],
-        [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_PerformanceData:performanceDataValue ] ;
-    sh:targetClass TS28561_NdtNrm:PerformanceData .
-
-[] a sh:NodeShape ;
-    sh:property [ a sh:PropertyShape ;
-            sh:datatype xsd:integer ;
-            sh:maxCount 1 ;
-            sh:path TS28561_NdtNrm_NdtJobExecutionReqts:maxRuntime ] ;
-    sh:targetClass TS28561_NdtNrm:NdtJobExecutionReqts .
 
 [] a sh:NodeShape ;
     sh:class TS28561_NdtNrm:NDTReport-Single ;

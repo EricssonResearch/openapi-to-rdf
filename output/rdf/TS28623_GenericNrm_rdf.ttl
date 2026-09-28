@@ -39,6 +39,7 @@
 @prefix TS28623_GenericNrm_ManagementNode-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/ManagementNode-Single/> .
 @prefix TS28623_GenericNrm_MeContext-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/MeContext-Single/> .
 @prefix TS28623_GenericNrm_MnsAgent-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/MnsAgent-Single/> .
+@prefix TS28623_GenericNrm_NpnId-Type: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/NpnId-Type/> .
 @prefix TS28623_GenericNrm_PeeParameters: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/PeeParameters/> .
 @prefix TS28623_GenericNrm_ProcessMonitor: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/ProcessMonitor/> .
 @prefix TS28623_GenericNrm_Scheduler-Single: <https://semantics.ericsson.com/openapi/TS28623_GenericNrm/Scheduler-Single/> .
@@ -113,6 +114,9 @@ TS28623_GenericNrm:MnsAgent-Multiple a rdfs:Class .
 
 TS28623_GenericNrm:MnsAgent-Single a rdfs:Class ;
     rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28623_GenericNrm:NpnId-Type a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28623_GenericNrm:PeeParameters a rdfs:Class ;
     rdfs:comment "-> This <<dataType>> represents the parameter list for the control and monitoring of power, energy and environmental parameters." .
@@ -318,6 +322,18 @@ TS28623_GenericNrm_MeContext-Single:attributes a rdf:Property ;
 TS28623_GenericNrm_MnsAgent-Single:attributes a rdf:Property ;
     rdfs:domain TS28623_GenericNrm:MnsAgent-Single ;
     rdfs:range rdfs:Resource .
+
+TS28623_GenericNrm_NpnId-Type:cAGIdList a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:NpnId-Type ;
+    rdfs:range TS28623_ComDefs:CagId .
+
+TS28623_GenericNrm_NpnId-Type:nIDList a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:NpnId-Type ;
+    rdfs:range TS28623_ComDefs:Nid .
+
+TS28623_GenericNrm_NpnId-Type:plmnId a rdf:Property ;
+    rdfs:domain TS28623_GenericNrm:NpnId-Type ;
+    rdfs:range TS28623_ComDefs:PlmnId .
 
 TS28623_GenericNrm:NrCellId a rdfs:Datatype .
 

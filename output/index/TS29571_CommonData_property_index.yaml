@@ -121,6 +121,18 @@ properties:
 
     '
 - local_name: ageOfLocationInformation
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/ageOfLocationInformation
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: 'The value represents the elapsed time in minutes since the last network
+    contact of the mobile station. Value "0" indicates that the location information
+    was obtained after a successful paging procedure for  Active Location Retrieval
+    when the UE is in idle mode or after a successful location reporting procedure
+    the UE is in connected mode. Any other value than "0" indicates that the location
+    information is the last known one. See 3GPP TS 29.002 clause 17.7.8.
+
+    '
+- local_name: ageOfLocationInformation
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/ageOfLocationInformation
   owner_class: NrLocation
   range: http://www.w3.org/2001/XMLSchema#integer
@@ -133,6 +145,16 @@ properties:
     17.7.8.
 
     '
+- local_name: ageOfLocationInformation
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/ageOfLocationInformation
+  owner_class: UtraLocation
+  range: http://www.w3.org/2001/XMLSchema#integer
+  description: "The value represents the elapsed time in minutes since the last network\
+    \ contact of the mobile station.  Value \"0\" indicates that the location information\
+    \ was obtained after a successful paging procedure for Active Location Retrieval\
+    \ when the UE is in idle mode\n or after a successful location reporting procedure\
+    \ the UE is in connected mode. Any\nother value than \"0\" indicates that the\
+    \ location information is the last known one.  See 3GPP TS 29.002 clause 17.7.8.\n"
 - local_name: aiotAreaCode
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/AiotAreaId/aiotAreaCode
   owner_class: AiotAreaId
@@ -188,6 +210,11 @@ properties:
   owner_class: AppBindingInfo
   range: http://www.w3.org/2001/XMLSchema#string
   description: application identifier.
+- local_name: areaCode
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Area/areaCode
+  owner_class: Area
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: areaCodeB
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/WirelineArea/areaCodeB
   owner_class: WirelineArea
@@ -231,7 +258,7 @@ properties:
 - local_name: areas
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/ServiceAreaRestriction/areas
   owner_class: ServiceAreaRestriction
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/Area
   description: null
 - local_name: areas
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/WirelineServiceAreaRestriction/areas
@@ -467,6 +494,16 @@ properties:
   owner_class: NcgiTai
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/Ncgi
   description: List of List of NR cell ids
+- local_name: cgi
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/cgi
+  owner_class: GeraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/CellGlobalId
+  description: null
+- local_name: cgi
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/cgi
+  owner_class: UtraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/CellGlobalId
+  description: null
 - local_name: changes
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/NotifyItem/changes
   owner_class: NotifyItem
@@ -633,7 +670,7 @@ properties:
 - local_name: destIpAddr
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Ssm/destIpAddr
   owner_class: Ssm
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: detail
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/ProblemDetails/detail
@@ -700,6 +737,11 @@ properties:
   owner_class: MutingNotificationsSettings
   range: http://www.w3.org/2001/XMLSchema#integer
   description: null
+- local_name: eNbId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/eNbId
+  owner_class: GlobalRanNodeId
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: ecgi
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/ecgi
   owner_class: EutraLocation
@@ -729,7 +771,7 @@ properties:
 - local_name: ecsIpAddressList
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EcsServerAddr/ecsIpAddressList
   owner_class: EcsServerAddr
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: ecsProviderId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EcsServerAddr/ecsProviderId
@@ -985,12 +1027,12 @@ properties:
 - local_name: fqdnPatterns
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/LocalOffloadingManagementInfo/fqdnPatterns
   owner_class: LocalOffloadingManagementInfo
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/FqdnPatternMatchingRule
   description: null
 - local_name: fqdnPatterns
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/VplmnOffloadingInfo/fqdnPatterns
   owner_class: VplmnOffloadingInfo
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/FqdnPatternMatchingRule
   description: null
 - local_name: frequencyStability
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/ClockQuality/frequencyStability
@@ -1032,6 +1074,11 @@ properties:
     the 4 least significant bit of the gNB ID shall appear last in the string.
 
     '
+- local_name: gNbId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/gNbId
+  owner_class: GlobalRanNodeId
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GNbId
+  description: null
 - local_name: gci
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/N3gaLocation/gci
   owner_class: N3gaLocation
@@ -1047,11 +1094,29 @@ properties:
 
     '
 - local_name: geodeticInformation
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/geodeticInformation
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: 'Refers to Calling Geodetic Location.See ITU-T Recommendation Q.763
+    (1999) clause 3.88.2.  Only the description of an ellipsoid point with uncertainty
+    circle is allowed to be used.
+
+    '
+- local_name: geodeticInformation
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/geodeticInformation
   owner_class: NrLocation
   range: http://www.w3.org/2001/XMLSchema#string
   description: 'Refers to Calling Geodetic Location. See ITU-T Recommendation Q.763
     (1999) [24] clause 3.88.2. Only the description of an ellipsoid point with uncertainty
+    circle is allowed to be used.
+
+    '
+- local_name: geodeticInformation
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/geodeticInformation
+  owner_class: UtraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: 'Refers to Calling Geodetic Location. See ITU-T Recommendation Q.763
+    (1999) clause 3.88.2. Only the description of an ellipsoid point with uncertainty
     circle is allowed to be used.
 
     '
@@ -1070,10 +1135,28 @@ properties:
 
     '
 - local_name: geographicalInformation
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/geographicalInformation
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: 'Refer to geographical Information.See 3GPP TS 23.032 clause 7.3.2.
+    Only the description of an ellipsoid point with uncertainty circle is allowed
+    to be used.
+
+    '
+- local_name: geographicalInformation
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/geographicalInformation
   owner_class: NrLocation
   range: http://www.w3.org/2001/XMLSchema#string
   description: 'Refer to geographical Information. See 3GPP TS 23.032 clause 7.3.2.
+    Only the description of an ellipsoid point with uncertainty circle is allowed
+    to be used.
+
+    '
+- local_name: geographicalInformation
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/geographicalInformation
+  owner_class: UtraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: 'Refer to geographical Information.See 3GPP TS 23.032 clause 7.3.2.
     Only the description of an ellipsoid point with uncertainty circle is allowed
     to be used.
 
@@ -1089,7 +1172,7 @@ properties:
 - local_name: geraLocation
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UserLocation/geraLocation
   owner_class: UserLocation
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation
   description: null
 - local_name: gli
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/N3gaLocation/gli
@@ -1104,12 +1187,12 @@ properties:
 - local_name: globalENbId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/globalENbId
   owner_class: EutraLocation
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: null
 - local_name: globalGnbId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/globalGnbId
   owner_class: NrLocation
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: null
 - local_name: globalLineIds
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/WirelineArea/globalLineIds
@@ -1119,19 +1202,19 @@ properties:
 - local_name: globalNgenbId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/globalNgenbId
   owner_class: EutraLocation
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: null
 - local_name: globalRanNodeIdList
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/PresenceInfo/globalRanNodeIdList
   owner_class: PresenceInfo
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: "Represents the list of NG RAN node identifiers that constitutes the\
     \ area. This IE shall be present if the Area of Interest subscribed is a list\
     \ of NG RAN node identifiers. \n"
 - local_name: globalRanNodeIdList
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/PresenceInfoRm/globalRanNodeIdList
   owner_class: PresenceInfoRm
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: 'Represents the list of NG RAN node identifiers that constitutes the
     area. This IE shall be present if the Area of Interest subscribed is a list of
     NG RAN node identifiers.
@@ -1140,7 +1223,7 @@ properties:
 - local_name: globaleNbIdList
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/PresenceInfo/globaleNbIdList
   owner_class: PresenceInfo
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: 'Represents the list of eNodeB identifiers that constitutes the area.
     This IE shall be  present if the Area of Interest subscribed is a list of eNodeB
     identifiers.
@@ -1149,7 +1232,7 @@ properties:
 - local_name: globaleNbIdList
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/PresenceInfoRm/globaleNbIdList
   owner_class: PresenceInfoRm
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId
   description: 'Represents the list of eNodeB identifiers that constitutes the area.
     This IE shall be present if the Area of Interest subscribed is a list of eNodeB
     identifiers.
@@ -1334,21 +1417,26 @@ properties:
 - local_name: ip
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EasServerAddress/ip
   owner_class: EasServerAddress
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: ip
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Endpoint/ip
   owner_class: Endpoint
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: ip
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/MdcEndpoint/ip
   owner_class: MdcEndpoint
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: ipv4Addr
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/DddTrafficDescriptor/ipv4Addr
   owner_class: DddTrafficDescriptor
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: ipv4Addr
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr/ipv4Addr
+  owner_class: IpAddr
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: ipv4Addr
@@ -1392,6 +1480,11 @@ properties:
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: ipv6Addr
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr/ipv6Addr
+  owner_class: IpAddr
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: ipv6Addr
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/RouteInformation/ipv6Addr
   owner_class: RouteInformation
   range: http://www.w3.org/2001/XMLSchema#string
@@ -1414,6 +1507,11 @@ properties:
 - local_name: ipv6Addresses
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/ServerAddressingInfo/ipv6Addresses
   owner_class: ServerAddressingInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: ipv6Prefix
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr/ipv6Prefix
+  owner_class: IpAddr
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: ipv6PrefixRanges
@@ -1474,6 +1572,16 @@ properties:
   owner_class: ServiceAreaId
   range: http://www.w3.org/2001/XMLSchema#string
   description: Location Area Code.
+- local_name: lai
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/lai
+  owner_class: GeraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/LocationAreaId
+  description: null
+- local_name: lai
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/lai
+  owner_class: UtraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/LocationAreaId
+  description: null
 - local_name: langs
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/CommunicationsProperties/langs
   owner_class: CommunicationsProperties
@@ -1488,6 +1596,11 @@ properties:
   owner_class: MbsSession
   range: http://www.w3.org/2001/XMLSchema#boolean
   description: null
+- local_name: locationNumber
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/locationNumber
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: Location number within the PLMN. See 3GPP TS 23.003, clause 4.5.
 - local_name: loggingDuration
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/MdtConfiguration/loggingDuration
   owner_class: MdtConfiguration
@@ -1819,6 +1932,11 @@ properties:
   owner_class: ProtocolDescriptionRm
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/MriTransferMethodRm
   description: null
+- local_name: mscNumber
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/mscNumber
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: MSC number. See 3GPP TS 23.003 clause 5.1.
 - local_name: msk
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsKeyInfo/msk
   owner_class: MbsKeyInfo
@@ -1842,6 +1960,11 @@ properties:
 - local_name: mtkId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsKeyInfo/mtkId
   owner_class: MbsKeyInfo
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: n3IwfId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/n3IwfId
+  owner_class: GlobalRanNodeId
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: n3IwfId
@@ -1961,6 +2084,11 @@ properties:
   owner_class: MbsSessionSubscription
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
+- local_name: ngeNbId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/ngeNbId
+  owner_class: GlobalRanNodeId
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
 - local_name: nickNames
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/IdentificationProperties/nickNames
   owner_class: IdentificationProperties
@@ -1983,6 +2111,11 @@ properties:
 - local_name: nid
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Ecgi/nid
   owner_class: Ecgi
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: nid
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/nid
+  owner_class: GlobalRanNodeId
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: nid
@@ -2375,6 +2508,11 @@ properties:
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId
   description: null
 - local_name: plmnId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/plmnId
+  owner_class: GlobalRanNodeId
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnId
+  description: null
+- local_name: plmnId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Guami/plmnId
   owner_class: Guami
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/PlmnIdNid
@@ -2666,7 +2804,7 @@ properties:
 - local_name: qoeCollectionEntityAddress
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/QmcConfigInfo/qoeCollectionEntityAddress
   owner_class: QmcConfigInfo
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: qoeReference
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/QmcConfigInfo/qoeReference
@@ -2698,6 +2836,16 @@ properties:
   owner_class: RoutingAreaId
   range: http://www.w3.org/2001/XMLSchema#string
   description: Routing Area Code
+- local_name: rai
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/rai
+  owner_class: GeraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/RoutingAreaId
+  description: null
+- local_name: rai
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/rai
+  owner_class: UtraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/RoutingAreaId
+  description: null
 - local_name: range
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Pc5QosFlowItem/range
   owner_class: Pc5QosFlowItem
@@ -2763,6 +2911,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsSession/redMbsServArea
   owner_class: MbsSession
   range: null
+  description: null
+- local_name: regex
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/FqdnPatternMatchingRule/regex
+  owner_class: FqdnPatternMatchingRule
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: regex
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Property/regex
@@ -3082,6 +3235,16 @@ properties:
   owner_class: ServiceAreaId
   range: http://www.w3.org/2001/XMLSchema#string
   description: Service Area Code.
+- local_name: sai
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/sai
+  owner_class: GeraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/ServiceAreaId
+  description: null
+- local_name: sai
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/sai
+  owner_class: UtraLocation
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/ServiceAreaId
+  description: null
 - local_name: sctpPort
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/DcEndpoint/sctpPort
   owner_class: DcEndpoint
@@ -3243,7 +3406,7 @@ properties:
 - local_name: sourceIpAddr
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Ssm/sourceIpAddr
   owner_class: Ssm
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/IpAddr
   description: null
 - local_name: ssId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/TnapId/ssId
@@ -3353,6 +3516,11 @@ properties:
   owner_class: StringMatchingRule
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/StringMatchingCondition
   description: null
+- local_name: stringMatchingRule
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/FqdnPatternMatchingRule/stringMatchingRule
+  owner_class: FqdnPatternMatchingRule
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/StringMatchingRule
+  description: null
 - local_name: subprotocol
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/DcStream/subprotocol
   owner_class: DcStream
@@ -3438,6 +3606,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/TacNidInfo/tacNidList
   owner_class: TacNidInfo
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/TacNid
+  description: null
+- local_name: tacs
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/Area/tacs
+  owner_class: Area
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: tai
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/tai
@@ -3560,6 +3733,11 @@ properties:
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/N3gaLocation/tnapId
   owner_class: N3gaLocation
   range: https://semantics.ericsson.com/openapi/TS29571_CommonData/TnapId
+  description: null
+- local_name: tngfId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/tngfId
+  owner_class: GlobalRanNodeId
+  range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: traceDepth
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/TraceData/traceDepth
@@ -3707,8 +3885,18 @@ properties:
   range: http://www.w3.org/2001/XMLSchema#dateTime
   description: null
 - local_name: ueLocationTimestamp
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/ueLocationTimestamp
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#dateTime
+  description: null
+- local_name: ueLocationTimestamp
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/ueLocationTimestamp
   owner_class: NrLocation
+  range: http://www.w3.org/2001/XMLSchema#dateTime
+  description: null
+- local_name: ueLocationTimestamp
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/ueLocationTimestamp
+  owner_class: UtraLocation
   range: http://www.w3.org/2001/XMLSchema#dateTime
   description: null
 - local_name: uesWithPduSessionInd
@@ -3768,7 +3956,7 @@ properties:
 - local_name: utraLocation
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/UserLocation/utraLocation
   owner_class: UserLocation
-  range: http://www.w3.org/2001/XMLSchema#string
+  range: https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation
   description: null
 - local_name: validityTime
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/ApnRateStatus/validityTime
@@ -3819,6 +4007,11 @@ properties:
     6.7.9.
 
     '
+- local_name: vlrNumber
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/vlrNumber
+  owner_class: GeraLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: VLR number. See 3GPP TS 23.003 clause 5.1.
 - local_name: vplmnId
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/VplmnDlAmbr/vplmnId
   owner_class: VplmnDlAmbr
@@ -3832,6 +4025,11 @@ properties:
 - local_name: w5gbanLineType
   uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/N3gaLocation/w5gbanLineType
   owner_class: N3gaLocation
+  range: http://www.w3.org/2001/XMLSchema#string
+  description: null
+- local_name: wagfId
+  uri: https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/wagfId
+  owner_class: GlobalRanNodeId
   range: http://www.w3.org/2001/XMLSchema#string
   description: null
 - local_name: wildcardSd
@@ -3878,7 +4076,9 @@ collisions:
 - local_name: ageOfLocationInformation
   members:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/ageOfLocationInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/ageOfLocationInformation
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/ageOfLocationInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/ageOfLocationInformation
   differs_on:
   - description
 - local_name: areaScope
@@ -3952,6 +4152,22 @@ collisions:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/PatchItem/from
   differs_on:
   - description
+- local_name: geodeticInformation
+  members:
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/geodeticInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/geodeticInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/geodeticInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/geodeticInformation
+  differs_on:
+  - description
+- local_name: geographicalInformation
+  members:
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/EutraLocation/geographicalInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/GeraLocation/geographicalInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/NrLocation/geographicalInformation
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/UtraLocation/geographicalInformation
+  differs_on:
+  - description
 - local_name: globalRanNodeIdList
   members:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/PresenceInfo/globalRanNodeIdList
@@ -3984,6 +4200,12 @@ collisions:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/ProtocolDescriptionRm/mriTransferInfo
   differs_on:
   - range
+- local_name: n3IwfId
+  members:
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/n3IwfId
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/N3gaLocation/n3IwfId
+  differs_on:
+  - description
 - local_name: ncgiList
   members:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/MbsServiceArea/ncgiList
@@ -4011,6 +4233,7 @@ collisions:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/AppBindingInfo/plmnId
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/CellGlobalId/plmnId
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/Ecgi/plmnId
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/GlobalRanNodeId/plmnId
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/Guami/plmnId
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/LocationAreaId/plmnId
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/Ncgi/plmnId
@@ -4033,6 +4256,12 @@ collisions:
   members:
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/InvalidParam/reason
   - https://semantics.ericsson.com/openapi/TS29571_CommonData/ReportItem/reason
+  differs_on:
+  - description
+- local_name: regex
+  members:
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/FqdnPatternMatchingRule/regex
+  - https://semantics.ericsson.com/openapi/TS29571_CommonData/Property/regex
   differs_on:
   - description
 - local_name: remainExReportsDl

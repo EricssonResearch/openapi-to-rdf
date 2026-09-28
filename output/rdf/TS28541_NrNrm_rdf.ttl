@@ -46,6 +46,7 @@
 @prefix TS28541_NrNrm_EUtranCellRelation-Single: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/EUtranCellRelation-Single/> .
 @prefix TS28541_NrNrm_EUtranFreqRelation-Single: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/EUtranFreqRelation-Single/> .
 @prefix TS28541_NrNrm_EUtranFrequency-Single: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/EUtranFrequency-Single/> .
+@prefix TS28541_NrNrm_Ephemeris: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/Ephemeris/> .
 @prefix TS28541_NrNrm_EphemerisInfoSet-Single: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/EphemerisInfoSet-Single/> .
 @prefix TS28541_NrNrm_EsNotAllowedTimePeriod: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/EsNotAllowedTimePeriod/> .
 @prefix TS28541_NrNrm_ExternalENBFunction-Single: <https://semantics.ericsson.com/openapi/TS28541_NrNrm/ExternalENBFunction-Single/> .
@@ -241,6 +242,9 @@ TS28541_NrNrm:EUtranFrequency-Multiple a rdfs:Class .
 
 TS28541_NrNrm:EUtranFrequency-Single a rdfs:Class ;
     rdfs:subClassOf TS28623_GenericNrm:Top .
+
+TS28541_NrNrm:Ephemeris a rdfs:Class ;
+    rdfs:comment "Note: Uses OpenAPI oneOf - complex logical constraints partially supported in SHACL" .
 
 TS28541_NrNrm:EphemerisInfoSet-Multiple a rdfs:Class .
 
@@ -671,6 +675,22 @@ TS28541_NrNrm_EUtranFrequency-Single:attributes a rdf:Property ;
     rdfs:range rdfs:Resource .
 
 TS28541_NrNrm:EUtranFrequencyRef a rdf:Property ;
+    rdfs:range xsd:string .
+
+TS28541_NrNrm_Ephemeris:epochTime a rdf:Property ;
+    rdfs:domain TS28541_NrNrm:Ephemeris ;
+    rdfs:range xsd:dateTime .
+
+TS28541_NrNrm_Ephemeris:orbital a rdf:Property ;
+    rdfs:domain TS28541_NrNrm:Ephemeris ;
+    rdfs:range TS28541_NrNrm:Orbital .
+
+TS28541_NrNrm_Ephemeris:positionVelocity a rdf:Property ;
+    rdfs:domain TS28541_NrNrm:Ephemeris ;
+    rdfs:range TS28541_NrNrm:PositionVelocity .
+
+TS28541_NrNrm_Ephemeris:satelliteId a rdf:Property ;
+    rdfs:domain TS28541_NrNrm:Ephemeris ;
     rdfs:range xsd:string .
 
 TS28541_NrNrm_EphemerisInfoSet-Single:attributes a rdf:Property ;
