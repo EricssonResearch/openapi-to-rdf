@@ -307,11 +307,51 @@ H6.
          5 GAIN triples
       15 invented (declaring_class, property) pairs, 0 lost  — AC-1, unchanged and stable
 
-  The dominant direction is LOSS, which is consistent with the standing hypothesis — the AC-7
-  (ingestion) suppression rule orphaning a term whose declaring class is external in the document that
-  would otherwise publish it, so the referring half suppresses it and the declaring half never reaches
-  it. That remains a **hypothesis**: the direction now supports it, and no case has been traced end to
-  end. It does not explain the 5 documents that GAIN triples, or the 7 that substitute.
+  **CAUSE ESTABLISHED 2026-09-28, and the AC-7 orphaning hypothesis is REFUTED.** Every differing
+  triple is now classified by `scripts/diagnose_split_divergence.py`, artifact
+  `artifacts/split-divergence-causes.json`, over all 44 3GPP documents — 778 triples present whole and
+  absent split:
+
+      702   90.2%   unscoped IRI, dropped by the split   -> a VOCABULARY DECISION, not a defect
+        0    0.0%   class-scoped IRI, dropped            -> the AC-7 orphaning defect
+       67    8.6%   datatype range -> a class            -> the SPLIT IS RIGHT, the whole is wrong
+        4    0.5%   class range -> a datatype            -> the real split defect
+        5    0.6%   unexplained
+
+  **AC-7 orphaning has ZERO instances.** It was the recorded mechanism for five days and it does not
+  happen: not one class-scoped property is dropped by splitting. It was a hypothesis inferred from a
+  direction (net loss) and the direction had a different cause.
+
+  **90% of the "divergence" is not an ingestion defect at all.** It is the unscoped-property-IRI family
+  already open in this file ("128 of 965 property IRIs are unscoped"): `shacl_converter`'s
+  inline-sub-object fallback mints `<ns>AnLFFunction` with no `/Class/` segment, because an inline object
+  has no schema name to scope under. Splitting the document changes which half holds the inline object
+  and the unscoped term stops being minted. **That is blocked on the vocabulary decision nobody has
+  taken**, and fixing the ingestion path cannot touch it.
+
+  **9% is the split being MORE correct than the whole document.** Where a property's `items.$ref` names a
+  top-level `oneOf` union, determination S2 gives that union no class, so the WHOLE conversion falls back
+  to `rdfs:range xsd:string`; the split registers it as an external class (D2) and resolves it properly.
+  Example: `ChfInfo.plmnRangeList` is `{type: array, items: {$ref: PlmnRange}}` — whole says `xsd:string`,
+  split says `:PlmnRange`. So 67 triples of the "loss" are a defect in the whole path, and isomorphism
+  is the wrong acceptance criterion for them: the two arms SHOULD differ here until S2's interaction with
+  `rdfs:range` is settled.
+
+  **The genuine split defect is 4 triples, one document, one class.** All four are in
+  `TS28105_AiMlNrm.yaml`, all `NwdafAnalyticsType` degrading to `xsd:string`
+  (`InferenceOutput/aIMLInferenceName`, `MLCapabilityInfo/aIMLInferenceName`, and the unscoped
+  `aIMLInferenceName` and `inferenceScope`).
+
+  **Two earlier diagnoses on this entry were wrong, both from a sample of one**, and they are recorded
+  because the shape repeated. Tracing the SMALLEST divergence (`TS28104_MdaReport`) said the dominant
+  cause was a namespace relabelling — the gate supplied `base_namespace` without `document_namespaces`,
+  so each half minted the other's classes under a filename-derived namespace. That was real, and fixing
+  it changed **6 of 47 documents** and left the net loss slightly worse. It was also nearly a
+  catastrophic repair: the converter was RIGHT (that is D1 working), and "fixing" the converter would
+  have broken D1.
+
+  Evidence: `uv run python scripts/diagnose_split_divergence.py`; the isomorphism counts come from
+  `scripts/measure_split_isomorphism.py`, artifact `artifacts/split-isomorphism.json`.
 
   Evidence: `uv run python scripts/measure_split_isomorphism.py`, artifact
   `artifacts/split-isomorphism.json` (re-pinned 2026-09-28).

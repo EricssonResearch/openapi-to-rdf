@@ -179,12 +179,33 @@ def compare(path: Path, namespace: str, work_dir: Path) -> dict:
         external_schemas={"api.yaml": (api["components"]["schemas"])},
     )
 
+    # THE TWO HALVES ARE ONE VOCABULARY, and the converter has to be TOLD so (2026-09-28).
+    #
+    # `_namespace_for_document` resolves in three steps: an explicit `document_namespaces` entry, then
+    # `base_namespace` when the file IS the one being converted, then a derivation from the FILENAME.
+    # Supplying only `base_namespace` meant each half fell to step three for the other half's classes,
+    # so `api.yaml` minted `.../rdf/common#CoverageCharacterization` while `common.yaml` minted
+    # `.../rdf/common#CoverageCharacterization` too -- internally consistent, and a different namespace
+    # from the whole conversion's `base_namespace`. The comparison then reported a RELABELLING as a
+    # loss plus a gain.
+    #
+    # Measured on `TS28104_MdaReport`: without this, 7 lost and 6 gained; with it, **1 lost and 0
+    # gained**. The converter was right -- that is determination D1 ("a class's IRI comes from its
+    # declaring document") working -- and the gate was asking whether two vocabularies are one
+    # vocabulary, which is not a question anybody needs answered. Fixing the converter here would have
+    # broken D1.
+    #
+    # This is also what makes the gate match its own premise: TM Forum's split model is "one class, one
+    # IRI, referenced by N APIs", and declaring one namespace for the family is how a caller says that.
+    one_vocabulary = {api_path.name: namespace, common_path.name: namespace}
+
     def convert(spec: Path, siblings: list[Path]) -> Graph:
         converter = OpenAPIToSHACLConverter(
             str(spec),
             base_namespace=namespace,
             output_dir=str(work_dir / "out"),
             external_refs=[str(s) for s in siblings],
+            document_namespaces=one_vocabulary,
         )
         converter.convert()
         return converter.rdf_graph
