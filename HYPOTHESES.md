@@ -426,8 +426,40 @@ H6.
   declaring-class fix, TMF620 surplus comments went 137 → 126 and **124 of the residual 126 sit on
   these unscoped IRIs**, where there is no declaring class to compare against.
 
-- **D3 (new finding): pure `$ref` alias schemas mis-classified, causing 9 3GPP dangling class
-  targets** — STATUS: **open** (confidence: high)
+- **D3: pure `$ref` alias schemas mis-classified** — STATUS: **PARTLY FIXED 2026-09-28; the emitted
+  graph is unchanged and the cause is now located** (confidence: high)
+
+  **Fixed at the Mapping level.** `_resolve_ref` refused to follow an external `$ref`, on the stated
+  principle that this module reads no filesystem — but `build_mapping` is HANDED `external_schemas` in
+  memory, so refusing was refusing to read a fact it already had. `target_classes_for` had been taught
+  about external documents; `datatype_for` and `is_iri_valued` had not. Measured by splitting each of the
+  44 3GPP documents in two and comparing every half's facts against the whole document's:
+  **216 datatype disagreements before, 0 after.** Evidence:
+  `tests/test_cross_document_refs.py::test_an_external_primitive_alias_yields_a_datatype_not_a_class`.
+
+  The `is_iri_valued` half of the same blindness has **0 instances in this corpus, before and after** —
+  no 3GPP document puts `format: uri` on a cross-referenced alias. It is a latent defect fixed
+  defensively, and a CONSTRUCTED test is the only thing that exercises it. Said plainly because a fix
+  with no measured instance must not be reported as if it had one.
+
+  **NOT fixed in the emitted graph, and this is the finding that matters.** Neither
+  `dangling_class_targets_corpuswide` (17, unchanged) nor the split-vs-whole divergence
+  (34 `range_dangling` triples, unchanged) moved. Regenerating `output/` produced a 26,000-line diff in
+  39 files and **0 semantic triples changed** — pure serialisation churn, reverted.
+
+  The reason is the cause: **`shacl_converter._determine_property_type_and_range` re-derives the range
+  itself for an external `$ref` instead of reading the Mapping.** The comment there said `Mapping`
+  "sees no external schema at all ... a real gap in `Mapping`, recorded here rather than papered over" —
+  true when written, false since `external_schemas` landed, and the two implementations then drifted.
+  That is exactly the failure this repository's `Mapping` exists to prevent, and it is now the whole of
+  what remains of D3.
+
+  **An attempt to reroute that branch through `Mapping` made things much worse and was reverted**:
+  divergence went 69 → 984 triples with 917 unexplained. So the reroute is not a one-line change; the
+  emitter's fallbacks interact with paths the Mapping does not cover. Do not retry it without first
+  establishing why.
+
+  _Superseded evidence from the original entry, kept for the trail:_
   evidence: all 9 remaining 3GPP `rdfs:range` dangling targets are pure `$ref` alias schemas (e.g.
   `ReportingTarget: {$ref: "other.yaml#/components/schemas/..."}`, 7 with only `$ref`, 2 with
   `$ref` + `description`). The referring document mints a class IRI for the alias while the declaring

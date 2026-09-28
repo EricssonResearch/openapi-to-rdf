@@ -550,7 +550,12 @@ def flattened_required(schema_def: Any) -> set[str]:
     return required
 
 
-def is_primitive_def(schema_def: Any, schemas: dict[str, Any], depth: int = 0) -> bool:
+def is_primitive_def(
+    schema_def: Any,
+    schemas: dict[str, Any],
+    depth: int = 0,
+    external_schemas: dict[str, dict[str, Any]] | None = None,
+) -> bool:
     """True when a schema definition resolves to a primitive (literal-valued) type.
 
     Follows ``$ref`` and ``items``, and treats an ``anyOf``/``oneOf`` as primitive only when
@@ -561,41 +566,77 @@ def is_primitive_def(schema_def: Any, schemas: dict[str, Any], depth: int = 0) -
     if not isinstance(schema_def, dict) or depth > _MAX_REF_DEPTH:
         return False
     if "$ref" in schema_def:
-        ref = schema_def["$ref"]
-        if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
-            return is_primitive_def(schemas.get(ref.split("/")[-1]), schemas, depth + 1)
-        return False
+        # Routed through `_resolve_ref` so the external case is handled in ONE place. Before
+        # 2026-09-28 this returned False for any external `$ref`, which is how defect D3 arose: a
+        # primitive alias in another document read as "not a primitive", so it was treated as a class.
+        resolved = _resolve_ref(schema_def, schemas, 0, external_schemas)
+        if resolved is schema_def:
+            return False
+        return is_primitive_def(resolved, schemas, depth + 1, external_schemas)
     declared = schema_def.get("type")
     if declared in ("string", "integer", "number", "boolean"):
         return True
     if declared == "array":
-        return is_primitive_def(schema_def.get("items", {}), schemas, depth + 1)
+        return is_primitive_def(schema_def.get("items", {}), schemas, depth + 1, external_schemas)
     # An anyOf/oneOf is primitive only when every option is. Each key is tested independently
     # (rather than returning on the first present one) to preserve the behaviour of the emitter
     # predicate this replaced, for a schema that carries both.
     for key in ("anyOf", "oneOf"):
         if key in schema_def:
             if all(
-                is_primitive_def(option, schemas, depth + 1) for option in schema_def[key]
+                is_primitive_def(option, schemas, depth + 1, external_schemas)
+                for option in schema_def[key]
             ):
                 return True
     return False
 
 
-def _resolve_ref(spec: Any, schemas: dict[str, Any], depth: int = 0) -> Any:
-    """Follow an internal ``$ref`` to the schema it names; return ``spec`` unchanged otherwise.
+def _resolve_ref(
+    spec: Any,
+    schemas: dict[str, Any],
+    depth: int = 0,
+    external_schemas: dict[str, dict[str, Any]] | None = None,
+) -> Any:
+    """Follow a ``$ref`` to the schema it names; return ``spec`` unchanged when it cannot.
 
-    External (``file.yaml#/...``) references are left alone: this module never reads the
-    filesystem, and an unresolvable reference must stay visible as an absent fact rather than
-    become a guess.
+    Still reads no filesystem, and an unresolvable reference still stays visible as an absent fact
+    rather than becoming a guess. What changed on 2026-09-28 is that an EXTERNAL ref is resolvable when
+    the caller supplies the pool: ``build_mapping`` already receives ``external_schemas`` in memory, so
+    refusing to follow one was refusing to read a fact it had been handed.
+
+    **Defect D3, measured.** `TS29571_CommonData` split into two halves puts `AreaScope` in one and
+    `Tac` — `{type: string, pattern: …}` — in the other. `AreaScope.tacList` is an array of
+    `$ref: common.yaml#/components/schemas/Tac`, so:
+
+    * whole document: `datatype=xsd:string`, `target_classes=()` — correct;
+    * split: `datatype=None`, `target_classes=()` — and the emitter, given no datatype, fell back to
+      naming `:Tac` as the `rdfs:range`, an IRI nothing declares.
+
+    34 triples across the 3GPP corpus. `target_classes_for` had been taught about external documents and
+    `datatype_for`/`is_iri_valued` had not, so the asymmetry was one missing argument in three places.
+
+    When it follows an external ref the POOL BECOMES `schemas` for the rest of the walk, so a nested
+    internal ref inside that document resolves against its own document rather than the referring one --
+    the same rule determination D1 states for class IRIs.
     """
     if not isinstance(spec, dict) or depth > _MAX_REF_DEPTH:
         return spec if isinstance(spec, dict) else {}
     ref = spec.get("$ref")
-    if isinstance(ref, str) and ref.startswith("#/components/schemas/"):
+    if not isinstance(ref, str):
+        return spec
+    if ref.startswith("#/components/schemas/"):
         target = schemas.get(ref.split("/")[-1])
         if isinstance(target, dict):
-            return _resolve_ref(target, schemas, depth + 1)
+            return _resolve_ref(target, schemas, depth + 1, external_schemas)
+        return spec
+    parsed = _parse_external_ref(ref) if external_schemas else None
+    if parsed is not None:
+        document, name = parsed
+        pool = external_schemas.get(_ref_document_key(document))
+        target = pool.get(name) if pool else None
+        if isinstance(target, dict):
+            # `pool` becomes the schema pool: a ref nested inside that document is relative to it.
+            return _resolve_ref(target, pool, depth + 1, external_schemas)
     return spec
 
 
@@ -630,20 +671,29 @@ def _parse_external_ref(ref: str) -> tuple[str, str] | None:
     return None
 
 
-def datatype_for(spec: Any, schemas: dict[str, Any], depth: int = 0) -> str | None:
+def datatype_for(
+    spec: Any,
+    schemas: dict[str, Any],
+    depth: int = 0,
+    external_schemas: dict[str, dict[str, Any]] | None = None,
+) -> str | None:
     """The XSD datatype of a property's value, or None where the value is not a literal.
 
     None is a fact, not a failure: an object-valued property, a multi-target ``anyOf`` and an
     array of unspecified items have no single datatype, and inventing ``xsd:string`` for them
     would be a false statement rather than a loose one.
+
+    ``external_schemas`` added 2026-09-28 (defect D3): without it an external ``$ref`` to a primitive
+    alias returned None, the emitter read that as "not a literal", and named the alias as an
+    ``rdfs:range`` -- a target nothing declares. See :func:`_resolve_ref`.
     """
     if not isinstance(spec, dict) or depth > _MAX_REF_DEPTH:
         return None
     if "$ref" in spec:
-        resolved = _resolve_ref(spec, schemas)
+        resolved = _resolve_ref(spec, schemas, 0, external_schemas)
         if resolved is spec:
             return None
-        return datatype_for(resolved, schemas, depth + 1)
+        return datatype_for(resolved, schemas, depth + 1, external_schemas)
     if any(key in spec for key in ("anyOf", "oneOf", "allOf")):
         return None
     declared = spec.get("type")
@@ -656,7 +706,7 @@ def datatype_for(spec: Any, schemas: dict[str, Any], depth: int = 0) -> str | No
     if declared == "boolean":
         return str(XSD.boolean)
     if declared == "array":
-        return datatype_for(spec.get("items", {}), schemas, depth + 1)
+        return datatype_for(spec.get("items", {}), schemas, depth + 1, external_schemas)
     return None
 
 
@@ -755,7 +805,12 @@ def target_classes_for(
     return tuple(found)
 
 
-def is_iri_valued(property_name: str, spec: Any, schemas: dict[str, Any]) -> bool:
+def is_iri_valued(
+    property_name: str,
+    spec: Any,
+    schemas: dict[str, Any],
+    external_schemas: dict[str, dict[str, Any]] | None = None,
+) -> bool:
     """True when the value is a URL denoting a resource rather than a string about one.
 
     ``format: uri`` **or** the name ``href``. The second half is TM Forum's own base-schema
@@ -765,11 +820,14 @@ def is_iri_valued(property_name: str, spec: Any, schemas: dict[str, Any]) -> boo
     """
     if property_name in IRI_VALUED_NAMES:
         return True
-    resolved = _resolve_ref(spec, schemas)
+    # `external_schemas` for the same reason `datatype_for` needs it: `format: uri` on a primitive
+    # alias in ANOTHER document was invisible, so a cross-document IRI-valued property silently lost
+    # its coercion and lifted as a string. That is determination S5/F10 failing on file layout alone.
+    resolved = _resolve_ref(spec, schemas, 0, external_schemas)
     if isinstance(resolved, dict) and resolved.get("format") == "uri":
         return True
     if isinstance(resolved, dict) and resolved.get("type") == "array":
-        items = _resolve_ref(resolved.get("items", {}), schemas)
+        items = _resolve_ref(resolved.get("items", {}), schemas, 0, external_schemas)
         return isinstance(items, dict) and items.get("format") == "uri"
     return False
 
@@ -1257,8 +1315,10 @@ def build_mapping(
                 target_classes=target_classes_for(
                     spec, declaring_schemas[declaring], ext_schemas
                 ),
-                datatype=datatype_for(spec, declaring_schemas[declaring]),
-                is_iri_valued=is_iri_valued(property_name, spec, declaring_schemas[declaring]),
+                datatype=datatype_for(spec, declaring_schemas[declaring], 0, ext_schemas),
+                is_iri_valued=is_iri_valued(
+                    property_name, spec, declaring_schemas[declaring], ext_schemas
+                ),
                 min_count=lower,
                 max_count=spec.get("maxItems") if is_list else 1,
             )

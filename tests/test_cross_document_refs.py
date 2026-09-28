@@ -311,3 +311,84 @@ def test_no_property_iri_is_minted_outside_the_mapping(tmp_path) -> None:
     assert f"{ns}Holder/inlineProp" in graph_properties, sorted(graph_properties)
     assert f"{ns}OtherHolder/inlineProp" in graph_properties, sorted(graph_properties)
     assert len(graph_properties) >= 2, sorted(graph_properties)
+
+
+def _split_pair():
+    """Two documents where the PRIMITIVE alias lives in the other file.
+
+    `Tac`-shaped: a string with a pattern, referenced across a document boundary as `items.$ref`.
+    """
+    api = {
+        "openapi": "3.0.0",
+        "info": {"title": "Api", "version": "1"},
+        "components": {"schemas": {
+            "Holder": {"type": "object", "properties": {
+                "codes": {"type": "array", "items": {"$ref": "common.yaml#/components/schemas/Code"}},
+                "link": {"$ref": "common.yaml#/components/schemas/Link"},
+            }},
+        }},
+    }
+    common_schemas = {
+        "Code": {"type": "string", "pattern": "^[0-9a-f]+$", "description": "a hex code"},
+        # `format: uri` on an alias in ANOTHER document -- determination S5/F10.
+        "Link": {"type": "string", "format": "uri", "description": "a link"},
+    }
+    return api, {"common.yaml": common_schemas}
+
+
+def test_an_external_primitive_alias_yields_a_datatype_not_a_class() -> None:
+    """Defect D3 at the Mapping level: an external `$ref` to a primitive is a LITERAL, not a class.
+
+    `_resolve_ref` refused to follow an external `$ref` on the stated principle that this module reads
+    no filesystem. But `build_mapping` is HANDED `external_schemas` in memory, so refusing was refusing
+    to read a fact it already had -- and the consequence was `datatype=None`, which a consumer reads as
+    "not a literal" and turns into an `rdfs:range` naming the alias, an IRI nothing declares.
+
+    Measured across the 44 3GPP documents, splitting each in two and comparing every half's facts
+    against the whole document's: **216 datatype mismatches before, 0 after.**
+    """
+    from openapi_to_rdf import build_mapping
+
+    api, external = _split_pair()
+    mapping = build_mapping(api, namespace="https://example.org/v/", external_schemas=external)
+    fact = mapping.properties_by_class[("Holder", "codes")]
+
+    assert fact.datatype == "http://www.w3.org/2001/XMLSchema#string", fact.datatype
+    # And NO class target: naming one would be the dangling `rdfs:range` this defect produced.
+    assert fact.target_classes == (), fact.target_classes
+    # The alias must not have become a class either.
+    assert "Code" not in mapping.classes, sorted(mapping.classes)
+
+
+def test_format_uri_on_an_external_alias_is_still_iri_valued() -> None:
+    """S5/F10 across a document boundary — CONSTRUCTED, because the corpus cannot reach it.
+
+    Stated plainly rather than implied: the same `_resolve_ref` blindness applied to `is_iri_valued`,
+    so `format: uri` on an alias in another document was invisible and the property would lift as a
+    string instead of an edge. Measured on the 3GPP corpus: **0 instances before the fix and 0 after**
+    — no document there puts `format: uri` on a cross-referenced alias. So this is a latent defect
+    fixed defensively, and this test is the only thing that exercises it. Without the constructed case
+    the fix would be untested code.
+    """
+    from openapi_to_rdf import build_mapping
+
+    api, external = _split_pair()
+    mapping = build_mapping(api, namespace="https://example.org/v/", external_schemas=external)
+    fact = mapping.properties_by_class[("Holder", "link")]
+    assert fact.is_iri_valued is True, "format: uri across a document boundary was not seen"
+
+
+def test_an_unresolvable_external_ref_still_yields_no_guess() -> None:
+    """The principle the old behaviour was defending, kept: absent stays absent.
+
+    Following an external `$ref` is now possible when the pool is supplied. When it is NOT supplied, or
+    names a document the caller did not hand over, the fact must stay missing rather than become a
+    default -- `datatype=None` and no target class, not `xsd:string`.
+    """
+    from openapi_to_rdf import build_mapping
+
+    api, _ = _split_pair()
+    mapping = build_mapping(api, namespace="https://example.org/v/")  # no external_schemas at all
+    fact = mapping.properties_by_class[("Holder", "codes")]
+    assert fact.datatype is None, fact.datatype
+    assert fact.target_classes == (), fact.target_classes
