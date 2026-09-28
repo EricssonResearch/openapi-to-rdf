@@ -68,6 +68,18 @@ def term_map_for_class(mapping: Mapping, class_name: str) -> dict:
 
     One definition, two projections. Before this the overlay's per-schema contexts and the context
     document were built by different code in different repositories, which is how they came to disagree.
+
+    `@container: @set` on a multi-valued property, added 2026-09-27 because a consumer's generated code
+    lost a member without it. JSON-LD 1.1 §9.15 defines a set container as "the term's value is always
+    an array", so without it a single-element list round-trips as a scalar. Found by reading the
+    CONSUMER rather than reasoning about the spec: `kiota-ld` reads
+    `"@container": "@set"` in `OpenOpenApiJsonLdContextExtension.cs:122`, records it on
+    `CodeProperty.IsOntologySet`, and emits `ONTOLOGY_SET_PROPERTIES` from all three language writers
+    (C#, Java, Python). Dropping it silently removed that member from every generated client, which a
+    committed report listing caught by refusing to regenerate.
+
+    Driven by `max_count != 1`, a fact the Mapping already recorded -- no new field. Measured on TMF641:
+    145 of 718 properties are multi-valued.
     """
     term_map: dict = {}
     for (declaring_class, prop_name), prop_fact in mapping.properties_by_class.items():
@@ -78,12 +90,16 @@ def term_map_for_class(mapping: Mapping, class_name: str) -> dict:
             # collapses every subject to a blank node, and blank nodes cannot be joined across
             # deployments, which is the entire point of doing this.
             term_map["id"] = "@id"
-        elif prop_fact.is_iri_valued:
-            term_map[prop_name] = {"@type": "@id", "@id": prop_fact.iri}
+            continue
+        if prop_fact.is_iri_valued:
+            term: dict = {"@type": "@id", "@id": prop_fact.iri}
         elif prop_fact.datatype:
-            term_map[prop_name] = {"@type": prop_fact.datatype, "@id": prop_fact.iri}
+            term = {"@type": prop_fact.datatype, "@id": prop_fact.iri}
         else:
-            term_map[prop_name] = {"@id": prop_fact.iri}
+            term = {"@id": prop_fact.iri}
+        if prop_fact.max_count != 1:
+            term["@container"] = "@set"
+        term_map[prop_name] = term
     return term_map
 
 

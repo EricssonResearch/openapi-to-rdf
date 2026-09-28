@@ -140,3 +140,41 @@ def test_the_context_declares_json_ld_1_1_and_honours_the_base() -> None:
     # Not vacuous: the scoped term the @version declaration exists for is actually present.
     assert isinstance(one["Thing"], dict) and "@context" in one["Thing"], one["Thing"]
 
+
+
+def test_a_multi_valued_property_declares_a_set_container() -> None:
+    """JSON-LD 1.1 §9.15: a set container means "the term's value is always an array".
+
+    Without it a single-element list round-trips as a scalar, and the loss is not theoretical -- it was
+    found by a CONSUMER, not by reading the spec. `kiota-ld` reads `"@container": "@set"` in
+    `OpenApiJsonLdContextExtension.cs`, records it on `CodeProperty.IsOntologySet`, and emits
+    `ONTOLOGY_SET_PROPERTIES` from its C#, Java and Python writers. This projection dropped it, so all
+    three generated clients silently lost that member; a committed report listing in `snm-api-native`
+    refused to regenerate, which is how it surfaced.
+
+    Both directions asserted, because the single-valued case is what makes the multi-valued one a
+    finding: a projection that stamped `@set` on everything would satisfy half of this.
+    """
+    from openapi_to_rdf.projections.context import term_map_for_class
+
+    doc = {
+        "openapi": "3.0.0",
+        "info": {"title": "Sets", "version": "1"},
+        "components": {"schemas": {"Thing": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "tags": {"type": "array", "items": {"type": "string"}},
+                "parts": {"type": "array", "items": {"$ref": "#/components/schemas/Part"}},
+            },
+        }, "Part": {"type": "object", "properties": {"label": {"type": "string"}}}}},
+    }
+    mapping = build_mapping(doc, namespace="https://example.org/v/")
+    terms = term_map_for_class(mapping, "Thing")
+
+    assert terms["tags"].get("@container") == "@set", terms["tags"]
+    assert terms["parts"].get("@container") == "@set", terms["parts"]
+    # The negative control: a scalar must NOT carry one.
+    assert "@container" not in terms["name"], terms["name"]
+    # And the other keys survive alongside it -- a term is not replaced by its container.
+    assert terms["tags"]["@id"].endswith("/tags")
