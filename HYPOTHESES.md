@@ -314,7 +314,7 @@ H6.
 
       702   90.2%   unscoped IRI, dropped by the split   -> a DUPLICATE mint; now FIXED, see below
         0    0.0%   class-scoped IRI, dropped            -> the AC-7 orphaning defect
-       67    8.6%   datatype range -> a class            -> the SPLIT IS RIGHT, the whole is wrong
+       67    8.6%   datatype range -> a class            -> MISLABELLED; see the correction below
         4    0.5%   class range -> a datatype            -> the real split defect
         5    0.6%   unexplained
 
@@ -353,13 +353,41 @@ H6.
   against the Mapping rather than a list of expected IRIs, and watched failing by restoring the old
   argument.
 
-  **9% is the split being MORE correct than the whole document.** Where a property's `items.$ref` names a
-  top-level `oneOf` union, determination S2 gives that union no class, so the WHOLE conversion falls back
-  to `rdfs:range xsd:string`; the split registers it as an external class (D2) and resolves it properly.
-  Example: `ChfInfo.plmnRangeList` is `{type: array, items: {$ref: PlmnRange}}` — whole says `xsd:string`,
-  split says `:PlmnRange`. So 67 triples of the "loss" are a defect in the whole path, and isomorphism
-  is the wrong acceptance criterion for them: the two arms SHOULD differ here until S2's interaction with
-  `rdfs:range` is settled.
+  **"9% is the split being MORE correct" was MY MISLABEL, and the truth is mostly the reverse**
+  (corrected 2026-09-28). I bucketed 67 triples as "the split is right" on the rule *whole says a
+  datatype, split names a class* — and never checked that the split's target was DECLARED. It usually is
+  not. `AreaScope.tacList` is `{type: array, items: {$ref: Tac}}` and `Tac` is `{type: string,
+  pattern: …}`, so the whole conversion's `rdfs:range xsd:string` is CORRECT and the split's
+  `rdfs:range :Tac` points at an IRI nothing declares — defect **D3**, already open in this file. The
+  classifier now tests declaredness and has a `range_dangling` bucket; it had called the split right
+  where the split was wrong, in three consecutive reports.
+
+  Honest split of the 69 remaining divergent triples:
+
+      23   33.3%   datatype -> a DECLARED class     -> the split is right
+      34   49.3%   datatype -> an UNDECLARED class  -> the SPLIT is wrong (D3)
+       4    5.8%   class -> a datatype              -> the split is wrong
+       5    7.2%   unscoped
+       3    4.3%   unexplained
+
+  **One real instance of "the split is right" did exist, and it was a separate defect: S2 applied to
+  schemas that are not unions.** `is_json_only_union` returned `bool(schema_def.get("oneOf"))` — any
+  `oneOf` at all. `PlmnRange` is `type: object` with three properties and
+  `oneOf: [{required: [start, end]}, {required: [pattern]}]`: a co-occurrence constraint on ONE object's
+  own fields, not type alternation. The corpus separates perfectly — **69 true unions, none carrying
+  `type: object` or `properties`; 22 constraint-only `oneOf`, every one carrying both** — so the predicate
+  now requires a member's keys to exceed `{required, description, title, not}`.
+
+  Effect: 22 schemas gained the class they should always have had; `PlmnRange` is declared in BOTH arms
+  and used as `rdfs:range` by 2 properties in each, where before it was `xsd:string` in one arm and a
+  dangling target in the other, neither being right. Declared terms +7/+6/+1 in the three documents
+  `tests/test_shape_uniqueness.py` pins (the uniqueness invariant did not move — only the count). And
+  **one parked SHACL failure went green**: `TS29571_CommonData/GlobalRanNodeId_missing_plmnId` now
+  rejects correctly, so this repo's failing count is **65**, not 66.
+
+  H3's table above recorded `PlmnRange` and `ImsiRange` as "top-level `oneOf`, so the converter is right
+  to emit no shape". That verdict was right for 69 of the 71 schemas it covered and wrong for those two,
+  because the table never checked whether the members were types.
 
   **The genuine split defect is 4 triples, one document, one class.** All four are in
   `TS28105_AiMlNrm.yaml`, all `NwdafAnalyticsType` degrading to `xsd:string`
