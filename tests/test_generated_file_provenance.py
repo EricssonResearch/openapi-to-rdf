@@ -200,3 +200,72 @@ def test_the_callers_namespace_default_is_an_obvious_placeholder() -> None:
     assert "3gpp" not in DEFAULT_BASE_NAMESPACE_PREFIX.lower(), (
         "the default must not name a corpus the caller may not be using"
     )
+
+
+def test_the_declared_provenance_terms_are_exactly_the_emitted_ones(tmp_path) -> None:
+    """The emitter and the filter must agree, because they were two copies and one had drifted.
+
+    `PROVENANCE_PREDICATES` was a tuple of four CURIE strings while `_stamp_provenance` emitted six
+    triples -- it also writes `rdf:type owl:Ontology` and `dcterms:publisher`. Nothing read the
+    constant, which is the only reason the drift went unnoticed. Now `split_provenance` reads it, so a
+    term emitted but not declared would be left in the VOCABULARY half and silently reintroduce the
+    unsatisfiable-isomorphism bug this pair exists to fix.
+
+    Asserted as set EQUALITY in both directions, and with the count, so neither a new emitted term nor
+    a stale declared one passes.
+    """
+    import yaml
+    from rdflib import URIRef
+
+    from openapi_to_rdf.provenance import PROVENANCE_PREDICATES, split_provenance
+    from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter
+
+    ns = "https://example.org/prov/"
+    spec = tmp_path / "doc.yaml"
+    spec.write_text(yaml.safe_dump({
+        "openapi": "3.0.0",
+        "info": {"title": "Prov", "version": "1"},
+        "components": {"schemas": {"Thing": {"type": "object",
+                                             "properties": {"name": {"type": "string"}}}}},
+    }))
+    converter = OpenAPIToSHACLConverter(str(spec), base_namespace=ns,
+                                       output_dir=str(tmp_path / "out"))
+    converter.convert()
+
+    subject = URIRef(ns)
+    emitted = {p for s, p, _ in converter.rdf_graph if s == subject}
+    declared = set(PROVENANCE_PREDICATES)
+    assert emitted == declared, {
+        "emitted_not_declared": sorted(str(p) for p in emitted - declared),
+        "declared_not_emitted": sorted(str(p) for p in declared - emitted),
+    }
+    assert len(declared) == 6, sorted(str(p) for p in declared)
+
+    # And the partition is exhaustive and non-trivial: every triple lands on exactly one side, the
+    # provenance side holds all six, and the vocabulary side is not empty.
+    vocabulary, provenance = split_provenance(converter.rdf_graph, ns)
+    assert len(vocabulary) + len(provenance) == len(converter.rdf_graph)
+    assert len(provenance) == 6, len(provenance)
+    assert len(vocabulary) > 0, "the vocabulary half is empty, so the partition proves nothing"
+
+
+def test_split_provenance_leaves_another_subjects_dcterms_alone(tmp_path) -> None:
+    """`dcterms:source` on a class is a statement about that class, not about the file.
+
+    The filter keys on SUBJECT as well as predicate. Without the subject check it would strip real
+    vocabulary whenever a document happened to describe provenance of its own terms -- the
+    "scope wider than the invariant" failure mode.
+    """
+    from rdflib import Graph, Literal, URIRef
+    from rdflib.namespace import DCTERMS
+
+    from openapi_to_rdf.provenance import split_provenance
+
+    ns = "https://example.org/prov/"
+    graph = Graph()
+    graph.add((URIRef(ns), DCTERMS.source, Literal("doc.yaml")))          # provenance
+    graph.add((URIRef(ns + "Thing"), DCTERMS.source, Literal("doc.yaml")))  # vocabulary
+
+    vocabulary, provenance = split_provenance(graph, ns)
+    assert len(provenance) == 1 and len(vocabulary) == 1
+    assert (URIRef(ns + "Thing"), DCTERMS.source, Literal("doc.yaml")) in vocabulary

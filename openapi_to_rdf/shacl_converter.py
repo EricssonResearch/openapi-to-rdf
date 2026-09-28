@@ -450,20 +450,35 @@ class OpenAPIToSHACLConverter:
         The subject is the document's own namespace IRI, so the statement is ABOUT this vocabulary and
         travels with it through a merge rather than floating free.
         """
-        from openapi_to_rdf.provenance import CONTACT, DERIVED_DISCLAIMER, PROJECT_URL
+        from openapi_to_rdf.provenance import (
+            CONTACT,
+            DERIVED_DISCLAIMER,
+            PROJECT_URL,
+            PROVENANCE_PREDICATES,
+        )
 
         try:
             from openapi_to_rdf import __version__ as tool_version
         except Exception:  # pragma: no cover - version metadata absent in a source checkout
             tool_version = "unknown"
 
+        # Keyed by the terms `provenance.PROVENANCE_PREDICATES` declares, so the emitter and the filter
+        # `provenance.split_provenance` uses are one definition. They were two, and the declared tuple
+        # had already drifted to four of these six while nothing read it.
         subject = URIRef(self.base_namespace)
-        self.rdf_graph.add((subject, RDF.type, OWL.Ontology))
-        self.rdf_graph.add((subject, OWL.versionInfo, Literal(f"openapi-to-rdf {tool_version}")))
-        self.rdf_graph.add((subject, DCTERMS.source, Literal(os.path.basename(self.yaml_file))))
-        self.rdf_graph.add((subject, DCTERMS.creator, URIRef(PROJECT_URL)))
-        self.rdf_graph.add((subject, DCTERMS.rights, Literal(DERIVED_DISCLAIMER)))
-        self.rdf_graph.add((subject, DCTERMS.publisher, Literal(CONTACT)))
+        for predicate, obj in (
+            (RDF.type, OWL.Ontology),
+            (OWL.versionInfo, Literal(f"openapi-to-rdf {tool_version}")),
+            (DCTERMS.source, Literal(os.path.basename(self.yaml_file))),
+            (DCTERMS.creator, URIRef(PROJECT_URL)),
+            (DCTERMS.rights, Literal(DERIVED_DISCLAIMER)),
+            (DCTERMS.publisher, Literal(CONTACT)),
+        ):
+            assert predicate in PROVENANCE_PREDICATES, (
+                f"{predicate} is emitted but not declared in provenance.PROVENANCE_PREDICATES, so "
+                f"`split_provenance` would leave it in the vocabulary half"
+            )
+            self.rdf_graph.add((subject, predicate, obj))
         self.rdf_graph.bind("owl", OWL)
         self.rdf_graph.bind("dcterms", DCTERMS)
 

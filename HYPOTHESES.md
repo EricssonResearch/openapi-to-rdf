@@ -1,5 +1,5 @@
 # HYPOTHESES — openapi-to-rdf
-_Last updated: 2026-09-23. Read this first: current beliefs + status._
+_Last updated: 2026-09-28. Read this first: current beliefs + status._
 
 This repo is becoming **the** OpenAPI → RDF extractor for the workspace, absorbing
 `snm-api-native/scripts/emit_tbox.py` and `sid-lift-src/lifting-core`. The design record is
@@ -278,13 +278,43 @@ H6.
   file cited "34 → 0" from TMF620 alone, which overstated it.
 
 - **AC-2 (ingestion) is not met: whole and split vocabularies are not isomorphic** — STATUS: **open**
-  (confidence: high). `graphs_isomorphic` is False on 35 of 38 3GPP documents and on all 3 TM Forum
-  documents. Smallest case diagnosed by hand: `TS28104_MdaReport`, whole 33 triples vs split 32, the
-  single missing triple being `attributes rdf:type rdf:Property`. Mechanism, **hypothesis not
-  measurement**: the AC-7 (ingestion) suppression rule can orphan a term — where a property's
-  declaring class is external in the document that would otherwise publish it, the referring half
-  suppresses it and the declaring half never reaches it, so neither emits it. Found only because
-  `measure_split_isomorphism.py` exists.
+  (confidence: high), re-measured 2026-09-28 on a repaired instrument.
+
+  **The earlier figures in this entry were unusable and are replaced.** They said "False on 35 of 38
+  3GPP documents", from `artifacts/split-isomorphism.json` dated 2026-09-23. That artifact disagreed
+  with a fresh run on **47 of 47 rows**: the corpus went 41 → 47 documents when it became a pinned
+  fetch of `Tag_Rel19_SA112`, and five days of converter changes moved every count. Do not quote it.
+
+  **And the gate could not pass at all, for a reason that was not the defect.** `_stamp_provenance`
+  (added 2026-09-25) writes `<namespace> dcterms:source "<filename>"`. Whole → one such triple;
+  split → two, one per file. So the merged graph always had exactly one more triple and
+  `graphs_isomorphic` was **unsatisfiable by construction**. The graph is right — the vocabulary
+  really did come from two files — the COMPARISON was wrong. Provenance is now partitioned out by
+  `openapi_to_rdf.provenance.split_provenance`, and `provenance_divergence` is asserted to be +1 on
+  every document so a change in the stamp cannot put it back silently. Measured: **0 of 46 isomorphic
+  with provenance included, 5 of 47 with it excluded.**
+
+  **The honest headline is 1, not 5.** Four of those five pass vacuously — `TS28111_FaultNotifications`
+  has ZERO vocabulary triples and three others have two, and two empty graphs are isomorphic. Exactly
+  one substantive pass: `TS28623_ComDefs`, 271 triples across 35 moved schemas. The script now reports
+  `VACUOUS` separately from `OK` for that reason.
+
+  **What the repaired instrument shows about the defect**, which the old one could not:
+
+      42 of 47 documents diverge on vocabulary alone
+        30 LOSE triples          -694 in total; worst TS28541_5GcNrm -173, TS28541_NrNrm -96
+         7 same count, different  a count-based gate would call these clean
+         5 GAIN triples
+      15 invented (declaring_class, property) pairs, 0 lost  — AC-1, unchanged and stable
+
+  The dominant direction is LOSS, which is consistent with the standing hypothesis — the AC-7
+  (ingestion) suppression rule orphaning a term whose declaring class is external in the document that
+  would otherwise publish it, so the referring half suppresses it and the declaring half never reaches
+  it. That remains a **hypothesis**: the direction now supports it, and no case has been traced end to
+  end. It does not explain the 5 documents that GAIN triples, or the 7 that substitute.
+
+  Evidence: `uv run python scripts/measure_split_isomorphism.py`, artifact
+  `artifacts/split-isomorphism.json` (re-pinned 2026-09-28).
 
 - **The reconciliation gate's external-class counter is vacuous** — STATUS: **open** (confidence:
   high). `scripts/reconcile_projections.py` reports `external_classes_excluded: 0` for every spec,
