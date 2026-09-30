@@ -161,7 +161,7 @@ verifies the document**, and it is already known to be incomplete:
 
 | figure | produced by | status |
 |---|---|---|
-| dangling class targets, per corpus | `uv run python scripts/measure_corpora.py` | committed script; **the artifact in `artifacts/` is stale** — it records 38 3GPP documents against a 44-document corpus, and 98 TM Forum dangling targets where `HYPOTHESES.md` claims 0 |
+| dangling class targets, per corpus | `uv run python scripts/measure_corpora.py` | **committed and current** (re-run 2026-09-30, 44/44 and 3/3 converted): 3GPP **17**, TM Forum **0**. The earlier 9 on 3GPP was measured on the 38-document snapshot and is not comparable — all 9 are still present, and 8 more arrived with the 6 added documents, uncharacterised. TM Forum's 0 supersedes the artifact's stale 98 |
 | whole-vs-split divergence, isomorphism | `uv run python scripts/measure_split_isomorphism.py` | committed |
 | corpus census: classes, properties, ranges, domains | `uv run python scripts/measure_corpora.py` | committed |
 | declaring-class attribution 93.9% / 68.5% | — | **measured in `snm-api-native` against its reference TBox; no committed script in this repo** |
