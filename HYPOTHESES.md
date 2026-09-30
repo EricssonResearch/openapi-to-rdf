@@ -414,17 +414,44 @@ H6.
   mapping. The counter was added by this plan and cannot reach a non-zero value — the same
   "guard whose inputs cannot reach the failure region" mode this file records elsewhere.
 
-- **128 of 965 property IRIs are unscoped, and carry no `rdfs:domain`** — STATUS: **open**
-  (confidence: high). Measured on one TMF620 conversion: 727 class-scoped `<base>/<Class>/<prop>`
-  against 128 unscoped `<base>/<prop>`. All 128 come from `shacl_converter.py`'s inline-sub-object
-  fallback (an inline object has no schema name, so there is nothing to scope under); `version`
-  collects 16 `rdfs:comment` values, `name` 15, `description` 12. A second site in the
-  `anyOf`/`oneOf` branch mints the same unscoped shape and additionally dash-folds via `format_name`;
-  it fired **0 times** across TMF620, TS28541_NrNrm and TS29571_CommonData, so it is reachable but
-  unexercised by either corpus rather than dead. **Deciding what an inline object's scope should be is
-  a vocabulary decision, not yet taken.** It also blocks finishing the comment rule: after the
-  declaring-class fix, TMF620 surplus comments went 137 → 126 and **124 of the residual 126 sit on
-  these unscoped IRIs**, where there is no declaring class to compare against.
+- **Unscoped property IRIs — RESOLVED by another change; my entry here was stale and wrong about why**
+  — STATUS: **fixed** (confidence: high), re-measured 2026-09-30.
+  I recorded "128 of 965 property IRIs are unscoped and carry no `rdfs:domain`" on TMF620 and said
+  fixing it was "a vocabulary decision, not yet taken". Both halves were wrong. Re-measured on current
+  code: **TMF620 has 1 unscoped IRI (`value`) of 838 `rdf:Property`, TMF622 has 0 of 1,352.** The cause
+  was the duplicate mint in the inline-`allOf` path recorded under AC-2 (ingestion) below, and there was
+  no decision to take because `build_mapping` had already taken it. I did not update this entry when
+  that landed, so it went on asserting an open problem for days.
+
+- **The SHACL projection rejects the correct form of an IRI-valued property** — STATUS: **open**
+  (confidence: high), found 2026-09-30 while writing `docs/paper/`.
+  The `96be908` change removed `rdfs:range xsd:string` from IRI-valued properties (a false
+  *entailment*) but the SHACL projection still emits `sh:datatype xsd:string` on the same property,
+  which under SHACL requires a *literal*. Measured with `pyshacl` (RDFS inference on, vocabulary
+  loaded) on the worked example: `href` as an IRI → rejected, *Value is not Literal with datatype
+  xsd:string*; as a string literal → accepted; control (`id` = integer 5) rejected, so the check can
+  fail. **`96be908`'s commit message says the datatype constraint "constrains the lexical form, which
+  is the whole reason the constraint belongs there". That is wrong in effect** — it enforces the wire
+  form and rejects the RDF form — and the commit is immutable, so the correction lives here.
+  Not known: how many properties are affected (5 on 3GPP, 15–20 per TM Forum document carry the
+  marker; the datatype constraint was not counted). Not fixed.
+
+- **The converter publishes its own implementation notes as `rdfs:comment`** — STATUS: **open**
+  (confidence: high), found 2026-09-30. `AgreementRef` carries three comments; two are the tool's own —
+  *"Note: Uses OpenAPI discriminator — consider OWL union classes for full polymorphic semantics"* and
+  *"Note: Uses OpenAPI allOf — complex logical constraints partially supported in SHACL"*. Every
+  generated file's provenance header says the `rdfs:comment` text is "the source document's own text".
+  It is not, for these. Current comment surplus after the declaring-class fix: TMF620 26 subjects with
+  more than one comment (44 surplus), TMF622 68 (119). **This supersedes the earlier claim that 124 of
+  the residual 126 sat on unscoped IRIs** — those IRIs are gone and the residue is elsewhere. Not
+  known: what share of the surplus is injected notes rather than genuine multiple descriptions.
+
+- **CORRECTION — 3GPP does have IRI-valued properties** (confidence: high), 2026-09-30.
+  The `96be908` message, a comment at the range block in `shacl_converter.py`, and the methodology
+  outline all said 3GPP has none. Measured across all 44 documents: **5, in 4 documents**
+  (`TS28550_PerfMeasJobCtrlMnS` 1, `TS28572_PlanManagement` 1, `TS28623_ComDefs` 1,
+  `TS29571_CommonData` 2), against 3,749 `rdfs:range` axioms — 0.13%, against roughly 2% on one TM
+  Forum document. The claim came from looking at one document, `TS28541_NrNrm`, and generalising.
 
 - **D3: pure `$ref` alias schemas mis-classified** — STATUS: **PARTLY FIXED 2026-09-28; the emitted
   graph is unchanged and the cause is now located** (confidence: high)

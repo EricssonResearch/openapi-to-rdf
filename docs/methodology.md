@@ -1,5 +1,11 @@
 # openapi-to-rdf — methodology companion
 
+> **SUPERSEDED 2026-09-30 by `docs/paper/`**, which holds the written chapters. This file is kept as
+> the original outline. Several figures below are **stale or wrong** and are corrected in the chapters:
+> "128 of 965 unscoped property IRIs" is now 1 of 838; "IRI-valued: 0 on 3GPP" is 5 across 4
+> documents; and the figure→command table is replaced by `docs/paper/99-appendix.md` §D, which counts
+> what is and is not re-derivable rather than listing it.
+>
 > **This file is an outline, not a draft.** Each section states what it must carry and where its
 > numbers come from. Prose goes in as it is written; nothing below should be read as a finished claim.
 >
@@ -125,7 +131,7 @@ structurally **unreachable** there and live on TM Forum:
 | properties carrying two `rdfs:range` | 6 of 3,622 (0.17%) | 167 of 2,895 (5.8%) |
 | properties carrying two `rdfs:domain` | 0 of 3,622 | 28 of 2,895 |
 | non-trivial declaring-class attribution | 0 of 2,822 | 138 of 3,033 |
-| IRI-valued properties (so the `xsd:string` contradiction) | 0 | 15 |
+| IRI-valued properties (so the `xsd:string` contradiction) | 5 across 4 of 44 documents (0.13% of 3,749 ranges) | 15 in TMF641 alone (~2% of 795 ranges) |
 
 The claim: **structural diversity of the corpus, not its size, determines what a guard can see.**
 

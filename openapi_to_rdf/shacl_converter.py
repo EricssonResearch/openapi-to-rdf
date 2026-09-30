@@ -1631,8 +1631,10 @@ class OpenAPIToSHACLConverter:
         #
         # Measured 2026-09-24 (reported by `snm-api-native`, reproduced here): **every** IRI-valued
         # property carried both — 15 of 15 on TMF641, 20 of 20 on TMF620, all with `xsd:string`.
-        # 3GPP is unaffected: 0 IRI-valued properties on TS28541_NrNrm, and the check produced
-        # positives on TM Forum, so that zero is a result rather than a silent instrument.
+        # 3GPP is barely affected, NOT unaffected: 5 IRI-valued properties across 4 of its 44 documents
+        # (TS28550_PerfMeasJobCtrlMnS, TS28572_PlanManagement, TS28623_ComDefs, TS29571_CommonData),
+        # against 3,749 rdfs:range axioms. An earlier version of this comment said 0 and concluded
+        # "unaffected" from ONE document, TS28541_NrNrm; the corpus-wide count is what corrects it.
         #
         # The marker wins over the range because `is_iri_valued` is a deliberate determination about
         # what `href` MEANS (S5/F10 — TM Forum applies `format: uri` inconsistently and never to
