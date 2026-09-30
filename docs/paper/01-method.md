@@ -24,18 +24,21 @@ listed above, each defensible in isolation, each taken twice.
 a set of facts, with no opinion about serialisation. Every artifact is then a projection of that
 object, and a projection reads decisions rather than re-deriving them.
 
-```
-                          ┌─────────────────────┐
-  OpenAPI document ─────► │   build_mapping()   │ ─────► Mapping
-                          └─────────────────────┘           │
-                                                            │
-      ┌──────────────┬──────────────┬──────────────┬─────────┴────────┐
-      ▼              ▼              ▼              ▼                  ▼
-  RDFS vocab    SHACL shapes   JSON-LD @context   Overlay      Hydra operations
-      └──────────────┴──────────────┴──────────────┴──────────────────┘
-                                    │
-                            reconciliation gate
-                    (all projections agree on every class IRI)
+```mermaid
+flowchart LR
+    doc["OpenAPI document(s)"] --> build["build_mapping()"]
+    build --> M[("Mapping<br/>classes, properties_by_class, operations")]
+    M --> tbox["RDFS vocabulary"]
+    M --> shacl["SHACL shapes"]
+    M --> ctx["JSON-LD context"]
+    M --> ovl["Overlay"]
+    M --> hydra["Hydra operations"]
+    tbox --> gate
+    shacl --> gate
+    ctx --> gate
+    ovl --> gate
+    hydra --> gate
+    gate{{"reconciliation gate:<br/>every projection emits the Mapping's class IRI"}}
 ```
 
 The `Mapping` holds four indexes and one piece of document metadata:

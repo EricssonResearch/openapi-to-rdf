@@ -107,6 +107,14 @@ example:AgreementRef a rdfs:Class ;
     transport:refersTo example:Agreement .
 ```
 
+```mermaid
+flowchart LR
+    prop["Agreement.agreement<br/>(JSON: $ref to AgreementRef)"] -->|rdfs:range| ref["Agreement<br/>the referent, minted by convention"]
+    artifact["AgreementRef<br/>isSerialisationArtifact"] -->|refersTo| ref
+    artifact -->|rdfs:subClassOf| base["Addressable"]
+    ref -->|rdfs:subClassOf| base
+```
+
 The `*Ref` class is **not** deleted: it carries `rdfs:subClassOf` edges and it is the domain of
 properties like `href` that only the reference form has. It is declared, marked, and simply never used
 as a range.

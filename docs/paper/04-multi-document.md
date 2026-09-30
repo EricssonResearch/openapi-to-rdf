@@ -121,6 +121,21 @@ A split cannot change the information in a description. So whole-versus-split is
 whose expected result is known in advance — equality — which means it needs no oracle and finds defects
 nobody was looking for. That is its value, and it earned it repeatedly.
 
+```mermaid
+flowchart LR
+    d["one description"] --> whole["convert whole"]
+    d --> split["split; rewrite every $ref in BOTH halves"]
+    split --> api["api document"]
+    split --> common["common document"]
+    api --> ca["convert"]
+    common --> cc["convert"]
+    ca --> u["union of the two graphs"]
+    cc --> u
+    whole --> cmp{"compare"}
+    u --> cmp
+    cmp --> r["expected: equal.<br/>Any difference is a dependence on something that is not information"]
+```
+
 It found defects **in the single-document path**, which no single-document test had. On TMF620 converted
 *whole*, 45 of 275 `rdfs:range` axioms named a class no document declared, all 45 convention-minted
 referents (§2.4). The same comparison exposed the comment accumulation of §2.6.
