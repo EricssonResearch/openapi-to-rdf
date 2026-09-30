@@ -140,10 +140,19 @@ success" is a vacuous metric** — every defect in this document converted succe
 
 ### 12. Known gaps, with status
 
-The section that makes the citation credible. Current: whole-vs-split vocabularies not yet isomorphic;
-128 of 965 property IRIs unscoped and carrying no `rdfs:domain`; the `$ref`-alias classification
-defect; the deferred OWL emitter; provenance unresolved for one TM Forum document. Each with a status,
-not a promise.
+The section that makes the citation credible. Each with a status, not a promise:
+
+* whole-vs-split vocabularies not yet isomorphic;
+* 128 of 965 property IRIs unscoped and carrying no `rdfs:domain`;
+* **17 dangling class targets on 3GPP, in three distinct shapes** — 15 pure `$ref` aliases
+  (`is_primitive_def` cannot see through an external `$ref` to a primitive), plus `JobDetails`
+  carrying both `additionalProperties` and `properties`, plus `MdtAlignmentInfo` carrying `format`
+  and `pattern` with **no `type`** at all. The last is the interesting one: a typeless schema with
+  string facets is neither a class nor a recognisable primitive, and nothing in the standard requires
+  `type`;
+* 3 declared terms in `TS28572_PlanManagement.yaml` with no NodeShape, so inert;
+* the deferred OWL emitter;
+* provenance unresolved for one TM Forum document, so it is not redistributed.
 
 ---
 

@@ -491,6 +491,39 @@ def is_json_only_union(schema_def: Any) -> bool:
     return not member_keys <= constraint_only_keys
 
 
+def minted_by_convention(
+    graph: Any, transport_namespace: str = DEFAULT_TRANSPORT_NAMESPACE
+) -> set:
+    """Terms in ``graph`` this project minted from a convention rather than read from a document.
+
+    Today that is a ``*Ref``'s referent: ``AgreementRef`` implies an ``Agreement``, the ontology needs
+    the term, and TM Forum never writes a schema for it because JSON only ever carries the reference
+    form. Such a term is declared and marked :data:`MINTED_BY_CONVENTION_LOCAL`.
+
+    **They are legitimately unshaped, and that is why this function exists rather than each consumer
+    deciding for itself.** No schema describes a minted referent, so there is nothing to constrain and
+    a ``sh:NodeShape`` over one would be decoration. Every check of the form *"every declared term has
+    exactly one shape"* therefore has to subtract them — and there is more than one such check.
+
+    The recurring defect this closes, which had already happened twice by the time it was written:
+    a decision is taken in one place and the OTHER place that needs it is not told.
+    ``tests/test_tmforum_corpus.py`` was given the exemption when the referents were first declared,
+    and ``scripts/measure_corpora.py``'s equality was not — so its reconciliation reported
+    ``declared terms 948 vs sh:targetClass 839: MISMATCH (+109)`` on TM Forum, where 109 is exactly
+    the minted referents (39 on TMF620, 54 on TMF622, 16 on TMF641, summing to the digit). A gate
+    that is loudly wrong for a known reason is how a real mismatch later gets ignored.
+
+    ``transport_namespace`` is a parameter rather than a constant because the marker is relative to
+    the transport namespace in force, and a caller may have overridden it
+    (``build_mapping(..., transport_namespace=...)``). A consumer that hardcoded the default would
+    silently find nothing on such a conversion — which is the same class of defect one layer down.
+    """
+    from rdflib import URIRef  # local: keeps this module importable without a graph in hand
+
+    marker = URIRef(transport_namespace + MINTED_BY_CONVENTION_LOCAL)
+    return set(graph.subjects(marker, None))
+
+
 def referent_name(schema_name: str) -> str | None:
     """``ServiceRef`` → ``Service``, preserving any ``_FVO``/``_MVO`` suffix; None when not a ref.
 

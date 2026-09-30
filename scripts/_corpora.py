@@ -39,19 +39,37 @@ GPP_EXPECTED = 44
 #: Printed whenever the corpus is absent. One command, so a fresh clone is not a puzzle.
 FETCH_HINT = "run `uv run python scripts/fetch_corpus.py` (downloads from 3GPP Forge at a pinned tag)"
 
-#: The TM Forum v5 documents, by filename. Resolved relative to ``--tmforum-dir``.
+#: The TM Forum v5 documents that are **in this repository**, under Apache-2.0, with their upstream
+#: commits and digests in ``assets/tmforum/PROVENANCE.md``. Resolved relative to ``--tmforum-dir``.
+#:
+#: **This used to be an absolute path into a directory belonging to no working tree**
+#: (``/home/earejma/snm-api-native-src``), so no fresh clone could reproduce a single TM Forum figure
+#: and nothing said so -- a found file looks like it works where a missing one is visible as a gap.
+#: The documents were vendored on 2026-09-25 and this default was left pointing at the old path for
+#: five days, so the vendoring changed nothing until now: the same
+#: decision-taken-in-one-place-and-not-propagated defect that ``minted_by_convention`` exists to close.
 TMF_FILENAMES = (
-    "tmf620-product-catalog-management-v5.yaml",
-    "tmf622-product-ordering-v5.yaml",
-    "tmf641-service-ordering-v5.yaml",
+    "TMF620-Product_Catalog_Management-v5.0.0.oas.yaml",
+    "TMF622-ProductOrdering-v5.0.0.oas.yaml",
 )
-TMF_DEFAULT_DIR = Path("/home/earejma/snm-api-native-src")
+
+#: TMF641 Service Ordering v5 is **not** redistributed: its origin could not be established (absent
+#: from the Apache-2.0 organisation, and tmforum.org sits behind a bot challenge), so its licence is
+#: unverified and this repository is public. Named here rather than omitted so a report covering two
+#: documents says which third it lacks. Supply it via ``--tmforum-dir``.
+TMF_ABSENT = ("tmf641-service-ordering-v5.yaml",)
+
+TMF_DEFAULT_DIR = Path("assets/tmforum")
 
 
 class Corpus:
     """A label, a document list, and why it is empty if it is."""
 
     def __init__(self, label: str, paths: list[Path], skip_reason: str | None = None) -> None:
+        #: Set when the corpus is measurable but INCOMPLETE -- e.g. a document that is not
+        #: redistributed and was not supplied. Distinct from ``skip_reason``, which means nothing was
+        #: measured at all. A summary covering two of three documents must say so.
+        self.partial_reason: str | None = None
         self.label = label
         self.paths = paths
         self.skip_reason = skip_reason
@@ -105,10 +123,20 @@ def tmforum(directory: Path | None = None) -> Corpus:
         return Corpus(
             "TMForum",
             [],
-            f"{len(missing)} of {len(paths)} documents absent under {base} "
-            "(not redistributed with this repository)",
+            f"{len(missing)} of {len(paths)} vendored documents absent under {base}: "
+            f"{', '.join(p.name for p in missing)}",
         )
-    return Corpus("TMForum", paths)
+    # Any non-redistributed document found beside them is INCLUDED -- a caller who has TMF641
+    # legitimately measures three -- and its absence is reported rather than passed over.
+    optional = [base / name for name in TMF_ABSENT if (base / name).is_file()]
+    absent = [name for name in TMF_ABSENT if not (base / name).is_file()]
+    corpus = Corpus("TMForum", paths + optional)
+    if absent:
+        corpus.partial_reason = (
+            f"{len(absent)} document(s) not redistributed and not supplied: "
+            f"{', '.join(absent)} (licence unverified; see assets/tmforum/PROVENANCE.md)"
+        )
+    return corpus
 
 
 def resolve(args: argparse.Namespace) -> list[Corpus]:

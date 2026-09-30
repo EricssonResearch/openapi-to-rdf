@@ -42,9 +42,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import _corpora  # noqa: E402
 
+from openapi_to_rdf.mapping import minted_by_convention  # noqa: E402
 from openapi_to_rdf.shacl_converter import OpenAPIToSHACLConverter  # noqa: E402
 
 SH_TARGET_CLASS = URIRef("http://www.w3.org/ns/shacl#targetClass")
+
+#: Corpus-wide scalars `print_corpus` reports -- the ones computed over the UNION of the corpus rather
+#: than summed per document. A module constant, not a literal inside the print loop, because
+#: `tests/test_tmforum_corpus.py` asserts against it: a metric added to `census` without being printed
+#: here has to fail somewhere, and until 2026-09-30 it did not. That test had copied this tuple into
+#: itself and asserted its own copy's length, so it could only ever pass -- and it did pass, on the
+#: same day a metric (`minted_by_convention`) was added without being wired in.
+CORPUS_WIDE_KEYS = (
+    "distinct_term_iris",
+    "distinct_property_iris",
+    "distinct_unresolved_targets",
+    "terms_with_dash_corpuswide",
+    "fold_collisions_corpuswide",
+    "dangling_class_targets_corpuswide",
+)
 
 #: Every scalar the summary prints, so adding a measurement without summarising it fails loudly.
 SUMMARY_KEYS = (
@@ -63,6 +79,7 @@ SUMMARY_KEYS = (
     "properties_multi_domain",
     "unresolved_refs",
     "unresolved_refs_distinct",
+    "minted_by_convention",
 )
 
 
@@ -128,6 +145,12 @@ def census_one(path: Path, siblings: tuple[Path, ...] = ()) -> dict:
     # filename, so the arrow pointed at nothing. Counted per document against that document's own
     # declarations; `dangling_class_targets_corpuswide` in `census` is the number that matters,
     # because a target declared by a SIBLING is correct and only the union can see that.
+    # Terms THIS project minted from a convention rather than read from a document. They are
+    # legitimately unshaped (no schema describes them), so the declared-terms == sh:targetClass
+    # equality below has to subtract them. One implementation, in the library, read by this
+    # script AND by tests/test_tmforum_corpus.py -- see `minted_by_convention`.
+    minted = minted_by_convention(rdf)
+
     declared_here = set(rdf.subjects())
     local_dangling = {
         o
@@ -159,6 +182,7 @@ def census_one(path: Path, siblings: tuple[Path, ...] = ()) -> dict:
         "terms_with_dash": sum(1 for t in terms if "-" in local_name(str(t))),
         "unresolved_refs": len(converter.unresolved_references),
         "unresolved_refs_distinct": len(set(converter.unresolved_references)),
+        "minted_by_convention": len(minted),
         "dangling_class_targets": len(local_dangling),
         "_term_iris": sorted(str(t) for t in terms),
         "_property_iris": sorted(str(p) for p in properties),
@@ -229,23 +253,27 @@ def print_corpus(result: dict) -> None:
     )
     for key in SUMMARY_KEYS:
         print(f"  {key:34s} {result[key]:>8}")
-    for key in (
-        "distinct_term_iris",
-        "distinct_property_iris",
-        "distinct_unresolved_targets",
-        "terms_with_dash_corpuswide",
-        "fold_collisions_corpuswide",
-        "dangling_class_targets_corpuswide",
-    ):
+    for key in CORPUS_WIDE_KEYS:
         print(f"  {key:34s} {result[key]:>8}")
     for failure in result["failures"]:
         print(f"  FAILED {failure['spec']}: {failure['error']}")
 
     # Invariant 1: one NodeShape per declared term. Stated as an expectation, with the count it
     # checked, so a zero cannot be mistaken for a vacuous pass.
+    # Every declared term gets exactly one NodeShape -- EXCEPT a convention-minted referent, which no
+    # schema describes and so has nothing to constrain. Subtracted rather than tolerated, and the
+    # subtrahend is printed, so a reader can see what was excused instead of trusting the equality.
+    # The exemption itself lives in `openapi_to_rdf.mapping.minted_by_convention`, read by this script
+    # and by tests/test_tmforum_corpus.py; giving one of them the rule and not the other is exactly
+    # how this line came to report MISMATCH (+109) on TM Forum for an entirely intended reason.
     terms, targets = result["declared_terms"], result["target_class_triples"]
-    verdict = "OK" if terms == targets else f"MISMATCH ({terms - targets:+d})"
-    print(f"  -> declared terms {terms} vs sh:targetClass {targets}: {verdict}")
+    minted = result["minted_by_convention"]
+    shapeable = terms - minted
+    verdict = "OK" if shapeable == targets else f"MISMATCH ({shapeable - targets:+d})"
+    print(
+        f"  -> declared terms {terms} - {minted} convention-minted = {shapeable} "
+        f"vs sh:targetClass {targets}: {verdict}"
+    )
     if result["target_class_on_datatype"]:
         print(
             f"  -> {result['target_class_on_datatype']} of {targets} sh:targetClass point at an "
@@ -278,8 +306,15 @@ def main() -> int:
 
     corpora = _corpora.resolve(args)
     results = {c.label: census(c, load_siblings=not args.no_load_siblings) for c in corpora if c}
-    for result in results.values():
+    partial = {c.label: c.partial_reason for c in corpora if c and c.partial_reason}
+    for label, result in results.items():
         print_corpus(result)
+        # A corpus that is measurable but INCOMPLETE says so beside its own numbers, not in a
+        # footnote: a summary covering two of three documents otherwise prints a figure that reads
+        # like a corpus figure. (`skip_reason` covers the nothing-measured case; this is the
+        # measured-but-partial one.)
+        if label in partial:
+            print(f"  -> PARTIAL: {partial[label]}")
     skipped = _corpora.report_skips(corpora)
 
     if args.json:
@@ -287,8 +322,14 @@ def main() -> int:
         print(f"\nwrote {args.json}")
 
     failed = sum(r["failed"] for r in results.values())
+    # The SAME equality the verdict prints, convention-minted terms subtracted. Reading the
+    # unsubtracted one here would fail the gate on a corpus whose own report says OK -- and that is
+    # not hypothetical: this line was left behind when the printed verdict was corrected, three
+    # screens after writing the helper whose whole purpose is to stop exactly this.
     mismatched = sum(
-        1 for r in results.values() if r["declared_terms"] != r["target_class_triples"]
+        1
+        for r in results.values()
+        if r["declared_terms"] - r["minted_by_convention"] != r["target_class_triples"]
     )
     dangling = sum(r["dangling_class_targets_corpuswide"] for r in results.values())
     if not results:

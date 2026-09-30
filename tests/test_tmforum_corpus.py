@@ -27,8 +27,7 @@ from pathlib import Path
 import pytest
 from rdflib import RDF, RDFS, Graph, URIRef
 
-from openapi_to_rdf.mapping import MINTED_BY_CONVENTION_LOCAL
-from openapi_to_rdf.mapping import DEFAULT_TRANSPORT_NAMESPACE
+from openapi_to_rdf.mapping import minted_by_convention
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
@@ -60,12 +59,29 @@ def converted() -> dict[str, tuple[Graph, Graph]]:
 
 
 def test_every_tmforum_document_converts(converted: dict[str, tuple[Graph, Graph]]) -> None:
-    """Three documents, each producing a non-trivial vocabulary.
+    """Every resolvable TM Forum document converts to a non-trivial vocabulary.
 
-    The count is asserted so that a corpus list which silently shrinks — a renamed file, a changed
-    default directory — fails here instead of making every other test in this module vacuous.
+    Two assertions, because they guard different things and one cannot do both:
+
+    * **agreement with the resolver** — the fixture and `_corpora.tmforum()` must see the same
+      documents, so a rename shows up here rather than silently shrinking the sample;
+    * **a floor** — at least the two documents vendored in `assets/tmforum/` must be present, which
+      is what catches an entry being dropped from `TMF_FILENAMES`. The agreement check alone cannot:
+      both sides read the same list, so a deletion would keep them agreeing.
+
+    This previously read `== 3`, a hardcoded count, and on 2026-09-30 it did its job and then had to
+    be rewritten: the corpus moved from three documents at an absolute path outside any working tree
+    to the two vendored in this repository, and a retyped literal cannot follow that. The count now
+    lives in `_corpora.TMF_FILENAMES` with everything else reading it.
     """
-    assert len(converted) == 3, sorted(converted)
+    resolved = _corpora.tmforum()
+    assert len(converted) == len(resolved.paths), (
+        f"fixture and resolver disagree: {sorted(converted)} vs "
+        f"{sorted(p.name for p in resolved.paths)}"
+    )
+    assert len(converted) >= len(_corpora.TMF_FILENAMES) >= 2, (
+        f"only {len(converted)} documents — the corpus list has shrunk below the vendored set"
+    )
     for stem, (vocabulary, shapes) in converted.items():
         assert len(vocabulary) > 100, f"{stem}: only {len(vocabulary)} vocabulary triples"
         assert len(shapes) > 100, f"{stem}: only {len(shapes)} shape triples"
@@ -170,9 +186,6 @@ def test_declared_classes_are_shaped(converted: dict[str, tuple[Graph, Graph]]) 
     Reported as a ratio rather than asserted at zero: `rdfs:Datatype` targets and `oneOf` wrappers
     are known, deliberate exceptions (see HYPOTHESES.md H3), so a hard zero would be a false claim.
     """
-    minted_marker = URIRef(
-        DEFAULT_TRANSPORT_NAMESPACE + MINTED_BY_CONVENTION_LOCAL
-    )
     for stem, (vocabulary, shapes) in converted.items():
         classes = set(vocabulary.subjects(RDF.type, RDFS.Class))
         targeted = {o for _s, _p, o in shapes.triples((None, SH_TARGET_CLASS, None))}
@@ -182,7 +195,10 @@ def test_declared_classes_are_shaped(converted: dict[str, tuple[Graph, Graph]]) 
         # and a NodeShape over it would be exactly the decoration this gate exists to catch.
         # Excluded explicitly rather than by lowering the threshold, and the exclusion is itself
         # asserted so it cannot quietly widen to cover real unshaped classes.
-        minted = set(vocabulary.subjects(minted_marker, None))
+        # The exemption is the library's, not this test's: `measure_corpora.py` needs the same rule
+        # for its declared-terms equality, and when only one of the two had it that script reported
+        # MISMATCH (+109) on TM Forum for an intended reason. One implementation, both callers.
+        minted = minted_by_convention(vocabulary)
         assert minted, (
             f"{stem}: no convention-minted classes found — either the marker moved or referents "
             "stopped being declared, and this exemption would now be hiding real unshaped classes"
@@ -259,24 +275,35 @@ def test_the_corpus_census_can_load_siblings(tmp_path):
     )
 
 
-def test_corpus_wide_print_tuple_size_is_asserted():
-    """Assert the number of corpus-wide keys printed, so adding a metric without wiring it fails.
+def test_every_corpus_wide_key_is_both_computed_and_printed(converted):
+    """A metric added to `census` but not printed must fail here.
 
-    measure_corpora.py:49 claims this, and nothing enforced it until Task 7 added a metric that
-    depends on the guarantee being true.
+    **This test was vacuous until 2026-09-30.** It defined its own six-element tuple and asserted
+    that tuple's length was six -- a literal checking a literal, unable to fail unless someone edited
+    the test. It was introduced precisely so a new metric could not go unsummarised, and on the day a
+    new metric (`minted_by_convention`) was added without being wired into the corpus-wide report, it
+    passed.
+
+    It now reads the real tuple from `measure_corpora` and reconciles it against a real `census`
+    result, so both directions fail: a key printed but never computed raises `KeyError` in
+    `print_corpus`, and a key computed corpus-wide but absent from `CORPUS_WIDE_KEYS` is caught below.
     """
-    from scripts.measure_corpora import print_corpus
+    from scripts.measure_corpora import CORPUS_WIDE_KEYS, census
 
-    # The corpus-wide keys tuple in print_corpus
-    corpus_wide_keys = (
-        "distinct_term_iris",
-        "distinct_property_iris",
-        "distinct_unresolved_targets",
-        "terms_with_dash_corpuswide",
-        "fold_collisions_corpuswide",
-        "dangling_class_targets_corpuswide",
+    result = census(_corpora.tmforum())
+
+    missing = [k for k in CORPUS_WIDE_KEYS if k not in result]
+    assert not missing, f"printed but not computed: {missing}"
+
+    # Corpus-wide scalars are those `census` adds outside the per-document SUMMARY_KEYS sum. Any new
+    # one has to be listed for printing; this is the direction the old test claimed to guard.
+    computed_corpus_wide = {
+        k for k, v in result.items()
+        if isinstance(v, int) and (k.endswith("_corpuswide") or k.startswith("distinct_"))
+    }
+    unprinted = computed_corpus_wide - set(CORPUS_WIDE_KEYS)
+    assert not unprinted, (
+        f"computed corpus-wide but never printed: {sorted(unprinted)} — add them to "
+        "measure_corpora.CORPUS_WIDE_KEYS"
     )
-    assert len(corpus_wide_keys) == 6, (
-        f"Expected 6 corpus-wide keys in print_corpus, got {len(corpus_wide_keys)}. "
-        "If you added a metric, update this assertion AND the print_corpus function."
-    )
+    assert len(CORPUS_WIDE_KEYS) >= 6, "the corpus-wide report has shrunk"

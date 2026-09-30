@@ -468,8 +468,23 @@ H6.
   referent-backed (unlike TM Forum's convention-minted names), yet all 9 **are** declared in the
   corpus. This is a classification defect, not a missing-declaration defect. Measured 2026-09-23,
   artifact `artifacts/external-schema-ingestion.json`.
-  Structural pattern: 9 of 9 on 3GPP are alias-only schemas, `is_primitive_def` external-`$ref`
-  handling is the cause.
+  Structural pattern: `is_primitive_def` external-`$ref` handling is the cause.
+
+  **Re-measured 2026-09-30 on the 44-document fetched corpus (was 9 on the 38-document snapshot; not
+  comparable, different documents): 17 dangling, of which 15 are pure `$ref` aliases.** All 9
+  originals persist. The three `CCO*Parameters-Single` entries share the alias shape, so 3GPP's
+  `-Single` suffix was a red herring. Two of the 17 are NOT aliases and are separate:
+  * `JobDetails` — carries both `additionalProperties` and `properties`;
+  * `MdtAlignmentInfo` — carries `description`, `format` and `pattern` but **no `type`**, so
+    `is_primitive_def` cannot recognise it as a primitive and it is treated as a class. A typeless
+    schema with string facets is a third shape, not covered by the alias explanation.
+  Evidence: `scripts/measure_corpora.py`, artifact `artifacts/external-schema-ingestion.json`.
+
+- **The 3GPP `declared terms vs sh:targetClass` mismatch is 3 terms in ONE document** — STATUS:
+  **open** (confidence: high). Localised 2026-09-30 to `TS28572_PlanManagement.yaml`: 42 declared
+  terms against 39 `sh:targetClass`, and every other document of the 44 reconciles exactly. Three
+  declared terms there have no NodeShape, so every constraint on them is inert (the H1/H4 condition).
+  Not diagnosed further.
 
 - **D4 (deferred): `rdf_converter.py` OWL emitter namespaces the declaring document as
   `base/<stem>#` but siblings as `base/<filename>#` with `.yaml` extension left in** — STATUS:
