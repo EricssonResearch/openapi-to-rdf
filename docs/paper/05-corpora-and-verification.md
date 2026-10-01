@@ -37,6 +37,17 @@ appeared only on TM Forum.
 A corpus is an input, and an input that cannot be re-fetched makes every figure derived from it an
 anecdote. Both corpora had this problem, in different forms.
 
+```mermaid
+flowchart LR
+    subgraph gpp["3GPP: fetched"]
+        forge["forge, pinned tag"] --> fetch["fetch_corpus.py"] --> ver["verify SHA-256 against the manifest"] --> u1["44 documents, gitignored"]
+    end
+    subgraph tmf["TM Forum: vendored"]
+        up["tmforum-apis, Apache-2.0"] --> cp["copied with LICENSE and PROVENANCE"] --> u2["2 documents, tracked"]
+        x["TMF641 v5: origin unverified"] -.->|not redistributed| u2
+    end
+```
+
 **3GPP.** The committed snapshot was described as Release 19. Checked against the upstream forge:
 
 * **no ref reproduces it.** The release tag and the release branch each serve 45 files, of which only 8

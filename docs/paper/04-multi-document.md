@@ -20,6 +20,17 @@ therefore desynchronised a document from every document that referred to it: the
 minted a class under the namespace it was given, while every referrer re-derived one from the
 *filename* and minted an IRI that nothing declared.
 
+```mermaid
+flowchart LR
+    subgraph before["before: two copies of one rule"]
+        f1["filename"] --> dA["derivation A<br/>overridable"] --> s1["the document's own namespace"]
+        f1 --> dB["derivation B<br/>not overridable"] --> r1["the namespace every referrer used"]
+    end
+    subgraph after["after: one derivation"]
+        f2["filename, or an explicit mapping"] --> one["one function"] --> both["own namespace and referrers agree"]
+    end
+```
+
 **What it cost, observed.** On the committed 3GPP output tree of the time — 38 documents, 15,139
 triples — 34 of 46 distinct `rdfs:subClassOf` targets and 141 of 797 distinct `rdfs:range` targets
 named an IRI no document declared: **175 distinct dangling class targets**. The control row is what
@@ -37,6 +48,17 @@ then a function of the document that declares it, not of who is asking.
 An earlier version of this project's design record stated, without qualification, that *file structure
 is provenance, never identity*. It is true within one description and false across descriptions, and
 the two corpora this tool is measured on are the counterexample pair:
+
+```mermaid
+flowchart TD
+    q["namespace for a class declared in document D"] --> a{"per-class override?"}
+    a -->|yes| a1["use it"]
+    a -->|no| b{"explicit mapping for D?"}
+    b -->|yes| b1["use it"]
+    b -->|no| c{"D is the document being converted?"}
+    c -->|yes| c1["its own base namespace"]
+    c -->|no| d["derived from D's filename,<br/>NOT from the referring document"]
+```
 
 * **TM Forum** is one vocabulary spread over several files. `Addressable` belongs to the family's shared
   namespace wherever it is written down; a carve into `common.yaml` is packaging. A class must get the
@@ -65,6 +87,12 @@ The second defect is independent of the first. `build_mapping` built its `classe
 `declared_by` indexes by iterating the **local** document's schemas only. An external ancestor
 therefore had no entry in any of them, and the ancestry walk that decides *which class declares this
 property* terminated at the document boundary.
+
+```mermaid
+flowchart LR
+    l["Leaf<br/>api document<br/>local namespace"] -->|allOf, external ref| m["Middle<br/>b.yaml<br/>b.yaml's namespace"]
+    m -->|allOf, external ref| b["Base<br/>c.yaml<br/>c.yaml's namespace"]
+```
 
 The consequence is easy to state. `PolicyRef` composes `Addressable` by an external `$ref`; the walk
 stopped at `EntityRef`; and `href`, `id` and `@type` — which `PolicyRef` restates — were attributed to

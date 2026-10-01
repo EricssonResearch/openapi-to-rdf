@@ -42,6 +42,12 @@ A property belongs to the **highest ancestor that declares it**, not to the leaf
 it. In the worked example, `href` is declared by `Addressable`; an `Agreement` inherits it through
 `rdfs:subClassOf` and does not redeclare it.
 
+```mermaid
+flowchart BT
+    ag["Agreement<br/>declares: agreement, validFor"] -->|rdfs:subClassOf| ad["Addressable<br/>declares: id, href"]
+    ad -->|rdfs:subClassOf| ex["Extensible<br/>declares: @type"]
+```
+
 This is a modelling decision and it was tested against an independently-authored reference TBox rather
 than asserted: declaring attribution resolved **93.9%** of `(class, property)` pairs where leaf
 attribution resolved **68.5%**. The lower figure was an artifact of the instrument, not a gap in the
@@ -57,6 +63,19 @@ that restates it.
 ## 2.3 What becomes a class, and what does not
 
 Not every named schema is a class, and the exclusions carry the argument.
+
+```mermaid
+flowchart TD
+    s["named schema"] --> p{"resolves to a primitive?"}
+    p -->|yes| dt["a datatype, not a class"]
+    p -->|no| u{"top-level oneOf?"}
+    u -->|yes| nu["no class; the members constrain the accepting property"]
+    u -->|no| e{"transport envelope?"}
+    e -->|yes| te["a class in the transport namespace, marked"]
+    e -->|no| r{"name is a Ref?"}
+    r -->|yes| ra["a class, marked serialisation artifact; its referent is declared"]
+    r -->|no| c["a class"]
+```
 
 **A primitive alias is a datatype, not a class.** `uri-Type: {type: string, format: uri}` names a
 datatype. Minting a class for it produces a term no payload can instantiate.
@@ -143,6 +162,15 @@ reconciliation came to report a 109-triple mismatch for an entirely intended rea
 
 `href` is declared in TM Forum as `{type: string, description: Hyperlink reference}`. That describes a
 JSON string carrying a URL. It does **not** describe the RDF object, which is a resource.
+
+```mermaid
+flowchart LR
+    j["JSON Schema: href is type string"] --> w["wire form: a string holding a URL"]
+    j --> o["RDF meaning: a resource, an IRI"]
+    o --> m["transport:isIriValued true"]
+    w --> rg["rdfs:range xsd:string<br/>REMOVED: it typed the URL as a string"]
+    w --> sh["sh:datatype xsd:string<br/>STILL EMITTED: it rejects the IRI form"]
+```
 
 Two facts about `href` were therefore being asserted at once:
 

@@ -37,6 +37,12 @@ It is **not** built from `operationId`, for a reason that is a fact about the st
 construction. A scheme that needs an optional field has no defined behaviour on a document that omits
 it. `info.title` and `info.version` are *required*, so both extra segments are always derivable.
 
+```mermaid
+flowchart LR
+    a["operation namespace"] --> b["operation/"] --> c["api slug<br/>info.title, required by OAS"] --> d["major version<br/>info.version, required by OAS"] --> e["method"] --> f["path, percent-encoded"]
+    x["operationId<br/>optional in OAS, duplicated in practice"] -.->|rejected as the key| a
+```
+
 The API and version segments were added to fix two measured collisions, and both failures are
 **silent** — they merge nodes rather than raising:
 
@@ -64,6 +70,15 @@ endpoint records its **item** class rather than an anonymous array — an array 
 A `DELETE` returning nothing, and a response whose `$ref` could not be resolved, both yield "no class".
 The first is correct and the second is a defect. Without a flag distinguishing them, any report of
 resolution quality has to treat them alike, and the denominator it prints is wrong.
+
+```mermaid
+flowchart TD
+    op["operation"] --> b{"does the document declare a body?"}
+    b -->|no| n["no body: returning nothing is correct"]
+    b -->|yes| r{"does it resolve to a class?"}
+    r -->|yes| ok["returns_class is set"]
+    r -->|no| bad["body declared, no class: a DEFECT"]
+```
 
 > **Observed**, from the consuming project's operation emitter: counting bodyless operations as
 > unresolved reported **8 of 20** resolved on TMF641, where the truth is **8 of 8** — the other twelve
